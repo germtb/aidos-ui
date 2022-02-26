@@ -1,24 +1,16 @@
-import { Entity } from "../../core/Entity";
-import { Archetype, Essence, SkillType, Tier } from "../../core/Skill";
+import { NOTHING } from "../../core/Effect";
+import { Essence, Tier } from "../../core/Essence";
+import { ActiveSkillDefinition, ActiveSkillType } from "../../core/Skill";
+import { NONE } from "../../core/Target";
 
-export const wait: Archetype = {
-  ID: SkillType.wait,
+export const wait: ActiveSkillDefinition = {
+  ID: ActiveSkillType.wait,
   name: "Wait",
-  effect: () => [
-    {
-      entity: Entity.effect,
-      type: "nothing",
-      passive: false,
-    },
-  ],
-  targetMode: {
-    entity: Entity.target,
-    type: "self",
-  },
-  cooldown: 1,
+  effect: NOTHING,
+  targetMode: NONE,
+  castTime: 1,
   essence: Essence.Might,
   tier: Tier.F,
-  potencyRange: [0, 0],
   cost: {
     type: "none",
   },

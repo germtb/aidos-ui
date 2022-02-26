@@ -1,10 +1,15 @@
-export enum Entity {
-  attribute = "attribute",
-  character = "character",
-  archetype = "archetype",
-  skill = "skill",
-  drop = "drop",
-  skillLoop = "skillLoop",
-  effect = "effect",
-  target = "target",
+import { ReactNode } from "react";
+import { GameComponent } from "./GameComponent";
+
+export enum Position {
+  Hero,
+  Monster,
+  None,
+}
+
+export interface Entity {
+  readonly ID: string;
+  readonly position: Position;
+
+  getComponents(): Array<GameComponent>;
 }

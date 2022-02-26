@@ -1,55 +1,25 @@
-import { Archetype } from "../../core/Character";
-import { Entity } from "../../core/Entity";
-import { Faction } from "../../core/Faction";
-import { SkillType } from "../../core/Skill";
-import { aggro } from "../movementGenerators/aggro";
+import { amount, level, randomAmount, sum } from "../../core/Amount";
+import { Archetype } from "../../core/Archetype";
+import { Currency } from "../../core/components/Inventory";
+import { ActiveSkillType } from "../../core/Skill";
 
 export const slimeArchetype: Archetype = {
-  name: "slime",
-  level: 1,
-  entity: Entity.archetype,
+  name: "Slime",
   attributes: {
-    might: {
-      entity: Entity.attribute,
-      value: 5,
-    },
-    speed: {
-      entity: Entity.attribute,
-      value: 5,
-    },
-    mind: {
-      entity: Entity.attribute,
-      value: 5,
-    },
-  },
-  resources: {
-    health: {
-      max: 100,
-    },
-    stamina: {
-      max: 100,
-    },
-    mana: {
-      max: 100,
-    },
+    body: sum(amount(10), level(1), randomAmount(1, 2)),
+    mind: sum(amount(1)),
+    soul: sum(amount(1), randomAmount(1, 2)),
   },
   loop: {
     skills: [
       {
-        ID: SkillType.basicAttack,
-        entity: Entity.skill,
-        potency: 1,
-        xp: 0,
+        ID: ActiveSkillType.bodySlam,
+        level: 1,
       },
     ],
     capacity: 5,
   },
-  faction: Faction.celestialBeasts,
-  drops: [
-    {
-      ID: SkillType.basicAttack,
-      chance: 100,
-    },
-  ],
-  controller: [aggro({ range: 5 })],
+  inventory: {
+    wallet: new Map([[Currency.Soul, randomAmount(5, 10)]]),
+  },
 };

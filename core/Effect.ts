@@ -1,149 +1,139 @@
-import { Character } from "./Character";
-import { Entity } from "./Entity";
-import { Resources } from "./Resource";
-import { Tuple1to8 } from "./Tuples";
-import { dispatch } from "./UIEvent";
-import { Vector } from "./Vector";
-import { move, World } from "./World";
+import { roll100 } from "../utils/roll100";
+import { Amount, resolveAmount } from "./Amount";
+import { Element } from "./components/Stats";
+import { Character } from "./entities/Character";
+import {
+  IncomingModifier,
+  OutgoingModifier,
+  resolveModifier,
+} from "./Modifier";
+import { Incoming, Outgoing } from "./Types";
 
-type BaseEffect = {
-  entity: Entity.effect;
+export const NOTHING: Nothing = {
+  type: "nothing",
 };
 
-type ActiveEffect = BaseEffect & {
-  passive: false;
-};
-
-type PasiveEffect = BaseEffect & {
-  passive: true;
-  duration: number;
-};
-
-type Nothing = ActiveEffect & {
+type Nothing = {
   type: "nothing";
 };
 
-type Exhausted = ActiveEffect & {
-  type: "exhausted";
+export type Damage = {
+  type: "damage";
+  element: Element;
 };
 
-type Hurt = ActiveEffect & {
-  type: "hurt";
+type DrainMana = {
+  type: "drainMana";
 };
 
-type Stressed = ActiveEffect & {
-  type: "stressed";
+type Heal = {
+  type: "heal";
 };
 
-type Move = ActiveEffect & {
-  type: "move";
-  move: Vector;
+type RestoreMana = {
+  type: "restoreMana";
 };
 
-type Regen = PasiveEffect & {
-  type: "regen";
-  resource: keyof Resources;
-  amount: number;
+type Multi = {
+  type: "multi";
+  effect: OutgoingEffect;
 };
 
-type AddResource = ActiveEffect & {
-  type: "addResource";
-  resource: keyof Resources;
-  amount: number;
-};
+type IncomingDelay = Incoming<{
+  type: "delay";
+  effect: IncomingEffect;
+}>;
 
-type IncreaseResource = ActiveEffect & {
-  type: "increaseResource";
-  resource: keyof Resources;
-  amount: number;
-};
+type OutgoingDelay = Outgoing<{
+  type: "delay";
+  effect: OutgoingEffect;
+}>;
 
-export type Effect =
+type IncomingDurationEffect = Incoming<{
+  type: "duration";
+  effect: IncomingEffect;
+  name: string;
+}>;
+
+type OutgoingDurationEffect = Outgoing<{
+  type: "duration";
+  effect: OutgoingEffect;
+  name: string;
+}>;
+
+export type IncomingEffect =
   | Nothing
-  | AddResource
-  | IncreaseResource
-  | Move
-  | Regen
-  | Exhausted
-  | Hurt
-  | Stressed;
+  | Incoming<Damage>
+  | Incoming<DrainMana>
+  | Incoming<Heal>
+  | Incoming<RestoreMana>
+  | IncomingDelay
+  | Array<IncomingEffect>
+  | IncomingDurationEffect;
 
-export function runEffects(character: Character, world: World) {
-  if (character.effects.length === 0) {
-    return;
+export type OutgoingEffect =
+  | Nothing
+  | Outgoing<Damage>
+  | Outgoing<DrainMana>
+  | Outgoing<Heal>
+  | Outgoing<RestoreMana>
+  | Outgoing<Multi>
+  | OutgoingDelay
+  | Array<OutgoingEffect>
+  | OutgoingDurationEffect;
+
+export function resolveEffect(
+  effect: OutgoingEffect,
+  context: {
+    character: Character;
+    level: number;
+  }
+): IncomingEffect {
+  if (Array.isArray(effect)) {
+    return effect.map((e) => resolveEffect(e, context));
   }
 
-  const effects: Effect[] = [
-    ...character.effects.reduce(
-      (acc: Effect[], e: Effect) => acc.concat(e),
-      []
-    ),
-  ];
-
-  const exhausted = effects.some((e: Effect) => e.type === "exhausted");
-  const hurt = effects.some((e: Effect) => e.type === "hurt");
-  const stressed = effects.some((e: Effect) => e.type === "stressed");
-
-  const state = {
-    addResource: {
-      health: hurt ? 0 : character.attributes.might.value / 10,
-      stamina: exhausted ? 0 : character.attributes.speed.value,
-      mana: stressed ? 0 : character.attributes.mind.value / 10,
-    },
-    increaseResource: {
-      health: 0,
-      stamina: 0,
-      mana: 0,
-    },
-    moves: [],
-  };
-
-  for (const effect of effects) {
-    switch (effect.type) {
-      case "nothing":
-        continue;
-      case "addResource": {
-        state.addResource[effect.resource] += effect.amount;
-        continue;
-      }
-      case "increaseResource": {
-        state.increaseResource[effect.resource] += effect.amount;
-        continue;
-      }
-      case "move": {
-        state.moves.push(effect.move);
-        continue;
-      }
-      case "regen": {
-        state.addResource[effect.resource] += effect.amount;
-        continue;
-      }
-      case "hurt":
-      case "stressed":
-      case "exhausted": {
-        continue;
-      }
-      default: {
-        throw new Error(
-          // @ts-expect-error
-          `Effect of type ${effect.type} does not have an implementation`
-        );
-      }
+  switch (effect.type) {
+    case "nothing":
+      return effect;
+    case "multi":
+      return Array.from(
+        { length: resolveAmount(effect.amount, context) },
+        (_) => resolveEffect(effect.effect, context)
+      );
+    case "delay":
+      return {
+        ...effect,
+        amount: resolveAmount(effect.amount, context),
+        effect: resolveEffect(effect.effect, context),
+      };
+    case "restoreMana":
+    case "drainMana":
+    case "heal":
+      return {
+        ...effect,
+        amount: resolveAmount(effect.amount, context),
+      };
+    case "damage":
+      const baseAmount = resolveAmount(effect.amount, context);
+      const stats = context.character.getStats().getSecondaryStats();
+      const amount =
+        roll100() > stats.critChance
+          ? baseAmount
+          : baseAmount * stats.critModifier;
+      return {
+        ...effect,
+        amount,
+      };
+    case "duration":
+      return {
+        ...effect,
+        amount: resolveAmount(effect.amount, context),
+        effect: resolveEffect(effect.effect, context),
+      };
+    default: {
+      const _: never = effect;
+      return _;
     }
   }
-
-  Object.keys(character.resources).forEach((resourceName: keyof Resources) => {
-    const resource = character.resources[resourceName];
-    resource.add(state.addResource[resourceName]);
-    resource.increaseMax(state.increaseResource[resourceName]);
-  });
-
-  for (const vector of state.moves) {
-    if (!move(character.ID, vector, world)) {
-      break;
-    }
-  }
-
-  character.effects = [];
-  dispatch({ type: "elementUpdate", ID: character.ID });
 }

@@ -1,24 +1,21 @@
-import { createCallbackSet } from "./CallbackSet";
+import { createCallbackSet } from "../utils/CallbackSet";
 
 export type Time = {
   now: () => number;
   onFrame: (callback: () => void) => () => void;
   resume: () => void;
   pause: () => void;
-  throttle: (callback: () => void) => () => void;
+  isPaused: () => boolean;
 };
 
 export function createTime({ frame }: { frame: number }): Time {
   const { add: onFrame, call } = createCallbackSet<void>();
+
   const state = {
     time: 0,
     date: Date.now(),
-    paused: false,
+    paused: true,
   };
-  const throttledCallbacks = new Set<{
-    callback: () => void;
-    queued: boolean;
-  }>();
 
   function now() {
     return state.time;
@@ -35,12 +32,6 @@ export function createTime({ frame }: { frame: number }): Time {
       state.time += 1;
       state.date = Date.now();
       call();
-      throttledCallbacks.forEach((throttledCallback) => {
-        if (throttledCallback.queued) {
-          throttledCallback.callback();
-          throttledCallback.queued = false;
-        }
-      });
     }
 
     requestAnimationFrame(loop);
@@ -54,21 +45,8 @@ export function createTime({ frame }: { frame: number }): Time {
     state.paused = false;
   }
 
-  function throttle(callback: () => void): () => void {
-    const reference = {
-      callback,
-      queued: false,
-    };
-
-    throttledCallbacks.add(reference);
-
-    return () => {
-      if (reference.queued) {
-        return;
-      }
-
-      reference.queued = true;
-    };
+  function isPaused() {
+    return state.paused;
   }
 
   loop();
@@ -78,6 +56,6 @@ export function createTime({ frame }: { frame: number }): Time {
     onFrame,
     pause,
     resume,
-    throttle,
+    isPaused,
   };
 }

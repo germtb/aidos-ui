@@ -1,0 +1,108 @@
+import React from "react";
+import { createJSStyles } from "./Palette";
+import BaseView from "./BaseView";
+import { IconType } from "./IconType";
+import feather from "feather-icons";
+import { GlyphColor, GlyphSize } from "./Glyph";
+
+const jsStyles = createJSStyles({
+  root: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  small: {
+    height: 12,
+    width: 12,
+  },
+  medium: {
+    height: 16,
+    width: 16,
+  },
+  large: {
+    height: 24,
+    width: 24,
+  },
+  primary: {
+    color: "var(--primary-text)",
+  },
+  secondary: {
+    color: "var(--secondary-text)",
+  },
+  light: {
+    color: "var(--light-text)",
+  },
+  subtle: {
+    color: "var(--subtle-text)",
+  },
+  negative: {
+    color: "var(--negative-text)",
+  },
+  highlight: {
+    color: "var(--highlight-text)",
+  },
+  primaryFull: {
+    fill: "var(--primary-text)",
+  },
+  secondaryFull: {
+    fill: "var(--secondary-text)",
+  },
+  lightFull: {
+    fill: "var(--light-text)",
+  },
+  subtleFull: {
+    fill: "var(--subtle-text)",
+  },
+  negativeFull: {
+    fill: "var(--negative-text)",
+  },
+  highlightFull: {
+    fill: "var(--highlight-text)",
+  },
+  full: {
+    // @ts-ignore
+    " svg": {
+      fill: "inherit",
+    },
+  },
+});
+
+export default function Icon({
+  icon,
+  size,
+  color,
+  ariaLabel,
+  full = false,
+}: {
+  ariaLabel?: string;
+  icon: IconType;
+  size: GlyphSize;
+  color: GlyphColor;
+  full?: boolean;
+}) {
+  return (
+    <BaseView
+      aria-label={ariaLabel}
+      jsStyle={[
+        jsStyles.root,
+        size === "small" && jsStyles.small,
+        size === "medium" && jsStyles.medium,
+        size === "large" && jsStyles.large,
+        color === "primary" && jsStyles.primary,
+        color === "secondary" && jsStyles.secondary,
+        color === "light" && jsStyles.light,
+        color === "subtle" && jsStyles.subtle,
+        color === "highlight" && jsStyles.highlight,
+        color === "negative" && jsStyles.negative,
+        full && jsStyles.full,
+        full && color === "primary" && jsStyles.primaryFull,
+        full && color === "secondary" && jsStyles.secondaryFull,
+        full && color === "light" && jsStyles.lightFull,
+        full && color === "subtle" && jsStyles.subtleFull,
+        full && color === "negative" && jsStyles.negativeFull,
+        full && color === "highlight" && jsStyles.highlightFull,
+      ]}
+      dangerouslySetInnerHTML={{ __html: feather.icons[icon].toSvg() }}
+    ></BaseView>
+  );
+}

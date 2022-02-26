@@ -1,17 +1,19 @@
-import { Archetype, SkillType } from "../../core/Skill";
+import { ActiveSkillDefinition, ActiveSkillType } from "../../core/Skill";
 
-import { basicAttack } from "./BasicAttack";
 import { fireball } from "./Fireball";
-import { seek } from "./Seek";
-import { basicHeal } from "./BasicHeal";
 import { wait } from "./Wait";
+import { strike } from "./Strike";
+import { bodySlam } from "./BodySlam";
+import { magicMissile } from "./MagicMissile";
+import { doubleStrike } from "./DoubleStrike";
 
 export const skillMap: {
-  [key in SkillType]: Archetype;
+  [key in ActiveSkillType]: ActiveSkillDefinition;
 } = {
-  basicAttack,
   fireball,
-  basicHeal,
   wait,
-  seek,
+  bodySlam,
+  strike,
+  magicMissile,
+  doubleStrike,
 };

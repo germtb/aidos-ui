@@ -1,29 +1,24 @@
-import { Entity } from "../../core/Entity";
-import { Archetype, Essence, SkillType, Tier } from "../../core/Skill";
+import { mind, product, randomAmount, sum } from "../../core/Amount";
+import { Element } from "../../core/components/Stats";
+import { Essence, Tier } from "../../core/Essence";
+import { ActiveSkillDefinition, ActiveSkillType } from "../../core/Skill";
+import { seconds } from "../../core/World";
 
-export const fireball: Archetype = {
-  ID: SkillType.fireball,
+export const fireball: ActiveSkillDefinition = {
+  ID: ActiveSkillType.fireball,
   name: "Fireball",
-  effect: ({ potency }) => [
-    {
-      entity: Entity.effect,
-      type: "addResource",
-      resource: "health",
-      amount: -potency,
-      passive: false,
-    },
-  ],
-  targetMode: {
-    entity: Entity.target,
-    type: "circle",
-    range: 3,
-    radius: 1,
-    affects: "all",
+  effect: {
+    type: "damage",
+    element: Element.fire,
+    amount: product(randomAmount(3, 5), mind(1)),
   },
-  cooldown: 4,
+  targetMode: {
+    type: "foesInRange",
+    range: 3,
+  },
+  castTime: seconds(3),
   essence: Essence.Might,
   tier: Tier.F,
-  potencyRange: [10, 20],
   cost: {
     type: "mana",
     amount: 25,
