@@ -1,7 +1,7 @@
 import { Operation } from "../../core/Amount";
 import { Core } from "../../core/components/Core";
 import { Element } from "../../core/components/Stats";
-import { Tier } from "../../core/Essence";
+import { Tier } from "../../core/Tier";
 
 export const FireCore: Core = {
   name: "Fire core",

@@ -23,6 +23,9 @@ const jsStyles = createJSStyles({
     ":active": {
       backgroundColor: "var(--pressed-background)",
     },
+    ":active:disabled": {
+      backgroundColor: "inherit",
+    }
   },
   primaryAddOn: {
     flexGrow: 0,

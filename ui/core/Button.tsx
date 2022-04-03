@@ -18,13 +18,20 @@ export interface ButtonProps extends BaseButtonProps {
 const jsStyles = createJSStyles({
   root: {
     flexGrow: 1,
-    borderRadius: "var(--border-radius-m)",
+    // borderRadius: "var(--border-radius-m)",
     paddingTop: "var(--spacing-s)",
     paddingBottom: "var(--spacing-s)",
     paddingLeft: "var(--spacing-m)",
     paddingRight: "var(--spacing-m)",
     justifyContent: "center",
+    userSelect: "none",
+    ':focus': {
+      outline: "none"
+    }
   },
+  row: {
+    justifyContent: "center",
+  }
 });
 
 const getGlyphColor = (
@@ -75,7 +82,7 @@ function Button(
       jsStyle={jsStyles.root}
     >
       {icon ? (
-        <Row spacing="small">
+        <Row spacing="small" jsStyle={jsStyles.row}>
           <Icon
             icon={icon}
             size={iconSize}

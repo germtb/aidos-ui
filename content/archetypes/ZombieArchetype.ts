@@ -1,7 +1,7 @@
-import { amount, level, randomAmount, sum, variance } from "../../core/Amount";
+import { amount, level, randomAmount, sum } from "../../core/Amount";
 import { Archetype } from "../../core/Archetype";
 import { Currency } from "../../core/components/Inventory";
-import { ActiveSkillType } from "../../core/Skill";
+import { strike } from "../skills/Strike";
 
 export const zombieArchetype: Archetype = {
   name: "Zombie",
@@ -10,16 +10,12 @@ export const zombieArchetype: Archetype = {
     mind: sum(amount(1)),
     soul: sum(amount(1), randomAmount(1, 2)),
   },
-  loop: {
-    skills: [
-      {
-        ID: ActiveSkillType.strike,
-        level: 1,
-      },
-    ],
+  skills: {
+    skills: [strike],
     capacity: 5,
   },
   inventory: {
     wallet: new Map([[Currency.Soul, randomAmount(5, 10)]]),
   },
+  upgrades: [],
 };

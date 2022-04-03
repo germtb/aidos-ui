@@ -5,7 +5,6 @@ import { createJSStyles } from "./Palette";
 import ProgressBar from "./ProgressBar";
 import ListStaticRow from "./ListStaticRow";
 import { Character } from "../../core/entities/Character";
-import { skillMap } from "../../content/skills/SkillMap";
 
 const jsStyles = createJSStyles({
   progressBar: {
@@ -25,18 +24,18 @@ export default function Loop({ hero }: { hero: Character }) {
   return (
     <>
       {hero
-        .getLoop()
+        .getSkills()
         .getActiveSkills()
         .map((skill, index) => {
           return (
             <ListStaticRow
               key={`${skill.ID}-${index}`}
-              headline={skillMap[skill.ID].name}
+              headline={skill.name}
               headlineSize="medium"
               secondaryAddOn={
-                hero.getLoop().getPointer() === index ? (
+                hero.getSkills().getPointer() === index ? (
                   <Box jsStyle={jsStyles.progressBar} spacing="medium">
-                    <ProgressBar progress={hero.getLoop().getProgress()} />
+                    <ProgressBar progress={hero.getSkills().getProgress()} />
                   </Box>
                 ) : undefined
               }

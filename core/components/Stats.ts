@@ -1,10 +1,11 @@
-import { Amount, Operation } from "../Amount";
-import { GameComponent } from "../GameComponent";
+import { Operation } from "../Amount";
+import { CharacterComponent, GameComponent } from "../GameComponent";
 import { Damage, IncomingEffect } from "../Effect";
 import { Character } from "../entities/Character";
 import { FlatModifier, IncomingModifier } from "../Modifier";
 import { Incoming } from "../Types";
 import { roll100 } from "../../utils/roll100";
+import { Skill } from "../Skill";
 
 export type Attributes = {
   body: number;
@@ -40,7 +41,13 @@ export type SecondaryStats = {
   cleave: number;
 };
 
-const INITIAL_STATS: SecondaryStats = {
+export const INITIAL_ATTRIBUTES: Attributes = {
+  body: 5,
+  mind: 5,
+  soul: 5,
+};
+
+export const INITIAL_STATS: SecondaryStats = {
   // Regen
   lifeRegen: 0,
   manaRegen: 0,
@@ -82,15 +89,13 @@ export type InitialStats = {
   attributes: Attributes;
 };
 
-export class StatsComponent implements GameComponent {
+export class StatsComponent extends CharacterComponent {
   private resources: {
     life: number;
     mana: number;
   };
-  private level: number;
   private modifiers: Map<Source, IncomingModifier>;
   private attributes: Attributes;
-  private readonly character: Character;
   private delayedEffects: Array<{
     delay: number;
     effect: IncomingEffect;
@@ -100,15 +105,14 @@ export class StatsComponent implements GameComponent {
     effect: IncomingEffect;
   }> = [];
 
-  constructor(initialStats: InitialStats, level: number, character: Character) {
+  constructor(character: Character, initialStats: InitialStats) {
+    super(character);
     this.attributes = initialStats.attributes;
-    this.level = level;
     this.resources = {
       life: this.getMaxLife(),
       mana: this.getMaxMana(),
     };
     this.modifiers = new Map();
-    this.character = character;
   }
 
   onStart() {}
@@ -157,14 +161,6 @@ export class StatsComponent implements GameComponent {
     this.durationEffects = this.durationEffects
       .map(({ duration, effect }) => ({ duration: duration - 1, effect }))
       .filter(({ duration }) => duration > 0);
-  }
-
-  getLevel(): number {
-    return this.level;
-  }
-
-  increaseLevel(number: number) {
-    this.level += number;
   }
 
   getAttributes(): Attributes {

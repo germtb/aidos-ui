@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Currency } from "../../core/components/Inventory";
 import { world, getHero, getWave, getEncounter } from "../../core/World";
 import Encounter from "./Encounter";
+import Footer from "./Footer";
 import List from "./List";
 import ListStaticRow from "./ListStaticRow";
 import Loop from "./Loop";
@@ -16,8 +17,6 @@ const jsStyles = createJSStyles({
     minHeight: 0,
   },
 });
-
-let i = 0;
 
 function Menu() {
   const [_, setState] = useState(world);
@@ -50,6 +49,7 @@ function Menu() {
 
         <Loop hero={hero} />
       </List>
+      <Footer character={hero} />
     </RootView>
   );
 }

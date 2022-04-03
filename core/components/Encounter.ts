@@ -2,12 +2,16 @@ import { Position } from "../Entity";
 import { Character } from "../entities/Character";
 import { GameComponent } from "../GameComponent";
 
-export class EncounterComponent implements GameComponent {
+export class EncounterComponent extends GameComponent {
   private readonly positionMap = {
     [Position.Hero]: new Map(),
     [Position.Monster]: new Map(),
     [Position.None]: new Map(),
   };
+
+  constructor() {
+    super();
+  }
 
   onStart() {}
 
@@ -16,16 +20,16 @@ export class EncounterComponent implements GameComponent {
   onDestroy() {}
 
   getMySide(character: Character): Array<Character> {
-    return Array.from(
-      this.positionMap[character.position].values()
-    ).filter((c) => c.isAlive());
+    return Array.from(this.positionMap[character.position].values()).filter(
+      (c) => c.isAlive()
+    );
   }
 
   getOtherSide(character: Character): Array<Character> {
     if (character.position === Position.Hero) {
-      return Array.from(
-        this.positionMap[Position.Monster].values()
-      ).filter((c) => c.isAlive());
+      return Array.from(this.positionMap[Position.Monster].values()).filter(
+        (c) => c.isAlive()
+      );
     } else if (character.position === Position.Monster) {
       return Array.from(this.positionMap[Position.Hero].values()).filter((c) =>
         c.isAlive()

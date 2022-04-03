@@ -1,14 +1,3 @@
-export enum Essence {
-  Ice,
-  Wind,
-  Earth,
-  Water,
-  Dark,
-  Light,
-  Might,
-  Speed,
-}
-
 export enum Tier {
   SS, // 10000000
   S, // 1000000

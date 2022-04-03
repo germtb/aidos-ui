@@ -6,6 +6,7 @@ export type Time = {
   resume: () => void;
   pause: () => void;
   isPaused: () => boolean;
+  setFrameTimeout: (callback: () => void, frames: number) => () => void;
 };
 
 export function createTime({ frame }: { frame: number }): Time {
@@ -49,6 +50,20 @@ export function createTime({ frame }: { frame: number }): Time {
     return state.paused;
   }
 
+  function setFrameTimeout(callback: () => void, delay: number) {
+    let localTime = 0;
+    const unsubscribe = onFrame(() => {
+      localTime += 1;
+
+      if (localTime >= delay) {
+        callback();
+        unsubscribe();
+      }
+    });
+
+    return unsubscribe;
+  }
+
   loop();
 
   return {
@@ -57,5 +72,6 @@ export function createTime({ frame }: { frame: number }): Time {
     pause,
     resume,
     isPaused,
+    setFrameTimeout,
   };
 }

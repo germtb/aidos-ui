@@ -1,12 +1,8 @@
 import { roll100 } from "../utils/roll100";
-import { Amount, resolveAmount } from "./Amount";
+import { amount, Amount, resolveAmount } from "./Amount";
 import { Element } from "./components/Stats";
+import { Context } from "./Context";
 import { Character } from "./entities/Character";
-import {
-  IncomingModifier,
-  OutgoingModifier,
-  resolveModifier,
-} from "./Modifier";
 import { Incoming, Outgoing } from "./Types";
 
 export const NOTHING: Nothing = {
@@ -82,12 +78,67 @@ export type OutgoingEffect =
   | Array<OutgoingEffect>
   | OutgoingDurationEffect;
 
+export function damage(amount: Amount, element: Element): Outgoing<Damage> {
+  return {
+    type: "damage",
+    amount,
+    element,
+  };
+}
+
+export function drainMana(amount: Amount): Outgoing<DrainMana> {
+  return {
+    type: "drainMana",
+    amount,
+  };
+}
+
+export function heal(amount: Amount): Outgoing<Heal> {
+  return {
+    type: "heal",
+    amount,
+  };
+}
+
+export function restoreMana(amount: Amount): Outgoing<RestoreMana> {
+  return {
+    type: "restoreMana",
+    amount,
+  };
+}
+
+export function multi(amount: Amount, effect: OutgoingEffect): Outgoing<Multi> {
+  return {
+    type: "multi",
+    effect,
+    amount,
+  };
+}
+
+export function delay(amount: Amount, effect: OutgoingEffect): OutgoingDelay {
+  return {
+    type: "delay",
+    effect,
+    amount,
+  };
+}
+
+export function duration(
+  amount: Amount,
+  effect: OutgoingEffect,
+  name: string
+): OutgoingDurationEffect {
+  return {
+    type: "duration",
+    effect,
+    name,
+    amount,
+  };
+}
+
 export function resolveEffect(
   effect: OutgoingEffect,
-  context: {
-    character: Character;
-    level: number;
-  }
+  context: Context
 ): IncomingEffect {
   if (Array.isArray(effect)) {
     return effect.map((e) => resolveEffect(e, context));
@@ -116,11 +167,10 @@ export function resolveEffect(
       };
     case "damage":
       const baseAmount = resolveAmount(effect.amount, context);
-      const stats = context.character.getStats().getSecondaryStats();
       const amount =
-        roll100() > stats.critChance
+        roll100() > context.stats.critChance
           ? baseAmount
-          : baseAmount * stats.critModifier;
+          : baseAmount * context.stats.critModifier;
       return {
         ...effect,
         amount,

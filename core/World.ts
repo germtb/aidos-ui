@@ -3,13 +3,13 @@ import { Archetype } from "./Archetype";
 import { EncounterComponent } from "./components/Encounter";
 import { Wave, WaveComponent } from "./components/Wave";
 import { Character } from "./entities/Character";
-import { Entity, Position } from "./Entity";
+import { IEntity, Position } from "./Entity";
 import { GameComponent } from "./GameComponent";
 import { createTime, Time } from "./Time";
 
 export type World = {
   entities: {
-    [ID: string]: Entity;
+    [ID: string]: IEntity;
   };
   time: Time;
 };
@@ -23,10 +23,18 @@ export function seconds(time: number) {
   return (time * 1000) / FRAME();
 }
 
+export const SHORT_DELAY = seconds(1);
+
+export const MEDIUM_DELAY = seconds(1.5);
+
+export const LONG_DELAY = seconds(3);
+
 export const world: World = {
   entities: {},
   time: createTime({ frame: FRAME() }),
 };
+
+export const setFrameTimeout = world.time.setFrameTimeout;
 
 const WAVE = "wave";
 const HERO = "hero";
@@ -51,7 +59,7 @@ export function start() {
   });
 }
 
-export function instantiate(entity: Entity) {
+export function instantiate(entity: IEntity) {
   if (world.entities[entity.ID]) {
     throw new Error(
       `Cannot instantiate archetype ID is already assigned: ${
@@ -75,7 +83,7 @@ export function instantiateHero(archetype: Archetype) {
 }
 
 export function instantiateComponent(component: GameComponent, ID = guid()) {
-  const entity: Entity = {
+  const entity: IEntity = {
     ID,
     getComponents: () => [component],
     position: Position.None,

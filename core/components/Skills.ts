@@ -1,27 +1,29 @@
-import { skillMap } from "../../content/skills/SkillMap";
-import { GameComponent } from "../GameComponent";
+import { CharacterComponent, GameComponent } from "../GameComponent";
 import { Character } from "../entities/Character";
 import { resolveEffect } from "../Effect";
-import { ActiveSkill } from "../Skill";
+import { ActiveSkill, Skill } from "../Skill";
 import { Target } from "../Target";
 import { Currency } from "./Inventory";
 import { EncounterComponent } from "./Encounter";
+import { getHero } from "../World";
 
-export class LoopComponent implements GameComponent {
+export class SkillsComponent extends CharacterComponent {
   private castTime: number = 0;
   private pointer: number = 0;
   private capacity: number;
-  private readonly skills: Array<{ skill: ActiveSkill; active: boolean }> = [];
-  private readonly character: Character;
+  private readonly skills: Array<{
+    skill: Skill;
+    active: boolean;
+  }> = [];
   private readonly encounter: EncounterComponent;
 
   constructor(character: Character, encounter: EncounterComponent) {
-    this.character = character;
-    this.skills = character.archetype.loop.skills.map((skill) => ({
+    super(character);
+    this.skills = character.archetype.skills.skills.map((skill) => ({
       skill,
       active: true,
     }));
-    this.capacity = character.archetype.loop.capacity;
+    this.capacity = character.archetype.skills.capacity;
     this.encounter = encounter;
   }
 
@@ -48,9 +50,7 @@ export class LoopComponent implements GameComponent {
       return;
     }
 
-    const skillArchetype = skillMap[skill.ID];
-
-    if (this.castTime < skillArchetype.castTime) {
+    if (this.castTime < skill.castTime) {
       this.castTime++;
       return;
     }
@@ -70,7 +70,7 @@ export class LoopComponent implements GameComponent {
 
   onDestroy() {}
 
-  addSkill(skill: ActiveSkill) {
+  addSkill(skill: Skill) {
     this.skills.push({ skill, active: false });
   }
 
@@ -98,8 +98,18 @@ export class LoopComponent implements GameComponent {
     this.skills[index].active = false;
   }
 
-  getActiveSkills() {
-    return this.skills.filter(({ active }) => active).map(({ skill }) => skill);
+  getSkills(): Array<Skill> {
+    return this.skills.map(({ skill }) => skill);
+  }
+
+  getActiveSkills(): Array<ActiveSkill> {
+    return this.skills.reduce((acc, { skill, active }) => {
+      if (skill.type === "active" && active) {
+        acc.push(skill);
+      }
+
+      return acc;
+    }, []);
   }
 
   getCurrentSkill(): ActiveSkill | null {
@@ -117,7 +127,7 @@ export class LoopComponent implements GameComponent {
       return 0;
     }
 
-    return this.castTime / skillMap[currentSkill.ID].castTime;
+    return this.castTime / currentSkill.castTime;
   }
 
   getPointer(): number {
@@ -130,9 +140,8 @@ function tryActivateSkill(
   character: Character,
   encounter: EncounterComponent
 ): boolean {
-  const skillArchetype = skillMap[skill.ID];
-  const cost = skillArchetype.cost;
-  const targets = findTarget(skillArchetype.targetMode, encounter, character);
+  const cost = skill.cost;
+  const targets = findTarget(skill.targetMode, encounter, character);
 
   if (targets.length === 0) {
     return false;
@@ -142,9 +151,11 @@ function tryActivateSkill(
     cost.type === "none" ||
     character.getStats().trySpend(cost.type, cost.amount)
   ) {
-    const effect = resolveEffect(skillArchetype.effect, {
-      character,
-      level: skill.level,
+    const effect = resolveEffect(skill.effect, {
+      stats: character.getStats().getSecondaryStats(),
+      attributes: character.getStats().getAttributes(),
+      level: character.getLevel(),
+      skills: character.getSkills().getSkills(),
     });
 
     for (const target of targets) {

@@ -9,5 +9,5 @@ export const forgottenSwamp = {
   level: 1,
   jitter: 0.1,
   max: 3,
-  length: 5,
+  length: 50,
 };

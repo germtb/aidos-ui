@@ -1,26 +1,7 @@
 import { OutgoingEffect } from "./Effect";
 import { Target } from "./Target";
-import { Essence, Tier } from "./Essence";
 import { Resources } from "./components/Stats";
 import { OutgoingModifier } from "./Modifier";
-
-type BaseSkill = {
-  ID: ActiveSkillType;
-  level: number;
-};
-
-export type ActiveSkill = BaseSkill & {};
-
-export type PassiveSkill = BaseSkill & {};
-
-export enum ActiveSkillType {
-  fireball = "fireball",
-  wait = "wait",
-  bodySlam = "bodySlam",
-  strike = "strike",
-  magicMissile = "magicMissile",
-  doubleStrike = "doubleStrike",
-}
 
 type Cost =
   | {
@@ -31,21 +12,21 @@ type Cost =
       type: "none";
     };
 
-export type ActiveSkillDefinition = {
-  ID: ActiveSkillType;
+export type ActiveSkill = Readonly<{
+  type: "active";
+  ID: string;
   name: string;
   effect: OutgoingEffect;
   targetMode: Target;
-  essence: Essence;
-  tier: Tier;
   castTime: number;
   cost: Cost;
-};
+}>;
 
-export type PassiveSkillDefinition = {
+export type PassiveSkill = Readonly<{
+  type: "passive";
+  ID: string;
   name: string;
   effect: OutgoingModifier;
-  tier: Tier;
-};
+}>;
 
-export type Skill = ActiveSkill;
+export type Skill = PassiveSkill | ActiveSkill;

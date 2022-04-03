@@ -1,7 +1,8 @@
 import { amount, randomAmount } from "../../core/Amount";
 import { Archetype } from "../../core/Archetype";
 import { Currency } from "../../core/components/Inventory";
-import { ActiveSkillType } from "../../core/Skill";
+import { strike } from "../skills/Strike";
+import { body1, mind1, soul1 } from "../upgrades/bodyUpgrades";
 
 export const heroArchetype: Archetype = {
   name: "Hero",
@@ -10,16 +11,12 @@ export const heroArchetype: Archetype = {
     mind: amount(20),
     soul: amount(20),
   },
-  loop: {
-    skills: [
-      {
-        ID: ActiveSkillType.strike,
-        level: 1,
-      },
-    ],
+  skills: {
+    skills: [strike],
     capacity: 5,
   },
   inventory: {
     wallet: new Map([[Currency.Soul, randomAmount(5, 10)]]),
   },
+  upgrades: [body1, mind1, soul1],
 };

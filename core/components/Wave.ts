@@ -1,6 +1,11 @@
 import { Position } from "../Entity";
 import { guid } from "../../utils/guid";
-import { instantiate } from "../World";
+import {
+  instantiate,
+  MEDIUM_DELAY,
+  setFrameTimeout,
+  SHORT_DELAY,
+} from "../World";
 import { Character } from "../entities/Character";
 import { GameComponent } from "../GameComponent";
 import { Archetype } from "../Archetype";
@@ -9,8 +14,6 @@ import { EncounterComponent } from "./Encounter";
 export type Wave = {
   name: string;
   archetypes: Array<Archetype>;
-  cooldown: number;
-  jitter: number;
   max: number;
   level: number;
   length: number;
@@ -20,9 +23,9 @@ export class WaveComponent implements GameComponent {
   readonly ID: string;
   private readonly wave: Wave;
   private readonly encounter: EncounterComponent;
-  private localTime: number = 0;
   private progress: number = 0;
   private subscriptions: Array<() => void> = [];
+  private addMonsterQueued = false;
 
   constructor(encounter: EncounterComponent, config: Wave, ID = guid()) {
     this.ID = ID;
@@ -33,21 +36,22 @@ export class WaveComponent implements GameComponent {
   onStart() {}
 
   onFrame() {
-    this.localTime += 1;
-
     if (this.progress >= this.wave.length) {
       return;
     }
 
-    if (this.localTime >= this.wave.cooldown) {
-      if (
-        this.encounter.getMonsterSide().filter((m) => m.isAlive()).length <
-        this.wave.max
-      ) {
-        this.addMonster();
-      }
-
-      this.localTime = 0;
+    if (
+      this.encounter.getMonsterSide().filter((m) => m.isAlive()).length <= 0 &&
+      !this.addMonsterQueued
+    ) {
+      this.addMonsterQueued = true;
+      setFrameTimeout(() => {
+        this.encounter.getMonsterSide().forEach((monster) => {
+          this.encounter.remove(monster);
+        });
+        this.addMonster(Math.floor(Math.random() * this.wave.max));
+        this.addMonsterQueued = false;
+      }, MEDIUM_DELAY);
     }
   }
 
@@ -59,26 +63,29 @@ export class WaveComponent implements GameComponent {
     return this.wave.name;
   }
 
-  private addMonster() {
-    const archetype = this.wave.archetypes[
-      Math.floor(Math.random() * this.wave.archetypes.length)
-    ];
+  private addMonster(count: number) {
+    for (let i = 0; i <= count; i++) {
+      const archetype =
+        this.wave.archetypes[
+          Math.floor(Math.random() * this.wave.archetypes.length)
+        ];
 
-    const monster = new Character(
-      archetype,
-      Position.Monster,
-      this.encounter,
-      this.wave.level
-    );
+      const monster = new Character(
+        archetype,
+        Position.Monster,
+        this.encounter,
+        this.wave.level
+      );
 
-    this.subscriptions.push(
-      monster.onDie(() => {
-        this.progress += 1;
-      })
-    );
+      this.subscriptions.push(
+        monster.onDie(() => {
+          this.progress += 1;
+        })
+      );
 
-    instantiate(monster);
+      instantiate(monster);
 
-    this.encounter.add(monster);
+      this.encounter.add(monster);
+    }
   }
 }

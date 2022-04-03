@@ -1,6 +1,7 @@
 import { Amount } from "./Amount";
 import { Currency } from "./components/Inventory";
-import { ActiveSkill } from "./Skill";
+import { Skill } from "./Skill";
+import { Fragment, Upgrade } from "./Upgrade";
 
 export type Archetype = {
   name: string;
@@ -9,11 +10,12 @@ export type Archetype = {
     mind: Amount;
     soul: Amount;
   };
-  loop: {
-    skills: Array<ActiveSkill>;
+  skills: {
+    skills: Array<Skill>;
     capacity: number;
   };
   inventory: {
     wallet: Map<Currency, Amount>;
   };
+  upgrades: Array<Upgrade>;
 };

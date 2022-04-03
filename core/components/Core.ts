@@ -1,6 +1,6 @@
-import { GameComponent } from "../GameComponent";
+import { CharacterComponent, GameComponent } from "../GameComponent";
 import { Character } from "../entities/Character";
-import { Tier } from "../Essence";
+import { Tier } from "../Tier";
 import { resolveModifier, OutgoingModifier } from "../Modifier";
 import { Source } from "./Stats";
 
@@ -10,14 +10,13 @@ export type Core = {
   modifier: OutgoingModifier;
 };
 
-export class CoreComponent implements GameComponent {
+export class CoreComponent extends CharacterComponent {
   private core: Core;
   private level: number;
-  private character: Character;
 
-  constructor(core: Core, character: Character) {
+  constructor(character: Character, core: Core) {
+    super(character);
     this.core = core;
-    this.character = character;
   }
 
   upgrade() {
@@ -33,8 +32,10 @@ export class CoreComponent implements GameComponent {
     this.character.getStats().addModifier(
       Source.core,
       resolveModifier(this.core.modifier, {
-        character: this.character,
+        stats: this.character.getStats().getSecondaryStats(),
+        attributes: this.character.getStats().getAttributes(),
         level: this.level,
+        skills: this.character.getSkills().getSkills(),
       })
     );
   }

@@ -1,6 +1,6 @@
-import { Skill } from "./Skill";
+import { ActiveSkill } from "./Skill";
 
 export type Drop = {
-  drops: Readonly<Skill[]>;
+  drops: Readonly<ActiveSkill[]>;
   ID: string;
 };

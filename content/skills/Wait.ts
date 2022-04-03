@@ -1,17 +1,16 @@
 import { NOTHING } from "../../core/Effect";
-import { Essence, Tier } from "../../core/Essence";
-import { ActiveSkillDefinition, ActiveSkillType } from "../../core/Skill";
+import { Tier } from "../../core/Tier";
+import { ActiveSkill } from "../../core/Skill";
 import { NONE } from "../../core/Target";
 
-export const wait: ActiveSkillDefinition = {
-  ID: ActiveSkillType.wait,
+export const wait: ActiveSkill = {
+  ID: "wait",
   name: "Wait",
   effect: NOTHING,
   targetMode: NONE,
   castTime: 1,
-  essence: Essence.Might,
-  tier: Tier.F,
   cost: {
     type: "none",
   },
+  type: "active",
 };

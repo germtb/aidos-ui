@@ -1,5 +1,5 @@
 import { Attributes } from "./components/Stats";
-import { Character } from "./entities/Character";
+import { Context } from "./Context";
 
 type AttributeAmount = {
   type: "attribute";
@@ -52,18 +52,12 @@ type Variance = {
   variance: number;
 };
 
-export function resolveAmount(
-  amount: Amount,
-  context: {
-    character?: Character;
-    level: number;
-  }
-): number {
-  const { character, level } = context;
+export function resolveAmount(amount: Amount, context: Context): number {
+  const { attributes, level } = context;
 
   switch (amount.type) {
     case "attribute": {
-      return character.getStats().getAttributes()[amount.attribute];
+      return attributes[amount.attribute];
     }
     case "flat": {
       return amount.amount;

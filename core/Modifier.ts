@@ -6,6 +6,8 @@ import {
   SecondaryStats,
   ResistanceStats,
 } from "./components/Stats";
+import { Context } from "./Context";
+import { Damage } from "./Effect";
 import { Character } from "./entities/Character";
 import { Incoming, Outgoing } from "./Types";
 
@@ -43,12 +45,74 @@ type IncreaseResistance = {
   operation: Operation;
 };
 
+export function increaseAttribute(
+  attribute: keyof Attributes,
+  operation: Operation,
+  amount: Amount
+): Outgoing<IncreaseAttribute> {
+  return {
+    type: "increaseAttribute",
+    attribute,
+    operation,
+    amount,
+  };
+}
+
+export function increaseResource(
+  resource: keyof Resources,
+  operation: Operation,
+  amount: Amount
+): Outgoing<IncreaseResource> {
+  return {
+    type: "increaseResource",
+    resource,
+    operation,
+    amount,
+  };
+}
+
+export function increaseStat(
+  stat: keyof SecondaryStats,
+  operation: Operation,
+  amount: Amount
+): Outgoing<IncreaseStat> {
+  return {
+    type: "increaseStat",
+    stat,
+    operation,
+    amount,
+  };
+}
+
+export function increaseDamage(
+  element: keyof DamageStats,
+  operation: Operation,
+  amount: Amount
+): Outgoing<IncreaseDamage> {
+  return {
+    type: "increaseDamage",
+    element,
+    operation,
+    amount,
+  };
+}
+
+export function increaseResistance(
+  element: keyof ResistanceStats,
+  operation: Operation,
+  amount: Amount
+): Outgoing<IncreaseResistance> {
+  return {
+    type: "increaseResistance",
+    element,
+    operation,
+    amount,
+  };
+}
+
 export function resolveModifier(
   modifier: OutgoingModifier,
-  context: {
-    character: Character;
-    level: number;
-  }
+  context: Context
 ): IncomingModifier {
   if (Array.isArray(modifier)) {
     return modifier.map((m) => resolveModifier(m, context));

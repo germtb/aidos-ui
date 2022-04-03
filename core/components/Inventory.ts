@@ -1,20 +1,25 @@
-import { GameComponent } from "../GameComponent";
-import { Character } from "../entities/Character";
+import { CharacterComponent, GameComponent } from "../GameComponent";
 import { Amount, resolveAmount } from "../Amount";
+import { INITIAL_ATTRIBUTES, INITIAL_STATS } from "./Stats";
+import { Character } from "../entities/Character";
 
 export enum Currency {
   Soul = "Soul",
 }
 
-export class InventoryComponent implements GameComponent {
+export class InventoryComponent extends CharacterComponent {
   private wallet: Map<Currency, number>;
 
-  constructor(wallet: Map<Currency, Amount>) {
+  constructor(character: Character, wallet: Map<Currency, Amount>) {
+    super(character);
     this.wallet = new Map(
       Array.from(wallet.entries()).map(([k, v]) => [
         k,
         resolveAmount(v, {
           level: 0,
+          stats: INITIAL_STATS,
+          attributes: INITIAL_ATTRIBUTES,
+          skills: [],
         }),
       ])
     );

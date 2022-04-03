@@ -1,6 +1,6 @@
 import { Operation } from "../../core/Amount";
 import { Core } from "../../core/components/Core";
-import { Tier } from "../../core/Essence";
+import { Tier } from "../../core/Tier";
 
 export const MeditationCore: Core = {
   name: "Meditation core",

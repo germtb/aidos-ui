@@ -1,26 +1,21 @@
-import { mind, product, randomAmount, sum } from "../../core/Amount";
+import { mind, product, randomAmount } from "../../core/Amount";
 import { Element } from "../../core/components/Stats";
-import { Essence, Tier } from "../../core/Essence";
-import { ActiveSkillDefinition, ActiveSkillType } from "../../core/Skill";
+import { damage } from "../../core/Effect";
+import { ActiveSkill } from "../../core/Skill";
 import { seconds } from "../../core/World";
 
-export const fireball: ActiveSkillDefinition = {
-  ID: ActiveSkillType.fireball,
+export const fireball: ActiveSkill = {
+  ID: "fireball",
   name: "Fireball",
-  effect: {
-    type: "damage",
-    element: Element.fire,
-    amount: product(randomAmount(3, 5), mind(1)),
-  },
+  effect: damage(product(randomAmount(3, 5), mind(1)), Element.fire),
   targetMode: {
     type: "foesInRange",
     range: 3,
   },
   castTime: seconds(3),
-  essence: Essence.Might,
-  tier: Tier.F,
   cost: {
     type: "mana",
     amount: 25,
   },
+  type: "active",
 };
