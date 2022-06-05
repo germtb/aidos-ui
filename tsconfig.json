@@ -1,12 +1,15 @@
 {
     "compilerOptions": {
       "lib": ["dom", "dom.iterable", "es2020", "es2020.string"],
-      "target": "es5",
+      "target": "es6",
       "module": "es2020",
       "sourceMap": true,
-      "outDir": "build/",
+      "outDir": "dist/",
       "jsx": "react",
       "moduleResolution": "node",
       "esModuleInterop": true
-    }
-  }
+    },
+    "include": [
+      "src/*"
+    ],
+}

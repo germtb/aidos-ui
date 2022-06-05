@@ -1,26 +1,32 @@
 {
-  "name": "cultivation",
+  "type": "module",
+  "name": "simple-ui",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A simple UI framework",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel debug/index.html",
-    "tsc": "tsc --watch"
+    "build": "parcel build src/*",
+    "start": "parcel debug/index.html ",
+    "tsc": "tsc --watch",
+    "test": "jest"
   },
-  "author": "",
+  "author": "Gerard Moreno-Torres Bertran",
   "license": "ISC",
   "devDependencies": {
-    "@types/react-dom": "^17.0.9",
-    "parcel-bundler": "^1.12.5",
-    "typescript": "^4.3.5"
+    "@parcel/reporter-bundle-analyzer": "^2.5.0",
+    "@types/jest": "^27.5.1",
+    "@types/react-dom": "^18.0.4",
+    "csstype": "^3.1.0",
+    "jest": "^28.1.0",
+    "parcel": "^2.5.0",
+    "react-dom": "^18.1.0",
+    "ts-jest": "^28.0.3",
+    "ts-node": "^10.8.0",
+    "typescript": "^4.6.4"
   },
   "dependencies": {
-    "content": "^4.0.6",
-    "csstype": "^3.0.10",
-    "feather-icons": "^4.28.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "src": "^1.1.2"
+    "feather-icons": "^4.29.0"
+  },
+  "peerDependencies": {
+    "react": "^18.1.0"
   }
 }

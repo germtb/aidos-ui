@@ -1,25 +1,13 @@
 import React from "react";
-import { render } from "react-dom";
+import { createRoot } from "react-dom/client";
 
-import { heroArchetype } from "../content/archetypes/HeroArchetype";
-import { forgottenSwamp } from "../content/waves/FotgottenSwamp";
-import { instantiateHero, instantiateWave, start } from "../core/World";
-import { generateStylesheet } from "../ui/core/Palette";
-import { Root } from "../ui/Root";
+import DesignBook from "../src/DesignBook";
+import { PaletteProvider } from "../src/Palette";
 
-import "../ui/core/index.css";
+const root = createRoot(document.getElementById("root"));
 
-console.log("---STARTING---");
-
-instantiateHero(heroArchetype);
-instantiateWave(forgottenSwamp);
-
-const stylesheet = generateStylesheet();
-const style = document.createElement("style");
-
-style.innerHTML = stylesheet;
-document.head.appendChild(style);
-
-render(<Root />, document.getElementById("root"));
-
-start();
+root.render(
+  <PaletteProvider>
+    <DesignBook />
+  </PaletteProvider>
+);
