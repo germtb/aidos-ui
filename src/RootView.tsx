@@ -1,9 +1,9 @@
 import React, { ReactNode, useRef, useCallback } from "react";
 
 import { createJSStyles } from "./Palette";
-import Column from "./Column";
+import { Column } from "./Column";
 import { useIsTopOfStack } from "./StackContext";
-import queryFocusables from "./aria";
+import { queryFocusables } from "./aria";
 
 const jsStyles = createJSStyles({
   root: {
@@ -17,7 +17,7 @@ const jsStyles = createJSStyles({
   },
 });
 
-function RootView({
+export function RootView({
   children,
   focusOnlyOnFirstMount = true,
 }: {
@@ -54,5 +54,3 @@ function RootView({
     </Column>
   );
 }
-
-export default RootView;

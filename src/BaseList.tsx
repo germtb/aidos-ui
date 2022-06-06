@@ -15,18 +15,18 @@ export interface BaseListProps extends React.HTMLAttributes<HTMLUListElement> {
   componentName?: string;
 }
 
-function BaseList(
-  { jsStyle, componentName, ...otherProps }: BaseListProps,
-  ref?: React.Ref<HTMLUListElement>
-) {
-  return (
-    <ul
-      {...otherProps}
-      data-test-id={componentName ?? "BaseList"}
-      className={createClassNames(jsStyles.root, jsStyle)}
-      ref={ref}
-    />
-  );
-}
-
-export default React.forwardRef(BaseList);
+export const BaseList = React.forwardRef(
+  (
+    { jsStyle, componentName, ...otherProps }: BaseListProps,
+    ref?: React.Ref<HTMLUListElement>
+  ) => {
+    return (
+      <ul
+        {...otherProps}
+        data-test-id={componentName ?? "BaseList"}
+        className={createClassNames(jsStyles.root, jsStyle)}
+        ref={ref}
+      />
+    );
+  }
+);

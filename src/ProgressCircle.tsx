@@ -1,6 +1,5 @@
 import React from "react";
-import { createClassNames, createJSStyles, JSStyles } from "./Palette";
-import BaseView from "./BaseView";
+import { createClassNames, createJSStyles } from "./Palette";
 
 const jsStyles = createJSStyles({
   root: {
@@ -10,7 +9,7 @@ const jsStyles = createJSStyles({
   },
 });
 
-function ProgressCircle({
+export function ProgressCircle({
   progress,
   stroke = 4,
   outerRadius,
@@ -42,5 +41,3 @@ function ProgressCircle({
     </svg>
   );
 }
-
-export default ProgressCircle;

@@ -1,11 +1,11 @@
 import React, { Suspense } from "react";
 
-import RouterState from "./RouterState";
 import { StackContextProvider } from "./StackContext";
 import { createJSStyles } from "./Palette";
-import Column from "./Column";
-import ListDivider from "./ListDivider";
-import BaseView from "./BaseView";
+import { Column } from "./Column";
+import { ListDivider } from "./ListDivider";
+import { BaseView } from "./BaseView";
+import { useRouterState } from "./RouterState";
 
 const jsStyles = createJSStyles({
   root: {
@@ -36,10 +36,10 @@ const jsStyles = createJSStyles({
   },
 });
 
-export default function Router() {
+export function Router() {
   const {
     context: { navigationStack },
-  } = RouterState.useRouterState();
+  } = useRouterState();
 
   return (
     <BaseView jsStyle={jsStyles.root}>

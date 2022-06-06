@@ -1,5 +1,5 @@
 import React from "react";
-import { Color, createClassNames, createJSStyles, JSStyles } from "./Palette";
+import { createClassNames, JSStyles } from "./Palette";
 
 export type ComponentName = Array<string>;
 
@@ -13,23 +13,29 @@ export interface BaseViewProps extends React.HTMLAttributes<HTMLElement> {
   tag?: keyof HTMLElementTagNameMap;
 }
 
-function BaseView(
-  { jsStyle, children, componentName = [], tag, ...otherProps }: BaseViewProps,
-  ref?: React.Ref<HTMLElement>
-) {
-  const Tag: string = tag ?? "div";
+export const BaseView = React.forwardRef(
+  (
+    {
+      jsStyle,
+      children,
+      componentName = [],
+      tag,
+      ...otherProps
+    }: BaseViewProps,
+    ref?: React.Ref<HTMLElement>
+  ) => {
+    const Tag: string = tag ?? "div";
 
-  return (
-    // @ts-ignore
-    <Tag
-      data-test-id={[...componentName, "BaseView"].join("-")}
-      ref={ref}
-      className={createClassNames(jsStyle)}
-      {...otherProps}
-    >
-      {children}
-    </Tag>
-  );
-}
-
-export default React.forwardRef(BaseView);
+    return (
+      // @ts-ignore
+      <Tag
+        data-test-id={[...componentName, "BaseView"].join("-")}
+        ref={ref}
+        className={createClassNames(jsStyle)}
+        {...otherProps}
+      >
+        {children}
+      </Tag>
+    );
+  }
+);

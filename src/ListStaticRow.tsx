@@ -1,10 +1,10 @@
 import React, { ReactNode } from "react";
 import { createJSStyles } from "./Palette";
-import TextPairing from "./TextPairing";
-import BaseView from "./BaseView";
-import BaseListRow, { BaseListRowProps } from "./BaseListRow";
+import { TextPairing } from "./TextPairing";
+import { BaseView } from "./BaseView";
+import { BaseListRow, BaseListRowProps } from "./BaseListRow";
 import { GlyphColor, GlyphSize } from "./Glyph";
-import Column from "./Column";
+import { Column } from "./Column";
 
 const jsStyles = createJSStyles({
   root: {
@@ -58,60 +58,60 @@ interface ListStaticRow extends BaseListRowProps {
   role?: undefined;
 }
 
-function ListStaticRow(
-  {
-    headline,
-    headlineSize = "medium",
-    headlineColor = "primary",
-    body,
-    bodySize = "small",
-    bodyColor = "secondary",
-    primaryAddOn,
-    secondaryAddOn,
-    background = "primary",
-    ...otherProps
-  }: ListStaticRow,
-  ref?: React.Ref<HTMLLIElement>
-) {
-  return (
-    <BaseListRow
-      {...otherProps}
-      componentName={["ListStaticRowView"]}
-      indentation={primaryAddOn ? "none" : "medium"}
-      jsStyle={[
-        jsStyles.root,
-        background === "primary" && jsStyles.backgroundPrimary,
-        background === "secondary" && jsStyles.backgroundSecondary,
-      ]}
-      ref={ref}
-    >
-      <BaseView componentName={["ListStaticRowView"]} jsStyle={jsStyles.view}>
-        {primaryAddOn && (
-          <BaseView jsStyle={jsStyles.primaryAddOn}>{primaryAddOn}</BaseView>
-        )}
+export const ListStaticRow = React.forwardRef(
+  (
+    {
+      headline,
+      headlineSize = "medium",
+      headlineColor = "primary",
+      body,
+      bodySize = "small",
+      bodyColor = "secondary",
+      primaryAddOn,
+      secondaryAddOn,
+      background = "primary",
+      ...otherProps
+    }: ListStaticRow,
+    ref?: React.Ref<HTMLLIElement>
+  ) => {
+    return (
+      <BaseListRow
+        {...otherProps}
+        componentName={["ListStaticRowView"]}
+        indentation={primaryAddOn ? "none" : "medium"}
+        jsStyle={[
+          jsStyles.root,
+          background === "primary" && jsStyles.backgroundPrimary,
+          background === "secondary" && jsStyles.backgroundSecondary,
+        ]}
+        ref={ref}
+      >
+        <BaseView componentName={["ListStaticRowView"]} jsStyle={jsStyles.view}>
+          {primaryAddOn && (
+            <BaseView jsStyle={jsStyles.primaryAddOn}>{primaryAddOn}</BaseView>
+          )}
 
-        <Column
-          componentName={["ListStaticRowView"]}
-          jsStyle={jsStyles.textPairing}
-        >
-          <TextPairing
-            headline={headline}
-            headlineSize={headlineSize}
-            headlineColor={headlineColor}
-            body={body}
-            bodySize={bodySize}
-            bodyColor={bodyColor}
-          />
-        </Column>
+          <Column
+            componentName={["ListStaticRowView"]}
+            jsStyle={jsStyles.textPairing}
+          >
+            <TextPairing
+              headline={headline}
+              headlineSize={headlineSize}
+              headlineColor={headlineColor}
+              body={body}
+              bodySize={bodySize}
+              bodyColor={bodyColor}
+            />
+          </Column>
 
-        {secondaryAddOn && (
-          <BaseView jsStyle={jsStyles.secondaryAddOn}>
-            {secondaryAddOn}
-          </BaseView>
-        )}
-      </BaseView>
-    </BaseListRow>
-  );
-}
-
-export default React.forwardRef(ListStaticRow);
+          {secondaryAddOn && (
+            <BaseView jsStyle={jsStyles.secondaryAddOn}>
+              {secondaryAddOn}
+            </BaseView>
+          )}
+        </BaseView>
+      </BaseListRow>
+    );
+  }
+);

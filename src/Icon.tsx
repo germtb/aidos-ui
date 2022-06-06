@@ -1,6 +1,6 @@
 import React from "react";
 import { createJSStyles } from "./Palette";
-import BaseView from "./BaseView";
+import { BaseView } from "./BaseView";
 import { IconType } from "./IconType";
 import { GlyphColor, GlyphSize } from "./Glyph";
 
@@ -88,7 +88,7 @@ export const initialize = () => {
   initialized = true;
 };
 
-export default function Icon({
+export function Icon({
   icon,
   size,
   color,

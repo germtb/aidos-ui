@@ -1,8 +1,8 @@
 import React from "react";
 import { createJSStyles } from "./Palette";
-import ListPressableRow from "./ListPressableRow";
-import Icon from "./Icon";
-import BaseView from "./BaseView";
+import { ListPressableRow } from "./ListPressableRow";
+import { Icon } from "./Icon";
+import { BaseView } from "./BaseView";
 
 const jsStyles = createJSStyles({
   icon: {
@@ -13,7 +13,7 @@ const jsStyles = createJSStyles({
   },
 });
 
-export default function Sublist({
+export function Sublist({
   children,
   label,
   initialState,

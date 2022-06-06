@@ -1,6 +1,6 @@
 import { useRef, useCallback, useEffect } from "react";
 
-import queryFocusables, { focusElement, normalizeElements } from "./aria";
+import { queryFocusables, focusElement, normalizeElements } from "./aria";
 
 export function useNavigation({ autofocus = false } = {}) {
   const unsubscribeRef = useRef<(() => void) | null>(null);

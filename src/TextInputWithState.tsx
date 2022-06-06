@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 
-import TextInput from "./TextInput";
+import { TextInput } from "./TextInput";
 import { BaseInputProps } from "./BaseInput";
 import { IconType } from "./IconType";
 import { ReactNode, useState } from "react";
@@ -15,7 +15,7 @@ export interface TextInputWithStateProps extends BaseInputProps {
   onChange?: undefined;
 }
 
-export default function TextInputWithState({
+export function TextInputWithState({
   valueRef,
   onValueChange: externalOnChange,
   icon,

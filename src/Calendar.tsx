@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { createJSStyles, JSStyles } from "./Palette";
-import BaseView from "./BaseView";
+import { BaseView } from "./BaseView";
 
 const jsStyles = createJSStyles({
   container: {

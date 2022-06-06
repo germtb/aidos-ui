@@ -1,7 +1,7 @@
 import React from "react";
 
 import { background, Color, createJSStyles, Size } from "./Palette";
-import BaseView from "./BaseView";
+import { BaseView } from "./BaseView";
 
 const jsStyles = createJSStyles({
   small: {
@@ -21,7 +21,7 @@ const jsStyles = createJSStyles({
   },
 });
 
-export default function Badge({
+export function Badge({
   size = "medium",
   color,
 }: {

@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { GlyphColor } from "./Glyph";
 import { createClassNames, createJSStyles } from "./Palette";
-import Text from "./Text";
+import { Text } from "./Text";
 
 const jsStyles = createJSStyles({
   dateInput: {

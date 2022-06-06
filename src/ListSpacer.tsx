@@ -1,6 +1,6 @@
 import React from "react";
 import { createJSStyles } from "./Palette";
-import BaseView from "./BaseView";
+import { BaseView } from "./BaseView";
 
 const jsStyles = createJSStyles({
   root: {
@@ -10,6 +10,6 @@ const jsStyles = createJSStyles({
   },
 });
 
-export default function ListSpacer() {
+export function ListSpacer() {
   return <BaseView componentName={["ListSpacer"]} jsStyle={jsStyles.root} />;
 }

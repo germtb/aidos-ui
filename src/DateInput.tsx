@@ -1,10 +1,10 @@
 import React, { ReactNode } from "react";
-import BaseInput, { BaseInputProps } from "./BaseInput";
-import Box from "./Box";
-import Icon from "./Icon";
+import { BaseInput, BaseInputProps } from "./BaseInput";
+import { Box } from "./Box";
+import { Icon } from "./Icon";
 import { IconType } from "./IconType";
 import { createJSStyles, JSStyles } from "./Palette";
-import Row from "./Row";
+import { Row } from "./Row";
 
 export interface DateInputProps extends BaseInputProps {
   onDateChange: (date: Date) => void;
@@ -36,28 +36,28 @@ const jsStyles = createJSStyles({
   },
 });
 
-function DateInput(
-  { date, onDateChange, jsStyle, icon, addOn, ...inputProps }: DateInputProps,
-  ref?: React.Ref<HTMLInputElement>
-) {
-  return (
-    <Row jsStyle={jsStyles.root}>
-      {icon && (
-        <Box spacing="medium">
-          <Icon size="medium" color="secondary" icon={icon} />
-        </Box>
-      )}
-      <BaseInput
-        {...inputProps}
-        type="date"
-        ref={ref}
-        value={date.toISOString().substring(0, 10)}
-        onChange={(e) => onDateChange(new Date(e.target.value))}
-        jsStyle={[jsStyles.input, jsStyle]}
-      />
-      {addOn}
-    </Row>
-  );
-}
-
-export default React.forwardRef(DateInput);
+export const DateInput = React.forwardRef(
+  (
+    { date, onDateChange, jsStyle, icon, addOn, ...inputProps }: DateInputProps,
+    ref?: React.Ref<HTMLInputElement>
+  ) => {
+    return (
+      <Row jsStyle={jsStyles.root}>
+        {icon && (
+          <Box spacing="medium">
+            <Icon size="medium" color="secondary" icon={icon} />
+          </Box>
+        )}
+        <BaseInput
+          {...inputProps}
+          type="date"
+          ref={ref}
+          value={date.toISOString().substring(0, 10)}
+          onChange={(e) => onDateChange(new Date(e.target.value))}
+          jsStyle={[jsStyles.input, jsStyle]}
+        />
+        {addOn}
+      </Row>
+    );
+  }
+);

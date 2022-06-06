@@ -9,18 +9,18 @@ export interface BaseInputProps
   size?: undefined;
 }
 
-function BaseInput(
-  { jsStyle, componentName, ...otherProps }: BaseInputProps,
-  ref?: React.Ref<HTMLInputElement>
-) {
-  return (
-    <input
-      data-test-id={componentName ?? "BaseInput"}
-      ref={ref}
-      className={createClassNames(jsStyle)}
-      {...otherProps}
-    />
-  );
-}
-
-export default React.forwardRef(BaseInput);
+export const BaseInput = React.forwardRef(
+  (
+    { jsStyle, componentName, ...otherProps }: BaseInputProps,
+    ref?: React.Ref<HTMLInputElement>
+  ) => {
+    return (
+      <input
+        data-test-id={componentName ?? "BaseInput"}
+        ref={ref}
+        className={createClassNames(jsStyle)}
+        {...otherProps}
+      />
+    );
+  }
+);

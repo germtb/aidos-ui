@@ -57,7 +57,7 @@ export interface TextProps {
   align?: "center" | "none";
 }
 
-export default function Text({
+export function Text({
   children,
   color = "primary",
   size = "medium",

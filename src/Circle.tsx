@@ -1,6 +1,6 @@
 import React from "react";
-import { Color, createJSStyles } from "./Palette";
-import Box, { BoxProps } from "./Box";
+import { createJSStyles } from "./Palette";
+import { Box, BoxProps } from "./Box";
 
 const jsStyles = createJSStyles({
   root: {
@@ -11,7 +11,7 @@ const jsStyles = createJSStyles({
 
 interface CircleProps extends BoxProps {}
 
-export default function Circle({
+export function Circle({
   jsStyle,
   spacing = "medium",
   componentName,

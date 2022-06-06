@@ -1,7 +1,7 @@
 import React from "react";
 import { createJSStyles, createClassNames, Size } from "./Palette";
-import BaseView from "./BaseView";
-import Icon from "./Icon";
+import { BaseView } from "./BaseView";
+import { Icon } from "./Icon";
 
 // @ts-ignore
 type TextInputProps = {
@@ -56,7 +56,7 @@ const jsStyles = createJSStyles({
   },
 });
 
-export default function StaticCheckbox({ checked, size }: TextInputProps) {
+export function StaticCheckbox({ checked, size }: TextInputProps) {
   return (
     <label
       className={createClassNames(

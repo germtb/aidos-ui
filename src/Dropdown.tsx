@@ -6,11 +6,11 @@ import React, {
   useState,
 } from "react";
 
-import BaseView from "./BaseView";
+import { BaseView } from "./BaseView";
 import { guid } from "./guid";
-import Button from "./Button";
+import { Button } from "./Button";
 import { background, createJSStyles, grow, JSStyles } from "./Palette";
-import Column from "./Column";
+import { Column } from "./Column";
 import { useNavigation } from "./useNavigation";
 import { useRefEffect } from "./useRefEffect";
 

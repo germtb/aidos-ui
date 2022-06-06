@@ -1,18 +1,19 @@
 import { useEffect, useState, ComponentType } from "react";
 
-import stateMachineContextFactory, {
+import {
+  stateMachineContextFactory,
   Reducer,
 } from "./stateMachineContextFactory";
 
-import DesignBook from "./DesignBook";
+import { DesignBook } from "./DesignBook";
 
-enum RouteState {
+export enum RouteState {
   Menu = "Menu",
   DesignBook = "DesignBook",
   Encounter = "Encounter",
 }
 
-enum RouteTransition {
+export enum RouteTransition {
   Pop = "Pop",
   ToDesignBook = "ToDesignBook",
   ToEncounter = "ToEncounter",
@@ -129,9 +130,10 @@ const stateMachine = {
   context: INITIAL_CONTEXT,
 };
 
-const { Provider, useStateMachine } = stateMachineContextFactory(stateMachine);
+export const { Provider, useStateMachine } =
+  stateMachineContextFactory(stateMachine);
 
-const useRouterState = () => {
+export const useRouterState = () => {
   const [state, setState] = useState<{ state: RouteState; context: Context }>({
     state: RouteState.Menu,
     context: INITIAL_CONTEXT,
@@ -145,16 +147,8 @@ const useRouterState = () => {
   return state;
 };
 
-const useRouterSend = () => {
+export const useRouterSend = () => {
   const { send } = useStateMachine();
 
   return send;
-};
-
-export default {
-  Provider,
-  useRouterState,
-  useRouterSend,
-  RouteState,
-  RouteTransition,
 };

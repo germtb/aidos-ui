@@ -1,10 +1,10 @@
 import React from "react";
 import { Align, createJSStyles, grow, Justify, Spacing } from "./Palette";
-import BaseButton, { BaseButtonProps, ButtonColor } from "./BaseButton";
-import Text from "./Text";
+import { BaseButton, BaseButtonProps, ButtonColor } from "./BaseButton";
+import { Text } from "./Text";
 import { IconType } from "./IconType";
-import Row from "./Row";
-import Icon from "./Icon";
+import { Row } from "./Row";
+import { Icon } from "./Icon";
 import { GlyphColor, GlyphSize } from "./Glyph";
 import { FlexLayoutProps } from "./FlexLayout";
 
@@ -52,58 +52,58 @@ export const getGlyphColor = (
   }
 };
 
-function Button(
-  {
-    label,
-    color,
-    bare,
-    disabled,
-    icon,
-    iconSize = "medium",
-    componentName,
-    iconPosition = "left",
-    align = "center",
-    spacing = "small",
-    justify = "center",
-    jsStyle,
-    ...otherProps
-  }: ButtonProps,
-  ref?: React.Ref<HTMLButtonElement>
-) {
-  const labelElement = (
-    <Text size="medium" color={getGlyphColor(color, disabled, bare)}>
-      {label}
-    </Text>
-  );
-  return (
-    <BaseButton
-      {...otherProps}
-      componentName={(componentName ?? []).concat("Button")}
-      bare={bare}
-      ref={ref}
-      color={color}
-      disabled={disabled}
-      jsStyle={[jsStyles.root, jsStyle]}
-    >
-      <Row jsStyle={grow} align={align} spacing={spacing} justify={justify}>
-        {icon && iconPosition === "left" && (
-          <Icon
-            icon={icon}
-            size={iconSize}
-            color={getGlyphColor(color, disabled, bare)}
-          />
-        )}
-        {labelElement}
-        {icon && iconPosition === "right" && (
-          <Icon
-            icon={icon}
-            size={iconSize}
-            color={getGlyphColor(color, disabled, bare)}
-          />
-        )}
-      </Row>
-    </BaseButton>
-  );
-}
-
-export default React.forwardRef(Button);
+export const Button = React.forwardRef(
+  (
+    {
+      label,
+      color,
+      bare,
+      disabled,
+      icon,
+      iconSize = "medium",
+      componentName,
+      iconPosition = "left",
+      align = "center",
+      spacing = "small",
+      justify = "center",
+      jsStyle,
+      ...otherProps
+    }: ButtonProps,
+    ref?: React.Ref<HTMLButtonElement>
+  ) => {
+    const labelElement = (
+      <Text size="medium" color={getGlyphColor(color, disabled, bare)}>
+        {label}
+      </Text>
+    );
+    return (
+      <BaseButton
+        {...otherProps}
+        componentName={(componentName ?? []).concat("Button")}
+        bare={bare}
+        ref={ref}
+        color={color}
+        disabled={disabled}
+        jsStyle={[jsStyles.root, jsStyle]}
+      >
+        <Row jsStyle={grow} align={align} spacing={spacing} justify={justify}>
+          {icon && iconPosition === "left" && (
+            <Icon
+              icon={icon}
+              size={iconSize}
+              color={getGlyphColor(color, disabled, bare)}
+            />
+          )}
+          {labelElement}
+          {icon && iconPosition === "right" && (
+            <Icon
+              icon={icon}
+              size={iconSize}
+              color={getGlyphColor(color, disabled, bare)}
+            />
+          )}
+        </Row>
+      </BaseButton>
+    );
+  }
+);

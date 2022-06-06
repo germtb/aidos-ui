@@ -1,6 +1,6 @@
 import React from "react";
 import { createJSStyles } from "./Palette";
-import BaseView, { BaseViewProps } from "./BaseView";
+import { BaseView, BaseViewProps } from "./BaseView";
 
 const jsStyles = createJSStyles({
   root: {
@@ -45,7 +45,7 @@ export interface BoxProps extends BaseViewProps {
   orientation?: Orientation;
 }
 
-export default function Box({
+export function Box({
   jsStyle,
   componentName,
   spacing = "medium",

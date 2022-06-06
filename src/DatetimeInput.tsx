@@ -1,10 +1,10 @@
 import React, { ReactNode } from "react";
-import BaseInput, { BaseInputProps } from "./BaseInput";
-import Box from "./Box";
-import Icon from "./Icon";
+import { BaseInput, BaseInputProps } from "./BaseInput";
+import { Box } from "./Box";
+import { Icon } from "./Icon";
 import { IconType } from "./IconType";
 import { createJSStyles } from "./Palette";
-import Row from "./Row";
+import { Row } from "./Row";
 import { JSStyles } from "./Palette";
 
 export interface DatetimeInputProps extends BaseInputProps {
@@ -38,35 +38,35 @@ const jsStyles = createJSStyles({
   },
 });
 
-function DatetimeInput(
-  {
-    date,
-    onDateChange,
-    jsStyle,
-    icon,
-    addOn,
-    ...inputProps
-  }: DatetimeInputProps,
-  ref?: React.Ref<HTMLInputElement>
-) {
-  return (
-    <Row jsStyle={jsStyles.root}>
-      {icon && (
-        <Box spacing="medium">
-          <Icon size="medium" color="secondary" icon={icon} />
-        </Box>
-      )}
-      <BaseInput
-        {...inputProps}
-        type="datetime-local"
-        ref={ref}
-        value={date.toISOString().substring(0, 16)}
-        onChange={(e) => onDateChange(new Date(e.target.value))}
-        jsStyle={[jsStyles.input, jsStyle]}
-      />
-      {addOn}
-    </Row>
-  );
-}
-
-export default React.forwardRef(DatetimeInput);
+export const DatetimeInput = React.forwardRef(
+  (
+    {
+      date,
+      onDateChange,
+      jsStyle,
+      icon,
+      addOn,
+      ...inputProps
+    }: DatetimeInputProps,
+    ref?: React.Ref<HTMLInputElement>
+  ) => {
+    return (
+      <Row jsStyle={jsStyles.root}>
+        {icon && (
+          <Box spacing="medium">
+            <Icon size="medium" color="secondary" icon={icon} />
+          </Box>
+        )}
+        <BaseInput
+          {...inputProps}
+          type="datetime-local"
+          ref={ref}
+          value={date.toISOString().substring(0, 16)}
+          onChange={(e) => onDateChange(new Date(e.target.value))}
+          jsStyle={[jsStyles.input, jsStyle]}
+        />
+        {addOn}
+      </Row>
+    );
+  }
+);

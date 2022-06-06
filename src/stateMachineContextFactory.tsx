@@ -35,7 +35,7 @@ type StateMachineContextType<State, Context> = {
   send: Send;
 };
 
-export default function stateMachineContextFactory<State, Transition, Context>(
+export function stateMachineContextFactory<State, Transition, Context>(
   stateMachineConfig: StateMachineConfig<State, Transition, Context>
 ) {
   const StateMachineContext = React.createContext<

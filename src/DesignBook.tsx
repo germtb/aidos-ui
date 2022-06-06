@@ -1,23 +1,23 @@
 import React from "react";
 
-import RootView from "./RootView";
-import ListRow from "./ListRow";
-import Sublist from "./Sublist";
-import Button from "./Button";
-import IconButton from "./IconButton";
-import Text from "./Text";
-import TextPairing from "./TextPairing";
-import Icon from "./Icon";
-import TextInput from "./TextInput";
-import Checkbox from "./Checkbox";
-import List from "./List";
-import ListSpacer from "./ListSpacer";
-import CenteredListRow from "./CenteredListRow";
+import { RootView } from "./RootView";
+import { ListRow } from "./ListRow";
+import { Sublist } from "./Sublist";
+import { Button } from "./Button";
+import { IconButton } from "./IconButton";
+import { Text } from "./Text";
+import { TextPairing } from "./TextPairing";
+import { Icon } from "./Icon";
+import { TextInput } from "./TextInput";
+import { Checkbox } from "./Checkbox";
+import { List } from "./List";
+import { ListSpacer } from "./ListSpacer";
+import { CenteredListRow } from "./CenteredListRow";
 
 import "./simple-ui.css";
-import ListPressableRow from "./ListPressableRow";
+import { ListPressableRow } from "./ListPressableRow";
 
-function DesignBook() {
+export function DesignBook() {
   return (
     <RootView>
       <List ariaLabel="Design book">
@@ -456,5 +456,3 @@ function DesignBook() {
     </RootView>
   );
 }
-
-export default React.memo(DesignBook);

@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 
-import BaseView from "./BaseView";
-import Text from "./Text";
+import { BaseView } from "./BaseView";
+import { Text } from "./Text";
 import { createClassNames, createJSStyles } from "./Palette";
-import ListDivider from "./ListDivider";
-import Column from "./Column";
-import Row from "./Row";
-import IconButton from "./IconButton";
-import queryFocusables from "./aria";
+import { ListDivider } from "./ListDivider";
+import { Column } from "./Column";
+import { Row } from "./Row";
+import { IconButton } from "./IconButton";
+import { queryFocusables } from "./aria";
 import { useRefEffect } from "./useRefEffect";
 
 const jsStyles = createJSStyles({

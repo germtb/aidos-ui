@@ -1,8 +1,8 @@
 import React from "react";
-import BaseInput, { BaseInputProps } from "./BaseInput";
+import { BaseInput, BaseInputProps } from "./BaseInput";
 import { createJSStyles, createClassNames, Size } from "./Palette";
-import BaseView from "./BaseView";
-import Icon from "./Icon";
+import { BaseView } from "./BaseView";
+import { Icon } from "./Icon";
 
 // @ts-ignore
 interface CheckboxProps extends BaseInputProps {
@@ -84,7 +84,7 @@ const jsStyles = createJSStyles({
   },
 });
 
-export default function Checkbox({
+export function Checkbox({
   jsStyle,
   checked,
   onValueChange,

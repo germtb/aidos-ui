@@ -1,6 +1,6 @@
 import React from "react";
 import { createJSStyles } from "./Palette";
-import BaseView from "./BaseView";
+import { BaseView } from "./BaseView";
 
 const jsStyles = createJSStyles({
   root: {
@@ -9,6 +9,6 @@ const jsStyles = createJSStyles({
   },
 });
 
-export default function ListDivider() {
+export function ListDivider() {
   return <BaseView componentName={["ListDivider"]} jsStyle={jsStyles.root} />;
 }

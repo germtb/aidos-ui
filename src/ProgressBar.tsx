@@ -1,6 +1,6 @@
 import React from "react";
 import { createJSStyles, JSStyles } from "./Palette";
-import BaseView from "./BaseView";
+import { BaseView } from "./BaseView";
 
 const jsStyles = createJSStyles({
   root: {
@@ -27,7 +27,7 @@ const jsStyles = createJSStyles({
   },
 });
 
-function ProgressBar({
+export function ProgressBar({
   progress,
   jsStyle,
 }: {
@@ -45,5 +45,3 @@ function ProgressBar({
     </BaseView>
   );
 }
-
-export default ProgressBar;

@@ -1,9 +1,9 @@
 import React, { ReactNode } from "react";
 import { Align, createJSStyles, Position, Spacing } from "./Palette";
-import Text from "./Text";
-import Row from "./Row";
-import BaseView from "./BaseView";
-import Column from "./Column";
+import { Text } from "./Text";
+import { Row } from "./Row";
+import { BaseView } from "./BaseView";
+import { Column } from "./Column";
 import { GlyphColor, GlyphSize } from "./Glyph";
 
 const jsStyles = createJSStyles({
@@ -74,5 +74,3 @@ export function TextPairing({
 
   return textElement;
 }
-
-export default TextPairing;

@@ -1,6 +1,6 @@
 import React, { useRef, useCallback, ReactElement } from "react";
 
-export default function OnVisible({
+export function OnVisible({
   children,
   onVisible,
 }: {

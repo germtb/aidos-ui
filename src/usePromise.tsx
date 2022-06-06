@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function usePromise<T>(
+export function usePromise<T>(
   promiseFactory: () => Promise<T>,
   inputs: Array<any>,
   initialValue: T

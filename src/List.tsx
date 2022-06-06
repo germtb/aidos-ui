@@ -1,10 +1,6 @@
 import React, { useCallback, useRef, useEffect } from "react";
-import queryFocusables, {
-  focusGridElement,
-  normalizeGrid,
-  queryGrid,
-} from "./aria";
-import BaseList, { BaseListProps } from "./BaseList";
+import { focusGridElement, normalizeGrid, queryGrid } from "./aria";
+import { BaseList, BaseListProps } from "./BaseList";
 
 const PAGE_SIZE = 5;
 
@@ -14,7 +10,7 @@ interface ListProps extends BaseListProps {
   role?: undefined;
 }
 
-export default function List({
+export function List({
   ariaLabel,
   jsStyle,
   autofocus = false,

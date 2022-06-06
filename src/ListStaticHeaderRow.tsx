@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
-import ListStaticRow from "./ListStaticRow";
+import { ListStaticRow } from "./ListStaticRow";
 
-export default function ListStaticHeaderRow({
+export function ListStaticHeaderRow({
   label,
   body,
   secondaryAddOn,

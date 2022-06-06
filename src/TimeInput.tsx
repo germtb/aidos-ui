@@ -1,10 +1,10 @@
 import React, { ReactNode } from "react";
-import BaseInput, { BaseInputProps } from "./BaseInput";
-import Box from "./Box";
-import Icon from "./Icon";
+import { BaseInput, BaseInputProps } from "./BaseInput";
+import { Box } from "./Box";
+import { Icon } from "./Icon";
 import { IconType } from "./IconType";
 import { createJSStyles } from "./Palette";
-import Row from "./Row";
+import { Row } from "./Row";
 
 export interface TimeInputProps extends BaseInputProps {
   onTimeChange: (date: Date) => void;
@@ -40,7 +40,7 @@ const timeFormatter = Intl.DateTimeFormat("en-UK", {
   minute: "2-digit",
 });
 
-function TimeInput(
+function TimeInputInternal(
   {
     time: date,
     onTimeChange: onDateChange,
@@ -84,4 +84,4 @@ function TimeInput(
   );
 }
 
-export default React.forwardRef(TimeInput);
+export const TimeInput = React.forwardRef(TimeInputInternal);

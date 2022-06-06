@@ -1,6 +1,6 @@
 import React from "react";
-import BaseButton, { BaseButtonProps, ButtonColor } from "./BaseButton";
-import Icon from "./Icon";
+import { BaseButton, BaseButtonProps, ButtonColor } from "./BaseButton";
+import { Icon } from "./Icon";
 import { createJSStyles, Size } from "./Palette";
 import { IconType } from "./IconType";
 import { GlyphColor } from "./Glyph";
@@ -59,42 +59,42 @@ const getIconColor = (
   }
 };
 
-function IconButton(
-  {
-    icon,
-    size,
-    color,
-    bare,
-    disabled,
-    full,
-    componentName,
-    ...buttonProps
-  }: IconButtonProps,
-  ref?: React.Ref<HTMLButtonElement>
-) {
-  return (
-    <BaseButton
-      {...buttonProps}
-      componentName={(componentName ?? []).concat("IconButton")}
-      bare={bare}
-      jsStyle={[
-        jsStyles.button,
-        size === "small" && jsStyles.small,
-        size === "medium" && jsStyles.medium,
-        size === "large" && jsStyles.large,
-      ]}
-      color={color}
-      ref={ref}
-      disabled={disabled}
-    >
-      <Icon
-        full={full}
-        size={size}
-        icon={icon}
-        color={getIconColor(color, disabled, bare)}
-      />
-    </BaseButton>
-  );
-}
-
-export default React.forwardRef(IconButton);
+export const IconButton = React.forwardRef(
+  (
+    {
+      icon,
+      size,
+      color,
+      bare,
+      disabled,
+      full,
+      componentName,
+      ...buttonProps
+    }: IconButtonProps,
+    ref?: React.Ref<HTMLButtonElement>
+  ) => {
+    return (
+      <BaseButton
+        {...buttonProps}
+        componentName={(componentName ?? []).concat("IconButton")}
+        bare={bare}
+        jsStyle={[
+          jsStyles.button,
+          size === "small" && jsStyles.small,
+          size === "medium" && jsStyles.medium,
+          size === "large" && jsStyles.large,
+        ]}
+        color={color}
+        ref={ref}
+        disabled={disabled}
+      >
+        <Icon
+          full={full}
+          size={size}
+          icon={icon}
+          color={getIconColor(color, disabled, bare)}
+        />
+      </BaseButton>
+    );
+  }
+);

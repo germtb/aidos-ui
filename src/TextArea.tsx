@@ -26,19 +26,19 @@ const jsStyles = createJSStyles({
   },
 });
 
-function TextArea(
-  { jsStyle, onValueChange, value, onChange, ...otherProps }: TextAreaProps,
-  ref?: React.Ref<HTMLTextAreaElement>
-) {
-  return (
-    <textarea
-      {...otherProps}
-      ref={ref}
-      className={createClassNames(jsStyles.root, jsStyle)}
-      value={value}
-      onChange={(e) => onValueChange(e.target.value)}
-    />
-  );
-}
-
-export default React.forwardRef(TextArea);
+export const TextArea = React.forwardRef(
+  (
+    { jsStyle, onValueChange, value, onChange, ...otherProps }: TextAreaProps,
+    ref?: React.Ref<HTMLTextAreaElement>
+  ) => {
+    return (
+      <textarea
+        {...otherProps}
+        ref={ref}
+        className={createClassNames(jsStyles.root, jsStyle)}
+        value={value}
+        onChange={(e) => onValueChange(e.target.value)}
+      />
+    );
+  }
+);
