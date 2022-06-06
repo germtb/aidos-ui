@@ -98,39 +98,39 @@ function DesignBook() {
           <ListRow indentation="medium" spacing="medium">
             <IconButton
               size="large"
-              icon="check"
+              icon="fa-check"
               color="positive"
               onPress={() => {}}
             />
             <IconButton
               size="medium"
-              icon="check"
+              icon="fa-check"
               color="positive"
               onPress={() => {}}
             />
             <IconButton
               size="small"
-              icon="check"
+              icon="fa-check"
               color="positive"
               onPress={() => {}}
             />
             <IconButton
               size="large"
-              icon="check"
+              icon="fa-check"
               color="positive"
               onPress={() => {}}
               bare={true}
             />
             <IconButton
               size="medium"
-              icon="check"
+              icon="fa-check"
               color="positive"
               onPress={() => {}}
               bare={true}
             />
             <IconButton
               size="small"
-              icon="check"
+              icon="fa-check"
               color="positive"
               onPress={() => {}}
               bare={true}
@@ -140,39 +140,39 @@ function DesignBook() {
           <ListRow indentation="medium" spacing="medium">
             <IconButton
               size="large"
-              icon="delete"
+              icon="fa-remove"
               color="negative"
               onPress={() => {}}
             />
             <IconButton
               size="medium"
-              icon="delete"
+              icon="fa-remove"
               color="negative"
               onPress={() => {}}
             />
             <IconButton
               size="small"
-              icon="delete"
+              icon="fa-remove"
               color="negative"
               onPress={() => {}}
             />
             <IconButton
               size="large"
-              icon="delete"
+              icon="fa-remove"
               color="negative"
               onPress={() => {}}
               bare={true}
             />
             <IconButton
               size="medium"
-              icon="delete"
+              icon="fa-remove"
               color="negative"
               onPress={() => {}}
               bare={true}
             />
             <IconButton
               size="small"
-              icon="delete"
+              icon="fa-remove"
               color="negative"
               onPress={() => {}}
               bare={true}
@@ -182,39 +182,39 @@ function DesignBook() {
           <ListRow indentation="medium" spacing="medium">
             <IconButton
               size="large"
-              icon="info"
+              icon="fa-info"
               color="secondary"
               onPress={() => {}}
             />
             <IconButton
               size="medium"
-              icon="info"
+              icon="fa-info"
               color="secondary"
               onPress={() => {}}
             />
             <IconButton
               size="small"
-              icon="info"
+              icon="fa-info"
               color="secondary"
               onPress={() => {}}
             />
             <IconButton
               size="large"
-              icon="info"
+              icon="fa-info"
               color="secondary"
               onPress={() => {}}
               bare={true}
             />
             <IconButton
               size="medium"
-              icon="info"
+              icon="fa-info"
               color="secondary"
               onPress={() => {}}
               bare={true}
             />
             <IconButton
               size="small"
-              icon="info"
+              icon="fa-info"
               color="secondary"
               onPress={() => {}}
               bare={true}
@@ -225,28 +225,28 @@ function DesignBook() {
             <IconButton
               disabled={true}
               size="large"
-              icon="check"
+              icon="fa-check"
               color="positive"
               onPress={() => {}}
             />
             <IconButton
               disabled={true}
               size="medium"
-              icon="check"
+              icon="fa-check"
               color="positive"
               onPress={() => {}}
             />
             <IconButton
               disabled={true}
               size="small"
-              icon="check"
+              icon="fa-check"
               color="positive"
               onPress={() => {}}
             />
             <IconButton
               disabled={true}
               size="large"
-              icon="check"
+              icon="fa-check"
               color="positive"
               onPress={() => {}}
               bare={true}
@@ -254,7 +254,7 @@ function DesignBook() {
             <IconButton
               disabled={true}
               size="medium"
-              icon="check"
+              icon="fa-check"
               color="positive"
               onPress={() => {}}
               bare={true}
@@ -262,7 +262,7 @@ function DesignBook() {
             <IconButton
               disabled={true}
               size="small"
-              icon="check"
+              icon="fa-check"
               color="positive"
               onPress={() => {}}
               bare={true}
@@ -365,27 +365,27 @@ function DesignBook() {
         <ListSpacer />
         <Sublist initialState={{ collapsed: false }} label="Icon">
           <ListRow indentation="medium" spacing="medium">
-            <Icon size="large" color="primary" icon="check" />
-            <Icon size="medium" color="primary" icon="check" />
-            <Icon size="small" color="primary" icon="check" />
+            <Icon size="large" color="primary" icon="fa-check" />
+            <Icon size="medium" color="primary" icon="fa-check" />
+            <Icon size="small" color="primary" icon="fa-check" />
           </ListRow>
 
           <ListRow indentation="medium" spacing="medium">
-            <Icon size="large" color="secondary" icon="check" />
-            <Icon size="medium" color="secondary" icon="check" />
-            <Icon size="small" color="secondary" icon="check" />
+            <Icon size="large" color="secondary" icon="fa-check" />
+            <Icon size="medium" color="secondary" icon="fa-check" />
+            <Icon size="small" color="secondary" icon="fa-check" />
           </ListRow>
 
           <ListRow indentation="medium" spacing="medium">
-            <Icon size="large" color="subtle" icon="check" />
-            <Icon size="medium" color="subtle" icon="check" />
-            <Icon size="small" color="subtle" icon="check" />
+            <Icon size="large" color="subtle" icon="fa-check" />
+            <Icon size="medium" color="subtle" icon="fa-check" />
+            <Icon size="small" color="subtle" icon="fa-check" />
           </ListRow>
 
           <ListRow indentation="medium" spacing="medium">
-            <Icon size="large" color="light" icon="check" />
-            <Icon size="medium" color="light" icon="check" />
-            <Icon size="small" color="light" icon="check" />
+            <Icon size="large" color="light" icon="fa-check" />
+            <Icon size="medium" color="light" icon="fa-check" />
+            <Icon size="small" color="light" icon="fa-check" />
           </ListRow>
         </Sublist>
         <ListSpacer />
@@ -402,7 +402,7 @@ function DesignBook() {
             <TextPairing
               headline="Headline"
               body="Body"
-              primaryAddOn={<Icon size="large" color="primary" icon="user" />}
+              addOn={<Icon size="large" color="primary" icon="fa-user" />}
             />
           </ListRow>
         </Sublist>
@@ -419,7 +419,7 @@ function DesignBook() {
           <ListRow indentation="medium" spacing="medium">
             <TextInput
               value=""
-              icon="user"
+              icon="fa-user"
               placeholder="Placeholder text input"
               onValueChange={() => {}}
             />
@@ -431,7 +431,7 @@ function DesignBook() {
 
           <ListRow indentation="medium" spacing="medium">
             <TextInput
-              icon="user"
+              icon="fa-user"
               value="Text input"
               onValueChange={() => {}}
             />

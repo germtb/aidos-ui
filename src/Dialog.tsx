@@ -112,7 +112,7 @@ export function Dialog({ label, children, close }) {
             </Text>
             <IconButton
               bare={true}
-              icon="x"
+              icon="fa-close"
               size="large"
               onPress={close}
               color="secondary"

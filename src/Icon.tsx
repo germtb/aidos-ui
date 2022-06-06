@@ -2,7 +2,6 @@ import React from "react";
 import { createJSStyles } from "./Palette";
 import BaseView from "./BaseView";
 import { IconType } from "./IconType";
-import feather from "feather-icons";
 import { GlyphColor, GlyphSize } from "./Glyph";
 
 const jsStyles = createJSStyles({
@@ -67,6 +66,28 @@ const jsStyles = createJSStyles({
   },
 });
 
+let initialized = false;
+
+export const initialize = () => {
+  if (initialized) {
+    return;
+  }
+
+  const hasIconify = document.getElementById("iconify");
+
+  if (hasIconify) {
+    initialized = true;
+    return;
+  }
+
+  const script = document.createElement("script");
+  script.src = "https://code.iconify.design/2/2.2.1/iconify.min.js";
+  script.id = "iconify";
+  document.head.appendChild(script);
+
+  initialized = true;
+};
+
 export default function Icon({
   icon,
   size,
@@ -102,7 +123,8 @@ export default function Icon({
         full && color === "negative" && jsStyles.negativeFull,
         full && color === "highlight" && jsStyles.highlightFull,
       ]}
-      dangerouslySetInnerHTML={{ __html: feather.icons[icon].toSvg() }}
-    ></BaseView>
+    >
+      <span className="iconify" data-icon={icon}></span>
+    </BaseView>
   );
 }

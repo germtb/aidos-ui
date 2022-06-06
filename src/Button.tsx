@@ -78,7 +78,7 @@ function Button(
   return (
     <BaseButton
       {...otherProps}
-      componentName={(componentName ?? []).concat("Box")}
+      componentName={(componentName ?? []).concat("Button")}
       bare={bare}
       ref={ref}
       color={color}

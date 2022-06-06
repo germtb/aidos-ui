@@ -12,6 +12,7 @@ export interface BaseButtonProps
   color: ButtonColor;
   bare?: boolean;
   className?: undefined;
+  animateClick?: boolean;
 }
 
 const jsStyles = createJSStyles({
@@ -22,14 +23,6 @@ const jsStyles = createJSStyles({
     border: "none",
     transition: "opacity 0.1s ease-in",
     outlineColor: "var(--outline)",
-    ":active": {
-      // opacity: 0.9,
-      transform: "scale(0.975)",
-    },
-    ":active:disabled": {
-      opacity: 1,
-      transform: "none",
-    },
     ":disabled": {
       color: "var(--secondary-text)",
       backgroundColor: "var(--background-button-secondary)",
@@ -38,6 +31,15 @@ const jsStyles = createJSStyles({
       outlineWidth: "2px",
       outlineStyle: "solid",
       outlineOffset: -2,
+    },
+  },
+  animateClick: {
+    ":active": {
+      transform: "scale(0.975)",
+    },
+    ":active:disabled": {
+      opacity: 1,
+      transform: "none",
     },
   },
   positive: {
@@ -86,6 +88,7 @@ function BaseButton(
     color,
     bare = false,
     disabled,
+    animateClick = true,
     ...otherProps
   }: BaseButtonProps,
   ref?: React.Ref<HTMLButtonElement>
@@ -105,6 +108,7 @@ function BaseButton(
         bare && jsStyles.bare,
         disabled && jsStyles.disabled,
         bare ? jsStyles.colorHover : jsStyles.opacityHover,
+        animateClick && jsStyles.animateClick,
         jsStyle
       )}
     >

@@ -82,7 +82,7 @@ export function Dropdown<T>({
         jsStyle={jsStyles.button}
         label={selection.toString()}
         color="positive"
-        icon="chevron-down"
+        icon="fa-chevron-down"
         iconPosition="right"
         onPress={() => {
           setExpanded((x) => !x);
@@ -113,7 +113,7 @@ export function Dropdown<T>({
                 align="center"
                 bare={true}
                 iconPosition="right"
-                icon={selected ? "check" : undefined}
+                icon={selected ? "fa-check" : undefined}
                 key={optionId}
                 role="option"
                 id={optionId}

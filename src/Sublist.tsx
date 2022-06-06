@@ -36,7 +36,7 @@ export default function Sublist({
           <BaseView
             jsStyle={[jsStyles.icon, !collapsed && jsStyles.iconRotated]}
           >
-            <Icon color="primary" size="medium" icon="chevron-right" />
+            <Icon color="primary" size="medium" icon="fa-chevron-right" />
           </BaseView>
         }
       />

@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { Align, createJSStyles, Spacing } from "./Palette";
+import { Align, createJSStyles, Position, Spacing } from "./Palette";
 import Text from "./Text";
 import Row from "./Row";
 import BaseView from "./BaseView";
@@ -25,7 +25,8 @@ export type TextPairingProps = {
   headlineAddOn?: ReactNode;
   bodyColor?: GlyphColor;
   bodySize?: GlyphSize;
-  primaryAddOn?: ReactNode;
+  addOn?: ReactNode;
+  addOnPosition?: Position;
   spacing?: Spacing;
   align?: Align;
 };
@@ -38,7 +39,8 @@ export function TextPairing({
   headlineAddOn,
   bodyColor = "secondary",
   bodySize = "medium",
-  primaryAddOn,
+  addOn,
+  addOnPosition = "left",
   spacing = "small",
   align = "stretch",
 }: TextPairingProps) {
@@ -60,11 +62,12 @@ export function TextPairing({
     </Column>
   );
 
-  if (primaryAddOn) {
+  if (addOn) {
     return (
       <Row spacing={spacing} align="center">
-        {primaryAddOn}
+        {addOnPosition === "left" && addOn}
         {textElement}
+        {addOnPosition === "right" && addOn}
       </Row>
     );
   }

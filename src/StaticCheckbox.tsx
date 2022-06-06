@@ -71,7 +71,7 @@ export default function StaticCheckbox({ checked, size }: TextInputProps) {
       />
       {checked && (
         <BaseView jsStyle={jsStyles.icon}>
-          <Icon size={size} color="light" icon="check" />
+          <Icon size={size} color="light" icon="fa-check" />
         </BaseView>
       )}
     </label>

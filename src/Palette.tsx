@@ -11,6 +11,8 @@ export type Indentation = Spacing | [Spacing, Spacing];
 
 export type Direction = "horizontal" | "vertical";
 
+export type Position = "left" | "right";
+
 export type Justify =
   | "none"
   | "center"

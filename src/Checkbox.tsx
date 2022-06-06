@@ -116,7 +116,7 @@ export default function Checkbox({
       />
       {checked && (
         <BaseView jsStyle={jsStyles.icon}>
-          <Icon size={size} color="light" icon="check" />
+          <Icon size={size} color="light" icon="fa-check" />
         </BaseView>
       )}
     </label>
