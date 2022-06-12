@@ -42,7 +42,7 @@ export const FlexLayout = React.forwardRef(
         jsStyle={[
           getFlex(direction),
           getIndentation(indentation),
-          getSpacing(spacing, direction),
+          getSpacing(spacing),
           getJustify(justify),
           getAlign(align),
           jsStyle,

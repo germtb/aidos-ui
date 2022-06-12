@@ -397,40 +397,19 @@ export const getAlign = (prop: Align) => {
 };
 
 const spacingStyles = createJSStyles({
-  ["small-column"]: {
-    " > * + *": {
-      marginTop: "var(--spacing-s)",
-    },
+  small: {
+    gap: "var(--spacing-s)",
   },
-  ["medium-column"]: {
-    " > * + *": {
-      marginTop: "var(--spacing-m)",
-    },
+  medium: {
+    gap: "var(--spacing-m)",
   },
-  ["large-column"]: {
-    " > * + *": {
-      marginTop: "var(--spacing-l)",
-    },
-  },
-  ["small-row"]: {
-    " > * + *": {
-      marginLeft: "var(--spacing-s)",
-    },
-  },
-  ["medium-row"]: {
-    " > * + *": {
-      marginLeft: "var(--spacing-m)",
-    },
-  },
-  ["large-row"]: {
-    " > * + *": {
-      marginLeft: "var(--spacing-l)",
-    },
+  large: {
+    gap: "var(--spacing-l)",
   },
 });
 
-export const getSpacing = (spacing: Spacing, direction: FlexDirection) => {
-  return spacingStyles[`${spacing}-${direction}`];
+export const getSpacing = (spacing: Spacing) => {
+  return spacingStyles[`${spacing}`];
 };
 
 export const indentationStyles = createJSStyles({
@@ -521,4 +500,18 @@ export const getBorder = (direction?: "top" | "bottom" | "left" | "right") => {
   }
 
   return borderStyles[direction];
+};
+
+export const getDisplayMedia = (styles: {
+  phone: Styles;
+  tablet: Styles;
+  laptop: Styles;
+  desktop: Styles;
+}) => {
+  return {
+    ["@media (min-width: 0px) and (max-width: 750px)"]: styles.phone,
+    ["@media (min-width: 750px) and (max-width: 1000px)"]: styles.tablet,
+    ["@media (min-width: 1000px) and (max-width: 1200px)"]: styles.laptop,
+    ["@media (min-width: 1200px)"]: styles.desktop,
+  };
 };

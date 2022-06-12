@@ -20,7 +20,6 @@ const jsStyles = createJSStyles({
     cursor: "pointer",
     display: "flex",
     alignItems: "center",
-    border: "none",
     transition: "opacity 0.1s ease-in",
     outlineColor: "var(--outline)",
     ":disabled": {

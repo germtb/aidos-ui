@@ -18,7 +18,7 @@ const jsStyles = createJSStyles({
     position: "relative",
     backgroundColor: "var(--primary-background)",
     overflow: "hidden",
-    padding: "var(--spacing-xs)",
+    // padding: "var(--spacing-xs)",
     ":active": {
       backgroundColor: "var(--light-highlight)",
       border: "1px solid var(--highlight)",

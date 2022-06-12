@@ -1,8 +1,9 @@
 import React from "react";
-import { createJSStyles } from "./Palette";
+import { background, createJSStyles, JSStyles } from "./Palette";
 import { ListPressableRow } from "./ListPressableRow";
 import { Icon } from "./Icon";
 import { BaseView } from "./BaseView";
+import { Box } from "./Box";
 
 const jsStyles = createJSStyles({
   icon: {
@@ -17,12 +18,14 @@ export function Sublist({
   children,
   label,
   initialState,
+  jsStyle,
 }: {
   children: React.ReactNode;
   label: string;
   initialState: {
     collapsed: boolean;
   };
+  jsStyle?: JSStyles;
 }) {
   const [collapsed, setCollapsed] = React.useState(initialState.collapsed);
 
@@ -31,13 +34,14 @@ export function Sublist({
       <ListPressableRow
         headline={label}
         onPress={() => setCollapsed((x) => !x)}
-        backgroundColor="secondary-background"
+        jsStyle={jsStyle}
         secondaryAddOn={
-          <BaseView
+          <Box
+            spacing="medium"
             jsStyle={[jsStyles.icon, !collapsed && jsStyles.iconRotated]}
           >
             <Icon color="primary" size="medium" icon="fa-chevron-right" />
-          </BaseView>
+          </Box>
         }
       />
       {collapsed ? null : children}

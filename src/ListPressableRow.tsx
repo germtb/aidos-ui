@@ -69,7 +69,6 @@ interface ListPressableRow extends BaseListRowProps {
   color?: ButtonColor;
   disabled?: boolean;
   role?: undefined;
-  jsStyle?: undefined;
 }
 
 export const ListPressableRow = React.forwardRef(
@@ -87,6 +86,7 @@ export const ListPressableRow = React.forwardRef(
       secondaryAddOn,
       color = "secondary",
       disabled = false,
+      jsStyle,
       ...otherProps
     }: ListPressableRow,
     ref?: React.Ref<HTMLButtonElement>
@@ -97,7 +97,7 @@ export const ListPressableRow = React.forwardRef(
         componentName={(otherProps.componentName ?? []).concat(
           "ListPressableRow"
         )}
-        jsStyle={jsStyles.root}
+        jsStyle={[jsStyles.root, jsStyle]}
       >
         <ListCell jsStyle={jsStyles.gridcell}>
           <BaseButton

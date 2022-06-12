@@ -11,16 +11,16 @@ const jsStyles = createJSStyles({
     alignItems: "center",
   },
   small: {
+    height: 8,
+    width: 8,
+  },
+  medium: {
     height: 12,
     width: 12,
   },
-  medium: {
+  large: {
     height: 16,
     width: 16,
-  },
-  large: {
-    height: 24,
-    width: 24,
   },
   primary: {
     color: "var(--primary-text)",
@@ -59,7 +59,6 @@ const jsStyles = createJSStyles({
     fill: "var(--highlight-text)",
   },
   full: {
-    // @ts-ignore
     " svg": {
       fill: "inherit",
     },

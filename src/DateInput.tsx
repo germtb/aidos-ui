@@ -17,11 +17,11 @@ export interface DateInputProps extends BaseInputProps {
 
 const jsStyles = createJSStyles({
   root: {
-    backgroundColor: "var(--primary-background)",
+    backgroundColor: "inherit",
   },
   input: {
     flexGrow: 1,
-    backgroundColor: "var(--primary-background)",
+    backgroundColor: "inherit",
     color: "var(--primary-text)",
     outline: "none",
     border: "none",

@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { createJSStyles } from "./Palette";
+import { createJSStyles, Indentation } from "./Palette";
 import { BaseInput, BaseInputProps } from "./BaseInput";
 import { IconType } from "./IconType";
 import { Icon } from "./Icon";
@@ -11,16 +11,17 @@ export interface TextInputProps extends BaseInputProps {
   icon?: IconType;
   addOn?: ReactNode;
   onChange?: undefined;
+  indentation?: Indentation;
 }
 
 const jsStyles = createJSStyles({
   root: {
-    backgroundColor: "var(--primary-background)",
+    backgroundColor: "inherit",
   },
   input: {
-    padding: "var(--spacing-m)",
+    // padding: "var(--spacing-m)",
     flexGrow: 1,
-    backgroundColor: "var(--primary-background)",
+    backgroundColor: "inherit",
     color: "var(--primary-text)",
     outline: "none",
     border: "none",
@@ -43,12 +44,13 @@ export const TextInput = React.forwardRef(
       jsStyle,
       icon,
       addOn,
+      indentation,
       ...inputProps
     }: TextInputProps,
     ref?: React.Ref<HTMLInputElement>
   ) => {
     return (
-      <Row jsStyle={jsStyles.root}>
+      <Row jsStyle={jsStyles.root} indentation={indentation}>
         {icon && (
           <Box spacing="medium">
             <Icon size="medium" color="secondary" icon={icon} />

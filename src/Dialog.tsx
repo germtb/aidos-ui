@@ -38,7 +38,7 @@ const jsStyles = createJSStyles({
     "@media (min-width: 750px)": {
       minWidth: 750,
     },
-    backgroundColor: "var(--primary-background)",
+    backgroundColor: "var(--secondary-background)",
     borderRadius: "var(--border-radius-m)",
     border: "none",
     margin: "auto",
@@ -107,13 +107,13 @@ export function Dialog({ label, children, close }) {
       <BaseView jsStyle={jsStyles.root}>
         <Column jsStyle={jsStyles.header}>
           <Row indentation="medium" justify="space-between" align="center">
-            <Text size="large" color="secondary">
+            <Text size="medium" color="secondary">
               {label}
             </Text>
             <IconButton
               bare={true}
               icon="fa-close"
-              size="large"
+              size="small"
               onPress={close}
               color="secondary"
             />
