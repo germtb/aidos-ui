@@ -44,7 +44,7 @@ export const DateInput = React.forwardRef(
     return (
       <Row jsStyle={jsStyles.root}>
         {icon && (
-          <Box spacing="medium">
+          <Box padding="medium">
             <Icon size="medium" color="secondary" icon={icon} />
           </Box>
         )}

@@ -5,7 +5,8 @@
   "description": "A simple UI framework",
   "scripts": {
     "build": "parcel build src/*",
-    "start": "parcel debug/index.html ",
+    "build-showcase": "parcel build debug/index.html",
+    "start": "parcel debug/index.html",
     "tsc": "tsc --watch",
     "test": "jest"
   },

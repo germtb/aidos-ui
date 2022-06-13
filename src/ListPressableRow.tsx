@@ -1,11 +1,10 @@
 import React, { ReactNode } from "react";
-import { createJSStyles } from "./Palette";
+import { createJSStyles, Size, TextColor } from "./Palette";
 import { BaseButton, ButtonColor } from "./BaseButton";
 import { TextPairing } from "./TextPairing";
 import { BaseView } from "./BaseView";
 import { BaseListRow, BaseListRowProps } from "./BaseListRow";
 import { ListCell } from "./ListCell";
-import { GlyphColor, GlyphSize } from "./Glyph";
 
 const jsStyles = createJSStyles({
   root: {
@@ -58,12 +57,12 @@ const jsStyles = createJSStyles({
 interface ListPressableRow extends BaseListRowProps {
   onPress: () => void;
   headline: string;
-  headlineSize?: GlyphSize;
-  headlineColor?: GlyphColor;
+  headlineSize?: Size;
+  headlineColor?: TextColor;
   headlineAddOn?: ReactNode;
   body?: string;
-  bodySize?: GlyphSize;
-  bodyColor?: GlyphColor;
+  bodySize?: Size;
+  bodyColor?: TextColor;
   primaryAddOn?: ReactNode;
   secondaryAddOn?: ReactNode;
   color?: ButtonColor;

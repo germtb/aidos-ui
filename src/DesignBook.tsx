@@ -23,7 +23,7 @@ export function DesignBook() {
       <List ariaLabel="Design book">
         <ListSpacer />
         <Sublist label="Button" initialState={{ collapsed: false }}>
-          <CenteredListRow spacing="medium">
+          <CenteredListRow gap="medium">
             <Button
               label="Positive button"
               color="positive"
@@ -31,7 +31,7 @@ export function DesignBook() {
             />
           </CenteredListRow>
 
-          <CenteredListRow spacing="medium">
+          <CenteredListRow gap="medium">
             <Button
               label="Secondary button"
               color="secondary"
@@ -39,7 +39,7 @@ export function DesignBook() {
             />
           </CenteredListRow>
 
-          <CenteredListRow spacing="medium">
+          <CenteredListRow gap="medium">
             <Button
               label="Negative button"
               color="negative"
@@ -47,7 +47,7 @@ export function DesignBook() {
             />
           </CenteredListRow>
 
-          <CenteredListRow spacing="medium">
+          <CenteredListRow gap="medium">
             <Button
               label="Disabled button"
               color="positive"
@@ -56,7 +56,7 @@ export function DesignBook() {
             />
           </CenteredListRow>
 
-          <CenteredListRow spacing="medium">
+          <CenteredListRow gap="medium">
             <Button
               bare={true}
               label="Bare positive button"
@@ -65,7 +65,7 @@ export function DesignBook() {
             />
           </CenteredListRow>
 
-          <CenteredListRow spacing="medium">
+          <CenteredListRow gap="medium">
             <Button
               bare={true}
               label="Bare secondary button"
@@ -74,7 +74,7 @@ export function DesignBook() {
             />
           </CenteredListRow>
 
-          <CenteredListRow spacing="medium">
+          <CenteredListRow gap="medium">
             <Button
               bare={true}
               label="Bare negative button"
@@ -83,7 +83,7 @@ export function DesignBook() {
             />
           </CenteredListRow>
 
-          <CenteredListRow spacing="medium">
+          <CenteredListRow gap="medium">
             <Button
               bare={true}
               label="Bare disabled button"
@@ -95,7 +95,7 @@ export function DesignBook() {
         </Sublist>
         <ListSpacer />
         <Sublist label="Icon button" initialState={{ collapsed: false }}>
-          <ListRow indentation="medium" spacing="medium">
+          <ListRow padding="medium" gap="medium">
             <IconButton
               size="large"
               icon="fa-check"
@@ -137,7 +137,7 @@ export function DesignBook() {
             />
           </ListRow>
 
-          <ListRow indentation="medium" spacing="medium">
+          <ListRow padding="medium" gap="medium">
             <IconButton
               size="large"
               icon="fa-remove"
@@ -179,7 +179,7 @@ export function DesignBook() {
             />
           </ListRow>
 
-          <ListRow indentation="medium" spacing="medium">
+          <ListRow padding="medium" gap="medium">
             <IconButton
               size="large"
               icon="fa-info"
@@ -221,7 +221,7 @@ export function DesignBook() {
             />
           </ListRow>
 
-          <ListRow indentation="medium" spacing="medium">
+          <ListRow padding="medium" gap="medium">
             <IconButton
               disabled={true}
               size="large"
@@ -290,7 +290,7 @@ export function DesignBook() {
           />
         </Sublist>
         <Sublist label="Text" initialState={{ collapsed: false }}>
-          <ListRow indentation="medium" spacing="medium">
+          <ListRow padding="medium" gap="medium">
             <Text size="large" color="primary">
               Primary large
             </Text>
@@ -302,7 +302,7 @@ export function DesignBook() {
             </Text>
           </ListRow>
 
-          <ListRow indentation="medium" spacing="medium">
+          <ListRow padding="medium" gap="medium">
             <Text size="large" color="secondary">
               Secondary large
             </Text>
@@ -314,7 +314,7 @@ export function DesignBook() {
             </Text>
           </ListRow>
 
-          <ListRow indentation="medium" spacing="medium">
+          <ListRow padding="medium" gap="medium">
             <Text size="large" color="subtle">
               Subtle large
             </Text>
@@ -326,7 +326,7 @@ export function DesignBook() {
             </Text>
           </ListRow>
 
-          <ListRow indentation="medium" spacing="medium">
+          <ListRow padding="medium" gap="medium">
             <Text size="large" color="light">
               Light large
             </Text>
@@ -338,7 +338,7 @@ export function DesignBook() {
             </Text>
           </ListRow>
 
-          <ListRow indentation="medium" spacing="medium">
+          <ListRow padding="medium" gap="medium">
             <Text size="large" color="highlight">
               Highlight large
             </Text>
@@ -350,7 +350,7 @@ export function DesignBook() {
             </Text>
           </ListRow>
 
-          <ListRow indentation="medium" spacing="medium">
+          <ListRow padding="medium" gap="medium">
             <Text size="large" color="negative">
               Negative large
             </Text>
@@ -364,25 +364,25 @@ export function DesignBook() {
         </Sublist>
         <ListSpacer />
         <Sublist initialState={{ collapsed: false }} label="Icon">
-          <ListRow indentation="medium" spacing="medium">
+          <ListRow padding="medium" gap="medium">
             <Icon size="large" color="primary" icon="fa-check" />
             <Icon size="medium" color="primary" icon="fa-check" />
             <Icon size="small" color="primary" icon="fa-check" />
           </ListRow>
 
-          <ListRow indentation="medium" spacing="medium">
+          <ListRow padding="medium" gap="medium">
             <Icon size="large" color="secondary" icon="fa-check" />
             <Icon size="medium" color="secondary" icon="fa-check" />
             <Icon size="small" color="secondary" icon="fa-check" />
           </ListRow>
 
-          <ListRow indentation="medium" spacing="medium">
+          <ListRow padding="medium" gap="medium">
             <Icon size="large" color="subtle" icon="fa-check" />
             <Icon size="medium" color="subtle" icon="fa-check" />
             <Icon size="small" color="subtle" icon="fa-check" />
           </ListRow>
 
-          <ListRow indentation="medium" spacing="medium">
+          <ListRow padding="medium" gap="medium">
             <Icon size="large" color="light" icon="fa-check" />
             <Icon size="medium" color="light" icon="fa-check" />
             <Icon size="small" color="light" icon="fa-check" />
@@ -390,15 +390,15 @@ export function DesignBook() {
         </Sublist>
         <ListSpacer />
         <Sublist initialState={{ collapsed: false }} label="Text pairing">
-          <ListRow indentation="medium" spacing="medium">
+          <ListRow padding="medium" gap="medium">
             <TextPairing headline="Headline" />
           </ListRow>
 
-          <ListRow indentation="medium" spacing="medium">
+          <ListRow padding="medium" gap="medium">
             <TextPairing headline="Headline" body="Body" />
           </ListRow>
 
-          <ListRow indentation="medium" spacing="medium">
+          <ListRow padding="medium" gap="medium">
             <TextPairing
               headline="Headline"
               body="Body"
@@ -408,7 +408,7 @@ export function DesignBook() {
         </Sublist>
         <ListSpacer />
         <Sublist initialState={{ collapsed: false }} label="Input">
-          <ListRow indentation="medium" spacing="medium">
+          <ListRow padding="medium" gap="medium">
             <TextInput
               value=""
               placeholder="Placeholder text input"
@@ -416,7 +416,7 @@ export function DesignBook() {
             />
           </ListRow>
 
-          <ListRow indentation="medium" spacing="medium">
+          <ListRow padding="medium" gap="medium">
             <TextInput
               value=""
               icon="fa-user"
@@ -425,11 +425,11 @@ export function DesignBook() {
             />
           </ListRow>
 
-          <ListRow indentation="medium" spacing="medium">
+          <ListRow padding="medium" gap="medium">
             <TextInput value="Text input" onValueChange={() => {}} />
           </ListRow>
 
-          <ListRow indentation="medium" spacing="medium">
+          <ListRow padding="medium" gap="medium">
             <TextInput
               icon="fa-user"
               value="Text input"
@@ -437,13 +437,13 @@ export function DesignBook() {
             />
           </ListRow>
 
-          <ListRow indentation="medium" spacing="medium">
+          <ListRow padding="medium" gap="medium">
             <Checkbox size="small" checked={false} onValueChange={() => {}} />
             <Checkbox size="medium" checked={false} onValueChange={() => {}} />
             <Checkbox size="large" checked={false} onValueChange={() => {}} />
           </ListRow>
 
-          <ListRow indentation="medium" spacing="medium">
+          <ListRow padding="medium" gap="medium">
             <Checkbox size="small" checked={true} onValueChange={() => {}} />
             <Checkbox size="medium" checked={true} onValueChange={() => {}} />
             <Checkbox size="large" checked={true} onValueChange={() => {}} />

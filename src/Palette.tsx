@@ -5,9 +5,13 @@ import { guid } from "./guid";
 
 type StylesValueType = string | number | CSS.Properties<string | number>;
 
-export type Spacing = "none" | "small" | "medium" | "large";
+export type Size = "small" | "medium" | "large";
 
-export type Indentation = Spacing | [Spacing, Spacing];
+export type Spacing = "none" | Size;
+
+export type Gap = Spacing;
+
+export type Padding = Spacing | [Spacing, Spacing];
 
 export type Direction = "horizontal" | "vertical";
 
@@ -22,8 +26,6 @@ export type Justify =
 
 export type Align = "none" | "center" | "stretch" | "flex-start";
 
-export type Size = "small" | "medium" | "large";
-
 export type FlexDirection = "row" | "column";
 
 export type Color =
@@ -32,6 +34,14 @@ export type Color =
   | "primary-background"
   | "secondary-background"
   | "divider";
+
+export type TextColor =
+  | "primary"
+  | "secondary"
+  | "highlight"
+  | "negative"
+  | "subtle"
+  | "light";
 
 export type Styles = CSS.Properties<
   string | number | CSS.Properties<string | number>
@@ -396,7 +406,7 @@ export const getAlign = (prop: Align) => {
   return alignStyles[prop];
 };
 
-const spacingStyles = createJSStyles({
+const gapStyles = createJSStyles({
   small: {
     gap: "var(--spacing-s)",
   },
@@ -408,11 +418,11 @@ const spacingStyles = createJSStyles({
   },
 });
 
-export const getSpacing = (spacing: Spacing) => {
-  return spacingStyles[`${spacing}`];
+export const getGap = (gap: Gap) => {
+  return gapStyles[`${gap}`];
 };
 
-export const indentationStyles = createJSStyles({
+export const paddingStyles = createJSStyles({
   small: {
     padding: "var(--spacing-s)",
   },
@@ -448,12 +458,12 @@ export const indentationStyles = createJSStyles({
   },
 });
 
-export const getIndentation = (indentation: Indentation) => {
-  if (Array.isArray(indentation)) {
-    const [h, v] = indentation;
-    return [indentationStyles[`${v}-row`], indentationStyles[`${h}-column`]];
+export const getPadding = (padding: Padding) => {
+  if (Array.isArray(padding)) {
+    const [h, v] = padding;
+    return [paddingStyles[`${v}-row`], paddingStyles[`${h}-column`]];
   } else {
-    return indentationStyles[indentation];
+    return paddingStyles[padding];
   }
 };
 
@@ -514,4 +524,41 @@ export const getDisplayMedia = (styles: {
     ["@media (min-width: 1000px) and (max-width: 1200px)"]: styles.laptop,
     ["@media (min-width: 1200px)"]: styles.desktop,
   };
+};
+
+const textColorStyles = createJSStyles({
+  primary: {
+    color: "var(--primary-text)",
+  },
+  secondary: {
+    color: "var(--secondary-text)",
+  },
+  highlight: {
+    color: "var(--highlight-text)",
+  },
+  negative: {
+    color: "var(--negative-text)",
+  },
+  subtle: {
+    color: "var(--subtle-text)",
+  },
+  light: {
+    color: "var(--light-text)",
+  },
+});
+
+export const getTextColor = (color: TextColor) => {
+  return textColorStyles[color];
+};
+
+const pointerStyles = createJSStyles({
+  cursor: {
+    cursor: "pointer",
+  },
+});
+
+type Cursor = "pointer";
+
+export const getCursor = (cursor: Cursor) => {
+  return pointerStyles[cursor];
 };

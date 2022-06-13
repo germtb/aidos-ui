@@ -1,23 +1,30 @@
 import React from "react";
-import { Align, createJSStyles, grow, Justify, Spacing } from "./Palette";
+import {
+  Align,
+  createJSStyles,
+  grow,
+  Justify,
+  Gap,
+  Size,
+  TextColor,
+} from "./Palette";
 import { BaseButton, BaseButtonProps, ButtonColor } from "./BaseButton";
 import { Text } from "./Text";
 import { IconType } from "./IconType";
 import { Row } from "./Row";
 import { Icon } from "./Icon";
-import { GlyphColor, GlyphSize } from "./Glyph";
 import { FlexLayoutProps } from "./FlexLayout";
 
 export interface ButtonProps extends BaseButtonProps {
   label: string;
   color: ButtonColor;
   icon?: IconType;
-  iconSize?: GlyphSize;
+  iconSize?: Size;
   children?: undefined;
   iconPosition?: "left" | "right";
   rowProps?: FlexLayoutProps;
   align?: Align;
-  spacing?: Spacing;
+  spacing?: Gap;
   justify?: Justify;
 }
 
@@ -37,7 +44,7 @@ export const getGlyphColor = (
   color: ButtonColor,
   disabled: boolean | undefined,
   bare: boolean | undefined
-): GlyphColor => {
+): TextColor => {
   if (disabled) {
     return "subtle";
   }
@@ -86,7 +93,7 @@ export const Button = React.forwardRef(
         disabled={disabled}
         jsStyle={[jsStyles.root, jsStyle]}
       >
-        <Row jsStyle={grow} align={align} spacing={spacing} justify={justify}>
+        <Row jsStyle={grow} align={align} gap={spacing} justify={justify}>
           {icon && iconPosition === "left" && (
             <Icon
               icon={icon}

@@ -37,7 +37,7 @@ export function Sublist({
         jsStyle={jsStyle}
         secondaryAddOn={
           <Box
-            spacing="medium"
+            padding="medium"
             jsStyle={[jsStyles.icon, !collapsed && jsStyles.iconRotated]}
           >
             <Icon color="primary" size="medium" icon="fa-chevron-right" />

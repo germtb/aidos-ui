@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
-import { GlyphColor } from "./Glyph";
-import { createClassNames, createJSStyles } from "./Palette";
+import { createClassNames, createJSStyles, TextColor } from "./Palette";
 import { Text } from "./Text";
 
 const jsStyles = createJSStyles({
@@ -18,7 +17,7 @@ export interface DatePickerProps {
   id: string;
   label: string;
   date: Date;
-  color?: GlyphColor;
+  color?: TextColor;
   min?: string;
   max?: string;
   onDateChange: (date: Date) => void;

@@ -1,9 +1,8 @@
 import React from "react";
 import { BaseButton, BaseButtonProps, ButtonColor } from "./BaseButton";
 import { Icon } from "./Icon";
-import { createJSStyles, Size } from "./Palette";
+import { createJSStyles, Size, TextColor } from "./Palette";
 import { IconType } from "./IconType";
-import { GlyphColor } from "./Glyph";
 
 const jsStyles = createJSStyles({
   button: {
@@ -37,14 +36,13 @@ const jsStyles = createJSStyles({
 interface IconButtonProps extends BaseButtonProps {
   icon: IconType;
   size: Size;
-  full?: boolean;
 }
 
 const getIconColor = (
   color: ButtonColor,
   disabled: boolean | undefined,
   bare: boolean | undefined
-): GlyphColor => {
+): TextColor => {
   if (disabled) {
     return "subtle";
   }
@@ -67,7 +65,6 @@ export const IconButton = React.forwardRef(
       color,
       bare,
       disabled,
-      full,
       componentName,
       ...buttonProps
     }: IconButtonProps,
@@ -89,7 +86,6 @@ export const IconButton = React.forwardRef(
         disabled={disabled}
       >
         <Icon
-          full={full}
           size={size}
           icon={icon}
           color={getIconColor(color, disabled, bare)}

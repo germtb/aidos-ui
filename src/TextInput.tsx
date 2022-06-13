@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { createJSStyles, Indentation } from "./Palette";
+import { createJSStyles, Padding } from "./Palette";
 import { BaseInput, BaseInputProps } from "./BaseInput";
 import { IconType } from "./IconType";
 import { Icon } from "./Icon";
@@ -11,7 +11,7 @@ export interface TextInputProps extends BaseInputProps {
   icon?: IconType;
   addOn?: ReactNode;
   onChange?: undefined;
-  indentation?: Indentation;
+  indentation?: Padding;
 }
 
 const jsStyles = createJSStyles({
@@ -50,9 +50,9 @@ export const TextInput = React.forwardRef(
     ref?: React.Ref<HTMLInputElement>
   ) => {
     return (
-      <Row jsStyle={jsStyles.root} indentation={indentation}>
+      <Row jsStyle={jsStyles.root} padding={indentation}>
         {icon && (
-          <Box spacing="medium">
+          <Box padding="medium">
             <Icon size="medium" color="secondary" icon={icon} />
           </Box>
         )}

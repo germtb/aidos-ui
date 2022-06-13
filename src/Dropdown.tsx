@@ -91,7 +91,7 @@ export function Dropdown<T>({
       />
       {expanded && (
         <Column
-          spacing="medium"
+          gap="medium"
           jsStyle={[jsStyles.dropdown, background("secondary-background")]}
           id={id}
           role="listbox"

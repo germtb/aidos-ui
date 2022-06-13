@@ -1,6 +1,12 @@
 import React, { ReactNode } from "react";
-import { createJSStyles, createClassNames, JSStyles } from "./Palette";
-import { GlyphColor, GlyphSize } from "./Glyph";
+import {
+  createJSStyles,
+  createClassNames,
+  JSStyles,
+  TextColor,
+  Size,
+  getTextColor,
+} from "./Palette";
 
 const jsStyles = createJSStyles({
   root: {},
@@ -8,24 +14,6 @@ const jsStyles = createJSStyles({
     overflow: "hidden",
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
-  },
-  primary: {
-    color: "var(--primary-text)",
-  },
-  secondary: {
-    color: "var(--secondary-text)",
-  },
-  highlight: {
-    color: "var(--highlight-text)",
-  },
-  negative: {
-    color: "var(--negative-text)",
-  },
-  subtle: {
-    color: "var(--subtle-text)",
-  },
-  light: {
-    color: "var(--light-text)",
   },
   size1: {
     fontSize: 16,
@@ -51,8 +39,8 @@ const jsStyles = createJSStyles({
 
 export interface TextProps {
   children: ReactNode;
-  color?: GlyphColor;
-  size?: GlyphSize;
+  color?: TextColor;
+  size?: Size;
   ellipsis?: boolean;
   align?: "center" | "none";
 }
@@ -68,12 +56,7 @@ export function Text({
     <span
       className={createClassNames([
         jsStyles.root,
-        color === "primary" && jsStyles.primary,
-        color === "secondary" && jsStyles.secondary,
-        color === "negative" && jsStyles.negative,
-        color === "highlight" && jsStyles.highlight,
-        color === "subtle" && jsStyles.subtle,
-        color === "light" && jsStyles.light,
+        getTextColor(color),
         size === "small" && jsStyles.size1,
         size === "medium" && jsStyles.size2,
         size === "large" && jsStyles.size4,

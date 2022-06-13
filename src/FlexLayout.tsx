@@ -4,20 +4,20 @@ import {
   FlexDirection,
   getAlign,
   getFlex,
-  getIndentation,
+  getPadding,
   getJustify,
-  getSpacing,
-  Indentation,
+  getGap,
+  Padding,
   Justify,
-  Spacing,
+  Gap,
 } from "./Palette";
 import { BaseView, BaseViewProps } from "./BaseView";
 
 export interface FlexLayoutProps extends BaseViewProps {
   justify?: Justify;
-  spacing?: Spacing;
+  gap?: Gap;
   align?: Align;
-  indentation?: Indentation;
+  padding?: Padding;
   direction?: FlexDirection;
 }
 
@@ -25,10 +25,10 @@ export const FlexLayout = React.forwardRef(
   (
     {
       jsStyle,
-      spacing = "none",
+      gap = "none",
       justify = "none",
       align = "none",
-      indentation = "none",
+      padding = "none",
       direction = "column",
       componentName = [],
       ...otherProps
@@ -41,8 +41,8 @@ export const FlexLayout = React.forwardRef(
         componentName={componentName.concat("FlexLayout")}
         jsStyle={[
           getFlex(direction),
-          getIndentation(indentation),
-          getSpacing(spacing),
+          getPadding(padding),
+          getGap(gap),
           getJustify(justify),
           getAlign(align),
           jsStyle,

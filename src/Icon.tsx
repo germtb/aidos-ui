@@ -1,8 +1,7 @@
 import React from "react";
-import { createJSStyles } from "./Palette";
+import { createJSStyles, getTextColor, Size, TextColor } from "./Palette";
 import { BaseView } from "./BaseView";
 import { IconType } from "./IconType";
-import { GlyphColor, GlyphSize } from "./Glyph";
 
 const jsStyles = createJSStyles({
   root: {
@@ -21,47 +20,6 @@ const jsStyles = createJSStyles({
   large: {
     height: 16,
     width: 16,
-  },
-  primary: {
-    color: "var(--primary-text)",
-  },
-  secondary: {
-    color: "var(--secondary-text)",
-  },
-  light: {
-    color: "var(--light-text)",
-  },
-  subtle: {
-    color: "var(--subtle-text)",
-  },
-  negative: {
-    color: "var(--negative-text)",
-  },
-  highlight: {
-    color: "var(--highlight-text)",
-  },
-  primaryFull: {
-    fill: "var(--primary-text)",
-  },
-  secondaryFull: {
-    fill: "var(--secondary-text)",
-  },
-  lightFull: {
-    fill: "var(--light-text)",
-  },
-  subtleFull: {
-    fill: "var(--subtle-text)",
-  },
-  negativeFull: {
-    fill: "var(--negative-text)",
-  },
-  highlightFull: {
-    fill: "var(--highlight-text)",
-  },
-  full: {
-    " svg": {
-      fill: "inherit",
-    },
   },
 });
 
@@ -92,13 +50,11 @@ export function Icon({
   size,
   color,
   ariaLabel,
-  full = false,
 }: {
   ariaLabel?: string;
   icon: IconType;
-  size: GlyphSize;
-  color: GlyphColor;
-  full?: boolean;
+  size: Size;
+  color: TextColor;
 }) {
   return (
     <BaseView
@@ -108,19 +64,7 @@ export function Icon({
         size === "small" && jsStyles.small,
         size === "medium" && jsStyles.medium,
         size === "large" && jsStyles.large,
-        color === "primary" && jsStyles.primary,
-        color === "secondary" && jsStyles.secondary,
-        color === "light" && jsStyles.light,
-        color === "subtle" && jsStyles.subtle,
-        color === "highlight" && jsStyles.highlight,
-        color === "negative" && jsStyles.negative,
-        full && jsStyles.full,
-        full && color === "primary" && jsStyles.primaryFull,
-        full && color === "secondary" && jsStyles.secondaryFull,
-        full && color === "light" && jsStyles.lightFull,
-        full && color === "subtle" && jsStyles.subtleFull,
-        full && color === "negative" && jsStyles.negativeFull,
-        full && color === "highlight" && jsStyles.highlightFull,
+        getTextColor(color),
       ]}
     >
       <span className="iconify" data-icon={icon}></span>

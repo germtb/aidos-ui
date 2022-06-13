@@ -1,4 +1,5 @@
-import React from "react";
+import React, { ReactNode, useMemo } from "react";
+import { guid } from "./guid";
 import { createClassNames, JSStyles } from "./Palette";
 
 export interface BaseInputProps
@@ -7,20 +8,28 @@ export interface BaseInputProps
   jsStyle?: JSStyles;
   className?: undefined;
   size?: undefined;
+  children?: undefined;
+  id?: undefined;
+  labelContent?: ReactNode;
 }
 
 export const BaseInput = React.forwardRef(
   (
-    { jsStyle, componentName, ...otherProps }: BaseInputProps,
+    { jsStyle, componentName, labelContent, ...otherProps }: BaseInputProps,
     ref?: React.Ref<HTMLInputElement>
   ) => {
+    const id = useMemo(() => guid(), []);
     return (
-      <input
-        data-test-id={componentName ?? "BaseInput"}
-        ref={ref}
-        className={createClassNames(jsStyle)}
-        {...otherProps}
-      />
+      <>
+        {labelContent && <label htmlFor={id}>{labelContent}</label>}
+        <input
+          id={id}
+          data-test-id={componentName ?? "BaseInput"}
+          ref={ref}
+          className={createClassNames(jsStyle)}
+          {...otherProps}
+        />
+      </>
     );
   }
 );

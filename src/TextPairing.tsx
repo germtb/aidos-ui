@@ -1,10 +1,16 @@
 import React, { ReactNode } from "react";
-import { Align, createJSStyles, Position, Spacing } from "./Palette";
+import {
+  Align,
+  createJSStyles,
+  Position,
+  Gap,
+  TextColor,
+  Size,
+} from "./Palette";
 import { Text } from "./Text";
 import { Row } from "./Row";
 import { BaseView } from "./BaseView";
 import { Column } from "./Column";
-import { GlyphColor, GlyphSize } from "./Glyph";
 
 const jsStyles = createJSStyles({
   headline: {
@@ -20,14 +26,14 @@ const jsStyles = createJSStyles({
 export type TextPairingProps = {
   headline: ReactNode;
   body?: ReactNode;
-  headlineColor?: GlyphColor;
-  headlineSize?: GlyphSize;
+  headlineColor?: TextColor;
+  headlineSize?: Size;
   headlineAddOn?: ReactNode;
-  bodyColor?: GlyphColor;
-  bodySize?: GlyphSize;
+  bodyColor?: TextColor;
+  bodySize?: Size;
   addOn?: ReactNode;
   addOnPosition?: Position;
-  spacing?: Spacing;
+  spacing?: Gap;
   align?: Align;
 };
 
@@ -64,7 +70,7 @@ export function TextPairing({
 
   if (addOn) {
     return (
-      <Row spacing={spacing} align="center">
+      <Row gap={spacing} align="center">
         {addOnPosition === "left" && addOn}
         {textElement}
         {addOnPosition === "right" && addOn}

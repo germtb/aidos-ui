@@ -1,9 +1,8 @@
 import React, { ReactNode } from "react";
-import { createJSStyles } from "./Palette";
+import { createJSStyles, Size, TextColor } from "./Palette";
 import { TextPairing } from "./TextPairing";
 import { BaseView } from "./BaseView";
 import { BaseListRow, BaseListRowProps } from "./BaseListRow";
-import { GlyphColor, GlyphSize } from "./Glyph";
 import { Column } from "./Column";
 
 const jsStyles = createJSStyles({
@@ -47,11 +46,11 @@ const jsStyles = createJSStyles({
 
 interface ListStaticRow extends BaseListRowProps {
   headline: string;
-  headlineSize?: GlyphSize;
-  headlineColor?: GlyphColor;
+  headlineSize?: Size;
+  headlineColor?: TextColor;
   body?: ReactNode;
-  bodySize?: GlyphSize;
-  bodyColor?: GlyphColor;
+  bodySize?: Size;
+  bodyColor?: TextColor;
   primaryAddOn?: ReactNode;
   secondaryAddOn?: ReactNode;
   background?: "primary" | "secondary";
@@ -78,7 +77,7 @@ export const ListStaticRow = React.forwardRef(
       <BaseListRow
         {...otherProps}
         componentName={["ListStaticRowView"]}
-        indentation={primaryAddOn ? "none" : "medium"}
+        padding={primaryAddOn ? "none" : "medium"}
         jsStyle={[
           jsStyles.root,
           background === "primary" && jsStyles.backgroundPrimary,

@@ -106,7 +106,7 @@ export function Dialog({ label, children, close }) {
     <dialog ref={refCallback} className={createClassNames(jsStyles.dialog)}>
       <BaseView jsStyle={jsStyles.root}>
         <Column jsStyle={jsStyles.header}>
-          <Row indentation="medium" justify="space-between" align="center">
+          <Row padding="medium" justify="space-between" align="center">
             <Text size="medium" color="secondary">
               {label}
             </Text>
