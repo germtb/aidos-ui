@@ -35,7 +35,7 @@ const jsStyles = createJSStyles({
   },
 });
 
-const timeFormatter = Intl.DateTimeFormat("en-UK", {
+export const timeFormatter = Intl.DateTimeFormat("en-UK", {
   hour: "2-digit",
   minute: "2-digit",
 });

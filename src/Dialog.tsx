@@ -30,8 +30,6 @@ const jsStyles = createJSStyles({
         "header"
         "content"
     `,
-    gridTemplateRows: "min-content auto min-content",
-    gridTemplateColumns: "auto",
     "@media (min-width: 0px) and (max-width: 750px)": {
       width: "calc(100vw - 24px)",
     },
@@ -71,21 +69,21 @@ export function Dialog({ label, children, close }) {
     };
   }, []);
 
-  const refCallback = useRefEffect((root: HTMLElement) => {
+  const refCallback = useRefEffect((root: HTMLDialogElement) => {
     activeElementRef.current = document.activeElement;
     const [element] = queryFocusables(root);
     element && element.focus();
 
     const onKeyDown = (e) => {
-      const elements = queryFocusables(root);
-      if (elements.length === 0) {
-        return;
-      }
+      if (e.key === "Tab") {
+        const elements = queryFocusables(root);
+        if (elements.length === 0) {
+          return;
+        }
 
-      const first = elements[0];
-      const last = elements[elements.length - 1];
+        const first = elements[0];
+        const last = elements[elements.length - 1];
 
-      if (e.code === "Tab") {
         if (e.shiftKey && document.activeElement === first) {
           e.preventDefault();
           last.focus();
@@ -103,7 +101,14 @@ export function Dialog({ label, children, close }) {
   });
 
   return (
-    <dialog ref={refCallback} className={createClassNames(jsStyles.dialog)}>
+    <dialog
+      open={true}
+      ref={refCallback}
+      className={createClassNames(jsStyles.dialog)}
+      onSubmit={(e) => {
+        e.preventDefault();
+      }}
+    >
       <BaseView jsStyle={jsStyles.root}>
         <Column jsStyle={jsStyles.header}>
           <Row padding="medium" justify="space-between" align="center">
@@ -113,7 +118,7 @@ export function Dialog({ label, children, close }) {
             <IconButton
               bare={true}
               icon="fa-close"
-              size="small"
+              size="medium"
               onPress={close}
               color="secondary"
             />

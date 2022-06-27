@@ -22,7 +22,8 @@ export type Justify =
   | "center"
   | "flex-start"
   | "space-between"
-  | "flex-end";
+  | "flex-end"
+  | "stretch";
 
 export type Align = "none" | "center" | "stretch" | "flex-start";
 
@@ -367,7 +368,7 @@ const backgroundStyles = createJSStyles({
   },
 });
 
-export const background = (color: Color) => {
+export const getBackground = (color: Color) => {
   return backgroundStyles[color];
 };
 
@@ -380,6 +381,9 @@ const justifyStyles = createJSStyles({
   },
   ["flex-end"]: {
     justifyContent: "flex-end",
+  },
+  ["stretch"]: {
+    justifyContent: "stretch",
   },
   ["flex-start"]: {
     justifyContent: "flex-start",
@@ -549,16 +553,4 @@ const textColorStyles = createJSStyles({
 
 export const getTextColor = (color: TextColor) => {
   return textColorStyles[color];
-};
-
-const pointerStyles = createJSStyles({
-  cursor: {
-    cursor: "pointer",
-  },
-});
-
-type Cursor = "pointer";
-
-export const getCursor = (cursor: Cursor) => {
-  return pointerStyles[cursor];
 };

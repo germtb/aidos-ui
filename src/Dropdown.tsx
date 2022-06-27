@@ -9,7 +9,7 @@ import React, {
 import { BaseView } from "./BaseView";
 import { guid } from "./guid";
 import { Button } from "./Button";
-import { background, createJSStyles, grow, JSStyles } from "./Palette";
+import { getBackground, createJSStyles, grow, JSStyles } from "./Palette";
 import { Column } from "./Column";
 import { useNavigation } from "./useNavigation";
 import { useRefEffect } from "./useRefEffect";
@@ -92,7 +92,7 @@ export function Dropdown<T>({
       {expanded && (
         <Column
           gap="medium"
-          jsStyle={[jsStyles.dropdown, background("secondary-background")]}
+          jsStyle={[jsStyles.dropdown, getBackground("secondary-background")]}
           id={id}
           role="listbox"
           aria-label={label}

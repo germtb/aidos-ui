@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { createJSStyles, Padding } from "./Palette";
+import { createJSStyles, JSStyles, Padding } from "./Palette";
 import { BaseInput, BaseInputProps } from "./BaseInput";
 import { IconType } from "./IconType";
 import { Icon } from "./Icon";
@@ -8,6 +8,7 @@ import { Box } from "./Box";
 
 export interface TextInputProps extends BaseInputProps {
   onValueChange: (value: string) => void;
+  rootJSStyle?: JSStyles;
   icon?: IconType;
   addOn?: ReactNode;
   onChange?: undefined;
@@ -41,6 +42,7 @@ export const TextInput = React.forwardRef(
     {
       value,
       onValueChange,
+      rootJSStyle,
       jsStyle,
       icon,
       addOn,
@@ -50,7 +52,7 @@ export const TextInput = React.forwardRef(
     ref?: React.Ref<HTMLInputElement>
   ) => {
     return (
-      <Row jsStyle={jsStyles.root} padding={indentation}>
+      <Row jsStyle={[jsStyles.root, rootJSStyle]} padding={indentation}>
         {icon && (
           <Box padding="medium">
             <Icon size="medium" color="secondary" icon={icon} />

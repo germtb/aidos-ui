@@ -1,5 +1,5 @@
 import React from "react";
-import { background, createJSStyles, JSStyles } from "./Palette";
+import { getBackground, createJSStyles, JSStyles } from "./Palette";
 import { ListPressableRow } from "./ListPressableRow";
 import { Icon } from "./Icon";
 import { BaseView } from "./BaseView";

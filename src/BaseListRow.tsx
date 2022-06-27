@@ -1,5 +1,5 @@
 import React from "react";
-import { JSStyles, createJSStyles, background, Color } from "./Palette";
+import { JSStyles, createJSStyles, getBackground, Color } from "./Palette";
 import { ListDivider } from "./ListDivider";
 import { Row, RowProps } from "./Row";
 
@@ -37,7 +37,7 @@ export const BaseListRow = React.forwardRef(
           tag="li"
           role="row"
           componentName={componentName.concat("BaseListRow")}
-          jsStyle={[jsStyles.root, background(backgroundColor), jsStyle]}
+          jsStyle={[jsStyles.root, getBackground(backgroundColor), jsStyle]}
         >
           {children}
         </Row>

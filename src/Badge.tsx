@@ -1,6 +1,6 @@
 import React from "react";
 
-import { background, Color, createJSStyles, Size } from "./Palette";
+import { getBackground, Color, createJSStyles, Size } from "./Palette";
 import { BaseView } from "./BaseView";
 
 const jsStyles = createJSStyles({
@@ -35,7 +35,7 @@ export function Badge({
         size === "small" && jsStyles.small,
         size === "medium" && jsStyles.medium,
         size === "large" && jsStyles.large,
-        background(color),
+        getBackground(color),
       ]}
     />
   );

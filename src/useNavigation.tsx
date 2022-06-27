@@ -2,7 +2,7 @@ import { useRef, useCallback, useEffect } from "react";
 
 import { queryFocusables, focusElement, normalizeElements } from "./aria";
 
-export function useNavigation({ autofocus = false } = {}) {
+export function useNavigation({ autofocus = false, rowLength = 1 } = {}) {
   const unsubscribeRef = useRef<(() => void) | null>(null);
 
   const refCallback = useCallback((root: HTMLElement | null) => {
@@ -30,10 +30,10 @@ export function useNavigation({ autofocus = false } = {}) {
       let newIndex: number = -1;
 
       if (e.code === "ArrowUp") {
-        if (index <= 0) {
-          newIndex = elements.length - 1;
+        if (index - rowLength < 0) {
+          newIndex = elements.length - (elements.length % rowLength) + index;
         } else {
-          newIndex = index - 1;
+          newIndex = index - rowLength;
         }
       } else if (e.code === "ArrowLeft") {
         if (index <= 0) {
@@ -48,10 +48,10 @@ export function useNavigation({ autofocus = false } = {}) {
           newIndex = index + 1;
         }
       } else if (e.code === "ArrowDown") {
-        if (index >= elements.length - 1) {
-          newIndex = 0;
+        if (index + rowLength > elements.length - 1) {
+          newIndex = (index + rowLength) % rowLength;
         } else {
-          newIndex = index + 1;
+          newIndex = index + rowLength;
         }
       }
 
@@ -63,6 +63,14 @@ export function useNavigation({ autofocus = false } = {}) {
     };
 
     root.addEventListener("keydown", onKeyDown);
+
+    const observer = new MutationObserver((mutationList) => {
+      if (mutationList.filter((m) => m.type === "childList").length > 0) {
+        const elements = queryFocusables(root);
+        normalizeElements(elements, index);
+      }
+    });
+    observer.observe(root, { childList: true });
 
     unsubscribeRef.current = () => {
       root.removeEventListener("keydown", onKeyDown);

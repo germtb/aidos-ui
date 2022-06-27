@@ -7,6 +7,7 @@ import {
   Gap,
   Size,
   TextColor,
+  getPadding,
 } from "./Palette";
 import { BaseButton, BaseButtonProps, ButtonColor } from "./BaseButton";
 import { Text } from "./Text";
@@ -31,10 +32,6 @@ export interface ButtonProps extends BaseButtonProps {
 const jsStyles = createJSStyles({
   root: {
     borderRadius: "var(--border-radius-m)",
-    paddingTop: "var(--spacing-s)",
-    paddingBottom: "var(--spacing-s)",
-    paddingLeft: "var(--spacing-m)",
-    paddingRight: "var(--spacing-m)",
     justifyContent: "center",
     userSelect: "none",
   },
@@ -91,7 +88,7 @@ export const Button = React.forwardRef(
         ref={ref}
         color={color}
         disabled={disabled}
-        jsStyle={[jsStyles.root, jsStyle]}
+        jsStyle={[jsStyles.root, getPadding("medium"), jsStyle]}
       >
         <Row jsStyle={grow} align={align} gap={spacing} justify={justify}>
           {icon && iconPosition === "left" && (
