@@ -4,9 +4,15 @@ import { createRoot } from "react-dom/client";
 import { DesignBook } from "../src/DesignBook";
 import { PaletteProvider } from "../src/Palette";
 
-const root = createRoot(document.getElementById("root"));
+const root = document.getElementById("root");
 
-root.render(
+if (!root) {
+  throw new Error("Could not find #root");
+}
+
+const reactRoot = createRoot(root);
+
+reactRoot.render(
   <PaletteProvider>
     <DesignBook />
   </PaletteProvider>
