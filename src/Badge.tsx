@@ -23,7 +23,7 @@ const jsStyles = createJSStyles({
 
 export function Badge({
   size = "medium",
-  color,
+  color = "highlight",
 }: {
   size?: Size;
   color?: Color;

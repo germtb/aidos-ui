@@ -24,6 +24,7 @@ const jsStyles = createJSStyles({
     root: {
         display: "grid",
         overflow: "hidden",
+            width: "calc(100vw - 24px)",
         gridTemplateAreas: `
         "header"
         "content"

@@ -5,10 +5,12 @@ export function ListStaticHeaderRow({
   label,
   body,
   secondaryAddOn,
+  withDivider,
 }: {
   label: string;
   body?: ReactNode;
   secondaryAddOn?: ReactNode;
+  withDivider?: boolean;
 }) {
   return (
     <ListStaticRow
@@ -17,6 +19,7 @@ export function ListStaticHeaderRow({
       background="secondary"
       secondaryAddOn={secondaryAddOn}
       body={body}
+      withDivider={withDivider}
     />
   );
 }

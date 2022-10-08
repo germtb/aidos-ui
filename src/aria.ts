@@ -1,11 +1,13 @@
-type Focusable = HTMLButtonElement | HTMLInputElement;
+type Focusable = HTMLElement;
 
 export function queryFocusables(root: HTMLElement): Focusable[] {
   const focusables: Focusable[] = Array.from(
-    root.querySelectorAll("button,input,textarea,a")
+    root.querySelectorAll(
+      "button,input,textarea,a,[tabindex='0'],[tabindex='-1']"
+    )
   );
 
-  return focusables.filter((element: Focusable) => !element.disabled);
+  return focusables.filter((element: Focusable) => !element["disabled"]);
 }
 
 export function queryGrid(root: HTMLElement): HTMLElement[][] {

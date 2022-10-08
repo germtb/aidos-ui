@@ -1,5 +1,6 @@
 import React from "react";
-import { createClassNames, JSStyles, createJSStyles } from "./Palette";
+import { BaseView, BaseViewProps } from "./BaseView";
+import { createJSStyles } from "./Palette";
 
 const jsStyles = createJSStyles({
   root: {
@@ -9,22 +10,21 @@ const jsStyles = createJSStyles({
   },
 });
 
-export interface BaseListProps extends React.HTMLAttributes<HTMLUListElement> {
-  jsStyle?: JSStyles;
-  className?: undefined;
-  componentName?: string;
+export interface BaseListProps extends BaseViewProps {
+  tag?: undefined;
 }
 
 export const BaseList = React.forwardRef(
   (
     { jsStyle, componentName, ...otherProps }: BaseListProps,
-    ref?: React.Ref<HTMLUListElement>
+    ref?: React.Ref<HTMLElement>
   ) => {
     return (
-      <ul
+      <BaseView
         {...otherProps}
+        tag="ul"
+        jsStyle={[jsStyles.root, jsStyle]}
         data-test-id={componentName ?? "BaseList"}
-        className={createClassNames(jsStyles.root, jsStyle)}
         ref={ref}
       />
     );

@@ -65,7 +65,7 @@ body.dark-mode {
   --background-button-disabled: rgb(70, 72, 73);
 }
 
- * {
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -107,11 +107,21 @@ input:-webkit-autofill:active {
   -webkit-text-fill-color: var(--secondary-text) !important;
 }
 
-ul, li {
+ul,
+li {
   list-style: none;
 }
 
 input[type="date"]::-webkit-inner-spin-button,
 input[type="date"]::-webkit-calendar-picker-indicator {
   margin-left: -10px;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

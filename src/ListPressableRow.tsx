@@ -37,6 +37,7 @@ const jsStyles = createJSStyles({
     flexShrink: 0,
   },
   textPairing: {
+    flexBasis: "0%",
     flexGrow: 1,
     flexShrink: 0,
   },

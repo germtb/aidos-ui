@@ -8,7 +8,10 @@ import { Column } from "./Column";
 const jsStyles = createJSStyles({
   root: {
     position: "relative",
+    paddingTop: "var(--spacing-s)",
+    paddingBottom: "var(--spacing-s)",
     paddingRight: "var(--spacing-m)",
+    paddingLeft: "var(--spacing-m)",
   },
   backgroundPrimary: {
     backgroundColor: "var(--primary-background)",
@@ -18,8 +21,6 @@ const jsStyles = createJSStyles({
   },
   view: {
     display: "flex",
-    paddingTop: "var(--spacing-s)",
-    paddingBottom: "var(--spacing-s)",
     flexGrow: 1,
   },
   primaryAddOn: {
@@ -27,6 +28,7 @@ const jsStyles = createJSStyles({
     flexShrink: 0,
   },
   textPairing: {
+    flexBasis: "0%",
     flexGrow: 1,
     flexShrink: 0,
     justifyContent: "center",

@@ -97,9 +97,16 @@ export const BaseButton = React.forwardRef(
       <button
         {...otherProps}
         data-test-id={componentName ?? "BaseButton"}
-        disabled={disabled ? true : undefined}
+        aria-disabled={disabled ? true : undefined}
+        // disabled={disabled ? true : undefined}
         ref={ref}
-        onClick={onPress}
+        onClick={(event) => {
+          if (disabled) {
+            return;
+          }
+
+          onPress(event);
+        }}
         className={createClassNames(
           jsStyles.root,
           color === "positive" && jsStyles.positive,

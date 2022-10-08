@@ -1,5 +1,14 @@
 import React from "react";
-import { createClassNames, JSStyles } from "./Palette";
+import { createClassNames, createJSStyles, JSStyles } from "./Palette";
+
+const jsStyles = createJSStyles({
+  grow: {
+    flexGrow: 1,
+  },
+  shrink: {
+    flexShrink: 1,
+  },
+});
 
 export type ComponentName = Array<string>;
 
@@ -20,6 +29,8 @@ export const BaseView = React.forwardRef(
       children,
       componentName = [],
       tag,
+      grow,
+      shrink,
       ...otherProps
     }: BaseViewProps,
     ref?: React.Ref<HTMLElement>
@@ -31,7 +42,11 @@ export const BaseView = React.forwardRef(
       <Tag
         data-test-id={[...componentName, "BaseView"].join("-")}
         ref={ref}
-        className={createClassNames(jsStyle)}
+        className={createClassNames(
+          jsStyle,
+          grow && jsStyles.grow,
+          shrink && jsStyles.shrink
+        )}
         {...otherProps}
       >
         {children}

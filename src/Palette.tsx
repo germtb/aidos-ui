@@ -34,7 +34,8 @@ export type Color =
   | "highlight"
   | "primary-background"
   | "secondary-background"
-  | "divider";
+  | "divider"
+  | "inherit";
 
 export type TextColor =
   | "primary"
@@ -42,7 +43,8 @@ export type TextColor =
   | "highlight"
   | "negative"
   | "subtle"
-  | "light";
+  | "light"
+  | "inherit";
 
 export type Styles = CSS.Properties<
   string | number | CSS.Properties<string | number>
@@ -354,17 +356,20 @@ export const PaletteProvider = ({
 };
 
 const backgroundStyles = createJSStyles({
-  ["highlight"]: {
+  highlight: {
     backgroundColor: "var(--highlight)",
   },
-  ["primary-background"]: {
+  "primary-background": {
     backgroundColor: "var(--primary-background)",
   },
-  ["secondary-background"]: {
+  "secondary-background": {
     backgroundColor: "var(--secondary-background)",
   },
-  ["divider"]: {
+  divider: {
     backgroundColor: "var(--divider)",
+  },
+  inherit: {
+    backgroundColor: "inherit",
   },
 });
 
@@ -548,6 +553,9 @@ const textColorStyles = createJSStyles({
   },
   light: {
     color: "var(--light-text)",
+  },
+  inherit: {
+    color: "inherit",
   },
 });
 

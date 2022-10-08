@@ -14,6 +14,10 @@ export function useNavigation({ autofocus = false, rowLength = 1 } = {}) {
 
     const elements = queryFocusables(root);
 
+    if (elements.length === 0) {
+      return;
+    }
+
     if (elements.length !== 0 && autofocus) {
       focusElement(elements, index);
     } else {
@@ -67,7 +71,9 @@ export function useNavigation({ autofocus = false, rowLength = 1 } = {}) {
     const observer = new MutationObserver((mutationList) => {
       if (mutationList.filter((m) => m.type === "childList").length > 0) {
         const elements = queryFocusables(root);
-        normalizeElements(elements, index);
+        if (elements.length > 0) {
+          normalizeElements(elements, index);
+        }
       }
     });
     observer.observe(root, { childList: true });

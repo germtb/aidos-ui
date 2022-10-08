@@ -1,9 +1,9 @@
-import React from "react";
-import { getBackground, createJSStyles, JSStyles } from "./Palette";
+import React, { ReactNode } from "react";
+import { createJSStyles, JSStyles, Color, TextColor } from "./Palette";
 import { ListPressableRow } from "./ListPressableRow";
 import { Icon } from "./Icon";
-import { BaseView } from "./BaseView";
 import { Box } from "./Box";
+import { Row } from "./Row";
 
 const jsStyles = createJSStyles({
   icon: {
@@ -17,15 +17,19 @@ const jsStyles = createJSStyles({
 export function Sublist({
   children,
   label,
-  initialState,
+  initialState = { collapsed: false },
   jsStyle,
+  primaryAddOn,
+  secondaryAddOn,
 }: {
   children: React.ReactNode;
   label: string;
-  initialState: {
+  initialState?: {
     collapsed: boolean;
   };
   jsStyle?: JSStyles;
+  primaryAddOn?: ReactNode;
+  secondaryAddOn?: ReactNode;
 }) {
   const [collapsed, setCollapsed] = React.useState(initialState.collapsed);
 
@@ -35,13 +39,17 @@ export function Sublist({
         headline={label}
         onPress={() => setCollapsed((x) => !x)}
         jsStyle={jsStyle}
+        primaryAddOn={primaryAddOn}
         secondaryAddOn={
-          <Box
-            padding="medium"
-            jsStyle={[jsStyles.icon, !collapsed && jsStyles.iconRotated]}
-          >
-            <Icon color="primary" size="medium" icon="fa-chevron-right" />
-          </Box>
+          <Row gap="medium" align="center">
+            {secondaryAddOn}
+            <Box
+              padding="medium"
+              jsStyle={[jsStyles.icon, !collapsed && jsStyles.iconRotated]}
+            >
+              <Icon color="primary" size="medium" icon="fa-chevron-right" />
+            </Box>
+          </Row>
         }
       />
       {collapsed ? null : children}

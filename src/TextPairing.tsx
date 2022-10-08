@@ -23,7 +23,7 @@ const jsStyles = createJSStyles({
   },
 });
 
-export type TextPairingProps = {
+export interface TextPairingProps {
   headline: ReactNode;
   body?: ReactNode;
   headlineColor?: TextColor;
@@ -35,7 +35,7 @@ export type TextPairingProps = {
   addOnPosition?: Position;
   spacing?: Gap;
   align?: Align;
-};
+}
 
 export function TextPairing({
   headline,
@@ -52,18 +52,18 @@ export function TextPairing({
 }: TextPairingProps) {
   const textElement = (
     <Column componentName={["TextPairing"]} align={align}>
-      <BaseView jsStyle={jsStyles.headline}>
+      <Row align="center" jsStyle={jsStyles.headline}>
         <Text color={headlineColor} size={headlineSize}>
           {headline}
         </Text>
         {headlineAddOn && <BaseView>{headlineAddOn}</BaseView>}
-      </BaseView>
+      </Row>
       {body && (
-        <BaseView jsStyle={jsStyles.body}>
-          <Text color={bodyColor} size={bodySize}>
+        <Row align="center" jsStyle={jsStyles.body}>
+          <Text display="block" color={bodyColor} size={bodySize}>
             {body}
           </Text>
-        </BaseView>
+        </Row>
       )}
     </Column>
   );

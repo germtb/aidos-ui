@@ -8,18 +8,22 @@ const jsStyles = createJSStyles({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    " svg": {
+      height: "inherit",
+      width: "inherit",
+    },
   },
   small: {
-    height: 8,
-    width: 8,
-  },
-  medium: {
     height: 12,
     width: 12,
   },
+  medium: {
+    height: 18,
+    width: 18,
+  },
   large: {
-    height: 16,
-    width: 16,
+    height: 24,
+    width: 24,
   },
 });
 
