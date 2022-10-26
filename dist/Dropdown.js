@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { BaseView } from "./BaseView";
 import { guid } from "./guid";
 import { Button } from "./Button";

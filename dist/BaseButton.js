@@ -63,5 +63,12 @@ const jsStyles = createJSStyles({
     },
 });
 export const BaseButton = React.forwardRef(({ componentName, onPress, children, jsStyle, color, bare = false, disabled, animateClick = true, ...otherProps }, ref) => {
-    return (React.createElement("button", { ...otherProps, "data-test-id": componentName ?? "BaseButton", disabled: disabled ? true : undefined, ref: ref, onClick: onPress, className: createClassNames(jsStyles.root, color === "positive" && jsStyles.positive, color === "secondary" && jsStyles.secondary, color === "negative" && jsStyles.negative, bare && jsStyles.bare, disabled && jsStyles.disabled, bare ? jsStyles.colorHover : jsStyles.opacityHover, animateClick && jsStyles.animateClick, jsStyle) }, children));
+    return (React.createElement("button", { ...otherProps, "data-test-id": componentName ?? "BaseButton", "aria-disabled": disabled ? true : undefined, 
+        // disabled={disabled ? true : undefined}
+        ref: ref, onClick: (event) => {
+            if (disabled) {
+                return;
+            }
+            onPress(event);
+        }, className: createClassNames(jsStyles.root, color === "positive" && jsStyles.positive, color === "secondary" && jsStyles.secondary, color === "negative" && jsStyles.negative, bare && jsStyles.bare, disabled && jsStyles.disabled, bare ? jsStyles.colorHover : jsStyles.opacityHover, animateClick && jsStyles.animateClick, jsStyle) }, children));
 });

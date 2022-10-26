@@ -24,14 +24,11 @@ const jsStyles = createJSStyles({
     root: {
         display: "grid",
         overflow: "hidden",
-            width: "calc(100vw - 24px)",
+        maxWidth: "calc(100vw - 24px)",
         gridTemplateAreas: `
         "header"
         "content"
     `,
-        "@media (min-width: 0px) and (max-width: 750px)": {
-            width: "calc(100vw - 24px)",
-        },
         "@media (min-width: 750px)": {
             minWidth: 750,
         },

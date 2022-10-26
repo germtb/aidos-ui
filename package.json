@@ -7,7 +7,7 @@
     "build": "tsc --build",
     "build-showcase": "parcel build debug/index.html",
     "start": "parcel debug/index.html",
-    "tsc": "tsc --watch --clean",
+    "tsc": "tsc --watch",
     "test": "jest"
   },
   "author": "Gerard Moreno-Torres Bertran",

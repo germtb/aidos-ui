@@ -16,11 +16,11 @@ const jsStyles = createJSStyles({
 });
 export function TextPairing({ headline, body, headlineColor = "primary", headlineSize = "medium", headlineAddOn, bodyColor = "secondary", bodySize = "medium", addOn, addOnPosition = "left", spacing = "small", align = "stretch", }) {
     const textElement = (React.createElement(Column, { componentName: ["TextPairing"], align: align },
-        React.createElement(BaseView, { jsStyle: jsStyles.headline },
+        React.createElement(Row, { align: "center", jsStyle: jsStyles.headline },
             React.createElement(Text, { color: headlineColor, size: headlineSize }, headline),
             headlineAddOn && React.createElement(BaseView, null, headlineAddOn)),
-        body && (React.createElement(BaseView, { jsStyle: jsStyles.body },
-            React.createElement(Text, { color: bodyColor, size: bodySize }, body)))));
+        body && (React.createElement(Row, { align: "center", jsStyle: jsStyles.body },
+            React.createElement(Text, { display: "block", color: bodyColor, size: bodySize }, body)))));
     if (addOn) {
         return (React.createElement(Row, { gap: spacing, align: "center" },
             addOnPosition === "left" && addOn,

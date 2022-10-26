@@ -31,6 +31,7 @@ export type FlexDirection = "row" | "column";
 
 export type Color =
   | "none"
+  | "negative"
   | "highlight"
   | "primary-background"
   | "secondary-background"
@@ -361,6 +362,9 @@ const backgroundStyles = createJSStyles({
   },
   "primary-background": {
     backgroundColor: "var(--primary-background)",
+  },
+  negative: {
+    backgroundColor: "var(--negative-text)",
   },
   "secondary-background": {
     backgroundColor: "var(--secondary-background)",

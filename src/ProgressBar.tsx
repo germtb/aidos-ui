@@ -1,20 +1,35 @@
 import React from "react";
-import { createJSStyles, JSStyles } from "./Palette";
+import {
+  Color,
+  createJSStyles,
+  getBackground,
+  getBorder,
+  JSStyles,
+  Size,
+} from "./Palette";
 import { BaseView } from "./BaseView";
 
 const jsStyles = createJSStyles({
   root: {
     width: "100%",
-    height: 8,
     display: "flex",
     position: "relative",
     backgroundColor: "var(--primary-background)",
-    borderRadius: "var(--border-radius-m)",
-    border: "1px solid var(--highlight)",
+    borderRadius: "var(--border-radius-s)",
+    border: "1px solid var(--divider)",
     overflow: "hidden",
   },
+  small: {
+    height: 8,
+  },
+  medium: {
+    height: 12,
+  },
+  large: {
+    height: 16,
+  },
   fill: {
-    backgroundColor: "var(--highlight)",
+    borderRadius: "var(--border-radius-s)",
     position: "absolute",
     transformOrigin: "center left",
     top: 0,
@@ -22,24 +37,33 @@ const jsStyles = createJSStyles({
     left: 0,
     right: 0,
   },
-  transition: {
-    // transition: "transform 0.2s ease-in",
-  },
 });
 
 export function ProgressBar({
+  color,
   progress,
+  size,
   jsStyle,
 }: {
   progress: number;
+  color: Color;
+  size: Size;
   jsStyle?: JSStyles;
 }) {
   return (
-    <BaseView jsStyle={[jsStyles.root, jsStyle]}>
+    <BaseView
+      jsStyle={[
+        jsStyles.root,
+        size === "small" && jsStyles.small,
+        size === "medium" && jsStyles.medium,
+        size === "large" && jsStyles.large,
+        jsStyle,
+      ]}
+    >
       <BaseView
-        jsStyle={jsStyles.fill}
+        jsStyle={[jsStyles.fill, getBackground(color)]}
         style={{
-          transform: `scaleX(${progress})`,
+          transform: `scaleX(${progress > 1 ? 1 : progress})`,
         }}
       />
     </BaseView>

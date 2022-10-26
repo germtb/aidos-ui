@@ -1,6 +1,6 @@
 export function queryFocusables(root) {
-    const focusables = Array.from(root.querySelectorAll("button,input,textarea,a"));
-    return focusables.filter((element) => !element.disabled);
+    const focusables = Array.from(root.querySelectorAll("button,input,textarea,a,[tabindex='0'],[tabindex='-1']"));
+    return focusables.filter((element) => !element["disabled"]);
 }
 export function queryGrid(root) {
     const rows = Array.from(root.querySelectorAll('li[role="row"]'));

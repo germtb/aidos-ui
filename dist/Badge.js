@@ -18,7 +18,7 @@ const jsStyles = createJSStyles({
         borderRadius: 9,
     },
 });
-export function Badge({ size = "medium", color, }) {
+export function Badge({ size = "medium", color = "highlight", }) {
     return (React.createElement(BaseView, { componentName: ["Badge"], jsStyle: [
             size === "small" && jsStyles.small,
             size === "medium" && jsStyles.medium,

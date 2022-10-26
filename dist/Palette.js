@@ -236,17 +236,23 @@ export const PaletteProvider = ({ children, }) => {
     return React.createElement(React.Fragment, null, children);
 };
 const backgroundStyles = createJSStyles({
-    ["highlight"]: {
+    highlight: {
         backgroundColor: "var(--highlight)",
     },
-    ["primary-background"]: {
+    "primary-background": {
         backgroundColor: "var(--primary-background)",
     },
-    ["secondary-background"]: {
+    negative: {
+        backgroundColor: "var(--negative-text)",
+    },
+    "secondary-background": {
         backgroundColor: "var(--secondary-background)",
     },
-    ["divider"]: {
+    divider: {
         backgroundColor: "var(--divider)",
+    },
+    inherit: {
+        backgroundColor: "inherit",
     },
 });
 export const getBackground = (color) => {
@@ -408,6 +414,9 @@ const textColorStyles = createJSStyles({
     },
     light: {
         color: "var(--light-text)",
+    },
+    inherit: {
+        color: "inherit",
     },
 });
 export const getTextColor = (color) => {

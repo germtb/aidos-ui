@@ -1,5 +1,6 @@
 import React from "react";
-import { createClassNames, createJSStyles } from "./Palette";
+import { BaseView } from "./BaseView";
+import { createJSStyles } from "./Palette";
 const jsStyles = createJSStyles({
     root: {
         backgroundColor: "var(--primary-background)",
@@ -8,5 +9,5 @@ const jsStyles = createJSStyles({
     },
 });
 export const BaseList = React.forwardRef(({ jsStyle, componentName, ...otherProps }, ref) => {
-    return (React.createElement("ul", { ...otherProps, "data-test-id": componentName ?? "BaseList", className: createClassNames(jsStyles.root, jsStyle), ref: ref }));
+    return (React.createElement(BaseView, { ...otherProps, tag: "ul", jsStyle: [jsStyles.root, jsStyle], "data-test-id": componentName ?? "BaseList", ref: ref }));
 });
