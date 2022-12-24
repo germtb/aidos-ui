@@ -16,3 +16,4 @@ export function createEmitter() {
         emit,
     };
 }
+//# sourceMappingURL=Emitter.js.map

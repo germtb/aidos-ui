@@ -32,3 +32,4 @@ export const DatetimeInput = React.forwardRef(({ date, onDateChange, jsStyle, ic
         React.createElement(BaseInput, { ...inputProps, type: "datetime-local", ref: ref, value: date.toISOString().substring(0, 16), onChange: (e) => onDateChange(new Date(e.target.value)), jsStyle: [jsStyles.input, jsStyle] }),
         addOn));
 });
+//# sourceMappingURL=DatetimeInput.js.map

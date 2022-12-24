@@ -10,3 +10,4 @@ const jsStyles = createJSStyles({
 export const CenteredListRow = React.forwardRef((props, ref) => {
     return (React.createElement(BaseListRow, { ...props, align: "center", justify: "center", componentName: (props.componentName ?? []).concat("CenteredListRow"), jsStyle: [props.jsStyle, jsStyles.root, grow], ref: ref, withDivider: false }));
 });
+//# sourceMappingURL=CenteredListRow.js.map

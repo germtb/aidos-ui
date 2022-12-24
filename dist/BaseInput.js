@@ -7,3 +7,4 @@ export const BaseInput = React.forwardRef(({ jsStyle, componentName, labelConten
         labelContent && React.createElement("label", { htmlFor: id }, labelContent),
         React.createElement("input", { id: id, "data-test-id": componentName ?? "BaseInput", ref: ref, className: createClassNames(jsStyle), ...otherProps })));
 });
+//# sourceMappingURL=BaseInput.js.map

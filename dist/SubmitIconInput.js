@@ -28,3 +28,4 @@ export function SubmitIconInput({ icon, ...otherProps }) {
     return (React.createElement(BaseInput, { labelContent: React.createElement(Box, { jsStyle: [jsStyles.button] },
             React.createElement(Icon, { icon: icon, size: "medium", color: "primary" })), ...otherProps, type: "submit", jsStyle: [jsStyles.input], value: "" }));
 }
+//# sourceMappingURL=SubmitIconInput.js.map

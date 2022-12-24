@@ -9,3 +9,4 @@ export function usePromise(promiseFactory, inputs, initialValue) {
     }, inputs);
     return [value, error];
 }
+//# sourceMappingURL=usePromise.js.map

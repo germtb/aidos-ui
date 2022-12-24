@@ -26,3 +26,4 @@ export function Badge({ size = "medium", color = "highlight", }) {
             getBackground(color),
         ] }));
 }
+//# sourceMappingURL=Badge.js.map

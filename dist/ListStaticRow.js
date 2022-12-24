@@ -56,3 +56,4 @@ export const ListStaticRow = React.forwardRef(({ headline, headlineSize = "mediu
                 React.createElement(TextPairing, { headline: headline, headlineSize: headlineSize, headlineColor: headlineColor, body: body, bodySize: bodySize, bodyColor: bodyColor })),
             secondaryAddOn && (React.createElement(BaseView, { jsStyle: jsStyles.secondaryAddOn }, secondaryAddOn)))));
 });
+//# sourceMappingURL=ListStaticRow.js.map

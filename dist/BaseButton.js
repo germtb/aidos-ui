@@ -72,3 +72,4 @@ export const BaseButton = React.forwardRef(({ componentName, onPress, children, 
             onPress(event);
         }, className: createClassNames(jsStyles.root, color === "positive" && jsStyles.positive, color === "secondary" && jsStyles.secondary, color === "negative" && jsStyles.negative, bare && jsStyles.bare, disabled && jsStyles.disabled, bare ? jsStyles.colorHover : jsStyles.opacityHover, animateClick && jsStyles.animateClick, jsStyle) }, children));
 });
+//# sourceMappingURL=BaseButton.js.map

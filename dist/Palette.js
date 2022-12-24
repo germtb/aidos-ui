@@ -422,3 +422,4 @@ const textColorStyles = createJSStyles({
 export const getTextColor = (color) => {
     return textColorStyles[color];
 };
+//# sourceMappingURL=Palette.js.map

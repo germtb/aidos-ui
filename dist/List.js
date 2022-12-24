@@ -6,3 +6,4 @@ export function List({ ariaLabel, jsStyle, autofocus = false, ...otherProps }) {
     const rootRef = useNavigation();
     return (React.createElement(BaseList, { role: "grid", "aria-label": ariaLabel, ref: rootRef, jsStyle: jsStyle, ...otherProps }));
 }
+//# sourceMappingURL=List.js.map

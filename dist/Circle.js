@@ -10,3 +10,4 @@ const jsStyles = createJSStyles({
 export function Circle({ jsStyle, padding = "medium", componentName, ...otherProps }) {
     return (React.createElement(Box, { componentName: (componentName ?? []).concat("Circle"), padding: padding, jsStyle: [jsStyles.root, jsStyle], ...otherProps }));
 }
+//# sourceMappingURL=Circle.js.map

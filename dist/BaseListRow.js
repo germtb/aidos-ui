@@ -13,3 +13,4 @@ export const BaseListRow = React.forwardRef(({ componentName, children, jsStyle,
         React.createElement(Row, { ...otherProps, ref: ref, tag: "li", role: "row", componentName: componentName.concat("BaseListRow"), jsStyle: [jsStyles.root, getBackground(backgroundColor), jsStyle] }, children),
         withDivider && React.createElement(ListDivider, null)));
 });
+//# sourceMappingURL=BaseListRow.js.map

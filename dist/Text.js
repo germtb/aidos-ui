@@ -43,3 +43,4 @@ export function Text({ children, color = "primary", size = "medium", align = "no
             ellipsis && jsStyles.ellipsis,
         ]) }, children));
 }
+//# sourceMappingURL=Text.js.map

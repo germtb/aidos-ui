@@ -25,3 +25,4 @@ export function OnVisible({ children, onVisible, }) {
     }, []);
     return children(refCallback);
 }
+//# sourceMappingURL=OnVisible.js.map

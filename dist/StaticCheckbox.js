@@ -54,3 +54,4 @@ export function StaticCheckbox({ checked, size }) {
         checked && (React.createElement(BaseView, { jsStyle: jsStyles.icon },
             React.createElement(Icon, { size: size, color: "light", icon: "fa-check" })))));
 }
+//# sourceMappingURL=StaticCheckbox.js.map

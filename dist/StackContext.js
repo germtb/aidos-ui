@@ -21,3 +21,4 @@ export function useIsTopOfStack() {
     }, [subscribe]);
     return isTopOfStack;
 }
+//# sourceMappingURL=StackContext.js.map

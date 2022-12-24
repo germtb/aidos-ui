@@ -42,3 +42,4 @@ export function ProgressBar({ color, progress, size, jsStyle, }) {
                 transform: `scaleX(${progress > 1 ? 1 : progress})`,
             } })));
 }
+//# sourceMappingURL=ProgressBar.js.map

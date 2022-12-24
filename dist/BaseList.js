@@ -11,3 +11,4 @@ const jsStyles = createJSStyles({
 export const BaseList = React.forwardRef(({ jsStyle, componentName, ...otherProps }, ref) => {
     return (React.createElement(BaseView, { ...otherProps, tag: "ul", jsStyle: [jsStyles.root, jsStyle], "data-test-id": componentName ?? "BaseList", ref: ref }));
 });
+//# sourceMappingURL=BaseList.js.map

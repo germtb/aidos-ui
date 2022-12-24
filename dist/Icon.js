@@ -50,3 +50,4 @@ export function Icon({ icon, size, color, ariaLabel, }) {
         ] },
         React.createElement("span", { className: "iconify", "data-icon": icon })));
 }
+//# sourceMappingURL=Icon.js.map

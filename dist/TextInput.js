@@ -32,3 +32,4 @@ export const TextInput = React.forwardRef(({ value, onValueChange, rootJSStyle, 
         React.createElement(BaseInput, { ...inputProps, ref: ref, value: value, onChange: (e) => onValueChange(e.target.value), jsStyle: [jsStyles.input, jsStyle] }),
         addOn));
 });
+//# sourceMappingURL=TextInput.js.map

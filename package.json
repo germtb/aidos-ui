@@ -3,6 +3,7 @@
   "name": "simple-ui",
   "version": "1.0.0",
   "description": "A simple UI framework",
+  "exports": "./dist",
   "scripts": {
     "build": "tsc --build",
     "build-showcase": "parcel build debug/index.html",
@@ -27,6 +28,6 @@
     "typescript": "^4.9.4"
   },
   "peerDependencies": {
-    "react": "^18.1.0"
+    "react": "^18.2.0"
   }
 }

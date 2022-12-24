@@ -52,3 +52,4 @@ export const IconButton = React.forwardRef(({ icon, size, color, bare, disabled,
         ], color: color, ref: ref, disabled: disabled },
         React.createElement(Icon, { size: size, icon: icon, color: getIconColor(color, disabled, bare) })));
 });
+//# sourceMappingURL=IconButton.js.map

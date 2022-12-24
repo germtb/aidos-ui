@@ -34,3 +34,4 @@ export function RootView({ children, focusOnlyOnFirstMount = true, }) {
     }, [isTopOfStack, focusOnlyOnFirstMount]);
     return (React.createElement(Column, { ref: refCallback, jsStyle: jsStyles.root }, children));
 }
+//# sourceMappingURL=RootView.js.map

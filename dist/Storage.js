@@ -144,3 +144,4 @@ export function createStorage({ initialState, name = "simple-storage", }) {
         usePersist,
     };
 }
+//# sourceMappingURL=Storage.js.map

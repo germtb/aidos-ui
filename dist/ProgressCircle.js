@@ -14,3 +14,4 @@ export function ProgressCircle({ progress, stroke = 4, outerRadius, }) {
     return (React.createElement("svg", { className: createClassNames(jsStyles.root), width: (outerRadius + stroke) * 2, height: (outerRadius + stroke) * 2 },
         React.createElement("circle", { stroke: "var(--highlight)", fill: "transparent", strokeWidth: stroke, strokeDasharray: `${circumference} ${circumference}`, style: { strokeDashoffset }, r: outerRadius, cx: outerRadius + stroke, cy: outerRadius + stroke })));
 }
+//# sourceMappingURL=ProgressCircle.js.map

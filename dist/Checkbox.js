@@ -80,3 +80,4 @@ export function Checkbox({ jsStyle, checked, onValueChange, size, ...inputProps 
         checked && (React.createElement(BaseView, { jsStyle: jsStyles.icon },
             React.createElement(Icon, { size: size, color: "light", icon: "fa-check" })))));
 }
+//# sourceMappingURL=Checkbox.js.map

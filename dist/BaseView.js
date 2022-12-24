@@ -14,3 +14,4 @@ export const BaseView = React.forwardRef(({ jsStyle, children, componentName = [
     // @ts-ignore
     React.createElement(Tag, { "data-test-id": [...componentName, "BaseView"].join("-"), ref: ref, className: createClassNames(jsStyle, grow && jsStyles.grow, shrink && jsStyles.shrink), ...otherProps }, children));
 });
+//# sourceMappingURL=BaseView.js.map

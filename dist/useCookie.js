@@ -41,3 +41,4 @@ export function useCookie(key, { initialValue = null, serialize = JSON.stringify
         }, []),
     ];
 }
+//# sourceMappingURL=useCookie.js.map

@@ -29,3 +29,4 @@ export function TextPairing({ headline, body, headlineColor = "primary", headlin
     }
     return textElement;
 }
+//# sourceMappingURL=TextPairing.js.map

@@ -44,3 +44,4 @@ export function stateMachineContextFactory(stateMachineConfig) {
     }
     return { Provider, useStateMachine };
 }
+//# sourceMappingURL=stateMachineContextFactory.js.map

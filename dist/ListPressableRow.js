@@ -62,3 +62,4 @@ export const ListPressableRow = React.forwardRef(({ onPress, headline, headlineS
                     React.createElement(TextPairing, { headline: headline, headlineSize: headlineSize, headlineColor: disabled ? "subtle" : headlineColor, headlineAddOn: headlineAddOn, body: body, bodySize: bodySize, bodyColor: disabled ? "subtle" : bodyColor })),
                 secondaryAddOn && (React.createElement(BaseView, { jsStyle: jsStyles.secondaryAddOn }, secondaryAddOn))))));
 });
+//# sourceMappingURL=ListPressableRow.js.map

@@ -11,3 +11,4 @@ export function TextInputWithState({ valueRef, onValueChange: externalOnChange, 
     const addOnComponent = typeof addOn === "function" ? addOn(onValueChange) : addOn;
     return (React.createElement(TextInput, { ...otherProps, value: value, onValueChange: onValueChange, icon: icon, addOn: addOnComponent }));
 }
+//# sourceMappingURL=TextInputWithState.js.map

@@ -32,3 +32,4 @@ export const Button = React.forwardRef(({ label, color, bare, disabled, icon, ic
             labelElement,
             icon && iconPosition === "right" && (React.createElement(Icon, { icon: icon, size: iconSize, color: getGlyphColor(color, disabled, bare) })))));
 });
+//# sourceMappingURL=Button.js.map

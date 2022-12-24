@@ -1,0 +1,10 @@
+/// <reference types="react" />
+import { Size, TextColor } from "./Palette";
+import { IconType } from "./IconType";
+export declare const initialize: () => void;
+export declare function Icon({ icon, size, color, ariaLabel, }: {
+    ariaLabel?: string;
+    icon: IconType;
+    size: Size;
+    color: TextColor;
+}): JSX.Element;

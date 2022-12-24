@@ -44,3 +44,4 @@ export function Router() {
                     React.createElement(route.root, { ...routeProps })))));
     })));
 }
+//# sourceMappingURL=Router.js.map
