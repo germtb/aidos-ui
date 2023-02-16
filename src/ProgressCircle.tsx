@@ -18,9 +18,8 @@ export function ProgressCircle({
   stroke?: number;
   outerRadius: number;
 }) {
-  // const normalizedRadius = outerRadius - stroke * 2;
   const circumference = outerRadius * 2 * Math.PI;
-  const strokeDashoffset = progress * circumference - circumference;
+  const strokeDashoffset = circumference - progress * circumference;
 
   return (
     <svg
