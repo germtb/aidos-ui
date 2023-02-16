@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "name": "simple-ui",
+  "name": "aidos-ui",
   "version": "1.0.0",
   "description": "A simple UI framework",
   "exports": "./dist",
