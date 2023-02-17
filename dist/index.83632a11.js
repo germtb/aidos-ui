@@ -28411,7 +28411,7 @@ parcelHelpers.export(exports, "getTextColor", ()=>getTextColor);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
-var _guid = require("./guid");
+var _hash = require("./hash");
 var _s = $RefreshSig$();
 const stylesheet = {};
 const aliases = {
@@ -28498,31 +28498,38 @@ function createJSStyle(styles) {
             continue;
         }
         if (stylesheet[key] == null) stylesheet[key] = {};
-        const id = (0, _guid.guid)();
-        if (typeof value === "number") stylesheet[key][value] = {
-            className: id,
-            selector: `.${id}`,
-            type: "SIMPLE"
-        };
-        else if (typeof value === "string") stylesheet[key][value] = {
-            className: id,
-            selector: `.${id}`,
-            type: "SIMPLE"
-        };
-        else if (typeof value === "object" && key.startsWith("@media")) stylesheet[key][JSON.stringify(value, null, 2)] = {
-            className: id,
-            media: key,
-            selector: `.${id}`,
-            type: "MEDIA",
-            style: value
-        };
-        else if (typeof value === "object") stylesheet[key][JSON.stringify(value, null, 2)] = {
-            className: id,
-            selector: `.${id}${key}`,
-            type: "NESTED",
-            style: value
-        };
-        else throw new Error("Invalid CSS value");
+        if (typeof value === "number") {
+            const id = `ID-${(0, _hash.hash)(`${key}${value}`)}`;
+            stylesheet[key][value] = {
+                className: id,
+                selector: `.${id}`,
+                type: "SIMPLE"
+            };
+        } else if (typeof value === "string") {
+            const id1 = `ID-${(0, _hash.hash)(`${key}${value}`)}`;
+            stylesheet[key][value] = {
+                className: id1,
+                selector: `.${id1}`,
+                type: "SIMPLE"
+            };
+        } else if (typeof value === "object" && key.startsWith("@media")) {
+            const id2 = `ID-${(0, _hash.hash)(`${key}${value}`)}`;
+            stylesheet[key][JSON.stringify(value, null, 2)] = {
+                className: id2,
+                media: key,
+                selector: `.${id2}`,
+                type: "MEDIA",
+                style: value
+            };
+        } else if (typeof value === "object") {
+            const id3 = `ID-${(0, _hash.hash)(`${key}${value}`)}`;
+            stylesheet[key][JSON.stringify(value, null, 2)] = {
+                className: id3,
+                selector: `.${id3}${key}`,
+                type: "NESTED",
+                style: value
+            };
+        } else throw new Error("Invalid CSS value");
     }
     return styles;
 }
@@ -28612,13 +28619,13 @@ const getCSS = (key, value)=>{
 const generateStylesheet = ({ light , dark  })=>{
     const css = [];
     css.push(baseStyles);
-    css.push(`body {
+    css.push(`:root {
     color-scheme: light;
-    ${Object.entries(light).map(([key, value])=>`${key}: ${value}`).join(";\n")}
+    ${Object.entries(light).map(([key, value])=>`${key}: ${value};`).join("\n   ")}
   }`);
-    css.push(`body {
+    css.push(`:root {
     color-scheme: dark;
-    ${Object.entries(dark).map(([key, value])=>`${key}: ${value}`).join(";\n")}
+    ${Object.entries(dark).map(([key, value])=>`${key}: ${value};`).join("\n    ")}
   }`);
     for (const key of Object.keys(stylesheet))for (const value of Object.keys(stylesheet[key])){
         const style = stylesheet[key][value];
@@ -28724,17 +28731,11 @@ const baseStyles = `
 }
 
 html,
-body,
-#root {
+body {
   height: 100%;
   width: 100%;
   overflow: hidden;
   background-color: var(--primary-background);
-}
-
-#root {
-  display: flex;
-  flex-direction: column;
 }
 
 textarea:-webkit-autofill,
@@ -28991,18 +28992,7 @@ $RefreshReg$(_c, "PaletteProvider");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./guid":"24cEd","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"24cEd":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "guid", ()=>guid);
-function guid() {
-    return "ID-xxxxxxxx".replace(/[xy]/g, function(c) {
-        const r = Math.random() * 16 | 0, v = c === "x" ? r : r & 0x3 | 0x8;
-        return v.toString(16);
-    });
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./hash":"4L8gl"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -29166,7 +29156,24 @@ function registerExportsForReactRefresh(module1) {
     }
 }
 
-},{"f1efc3a1df1f5573":"786KC"}],"4CqZG":[function(require,module,exports) {
+},{"f1efc3a1df1f5573":"786KC"}],"4L8gl":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "hash", ()=>hash);
+function hash(source) {
+    let hash = 0;
+    let i;
+    let chr;
+    if (source.length === 0) return hash.toString();
+    for(i = 0; i < source.length; i++){
+        chr = source.charCodeAt(i);
+        hash = (hash << 5) - hash + chr;
+        hash |= 0; // Convert to 32bit integer
+    }
+    return hash.toString();
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4CqZG":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$a1a7 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -30619,7 +30626,18 @@ $RefreshReg$(_c1, "BaseInput");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./guid":"24cEd","./Palette":"fgv8F","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"77uNt":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./guid":"24cEd","./Palette":"fgv8F","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"24cEd":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "guid", ()=>guid);
+function guid() {
+    return "ID-xxxxxxxx".replace(/[xy]/g, function(c) {
+        const r = Math.random() * 16 | 0, v = c === "x" ? r : r & 0x3 | 0x8;
+        return v.toString(16);
+    });
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"77uNt":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$f0e0 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;

@@ -2,6 +2,7 @@ import CSS from "csstype";
 import React, { ReactNode, useInsertionEffect } from "react";
 
 import { guid } from "./guid";
+import { hash } from "./hash";
 
 type StylesValueType = string | number | CSS.Properties<string | number>;
 
@@ -141,21 +142,22 @@ export function createJSStyle(styles: Styles): Styles {
       stylesheet[key] = {};
     }
 
-    const id = guid();
-
     if (typeof value === "number") {
+      const id = `ID-${hash(`${key}${value}`)}`;
       stylesheet[key][value] = {
         className: id,
         selector: `.${id}`,
         type: "SIMPLE",
       };
     } else if (typeof value === "string") {
+      const id = `ID-${hash(`${key}${value}`)}`;
       stylesheet[key][value] = {
         className: id,
         selector: `.${id}`,
         type: "SIMPLE",
       };
     } else if (typeof value === "object" && key.startsWith("@media")) {
+      const id = `ID-${hash(`${key}${value}`)}`;
       stylesheet[key][JSON.stringify(value, null, 2)] = {
         className: id,
         media: key,
@@ -164,6 +166,7 @@ export function createJSStyle(styles: Styles): Styles {
         style: value,
       };
     } else if (typeof value === "object") {
+      const id = `ID-${hash(`${key}${value}`)}`;
       stylesheet[key][JSON.stringify(value, null, 2)] = {
         className: id,
         selector: `.${id}${key}`,

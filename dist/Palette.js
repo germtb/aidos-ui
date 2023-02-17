@@ -1,5 +1,5 @@
 import React, { useInsertionEffect } from "react";
-import { guid } from "./guid";
+import { hash } from "./hash";
 const stylesheet = {};
 const aliases = {
     margin: (value) => {
@@ -50,8 +50,8 @@ export function createJSStyle(styles) {
         if (stylesheet[key] == null) {
             stylesheet[key] = {};
         }
-        const id = guid();
         if (typeof value === "number") {
+            const id = `ID-${hash(`${key}${value}`)}`;
             stylesheet[key][value] = {
                 className: id,
                 selector: `.${id}`,
@@ -59,6 +59,7 @@ export function createJSStyle(styles) {
             };
         }
         else if (typeof value === "string") {
+            const id = `ID-${hash(`${key}${value}`)}`;
             stylesheet[key][value] = {
                 className: id,
                 selector: `.${id}`,
@@ -66,6 +67,7 @@ export function createJSStyle(styles) {
             };
         }
         else if (typeof value === "object" && key.startsWith("@media")) {
+            const id = `ID-${hash(`${key}${value}`)}`;
             stylesheet[key][JSON.stringify(value, null, 2)] = {
                 className: id,
                 media: key,
@@ -75,6 +77,7 @@ export function createJSStyle(styles) {
             };
         }
         else if (typeof value === "object") {
+            const id = `ID-${hash(`${key}${value}`)}`;
             stylesheet[key][JSON.stringify(value, null, 2)] = {
                 className: id,
                 selector: `.${id}${key}`,
