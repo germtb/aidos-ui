@@ -307,12 +307,12 @@ export const generateStylesheet = ({ light, dark }: { light: Theme, dark: Theme 
 
   css.push(`:root {
     color-scheme: light;
-    ${Object.entries(light).map(([key, value]) => `${key}: ${value}`).join(';\n . ')}
+    ${Object.entries(light).map(([key, value]) => `${key}: ${value};`).join('\n . ')}
   }`)
 
   css.push(`:root {
     color-scheme: dark;
-    ${Object.entries(dark).map(([key, value]) => `${key}: ${value}`).join(';\n . ')}
+    ${Object.entries(dark).map(([key, value]) => `${key}: ${value};`).join('\n . ')}
   }`)
 
   for (const key of Object.keys(stylesheet)) {
