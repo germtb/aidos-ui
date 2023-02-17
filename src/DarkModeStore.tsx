@@ -7,7 +7,7 @@ type State = {
 
 export const DarkModeContext = React.createContext<State>({
   enabled: false,
-  toggle: () => {},
+  toggle: () => { },
 });
 
 export function DarkModeProvider({
@@ -30,15 +30,19 @@ export function DarkModeProvider({
     if (enabled) {
       document.body.classList.add("dark-mode");
       // @ts-ignore
-      statusBarMeta.content = "black-translucent";
+      statusBarMeta && statusBarMeta.content = "black-translucent";
       // @ts-ignore
-      themeColorMeta.content = "rgb(42, 43, 46)";
+      themeColorMeta && themeColorMeta.content = "rgb(42, 43, 46)";
     } else {
       document.body.classList.remove("dark-mode");
-      // @ts-ignore
-      statusBarMeta.content = "default";
-      // @ts-ignore
-      themeColorMeta.content = "rgb(239, 239, 244)";
+      if (statusBarMeta != null) {
+        // @ts-ignore
+        statusBarMeta.content = "default";
+      }
+      if (themeColorMeta != null) {
+        // @ts-ignore
+        themeColorMeta.content = "rgb(239, 239, 244)";
+      }
     }
   }, [enabled]);
 
