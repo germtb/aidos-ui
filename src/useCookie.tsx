@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 
 export function useCookie<T>(
   key: string,
@@ -13,33 +13,43 @@ export function useCookie<T>(
     deserialize?: (s: string) => T;
     maxAge?: number;
   } = {
-    initialValue: null,
-    serialize: JSON.stringify,
-    deserialize: JSON.parse,
-    maxAge: 60 * 60 * 24 * 365,
-  }
+      initialValue: null,
+      serialize: JSON.stringify,
+      deserialize: JSON.parse,
+      maxAge: 60 * 60 * 24 * 365,
+    }
 ): [T, React.Dispatch<React.SetStateAction<T>>] {
+  const initializationRef = useRef(false);
   const [cookie, setCookie] = useState<T | null>(() => {
     return (
-      document.cookie
+      initialValue
+    );
+  });
+
+  useEffect(() => {
+    if (initializationRef.current === true) {
+      return;
+    }
+
+    const hasPersistedValue = document.cookie
+      .split(";")
+      .map((c) => c.trim())
+      .filter((c) => c.startsWith(`${key}=`)).length > 0
+
+    if (hasPersistedValue) {
+      const persistedValue = document.cookie
         .split(";")
         .map((c) => c.trim())
         .filter((c) => c.startsWith(`${key}=`))
         .map((s) => s.split("=")[1])
         .map((s) => deserialize(s))
-        .pop() ?? initialValue
-    );
-  });
+        .pop()
 
-  useEffect(() => {
-    if (
-      document.cookie
-        .split(";")
-        .map((c) => c.trim())
-        .filter((c) => c.startsWith(`${key}=`)).length === 0
-    ) {
+      setCookie(persistedValue)
+    } else {
       document.cookie = `${key}=${serialize(initialValue)}; max-age=${maxAge};`;
     }
+    initializationRef.current = true;
   }, []);
 
   return [
