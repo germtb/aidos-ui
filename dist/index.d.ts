@@ -16,7 +16,6 @@ export * from "./DarkModeStore";
 export * from "./DateInput";
 export * from "./DatePicker";
 export * from "./DatetimeInput";
-export * from "./DesignBook";
 export * from "./Dialog";
 export * from "./Dropdown";
 export * from "./Emitter";
