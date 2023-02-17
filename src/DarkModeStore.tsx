@@ -1,4 +1,4 @@
-import React, { ReactNode, useLayoutEffect } from "react";
+import React, { ReactNode, useEffect } from "react";
 
 type State = {
   enabled: boolean;
@@ -19,7 +19,7 @@ export function DarkModeProvider({
   enabled: boolean;
   toggle: () => void;
 }) {
-  useLayoutEffect(() => {
+  useEffect(() => {
     const statusBarMeta = document.head.querySelector(
       'meta[name="apple-mobile-web-app-status-bar-style"]'
     );

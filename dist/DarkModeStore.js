@@ -1,10 +1,10 @@
-import React, { useLayoutEffect } from "react";
+import React, { useEffect } from "react";
 export const DarkModeContext = React.createContext({
     enabled: false,
     toggle: () => { },
 });
 export function DarkModeProvider({ children, enabled, toggle, }) {
-    useLayoutEffect(() => {
+    useEffect(() => {
         const statusBarMeta = document.head.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
         const themeColorMeta = document.head.querySelector('meta[name="theme-color"]');
         if (enabled) {
