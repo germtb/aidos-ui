@@ -305,14 +305,14 @@ export const generateStylesheet = ({ light, dark }: { light: Theme, dark: Theme 
 
   css.push(baseStyles);
 
-  css.push(`body {
+  css.push(`:root {
     color-scheme: light;
-    ${Object.entries(light).map(([key, value]) => `${key}: ${value}`).join(';\n')}
+    ${Object.entries(light).map(([key, value]) => `${key}: ${value}`).join(';\n . ')}
   }`)
 
-  css.push(`body {
+  css.push(`:root {
     color-scheme: dark;
-    ${Object.entries(dark).map(([key, value]) => `${key}: ${value}`).join(';\n')}
+    ${Object.entries(dark).map(([key, value]) => `${key}: ${value}`).join(';\n . ')}
   }`)
 
   for (const key of Object.keys(stylesheet)) {
@@ -474,17 +474,11 @@ const baseStyles = `
 }
 
 html,
-body,
-#root {
+body {
   height: 100%;
   width: 100%;
   overflow: hidden;
   background-color: var(--primary-background);
-}
-
-#root {
-  display: flex;
-  flex-direction: column;
 }
 
 textarea:-webkit-autofill,
