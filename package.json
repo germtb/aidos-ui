@@ -1,14 +1,10 @@
 {
   "type": "module",
   "name": "aidos-ui",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A simple UI framework",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
-    }
-  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc --build",
     "build-showcase": "parcel build debug/index.html",
