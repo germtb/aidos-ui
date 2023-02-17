@@ -27,9 +27,50 @@ export declare const createJSStyles: <T extends {
     };
 }>(styles: T) => T;
 export declare const createClassNames: (...styles: Array<JSStyles>) => string;
-export declare const generateStylesheet: () => string;
-export declare const PaletteProvider: ({ children, }: {
+export declare const generateStylesheet: ({ light, dark }: {
+    light: Theme;
+    dark: Theme;
+}) => string;
+export type Theme = {
+    ["--primary-background"]: string;
+    ["--secondary-background"]: string;
+    ["--divider"]: string;
+    ["--strong-divider"]: string;
+    ["--pressed-background"]: string;
+    ["--nav-bar"]: string;
+    ["--highlight"]: string;
+    ["--outline"]: string;
+    ["--light-highlight"]: string;
+    ["--primary-text"]: string;
+    ["--secondary-text"]: string;
+    ["--subtle-text"]: string;
+    ["--highlight-text"]: string;
+    ["--negative-text"]: string;
+    ["--light-text"]: string;
+    ["--background-button-positive"]: string;
+    ["--background-button-secondary"]: string;
+    ["--background-button-negative"]: string;
+    ["--background-button-disabled"]: string;
+    ["--spacing-xs"]: string;
+    ["--spacing-s"]: string;
+    ["--spacing-m"]: string;
+    ["--spacing-l"]: string;
+    ["--spacing-xl"]: string;
+    ["--spacing-xxl"]: string;
+    ["--spacing-xxxl"]: string;
+    ["--border-radius-s"]: string;
+    ["--border-radius-m"]: string;
+    ["--border-radius-l"]: string;
+    ["--nav-bar-height"]: string;
+};
+export declare const lightTheme: Theme;
+export declare const darkTheme: Theme;
+export declare const PaletteProvider: ({ children, themes }: {
     children: ReactNode;
+    themes: {
+        light: Theme;
+        dark: Theme;
+    };
 }) => JSX.Element;
 export declare const getBackground: (color: Color) => any;
 export declare const getJustify: (prop: Justify) => any;

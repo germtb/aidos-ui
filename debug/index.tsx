@@ -2,7 +2,7 @@ import React from "react";
 import { createRoot } from "react-dom/client";
 
 import { DesignBook } from "../src/DesignBook";
-import { PaletteProvider } from "../src/Palette";
+import { Providers } from "../src/Providers";
 
 const root = document.getElementById("root");
 
@@ -13,7 +13,7 @@ if (!root) {
 const reactRoot = createRoot(root);
 
 reactRoot.render(
-  <PaletteProvider>
+  <Providers>
     <DesignBook />
-  </PaletteProvider>
+  </Providers>
 );

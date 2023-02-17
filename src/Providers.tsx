@@ -1,7 +1,7 @@
 import React from "react";
 import { DarkModeProvider } from "./DarkModeStore";
 import { DialogProvider } from "./Dialog";
-import { PaletteProvider } from "./Palette";
+import { darkTheme, lightTheme, PaletteProvider } from "./Palette";
 import { useCookie } from "./useCookie";
 
 
@@ -9,11 +9,11 @@ export function Providers({ children }) {
     const [darkModeEnabled, setDarkModeEnabled] = useCookie("dark-mode", { initialValue: true });
     const toggleDarkMode = React.useCallback(() => setDarkModeEnabled(x => !x), []);
 
-    return <PaletteProvider>
+    return <PaletteProvider themes={{ light: lightTheme, dark: darkTheme }}>
         <DarkModeProvider enabled={darkModeEnabled} toggle={toggleDarkMode}>
             <DialogProvider>
                 {children}
             </DialogProvider>
         </DarkModeProvider>
-    </PaletteProvider>
+    </PaletteProvider >
 }

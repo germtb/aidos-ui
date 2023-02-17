@@ -12,7 +12,6 @@ import { Checkbox } from "./Checkbox";
 import { List } from "./List";
 import { ListSpacer } from "./ListSpacer";
 import { CenteredListRow } from "./CenteredListRow";
-import "./simple-ui.css";
 import { ListPressableRow } from "./ListPressableRow";
 export function DesignBook() {
     return (React.createElement(RootView, null,
