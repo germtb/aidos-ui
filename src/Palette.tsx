@@ -429,24 +429,30 @@ export const lightTheme: Theme = {
 
 
 export const darkTheme: Theme = {
+  /* Background */
   ["--primary-background"]: "rgb(42, 43, 46)",
   ["--secondary-background"]: "rgb(34, 35, 36)",
   ["--divider"]: "rgb(70, 72, 73)",
   ["--strong-divider"]: "rgb(100, 100, 100)",
   ["--pressed-background"]: "rgb(50, 52, 53)",
   ["--nav-bar"]: "rgb(34, 35, 36)",
+  /* Effects */
   ["--highlight"]: "rgb(50, 140, 220)",
   ["--outline"]: "rgb(91, 170, 255)",
   ["--light-highlight"]: "rgb(220, 232, 245)",
+  /* Text */
   ["--primary-text"]: "rgb(255, 255, 255)",
   ["--secondary-text"]: "rgb(200, 200, 200)",
   ["--subtle-text"]: "rgb(140, 140, 140)",
   ["--highlight-text"]: "#4ca7f8",
   ["--negative-text"]: "rgb(255, 59, 48)",
   ["--light-text"]: "rgb(255, 255, 255)",
+  /* Buttons */
   ["--background-button-positive"]: "rgb(50, 140, 220)",
   ["--background-button-secondary"]: "rgb(82, 83, 86)",
   ["--background-button-negative"]: "rgb(255, 59, 48)",
+  ["--background-button-disabled"]: "rgb(70, 72, 73)",
+  /* Spacing */
   ["--spacing-xs"]: "2px",
   ["--spacing-s"]: "4px",
   ["--spacing-m"]: "8px",
@@ -457,7 +463,7 @@ export const darkTheme: Theme = {
   ["--border-radius-s"]: "2px",
   ["--border-radius-m"]: "4px",
   ["--border-radius-l"]: "8px",
-  ["--nav-bar-height"]: "50px", ["--background-button-disabled"]: "rgb(70, 72, 73)",
+  ["--nav-bar-height"]: "50px",
 }
 
 const baseStyles = `

@@ -7,7 +7,7 @@ export function useCookie(key, { initialValue = null, serialize = JSON.stringify
 }) {
     const initializationRef = useRef(false);
     const [cookie, setCookie] = useState(() => {
-        return (initialValue);
+        return initialValue;
     });
     useEffect(() => {
         if (initializationRef.current === true) {

@@ -1,8 +1,8 @@
 {
   "type": "module",
   "name": "aidos-ui",
-  "version": "1.1.5",
-  "description": "A simple UI framework",
+  "version": "1.1.6",
+  "description": "A humble UI framework",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
