@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { createJSStyles, Size, TextColor } from "./Palette";
+import { Color, createJSStyles, Size, TextColor } from "./Palette";
 import { BaseButton, ButtonColor } from "./BaseButton";
 import { TextPairing } from "./TextPairing";
 import { BaseView } from "./BaseView";
@@ -69,6 +69,7 @@ interface ListPressableRow extends BaseListRowProps {
   color?: ButtonColor;
   disabled?: boolean;
   role?: undefined;
+  backgroundColor?: Color;
 }
 
 export const ListPressableRow = React.forwardRef(

@@ -19,7 +19,7 @@ const jsStyles = createJSStyles({
     },
     animateClick: {
         ":active": {
-            transform: "scale(0.975)",
+            opacity: 0.95,
         },
         ":active:disabled": {
             opacity: 1,
