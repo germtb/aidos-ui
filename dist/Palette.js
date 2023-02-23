@@ -67,8 +67,9 @@ export function createJSStyle(styles) {
             };
         }
         else if (typeof value === "object" && key.startsWith("@media")) {
-            const id = `ID-${hash(`${key}${value}`)}`;
-            stylesheet[key][JSON.stringify(value, null, 2)] = {
+            const hashedValue = hash(JSON.stringify(value, null, 2));
+            const id = `ID-${hash(`${key}${hashedValue}`)}`;
+            stylesheet[key][hashedValue] = {
                 className: id,
                 media: key,
                 selector: `.${id}`,
@@ -77,7 +78,8 @@ export function createJSStyle(styles) {
             };
         }
         else if (typeof value === "object") {
-            const id = `ID-${hash(`${key}${value}`)}`;
+            const hashedValue = hash(JSON.stringify(value, null, 2));
+            const id = `ID-${hash(`${key}${hashedValue}`)}`;
             stylesheet[key][JSON.stringify(value, null, 2)] = {
                 className: id,
                 selector: `.${id}${key}`,
@@ -193,16 +195,20 @@ const getCSS = (key, value) => {
     const cssValue = toPixelValue(cssProp, value);
     return [cssProp, cssValue];
 };
-export const generateStylesheet = ({ light, dark }) => {
+export const generateStylesheet = ({ light, dark, }) => {
     const css = [];
     css.push(baseStyles);
     css.push(`:root {
     color-scheme: light;
-    ${Object.entries(light).map(([key, value]) => `${key}: ${value};`).join('\n   ')}
+    ${Object.entries(light)
+        .map(([key, value]) => `${key}: ${value};`)
+        .join("\n   ")}
   }`);
     css.push(`:root {
     color-scheme: dark;
-    ${Object.entries(dark).map(([key, value]) => `${key}: ${value};`).join('\n    ')}
+    ${Object.entries(dark)
+        .map(([key, value]) => `${key}: ${value};`)
+        .join("\n    ")}
   }`);
     for (const key of Object.keys(stylesheet)) {
         for (const value of Object.keys(stylesheet[key])) {
@@ -365,7 +371,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   }
 }
 `;
-export const PaletteProvider = ({ children, themes }) => {
+export const PaletteProvider = ({ children, themes, }) => {
     useInsertionEffect(() => {
         const stylesheet = generateStylesheet(themes);
         const style = document.createElement("style");

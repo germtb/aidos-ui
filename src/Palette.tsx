@@ -1,7 +1,6 @@
 import CSS from "csstype";
 import React, { ReactNode, useInsertionEffect } from "react";
 
-import { guid } from "./guid";
 import { hash } from "./hash";
 
 type StylesValueType = string | number | CSS.Properties<string | number>;
@@ -55,24 +54,24 @@ export type Styles = CSS.Properties<
 type Stylesheet = {
   [cssProp: string]: {
     [cssValue: string]:
-    | {
-      className: string;
-      selector: string;
-      type: "SIMPLE";
-    }
-    | {
-      className: string;
-      media: string;
-      selector: string;
-      type: "MEDIA";
-      style: CSS.Properties<string | number>;
-    }
-    | {
-      className: string;
-      selector: string;
-      type: "NESTED";
-      style: CSS.Properties<string | number>;
-    };
+      | {
+          className: string;
+          selector: string;
+          type: "SIMPLE";
+        }
+      | {
+          className: string;
+          media: string;
+          selector: string;
+          type: "MEDIA";
+          style: CSS.Properties<string | number>;
+        }
+      | {
+          className: string;
+          selector: string;
+          type: "NESTED";
+          style: CSS.Properties<string | number>;
+        };
   };
 };
 
@@ -157,8 +156,9 @@ export function createJSStyle(styles: Styles): Styles {
         type: "SIMPLE",
       };
     } else if (typeof value === "object" && key.startsWith("@media")) {
-      const id = `ID-${hash(`${key}${value}`)}`;
-      stylesheet[key][JSON.stringify(value, null, 2)] = {
+      const hashedValue = hash(JSON.stringify(value, null, 2));
+      const id = `ID-${hash(`${key}${hashedValue}`)}`;
+      stylesheet[key][hashedValue] = {
         className: id,
         media: key,
         selector: `.${id}`,
@@ -166,7 +166,8 @@ export function createJSStyle(styles: Styles): Styles {
         style: value,
       };
     } else if (typeof value === "object") {
-      const id = `ID-${hash(`${key}${value}`)}`;
+      const hashedValue = hash(JSON.stringify(value, null, 2));
+      const id = `ID-${hash(`${key}${hashedValue}`)}`;
       stylesheet[key][JSON.stringify(value, null, 2)] = {
         className: id,
         selector: `.${id}${key}`,
@@ -303,20 +304,30 @@ const getCSS = (key, value) => {
   return [cssProp, cssValue];
 };
 
-export const generateStylesheet = ({ light, dark }: { light: Theme, dark: Theme }) => {
+export const generateStylesheet = ({
+  light,
+  dark,
+}: {
+  light: Theme;
+  dark: Theme;
+}) => {
   const css: string[] = [];
 
   css.push(baseStyles);
 
   css.push(`:root {
     color-scheme: light;
-    ${Object.entries(light).map(([key, value]) => `${key}: ${value};`).join('\n   ')}
-  }`)
+    ${Object.entries(light)
+      .map(([key, value]) => `${key}: ${value};`)
+      .join("\n   ")}
+  }`);
 
   css.push(`:root {
     color-scheme: dark;
-    ${Object.entries(dark).map(([key, value]) => `${key}: ${value};`).join('\n    ')}
-  }`)
+    ${Object.entries(dark)
+      .map(([key, value]) => `${key}: ${value};`)
+      .join("\n    ")}
+  }`);
 
   for (const key of Object.keys(stylesheet)) {
     for (const value of Object.keys(stylesheet[key])) {
@@ -353,41 +364,41 @@ export const generateStylesheet = ({ light, dark }: { light: Theme, dark: Theme 
 
 export type Theme = {
   /* Background */
-  ["--primary-background"]: string,
-  ["--secondary-background"]: string,
-  ["--divider"]: string,
-  ["--strong-divider"]: string,
-  ["--pressed-background"]: string,
-  ["--nav-bar"]: string,
+  ["--primary-background"]: string;
+  ["--secondary-background"]: string;
+  ["--divider"]: string;
+  ["--strong-divider"]: string;
+  ["--pressed-background"]: string;
+  ["--nav-bar"]: string;
   /* Effects */
-  ["--highlight"]: string,
-  ["--outline"]: string,
-  ["--light-highlight"]: string,
+  ["--highlight"]: string;
+  ["--outline"]: string;
+  ["--light-highlight"]: string;
   /* Text */
-  ["--primary-text"]: string,
-  ["--secondary-text"]: string,
-  ["--subtle-text"]: string,
-  ["--highlight-text"]: string,
-  ["--negative-text"]: string,
-  ["--light-text"]: string,
+  ["--primary-text"]: string;
+  ["--secondary-text"]: string;
+  ["--subtle-text"]: string;
+  ["--highlight-text"]: string;
+  ["--negative-text"]: string;
+  ["--light-text"]: string;
   /* Buttons */
-  ["--background-button-positive"]: string,
-  ["--background-button-secondary"]: string,
-  ["--background-button-negative"]: string,
-  ["--background-button-disabled"]: string,
+  ["--background-button-positive"]: string;
+  ["--background-button-secondary"]: string;
+  ["--background-button-negative"]: string;
+  ["--background-button-disabled"]: string;
   /* Spacing */
-  ["--spacing-xs"]: string,
-  ["--spacing-s"]: string,
-  ["--spacing-m"]: string,
-  ["--spacing-l"]: string,
-  ["--spacing-xl"]: string,
-  ["--spacing-xxl"]: string,
-  ["--spacing-xxxl"]: string,
-  ["--border-radius-s"]: string,
-  ["--border-radius-m"]: string,
-  ["--border-radius-l"]: string,
-  ["--nav-bar-height"]: string,
-}
+  ["--spacing-xs"]: string;
+  ["--spacing-s"]: string;
+  ["--spacing-m"]: string;
+  ["--spacing-l"]: string;
+  ["--spacing-xl"]: string;
+  ["--spacing-xxl"]: string;
+  ["--spacing-xxxl"]: string;
+  ["--border-radius-s"]: string;
+  ["--border-radius-m"]: string;
+  ["--border-radius-l"]: string;
+  ["--nav-bar-height"]: string;
+};
 
 export const lightTheme: Theme = {
   /* Background */
@@ -425,8 +436,7 @@ export const lightTheme: Theme = {
   ["--border-radius-m"]: "4px",
   ["--border-radius-l"]: "8px",
   ["--nav-bar-height"]: "50px",
-}
-
+};
 
 export const darkTheme: Theme = {
   /* Background */
@@ -464,7 +474,7 @@ export const darkTheme: Theme = {
   ["--border-radius-m"]: "4px",
   ["--border-radius-l"]: "8px",
   ["--nav-bar-height"]: "50px",
-}
+};
 
 const baseStyles = `
 * {
@@ -521,14 +531,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     opacity: 0;
   }
 }
-`
+`;
 
 export const PaletteProvider = ({
   children,
-  themes
+  themes,
 }: {
   children: ReactNode;
-  themes: { light: Theme, dark: Theme }
+  themes: { light: Theme; dark: Theme };
 }): JSX.Element => {
   useInsertionEffect(() => {
     const stylesheet = generateStylesheet(themes);

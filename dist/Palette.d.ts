@@ -27,7 +27,7 @@ export declare const createJSStyles: <T extends {
     };
 }>(styles: T) => T;
 export declare const createClassNames: (...styles: Array<JSStyles>) => string;
-export declare const generateStylesheet: ({ light, dark }: {
+export declare const generateStylesheet: ({ light, dark, }: {
     light: Theme;
     dark: Theme;
 }) => string;
@@ -65,7 +65,7 @@ export type Theme = {
 };
 export declare const lightTheme: Theme;
 export declare const darkTheme: Theme;
-export declare const PaletteProvider: ({ children, themes }: {
+export declare const PaletteProvider: ({ children, themes, }: {
     children: ReactNode;
     themes: {
         light: Theme;
