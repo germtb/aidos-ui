@@ -1,4 +1,3 @@
-export * from "./Badge";
 export * from "./BaseButton";
 export * from "./BaseInput";
 export * from "./BaseList";
