@@ -1,7 +1,8 @@
 {
   "name": "aidos-ui",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "A humble UI framework",
+  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc --build",
