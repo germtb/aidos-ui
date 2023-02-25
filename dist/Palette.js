@@ -489,6 +489,41 @@ export const paddingStyles = createJSStyles({
         paddingBottom: "var(--spacing-l)",
     },
 });
+export const marginStyles = createJSStyles({
+    small: {
+        margin: "var(--spacing-s)",
+    },
+    medium: {
+        margin: "var(--spacing-m)",
+    },
+    large: {
+        margin: "var(--spacing-l)",
+    },
+    ["small-row"]: {
+        marginLeft: "var(--spacing-s)",
+        marginRight: "var(--spacing-s)",
+    },
+    ["medium-row"]: {
+        marginLeft: "var(--spacing-m)",
+        marginRight: "var(--spacing-m)",
+    },
+    ["large-row"]: {
+        marginLeft: "var(--spacing-l)",
+        marginRight: "var(--spacing-l)",
+    },
+    ["small-column"]: {
+        marginTop: "var(--spacing-s)",
+        marginBottom: "var(--spacing-s)",
+    },
+    ["medium-column"]: {
+        marginTop: "var(--spacing-m)",
+        marginBottom: "var(--spacing-m)",
+    },
+    ["large-column"]: {
+        marginTop: "var(--spacing-l)",
+        marginBottom: "var(--spacing-l)",
+    },
+});
 export const getPadding = (padding) => {
     if (Array.isArray(padding)) {
         const [h, v] = padding;
@@ -496,6 +531,15 @@ export const getPadding = (padding) => {
     }
     else {
         return paddingStyles[padding];
+    }
+};
+export const getMargin = (margin) => {
+    if (Array.isArray(margin)) {
+        const [h, v] = margin;
+        return [marginStyles[`${v}-row`], marginStyles[`${h}-column`]];
+    }
+    else {
+        return marginStyles[margin];
     }
 };
 export const grow = createJSStyles({ grow: { flexGrow: 1 } }).grow;

@@ -4,6 +4,7 @@ export type Size = "small" | "medium" | "large";
 export type Spacing = "none" | Size;
 export type Gap = Spacing;
 export type Padding = Spacing | [Spacing, Spacing];
+export type Margin = Spacing | [Spacing, Spacing];
 export type Direction = "horizontal" | "vertical";
 export type Position = "left" | "right";
 export type Justify = "none" | "center" | "flex-start" | "space-between" | "flex-end" | "stretch";
@@ -111,7 +112,43 @@ export declare const paddingStyles: {
         paddingBottom: string;
     };
 };
+export declare const marginStyles: {
+    small: {
+        margin: string;
+    };
+    medium: {
+        margin: string;
+    };
+    large: {
+        margin: string;
+    };
+    "small-row": {
+        marginLeft: string;
+        marginRight: string;
+    };
+    "medium-row": {
+        marginLeft: string;
+        marginRight: string;
+    };
+    "large-row": {
+        marginLeft: string;
+        marginRight: string;
+    };
+    "small-column": {
+        marginTop: string;
+        marginBottom: string;
+    };
+    "medium-column": {
+        marginTop: string;
+        marginBottom: string;
+    };
+    "large-column": {
+        marginTop: string;
+        marginBottom: string;
+    };
+};
 export declare const getPadding: (padding: Padding) => any;
+export declare const getMargin: (margin: Margin) => any;
 export declare const grow: {
     flexGrow: number;
 };
