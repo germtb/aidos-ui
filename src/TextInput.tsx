@@ -7,7 +7,7 @@ import { Row } from "./Row";
 import { Box } from "./Box";
 
 export interface TextInputProps extends BaseInputProps {
-  onValueChange: (value: string) => void;
+  onValueChange?: (value: string) => void;
   rootJSStyle?: JSStyles;
   icon?: IconType;
   addOn?: ReactNode;
