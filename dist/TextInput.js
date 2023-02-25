@@ -29,7 +29,7 @@ export const TextInput = React.forwardRef(({ value, onValueChange, rootJSStyle, 
     return (React.createElement(Row, { jsStyle: [jsStyles.root, rootJSStyle], padding: indentation },
         icon && (React.createElement(Box, { padding: "medium" },
             React.createElement(Icon, { size: "medium", color: "secondary", icon: icon }))),
-        React.createElement(BaseInput, { ...inputProps, ref: ref, value: value, onChange: (e) => onValueChange(e.target.value), jsStyle: [jsStyles.input, jsStyle] }),
+        React.createElement(BaseInput, { ...inputProps, ref: ref, value: value, onChange: onValueChange ? (e) => onValueChange(e.target.value) : undefined, jsStyle: [jsStyles.input, jsStyle] }),
         addOn));
 });
 //# sourceMappingURL=TextInput.js.map

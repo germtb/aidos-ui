@@ -4,8 +4,8 @@ import { createClassNames, JSStyles, createJSStyles } from "./Palette";
 export interface TextAreaProps
   extends React.InputHTMLAttributes<HTMLTextAreaElement> {
   jsStyle?: JSStyles;
-  onValueChange: (value: string) => void;
-  value: string;
+  onValueChange?: (value: string) => void;
+  value?: string;
   className?: undefined;
   size?: undefined;
 }
@@ -37,7 +37,9 @@ export const TextArea = React.forwardRef(
         ref={ref}
         className={createClassNames(jsStyles.root, jsStyle)}
         value={value}
-        onChange={(e) => onValueChange(e.target.value)}
+        onChange={
+          onValueChange ? (e) => onValueChange(e.target.value) : undefined
+        }
       />
     );
   }

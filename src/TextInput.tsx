@@ -62,7 +62,9 @@ export const TextInput = React.forwardRef(
           {...inputProps}
           ref={ref}
           value={value}
-          onChange={(e) => onValueChange(e.target.value)}
+          onChange={
+            onValueChange ? (e) => onValueChange(e.target.value) : undefined
+          }
           jsStyle={[jsStyles.input, jsStyle]}
         />
         {addOn}

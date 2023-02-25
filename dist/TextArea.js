@@ -16,6 +16,6 @@ const jsStyles = createJSStyles({
     },
 });
 export const TextArea = React.forwardRef(({ jsStyle, onValueChange, value, onChange, ...otherProps }, ref) => {
-    return (React.createElement("textarea", { ...otherProps, ref: ref, className: createClassNames(jsStyles.root, jsStyle), value: value, onChange: (e) => onValueChange(e.target.value) }));
+    return (React.createElement("textarea", { ...otherProps, ref: ref, className: createClassNames(jsStyles.root, jsStyle), value: value, onChange: onValueChange ? (e) => onValueChange(e.target.value) : undefined }));
 });
 //# sourceMappingURL=TextArea.js.map

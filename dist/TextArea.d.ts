@@ -2,8 +2,8 @@ import React from "react";
 import { JSStyles } from "./Palette";
 export interface TextAreaProps extends React.InputHTMLAttributes<HTMLTextAreaElement> {
     jsStyle?: JSStyles;
-    onValueChange: (value: string) => void;
-    value: string;
+    onValueChange?: (value: string) => void;
+    value?: string;
     className?: undefined;
     size?: undefined;
 }
