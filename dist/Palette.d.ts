@@ -10,7 +10,7 @@ export type Position = "left" | "right";
 export type Justify = "none" | "center" | "flex-start" | "space-between" | "flex-end" | "stretch";
 export type Align = "none" | "center" | "stretch" | "flex-start";
 export type FlexDirection = "row" | "column";
-export type Color = "none" | "negative" | "highlight" | "primary-background" | "secondary-background" | "divider" | "inherit";
+export type Color = "none" | "negative" | "warning" | "highlight" | "primary-background" | "secondary-background" | "divider" | "inherit";
 export type TextColor = "primary" | "secondary" | "highlight" | "negative" | "subtle" | "light" | "inherit";
 export type Styles = CSS.Properties<string | number | CSS.Properties<string | number>>;
 export type JSStyles = Styles | null | false | undefined | {
@@ -39,6 +39,7 @@ export type Theme = {
     ["--strong-divider"]: string;
     ["--pressed-background"]: string;
     ["--nav-bar"]: string;
+    ["--warning"]: string;
     ["--highlight"]: string;
     ["--outline"]: string;
     ["--light-highlight"]: string;

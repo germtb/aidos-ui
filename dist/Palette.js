@@ -250,6 +250,7 @@ export const lightTheme = {
     ["--pressed-background"]: "rgb(220, 222, 224)",
     ["--nav-bar"]: "rgb(232, 232, 234)",
     /* Effects */
+    ["--warning"]: "rgb(255, 204, 0)",
     ["--highlight"]: "rgb(0, 122, 255)",
     ["--outline"]: "rgb(103, 176, 255)",
     ["--light-highlight"]: "rgb(220, 232, 245)",
@@ -287,6 +288,7 @@ export const darkTheme = {
     ["--pressed-background"]: "rgb(50, 52, 53)",
     ["--nav-bar"]: "rgb(34, 35, 36)",
     /* Effects */
+    ["--warning"]: "rgb(255, 204, 0)",
     ["--highlight"]: "rgb(50, 140, 220)",
     ["--outline"]: "rgb(91, 170, 255)",
     ["--light-highlight"]: "rgb(220, 232, 245)",
@@ -386,6 +388,9 @@ export const PaletteProvider = ({ children, themes, }) => {
 const backgroundStyles = createJSStyles({
     highlight: {
         backgroundColor: "var(--highlight)",
+    },
+    warning: {
+        backgroundColor: "var(--warning)",
     },
     "primary-background": {
         backgroundColor: "var(--primary-background)",
