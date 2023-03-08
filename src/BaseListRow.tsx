@@ -1,5 +1,11 @@
 import React from "react";
-import { JSStyles, createJSStyles, getBackground, Color } from "./Palette";
+import {
+  JSStyles,
+  createJSStyles,
+  getBackground,
+  Color,
+  Padding,
+} from "./Palette";
 import { ListDivider } from "./ListDivider";
 import { Row, RowProps } from "./Row";
 
@@ -8,6 +14,7 @@ export interface BaseListRowProps extends RowProps {
   withDivider?: boolean;
   role?: undefined;
   backgroundColor?: Color;
+  padding?: Padding;
 }
 
 const jsStyles = createJSStyles({
@@ -25,6 +32,7 @@ export const BaseListRow = React.forwardRef(
       jsStyle,
       withDivider = true,
       backgroundColor = "primary-background",
+      padding,
       ...otherProps
     }: BaseListRowProps,
     ref?: React.Ref<HTMLElement>
@@ -36,6 +44,7 @@ export const BaseListRow = React.forwardRef(
           ref={ref}
           tag="li"
           role="row"
+          padding={padding}
           componentName={componentName.concat("BaseListRow")}
           jsStyle={[jsStyles.root, getBackground(backgroundColor), jsStyle]}
         >

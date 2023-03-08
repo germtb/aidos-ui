@@ -10,6 +10,7 @@ const jsStyles = createJSStyles({
     },
     input: {
         // padding: "var(--spacing-m)",
+        minWidth: 0,
         flexGrow: 1,
         backgroundColor: "inherit",
         color: "var(--primary-text)",

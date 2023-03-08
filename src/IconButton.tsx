@@ -9,11 +9,10 @@ const jsStyles = createJSStyles({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+  },
+  animation: {
     ":active": {
       transform: "scale(0.92)",
-    },
-    ":disabled:active": {
-      transform: "scale(1)",
     },
   },
   small: {
@@ -80,6 +79,7 @@ export const IconButton = React.forwardRef(
           size === "small" && jsStyles.small,
           size === "medium" && jsStyles.medium,
           size === "large" && jsStyles.large,
+          !disabled && jsStyles.animation,
         ]}
         color={color}
         ref={ref}

@@ -19,7 +19,6 @@ export function Sublist({
   label,
   initialState = { collapsed: false },
   jsStyle,
-  primaryAddOn,
   secondaryAddOn,
 }: {
   children: React.ReactNode;
@@ -28,7 +27,6 @@ export function Sublist({
     collapsed: boolean;
   };
   jsStyle?: JSStyles;
-  primaryAddOn?: ReactNode;
   secondaryAddOn?: ReactNode;
 }) {
   const [collapsed, setCollapsed] = React.useState(initialState.collapsed);
@@ -39,8 +37,7 @@ export function Sublist({
         headline={label}
         onPress={() => setCollapsed((x) => !x)}
         jsStyle={jsStyle}
-        primaryAddOn={primaryAddOn}
-        secondaryAddOn={
+        addOn={
           <Row gap="medium" align="center">
             {secondaryAddOn}
             <Box
@@ -51,6 +48,7 @@ export function Sublist({
             </Box>
           </Row>
         }
+        addOnPosition="right"
       />
       {collapsed ? null : children}
     </>

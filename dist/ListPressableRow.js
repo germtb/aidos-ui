@@ -1,8 +1,7 @@
 import React from "react";
-import { createJSStyles } from "./Palette";
+import { createJSStyles, } from "./Palette";
 import { BaseButton } from "./BaseButton";
 import { TextPairing } from "./TextPairing";
-import { BaseView } from "./BaseView";
 import { BaseListRow } from "./BaseListRow";
 import { ListCell } from "./ListCell";
 const jsStyles = createJSStyles({
@@ -14,9 +13,6 @@ const jsStyles = createJSStyles({
         flexGrow: 1,
     },
     button: {
-        paddingTop: "var(--spacing-s)",
-        paddingBottom: "var(--spacing-s)",
-        paddingRight: "var(--spacing-m)",
         flexGrow: 1,
         ":hover:active": {
             backgroundColor: "var(--pressed-background)",
@@ -31,16 +27,11 @@ const jsStyles = createJSStyles({
             backgroundColor: "inherit",
         },
     },
-    primaryAddOn: {
+    addOn: {
         flexGrow: 0,
         flexShrink: 0,
     },
-    textPairing: {
-        flexBasis: "0%",
-        flexGrow: 1,
-        flexShrink: 0,
-    },
-    secondaryAddOn: {
+    outerAddOn: {
         display: "flex",
         flexGrow: 0,
         flexShrink: 0,
@@ -49,17 +40,12 @@ const jsStyles = createJSStyles({
         flexGrow: 0,
         flexShrink: 0,
     },
-    indented: {
-        paddingLeft: "var(--spacing-m)",
-    },
 });
-export const ListPressableRow = React.forwardRef(({ onPress, headline, headlineSize = "medium", headlineColor = "primary", headlineAddOn, body, bodySize = "small", bodyColor = "secondary", primaryAddOn, secondaryAddOn, color = "secondary", disabled = false, jsStyle, ...otherProps }, ref) => {
-    return (React.createElement(BaseListRow, { ...otherProps, componentName: (otherProps.componentName ?? []).concat("ListPressableRow"), jsStyle: [jsStyles.root, jsStyle] },
+export const ListPressableRow = React.forwardRef(({ onPress, headline, headlineSize = "medium", headlineColor = "primary", headlineAddOn, body, bodySize = "small", bodyColor = "secondary", addOn, addOnPosition, outerAddOn, color = "secondary", disabled = false, padding = "medium", jsStyle, gap, ...otherProps }, ref) => {
+    return (React.createElement(BaseListRow, { ...otherProps, componentName: (otherProps.componentName ?? []).concat("ListPressableRow"), gap: gap, jsStyle: [jsStyles.root, jsStyle] },
         React.createElement(ListCell, { jsStyle: jsStyles.gridcell },
-            React.createElement(BaseButton, { disabled: disabled, bare: true, color: color, ref: ref, jsStyle: [jsStyles.button, primaryAddOn ? null : jsStyles.indented], "aria-label": headline, onPress: onPress },
-                primaryAddOn && (React.createElement(BaseView, { jsStyle: jsStyles.primaryAddOn }, primaryAddOn)),
-                React.createElement(BaseView, { jsStyle: jsStyles.textPairing },
-                    React.createElement(TextPairing, { headline: headline, headlineSize: headlineSize, headlineColor: disabled ? "subtle" : headlineColor, headlineAddOn: headlineAddOn, body: body, bodySize: bodySize, bodyColor: disabled ? "subtle" : bodyColor })),
-                secondaryAddOn && (React.createElement(BaseView, { jsStyle: jsStyles.secondaryAddOn }, secondaryAddOn))))));
+            React.createElement(BaseButton, { disabled: disabled, animateClick: false, bare: true, color: color, ref: ref, jsStyle: jsStyles.button, "aria-label": headline, onPress: onPress, padding: padding },
+                React.createElement(TextPairing, { addOn: addOn, addOnPosition: addOnPosition, headline: headline, headlineSize: headlineSize, headlineColor: disabled ? "subtle" : headlineColor, headlineAddOn: headlineAddOn, body: body, bodySize: bodySize, bodyColor: disabled ? "subtle" : bodyColor, grow: true, shrink: false }))),
+        outerAddOn && React.createElement(ListCell, null, outerAddOn)));
 });
 //# sourceMappingURL=ListPressableRow.js.map

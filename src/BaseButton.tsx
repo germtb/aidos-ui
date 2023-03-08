@@ -1,6 +1,12 @@
 import React from "react";
 import { ComponentName } from "./BaseView";
-import { JSStyles, createClassNames, createJSStyles } from "./Palette";
+import {
+  JSStyles,
+  createClassNames,
+  createJSStyles,
+  Padding,
+  getPadding,
+} from "./Palette";
 
 export type ButtonColor = "positive" | "secondary" | "negative";
 
@@ -13,6 +19,7 @@ export interface BaseButtonProps
   bare?: boolean;
   className?: undefined;
   animateClick?: boolean;
+  padding?: Padding;
 }
 
 const jsStyles = createJSStyles({
@@ -33,22 +40,33 @@ const jsStyles = createJSStyles({
     },
   },
   animateClick: {
+    position: "relative",
     ":active": {
       opacity: 0.95,
+      top: 1,
     },
     ":active:disabled": {
+      top: 0,
       opacity: 1,
-      transform: "none",
     },
   },
   positive: {
     backgroundColor: "var(--background-button-positive)",
+    ":disabled": {
+      backgroundColor: "var(--background-button-disabled)",
+    },
   },
   secondary: {
     backgroundColor: "var(--background-button-secondary)",
+    ":disabled": {
+      backgroundColor: "var(--background-button-disabled)",
+    },
   },
   negative: {
     backgroundColor: "var(--background-button-negative)",
+    ":disabled": {
+      backgroundColor: "var(--background-button-disabled)",
+    },
   },
   disabled: {
     cursor: "default",
@@ -60,20 +78,17 @@ const jsStyles = createJSStyles({
       backgroundColor: "inherit",
     },
   },
+  bareDisabled: {
+    backgroundColor: "inherit",
+  },
   opacityHover: {
     ":hover": {
       opacity: 0.8,
-    },
-    ":hover:disabled": {
-      opacity: 1,
     },
   },
   colorHover: {
     ":hover": {
       backgroundColor: "var(--secondary-background)",
-    },
-    ":hover:disabled": {
-      backgroundColor: "inherit",
     },
   },
 });
@@ -89,6 +104,7 @@ export const BaseButton = React.forwardRef(
       bare = false,
       disabled,
       animateClick = true,
+      padding,
       ...otherProps
     }: BaseButtonProps,
     ref?: React.Ref<HTMLButtonElement>
@@ -109,14 +125,16 @@ export const BaseButton = React.forwardRef(
         }}
         className={createClassNames(
           jsStyles.root,
-          color === "positive" && jsStyles.positive,
-          color === "secondary" && jsStyles.secondary,
-          color === "negative" && jsStyles.negative,
+          color === "positive" && !disabled && jsStyles.positive,
+          color === "secondary" && !disabled && jsStyles.secondary,
+          color === "negative" && !disabled && jsStyles.negative,
           bare && jsStyles.bare,
           disabled && jsStyles.disabled,
-          bare ? jsStyles.colorHover : jsStyles.opacityHover,
-          animateClick && jsStyles.animateClick,
-          jsStyle
+          bare && !disabled && jsStyles.colorHover,
+          !bare && !disabled && jsStyles.opacityHover,
+          animateClick && !disabled && jsStyles.animateClick,
+          jsStyle,
+          getPadding(padding)
         )}
       >
         {children}

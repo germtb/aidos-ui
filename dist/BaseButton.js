@@ -1,5 +1,5 @@
 import React from "react";
-import { createClassNames, createJSStyles } from "./Palette";
+import { createClassNames, createJSStyles, getPadding, } from "./Palette";
 const jsStyles = createJSStyles({
     root: {
         cursor: "pointer",
@@ -18,22 +18,33 @@ const jsStyles = createJSStyles({
         },
     },
     animateClick: {
+        position: "relative",
         ":active": {
             opacity: 0.95,
+            top: 1,
         },
         ":active:disabled": {
+            top: 0,
             opacity: 1,
-            transform: "none",
         },
     },
     positive: {
         backgroundColor: "var(--background-button-positive)",
+        ":disabled": {
+            backgroundColor: "var(--background-button-disabled)",
+        },
     },
     secondary: {
         backgroundColor: "var(--background-button-secondary)",
+        ":disabled": {
+            backgroundColor: "var(--background-button-disabled)",
+        },
     },
     negative: {
         backgroundColor: "var(--background-button-negative)",
+        ":disabled": {
+            backgroundColor: "var(--background-button-disabled)",
+        },
     },
     disabled: {
         cursor: "default",
@@ -45,24 +56,21 @@ const jsStyles = createJSStyles({
             backgroundColor: "inherit",
         },
     },
+    bareDisabled: {
+        backgroundColor: "inherit",
+    },
     opacityHover: {
         ":hover": {
             opacity: 0.8,
-        },
-        ":hover:disabled": {
-            opacity: 1,
         },
     },
     colorHover: {
         ":hover": {
             backgroundColor: "var(--secondary-background)",
         },
-        ":hover:disabled": {
-            backgroundColor: "inherit",
-        },
     },
 });
-export const BaseButton = React.forwardRef(({ componentName, onPress, children, jsStyle, color, bare = false, disabled, animateClick = true, ...otherProps }, ref) => {
+export const BaseButton = React.forwardRef(({ componentName, onPress, children, jsStyle, color, bare = false, disabled, animateClick = true, padding, ...otherProps }, ref) => {
     return (React.createElement("button", { ...otherProps, "data-test-id": componentName ?? "BaseButton", "aria-disabled": disabled ? true : undefined, 
         // disabled={disabled ? true : undefined}
         ref: ref, onClick: (event) => {
@@ -70,6 +78,6 @@ export const BaseButton = React.forwardRef(({ componentName, onPress, children, 
                 return;
             }
             onPress(event);
-        }, className: createClassNames(jsStyles.root, color === "positive" && jsStyles.positive, color === "secondary" && jsStyles.secondary, color === "negative" && jsStyles.negative, bare && jsStyles.bare, disabled && jsStyles.disabled, bare ? jsStyles.colorHover : jsStyles.opacityHover, animateClick && jsStyles.animateClick, jsStyle) }, children));
+        }, className: createClassNames(jsStyles.root, color === "positive" && !disabled && jsStyles.positive, color === "secondary" && !disabled && jsStyles.secondary, color === "negative" && !disabled && jsStyles.negative, bare && jsStyles.bare, disabled && jsStyles.disabled, bare && !disabled && jsStyles.colorHover, !bare && !disabled && jsStyles.opacityHover, animateClick && !disabled && jsStyles.animateClick, jsStyle, getPadding(padding)) }, children));
 });
 //# sourceMappingURL=BaseButton.js.map

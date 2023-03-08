@@ -6,6 +6,7 @@ import {
   Gap,
   TextColor,
   Size,
+  Padding,
 } from "./Palette";
 import { Text } from "./Text";
 import { Row } from "./Row";
@@ -33,8 +34,11 @@ export interface TextPairingProps {
   bodySize?: Size;
   addOn?: ReactNode;
   addOnPosition?: Position;
-  spacing?: Gap;
+  gap?: Gap;
+  padding?: Padding;
   align?: Align;
+  grow?: boolean;
+  shrink?: boolean;
 }
 
 export function TextPairing({
@@ -47,11 +51,20 @@ export function TextPairing({
   bodySize = "medium",
   addOn,
   addOnPosition = "left",
-  spacing = "small",
+  gap = "small",
   align = "stretch",
+  grow,
+  shrink,
+  padding,
 }: TextPairingProps) {
   const textElement = (
-    <Column componentName={["TextPairing"]} align={align}>
+    <Column
+      grow={grow}
+      shrink={shrink}
+      padding={addOn ? undefined : padding}
+      componentName={["TextPairing"]}
+      align={align}
+    >
       <Row align="center" jsStyle={jsStyles.headline}>
         <Text color={headlineColor} size={headlineSize}>
           {headline}
@@ -70,7 +83,13 @@ export function TextPairing({
 
   if (addOn) {
     return (
-      <Row gap={spacing} align="center">
+      <Row
+        grow={grow}
+        shrink={shrink}
+        gap={gap}
+        align="center"
+        padding={padding}
+      >
         {addOnPosition === "left" && addOn}
         {textElement}
         {addOnPosition === "right" && addOn}

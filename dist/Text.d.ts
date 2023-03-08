@@ -7,5 +7,6 @@ export interface TextProps {
     ellipsis?: boolean | "default";
     align?: "center" | "none";
     display?: "inline" | "block";
+    grow?: boolean;
 }
-export declare function Text({ children, color, size, align, ellipsis, display, }: TextProps): JSX.Element;
+export declare function Text({ children, color, size, align, ellipsis, display, grow, }: TextProps): JSX.Element;

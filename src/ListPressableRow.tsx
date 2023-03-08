@@ -1,8 +1,14 @@
 import React, { ReactNode } from "react";
-import { Color, createJSStyles, Size, TextColor } from "./Palette";
+import {
+  Color,
+  createJSStyles,
+  Position,
+  Size,
+  Spacing,
+  TextColor,
+} from "./Palette";
 import { BaseButton, ButtonColor } from "./BaseButton";
 import { TextPairing } from "./TextPairing";
-import { BaseView } from "./BaseView";
 import { BaseListRow, BaseListRowProps } from "./BaseListRow";
 import { ListCell } from "./ListCell";
 
@@ -15,9 +21,6 @@ const jsStyles = createJSStyles({
     flexGrow: 1,
   },
   button: {
-    paddingTop: "var(--spacing-s)",
-    paddingBottom: "var(--spacing-s)",
-    paddingRight: "var(--spacing-m)",
     flexGrow: 1,
     ":hover:active": {
       backgroundColor: "var(--pressed-background)",
@@ -32,16 +35,11 @@ const jsStyles = createJSStyles({
       backgroundColor: "inherit",
     },
   },
-  primaryAddOn: {
+  addOn: {
     flexGrow: 0,
     flexShrink: 0,
   },
-  textPairing: {
-    flexBasis: "0%",
-    flexGrow: 1,
-    flexShrink: 0,
-  },
-  secondaryAddOn: {
+  outerAddOn: {
     display: "flex",
     flexGrow: 0,
     flexShrink: 0,
@@ -49,9 +47,6 @@ const jsStyles = createJSStyles({
   interactiveAddOn: {
     flexGrow: 0,
     flexShrink: 0,
-  },
-  indented: {
-    paddingLeft: "var(--spacing-m)",
   },
 });
 
@@ -64,12 +59,14 @@ interface ListPressableRow extends BaseListRowProps {
   body?: string;
   bodySize?: Size;
   bodyColor?: TextColor;
-  primaryAddOn?: ReactNode;
-  secondaryAddOn?: ReactNode;
+  addOn?: ReactNode;
+  addOnPosition?: Position;
+  outerAddOn?: ReactNode;
   color?: ButtonColor;
   disabled?: boolean;
   role?: undefined;
   backgroundColor?: Color;
+  gap?: Spacing;
 }
 
 export const ListPressableRow = React.forwardRef(
@@ -83,11 +80,14 @@ export const ListPressableRow = React.forwardRef(
       body,
       bodySize = "small",
       bodyColor = "secondary",
-      primaryAddOn,
-      secondaryAddOn,
+      addOn,
+      addOnPosition,
+      outerAddOn,
       color = "secondary",
       disabled = false,
+      padding = "medium",
       jsStyle,
+      gap,
       ...otherProps
     }: ListPressableRow,
     ref?: React.Ref<HTMLButtonElement>
@@ -98,43 +98,37 @@ export const ListPressableRow = React.forwardRef(
         componentName={(otherProps.componentName ?? []).concat(
           "ListPressableRow"
         )}
+        gap={gap}
         jsStyle={[jsStyles.root, jsStyle]}
       >
         <ListCell jsStyle={jsStyles.gridcell}>
           <BaseButton
             disabled={disabled}
+            animateClick={false}
             bare={true}
             color={color}
             ref={ref}
-            jsStyle={[jsStyles.button, primaryAddOn ? null : jsStyles.indented]}
+            jsStyle={jsStyles.button}
             aria-label={headline}
             onPress={onPress}
+            padding={padding}
           >
-            {primaryAddOn && (
-              <BaseView jsStyle={jsStyles.primaryAddOn}>
-                {primaryAddOn}
-              </BaseView>
-            )}
-
-            <BaseView jsStyle={jsStyles.textPairing}>
-              <TextPairing
-                headline={headline}
-                headlineSize={headlineSize}
-                headlineColor={disabled ? "subtle" : headlineColor}
-                headlineAddOn={headlineAddOn}
-                body={body}
-                bodySize={bodySize}
-                bodyColor={disabled ? "subtle" : bodyColor}
-              />
-            </BaseView>
-
-            {secondaryAddOn && (
-              <BaseView jsStyle={jsStyles.secondaryAddOn}>
-                {secondaryAddOn}
-              </BaseView>
-            )}
+            <TextPairing
+              addOn={addOn}
+              addOnPosition={addOnPosition}
+              headline={headline}
+              headlineSize={headlineSize}
+              headlineColor={disabled ? "subtle" : headlineColor}
+              headlineAddOn={headlineAddOn}
+              body={body}
+              bodySize={bodySize}
+              bodyColor={disabled ? "subtle" : bodyColor}
+              grow={true}
+              shrink={false}
+            />
           </BaseButton>
         </ListCell>
+        {outerAddOn && <ListCell>{outerAddOn}</ListCell>}
       </BaseListRow>
     );
   }

@@ -12,7 +12,7 @@ export interface ButtonProps extends BaseButtonProps {
     iconPosition?: "left" | "right";
     rowProps?: FlexLayoutProps;
     align?: Align;
-    spacing?: Gap;
+    gap?: Gap;
     justify?: Justify;
 }
 export declare const getGlyphColor: (color: ButtonColor, disabled: boolean | undefined, bare: boolean | undefined) => TextColor;

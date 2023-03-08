@@ -24,12 +24,11 @@ export const getGlyphColor = (color, disabled, bare) => {
             return "primary";
     }
 };
-export const Button = React.forwardRef(({ label, color, bare, disabled, icon, iconSize = "medium", componentName, iconPosition = "left", align = "center", spacing = "small", justify = "center", jsStyle, ...otherProps }, ref) => {
-    const labelElement = (React.createElement(Text, { size: "medium", color: getGlyphColor(color, disabled, bare) }, label));
+export const Button = React.forwardRef(({ label, color, bare, disabled, icon, iconSize = "medium", componentName, iconPosition = "left", align = "center", gap = "small", justify = "center", jsStyle, ...otherProps }, ref) => {
     return (React.createElement(BaseButton, { ...otherProps, componentName: (componentName ?? []).concat("Button"), bare: bare, ref: ref, color: color, disabled: disabled, jsStyle: [jsStyles.root, getPadding("medium"), jsStyle] },
-        React.createElement(Row, { jsStyle: grow, align: align, gap: spacing, justify: justify },
+        React.createElement(Row, { jsStyle: grow, align: align, gap: gap, justify: justify },
             icon && iconPosition === "left" && (React.createElement(Icon, { icon: icon, size: iconSize, color: getGlyphColor(color, disabled, bare) })),
-            labelElement,
+            React.createElement(Text, { size: "medium", color: getGlyphColor(color, disabled, bare) }, label),
             icon && iconPosition === "right" && (React.createElement(Icon, { icon: icon, size: iconSize, color: getGlyphColor(color, disabled, bare) })))));
 });
 //# sourceMappingURL=Button.js.map

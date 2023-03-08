@@ -34,6 +34,9 @@ const jsStyles = createJSStyles({
   textAlignCenter: {
     textAlign: "center",
   },
+  grow: {
+    flexGrow: 1,
+  },
 });
 
 export interface TextProps {
@@ -43,6 +46,7 @@ export interface TextProps {
   ellipsis?: boolean | "default";
   align?: "center" | "none";
   display?: "inline" | "block";
+  grow?: boolean;
 }
 
 export function Text({
@@ -52,6 +56,7 @@ export function Text({
   align = "none",
   ellipsis = "default",
   display = "inline",
+  grow,
 }: TextProps) {
   const Tag = display === "inline" ? "span" : "p";
   if (ellipsis === "default") {
@@ -68,6 +73,7 @@ export function Text({
         size === "large" && jsStyles.size3,
         align === "center" && jsStyles.textAlignCenter,
         ellipsis && jsStyles.ellipsis,
+        grow && jsStyles.grow,
       ])}
     >
       {children}

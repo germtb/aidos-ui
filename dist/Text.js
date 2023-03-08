@@ -27,8 +27,11 @@ const jsStyles = createJSStyles({
     textAlignCenter: {
         textAlign: "center",
     },
+    grow: {
+        flexGrow: 1,
+    },
 });
-export function Text({ children, color = "primary", size = "medium", align = "none", ellipsis = "default", display = "inline", }) {
+export function Text({ children, color = "primary", size = "medium", align = "none", ellipsis = "default", display = "inline", grow, }) {
     const Tag = display === "inline" ? "span" : "p";
     if (ellipsis === "default") {
         ellipsis = display === "inline";
@@ -41,6 +44,7 @@ export function Text({ children, color = "primary", size = "medium", align = "no
             size === "large" && jsStyles.size3,
             align === "center" && jsStyles.textAlignCenter,
             ellipsis && jsStyles.ellipsis,
+            grow && jsStyles.grow,
         ]) }, children));
 }
 //# sourceMappingURL=Text.js.map

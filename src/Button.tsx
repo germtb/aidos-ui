@@ -25,7 +25,7 @@ export interface ButtonProps extends BaseButtonProps {
   iconPosition?: "left" | "right";
   rowProps?: FlexLayoutProps;
   align?: Align;
-  spacing?: Gap;
+  gap?: Gap;
   justify?: Justify;
 }
 
@@ -68,18 +68,13 @@ export const Button = React.forwardRef(
       componentName,
       iconPosition = "left",
       align = "center",
-      spacing = "small",
+      gap = "small",
       justify = "center",
       jsStyle,
       ...otherProps
     }: ButtonProps,
     ref?: React.Ref<HTMLButtonElement>
   ) => {
-    const labelElement = (
-      <Text size="medium" color={getGlyphColor(color, disabled, bare)}>
-        {label}
-      </Text>
-    );
     return (
       <BaseButton
         {...otherProps}
@@ -90,7 +85,7 @@ export const Button = React.forwardRef(
         disabled={disabled}
         jsStyle={[jsStyles.root, getPadding("medium"), jsStyle]}
       >
-        <Row jsStyle={grow} align={align} gap={spacing} justify={justify}>
+        <Row jsStyle={grow} align={align} gap={gap} justify={justify}>
           {icon && iconPosition === "left" && (
             <Icon
               icon={icon}
@@ -98,7 +93,9 @@ export const Button = React.forwardRef(
               color={getGlyphColor(color, disabled, bare)}
             />
           )}
-          {labelElement}
+          <Text size="medium" color={getGlyphColor(color, disabled, bare)}>
+            {label}
+          </Text>
           {icon && iconPosition === "right" && (
             <Icon
               icon={icon}
