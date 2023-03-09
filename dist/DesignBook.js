@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { RootView } from "./RootView";
 import { ListRow } from "./ListRow";
 import { Sublist } from "./Sublist";
@@ -13,13 +13,26 @@ import { List } from "./List";
 import { ListSpacer } from "./ListSpacer";
 import { CenteredListRow } from "./CenteredListRow";
 import { ListPressableRow } from "./ListPressableRow";
+import { Dialog, useDialog } from "./Dialog";
+import { Row } from "./Row";
+import { DarkModeContext } from "./DarkModeStore";
+function ExampleDialog({ close }) {
+    const darkMode = useContext(DarkModeContext);
+    return (React.createElement(Dialog, { close: close, label: "Example" },
+        React.createElement(Row, { padding: "medium", align: "center", justify: "space-between" },
+            React.createElement(Text, null, "Dark mode"),
+            React.createElement(Checkbox, { size: "medium", checked: darkMode.enabled, onValueChange: () => darkMode.toggle() }))));
+}
 export function DesignBook() {
+    const { open } = useDialog(({ close }) => (React.createElement(ExampleDialog, { close: close })));
     return (React.createElement(RootView, null,
         React.createElement(List, { ariaLabel: "Design book" },
             React.createElement(ListSpacer, null),
             React.createElement(Sublist, { label: "Button", initialState: { collapsed: false } },
                 React.createElement(CenteredListRow, { gap: "medium" },
-                    React.createElement(Button, { label: "Positive button", color: "positive", onPress: () => { } })),
+                    React.createElement(Button, { label: "Positive button", color: "positive", onPress: () => {
+                            open();
+                        } })),
                 React.createElement(CenteredListRow, { gap: "medium" },
                     React.createElement(Button, { label: "Secondary button", color: "secondary", onPress: () => { } })),
                 React.createElement(CenteredListRow, { gap: "medium" },

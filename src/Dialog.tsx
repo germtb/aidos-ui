@@ -26,13 +26,13 @@ const jsStyles = createJSStyles({
   root: {
     display: "grid",
     overflow: "hidden",
-    maxWidth: "calc(100vw - 24px)",
+    width: "calc(100vw - 24px)",
     gridTemplateAreas: `
         "header"
         "content"
     `,
     "@media (min-width: 750px)": {
-      minWidth: 750,
+      maxWidth: 750,
     },
     backgroundColor: "var(--secondary-background)",
     borderRadius: "var(--border-radius-m)",

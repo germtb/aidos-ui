@@ -29,7 +29,7 @@ const jsStyles = createJSStyles({
     alignItems: "center",
     transition: "opacity 0.1s ease-in",
     outlineColor: "var(--outline)",
-    ":disabled": {
+    "[aria-disabled=true]": {
       color: "var(--secondary-text)",
       backgroundColor: "var(--background-button-secondary)",
     },
@@ -45,26 +45,26 @@ const jsStyles = createJSStyles({
       opacity: 0.95,
       top: 1,
     },
-    ":active:disabled": {
+    "[aria-disabled=true]:active": {
       top: 0,
       opacity: 1,
     },
   },
   positive: {
     backgroundColor: "var(--background-button-positive)",
-    ":disabled": {
+    "[aria-disabled=true]": {
       backgroundColor: "var(--background-button-disabled)",
     },
   },
   secondary: {
     backgroundColor: "var(--background-button-secondary)",
-    ":disabled": {
+    "[aria-disabled=true]": {
       backgroundColor: "var(--background-button-disabled)",
     },
   },
   negative: {
     backgroundColor: "var(--background-button-negative)",
-    ":disabled": {
+    "[aria-disabled=true]": {
       backgroundColor: "var(--background-button-disabled)",
     },
   },
@@ -74,23 +74,25 @@ const jsStyles = createJSStyles({
   bare: {
     backgroundColor: "inherit",
     outlineColor: "var(--outline)",
-    ":disabled": {
+    "[aria-disabled=true]": {
       backgroundColor: "inherit",
     },
-  },
-  bareDisabled: {
-    backgroundColor: "inherit",
+    ":hover": {
+      backgroundColor: "var(--secondary-background)",
+    },
+    "[aria-disabled=true]:hover": {
+      backgroundColor: "inherit",
+    },
   },
   opacityHover: {
     ":hover": {
       opacity: 0.8,
     },
-  },
-  colorHover: {
-    ":hover": {
-      backgroundColor: "var(--secondary-background)",
+    "[aria-disabled=true]:hover": {
+      opacity: 1,
     },
   },
+  colorHover: {},
 });
 
 export const BaseButton = React.forwardRef(
@@ -125,13 +127,12 @@ export const BaseButton = React.forwardRef(
         }}
         className={createClassNames(
           jsStyles.root,
-          color === "positive" && !disabled && jsStyles.positive,
-          color === "secondary" && !disabled && jsStyles.secondary,
-          color === "negative" && !disabled && jsStyles.negative,
+          color === "positive" && jsStyles.positive,
+          color === "secondary" && jsStyles.secondary,
+          color === "negative" && jsStyles.negative,
           bare && jsStyles.bare,
           disabled && jsStyles.disabled,
-          bare && !disabled && jsStyles.colorHover,
-          !bare && !disabled && jsStyles.opacityHover,
+          !bare && jsStyles.opacityHover,
           animateClick && !disabled && jsStyles.animateClick,
           jsStyle,
           getPadding(padding)

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { RootView } from "./RootView";
 import { ListRow } from "./ListRow";
@@ -15,8 +15,31 @@ import { ListSpacer } from "./ListSpacer";
 import { CenteredListRow } from "./CenteredListRow";
 
 import { ListPressableRow } from "./ListPressableRow";
+import { Dialog, useDialog } from "./Dialog";
+import { Row } from "./Row";
+import { DarkModeContext } from "./DarkModeStore";
+
+function ExampleDialog({ close }) {
+  const darkMode = useContext(DarkModeContext);
+  return (
+    <Dialog close={close} label="Example">
+      <Row padding="medium" align="center" justify="space-between">
+        <Text>Dark mode</Text>
+        <Checkbox
+          size="medium"
+          checked={darkMode.enabled}
+          onValueChange={() => darkMode.toggle()}
+        />
+      </Row>
+    </Dialog>
+  );
+}
 
 export function DesignBook() {
+  const { open } = useDialog<void>(({ close }) => (
+    <ExampleDialog close={close} />
+  ));
+
   return (
     <RootView>
       <List ariaLabel="Design book">
@@ -26,7 +49,9 @@ export function DesignBook() {
             <Button
               label="Positive button"
               color="positive"
-              onPress={() => {}}
+              onPress={() => {
+                open();
+              }}
             />
           </CenteredListRow>
 

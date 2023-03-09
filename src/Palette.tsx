@@ -171,7 +171,7 @@ export function createJSStyle(styles: Styles): Styles {
     } else if (typeof value === "object") {
       const hashedValue = hash(JSON.stringify(value, null, 2));
       const id = `ID-${hash(`${key}${hashedValue}`)}`;
-      stylesheet[key][JSON.stringify(value, null, 2)] = {
+      stylesheet[key][hashedValue] = {
         className: id,
         selector: `.${id}${key}`,
         type: "NESTED",
@@ -246,12 +246,12 @@ export const createClassNames = (...styles: Array<JSStyles>): string => {
       const className = stylesheet[key][value].className;
       classNames.push(className);
     } else if (typeof value === "object" && key.startsWith("@media")) {
-      const className =
-        stylesheet[key][JSON.stringify(value, null, 2)].className;
+      const hashedValue = hash(JSON.stringify(value, null, 2));
+      const className = stylesheet[key][hashedValue].className;
       classNames.push(className);
     } else if (typeof value === "object") {
-      const className =
-        stylesheet[key][JSON.stringify(value, null, 2)].className;
+      const hashedValue = hash(JSON.stringify(value, null, 2));
+      const className = stylesheet[key][hashedValue].className;
       classNames.push(className);
     } else {
       throw new Error("Unknown style type");
