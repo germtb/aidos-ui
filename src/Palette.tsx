@@ -318,14 +318,14 @@ export const generateStylesheet = ({
 
   css.push(baseStyles);
 
-  css.push(`:root {
+  css.push(`body {
     color-scheme: light;
     ${Object.entries(light)
       .map(([key, value]) => `${key}: ${value};`)
       .join("\n   ")}
   }`);
 
-  css.push(`:root {
+  css.push(`body.dark-mode {
     color-scheme: dark;
     ${Object.entries(dark)
       .map(([key, value]) => `${key}: ${value};`)

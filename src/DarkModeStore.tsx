@@ -7,7 +7,7 @@ type State = {
 
 export const DarkModeContext = React.createContext<State>({
   enabled: false,
-  toggle: () => { },
+  toggle: () => {},
 });
 
 export function DarkModeProvider({
