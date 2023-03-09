@@ -22,17 +22,27 @@ const jsStyles = createJSStyles({
   },
   button: {
     flexGrow: 1,
-    ":hover:active": {
+    backgroundColor: "var(--primary-background)",
+    "[aria-selected=true]": {
+      backgroundColor: "var(--selected-background)",
+    },
+    ":hover": {
+      backgroundColor: "var(--hovered-background)",
+    },
+    "[aria-selected=true]:hover": {
+      backgroundColor: "var(--hovered-background)",
+    },
+    ":active:hover": {
       backgroundColor: "var(--pressed-background)",
     },
-    ":active": {
+    "[aria-selected=true]:active:hover": {
       backgroundColor: "var(--pressed-background)",
     },
-    ":active:disabled": {
-      backgroundColor: "inherit",
+    "[aria-disabled=true]": {
+      backgroundColor: "var(--primary-background)",
     },
-    ":hover:active:disabled": {
-      backgroundColor: "inherit",
+    "[aria-disabled=true]:active:hover": {
+      backgroundColor: "var(--primary-background)",
     },
   },
   addOn: {
@@ -67,6 +77,7 @@ interface ListPressableRow extends BaseListRowProps {
   role?: undefined;
   backgroundColor?: Color;
   gap?: Spacing;
+  selected?: boolean;
 }
 
 export const ListPressableRow = React.forwardRef(
@@ -88,6 +99,7 @@ export const ListPressableRow = React.forwardRef(
       padding = "medium",
       jsStyle,
       gap,
+      selected,
       ...otherProps
     }: ListPressableRow,
     ref?: React.Ref<HTMLButtonElement>
@@ -103,6 +115,7 @@ export const ListPressableRow = React.forwardRef(
       >
         <ListCell jsStyle={jsStyles.gridcell}>
           <BaseButton
+            aria-selected={selected}
             disabled={disabled}
             animateClick={false}
             bare={true}

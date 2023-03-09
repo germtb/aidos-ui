@@ -38,6 +38,8 @@ export type Theme = {
     ["--divider"]: string;
     ["--strong-divider"]: string;
     ["--pressed-background"]: string;
+    ["--hovered-background"]: string;
+    ["--selected-background"]: string;
     ["--nav-bar"]: string;
     ["--warning"]: string;
     ["--highlight"]: string;

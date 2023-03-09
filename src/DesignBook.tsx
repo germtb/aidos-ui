@@ -26,7 +26,7 @@ export function DesignBook() {
             <Button
               label="Positive button"
               color="positive"
-              onPress={() => { }}
+              onPress={() => {}}
             />
           </CenteredListRow>
 
@@ -34,7 +34,7 @@ export function DesignBook() {
             <Button
               label="Secondary button"
               color="secondary"
-              onPress={() => { }}
+              onPress={() => {}}
             />
           </CenteredListRow>
 
@@ -42,7 +42,7 @@ export function DesignBook() {
             <Button
               label="Negative button"
               color="negative"
-              onPress={() => { }}
+              onPress={() => {}}
             />
           </CenteredListRow>
 
@@ -50,7 +50,7 @@ export function DesignBook() {
             <Button
               label="Disabled button"
               color="positive"
-              onPress={() => { }}
+              onPress={() => {}}
               disabled={true}
             />
           </CenteredListRow>
@@ -60,7 +60,7 @@ export function DesignBook() {
               bare={true}
               label="Bare positive button"
               color="positive"
-              onPress={() => { }}
+              onPress={() => {}}
             />
           </CenteredListRow>
 
@@ -69,7 +69,7 @@ export function DesignBook() {
               bare={true}
               label="Bare secondary button"
               color="secondary"
-              onPress={() => { }}
+              onPress={() => {}}
             />
           </CenteredListRow>
 
@@ -78,7 +78,7 @@ export function DesignBook() {
               bare={true}
               label="Bare negative button"
               color="negative"
-              onPress={() => { }}
+              onPress={() => {}}
             />
           </CenteredListRow>
 
@@ -87,7 +87,7 @@ export function DesignBook() {
               bare={true}
               label="Bare disabled button"
               color="positive"
-              onPress={() => { }}
+              onPress={() => {}}
               disabled={true}
             />
           </CenteredListRow>
@@ -99,39 +99,39 @@ export function DesignBook() {
               size="large"
               icon="fa-check"
               color="positive"
-              onPress={() => { }}
+              onPress={() => {}}
             />
             <IconButton
               size="medium"
               icon="fa-check"
               color="positive"
-              onPress={() => { }}
+              onPress={() => {}}
             />
             <IconButton
               size="small"
               icon="fa-check"
               color="positive"
-              onPress={() => { }}
+              onPress={() => {}}
             />
             <IconButton
               size="large"
               icon="fa-check"
               color="positive"
-              onPress={() => { }}
+              onPress={() => {}}
               bare={true}
             />
             <IconButton
               size="medium"
               icon="fa-check"
               color="positive"
-              onPress={() => { }}
+              onPress={() => {}}
               bare={true}
             />
             <IconButton
               size="small"
               icon="fa-check"
               color="positive"
-              onPress={() => { }}
+              onPress={() => {}}
               bare={true}
             />
           </ListRow>
@@ -141,39 +141,39 @@ export function DesignBook() {
               size="large"
               icon="fa-remove"
               color="negative"
-              onPress={() => { }}
+              onPress={() => {}}
             />
             <IconButton
               size="medium"
               icon="fa-remove"
               color="negative"
-              onPress={() => { }}
+              onPress={() => {}}
             />
             <IconButton
               size="small"
               icon="fa-remove"
               color="negative"
-              onPress={() => { }}
+              onPress={() => {}}
             />
             <IconButton
               size="large"
               icon="fa-remove"
               color="negative"
-              onPress={() => { }}
+              onPress={() => {}}
               bare={true}
             />
             <IconButton
               size="medium"
               icon="fa-remove"
               color="negative"
-              onPress={() => { }}
+              onPress={() => {}}
               bare={true}
             />
             <IconButton
               size="small"
               icon="fa-remove"
               color="negative"
-              onPress={() => { }}
+              onPress={() => {}}
               bare={true}
             />
           </ListRow>
@@ -183,39 +183,39 @@ export function DesignBook() {
               size="large"
               icon="fa-info"
               color="secondary"
-              onPress={() => { }}
+              onPress={() => {}}
             />
             <IconButton
               size="medium"
               icon="fa-info"
               color="secondary"
-              onPress={() => { }}
+              onPress={() => {}}
             />
             <IconButton
               size="small"
               icon="fa-info"
               color="secondary"
-              onPress={() => { }}
+              onPress={() => {}}
             />
             <IconButton
               size="large"
               icon="fa-info"
               color="secondary"
-              onPress={() => { }}
+              onPress={() => {}}
               bare={true}
             />
             <IconButton
               size="medium"
               icon="fa-info"
               color="secondary"
-              onPress={() => { }}
+              onPress={() => {}}
               bare={true}
             />
             <IconButton
               size="small"
               icon="fa-info"
               color="secondary"
-              onPress={() => { }}
+              onPress={() => {}}
               bare={true}
             />
           </ListRow>
@@ -226,28 +226,28 @@ export function DesignBook() {
               size="large"
               icon="fa-check"
               color="positive"
-              onPress={() => { }}
+              onPress={() => {}}
             />
             <IconButton
               disabled={true}
               size="medium"
               icon="fa-check"
               color="positive"
-              onPress={() => { }}
+              onPress={() => {}}
             />
             <IconButton
               disabled={true}
               size="small"
               icon="fa-check"
               color="positive"
-              onPress={() => { }}
+              onPress={() => {}}
             />
             <IconButton
               disabled={true}
               size="large"
               icon="fa-check"
               color="positive"
-              onPress={() => { }}
+              onPress={() => {}}
               bare={true}
             />
             <IconButton
@@ -255,7 +255,7 @@ export function DesignBook() {
               size="medium"
               icon="fa-check"
               color="positive"
-              onPress={() => { }}
+              onPress={() => {}}
               bare={true}
             />
             <IconButton
@@ -263,7 +263,7 @@ export function DesignBook() {
               size="small"
               icon="fa-check"
               color="positive"
-              onPress={() => { }}
+              onPress={() => {}}
               bare={true}
             />
           </ListRow>
@@ -275,14 +275,19 @@ export function DesignBook() {
             collapsed: false,
           }}
         >
-          <ListPressableRow onPress={() => { }} headline="Headline" />
+          <ListPressableRow onPress={() => {}} headline="Headline" />
           <ListPressableRow
-            onPress={() => { }}
+            selected={true}
+            onPress={() => {}}
+            headline="Selected"
+          />
+          <ListPressableRow
+            onPress={() => {}}
             headline="Headline"
             body="Body"
           />
           <ListPressableRow
-            onPress={() => { }}
+            onPress={() => {}}
             headline="Disabled"
             body="Body"
             disabled={true}
@@ -411,7 +416,7 @@ export function DesignBook() {
             <TextInput
               value=""
               placeholder="Placeholder text input"
-              onValueChange={() => { }}
+              onValueChange={() => {}}
             />
           </ListRow>
 
@@ -420,32 +425,32 @@ export function DesignBook() {
               value=""
               icon="fa-user"
               placeholder="Placeholder text input"
-              onValueChange={() => { }}
+              onValueChange={() => {}}
             />
           </ListRow>
 
           <ListRow padding="medium" gap="medium">
-            <TextInput value="Text input" onValueChange={() => { }} />
+            <TextInput value="Text input" onValueChange={() => {}} />
           </ListRow>
 
           <ListRow padding="medium" gap="medium">
             <TextInput
               icon="fa-user"
               value="Text input"
-              onValueChange={() => { }}
+              onValueChange={() => {}}
             />
           </ListRow>
 
           <ListRow padding="medium" gap="medium">
-            <Checkbox size="small" checked={false} onValueChange={() => { }} />
-            <Checkbox size="medium" checked={false} onValueChange={() => { }} />
-            <Checkbox size="large" checked={false} onValueChange={() => { }} />
+            <Checkbox size="small" checked={false} onValueChange={() => {}} />
+            <Checkbox size="medium" checked={false} onValueChange={() => {}} />
+            <Checkbox size="large" checked={false} onValueChange={() => {}} />
           </ListRow>
 
           <ListRow padding="medium" gap="medium">
-            <Checkbox size="small" checked={true} onValueChange={() => { }} />
-            <Checkbox size="medium" checked={true} onValueChange={() => { }} />
-            <Checkbox size="large" checked={true} onValueChange={() => { }} />
+            <Checkbox size="small" checked={true} onValueChange={() => {}} />
+            <Checkbox size="medium" checked={true} onValueChange={() => {}} />
+            <Checkbox size="large" checked={true} onValueChange={() => {}} />
           </ListRow>
         </Sublist>
         <ListSpacer />

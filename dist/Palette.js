@@ -248,6 +248,8 @@ export const lightTheme = {
     ["--divider"]: "rgb(200, 200, 200)",
     ["--strong-divider"]: "rgb(100, 100, 100)",
     ["--pressed-background"]: "rgb(220, 222, 224)",
+    ["--hovered-background"]: "rgb(237, 240, 242)",
+    ["--selected-background"]: "rgb(237, 240, 242)",
     ["--nav-bar"]: "rgb(232, 232, 234)",
     /* Effects */
     ["--warning"]: "rgb(255, 204, 0)",
@@ -282,10 +284,12 @@ export const lightTheme = {
 export const darkTheme = {
     /* Background */
     ["--primary-background"]: "rgb(42, 43, 46)",
-    ["--secondary-background"]: "rgb(34, 35, 36)",
+    ["--secondary-background"]: "rgb(27 28 28)",
     ["--divider"]: "rgb(70, 72, 73)",
     ["--strong-divider"]: "rgb(100, 100, 100)",
-    ["--pressed-background"]: "rgb(50, 52, 53)",
+    ["--pressed-background"]: "rgb(80, 82, 83)",
+    ["--hovered-background"]: "rgb(70, 73, 74)",
+    ["--selected-background"]: "rgb(65, 68, 69)",
     ["--nav-bar"]: "rgb(34, 35, 36)",
     /* Effects */
     ["--warning"]: "rgb(255, 204, 0)",

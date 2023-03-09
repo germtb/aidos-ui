@@ -32,7 +32,6 @@ export const BaseListRow = React.forwardRef(
       jsStyle,
       withDivider = true,
       backgroundColor = "primary-background",
-      padding,
       ...otherProps
     }: BaseListRowProps,
     ref?: React.Ref<HTMLElement>
@@ -44,7 +43,6 @@ export const BaseListRow = React.forwardRef(
           ref={ref}
           tag="li"
           role="row"
-          padding={padding}
           componentName={componentName.concat("BaseListRow")}
           jsStyle={[jsStyles.root, getBackground(backgroundColor), jsStyle]}
         >

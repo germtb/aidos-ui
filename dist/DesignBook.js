@@ -69,6 +69,7 @@ export function DesignBook() {
                     collapsed: false,
                 } },
                 React.createElement(ListPressableRow, { onPress: () => { }, headline: "Headline" }),
+                React.createElement(ListPressableRow, { selected: true, onPress: () => { }, headline: "Selected" }),
                 React.createElement(ListPressableRow, { onPress: () => { }, headline: "Headline", body: "Body" }),
                 React.createElement(ListPressableRow, { onPress: () => { }, headline: "Disabled", body: "Body", disabled: true })),
             React.createElement(Sublist, { label: "Text", initialState: { collapsed: false } },

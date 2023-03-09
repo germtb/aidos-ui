@@ -8,9 +8,9 @@ const jsStyles = createJSStyles({
         overflowX: "auto",
     },
 });
-export const BaseListRow = React.forwardRef(({ componentName, children, jsStyle, withDivider = true, backgroundColor = "primary-background", padding, ...otherProps }, ref) => {
+export const BaseListRow = React.forwardRef(({ componentName, children, jsStyle, withDivider = true, backgroundColor = "primary-background", ...otherProps }, ref) => {
     return (React.createElement(React.Fragment, null,
-        React.createElement(Row, { ...otherProps, ref: ref, tag: "li", role: "row", padding: padding, componentName: componentName.concat("BaseListRow"), jsStyle: [jsStyles.root, getBackground(backgroundColor), jsStyle] }, children),
+        React.createElement(Row, { ...otherProps, ref: ref, tag: "li", role: "row", componentName: componentName.concat("BaseListRow"), jsStyle: [jsStyles.root, getBackground(backgroundColor), jsStyle] }, children),
         withDivider && React.createElement(ListDivider, null)));
 });
 //# sourceMappingURL=BaseListRow.js.map
