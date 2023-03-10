@@ -32,7 +32,7 @@ const jsStyles = createJSStyles({
   },
 });
 
-interface IconButtonProps extends BaseButtonProps {
+export interface IconButtonProps extends BaseButtonProps {
   icon: IconType;
   size: Size;
 }

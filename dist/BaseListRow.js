@@ -5,7 +5,6 @@ import { Row } from "./Row";
 const jsStyles = createJSStyles({
     root: {
         position: "relative",
-        overflowX: "auto",
     },
 });
 export const BaseListRow = React.forwardRef(({ componentName, children, jsStyle, withDivider = true, backgroundColor = "primary-background", ...otherProps }, ref) => {

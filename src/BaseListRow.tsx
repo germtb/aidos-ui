@@ -20,7 +20,6 @@ export interface BaseListRowProps extends RowProps {
 const jsStyles = createJSStyles({
   root: {
     position: "relative",
-    overflowX: "auto",
   },
 });
 

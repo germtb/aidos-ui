@@ -16,6 +16,7 @@ import { ListPressableRow } from "./ListPressableRow";
 import { Dialog, useDialog } from "./Dialog";
 import { Row } from "./Row";
 import { DarkModeContext } from "./DarkModeStore";
+import { Popover, PopoverTrigger } from "./Popover";
 function ExampleDialog({ close }) {
     const darkMode = useContext(DarkModeContext);
     return (React.createElement(Dialog, { close: close, label: "Example" },
@@ -24,17 +25,24 @@ function ExampleDialog({ close }) {
             React.createElement(Checkbox, { size: "medium", checked: darkMode.enabled, onValueChange: () => darkMode.toggle() }))));
 }
 export function DesignBook() {
-    const { open } = useDialog(({ close }) => (React.createElement(ExampleDialog, { close: close })));
+    const dialog = useDialog(({ close }) => (React.createElement(ExampleDialog, { close: close })));
     return (React.createElement(RootView, null,
         React.createElement(List, { ariaLabel: "Design book" },
             React.createElement(ListSpacer, null),
             React.createElement(Sublist, { label: "Button", initialState: { collapsed: false } },
                 React.createElement(CenteredListRow, { gap: "medium" },
                     React.createElement(Button, { label: "Positive button", color: "positive", onPress: () => {
-                            open();
+                            dialog.open();
                         } })),
                 React.createElement(CenteredListRow, { gap: "medium" },
-                    React.createElement(Button, { label: "Secondary button", color: "secondary", onPress: () => { } })),
+                    React.createElement(PopoverTrigger, { PopoverComponent: ({ close }) => {
+                            return (React.createElement(Popover, { close: close },
+                                React.createElement(List, { ariaLabel: "Popover " },
+                                    React.createElement(ListPressableRow, { gap: "medium", addOn: React.createElement(Icon, { size: "medium", color: "primary", icon: "fa-address-book" }), headline: "Option 1", onPress: () => { } }),
+                                    React.createElement(ListPressableRow, { gap: "medium", addOn: React.createElement(Icon, { size: "medium", color: "primary", icon: "fa-adjust" }), headline: "Option 2", onPress: () => { }, withDivider: false }))));
+                        } }, ({ open, close, isOpen }) => (React.createElement(Button, { style: { position: "relative" }, label: "Secondary button", color: "secondary", onPress: () => {
+                            isOpen ? close() : open(undefined);
+                        } })))),
                 React.createElement(CenteredListRow, { gap: "medium" },
                     React.createElement(Button, { label: "Negative button", color: "negative", onPress: () => { } })),
                 React.createElement(CenteredListRow, { gap: "medium" },

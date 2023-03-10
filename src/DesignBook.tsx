@@ -18,6 +18,7 @@ import { ListPressableRow } from "./ListPressableRow";
 import { Dialog, useDialog } from "./Dialog";
 import { Row } from "./Row";
 import { DarkModeContext } from "./DarkModeStore";
+import { Popover, PopoverTrigger } from "./Popover";
 
 function ExampleDialog({ close }) {
   const darkMode = useContext(DarkModeContext);
@@ -36,7 +37,7 @@ function ExampleDialog({ close }) {
 }
 
 export function DesignBook() {
-  const { open } = useDialog<void>(({ close }) => (
+  const dialog = useDialog<void>(({ close }) => (
     <ExampleDialog close={close} />
   ));
 
@@ -50,17 +51,58 @@ export function DesignBook() {
               label="Positive button"
               color="positive"
               onPress={() => {
-                open();
+                dialog.open();
               }}
             />
           </CenteredListRow>
 
           <CenteredListRow gap="medium">
-            <Button
-              label="Secondary button"
-              color="secondary"
-              onPress={() => {}}
-            />
+            <PopoverTrigger
+              PopoverComponent={({ close }) => {
+                return (
+                  <Popover close={close}>
+                    <List ariaLabel="Popover ">
+                      <ListPressableRow
+                        gap="medium"
+                        addOn={
+                          <Icon
+                            size="medium"
+                            color="primary"
+                            icon="fa-address-book"
+                          />
+                        }
+                        headline="Option 1"
+                        onPress={() => {}}
+                      ></ListPressableRow>
+                      <ListPressableRow
+                        gap="medium"
+                        addOn={
+                          <Icon
+                            size="medium"
+                            color="primary"
+                            icon="fa-adjust"
+                          />
+                        }
+                        headline="Option 2"
+                        onPress={() => {}}
+                        withDivider={false}
+                      ></ListPressableRow>
+                    </List>
+                  </Popover>
+                );
+              }}
+            >
+              {({ open, close, isOpen }) => (
+                <Button
+                  style={{ position: "relative" }}
+                  label="Secondary button"
+                  color="secondary"
+                  onPress={() => {
+                    isOpen ? close() : open(undefined);
+                  }}
+                />
+              )}
+            </PopoverTrigger>
           </CenteredListRow>
 
           <CenteredListRow gap="medium">
