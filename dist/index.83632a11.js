@@ -29881,7 +29881,6 @@ const ListPressableRow = /*#__PURE__*/ (0, _reactDefault.default).forwardRef(_c 
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _baseListRow.BaseListRow), {
         ...otherProps,
         componentName: (otherProps.componentName ?? []).concat("ListPressableRow"),
-        gap: gap,
         jsStyle: [
             jsStyles.root,
             jsStyle
@@ -29901,6 +29900,7 @@ const ListPressableRow = /*#__PURE__*/ (0, _reactDefault.default).forwardRef(_c 
                     onPress: onPress,
                     padding: padding,
                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _textPairing.TextPairing), {
+                        gap: gap,
                         addOn: addOn,
                         addOnPosition: addOnPosition,
                         headline: headline,
@@ -29914,17 +29914,17 @@ const ListPressableRow = /*#__PURE__*/ (0, _reactDefault.default).forwardRef(_c 
                         shrink: false
                     }, void 0, false, {
                         fileName: "src/ListPressableRow.tsx",
-                        lineNumber: 129,
+                        lineNumber: 128,
                         columnNumber: 13
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/ListPressableRow.tsx",
-                    lineNumber: 117,
+                    lineNumber: 116,
                     columnNumber: 11
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/ListPressableRow.tsx",
-                lineNumber: 116,
+                lineNumber: 115,
                 columnNumber: 9
             }, undefined),
             outerAddOn && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _listCell.ListCell), {

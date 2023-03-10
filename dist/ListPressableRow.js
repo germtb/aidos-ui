@@ -52,10 +52,10 @@ const jsStyles = createJSStyles({
     },
 });
 export const ListPressableRow = React.forwardRef(({ onPress, headline, headlineSize = "medium", headlineColor = "primary", headlineAddOn, body, bodySize = "small", bodyColor = "secondary", addOn, addOnPosition, outerAddOn, color = "secondary", disabled = false, padding = "medium", jsStyle, gap, selected, ...otherProps }, ref) => {
-    return (React.createElement(BaseListRow, { ...otherProps, componentName: (otherProps.componentName ?? []).concat("ListPressableRow"), gap: gap, jsStyle: [jsStyles.root, jsStyle] },
+    return (React.createElement(BaseListRow, { ...otherProps, componentName: (otherProps.componentName ?? []).concat("ListPressableRow"), jsStyle: [jsStyles.root, jsStyle] },
         React.createElement(ListCell, { jsStyle: jsStyles.gridcell },
             React.createElement(BaseButton, { "aria-selected": selected, disabled: disabled, animateClick: false, bare: true, color: color, ref: ref, jsStyle: jsStyles.button, "aria-label": headline, onPress: onPress, padding: padding },
-                React.createElement(TextPairing, { addOn: addOn, addOnPosition: addOnPosition, headline: headline, headlineSize: headlineSize, headlineColor: disabled ? "subtle" : headlineColor, headlineAddOn: headlineAddOn, body: body, bodySize: bodySize, bodyColor: disabled ? "subtle" : bodyColor, grow: true, shrink: false }))),
+                React.createElement(TextPairing, { gap: gap, addOn: addOn, addOnPosition: addOnPosition, headline: headline, headlineSize: headlineSize, headlineColor: disabled ? "subtle" : headlineColor, headlineAddOn: headlineAddOn, body: body, bodySize: bodySize, bodyColor: disabled ? "subtle" : bodyColor, grow: true, shrink: false }))),
         outerAddOn && React.createElement(ListCell, null, outerAddOn)));
 });
 //# sourceMappingURL=ListPressableRow.js.map

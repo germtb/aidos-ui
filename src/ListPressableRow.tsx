@@ -110,7 +110,6 @@ export const ListPressableRow = React.forwardRef(
         componentName={(otherProps.componentName ?? []).concat(
           "ListPressableRow"
         )}
-        gap={gap}
         jsStyle={[jsStyles.root, jsStyle]}
       >
         <ListCell jsStyle={jsStyles.gridcell}>
@@ -127,6 +126,7 @@ export const ListPressableRow = React.forwardRef(
             padding={padding}
           >
             <TextPairing
+              gap={gap}
               addOn={addOn}
               addOnPosition={addOnPosition}
               headline={headline}
