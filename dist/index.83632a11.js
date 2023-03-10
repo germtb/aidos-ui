@@ -31709,7 +31709,7 @@ $RefreshReg$(_c1, "PopoverTrigger");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./BaseView":"bCtvz","./Palette":"fgv8F","./aria":"3mmJf","./useRefEffect":"kyUbq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"fRSF9":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./BaseView":"bCtvz","./Palette":"fgv8F","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./aria":"3mmJf","./useRefEffect":"kyUbq"}],"fRSF9":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$0f07 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
