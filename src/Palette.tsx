@@ -27,7 +27,7 @@ export type Justify =
   | "flex-end"
   | "stretch";
 
-export type Align = "none" | "center" | "stretch" | "flex-start";
+export type Align = "none" | "center" | "stretch" | "flex-start" | "flex-end";
 
 export type FlexDirection = "row" | "column";
 
@@ -626,6 +626,9 @@ const alignStyles = createJSStyles({
   },
   ["flex-start"]: {
     alignItems: "flex-start",
+  },
+  ["flex-end"]: {
+    alignItems: "flex-end",
   },
 });
 

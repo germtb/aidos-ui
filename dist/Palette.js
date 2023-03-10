@@ -447,6 +447,9 @@ const alignStyles = createJSStyles({
     ["flex-start"]: {
         alignItems: "flex-start",
     },
+    ["flex-end"]: {
+        alignItems: "flex-end",
+    },
 });
 export const getAlign = (prop) => {
     return alignStyles[prop];
