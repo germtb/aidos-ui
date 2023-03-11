@@ -39,13 +39,15 @@ const jsStyles = createJSStyles({
   },
 });
 
+export type Display = "inline" | "block";
+
 export interface TextProps {
   children: ReactNode;
   color?: TextColor;
   size?: Size;
   ellipsis?: boolean | "default";
   align?: "center" | "none";
-  display?: "inline" | "block";
+  display?: Display;
   grow?: boolean;
 }
 

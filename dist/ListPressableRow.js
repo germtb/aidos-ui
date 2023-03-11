@@ -11,8 +11,10 @@ const jsStyles = createJSStyles({
     gridcell: {
         display: "flex",
         flexGrow: 1,
+        overflow: "hidden",
     },
     button: {
+        overflow: "hidden",
         flexGrow: 1,
         backgroundColor: "var(--primary-background)",
         "[aria-selected=true]": {

@@ -8,12 +8,15 @@ import {
   Size,
   Padding,
 } from "./Palette";
-import { Text } from "./Text";
+import { Display, Text } from "./Text";
 import { Row } from "./Row";
 import { BaseView } from "./BaseView";
 import { Column } from "./Column";
 
 const jsStyles = createJSStyles({
+  overflow: {
+    overflow: "hidden",
+  },
   headline: {
     display: "flex",
     textAlign: "start",
@@ -32,6 +35,7 @@ export interface TextPairingProps {
   headlineAddOn?: ReactNode;
   bodyColor?: TextColor;
   bodySize?: Size;
+  bodyDisplay?: Display;
   addOn?: ReactNode;
   addOnPosition?: Position;
   gap?: Gap;
@@ -49,6 +53,7 @@ export function TextPairing({
   headlineAddOn,
   bodyColor = "secondary",
   bodySize = "medium",
+  bodyDisplay = "inline",
   addOn,
   addOnPosition = "left",
   gap = "small",
@@ -64,6 +69,7 @@ export function TextPairing({
       padding={addOn ? undefined : padding}
       componentName={["TextPairing"]}
       align={align}
+      jsStyle={jsStyles.overflow}
     >
       <Row align="center" jsStyle={jsStyles.headline}>
         <Text color={headlineColor} size={headlineSize}>
@@ -73,7 +79,7 @@ export function TextPairing({
       </Row>
       {body && (
         <Row align="center" jsStyle={jsStyles.body}>
-          <Text display="block" color={bodyColor} size={bodySize}>
+          <Text display={bodyDisplay} color={bodyColor} size={bodySize}>
             {body}
           </Text>
         </Row>
@@ -89,6 +95,7 @@ export function TextPairing({
         gap={gap}
         align="center"
         padding={padding}
+        jsStyle={jsStyles.overflow}
       >
         {addOnPosition === "left" && addOn}
         {textElement}
