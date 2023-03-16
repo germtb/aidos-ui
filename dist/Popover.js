@@ -22,9 +22,6 @@ const jsStyles = createJSStyles({
     content: {
         gridArea: "content",
     },
-    trigger: {
-        position: "relative",
-    },
 });
 export function Popover({ children, close }) {
     const activeElementRef = useRef(null);
@@ -86,7 +83,7 @@ export function PopoverTrigger({ PopoverComponent, jsStyle, className, grow, shr
     const isOpen = popover != null;
     return (React.createElement(BaseView, { onClick: (e) => {
             e.stopPropagation();
-        }, className: className, grow: grow, shrink: shrink, tag: tag, jsStyle: [jsStyle, jsStyles.trigger] },
+        }, className: className, grow: grow, shrink: shrink, tag: tag, relative: true, jsStyle: jsStyle },
         children({ open, close, isOpen }),
         popover));
 }

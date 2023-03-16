@@ -24,9 +24,6 @@ const jsStyles = createJSStyles({
   content: {
     gridArea: "content",
   },
-  trigger: {
-    position: "relative",
-  },
 });
 
 export function Popover({ children, close }) {
@@ -136,7 +133,8 @@ export function PopoverTrigger<Input>({
       grow={grow}
       shrink={shrink}
       tag={tag}
-      jsStyle={[jsStyle, jsStyles.trigger]}
+      relative={true}
+      jsStyle={jsStyle}
     >
       {children({ open, close, isOpen })}
       {popover}

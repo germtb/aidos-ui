@@ -2,6 +2,9 @@ import React from "react";
 import { createClassNames, createJSStyles, JSStyles } from "./Palette";
 
 const jsStyles = createJSStyles({
+  relative: {
+    position: "relative",
+  },
   grow: {
     flexGrow: 1,
   },
@@ -19,6 +22,7 @@ export interface BaseViewProps extends React.HTMLAttributes<HTMLElement> {
   className?: undefined;
   grow?: boolean;
   shrink?: boolean;
+  relative?: boolean;
   tag?: keyof HTMLElementTagNameMap;
 }
 
@@ -31,6 +35,7 @@ export const BaseView = React.forwardRef(
       tag,
       grow,
       shrink,
+      relative,
       ...otherProps
     }: BaseViewProps,
     ref?: React.Ref<HTMLElement>
@@ -45,7 +50,8 @@ export const BaseView = React.forwardRef(
         className={createClassNames(
           jsStyle,
           grow && jsStyles.grow,
-          shrink && jsStyles.shrink
+          shrink && jsStyles.shrink,
+          relative && jsStyles.relative
         )}
         {...otherProps}
       >
