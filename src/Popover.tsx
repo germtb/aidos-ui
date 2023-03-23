@@ -126,6 +126,7 @@ export function PopoverTrigger<Input>({
 
   return (
     <BaseView
+      style={{ position: "relative" }}
       onClick={(e) => {
         e.stopPropagation();
       }}

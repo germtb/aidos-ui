@@ -28694,6 +28694,9 @@ var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
 var _palette = require("./Palette");
 const jsStyles = (0, _palette.createJSStyles)({
+    relative: {
+        position: "relative"
+    },
     grow: {
         flexGrow: 1
     },
@@ -28701,7 +28704,7 @@ const jsStyles = (0, _palette.createJSStyles)({
         flexShrink: 1
     }
 });
-const BaseView = /*#__PURE__*/ (0, _reactDefault.default).forwardRef(_c = ({ jsStyle , children , componentName =[] , tag , grow , shrink , ...otherProps }, ref)=>{
+const BaseView = /*#__PURE__*/ (0, _reactDefault.default).forwardRef(_c = ({ jsStyle , children , componentName =[] , tag , grow , shrink , relative , ...otherProps }, ref)=>{
     const Tag = tag ?? "div";
     return(// @ts-ignore
     /*#__PURE__*/ (0, _reactDefault.default).createElement(Tag, {
@@ -28710,11 +28713,11 @@ const BaseView = /*#__PURE__*/ (0, _reactDefault.default).forwardRef(_c = ({ jsS
             "BaseView"
         ].join("-"),
         ref: ref,
-        className: (0, _palette.createClassNames)(jsStyle, grow && jsStyles.grow, shrink && jsStyles.shrink),
+        className: (0, _palette.createClassNames)(jsStyle, grow && jsStyles.grow, shrink && jsStyles.shrink, relative && jsStyles.relative),
         ...otherProps,
         __source: {
             fileName: "src/BaseView.tsx",
-            lineNumber: 42,
+            lineNumber: 47,
             columnNumber: 7
         },
         __self: undefined
@@ -30856,9 +30859,6 @@ const jsStyles = (0, _palette.createJSStyles)({
     },
     content: {
         gridArea: "content"
-    },
-    trigger: {
-        position: "relative"
     }
 });
 function Popover({ children , close  }) {
@@ -30909,7 +30909,7 @@ function Popover({ children , close  }) {
         jsStyle: jsStyles.popover,
         __source: {
             fileName: "src/Popover.tsx",
-            lineNumber: 89,
+            lineNumber: 86,
             columnNumber: 5
         },
         __self: this
@@ -30933,7 +30933,7 @@ function PopoverTrigger({ PopoverComponent , jsStyle , className , grow , shrink
             close: close,
             __source: {
                 fileName: "src/Popover.tsx",
-                lineNumber: 125,
+                lineNumber: 122,
                 columnNumber: 16
             },
             __self: this
@@ -30941,6 +30941,9 @@ function PopoverTrigger({ PopoverComponent , jsStyle , className , grow , shrink
     };
     const isOpen = popover != null;
     return /*#__PURE__*/ (0, _reactDefault.default).createElement((0, _baseView.BaseView), {
+        style: {
+            position: "relative"
+        },
         onClick: (e)=>{
             e.stopPropagation();
         },
@@ -30948,13 +30951,11 @@ function PopoverTrigger({ PopoverComponent , jsStyle , className , grow , shrink
         grow: grow,
         shrink: shrink,
         tag: tag,
-        jsStyle: [
-            jsStyle,
-            jsStyles.trigger
-        ],
+        relative: true,
+        jsStyle: jsStyle,
         __source: {
             fileName: "src/Popover.tsx",
-            lineNumber: 131,
+            lineNumber: 128,
             columnNumber: 5
         },
         __self: this

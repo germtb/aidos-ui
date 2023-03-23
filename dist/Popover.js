@@ -81,7 +81,7 @@ export function PopoverTrigger({ PopoverComponent, jsStyle, className, grow, shr
         setPopover(React.createElement(PopoverComponent, { ...input, close: close }));
     };
     const isOpen = popover != null;
-    return (React.createElement(BaseView, { onClick: (e) => {
+    return (React.createElement(BaseView, { style: { position: "relative" }, onClick: (e) => {
             e.stopPropagation();
         }, className: className, grow: grow, shrink: shrink, tag: tag, relative: true, jsStyle: jsStyle },
         children({ open, close, isOpen }),
