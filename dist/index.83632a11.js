@@ -29315,9 +29315,6 @@ const jsStyles = (0, _palette.createJSStyles)({
         "[aria-disabled=true]": {
             backgroundColor: "inherit"
         },
-        ":hover": {
-            backgroundColor: "var(--secondary-background)"
-        },
         "[aria-disabled=true]:hover": {
             backgroundColor: "inherit"
         }
@@ -29346,7 +29343,7 @@ const BaseButton = /*#__PURE__*/ (0, _reactDefault.default).forwardRef(_c = ({ c
         className: (0, _palette.createClassNames)(jsStyles.root, color === "positive" && jsStyles.positive, color === "secondary" && jsStyles.secondary, color === "negative" && jsStyles.negative, bare && jsStyles.bare, disabled && jsStyles.disabled, !bare && jsStyles.opacityHover, animateClick && !disabled && jsStyles.animateClick, jsStyle, (0, _palette.getPadding)(padding)),
         __source: {
             fileName: "src/BaseButton.tsx",
-            lineNumber: 115,
+            lineNumber: 112,
             columnNumber: 7
         },
         __self: undefined

@@ -77,9 +77,6 @@ const jsStyles = createJSStyles({
     "[aria-disabled=true]": {
       backgroundColor: "inherit",
     },
-    ":hover": {
-      backgroundColor: "var(--secondary-background)",
-    },
     "[aria-disabled=true]:hover": {
       backgroundColor: "inherit",
     },
