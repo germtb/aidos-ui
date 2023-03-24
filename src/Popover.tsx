@@ -40,8 +40,11 @@ export function Popover({ children, close }) {
       close();
     };
 
-    window.addEventListener("keydown", keydown);
-    window.addEventListener("click", click);
+    // This is needed so that the trigger click is not captured immediatly, which would close the popover as it opens
+    setTimeout(() => {
+      window.addEventListener("keydown", keydown);
+      window.addEventListener("click", click);
+    }, 0);
 
     return () => {
       window.removeEventListener("keydown", keydown);
@@ -127,9 +130,9 @@ export function PopoverTrigger<Input>({
   return (
     <BaseView
       style={{ position: "relative" }}
-      onClick={(e) => {
-        e.stopPropagation();
-      }}
+      // onClick={(e) => {
+      //   e.stopPropagation();
+      // }}
       className={className}
       grow={grow}
       shrink={shrink}

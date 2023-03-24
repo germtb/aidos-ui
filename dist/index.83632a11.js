@@ -30868,8 +30868,11 @@ function Popover({ children , close  }) {
         const click = ()=>{
             close();
         };
-        window.addEventListener("keydown", keydown);
-        window.addEventListener("click", click);
+        // This is needed so that the trigger click is not captured immediatly, which would close the popover as it opens
+        setTimeout(()=>{
+            window.addEventListener("keydown", keydown);
+            window.addEventListener("click", click);
+        }, 0);
         return ()=>{
             window.removeEventListener("keydown", keydown);
             window.removeEventListener("click", click);
@@ -30906,7 +30909,7 @@ function Popover({ children , close  }) {
         jsStyle: jsStyles.popover,
         __source: {
             fileName: "src/Popover.tsx",
-            lineNumber: 86,
+            lineNumber: 89,
             columnNumber: 5
         },
         __self: this
@@ -30930,7 +30933,7 @@ function PopoverTrigger({ PopoverComponent , jsStyle , className , grow , shrink
             close: close,
             __source: {
                 fileName: "src/Popover.tsx",
-                lineNumber: 122,
+                lineNumber: 125,
                 columnNumber: 16
             },
             __self: this
@@ -30941,9 +30944,9 @@ function PopoverTrigger({ PopoverComponent , jsStyle , className , grow , shrink
         style: {
             position: "relative"
         },
-        onClick: (e)=>{
-            e.stopPropagation();
-        },
+        // onClick={(e) => {
+        //   e.stopPropagation();
+        // }}
         className: className,
         grow: grow,
         shrink: shrink,
@@ -30952,7 +30955,7 @@ function PopoverTrigger({ PopoverComponent , jsStyle , className , grow , shrink
         jsStyle: jsStyle,
         __source: {
             fileName: "src/Popover.tsx",
-            lineNumber: 128,
+            lineNumber: 131,
             columnNumber: 5
         },
         __self: this

@@ -34,8 +34,11 @@ export function Popover({ children, close }) {
         const click = () => {
             close();
         };
-        window.addEventListener("keydown", keydown);
-        window.addEventListener("click", click);
+        // This is needed so that the trigger click is not captured immediatly, which would close the popover as it opens
+        setTimeout(() => {
+            window.addEventListener("keydown", keydown);
+            window.addEventListener("click", click);
+        }, 0);
         return () => {
             window.removeEventListener("keydown", keydown);
             window.removeEventListener("click", click);
@@ -81,9 +84,11 @@ export function PopoverTrigger({ PopoverComponent, jsStyle, className, grow, shr
         setPopover(React.createElement(PopoverComponent, { ...input, close: close }));
     };
     const isOpen = popover != null;
-    return (React.createElement(BaseView, { style: { position: "relative" }, onClick: (e) => {
-            e.stopPropagation();
-        }, className: className, grow: grow, shrink: shrink, tag: tag, relative: true, jsStyle: jsStyle },
+    return (React.createElement(BaseView, { style: { position: "relative" }, 
+        // onClick={(e) => {
+        //   e.stopPropagation();
+        // }}
+        className: className, grow: grow, shrink: shrink, tag: tag, relative: true, jsStyle: jsStyle },
         children({ open, close, isOpen }),
         popover));
 }
