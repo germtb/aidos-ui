@@ -14,9 +14,7 @@ interface PopoverTriggerProps<Input> {
     shrink?: boolean;
     tag?: keyof HTMLElementTagNameMap;
     children: (props: {
-        open: (input: Input) => void;
-        close: () => void;
-        isOpen: boolean;
+        toggle: (input: Input) => void;
     }) => JSX.Element;
 }
 export declare function PopoverTrigger<Input>({ PopoverComponent, jsStyle, className, grow, shrink, tag, children, }: PopoverTriggerProps<Input>): JSX.Element;

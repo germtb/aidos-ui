@@ -59,6 +59,7 @@ export function useNavigation({ autofocus = false, rowLength = 1 } = {}) {
                 index = newIndex;
                 focusElement(elements, index);
                 e.preventDefault();
+                e.stopPropagation();
             }
         };
         root.addEventListener("keydown", onKeyDown);

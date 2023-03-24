@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { BaseView } from "./BaseView";
 import { createJSStyles } from "./Palette";
 import { queryFocusables } from "./aria";
 import { useRefEffect } from "./useRefEffect";
+import { useNavigation } from "./useNavigation";
 const jsStyles = createJSStyles({
     popover: {
         position: "absolute",
@@ -25,71 +26,92 @@ const jsStyles = createJSStyles({
 });
 export function Popover({ children, close }) {
     const activeElementRef = useRef(null);
-    useEffect(() => {
+    const focusTrapRoot = useRefEffect((root) => {
+        activeElementRef.current = document.activeElement;
+        const [element] = queryFocusables(root);
+        element && element.focus();
         const keydown = (e) => {
             if (e.key === "Escape") {
                 close();
+            }
+            else if (e.key === "Tab") {
+                e.stopPropagation();
+                e.preventDefault();
             }
         };
         const click = () => {
             close();
         };
+        window.addEventListener("keydown", keydown);
         // This is needed so that the trigger click is not captured immediatly, which would close the popover as it opens
         setTimeout(() => {
-            window.addEventListener("keydown", keydown);
             window.addEventListener("click", click);
         }, 0);
         return () => {
+            activeElementRef.current && activeElementRef.current.focus();
             window.removeEventListener("keydown", keydown);
             window.removeEventListener("click", click);
-            activeElementRef.current && activeElementRef.current.focus();
-            activeElementRef.current = document.activeElement;
-        };
-    }, []);
-    const refCallback = useRefEffect((root) => {
-        activeElementRef.current = document.activeElement;
-        const [element] = queryFocusables(root);
-        element && element.focus();
-        const onKeyDown = (e) => {
-            if (e.key === "Tab") {
-                const elements = queryFocusables(root);
-                if (elements.length === 0) {
-                    return;
-                }
-                const first = elements[0];
-                const last = elements[elements.length - 1];
-                if (e.shiftKey && document.activeElement === first) {
-                    e.preventDefault();
-                    last.focus();
-                }
-                else if (!e.shiftKey && document.activeElement === last) {
-                    e.preventDefault();
-                    first.focus();
-                }
-            }
-        };
-        root.addEventListener("keydown", onKeyDown);
-        return () => {
-            root.removeEventListener("keydown", onKeyDown);
         };
     });
-    return (React.createElement(BaseView, { ref: refCallback, jsStyle: jsStyles.popover }, children));
+    // const refCallback = useRefEffect((root: HTMLDialogElement) => {
+    //   activeElementRef.current = document.activeElement;
+    //   const [element] = queryFocusables(root);
+    //   element && element.focus();
+    //   const onKeyDown = (e) => {
+    //     if (e.key === "Tab") {
+    //       const elements = queryFocusables(root);
+    //       if (elements.length === 0) {
+    //         return;
+    //       }
+    //       const first = elements[0];
+    //       const last = elements[elements.length - 1];
+    //       console.log({
+    //         first: first === document.activeElement,
+    //         last: last === document.activeElement,
+    //       });
+    //       if (e.shiftKey && document.activeElement === first) {
+    //         e.preventDefault();
+    //         last.focus();
+    //       } else if (!e.shiftKey && document.activeElement === last) {
+    //         e.preventDefault();
+    //         first.focus();
+    //       } else if (!e.shiftKey) {
+    //         const index = elements.findIndex((e) => e === document.activeElement);
+    //         console.log({ index });
+    //         if (index === -1) {
+    //           console.error("Tab not currently trapped in popover");
+    //         } else {
+    //           const nextElement = elements[index + 1];
+    //           console.log({ nextElement });
+    //           nextElement.focus();
+    //         }
+    //       }
+    //     }
+    //   };
+    //   root.addEventListener("keydown", onKeyDown);
+    //   return () => {
+    //     root.removeEventListener("keydown", onKeyDown);
+    //   };
+    // });
+    const navigationRoot = useNavigation();
+    return (React.createElement(BaseView, { ref: focusTrapRoot, jsStyle: jsStyles.popover },
+        React.createElement(BaseView, { ref: navigationRoot }, children)));
 }
 export function PopoverTrigger({ PopoverComponent, jsStyle, className, grow, shrink, tag, children, }) {
     const [popover, setPopover] = useState(null);
     const close = () => {
         setPopover(null);
     };
-    const open = (input) => {
-        setPopover(React.createElement(PopoverComponent, { ...input, close: close }));
+    const toggle = (input) => {
+        if (popover == null) {
+            setPopover(React.createElement(PopoverComponent, { ...input, close: close }));
+        }
+        else {
+            close();
+        }
     };
-    const isOpen = popover != null;
-    return (React.createElement(BaseView, { style: { position: "relative" }, 
-        // onClick={(e) => {
-        //   e.stopPropagation();
-        // }}
-        className: className, grow: grow, shrink: shrink, tag: tag, relative: true, jsStyle: jsStyle },
-        children({ open, close, isOpen }),
+    return (React.createElement(BaseView, { style: { position: "relative" }, className: className, grow: grow, shrink: shrink, tag: tag, relative: true, jsStyle: jsStyle },
+        children({ toggle }),
         popover));
 }
 //# sourceMappingURL=Popover.js.map
