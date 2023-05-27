@@ -62,6 +62,7 @@ export function Icon({
 }) {
   return (
     <BaseView
+      key={icon}
       aria-label={ariaLabel}
       jsStyle={[
         jsStyles.root,

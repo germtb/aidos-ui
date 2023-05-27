@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
+import React, { useContext, useMemo, useRef, useState } from "react";
 
 import { BaseView } from "./BaseView";
 import { Text } from "./Text";
@@ -7,8 +7,6 @@ import { ListDivider } from "./ListDivider";
 import { Column } from "./Column";
 import { Row } from "./Row";
 import { IconButton } from "./IconButton";
-import { queryFocusables } from "./aria";
-import { useRefEffect } from "./useRefEffect";
 
 const jsStyles = createJSStyles({
   dialog: {
@@ -48,86 +46,37 @@ const jsStyles = createJSStyles({
   },
 });
 
-export function Dialog({ label, children, close }) {
-  const activeElementRef = useRef(null);
-
-  useEffect(() => {
-    const callback = (e) => {
-      if (e.key === "Escape") {
-        close();
-      }
-    };
-
-    window.addEventListener("keydown", callback);
-
-    return () => {
-      window.removeEventListener("keydown", callback);
-      activeElementRef.current && activeElementRef.current.focus();
-      activeElementRef.current = document.activeElement;
-    };
-  }, []);
-
-  const refCallback = useRefEffect((root: HTMLDialogElement) => {
-    activeElementRef.current = document.activeElement;
-    const [element] = queryFocusables(root);
-    element && element.focus();
-
-    const onKeyDown = (e) => {
-      if (e.key === "Tab") {
-        const elements = queryFocusables(root);
-        if (elements.length === 0) {
-          return;
-        }
-
-        const first = elements[0];
-        const last = elements[elements.length - 1];
-
-        if (e.shiftKey && document.activeElement === first) {
-          e.preventDefault();
-          last.focus();
-        } else if (!e.shiftKey && document.activeElement === last) {
-          e.preventDefault();
-          first.focus();
-        }
-      }
-    };
-
-    root.addEventListener("keydown", onKeyDown);
-    return () => {
-      root.removeEventListener("keydown", onKeyDown);
-    };
-  });
-
+export const Dialog = ({
+  label,
+  children,
+  close,
+}: {
+  label: string;
+  children: JSX.Element;
+  close: () => void;
+}) => {
   return (
-    <dialog
-      open={true}
-      ref={refCallback}
-      className={createClassNames(jsStyles.dialog)}
-      onSubmit={(e) => {
-        e.preventDefault();
-      }}
-    >
-      <BaseView jsStyle={jsStyles.root}>
-        <Column jsStyle={jsStyles.header}>
-          <Row padding="medium" justify="space-between" align="center">
-            <Text size="medium" color="secondary">
-              {label}
-            </Text>
-            <IconButton
-              bare={true}
-              icon="fa-close"
-              size="medium"
-              onPress={close}
-              color="secondary"
-            />
-          </Row>
-          <ListDivider />
-        </Column>
-        <BaseView jsStyle={jsStyles.content}>{children}</BaseView>
-      </BaseView>
-    </dialog>
+    <BaseView jsStyle={jsStyles.root}>
+      <Column jsStyle={jsStyles.header}>
+        <Row padding="medium" justify="space-between" align="center">
+          <Text size="medium" color="secondary">
+            {label}
+          </Text>
+          <IconButton
+            autoFocus={true}
+            bare={true}
+            icon="fa-close"
+            size="medium"
+            onPress={close}
+            color="secondary"
+          />
+        </Row>
+        <ListDivider />
+      </Column>
+      <BaseView jsStyle={jsStyles.content}>{children}</BaseView>
+    </BaseView>
   );
-}
+};
 
 const DialogContext = React.createContext<{ setDialog: React.Dispatch<any> }>({
   setDialog: () => {},
@@ -149,13 +98,32 @@ export function useDialog<Input>(
   DialogComponent: (props: { close: () => void } & Input) => JSX.Element
 ) {
   const { setDialog } = useContext(DialogContext);
+  const dialogRef = useRef<null | HTMLDialogElement>(null);
+  const activeElementRef = useRef(null);
+  const closeRef = useRef(null);
 
-  const open = (input: Input) => {
-    setDialog(<DialogComponent {...input} close={() => setDialog(null)} />);
+  closeRef.current = () => {
+    dialogRef.current && dialogRef.current.close();
+    activeElementRef.current && activeElementRef.current.focus();
+    dialogRef.current = null;
+    activeElementRef.current = null;
+    setDialog(null);
   };
 
-  const close = () => {
-    setDialog(null);
+  const open = (input: Input) => {
+    activeElementRef.current = document.activeElement;
+    console.log({ activeElementRef });
+    setDialog(
+      <dialog
+        ref={(ref: null | HTMLDialogElement) => {
+          dialogRef.current = ref;
+          ref && ref.showModal();
+        }}
+        className={createClassNames(jsStyles.dialog)}
+      >
+        <DialogComponent {...input} close={() => closeRef.current()} />
+      </dialog>
+    );
   };
 
   return {

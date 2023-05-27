@@ -1,8 +1,11 @@
 import { useRef, useCallback, useEffect } from "react";
 import { queryFocusables, focusElement, normalizeElements } from "./aria";
-export function useNavigation({ autofocus = false, rowLength = 1 } = {}) {
+export function useNavigation({ autofocus = false, rowLength = 1, enabled = true, } = {}) {
     const unsubscribeRef = useRef(null);
     const refCallback = useCallback((root) => {
+        if (!enabled) {
+            return;
+        }
         if (root === null) {
             return;
         }
@@ -77,6 +80,9 @@ export function useNavigation({ autofocus = false, rowLength = 1 } = {}) {
         };
     }, []);
     useEffect(() => {
+        if (!enabled) {
+            return;
+        }
         return () => unsubscribeRef.current && unsubscribeRef.current();
     }, []);
     return refCallback;

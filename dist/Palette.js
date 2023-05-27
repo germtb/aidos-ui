@@ -286,11 +286,11 @@ export const lightTheme = {
 export const darkTheme = {
     /* Background */
     ["--primary-background"]: "rgb(42, 43, 46)",
-    ["--secondary-background"]: "rgb(27 28 28)",
+    ["--secondary-background"]: "rgb(65, 66, 67)",
     ["--divider"]: "rgb(70, 72, 73)",
     ["--strong-divider"]: "rgb(100, 100, 100)",
-    ["--pressed-background"]: "rgb(80, 82, 83)",
-    ["--hovered-background"]: "rgb(70, 73, 74)",
+    ["--pressed-background"]: "rgb(90, 92, 93)",
+    ["--hovered-background"]: "rgb(50, 53, 54)",
     ["--selected-background"]: "rgb(65, 68, 69)",
     ["--nav-bar"]: "rgb(34, 35, 36)",
     /* Effects */

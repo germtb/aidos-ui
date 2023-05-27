@@ -8,15 +8,17 @@ interface ListProps extends BaseListProps {
   ariaLabel: string;
   autofocus?: boolean;
   role?: undefined;
+  navigation?: boolean;
 }
 
 export function List({
   ariaLabel,
   jsStyle,
   autofocus = false,
+  navigation = true,
   ...otherProps
 }: ListProps) {
-  const rootRef = useNavigation();
+  const rootRef = useNavigation({ autofocus, enabled: navigation });
 
   return (
     <BaseList

@@ -26372,6 +26372,7 @@ function DesignBook() {
         },
         __self: this
     }, /*#__PURE__*/ (0, _reactDefault.default).createElement((0, _list.List), {
+        navigation: false,
         ariaLabel: "Design book",
         __source: {
             fileName: "src/DesignBook.tsx",
@@ -28101,11 +28102,11 @@ const lightTheme = {
 };
 const darkTheme = {
     /* Background */ ["--primary-background"]: "rgb(42, 43, 46)",
-    ["--secondary-background"]: "rgb(27 28 28)",
+    ["--secondary-background"]: "rgb(65, 66, 67)",
     ["--divider"]: "rgb(70, 72, 73)",
     ["--strong-divider"]: "rgb(100, 100, 100)",
-    ["--pressed-background"]: "rgb(80, 82, 83)",
-    ["--hovered-background"]: "rgb(70, 73, 74)",
+    ["--pressed-background"]: "rgb(90, 92, 93)",
+    ["--hovered-background"]: "rgb(50, 53, 54)",
     ["--selected-background"]: "rgb(65, 68, 69)",
     ["--nav-bar"]: "rgb(34, 35, 36)",
     /* Effects */ ["--warning"]: "rgb(255, 204, 0)",
@@ -29684,6 +29685,7 @@ const initialize = ()=>{
 };
 function Icon({ icon , size , color , ariaLabel  }) {
     return /*#__PURE__*/ (0, _reactDefault.default).createElement((0, _baseView.BaseView), {
+        key: icon,
         "aria-label": ariaLabel,
         jsStyle: [
             jsStyles.root,
@@ -29703,7 +29705,7 @@ function Icon({ icon , size , color , ariaLabel  }) {
         "data-icon": icon,
         __source: {
             fileName: "src/Icon.tsx",
-            lineNumber: 74,
+            lineNumber: 75,
             columnNumber: 7
         },
         __self: this
@@ -30285,9 +30287,12 @@ var _baseList = require("./BaseList");
 var _useNavigation = require("./useNavigation");
 var _s = $RefreshSig$();
 const PAGE_SIZE = 5;
-function List({ ariaLabel , jsStyle , autofocus =false , ...otherProps }) {
+function List({ ariaLabel , jsStyle , autofocus =false , navigation =true , ...otherProps }) {
     _s();
-    const rootRef = (0, _useNavigation.useNavigation)();
+    const rootRef = (0, _useNavigation.useNavigation)({
+        autofocus,
+        enabled: navigation
+    });
     return /*#__PURE__*/ (0, _reactDefault.default).createElement((0, _baseList.BaseList), {
         role: "grid",
         "aria-label": ariaLabel,
@@ -30296,7 +30301,7 @@ function List({ ariaLabel , jsStyle , autofocus =false , ...otherProps }) {
         ...otherProps,
         __source: {
             fileName: "src/List.tsx",
-            lineNumber: 22,
+            lineNumber: 24,
             columnNumber: 5
         },
         __self: this
@@ -30378,10 +30383,11 @@ parcelHelpers.export(exports, "useNavigation", ()=>useNavigation);
 var _react = require("react");
 var _aria = require("./aria");
 var _s = $RefreshSig$();
-function useNavigation({ autofocus =false , rowLength =1  } = {}) {
+function useNavigation({ autofocus =false , rowLength =1 , enabled =true  } = {}) {
     _s();
     const unsubscribeRef = (0, _react.useRef)(null);
     const refCallback = (0, _react.useCallback)((root)=>{
+        if (!enabled) return;
         if (root === null) return;
         let index = 0;
         const elements = (0, _aria.queryFocusables)(root);
@@ -30427,6 +30433,7 @@ function useNavigation({ autofocus =false , rowLength =1  } = {}) {
         };
     }, []);
     (0, _react.useEffect)(()=>{
+        if (!enabled) return;
         return ()=>unsubscribeRef.current && unsubscribeRef.current();
     }, []);
     return refCallback;
@@ -30554,9 +30561,7 @@ var _listDivider = require("./ListDivider");
 var _column = require("./Column");
 var _row = require("./Row");
 var _iconButton = require("./IconButton");
-var _aria = require("./aria");
-var _useRefEffect = require("./useRefEffect");
-var _s = $RefreshSig$(), _s1 = $RefreshSig$(), _s2 = $RefreshSig$();
+var _s = $RefreshSig$(), _s1 = $RefreshSig$();
 const jsStyles = (0, _palette.createJSStyles)({
     dialog: {
         width: "100vw",
@@ -30594,132 +30599,78 @@ const jsStyles = (0, _palette.createJSStyles)({
         gridArea: "content"
     }
 });
-function Dialog({ label , children , close  }) {
-    _s();
-    const activeElementRef = (0, _react.useRef)(null);
-    (0, _react.useEffect)(()=>{
-        const callback = (e)=>{
-            if (e.key === "Escape") close();
-        };
-        window.addEventListener("keydown", callback);
-        return ()=>{
-            window.removeEventListener("keydown", callback);
-            activeElementRef.current && activeElementRef.current.focus();
-            activeElementRef.current = document.activeElement;
-        };
-    }, []);
-    const refCallback = (0, _useRefEffect.useRefEffect)((root)=>{
-        activeElementRef.current = document.activeElement;
-        const [element] = (0, _aria.queryFocusables)(root);
-        element && element.focus();
-        const onKeyDown = (e)=>{
-            if (e.key === "Tab") {
-                const elements = (0, _aria.queryFocusables)(root);
-                if (elements.length === 0) return;
-                const first = elements[0];
-                const last = elements[elements.length - 1];
-                if (e.shiftKey && document.activeElement === first) {
-                    e.preventDefault();
-                    last.focus();
-                } else if (!e.shiftKey && document.activeElement === last) {
-                    e.preventDefault();
-                    first.focus();
-                }
-            }
-        };
-        root.addEventListener("keydown", onKeyDown);
-        return ()=>{
-            root.removeEventListener("keydown", onKeyDown);
-        };
-    });
-    return /*#__PURE__*/ (0, _reactDefault.default).createElement("dialog", {
-        open: true,
-        ref: refCallback,
-        className: (0, _palette.createClassNames)(jsStyles.dialog),
-        onSubmit: (e)=>{
-            e.preventDefault();
-        },
-        __source: {
-            fileName: "src/Dialog.tsx",
-            lineNumber: 102,
-            columnNumber: 5
-        },
-        __self: this
-    }, /*#__PURE__*/ (0, _reactDefault.default).createElement((0, _baseView.BaseView), {
+const Dialog = ({ label , children , close: close1  })=>{
+    return /*#__PURE__*/ (0, _reactDefault.default).createElement((0, _baseView.BaseView), {
         jsStyle: jsStyles.root,
         __source: {
             fileName: "src/Dialog.tsx",
-            lineNumber: 110,
-            columnNumber: 7
+            lineNumber: 59,
+            columnNumber: 5
         },
-        __self: this
+        __self: undefined
     }, /*#__PURE__*/ (0, _reactDefault.default).createElement((0, _column.Column), {
         jsStyle: jsStyles.header,
         __source: {
             fileName: "src/Dialog.tsx",
-            lineNumber: 111,
-            columnNumber: 9
+            lineNumber: 60,
+            columnNumber: 7
         },
-        __self: this
+        __self: undefined
     }, /*#__PURE__*/ (0, _reactDefault.default).createElement((0, _row.Row), {
         padding: "medium",
         justify: "space-between",
         align: "center",
         __source: {
             fileName: "src/Dialog.tsx",
-            lineNumber: 112,
-            columnNumber: 11
+            lineNumber: 61,
+            columnNumber: 9
         },
-        __self: this
+        __self: undefined
     }, /*#__PURE__*/ (0, _reactDefault.default).createElement((0, _text.Text), {
         size: "medium",
         color: "secondary",
         __source: {
             fileName: "src/Dialog.tsx",
-            lineNumber: 113,
-            columnNumber: 13
+            lineNumber: 62,
+            columnNumber: 11
         },
-        __self: this
+        __self: undefined
     }, label), /*#__PURE__*/ (0, _reactDefault.default).createElement((0, _iconButton.IconButton), {
+        autoFocus: true,
         bare: true,
         icon: "fa-close",
         size: "medium",
-        onPress: close,
+        onPress: close1,
         color: "secondary",
         __source: {
             fileName: "src/Dialog.tsx",
-            lineNumber: 116,
-            columnNumber: 13
+            lineNumber: 65,
+            columnNumber: 11
         },
-        __self: this
+        __self: undefined
     })), /*#__PURE__*/ (0, _reactDefault.default).createElement((0, _listDivider.ListDivider), {
         __source: {
             fileName: "src/Dialog.tsx",
-            lineNumber: 124,
-            columnNumber: 11
+            lineNumber: 74,
+            columnNumber: 9
         },
-        __self: this
+        __self: undefined
     })), /*#__PURE__*/ (0, _reactDefault.default).createElement((0, _baseView.BaseView), {
         jsStyle: jsStyles.content,
         __source: {
             fileName: "src/Dialog.tsx",
-            lineNumber: 126,
-            columnNumber: 9
+            lineNumber: 76,
+            columnNumber: 7
         },
-        __self: this
-    }, children)));
-}
-_s(Dialog, "y9wLTlTin0ETkvSUNpPkwUk/yFM=", false, function() {
-    return [
-        (0, _useRefEffect.useRefEffect)
-    ];
-});
+        __self: undefined
+    }, children));
+};
 _c = Dialog;
 const DialogContext = /*#__PURE__*/ (0, _reactDefault.default).createContext({
     setDialog: ()=>{}
 });
 function DialogProvider({ children  }) {
-    _s1();
+    _s();
     const [dialog, setDialog] = (0, _react.useState)(null);
     const value = (0, _react.useMemo)(()=>({
             setDialog
@@ -30728,38 +30679,61 @@ function DialogProvider({ children  }) {
         value: value,
         __source: {
             fileName: "src/Dialog.tsx",
-            lineNumber: 141,
+            lineNumber: 90,
             columnNumber: 5
         },
         __self: this
     }, dialog, children);
 }
-_s1(DialogProvider, "NV9fqTGG1iMj3xMjR0UIZ+GaLsc=");
+_s(DialogProvider, "NV9fqTGG1iMj3xMjR0UIZ+GaLsc=");
 _c1 = DialogProvider;
 function useDialog(DialogComponent) {
-    _s2();
+    _s1();
     const { setDialog  } = (0, _react.useContext)(DialogContext);
+    const dialogRef = (0, _react.useRef)(null);
+    const activeElementRef = (0, _react.useRef)(null);
+    const closeRef = (0, _react.useRef)(null);
+    closeRef.current = ()=>{
+        dialogRef.current && dialogRef.current.close();
+        activeElementRef.current && activeElementRef.current.focus();
+        dialogRef.current = null;
+        activeElementRef.current = null;
+        setDialog(null);
+    };
     const open = (input)=>{
-        setDialog(/*#__PURE__*/ (0, _reactDefault.default).createElement(DialogComponent, {
-            ...input,
-            close: ()=>setDialog(null),
+        activeElementRef.current = document.activeElement;
+        console.log({
+            activeElementRef
+        });
+        setDialog(/*#__PURE__*/ (0, _reactDefault.default).createElement("dialog", {
+            ref: (ref)=>{
+                dialogRef.current = ref;
+                ref && ref.showModal();
+            },
+            className: (0, _palette.createClassNames)(jsStyles.dialog),
             __source: {
                 fileName: "src/Dialog.tsx",
-                lineNumber: 154,
-                columnNumber: 15
+                lineNumber: 117,
+                columnNumber: 7
             },
             __self: this
-        }));
-    };
-    const close = ()=>{
-        setDialog(null);
+        }, /*#__PURE__*/ (0, _reactDefault.default).createElement(DialogComponent, {
+            ...input,
+            close: ()=>closeRef.current(),
+            __source: {
+                fileName: "src/Dialog.tsx",
+                lineNumber: 124,
+                columnNumber: 9
+            },
+            __self: this
+        })));
     };
     return {
         open,
         close
     };
 }
-_s2(useDialog, "QwMxEX2NMH6yS3b+a599g+y7KVs=");
+_s1(useDialog, "I/5z9Rmyt+cQgOkOt2ngNH3EtDI=");
 var _c, _c1;
 $RefreshReg$(_c, "Dialog");
 $RefreshReg$(_c1, "DialogProvider");
@@ -30769,40 +30743,7 @@ $RefreshReg$(_c1, "DialogProvider");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"21dqq","./BaseView":"bCtvz","./Text":"izT4X","./Palette":"fgv8F","./ListDivider":"9Mpf0","./Column":"4CqZG","./Row":"61dBL","./IconButton":"jTZrF","./aria":"3mmJf","./useRefEffect":"kyUbq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"kyUbq":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$da3d = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$da3d.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "useRefEffect", ()=>useRefEffect);
-var _react = require("react");
-var _s = $RefreshSig$();
-function useRefEffect(callback) {
-    _s();
-    const unsubscribeRef = (0, _react.useRef)(null);
-    const refCallback = (0, _react.useCallback)((root)=>{
-        if (root === null) return;
-        unsubscribeRef.current && unsubscribeRef.current();
-        const unsubscribe = callback(root);
-        if (unsubscribe) unsubscribeRef.current = unsubscribe;
-    }, []);
-    (0, _react.useEffect)(()=>{
-        return ()=>unsubscribeRef.current && unsubscribeRef.current();
-    }, []);
-    return refCallback;
-}
-_s(useRefEffect, "Nuunopq0Eq7tfszWwC0yBDMGzKA=");
-
-  $parcel$ReactRefreshHelpers$da3d.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"7JnYz":[function(require,module,exports) {
+},{"react":"21dqq","./BaseView":"bCtvz","./Text":"izT4X","./Palette":"fgv8F","./ListDivider":"9Mpf0","./Column":"4CqZG","./Row":"61dBL","./IconButton":"jTZrF","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"7JnYz":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$2932 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -31048,7 +30989,40 @@ $RefreshReg$(_c1, "PopoverTrigger");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react":"21dqq","./BaseView":"bCtvz","./Palette":"fgv8F","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./useNavigation":"eoJDW","./aria":"3mmJf","./useRefEffect":"kyUbq"}],"fRSF9":[function(require,module,exports) {
+},{"react":"21dqq","./BaseView":"bCtvz","./Palette":"fgv8F","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","./useNavigation":"eoJDW","./aria":"3mmJf","./useRefEffect":"kyUbq"}],"kyUbq":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$da3d = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$da3d.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "useRefEffect", ()=>useRefEffect);
+var _react = require("react");
+var _s = $RefreshSig$();
+function useRefEffect(callback) {
+    _s();
+    const unsubscribeRef = (0, _react.useRef)(null);
+    const refCallback = (0, _react.useCallback)((root)=>{
+        if (root === null) return;
+        unsubscribeRef.current && unsubscribeRef.current();
+        const unsubscribe = callback(root);
+        if (unsubscribe) unsubscribeRef.current = unsubscribe;
+    }, []);
+    (0, _react.useEffect)(()=>{
+        return ()=>unsubscribeRef.current && unsubscribeRef.current();
+    }, []);
+    return refCallback;
+}
+_s(useRefEffect, "Nuunopq0Eq7tfszWwC0yBDMGzKA=");
+
+  $parcel$ReactRefreshHelpers$da3d.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"fRSF9":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$0f07 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;

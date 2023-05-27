@@ -43,7 +43,7 @@ export function DesignBook() {
 
   return (
     <RootView>
-      <List ariaLabel="Design book">
+      <List navigation={false} ariaLabel="Design book">
         <ListSpacer />
         <Sublist label="Button" initialState={{ collapsed: false }}>
           <CenteredListRow gap="medium">

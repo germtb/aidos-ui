@@ -27,7 +27,7 @@ function ExampleDialog({ close }) {
 export function DesignBook() {
     const dialog = useDialog(({ close }) => (React.createElement(ExampleDialog, { close: close })));
     return (React.createElement(RootView, null,
-        React.createElement(List, { ariaLabel: "Design book" },
+        React.createElement(List, { navigation: false, ariaLabel: "Design book" },
             React.createElement(ListSpacer, null),
             React.createElement(Sublist, { label: "Button", initialState: { collapsed: false } },
                 React.createElement(CenteredListRow, { gap: "medium" },

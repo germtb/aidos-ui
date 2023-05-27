@@ -41,7 +41,7 @@ export const initialize = () => {
     initialized = true;
 };
 export function Icon({ icon, size, color, ariaLabel, }) {
-    return (React.createElement(BaseView, { "aria-label": ariaLabel, jsStyle: [
+    return (React.createElement(BaseView, { key: icon, "aria-label": ariaLabel, jsStyle: [
             jsStyles.root,
             size === "small" && jsStyles.small,
             size === "medium" && jsStyles.medium,
