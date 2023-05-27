@@ -128,6 +128,6 @@ export function useDialog<Input>(
 
   return {
     open,
-    close,
+    close: () => closeRef.current(),
   };
 }

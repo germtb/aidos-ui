@@ -11,5 +11,5 @@ export declare function useDialog<Input>(DialogComponent: (props: {
     close: () => void;
 } & Input) => JSX.Element): {
     open: (input: Input) => void;
-    close: typeof close;
+    close: () => any;
 };

@@ -85,7 +85,7 @@ export function useDialog(DialogComponent) {
     };
     return {
         open,
-        close,
+        close: () => closeRef.current(),
     };
 }
 //# sourceMappingURL=Dialog.js.map
