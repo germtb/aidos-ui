@@ -30570,7 +30570,7 @@ const jsStyles = (0, _palette.createJSStyles)({
     },
     root: {
         display: "grid",
-        width: "calc(100vw - 24px)",
+        width: "calc(100vw - 48px)",
         gridTemplateAreas: `
         "header"
         "content"
