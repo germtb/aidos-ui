@@ -10,20 +10,12 @@ import { IconButton } from "./IconButton";
 
 const jsStyles = createJSStyles({
   dialog: {
-    width: "100vw",
-    height: "100vh",
-    backgroundColor: "var(--divider)",
-    display: "flex",
-    justifyContent: "stretch",
-    alignItems: "stretch",
-    background: "rgba(0,0,0,0.1)",
-    top: 0,
-    border: "none",
-    zIndex: 2,
+    margin: "auto",
+    border: "1px solid var(--divider)",
+    borderRadius: "var(--border-radius-m)",
   },
   root: {
     display: "grid",
-    overflow: "hidden",
     width: "calc(100vw - 24px)",
     gridTemplateAreas: `
         "header"
@@ -33,10 +25,6 @@ const jsStyles = createJSStyles({
       maxWidth: 750,
     },
     backgroundColor: "var(--secondary-background)",
-    borderRadius: "var(--border-radius-m)",
-    border: "none",
-    margin: "auto",
-    boxShadow: "0px 1px 2px var(--divider)",
   },
   header: {
     gridArea: "header",
@@ -112,7 +100,6 @@ export function useDialog<Input>(
 
   const open = (input: Input) => {
     activeElementRef.current = document.activeElement;
-    console.log({ activeElementRef });
     setDialog(
       <dialog
         ref={(ref: null | HTMLDialogElement) => {
@@ -120,6 +107,9 @@ export function useDialog<Input>(
           ref && ref.showModal();
         }}
         className={createClassNames(jsStyles.dialog)}
+        onClose={() => {
+          closeRef.current();
+        }}
       >
         <DialogComponent {...input} close={() => closeRef.current()} />
       </dialog>

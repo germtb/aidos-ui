@@ -30564,20 +30564,12 @@ var _iconButton = require("./IconButton");
 var _s = $RefreshSig$(), _s1 = $RefreshSig$();
 const jsStyles = (0, _palette.createJSStyles)({
     dialog: {
-        width: "100vw",
-        height: "100vh",
-        backgroundColor: "var(--divider)",
-        display: "flex",
-        justifyContent: "stretch",
-        alignItems: "stretch",
-        background: "rgba(0,0,0,0.1)",
-        top: 0,
-        border: "none",
-        zIndex: 2
+        margin: "auto",
+        border: "1px solid var(--divider)",
+        borderRadius: "var(--border-radius-m)"
     },
     root: {
         display: "grid",
-        overflow: "hidden",
         width: "calc(100vw - 24px)",
         gridTemplateAreas: `
         "header"
@@ -30586,11 +30578,7 @@ const jsStyles = (0, _palette.createJSStyles)({
         "@media (min-width: 750px)": {
             maxWidth: 750
         },
-        backgroundColor: "var(--secondary-background)",
-        borderRadius: "var(--border-radius-m)",
-        border: "none",
-        margin: "auto",
-        boxShadow: "0px 1px 2px var(--divider)"
+        backgroundColor: "var(--secondary-background)"
     },
     header: {
         gridArea: "header"
@@ -30599,12 +30587,12 @@ const jsStyles = (0, _palette.createJSStyles)({
         gridArea: "content"
     }
 });
-const Dialog = ({ label , children , close: close1  })=>{
+const Dialog = ({ label , children , close  })=>{
     return /*#__PURE__*/ (0, _reactDefault.default).createElement((0, _baseView.BaseView), {
         jsStyle: jsStyles.root,
         __source: {
             fileName: "src/Dialog.tsx",
-            lineNumber: 59,
+            lineNumber: 47,
             columnNumber: 5
         },
         __self: undefined
@@ -30612,7 +30600,7 @@ const Dialog = ({ label , children , close: close1  })=>{
         jsStyle: jsStyles.header,
         __source: {
             fileName: "src/Dialog.tsx",
-            lineNumber: 60,
+            lineNumber: 48,
             columnNumber: 7
         },
         __self: undefined
@@ -30622,7 +30610,7 @@ const Dialog = ({ label , children , close: close1  })=>{
         align: "center",
         __source: {
             fileName: "src/Dialog.tsx",
-            lineNumber: 61,
+            lineNumber: 49,
             columnNumber: 9
         },
         __self: undefined
@@ -30631,7 +30619,7 @@ const Dialog = ({ label , children , close: close1  })=>{
         color: "secondary",
         __source: {
             fileName: "src/Dialog.tsx",
-            lineNumber: 62,
+            lineNumber: 50,
             columnNumber: 11
         },
         __self: undefined
@@ -30640,18 +30628,18 @@ const Dialog = ({ label , children , close: close1  })=>{
         bare: true,
         icon: "fa-close",
         size: "medium",
-        onPress: close1,
+        onPress: close,
         color: "secondary",
         __source: {
             fileName: "src/Dialog.tsx",
-            lineNumber: 65,
+            lineNumber: 53,
             columnNumber: 11
         },
         __self: undefined
     })), /*#__PURE__*/ (0, _reactDefault.default).createElement((0, _listDivider.ListDivider), {
         __source: {
             fileName: "src/Dialog.tsx",
-            lineNumber: 74,
+            lineNumber: 62,
             columnNumber: 9
         },
         __self: undefined
@@ -30659,7 +30647,7 @@ const Dialog = ({ label , children , close: close1  })=>{
         jsStyle: jsStyles.content,
         __source: {
             fileName: "src/Dialog.tsx",
-            lineNumber: 76,
+            lineNumber: 64,
             columnNumber: 7
         },
         __self: undefined
@@ -30679,7 +30667,7 @@ function DialogProvider({ children  }) {
         value: value,
         __source: {
             fileName: "src/Dialog.tsx",
-            lineNumber: 90,
+            lineNumber: 78,
             columnNumber: 5
         },
         __self: this
@@ -30702,18 +30690,18 @@ function useDialog(DialogComponent) {
     };
     const open = (input)=>{
         activeElementRef.current = document.activeElement;
-        console.log({
-            activeElementRef
-        });
         setDialog(/*#__PURE__*/ (0, _reactDefault.default).createElement("dialog", {
             ref: (ref)=>{
                 dialogRef.current = ref;
                 ref && ref.showModal();
             },
             className: (0, _palette.createClassNames)(jsStyles.dialog),
+            onClose: ()=>{
+                closeRef.current();
+            },
             __source: {
                 fileName: "src/Dialog.tsx",
-                lineNumber: 117,
+                lineNumber: 104,
                 columnNumber: 7
             },
             __self: this
@@ -30722,7 +30710,7 @@ function useDialog(DialogComponent) {
             close: ()=>closeRef.current(),
             __source: {
                 fileName: "src/Dialog.tsx",
-                lineNumber: 124,
+                lineNumber: 114,
                 columnNumber: 9
             },
             __self: this
@@ -30730,7 +30718,7 @@ function useDialog(DialogComponent) {
     };
     return {
         open,
-        close
+        close: ()=>closeRef.current()
     };
 }
 _s1(useDialog, "I/5z9Rmyt+cQgOkOt2ngNH3EtDI=");
