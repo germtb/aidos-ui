@@ -32,7 +32,6 @@ export function Popover({ children, close }) {
                     e.preventDefault();
                 }
                 const focusedIndex = focusables.findIndex((x) => x === document.activeElement);
-                console.log({ focusedIndex, focusables });
                 if (focusables.length === 0) {
                     e.stopPropagation();
                     e.preventDefault();

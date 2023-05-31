@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-declare type State = {
+type State = {
     enabled: boolean;
     toggle: () => void;
 };

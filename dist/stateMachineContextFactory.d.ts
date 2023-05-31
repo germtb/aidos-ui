@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { Subscribe } from "./Emitter";
-export declare type Reducer<State, Context> = <Data extends any>({ state, context, data, }: {
+export type Reducer<State, Context> = <Data extends any>({ state, context, data, }: {
     state: State;
     context: Context;
     data: Data;
@@ -8,7 +8,7 @@ export declare type Reducer<State, Context> = <Data extends any>({ state, contex
     state: State;
     context: Context;
 };
-declare type StateMachineConfig<State, Transition, Context> = {
+type StateMachineConfig<State, Transition, Context> = {
     states: {
         [state: string]: {
             on: {
@@ -19,8 +19,8 @@ declare type StateMachineConfig<State, Transition, Context> = {
     context: Context;
     state: State;
 };
-declare type Send = <Transition, Data>(transition: Transition, data: Data) => void;
-declare type StateMachineContextType<State, Context> = {
+type Send = <Transition, Data>(transition: Transition, data: Data) => void;
+type StateMachineContextType<State, Context> = {
     subscribe: Subscribe<{
         state: State;
         context: Context;

@@ -55,7 +55,7 @@ export function DesignBook() {
                                 toggle(undefined);
                             } }))))),
                 React.createElement(CenteredListRow, { gap: "medium" },
-                    React.createElement(Tooltip, { TooltipContent: () => React.createElement(Text, null, "Tooltip here") },
+                    React.createElement(Tooltip, { content: "Tooltip here" },
                         React.createElement(Button, { label: "Disabled button", color: "positive", onPress: () => { }, disabled: true }))),
                 React.createElement(CenteredListRow, { gap: "medium" },
                     React.createElement(Button, { bare: true, label: "Bare positive button", color: "positive", onPress: () => { } })),

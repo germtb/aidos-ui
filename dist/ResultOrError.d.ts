@@ -1,12 +1,12 @@
-export declare type Result<T> = {
+export type Result<T> = {
     success: true;
     value: T;
 };
-export declare type Error<T> = {
+export type Error<T> = {
     success: false;
     error: T;
 };
-export declare type ResultOrError<R, E> = Result<R> | Error<E>;
+export type ResultOrError<R, E> = Result<R> | Error<E>;
 export declare function makeResult<T>(t: void): Result<void>;
 export declare function makeResult<T>(t: T): Result<T>;
 export declare function makeError<T>(t: void): Error<void>;

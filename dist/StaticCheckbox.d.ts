@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import { Size } from "./Palette";
-declare type TextInputProps = {
+type TextInputProps = {
     checked: boolean;
     size: Size;
 };

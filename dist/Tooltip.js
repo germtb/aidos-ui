@@ -2,44 +2,42 @@ import React, { useRef, useState } from "react";
 import { BaseView } from "./BaseView";
 import { createClassNames, createJSStyles } from "./Palette";
 import { useRefEffect } from "./useRefEffect";
+import { Text } from "./Text";
 const jsStyles = createJSStyles({
     root: {
         position: "relative",
     },
     tooltip: {
-        zIndex: 1,
-        backgroundColor: "var(--primary-background)",
+        top: "-100%",
+        transform: "translateY(50%)",
+        background: "var(--primary-background)",
+        padding: "var(--spacing-s)",
         borderRadius: "var(--border-radius-m)",
         border: "1px solid var(--divider)",
+        boxShadow: "0px 1px 2px var(--divider)",
         overflow: "hidden",
     },
 });
-export function Tooltip({ TooltipContent, jsStyle, grow, shrink, tag, children, }) {
+export function Tooltip({ content, jsStyle, grow, shrink, tag, children, }) {
     const [tooltip, setTooltip] = useState(null);
-    const activeElementRef = useRef(null);
     const dialogRef = useRef(null);
     const focusTrapRoot = useRefEffect((root) => {
-        activeElementRef.current = document.activeElement;
         dialogRef.current = root;
-        root.focus();
         const keydown = (e) => {
             if (e.key === "Escape") {
-                close();
+                dialogRef.current.close();
             }
             else if (e.key === "Tab") {
-                close();
+                dialogRef.current.close();
             }
         };
         const click = () => {
-            close();
+            dialogRef.current.close();
         };
         window.addEventListener("keydown", keydown);
-        // This is needed so that the trigger click is not captured immediatly, which would close the tooltip as it opens
-        setTimeout(() => {
-            window.addEventListener("click", click);
-        }, 0);
+        window.addEventListener("click", click);
+        root.show();
         return () => {
-            activeElementRef.current && activeElementRef.current.focus();
             window.removeEventListener("keydown", keydown);
             window.removeEventListener("click", click);
         };
@@ -55,22 +53,20 @@ export function Tooltip({ TooltipContent, jsStyle, grow, shrink, tag, children, 
                     e.preventDefault();
                     e.stopPropagation();
                 } },
-                React.createElement(TooltipContent, null)));
+                React.createElement(Text, { size: "medium", color: "secondary" }, content)));
         }
         else {
             setTooltip(null);
         }
     };
-    return (React.createElement(BaseView, { grow: grow, shrink: shrink, tag: tag, relative: true, jsStyle: [jsStyle, jsStyles.root], onMouseOver: () => {
+    return (React.createElement(BaseView, { grow: grow, shrink: shrink, tag: tag, relative: true, jsStyle: [jsStyle, jsStyles.root], onMouseEnter: () => {
             if (tooltip == null) {
                 toggle();
             }
-        }, onMouseOut: () => {
+        }, onMouseLeave: () => {
             if (tooltip != null) {
                 toggle();
             }
-        }, onClick: () => {
-            toggle();
         } },
         children,
         tooltip));

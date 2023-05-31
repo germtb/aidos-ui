@@ -33,7 +33,6 @@ function TimeInputInternal({ time: date, onTimeChange: onDateChange, jsStyle, ic
         icon && (React.createElement(Box, { padding: "medium" },
             React.createElement(Icon, { size: "medium", color: "secondary", icon: icon }))),
         React.createElement(BaseInput, { ...inputProps, type: "time", ref: ref, value: timeFormatter.format(date), onChange: (e) => {
-                console.log(e.target.value);
                 const value = e.target.value;
                 const [hour, minute] = value.split(":");
                 onDateChange(new Date(date.getFullYear(), date.getMonth(), date.getDate(), parseInt(hour), parseInt(minute)));
