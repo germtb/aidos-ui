@@ -9,7 +9,9 @@ export declare function DialogProvider({ children }: {
 }): JSX.Element;
 export declare function useDialog<Input>(DialogComponent: (props: {
     close: () => void;
-} & Input) => JSX.Element): {
+} & Input) => JSX.Element, options: {
+    closeOnOutsideClick: boolean;
+}): {
     open: (input: Input) => void;
     close: () => any;
 };

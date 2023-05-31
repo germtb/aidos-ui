@@ -64,7 +64,6 @@ function TimeInputInternal(
         ref={ref}
         value={timeFormatter.format(date)}
         onChange={(e) => {
-          console.log(e.target.value);
           const value = e.target.value;
           const [hour, minute] = value.split(":");
           onDateChange(

@@ -17,6 +17,7 @@ import { Dialog, useDialog } from "./Dialog";
 import { Row } from "./Row";
 import { DarkModeContext } from "./DarkModeStore";
 import { Popover, PopoverTrigger } from "./Popover";
+import { Tooltip } from "./Tooltip";
 function ExampleDialog({ close }) {
     const darkMode = useContext(DarkModeContext);
     return (React.createElement(Dialog, { close: close, label: "Example" },
@@ -25,7 +26,7 @@ function ExampleDialog({ close }) {
             React.createElement(Checkbox, { size: "medium", checked: darkMode.enabled, onValueChange: () => darkMode.toggle() }))));
 }
 export function DesignBook() {
-    const dialog = useDialog(({ close }) => (React.createElement(ExampleDialog, { close: close })));
+    const dialog = useDialog(({ close }) => React.createElement(ExampleDialog, { close: close }), { closeOnOutsideClick: true });
     return (React.createElement(RootView, null,
         React.createElement(List, { navigation: false, ariaLabel: "Design book" },
             React.createElement(ListSpacer, null),
@@ -37,7 +38,7 @@ export function DesignBook() {
                 React.createElement(CenteredListRow, { gap: "medium" },
                     React.createElement(PopoverTrigger, { PopoverComponent: ({ close }) => {
                             return (React.createElement(Popover, { close: close },
-                                React.createElement(List, { ariaLabel: "Popover " },
+                                React.createElement(List, { navigation: false, ariaLabel: "Popover " },
                                     React.createElement(ListPressableRow, { gap: "medium", addOn: React.createElement(Icon, { size: "medium", color: "primary", icon: "fa-address-book" }), headline: "Option 1", onPress: () => { } }),
                                     React.createElement(ListPressableRow, { gap: "medium", addOn: React.createElement(Icon, { size: "medium", color: "primary", icon: "fa-adjust" }), headline: "Option 2", onPress: () => { }, withDivider: false }))));
                         } }, ({ toggle }) => (React.createElement(Button, { style: { position: "relative" }, label: "Secondary button", color: "secondary", onPress: () => {
@@ -54,7 +55,8 @@ export function DesignBook() {
                                 toggle(undefined);
                             } }))))),
                 React.createElement(CenteredListRow, { gap: "medium" },
-                    React.createElement(Button, { label: "Disabled button", color: "positive", onPress: () => { }, disabled: true })),
+                    React.createElement(Tooltip, { TooltipContent: () => React.createElement(Text, null, "Tooltip here") },
+                        React.createElement(Button, { label: "Disabled button", color: "positive", onPress: () => { }, disabled: true }))),
                 React.createElement(CenteredListRow, { gap: "medium" },
                     React.createElement(Button, { bare: true, label: "Bare positive button", color: "positive", onPress: () => { } })),
                 React.createElement(CenteredListRow, { gap: "medium" },

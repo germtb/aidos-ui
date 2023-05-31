@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-type Props = {
+declare type Props = {
     children: ReactNode;
     isTopOfStack: boolean;
 };

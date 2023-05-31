@@ -10,7 +10,6 @@ import { IconButton } from "./IconButton";
 
 const jsStyles = createJSStyles({
   dialog: {
-    margin: "auto",
     border: "1px solid var(--divider)",
     borderRadius: "var(--border-radius-m)",
   },
@@ -83,7 +82,8 @@ export function DialogProvider({ children }) {
 }
 
 export function useDialog<Input>(
-  DialogComponent: (props: { close: () => void } & Input) => JSX.Element
+  DialogComponent: (props: { close: () => void } & Input) => JSX.Element,
+  options: { closeOnOutsideClick: boolean }
 ) {
   const { setDialog } = useContext(DialogContext);
   const dialogRef = useRef<null | HTMLDialogElement>(null);
@@ -109,6 +109,18 @@ export function useDialog<Input>(
         className={createClassNames(jsStyles.dialog)}
         onClose={() => {
           closeRef.current();
+        }}
+        onClick={(e) => {
+          const dialogDimensions = dialogRef.current.getBoundingClientRect();
+
+          if (
+            e.clientX < dialogDimensions.left ||
+            e.clientX > dialogDimensions.right ||
+            e.clientY > dialogDimensions.bottom ||
+            e.clientY < dialogDimensions.top
+          ) {
+            dialogRef.current.close();
+          }
         }}
       >
         <DialogComponent {...input} close={() => closeRef.current()} />

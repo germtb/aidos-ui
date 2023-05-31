@@ -491,7 +491,6 @@ export const darkTheme: Theme = {
 const baseStyles = `
 * {
   box-sizing: border-box;
-  margin: 0;
   padding: 0;
   border: none;
   touch-action: manipulation;
@@ -506,6 +505,7 @@ const baseStyles = `
 
 html,
 body {
+  margin: 0;
   height: 100%;
   width: 100%;
   overflow: hidden;

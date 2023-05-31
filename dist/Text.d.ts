@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { TextColor, Size } from "./Palette";
-export type Display = "inline" | "block";
+export declare type Display = "inline" | "block";
 export interface TextProps {
     children: ReactNode;
     color?: TextColor;

@@ -9,14 +9,14 @@ export declare enum RouteTransition {
     ToDesignBook = "ToDesignBook",
     ToEncounter = "ToEncounter"
 }
-type Context = {
+declare type Context = {
     navigationStack: Array<StackNode<any>>;
 };
-type StackNode<Props> = {
+declare type StackNode<Props> = {
     route: Route<Props, any>;
     routeProps: Props;
 };
-type Route<Props, State extends RouteState> = {
+declare type Route<Props, State extends RouteState> = {
     state: State;
     title: (props: Props) => string;
     root: ComponentType<Props>;

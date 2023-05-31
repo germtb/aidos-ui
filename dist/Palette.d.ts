@@ -1,22 +1,22 @@
 import CSS from "csstype";
 import { ReactNode } from "react";
-export type Size = "small" | "medium" | "large";
-export type Spacing = "none" | Size;
-export type Gap = Spacing;
-export type Padding = Spacing | [Spacing, Spacing];
-export type Margin = Spacing | [Spacing, Spacing];
-export type Direction = "horizontal" | "vertical";
-export type Position = "left" | "right";
-export type Justify = "none" | "center" | "flex-start" | "space-between" | "flex-end" | "stretch";
-export type Align = "none" | "center" | "stretch" | "flex-start" | "flex-end";
-export type FlexDirection = "row" | "column";
-export type Color = "none" | "negative" | "warning" | "highlight" | "primary-background" | "secondary-background" | "divider" | "inherit";
-export type TextColor = "primary" | "secondary" | "highlight" | "negative" | "subtle" | "light" | "inherit";
-export type Styles = CSS.Properties<string | number | CSS.Properties<string | number>>;
-export type JSStyles = Styles | null | false | undefined | {
+export declare type Size = "small" | "medium" | "large";
+export declare type Spacing = "none" | Size;
+export declare type Gap = Spacing;
+export declare type Padding = Spacing | [Spacing, Spacing];
+export declare type Margin = Spacing | [Spacing, Spacing];
+export declare type Direction = "horizontal" | "vertical";
+export declare type Position = "left" | "right";
+export declare type Justify = "none" | "center" | "flex-start" | "space-between" | "flex-end" | "stretch";
+export declare type Align = "none" | "center" | "stretch" | "flex-start" | "flex-end";
+export declare type FlexDirection = "row" | "column";
+export declare type Color = "none" | "negative" | "warning" | "highlight" | "primary-background" | "secondary-background" | "divider" | "inherit";
+export declare type TextColor = "primary" | "secondary" | "highlight" | "negative" | "subtle" | "light" | "inherit";
+export declare type Styles = CSS.Properties<string | number | CSS.Properties<string | number>>;
+export declare type JSStyles = Styles | null | false | undefined | {
     [key: string]: Styles;
 } | Array<JSStyles>;
-export type FlatStyles = Styles & {
+export declare type FlatStyles = Styles & {
     other: {
         [key: string]: Styles;
     };
@@ -32,7 +32,7 @@ export declare const generateStylesheet: ({ light, dark, }: {
     light: Theme;
     dark: Theme;
 }) => string;
-export type Theme = {
+export declare type Theme = {
     ["--primary-background"]: string;
     ["--secondary-background"]: string;
     ["--divider"]: string;

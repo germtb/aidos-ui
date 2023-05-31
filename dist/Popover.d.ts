@@ -17,5 +17,5 @@ interface PopoverTriggerProps<Input> {
         toggle: (input: Input) => void;
     }) => JSX.Element;
 }
-export declare function PopoverTrigger<Input>({ PopoverComponent, jsStyle, className, grow, shrink, tag, children, }: PopoverTriggerProps<Input>): JSX.Element;
+export declare function PopoverTrigger<Input>({ PopoverComponent, jsStyle, grow, shrink, tag, children, }: PopoverTriggerProps<Input>): JSX.Element;
 export {};

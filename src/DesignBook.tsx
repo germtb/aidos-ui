@@ -19,6 +19,7 @@ import { Dialog, useDialog } from "./Dialog";
 import { Row } from "./Row";
 import { DarkModeContext } from "./DarkModeStore";
 import { Popover, PopoverTrigger } from "./Popover";
+import { Tooltip } from "./Tooltip";
 
 function ExampleDialog({ close }) {
   const darkMode = useContext(DarkModeContext);
@@ -37,9 +38,10 @@ function ExampleDialog({ close }) {
 }
 
 export function DesignBook() {
-  const dialog = useDialog<void>(({ close }) => (
-    <ExampleDialog close={close} />
-  ));
+  const dialog = useDialog<void>(
+    ({ close }) => <ExampleDialog close={close} />,
+    { closeOnOutsideClick: true }
+  );
 
   return (
     <RootView>
@@ -61,7 +63,7 @@ export function DesignBook() {
               PopoverComponent={({ close }) => {
                 return (
                   <Popover close={close}>
-                    <List ariaLabel="Popover ">
+                    <List navigation={false} ariaLabel="Popover ">
                       <ListPressableRow
                         gap="medium"
                         addOn={
@@ -156,12 +158,14 @@ export function DesignBook() {
           </CenteredListRow>
 
           <CenteredListRow gap="medium">
-            <Button
-              label="Disabled button"
-              color="positive"
-              onPress={() => {}}
-              disabled={true}
-            />
+            <Tooltip content="Tooltip here">
+              <Button
+                label="Disabled button"
+                color="positive"
+                onPress={() => {}}
+                disabled={true}
+              />
+            </Tooltip>
           </CenteredListRow>
 
           <CenteredListRow gap="medium">
