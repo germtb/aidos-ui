@@ -46,14 +46,14 @@ export function Tooltip({
 
     const keydown = (e) => {
       if (e.key === "Escape") {
-        dialogRef.current.close();
+        dialogRef.current?.close();
       } else if (e.key === "Tab") {
-        dialogRef.current.close();
+        dialogRef.current?.close();
       }
     };
 
     const click = () => {
-      dialogRef.current.close();
+      dialogRef.current?.close();
     };
 
     window.addEventListener("keydown", keydown);

@@ -1,32 +1,32 @@
 {
   "name": "aidos-ui",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "A humble UI framework",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "tsc --build",
-    "build-showcase": "parcel build debug/index.html",
-    "start": "parcel debug/index.html",
-    "tsc": "tsc --watch",
+    "dev": "next dev",
+    "build": "next build",
+    "build-lib": "tsc --build",
+    "start": "next start",
+    "lint": "next lint",
     "test": "jest"
   },
   "type": "module",
   "author": "Gerard Moreno-Torres Bertran",
   "license": "ISC",
   "devDependencies": {
-    "@parcel/reporter-bundle-analyzer": "^2.8.2",
     "@types/jest": "^29.2.4",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.10",
     "csstype": "^3.1.1",
     "jest": "^29.3.1",
-    "parcel": "^2.8.2",
     "process": "^0.11.10",
     "react-dom": "latest",
     "ts-jest": "^29.0.3",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.4"
+    "typescript": "^4.9.4",
+    "next": "latest"
   },
   "peerDependencies": {
     "react": "latest"

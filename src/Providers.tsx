@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { DarkModeProvider } from "./DarkModeStore";
 import { DialogProvider } from "./Dialog";
+import { initialize } from "./Icon";
 import { darkTheme, lightTheme, PaletteProvider } from "./Palette";
 import { useCookie } from "./useCookie";
 
@@ -12,6 +13,10 @@ export function Providers({ children }) {
     () => setDarkModeEnabled((x) => !x),
     []
   );
+
+  useEffect(() => {
+    initialize();
+  }, []);
 
   return (
     <PaletteProvider themes={{ light: lightTheme, dark: darkTheme }}>

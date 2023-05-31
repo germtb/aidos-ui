@@ -13,5 +13,5 @@ export function hash(source: string): string {
     hash |= 0; // Convert to 32bit integer
   }
 
-  return hash.toString();
+  return Math.abs(hash).toString();
 }

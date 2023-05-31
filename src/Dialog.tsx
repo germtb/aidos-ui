@@ -111,6 +111,10 @@ export function useDialog<Input>(
           closeRef.current();
         }}
         onClick={(e) => {
+          if (dialogRef.current == null) {
+            return;
+          }
+
           const dialogDimensions = dialogRef.current.getBoundingClientRect();
 
           if (

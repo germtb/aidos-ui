@@ -49,6 +49,7 @@ export function DesignBook() {
         <ListSpacer />
         <Sublist label="Button" initialState={{ collapsed: false }}>
           <CenteredListRow gap="medium">
+            {" "}
             <Button
               label="Positive button"
               color="positive"
@@ -108,53 +109,51 @@ export function DesignBook() {
           </CenteredListRow>
 
           <CenteredListRow gap="medium">
-            <CenteredListRow gap="medium">
-              <PopoverTrigger
-                PopoverComponent={({ close }) => {
-                  return (
-                    <Popover close={close}>
-                      <List ariaLabel="Popover ">
-                        <ListPressableRow
-                          gap="medium"
-                          addOn={
-                            <Icon
-                              size="medium"
-                              color="primary"
-                              icon="fa-address-book"
-                            />
-                          }
-                          headline="Option 1"
-                          onPress={() => {}}
-                        ></ListPressableRow>
-                        <ListPressableRow
-                          gap="medium"
-                          addOn={
-                            <Icon
-                              size="medium"
-                              color="primary"
-                              icon="fa-adjust"
-                            />
-                          }
-                          headline="Option 2"
-                          onPress={() => {}}
-                          withDivider={false}
-                        ></ListPressableRow>
-                      </List>
-                    </Popover>
-                  );
-                }}
-              >
-                {({ toggle }) => (
-                  <Button
-                    label="Negative button"
-                    color="negative"
-                    onPress={() => {
-                      toggle(undefined);
-                    }}
-                  />
-                )}
-              </PopoverTrigger>
-            </CenteredListRow>
+            <PopoverTrigger
+              PopoverComponent={({ close }) => {
+                return (
+                  <Popover close={close}>
+                    <List ariaLabel="Popover ">
+                      <ListPressableRow
+                        gap="medium"
+                        addOn={
+                          <Icon
+                            size="medium"
+                            color="primary"
+                            icon="fa-address-book"
+                          />
+                        }
+                        headline="Option 1"
+                        onPress={() => {}}
+                      ></ListPressableRow>
+                      <ListPressableRow
+                        gap="medium"
+                        addOn={
+                          <Icon
+                            size="medium"
+                            color="primary"
+                            icon="fa-adjust"
+                          />
+                        }
+                        headline="Option 2"
+                        onPress={() => {}}
+                        withDivider={false}
+                      ></ListPressableRow>
+                    </List>
+                  </Popover>
+                );
+              }}
+            >
+              {({ toggle }) => (
+                <Button
+                  label="Negative button"
+                  color="negative"
+                  onPress={() => {
+                    toggle(undefined);
+                  }}
+                />
+              )}
+            </PopoverTrigger>
           </CenteredListRow>
 
           <CenteredListRow gap="medium">
