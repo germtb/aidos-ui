@@ -59,7 +59,10 @@ export function Tooltip({
     window.addEventListener("keydown", keydown);
     window.addEventListener("click", click);
 
+    const activeElement = document.activeElement;
     root.show();
+    // @ts-ignore
+    activeElement.focus();
 
     return () => {
       window.removeEventListener("keydown", keydown);

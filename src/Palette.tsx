@@ -1,5 +1,5 @@
 import CSS from "csstype";
-import React, { ReactNode, useInsertionEffect } from "react";
+import React, { ReactNode, useRef } from "react";
 
 import { hash } from "./hash";
 
@@ -552,19 +552,20 @@ export const PaletteProvider = ({
   children: ReactNode;
   themes: { light: Theme; dark: Theme };
 }): JSX.Element => {
-  useInsertionEffect(() => {
-    const stylesheet = generateStylesheet(themes);
-    const style = document.createElement("style");
+  const stylesheetRef = useRef(null);
 
-    style.innerHTML = stylesheet;
-    document.head.appendChild(style);
+  if (stylesheetRef.current == null) {
+    stylesheetRef.current = generateStylesheet(themes);
+  }
 
-    () => {
-      document.head.removeChild(style);
-    };
-  }, []);
-
-  return <>{children}</>;
+  return (
+    <>
+      <style
+        dangerouslySetInnerHTML={{ __html: stylesheetRef.current }}
+      ></style>
+      {children}
+    </>
+  );
 };
 
 const backgroundStyles = createJSStyles({
