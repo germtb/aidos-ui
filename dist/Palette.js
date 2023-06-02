@@ -334,6 +334,10 @@ const baseStyles = `
   -moz-osx-font-smoothing: grayscale;
 }
 
+ul {
+  margin: 0;
+}
+
 *:focus {
   outline-color: var(--highlight);
 }
