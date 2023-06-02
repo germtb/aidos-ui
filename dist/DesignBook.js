@@ -32,6 +32,7 @@ export function DesignBook() {
             React.createElement(ListSpacer, null),
             React.createElement(Sublist, { label: "Button", initialState: { collapsed: false } },
                 React.createElement(CenteredListRow, { gap: "medium" },
+                    " ",
                     React.createElement(Button, { label: "Positive button", color: "positive", onPress: () => {
                             dialog.open();
                         } })),
@@ -45,15 +46,14 @@ export function DesignBook() {
                             toggle(undefined);
                         } })))),
                 React.createElement(CenteredListRow, { gap: "medium" },
-                    React.createElement(CenteredListRow, { gap: "medium" },
-                        React.createElement(PopoverTrigger, { PopoverComponent: ({ close }) => {
-                                return (React.createElement(Popover, { close: close },
-                                    React.createElement(List, { ariaLabel: "Popover " },
-                                        React.createElement(ListPressableRow, { gap: "medium", addOn: React.createElement(Icon, { size: "medium", color: "primary", icon: "fa-address-book" }), headline: "Option 1", onPress: () => { } }),
-                                        React.createElement(ListPressableRow, { gap: "medium", addOn: React.createElement(Icon, { size: "medium", color: "primary", icon: "fa-adjust" }), headline: "Option 2", onPress: () => { }, withDivider: false }))));
-                            } }, ({ toggle }) => (React.createElement(Button, { label: "Negative button", color: "negative", onPress: () => {
-                                toggle(undefined);
-                            } }))))),
+                    React.createElement(PopoverTrigger, { PopoverComponent: ({ close }) => {
+                            return (React.createElement(Popover, { close: close },
+                                React.createElement(List, { ariaLabel: "Popover " },
+                                    React.createElement(ListPressableRow, { gap: "medium", addOn: React.createElement(Icon, { size: "medium", color: "primary", icon: "fa-address-book" }), headline: "Option 1", onPress: () => { } }),
+                                    React.createElement(ListPressableRow, { gap: "medium", addOn: React.createElement(Icon, { size: "medium", color: "primary", icon: "fa-adjust" }), headline: "Option 2", onPress: () => { }, withDivider: false }))));
+                        } }, ({ toggle }) => (React.createElement(Button, { label: "Negative button", color: "negative", onPress: () => {
+                            toggle(undefined);
+                        } })))),
                 React.createElement(CenteredListRow, { gap: "medium" },
                     React.createElement(Tooltip, { content: "Tooltip here" },
                         React.createElement(Button, { label: "Disabled button", color: "positive", onPress: () => { }, disabled: true }))),

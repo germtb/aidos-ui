@@ -1,16 +1,11 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "es2020",
-      "es2020.string"
-    ],
+    "lib": ["dom", "dom.iterable", "es2020", "es2020.string"],
     "target": "ES2020",
     "module": "esnext",
     "sourceMap": true,
     "outDir": "dist/",
-    "jsx": "preserve",
+    "jsx": "react",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "declaration": true,
@@ -18,15 +13,11 @@
     "skipLibCheck": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
+    "noEmit": false,
     "incremental": true,
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "include": [
-    "src/*"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src/*"],
+  "exclude": ["node_modules"]
 }

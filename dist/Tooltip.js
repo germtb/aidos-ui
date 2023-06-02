@@ -25,18 +25,21 @@ export function Tooltip({ content, jsStyle, grow, shrink, tag, children, }) {
         dialogRef.current = root;
         const keydown = (e) => {
             if (e.key === "Escape") {
-                dialogRef.current.close();
+                dialogRef.current?.close();
             }
             else if (e.key === "Tab") {
-                dialogRef.current.close();
+                dialogRef.current?.close();
             }
         };
         const click = () => {
-            dialogRef.current.close();
+            dialogRef.current?.close();
         };
         window.addEventListener("keydown", keydown);
         window.addEventListener("click", click);
+        const activeElement = document.activeElement;
         root.show();
+        // @ts-ignore
+        activeElement.focus();
         return () => {
             window.removeEventListener("keydown", keydown);
             window.removeEventListener("click", click);

@@ -10,6 +10,6 @@ export function hash(source) {
         hash = (hash << 5) - hash + chr;
         hash |= 0; // Convert to 32bit integer
     }
-    return hash.toString();
+    return Math.abs(hash).toString();
 }
 //# sourceMappingURL=hash.js.map

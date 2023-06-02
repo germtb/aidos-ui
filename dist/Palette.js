@@ -1,4 +1,4 @@
-import React, { useInsertionEffect } from "react";
+import React, { useRef } from "react";
 import { hash } from "./hash";
 const stylesheet = {};
 const aliases = {
@@ -380,16 +380,13 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 `;
 export const PaletteProvider = ({ children, themes, }) => {
-    useInsertionEffect(() => {
-        const stylesheet = generateStylesheet(themes);
-        const style = document.createElement("style");
-        style.innerHTML = stylesheet;
-        document.head.appendChild(style);
-        () => {
-            document.head.removeChild(style);
-        };
-    }, []);
-    return React.createElement(React.Fragment, null, children);
+    const stylesheetRef = useRef(null);
+    if (stylesheetRef.current == null) {
+        stylesheetRef.current = generateStylesheet(themes);
+    }
+    return (React.createElement(React.Fragment, null,
+        React.createElement("style", { dangerouslySetInnerHTML: { __html: stylesheetRef.current } }),
+        children));
 };
 const backgroundStyles = createJSStyles({
     highlight: {

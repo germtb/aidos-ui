@@ -69,6 +69,9 @@ export function useDialog(DialogComponent, options) {
             }, className: createClassNames(jsStyles.dialog), onClose: () => {
                 closeRef.current();
             }, onClick: (e) => {
+                if (dialogRef.current == null) {
+                    return;
+                }
                 const dialogDimensions = dialogRef.current.getBoundingClientRect();
                 if (e.clientX < dialogDimensions.left ||
                     e.clientX > dialogDimensions.right ||

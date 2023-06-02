@@ -25,7 +25,7 @@ const jsStyles = createJSStyles({
     },
 });
 let initialized = false;
-export const initialize = () => {
+export const initializeIcons = () => {
     if (initialized) {
         return;
     }
