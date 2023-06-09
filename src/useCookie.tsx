@@ -46,7 +46,9 @@ export function useCookie<T>(
 
       setCookie(persistedValue);
     } else {
-      document.cookie = `${key}=${serialize(initialValue)}; max-age=${maxAge};`;
+      document.cookie = `${key}=${serialize(
+        initialValue
+      )}; max-age=${maxAge}; SameSite=None`;
     }
     initializationRef.current = true;
   }, []);
@@ -59,12 +61,16 @@ export function useCookie<T>(
         const callback: (prevValue: T) => T = t;
         setCookie((oldCookie) => {
           const newValue = callback(oldCookie);
-          document.cookie = `${key}=${serialize(newValue)}; max-age=${maxAge};`;
+          document.cookie = `${key}=${serialize(
+            newValue
+          )}; max-age=${maxAge}; SameSite=None`;
           return newValue;
         });
       } else {
         setCookie(t);
-        document.cookie = `${key}=${serialize(t)}; max-age=${maxAge};`;
+        document.cookie = `${key}=${serialize(
+          t
+        )}; max-age=${maxAge}; SameSite=None`;
       }
     }, []),
   ];
