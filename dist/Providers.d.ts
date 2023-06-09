@@ -1,4 +1,9 @@
 /// <reference types="react" />
-export declare function Providers({ children }: {
-    children: any;
+import { Theme } from "./Palette";
+export declare function Providers({ children, themes, }: {
+    children: JSX.Element;
+    themes?: {
+        light: Theme;
+        dark: Theme;
+    };
 }): JSX.Element;
