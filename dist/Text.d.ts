@@ -7,7 +7,9 @@ export interface TextProps {
     size?: Size;
     ellipsis?: boolean | "default";
     align?: "center" | "none";
-    display?: Display;
+    type?: TextType;
     grow?: boolean;
+    header?: 1 | 2 | 3 | 4;
 }
-export declare function Text({ children, color, size, align, ellipsis, display, grow, }: TextProps): JSX.Element;
+export type TextType = "span" | "p" | "h1" | "h2" | "h3" | "h4";
+export declare function Text({ children, color, size, align, ellipsis, grow, type: Type, }: TextProps): JSX.Element;

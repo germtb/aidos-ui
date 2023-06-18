@@ -31,12 +31,11 @@ const jsStyles = createJSStyles({
         flexGrow: 1,
     },
 });
-export function Text({ children, color = "primary", size = "medium", align = "none", ellipsis = "default", display = "inline", grow, }) {
-    const Tag = display === "inline" ? "span" : "p";
+export function Text({ children, color = "primary", size = "medium", align = "none", ellipsis = "default", grow, type: Type = "span", }) {
     if (ellipsis === "default") {
-        ellipsis = display === "inline";
+        ellipsis = Type === "span";
     }
-    return (React.createElement(Tag, { className: createClassNames([
+    return (React.createElement(Type, { className: createClassNames([
             jsStyles.root,
             getTextColor(color),
             size === "small" && jsStyles.size1,

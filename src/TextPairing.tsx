@@ -8,7 +8,7 @@ import {
   Size,
   Padding,
 } from "./Palette";
-import { Display, Text } from "./Text";
+import { Display, Text, TextType } from "./Text";
 import { Row } from "./Row";
 import { BaseView } from "./BaseView";
 import { Column } from "./Column";
@@ -35,7 +35,7 @@ export interface TextPairingProps {
   headlineAddOn?: ReactNode;
   bodyColor?: TextColor;
   bodySize?: Size;
-  bodyDisplay?: Display;
+  bodyType?: TextType;
   addOn?: ReactNode;
   addOnPosition?: Position;
   gap?: Gap;
@@ -53,7 +53,7 @@ export function TextPairing({
   headlineAddOn,
   bodyColor = "secondary",
   bodySize = "medium",
-  bodyDisplay = "inline",
+  bodyType = "span",
   addOn,
   addOnPosition = "left",
   gap = "small",
@@ -79,7 +79,7 @@ export function TextPairing({
       </Row>
       {body && (
         <Row align="center" jsStyle={jsStyles.body}>
-          <Text display={bodyDisplay} color={bodyColor} size={bodySize}>
+          <Text type={bodyType} color={bodyColor} size={bodySize}>
             {body}
           </Text>
         </Row>

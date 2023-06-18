@@ -47,9 +47,12 @@ export interface TextProps {
   size?: Size;
   ellipsis?: boolean | "default";
   align?: "center" | "none";
-  display?: Display;
+  type?: TextType;
   grow?: boolean;
+  header?: 1 | 2 | 3 | 4;
 }
+
+export type TextType = "span" | "p" | "h1" | "h2" | "h3" | "h4";
 
 export function Text({
   children,
@@ -57,16 +60,15 @@ export function Text({
   size = "medium",
   align = "none",
   ellipsis = "default",
-  display = "inline",
   grow,
+  type: Type = "span",
 }: TextProps) {
-  const Tag = display === "inline" ? "span" : "p";
   if (ellipsis === "default") {
-    ellipsis = display === "inline";
+    ellipsis = Type === "span";
   }
 
   return (
-    <Tag
+    <Type
       className={createClassNames([
         jsStyles.root,
         getTextColor(color),
@@ -79,6 +81,6 @@ export function Text({
       ])}
     >
       {children}
-    </Tag>
+    </Type>
   );
 }
