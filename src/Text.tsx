@@ -84,3 +84,23 @@ export function Text({
     </Type>
   );
 }
+
+export function Span({ size = "small", type = "span", ...rest }: TextProps) {
+  return <Text size={size} type={type} {...rest} />;
+}
+
+export function P({ size = "small", type = "p", ...rest }: TextProps) {
+  return <Text size={size} type={type} {...rest} />;
+}
+
+export function H1({ size = "large", type = "h1", ...rest }: TextProps) {
+  return <Text size={size} type={type} {...rest} />;
+}
+
+export function H2({ size = "medium", type = "h2", ...rest }: TextProps) {
+  return <Text size={size} type={type} {...rest} />;
+}
+
+export function H3({ size = "small", type = "h3", ...rest }: TextProps) {
+  return <Text size={size} type={type} {...rest} />;
+}

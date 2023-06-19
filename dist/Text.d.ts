@@ -13,3 +13,8 @@ export interface TextProps {
 }
 export type TextType = "span" | "p" | "h1" | "h2" | "h3" | "h4";
 export declare function Text({ children, color, size, align, ellipsis, grow, type: Type, }: TextProps): JSX.Element;
+export declare function Span({ size, type, ...rest }: TextProps): JSX.Element;
+export declare function P({ size, type, ...rest }: TextProps): JSX.Element;
+export declare function H1({ size, type, ...rest }: TextProps): JSX.Element;
+export declare function H2({ size, type, ...rest }: TextProps): JSX.Element;
+export declare function H3({ size, type, ...rest }: TextProps): JSX.Element;
