@@ -129,6 +129,8 @@ const aliases: {
   },
 };
 
+const MODULUS = 250000;
+
 export function createJSStyle(styles: Styles): Styles {
   const stylesStack = Object.entries(styles);
 
@@ -145,22 +147,22 @@ export function createJSStyle(styles: Styles): Styles {
     }
 
     if (typeof value === "number") {
-      const id = `ID-${hash(`${key}${value}`)}`;
+      const id = `x${hash(`${key}${value}`, MODULUS)}`;
       stylesheet[key][value] = {
         className: id,
         selector: `.${id}`,
         type: "SIMPLE",
       };
     } else if (typeof value === "string") {
-      const id = `ID-${hash(`${key}${value}`)}`;
+      const id = `x${hash(`${key}${value}`, MODULUS)}`;
       stylesheet[key][value] = {
         className: id,
         selector: `.${id}`,
         type: "SIMPLE",
       };
     } else if (typeof value === "object" && key.startsWith("@media")) {
-      const hashedValue = hash(JSON.stringify(value, null, 2));
-      const id = `ID-${hash(`${key}${hashedValue}`)}`;
+      const hashedValue = hash(JSON.stringify(value, null, 2), MODULUS);
+      const id = `x${hash(`${key}${hashedValue}`, MODULUS)}`;
       stylesheet[key][hashedValue] = {
         className: id,
         media: key,
@@ -169,8 +171,8 @@ export function createJSStyle(styles: Styles): Styles {
         style: value,
       };
     } else if (typeof value === "object") {
-      const hashedValue = hash(JSON.stringify(value, null, 2));
-      const id = `ID-${hash(`${key}${hashedValue}`)}`;
+      const hashedValue = hash(JSON.stringify(value, null, 2), MODULUS);
+      const id = `x${hash(`${key}${hashedValue}`, MODULUS)}`;
       stylesheet[key][hashedValue] = {
         className: id,
         selector: `.${id}${key}`,
@@ -246,11 +248,11 @@ export const createClassNames = (...styles: Array<JSStyles>): string => {
       const className = stylesheet[key][value].className;
       classNames.push(className);
     } else if (typeof value === "object" && key.startsWith("@media")) {
-      const hashedValue = hash(JSON.stringify(value, null, 2));
+      const hashedValue = hash(JSON.stringify(value, null, 2), MODULUS);
       const className = stylesheet[key][hashedValue].className;
       classNames.push(className);
     } else if (typeof value === "object") {
-      const hashedValue = hash(JSON.stringify(value, null, 2));
+      const hashedValue = hash(JSON.stringify(value, null, 2), MODULUS);
       const className = stylesheet[key][hashedValue].className;
       classNames.push(className);
     } else {

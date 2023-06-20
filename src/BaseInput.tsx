@@ -3,7 +3,6 @@ import { createClassNames, JSStyles } from "./Palette";
 
 export interface BaseInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
-  componentName?: string;
   jsStyle?: JSStyles;
   className?: undefined;
   size?: undefined;
@@ -14,7 +13,7 @@ export interface BaseInputProps
 
 export const BaseInput = React.forwardRef(
   (
-    { jsStyle, componentName, labelContent, ...otherProps }: BaseInputProps,
+    { jsStyle, labelContent, ...otherProps }: BaseInputProps,
     ref?: React.Ref<HTMLInputElement>
   ) => {
     const id = useId();
@@ -24,7 +23,6 @@ export const BaseInput = React.forwardRef(
         {labelContent && <label htmlFor={id}>{labelContent}</label>}
         <input
           id={id}
-          data-test-id={componentName ?? "BaseInput"}
           ref={ref}
           className={createClassNames(jsStyle)}
           {...otherProps}

@@ -1,7 +1,6 @@
 import React, { ReactNode } from "react";
 import { JSStyles } from "./Palette";
 export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-    componentName?: string;
     jsStyle?: JSStyles;
     className?: undefined;
     size?: undefined;

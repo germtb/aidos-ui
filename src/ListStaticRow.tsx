@@ -78,7 +78,6 @@ export const ListStaticRow = React.forwardRef(
     return (
       <BaseListRow
         {...otherProps}
-        componentName={["ListStaticRowView"]}
         padding={primaryAddOn ? "none" : "medium"}
         jsStyle={[
           jsStyles.root,
@@ -87,15 +86,12 @@ export const ListStaticRow = React.forwardRef(
         ]}
         ref={ref}
       >
-        <BaseView componentName={["ListStaticRowView"]} jsStyle={jsStyles.view}>
+        <BaseView jsStyle={jsStyles.view}>
           {primaryAddOn && (
             <BaseView jsStyle={jsStyles.primaryAddOn}>{primaryAddOn}</BaseView>
           )}
 
-          <Column
-            componentName={["ListStaticRowView"]}
-            jsStyle={jsStyles.textPairing}
-          >
+          <Column jsStyle={jsStyles.textPairing}>
             <TextPairing
               headline={headline}
               headlineSize={headlineSize}

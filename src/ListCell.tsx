@@ -7,13 +7,6 @@ interface ListCell extends BaseViewProps {
 
 export const ListCell = React.forwardRef(
   (props: ListCell, ref?: React.Ref<HTMLDivElement>) => {
-    return (
-      <BaseView
-        {...props}
-        componentName={(props.componentName ?? []).concat("ListCell")}
-        role="gridcell"
-        ref={ref}
-      />
-    );
+    return <BaseView {...props} role="gridcell" ref={ref} />;
   }
 );

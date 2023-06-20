@@ -11,5 +11,5 @@ const jsStyles = createJSStyles({
 });
 
 export function ListSpacer() {
-  return <BaseView componentName={["ListSpacer"]} jsStyle={jsStyles.root} />;
+  return <BaseView jsStyle={jsStyles.root} />;
 }

@@ -14,15 +14,9 @@ interface CircleProps extends BoxProps {}
 export function Circle({
   jsStyle,
   padding = "medium",
-  componentName,
   ...otherProps
 }: CircleProps) {
   return (
-    <Box
-      componentName={(componentName ?? []).concat("Circle")}
-      padding={padding}
-      jsStyle={[jsStyles.root, jsStyle]}
-      {...otherProps}
-    />
+    <Box padding={padding} jsStyle={[jsStyles.root, jsStyle]} {...otherProps} />
   );
 }

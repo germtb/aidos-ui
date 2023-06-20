@@ -65,7 +65,6 @@ export const Button = React.forwardRef(
       disabled,
       icon,
       iconSize = "medium",
-      componentName,
       iconPosition = "left",
       align = "center",
       gap = "small",
@@ -78,7 +77,6 @@ export const Button = React.forwardRef(
     return (
       <BaseButton
         {...otherProps}
-        componentName={(componentName ?? []).concat("Button")}
         bare={bare}
         ref={ref}
         color={color}

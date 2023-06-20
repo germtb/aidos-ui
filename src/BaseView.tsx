@@ -13,10 +13,7 @@ const jsStyles = createJSStyles({
   },
 });
 
-export type ComponentName = Array<string>;
-
 export interface BaseViewProps extends React.HTMLAttributes<HTMLElement> {
-  componentName?: ComponentName;
   jsStyle?: JSStyles;
   ref?: React.Ref<HTMLDivElement>;
   className?: undefined;
@@ -31,7 +28,6 @@ export const BaseView = React.forwardRef(
     {
       jsStyle,
       children,
-      componentName = [],
       tag,
       grow,
       shrink,
@@ -45,7 +41,6 @@ export const BaseView = React.forwardRef(
     return (
       // @ts-ignore
       <Tag
-        data-test-id={[...componentName, "BaseView"].join("-")}
         ref={ref}
         className={createClassNames(
           jsStyle,

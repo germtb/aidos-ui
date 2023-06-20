@@ -1,4 +1,4 @@
-export function hash(source: string): string {
+export function hash(source: string, modulus?: number): string {
   let hash = 0;
   let i: number;
   let chr: number;
@@ -13,5 +13,9 @@ export function hash(source: string): string {
     hash |= 0; // Convert to 32bit integer
   }
 
-  return Math.abs(hash).toString();
+  if (modulus) {
+    return (Math.abs(hash) % modulus).toString(32);
+  } else {
+    return Math.abs(hash).toString(32);
+  }
 }

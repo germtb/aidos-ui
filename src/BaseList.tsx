@@ -15,16 +15,12 @@ export interface BaseListProps extends BaseViewProps {
 }
 
 export const BaseList = React.forwardRef(
-  (
-    { jsStyle, componentName, ...otherProps }: BaseListProps,
-    ref?: React.Ref<HTMLElement>
-  ) => {
+  ({ jsStyle, ...otherProps }: BaseListProps, ref?: React.Ref<HTMLElement>) => {
     return (
       <BaseView
         {...otherProps}
         tag="ul"
         jsStyle={[jsStyles.root, jsStyle]}
-        data-test-id={componentName ?? "BaseList"}
         ref={ref}
       />
     );

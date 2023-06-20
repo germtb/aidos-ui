@@ -1,1 +1,1 @@
-export declare function hash(source: string): string;
+export declare function hash(source: string, modulus?: number): string;

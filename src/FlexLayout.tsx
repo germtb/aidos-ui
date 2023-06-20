@@ -30,7 +30,6 @@ export const FlexLayout = React.forwardRef(
       align = "none",
       padding = "none",
       direction = "column",
-      componentName = [],
       ...otherProps
     }: FlexLayoutProps,
     ref?: React.Ref<HTMLElement>
@@ -38,7 +37,6 @@ export const FlexLayout = React.forwardRef(
     return (
       <BaseView
         ref={ref}
-        componentName={componentName.concat("FlexLayout")}
         jsStyle={[
           getFlex(direction),
           getPadding(padding),

@@ -26,7 +26,6 @@ const jsStyles = createJSStyles({
 export const BaseListRow = React.forwardRef(
   (
     {
-      componentName,
       children,
       jsStyle,
       withDivider = true,
@@ -42,7 +41,6 @@ export const BaseListRow = React.forwardRef(
           ref={ref}
           tag="li"
           role="row"
-          componentName={componentName.concat("BaseListRow")}
           jsStyle={[jsStyles.root, getBackground(backgroundColor), jsStyle]}
         >
           {children}

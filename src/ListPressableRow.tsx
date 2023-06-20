@@ -107,13 +107,7 @@ export const ListPressableRow = React.forwardRef(
     ref?: React.Ref<HTMLButtonElement>
   ) => {
     return (
-      <BaseListRow
-        {...otherProps}
-        componentName={(otherProps.componentName ?? []).concat(
-          "ListPressableRow"
-        )}
-        jsStyle={[jsStyles.root, jsStyle]}
-      >
+      <BaseListRow {...otherProps} jsStyle={[jsStyles.root, jsStyle]}>
         <ListCell jsStyle={jsStyles.gridcell}>
           <BaseButton
             aria-selected={selected}

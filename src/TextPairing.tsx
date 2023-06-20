@@ -67,7 +67,6 @@ export function TextPairing({
       grow={grow}
       shrink={shrink}
       padding={addOn ? undefined : padding}
-      componentName={["TextPairing"]}
       align={align}
       jsStyle={jsStyles.overflow}
     >

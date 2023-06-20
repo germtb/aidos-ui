@@ -30,7 +30,6 @@ export function Badge({
 }) {
   return (
     <BaseView
-      componentName={["Badge"]}
       jsStyle={[
         size === "small" && jsStyles.small,
         size === "medium" && jsStyles.medium,

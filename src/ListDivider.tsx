@@ -10,5 +10,5 @@ const jsStyles = createJSStyles({
 });
 
 export function ListDivider() {
-  return <BaseView componentName={["ListDivider"]} jsStyle={jsStyles.root} />;
+  return <BaseView jsStyle={jsStyles.root} />;
 }

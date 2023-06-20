@@ -6,17 +6,7 @@ export interface RowProps extends FlexLayoutProps {
 }
 
 export const Row = React.forwardRef(
-  (
-    { componentName = [], ...otherProps }: RowProps,
-    ref?: React.Ref<HTMLElement>
-  ) => {
-    return (
-      <FlexLayout
-        ref={ref}
-        componentName={componentName.concat("Row")}
-        direction="row"
-        {...otherProps}
-      />
-    );
+  (props: RowProps, ref?: React.Ref<HTMLElement>) => {
+    return <FlexLayout ref={ref} direction="row" {...props} />;
   }
 );

@@ -58,21 +58,12 @@ const getIconColor = (
 
 export const IconButton = React.forwardRef(
   (
-    {
-      icon,
-      size,
-      color,
-      bare,
-      disabled,
-      componentName,
-      ...buttonProps
-    }: IconButtonProps,
+    { icon, size, color, bare, disabled, ...buttonProps }: IconButtonProps,
     ref?: React.Ref<HTMLButtonElement>
   ) => {
     return (
       <BaseButton
         {...buttonProps}
-        componentName={(componentName ?? []).concat("IconButton")}
         bare={bare}
         jsStyle={[
           jsStyles.button,

@@ -6,17 +6,7 @@ interface ColumnProps extends FlexLayoutProps {
 }
 
 export const Column = React.forwardRef(
-  (
-    { componentName = [], ...otherProps }: ColumnProps,
-    ref?: React.Ref<HTMLDivElement>
-  ) => {
-    return (
-      <FlexLayout
-        ref={ref}
-        componentName={componentName.concat("Column")}
-        direction="column"
-        {...otherProps}
-      />
-    );
+  (props: ColumnProps, ref?: React.Ref<HTMLDivElement>) => {
+    return <FlexLayout ref={ref} direction="column" {...props} />;
   }
 );

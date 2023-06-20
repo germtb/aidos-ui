@@ -1,5 +1,4 @@
 import React from "react";
-import { ComponentName } from "./BaseView";
 import {
   JSStyles,
   createClassNames,
@@ -12,7 +11,6 @@ export type ButtonColor = "positive" | "secondary" | "negative";
 
 export interface BaseButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  componentName?: ComponentName;
   onPress: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   jsStyle?: JSStyles;
   color: ButtonColor;
@@ -95,7 +93,6 @@ const jsStyles = createJSStyles({
 export const BaseButton = React.forwardRef(
   (
     {
-      componentName,
       onPress,
       children,
       jsStyle,
@@ -111,7 +108,6 @@ export const BaseButton = React.forwardRef(
     return (
       <button
         {...otherProps}
-        data-test-id={componentName ?? "BaseButton"}
         aria-disabled={disabled ? true : undefined}
         // disabled={disabled ? true : undefined}
         ref={ref}

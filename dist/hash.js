@@ -1,4 +1,4 @@
-export function hash(source) {
+export function hash(source, modulus) {
     let hash = 0;
     let i;
     let chr;
@@ -10,6 +10,11 @@ export function hash(source) {
         hash = (hash << 5) - hash + chr;
         hash |= 0; // Convert to 32bit integer
     }
-    return Math.abs(hash).toString();
+    if (modulus) {
+        return (Math.abs(hash) % modulus).toString(32);
+    }
+    else {
+        return Math.abs(hash).toString(32);
+    }
 }
 //# sourceMappingURL=hash.js.map
