@@ -14,6 +14,7 @@ export function Providers({
 }) {
   const [darkModeEnabled, setDarkModeEnabled] = useCookie("dark-mode", {
     initialValue: false,
+    loadingValue: false,
   });
   const toggleDarkMode = React.useCallback(
     () => setDarkModeEnabled((x) => !x),
