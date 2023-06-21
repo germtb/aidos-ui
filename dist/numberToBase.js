@@ -1,4 +1,4 @@
-const LETTERS_52 = [
+const LETTERS_26 = [
     "a",
     "b",
     "c",
@@ -25,34 +25,8 @@ const LETTERS_52 = [
     "x",
     "y",
     "z",
-    "A",
-    "B",
-    "C",
-    "D",
-    "E",
-    "F",
-    "G",
-    "H",
-    "I",
-    "J",
-    "K",
-    "L",
-    "M",
-    "N",
-    "O",
-    "P",
-    "Q",
-    "R",
-    "S",
-    "T",
-    "U",
-    "V",
-    "W",
-    "X",
-    "Y",
-    "Z",
 ];
-export function numberToBase(number, base = LETTERS_52) {
+export function numberToBase(number, base = LETTERS_26) {
     if (number <= -1) {
         return "";
     }
