@@ -5,6 +5,7 @@ import { useCookie } from "../useCookie";
 export default function Document() {
   const [darkModeEnabled] = useCookie("dark-mode", {
     initialValue: false,
+    loadingValue: false,
   });
 
   return (
@@ -17,6 +18,7 @@ export default function Document() {
           #__next {
             height: 100%;
             width: 100%;
+            overflow-y: auto;
           }
         `}</style>
       </body>

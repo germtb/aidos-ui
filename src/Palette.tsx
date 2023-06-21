@@ -2,6 +2,7 @@ import CSS from "csstype";
 import React, { ReactNode, useRef } from "react";
 
 import { hash } from "./hash";
+import { numberToBase } from "./numberToBase";
 
 type StylesValueType = string | number | CSS.Properties<string | number>;
 
@@ -129,7 +130,19 @@ const aliases: {
   },
 };
 
-const MODULUS = 250000;
+const MODULUS = 1000000;
+const identifiers = new Map<string, string>();
+
+function identifier(string: string): string {
+  const hashed_string = hash(string);
+
+  if (identifiers.has(hashed_string)) {
+    return identifiers.get(hashed_string);
+  } else {
+    identifiers.set(hashed_string, numberToBase(identifiers.size));
+    return identifiers.get(hashed_string);
+  }
+}
 
 export function createJSStyle(styles: Styles): Styles {
   const stylesStack = Object.entries(styles);
@@ -147,22 +160,22 @@ export function createJSStyle(styles: Styles): Styles {
     }
 
     if (typeof value === "number") {
-      const id = `x${hash(`${key}${value}`, MODULUS)}`;
+      const id = identifier(`${key}${value}`);
       stylesheet[key][value] = {
         className: id,
         selector: `.${id}`,
         type: "SIMPLE",
       };
     } else if (typeof value === "string") {
-      const id = `x${hash(`${key}${value}`, MODULUS)}`;
+      const id = identifier(`${key}${value}`);
       stylesheet[key][value] = {
         className: id,
         selector: `.${id}`,
         type: "SIMPLE",
       };
     } else if (typeof value === "object" && key.startsWith("@media")) {
-      const hashedValue = hash(JSON.stringify(value, null, 2), MODULUS);
-      const id = `x${hash(`${key}${hashedValue}`, MODULUS)}`;
+      const hashedValue = hash(JSON.stringify(value, null, 2));
+      const id = identifier(`${key}${hashedValue}`);
       stylesheet[key][hashedValue] = {
         className: id,
         media: key,
@@ -172,7 +185,7 @@ export function createJSStyle(styles: Styles): Styles {
       };
     } else if (typeof value === "object") {
       const hashedValue = hash(JSON.stringify(value, null, 2), MODULUS);
-      const id = `x${hash(`${key}${hashedValue}`, MODULUS)}`;
+      const id = identifier(`${key}${hashedValue}`);
       stylesheet[key][hashedValue] = {
         className: id,
         selector: `.${id}${key}`,
