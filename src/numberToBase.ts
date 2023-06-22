@@ -31,9 +31,6 @@ export function numberToBase(
   number: number,
   base: Array<string> = LETTERS_26
 ): string {
-  return `x${number.toString(32)}`;
-
-  // TODO: This breaks for some reason
   if (number <= -1) {
     return "";
   }

@@ -130,17 +130,19 @@ const aliases: {
   },
 };
 
-const identifiers = new Map<string, string>();
+// const identifiers = new Map<string, string>();
 
 function identifier(string: string): string {
-  const hashed_string = hash(string);
+  return `x${hash(string)}`;
+  // TODO: This breaks for some reason
+  // const hashed_string = hash(string);
 
-  if (identifiers.has(hashed_string)) {
-    return identifiers.get(hashed_string);
-  } else {
-    identifiers.set(hashed_string, numberToBase(identifiers.size));
-    return identifiers.get(hashed_string);
-  }
+  // if (identifiers.has(hashed_string)) {
+  //   return identifiers.get(hashed_string);
+  // } else {
+  //   identifiers.set(hashed_string, numberToBase(identifiers.size));
+  //   return identifiers.get(hashed_string);
+  // }
 }
 
 export function createJSStyle(styles: Styles): Styles {
