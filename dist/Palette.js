@@ -40,7 +40,6 @@ const aliases = {
         }
     },
 };
-const MODULUS = 1000000;
 const identifiers = new Map();
 function identifier(string) {
     const hashed_string = hash(string);
@@ -91,7 +90,7 @@ export function createJSStyle(styles) {
             };
         }
         else if (typeof value === "object") {
-            const hashedValue = hash(JSON.stringify(value, null, 2), MODULUS);
+            const hashedValue = hash(JSON.stringify(value, null, 2));
             const id = identifier(`${key}${hashedValue}`);
             stylesheet[key][hashedValue] = {
                 className: id,
@@ -154,12 +153,12 @@ export const createClassNames = (...styles) => {
             classNames.push(className);
         }
         else if (typeof value === "object" && key.startsWith("@media")) {
-            const hashedValue = hash(JSON.stringify(value, null, 2), MODULUS);
+            const hashedValue = hash(JSON.stringify(value, null, 2));
             const className = stylesheet[key][hashedValue].className;
             classNames.push(className);
         }
         else if (typeof value === "object") {
-            const hashedValue = hash(JSON.stringify(value, null, 2), MODULUS);
+            const hashedValue = hash(JSON.stringify(value, null, 2));
             const className = stylesheet[key][hashedValue].className;
             classNames.push(className);
         }
