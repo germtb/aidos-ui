@@ -27,6 +27,8 @@ const LETTERS_26 = [
     "z",
 ];
 export function numberToBase(number, base = LETTERS_26) {
+    return `x${number}`;
+    // TODO: This breaks for some reason
     if (number <= -1) {
         return "";
     }
