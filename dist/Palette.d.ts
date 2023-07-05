@@ -1,6 +1,6 @@
 import CSS from "csstype";
 import { ReactNode } from "react";
-export type Size = "small" | "medium" | "large";
+export type Size = "xsmall" | "small" | "medium" | "large" | "xlarge";
 export type Spacing = "none" | Size;
 export type Gap = Spacing;
 export type Padding = Spacing | [Spacing, Spacing];
@@ -81,6 +81,9 @@ export declare const getJustify: (prop: Justify) => any;
 export declare const getAlign: (prop: Align) => any;
 export declare const getGap: (gap: Gap) => any;
 export declare const paddingStyles: {
+    xsmall: {
+        padding: string;
+    };
     small: {
         padding: string;
     };
@@ -89,6 +92,13 @@ export declare const paddingStyles: {
     };
     large: {
         padding: string;
+    };
+    xlarge: {
+        padding: string;
+    };
+    "xsmall-row": {
+        paddingLeft: string;
+        paddingRight: string;
     };
     "small-row": {
         paddingLeft: string;
@@ -102,6 +112,14 @@ export declare const paddingStyles: {
         paddingLeft: string;
         paddingRight: string;
     };
+    "xlarge-row": {
+        paddingLeft: string;
+        paddingRight: string;
+    };
+    "xsmall-column": {
+        paddingTop: string;
+        paddingBottom: string;
+    };
     "small-column": {
         paddingTop: string;
         paddingBottom: string;
@@ -111,19 +129,33 @@ export declare const paddingStyles: {
         paddingBottom: string;
     };
     "large-column": {
+        paddingTop: string;
+        paddingBottom: string;
+    };
+    "xlarge-column": {
         paddingTop: string;
         paddingBottom: string;
     };
 };
 export declare const marginStyles: {
+    xsmall: {
+        margin: string;
+    };
     small: {
         margin: string;
     };
     medium: {
         margin: string;
     };
+    xlarge: {
+        margin: string;
+    };
     large: {
         margin: string;
+    };
+    "xsmall-row": {
+        marginLeft: string;
+        marginRight: string;
     };
     "small-row": {
         marginLeft: string;
@@ -137,6 +169,14 @@ export declare const marginStyles: {
         marginLeft: string;
         marginRight: string;
     };
+    "xlarge-row": {
+        marginLeft: string;
+        marginRight: string;
+    };
+    "xsmall-column": {
+        marginTop: string;
+        marginBottom: string;
+    };
     "small-column": {
         marginTop: string;
         marginBottom: string;
@@ -146,6 +186,10 @@ export declare const marginStyles: {
         marginBottom: string;
     };
     "large-column": {
+        marginTop: string;
+        marginBottom: string;
+    };
+    "xlarge-column": {
         marginTop: string;
         marginBottom: string;
     };

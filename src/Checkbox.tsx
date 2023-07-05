@@ -56,6 +56,11 @@ const jsStyles = createJSStyles({
     left: "var(--spacing-xs)",
     right: "var(--spacing-xs)",
   },
+  xsmall: {
+    borderRadius: 10,
+    height: 20,
+    width: 20,
+  },
   small: {
     borderRadius: 12,
     height: 24,
@@ -70,6 +75,11 @@ const jsStyles = createJSStyles({
     borderRadius: 20,
     height: 40,
     width: 40,
+  },
+  xlarge: {
+    borderRadius: 24,
+    height: 48,
+    width: 48,
   },
   input: {
     position: "absolute",
@@ -95,9 +105,11 @@ export function Checkbox({
     <label
       className={createClassNames(
         jsStyles.root,
+        size === "xsmall" && jsStyles.xsmall,
         size === "small" && jsStyles.small,
         size === "medium" && jsStyles.medium,
         size === "large" && jsStyles.large,
+        size === "xlarge" && jsStyles.xlarge,
         checked && jsStyles.rootChecked
       )}
     >

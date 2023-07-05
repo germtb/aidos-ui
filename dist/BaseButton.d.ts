@@ -1,13 +1,13 @@
 import React from "react";
 import { JSStyles, Padding } from "./Palette";
-export type ButtonColor = "positive" | "secondary" | "negative";
+import { InterctableColor } from "./Interactable";
 export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     onPress: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     jsStyle?: JSStyles;
-    color: ButtonColor;
+    color: InterctableColor;
     bare?: boolean;
     className?: undefined;
-    animateClick?: boolean;
+    animateInteraction?: boolean;
     padding?: Padding;
 }
 export declare const BaseButton: React.ForwardRefExoticComponent<BaseButtonProps & React.RefAttributes<HTMLButtonElement>>;

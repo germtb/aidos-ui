@@ -9,7 +9,7 @@ import {
   TextColor,
   getPadding,
 } from "./Palette";
-import { BaseButton, BaseButtonProps } from "./BaseButton";
+import { BaseLink, BaseLinkProps } from "./BaseLink";
 import { Text } from "./Text";
 import { IconType } from "./IconType";
 import { Row } from "./Row";
@@ -17,7 +17,7 @@ import { Icon } from "./Icon";
 import { FlexLayoutProps } from "./FlexLayout";
 import { InterctableColor } from "./Interactable";
 
-export interface ButtonProps extends BaseButtonProps {
+export interface LinkProps extends BaseLinkProps {
   label: string;
   color: InterctableColor;
   size?: Size;
@@ -58,7 +58,7 @@ export const getGlyphColor = (
   }
 };
 
-export const Button = React.forwardRef(
+export const Link = React.forwardRef(
   (
     {
       label,
@@ -74,11 +74,11 @@ export const Button = React.forwardRef(
       jsStyle,
       size = "medium",
       ...otherProps
-    }: ButtonProps,
-    ref?: React.Ref<HTMLButtonElement>
+    }: LinkProps,
+    ref?: React.Ref<HTMLAnchorElement>
   ) => {
     return (
-      <BaseButton
+      <BaseLink
         {...otherProps}
         bare={bare}
         ref={ref}
@@ -105,7 +105,7 @@ export const Button = React.forwardRef(
             />
           )}
         </Row>
-      </BaseButton>
+      </BaseLink>
     );
   }
 );

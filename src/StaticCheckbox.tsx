@@ -39,6 +39,11 @@ const jsStyles = createJSStyles({
     left: "var(--spacing-xs)",
     right: "var(--spacing-xs)",
   },
+  xsmall: {
+    borderRadius: 10,
+    height: 20,
+    width: 20,
+  },
   small: {
     borderRadius: 12,
     height: 24,
@@ -54,6 +59,11 @@ const jsStyles = createJSStyles({
     height: 40,
     width: 40,
   },
+  xlarge: {
+    borderRadius: 24,
+    height: 48,
+    width: 48,
+  },
 });
 
 export function StaticCheckbox({ checked, size }: TextInputProps) {
@@ -61,9 +71,11 @@ export function StaticCheckbox({ checked, size }: TextInputProps) {
     <label
       className={createClassNames(
         jsStyles.root,
+        size === "xsmall" && jsStyles.xsmall,
         size === "small" && jsStyles.small,
         size === "medium" && jsStyles.medium,
-        size === "large" && jsStyles.large
+        size === "large" && jsStyles.large,
+        size === "xlarge" && jsStyles.xlarge
       )}
     >
       <BaseView

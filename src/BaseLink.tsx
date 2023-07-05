@@ -1,19 +1,26 @@
 import React from "react";
-import { JSStyles, createClassNames, Padding } from "./Palette";
+import { JSStyles, createClassNames, Padding, createJSStyles } from "./Palette";
 import { InterctableColor, getInteractableJSStyles } from "./Interactable";
 
-export interface BaseButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  onPress: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+export interface BaseLinkProps
+  extends React.LinkHTMLAttributes<HTMLAnchorElement> {
+  onPress?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
   jsStyle?: JSStyles;
   color: InterctableColor;
+  disabled?: boolean;
   bare?: boolean;
   className?: undefined;
   animateInteraction?: boolean;
   padding?: Padding;
 }
 
-export const BaseButton = React.forwardRef(
+const jsStyles = createJSStyles({
+  root: {
+    textDecoration: "none",
+  },
+});
+
+export const BaseLink = React.forwardRef(
   (
     {
       onPress,
@@ -25,21 +32,25 @@ export const BaseButton = React.forwardRef(
       animateInteraction = true,
       padding,
       ...otherProps
-    }: BaseButtonProps,
-    ref?: React.Ref<HTMLButtonElement>
+    }: BaseLinkProps,
+    ref?: React.Ref<HTMLAnchorElement>
   ) => {
     return (
-      <button
+      <a
         {...otherProps}
         aria-disabled={disabled ? true : undefined}
         ref={ref}
-        onClick={(event) => {
-          if (disabled) {
-            return;
-          }
+        onClick={
+          onPress
+            ? (event) => {
+                if (disabled) {
+                  return;
+                }
 
-          onPress(event);
-        }}
+                onPress(event);
+              }
+            : undefined
+        }
         className={createClassNames([
           ...getInteractableJSStyles({
             color,
@@ -48,11 +59,12 @@ export const BaseButton = React.forwardRef(
             animateInteraction,
             padding,
           }),
+          jsStyles.root,
           jsStyle,
         ])}
       >
         {children}
-      </button>
+      </a>
     );
   }
 );

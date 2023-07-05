@@ -13,6 +13,11 @@ const jsStyles = createJSStyles({
             transform: "scale(0.92)",
         },
     },
+    xsmall: {
+        height: 20,
+        width: 20,
+        borderRadius: 10,
+    },
     small: {
         height: 24,
         width: 24,
@@ -27,6 +32,11 @@ const jsStyles = createJSStyles({
         height: 40,
         width: 40,
         borderRadius: 20,
+    },
+    xlarge: {
+        height: 48,
+        width: 48,
+        borderRadius: 24,
     },
 });
 const getIconColor = (color, disabled, bare) => {
@@ -45,9 +55,11 @@ const getIconColor = (color, disabled, bare) => {
 export const IconButton = React.forwardRef(({ icon, size, color, bare, disabled, ...buttonProps }, ref) => {
     return (React.createElement(BaseButton, { ...buttonProps, bare: bare, jsStyle: [
             jsStyles.button,
+            size === "xsmall" && jsStyles.xsmall,
             size === "small" && jsStyles.small,
             size === "medium" && jsStyles.medium,
             size === "large" && jsStyles.large,
+            size === "xlarge" && jsStyles.xlarge,
             !disabled && jsStyles.animation,
         ], color: color, ref: ref, disabled: disabled },
         React.createElement(Icon, { size: size, icon: icon, color: getIconColor(color, disabled, bare) })));

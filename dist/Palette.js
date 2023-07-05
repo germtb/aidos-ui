@@ -468,6 +468,9 @@ export const getAlign = (prop) => {
     return alignStyles[prop];
 };
 const gapStyles = createJSStyles({
+    xsmall: {
+        gap: "var(--spacing-xs)",
+    },
     small: {
         gap: "var(--spacing-s)",
     },
@@ -477,11 +480,17 @@ const gapStyles = createJSStyles({
     large: {
         gap: "var(--spacing-l)",
     },
+    xlarge: {
+        gap: "var(--spacing-xl)",
+    },
 });
 export const getGap = (gap) => {
     return gapStyles[`${gap}`];
 };
 export const paddingStyles = createJSStyles({
+    xsmall: {
+        padding: "var(--spacing-xs)",
+    },
     small: {
         padding: "var(--spacing-s)",
     },
@@ -490,6 +499,13 @@ export const paddingStyles = createJSStyles({
     },
     large: {
         padding: "var(--spacing-l)",
+    },
+    xlarge: {
+        padding: "var(--spacing-xl)",
+    },
+    ["xsmall-row"]: {
+        paddingLeft: "var(--spacing-xs)",
+        paddingRight: "var(--spacing-xs)",
     },
     ["small-row"]: {
         paddingLeft: "var(--spacing-s)",
@@ -503,6 +519,14 @@ export const paddingStyles = createJSStyles({
         paddingLeft: "var(--spacing-l)",
         paddingRight: "var(--spacing-l)",
     },
+    ["xlarge-row"]: {
+        paddingLeft: "var(--spacing-xl)",
+        paddingRight: "var(--spacing-xl)",
+    },
+    ["xsmall-column"]: {
+        paddingTop: "var(--spacing-xs)",
+        paddingBottom: "var(--spacing-xs)",
+    },
     ["small-column"]: {
         paddingTop: "var(--spacing-s)",
         paddingBottom: "var(--spacing-s)",
@@ -515,16 +539,30 @@ export const paddingStyles = createJSStyles({
         paddingTop: "var(--spacing-l)",
         paddingBottom: "var(--spacing-l)",
     },
+    ["xlarge-column"]: {
+        paddingTop: "var(--spacing-xl)",
+        paddingBottom: "var(--spacing-xl)",
+    },
 });
 export const marginStyles = createJSStyles({
+    xsmall: {
+        margin: "var(--spacing-xs)",
+    },
     small: {
         margin: "var(--spacing-s)",
     },
     medium: {
         margin: "var(--spacing-m)",
     },
+    xlarge: {
+        margin: "var(--spacing-xl)",
+    },
     large: {
         margin: "var(--spacing-l)",
+    },
+    ["xsmall-row"]: {
+        marginLeft: "var(--spacing-xs)",
+        marginRight: "var(--spacing-xs)",
     },
     ["small-row"]: {
         marginLeft: "var(--spacing-s)",
@@ -538,6 +576,14 @@ export const marginStyles = createJSStyles({
         marginLeft: "var(--spacing-l)",
         marginRight: "var(--spacing-l)",
     },
+    ["xlarge-row"]: {
+        marginLeft: "var(--spacing-xl)",
+        marginRight: "var(--spacing-xl)",
+    },
+    ["xsmall-column"]: {
+        marginTop: "var(--spacing-xs)",
+        marginBottom: "var(--spacing-xs)",
+    },
     ["small-column"]: {
         marginTop: "var(--spacing-s)",
         marginBottom: "var(--spacing-s)",
@@ -549,6 +595,10 @@ export const marginStyles = createJSStyles({
     ["large-column"]: {
         marginTop: "var(--spacing-l)",
         marginBottom: "var(--spacing-l)",
+    },
+    ["xlarge-column"]: {
+        marginTop: "var(--spacing-xl)",
+        marginBottom: "var(--spacing-xl)",
     },
 });
 export const getPadding = (padding) => {

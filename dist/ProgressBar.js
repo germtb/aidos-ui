@@ -11,6 +11,9 @@ const jsStyles = createJSStyles({
         border: "1px solid var(--divider)",
         overflow: "hidden",
     },
+    xsmall: {
+        height: 4,
+    },
     small: {
         height: 8,
     },
@@ -19,6 +22,9 @@ const jsStyles = createJSStyles({
     },
     large: {
         height: 16,
+    },
+    xlarge: {
+        height: 20,
     },
     fill: {
         borderRadius: "var(--border-radius-s)",
@@ -33,9 +39,11 @@ const jsStyles = createJSStyles({
 export function ProgressBar({ color, progress, size, jsStyle, }) {
     return (React.createElement(BaseView, { jsStyle: [
             jsStyles.root,
+            size === "xsmall" && jsStyles.xsmall,
             size === "small" && jsStyles.small,
             size === "medium" && jsStyles.medium,
             size === "large" && jsStyles.large,
+            size === "xlarge" && jsStyles.xlarge,
             jsStyle,
         ] },
         React.createElement(BaseView, { jsStyle: [jsStyles.fill, getBackground(color)], style: {

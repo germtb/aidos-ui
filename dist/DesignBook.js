@@ -18,6 +18,7 @@ import { Row } from "./Row";
 import { DarkModeContext } from "./DarkModeStore";
 import { Popover, PopoverTrigger } from "./Popover";
 import { Tooltip } from "./Tooltip";
+import { Link } from "./Link";
 function ExampleDialog({ close }) {
     const darkMode = useContext(DarkModeContext);
     return (React.createElement(Dialog, { close: close, label: "Example" },
@@ -32,7 +33,6 @@ export function DesignBook() {
             React.createElement(ListSpacer, null),
             React.createElement(Sublist, { label: "Button", initialState: { collapsed: false } },
                 React.createElement(CenteredListRow, { gap: "medium" },
-                    " ",
                     React.createElement(Button, { label: "Positive button", color: "positive", onPress: () => {
                             dialog.open();
                         } })),
@@ -65,6 +65,22 @@ export function DesignBook() {
                     React.createElement(Button, { bare: true, label: "Bare negative button", color: "negative", onPress: () => { } })),
                 React.createElement(CenteredListRow, { gap: "medium" },
                     React.createElement(Button, { bare: true, label: "Bare disabled button", color: "positive", onPress: () => { }, disabled: true }))),
+            React.createElement(Sublist, { label: "Link", initialState: { collapsed: false } },
+                React.createElement(CenteredListRow, { gap: "medium" },
+                    React.createElement(Link, { label: "Positive link", color: "positive", href: "/" })),
+                React.createElement(CenteredListRow, { gap: "medium" },
+                    React.createElement(Link, { label: "Secondary link", color: "secondary", href: "/" })),
+                React.createElement(CenteredListRow, { gap: "medium" },
+                    React.createElement(Tooltip, { content: "Tooltip here" },
+                        React.createElement(Link, { label: "Disabled link", color: "positive", href: "/", disabled: true }))),
+                React.createElement(CenteredListRow, { gap: "medium" },
+                    React.createElement(Link, { bare: true, label: "Bare positive Link", color: "positive", href: "/" })),
+                React.createElement(CenteredListRow, { gap: "medium" },
+                    React.createElement(Link, { bare: true, label: "Bare secondary Link", color: "secondary", href: "/" })),
+                React.createElement(CenteredListRow, { gap: "medium" },
+                    React.createElement(Link, { bare: true, label: "Bare negative Link", color: "negative", href: "/" })),
+                React.createElement(CenteredListRow, { gap: "medium" },
+                    React.createElement(Link, { bare: true, label: "Bare disabled Link", color: "positive", href: "/", disabled: true }))),
             React.createElement(ListSpacer, null),
             React.createElement(Sublist, { label: "Icon button", initialState: { collapsed: false } },
                 React.createElement(ListRow, { padding: "medium", gap: "medium" },

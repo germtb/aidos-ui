@@ -1,8 +1,9 @@
 import React from "react";
-import { BaseButton, BaseButtonProps, ButtonColor } from "./BaseButton";
+import { BaseButton, BaseButtonProps } from "./BaseButton";
 import { Icon } from "./Icon";
 import { createJSStyles, Size, TextColor } from "./Palette";
 import { IconType } from "./IconType";
+import { InterctableColor } from "./Interactable";
 
 const jsStyles = createJSStyles({
   button: {
@@ -14,6 +15,11 @@ const jsStyles = createJSStyles({
     ":active": {
       transform: "scale(0.92)",
     },
+  },
+  xsmall: {
+    height: 20,
+    width: 20,
+    borderRadius: 10,
   },
   small: {
     height: 24,
@@ -30,6 +36,11 @@ const jsStyles = createJSStyles({
     width: 40,
     borderRadius: 20,
   },
+  xlarge: {
+    height: 48,
+    width: 48,
+    borderRadius: 24,
+  },
 });
 
 export interface IconButtonProps extends BaseButtonProps {
@@ -38,7 +49,7 @@ export interface IconButtonProps extends BaseButtonProps {
 }
 
 const getIconColor = (
-  color: ButtonColor,
+  color: InterctableColor,
   disabled: boolean | undefined,
   bare: boolean | undefined
 ): TextColor => {
@@ -67,9 +78,11 @@ export const IconButton = React.forwardRef(
         bare={bare}
         jsStyle={[
           jsStyles.button,
+          size === "xsmall" && jsStyles.xsmall,
           size === "small" && jsStyles.small,
           size === "medium" && jsStyles.medium,
           size === "large" && jsStyles.large,
+          size === "xlarge" && jsStyles.xlarge,
           !disabled && jsStyles.animation,
         ]}
         color={color}

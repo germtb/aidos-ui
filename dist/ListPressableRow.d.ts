@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import { Color, Position, Size, Spacing, TextColor } from "./Palette";
-import { ButtonColor } from "./BaseButton";
 import { BaseListRowProps } from "./BaseListRow";
+import { InterctableColor } from "./Interactable";
 interface ListPressableRow extends BaseListRowProps {
     onPress: () => void;
     headline: string;
@@ -14,7 +14,7 @@ interface ListPressableRow extends BaseListRowProps {
     addOn?: ReactNode;
     addOnPosition?: Position;
     outerAddOn?: ReactNode;
-    color?: ButtonColor;
+    color?: InterctableColor;
     disabled?: boolean;
     role?: undefined;
     backgroundColor?: Color;

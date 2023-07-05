@@ -15,18 +15,23 @@ const jsStyles = createJSStyles({
     whiteSpace: "nowrap",
   },
   size1: {
-    fontSize: 14,
+    fontSize: 10,
     lineHeight: "1.5rem",
   },
   size2: {
-    fontSize: 18,
+    fontSize: 14,
     lineHeight: "1.5rem",
   },
   size3: {
-    fontSize: 24,
+    fontSize: 18,
     lineHeight: "1.5rem",
   },
   size4: {
+    fontWeight: "bold",
+    fontSize: 24,
+    lineHeight: "1.5rem",
+  },
+  size5: {
     fontWeight: "bold",
     fontSize: 30,
     lineHeight: "1.5rem",
@@ -49,7 +54,6 @@ export interface TextProps {
   align?: "center" | "none";
   type?: TextType;
   grow?: boolean;
-  header?: 1 | 2 | 3 | 4;
 }
 
 export type TextType = "span" | "p" | "h1" | "h2" | "h3" | "h4";
@@ -72,9 +76,11 @@ export function Text({
       className={createClassNames([
         jsStyles.root,
         getTextColor(color),
-        size === "small" && jsStyles.size1,
-        size === "medium" && jsStyles.size2,
-        size === "large" && jsStyles.size3,
+        size === "xsmall" && jsStyles.size1,
+        size === "small" && jsStyles.size2,
+        size === "medium" && jsStyles.size3,
+        size === "large" && jsStyles.size4,
+        size === "xlarge" && jsStyles.size5,
         align === "center" && jsStyles.textAlignCenter,
         ellipsis && jsStyles.ellipsis,
         grow && jsStyles.grow,

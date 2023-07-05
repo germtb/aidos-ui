@@ -1,10 +1,10 @@
 import React from "react";
 import { Align, Justify, Gap, Size, TextColor } from "./Palette";
-import { BaseButtonProps } from "./BaseButton";
+import { BaseLinkProps } from "./BaseLink";
 import { IconType } from "./IconType";
 import { FlexLayoutProps } from "./FlexLayout";
 import { InterctableColor } from "./Interactable";
-export interface ButtonProps extends BaseButtonProps {
+export interface LinkProps extends BaseLinkProps {
     label: string;
     color: InterctableColor;
     size?: Size;
@@ -18,4 +18,4 @@ export interface ButtonProps extends BaseButtonProps {
     justify?: Justify;
 }
 export declare const getGlyphColor: (color: InterctableColor, disabled: boolean | undefined, bare: boolean | undefined) => TextColor;
-export declare const Button: React.ForwardRefExoticComponent<ButtonProps & React.RefAttributes<HTMLButtonElement>>;
+export declare const Link: React.ForwardRefExoticComponent<LinkProps & React.RefAttributes<HTMLAnchorElement>>;

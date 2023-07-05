@@ -46,6 +46,11 @@ const jsStyles = createJSStyles({
         left: "var(--spacing-xs)",
         right: "var(--spacing-xs)",
     },
+    xsmall: {
+        borderRadius: 10,
+        height: 20,
+        width: 20,
+    },
     small: {
         borderRadius: 12,
         height: 24,
@@ -61,6 +66,11 @@ const jsStyles = createJSStyles({
         height: 40,
         width: 40,
     },
+    xlarge: {
+        borderRadius: 24,
+        height: 48,
+        width: 48,
+    },
     input: {
         position: "absolute",
         opacity: 0,
@@ -74,7 +84,7 @@ const jsStyles = createJSStyles({
     },
 });
 export function Checkbox({ jsStyle, checked, onValueChange, size, ...inputProps }) {
-    return (React.createElement("label", { className: createClassNames(jsStyles.root, size === "small" && jsStyles.small, size === "medium" && jsStyles.medium, size === "large" && jsStyles.large, checked && jsStyles.rootChecked) },
+    return (React.createElement("label", { className: createClassNames(jsStyles.root, size === "xsmall" && jsStyles.xsmall, size === "small" && jsStyles.small, size === "medium" && jsStyles.medium, size === "large" && jsStyles.large, size === "xlarge" && jsStyles.xlarge, checked && jsStyles.rootChecked) },
         React.createElement(BaseView, { jsStyle: [jsStyles.border, checked && jsStyles.borderChecked] }),
         React.createElement(BaseInput, { ...inputProps, type: "checkbox", role: "checkbox", "aria-checked": `${checked}`, tabIndex: 0, checked: checked, onChange: (e) => onValueChange(e.target.checked), jsStyle: [jsStyles.input, jsStyle] }),
         checked && (React.createElement(BaseView, { jsStyle: jsStyles.icon },

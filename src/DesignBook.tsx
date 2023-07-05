@@ -20,6 +20,7 @@ import { Row } from "./Row";
 import { DarkModeContext } from "./DarkModeStore";
 import { Popover, PopoverTrigger } from "./Popover";
 import { Tooltip } from "./Tooltip";
+import { Link } from "./Link";
 
 function ExampleDialog({ close }) {
   const darkMode = useContext(DarkModeContext);
@@ -49,7 +50,6 @@ export function DesignBook() {
         <ListSpacer />
         <Sublist label="Button" initialState={{ collapsed: false }}>
           <CenteredListRow gap="medium">
-            {" "}
             <Button
               label="Positive button"
               color="positive"
@@ -204,6 +204,65 @@ export function DesignBook() {
             />
           </CenteredListRow>
         </Sublist>
+
+        <Sublist label="Link" initialState={{ collapsed: false }}>
+          <CenteredListRow gap="medium">
+            <Link label="Positive link" color="positive" href="/" />
+          </CenteredListRow>
+
+          <CenteredListRow gap="medium">
+            <Link label="Secondary link" color="secondary" href="/" />
+          </CenteredListRow>
+
+          <CenteredListRow gap="medium">
+            <Tooltip content="Tooltip here">
+              <Link
+                label="Disabled link"
+                color="positive"
+                href="/"
+                disabled={true}
+              />
+            </Tooltip>
+          </CenteredListRow>
+
+          <CenteredListRow gap="medium">
+            <Link
+              bare={true}
+              label="Bare positive Link"
+              color="positive"
+              href="/"
+            />
+          </CenteredListRow>
+
+          <CenteredListRow gap="medium">
+            <Link
+              bare={true}
+              label="Bare secondary Link"
+              color="secondary"
+              href="/"
+            />
+          </CenteredListRow>
+
+          <CenteredListRow gap="medium">
+            <Link
+              bare={true}
+              label="Bare negative Link"
+              color="negative"
+              href="/"
+            />
+          </CenteredListRow>
+
+          <CenteredListRow gap="medium">
+            <Link
+              bare={true}
+              label="Bare disabled Link"
+              color="positive"
+              href="/"
+              disabled={true}
+            />
+          </CenteredListRow>
+        </Sublist>
+
         <ListSpacer />
         <Sublist label="Icon button" initialState={{ collapsed: false }}>
           <ListRow padding="medium" gap="medium">

@@ -7,10 +7,11 @@ import {
   Spacing,
   TextColor,
 } from "./Palette";
-import { BaseButton, ButtonColor } from "./BaseButton";
+import { BaseButton } from "./BaseButton";
 import { TextPairing } from "./TextPairing";
 import { BaseListRow, BaseListRowProps } from "./BaseListRow";
 import { ListCell } from "./ListCell";
+import { InterctableColor } from "./Interactable";
 
 const jsStyles = createJSStyles({
   root: {
@@ -74,7 +75,7 @@ interface ListPressableRow extends BaseListRowProps {
   addOn?: ReactNode;
   addOnPosition?: Position;
   outerAddOn?: ReactNode;
-  color?: ButtonColor;
+  color?: InterctableColor;
   disabled?: boolean;
   role?: undefined;
   backgroundColor?: Color;
@@ -112,7 +113,7 @@ export const ListPressableRow = React.forwardRef(
           <BaseButton
             aria-selected={selected}
             disabled={disabled}
-            animateClick={false}
+            animateInteraction={false}
             bare={true}
             color={color}
             ref={ref}

@@ -13,6 +13,10 @@ const jsStyles = createJSStyles({
       width: "inherit",
     },
   },
+  xsmall: {
+    height: 8,
+    width: 8,
+  },
   small: {
     height: 12,
     width: 12,
@@ -24,6 +28,10 @@ const jsStyles = createJSStyles({
   large: {
     height: 24,
     width: 24,
+  },
+  xlarge: {
+    height: 30,
+    width: 30,
   },
 });
 
@@ -66,9 +74,11 @@ export function Icon({
       aria-label={ariaLabel}
       jsStyle={[
         jsStyles.root,
+        size === "xsmall" && jsStyles.xsmall,
         size === "small" && jsStyles.small,
         size === "medium" && jsStyles.medium,
         size === "large" && jsStyles.large,
+        size === "xlarge" && jsStyles.xlarge,
         getTextColor(color),
       ]}
     >
