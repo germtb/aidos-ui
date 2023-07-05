@@ -15,7 +15,7 @@ import { IconType } from "./IconType";
 import { Row } from "./Row";
 import { Icon } from "./Icon";
 import { FlexLayoutProps } from "./FlexLayout";
-import { InterctableColor } from "./Interactable";
+import { InterctableColor, getGlyphColor } from "./Interactable";
 
 export interface ButtonProps extends BaseButtonProps {
   label: string;
@@ -38,25 +38,6 @@ const jsStyles = createJSStyles({
     userSelect: "none",
   },
 });
-
-export const getGlyphColor = (
-  color: InterctableColor,
-  disabled: boolean | undefined,
-  bare: boolean | undefined
-): TextColor => {
-  if (disabled) {
-    return "subtle";
-  }
-
-  switch (color) {
-    case "positive":
-      return bare ? "highlight" : "light";
-    case "negative":
-      return bare ? "negative" : "light";
-    case "secondary":
-      return "primary";
-  }
-};
 
 export const Button = React.forwardRef(
   (

@@ -81,4 +81,17 @@ export function getInteractableJSStyles({ color, bare, disabled, animateInteract
         getPadding(padding),
     ];
 }
+export const getGlyphColor = (color, disabled, bare) => {
+    if (disabled) {
+        return "subtle";
+    }
+    switch (color) {
+        case "positive":
+            return bare ? "highlight" : "light";
+        case "negative":
+            return bare ? "negative" : "light";
+        case "secondary":
+            return "primary";
+    }
+};
 //# sourceMappingURL=Interactable.js.map

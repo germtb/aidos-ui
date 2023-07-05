@@ -1,4 +1,4 @@
-import { createJSStyles, Padding, getPadding } from "./Palette";
+import { createJSStyles, Padding, getPadding, TextColor } from "./Palette";
 
 export type InterctableColor = "positive" | "secondary" | "negative";
 
@@ -97,3 +97,22 @@ export function getInteractableJSStyles({
     getPadding(padding),
   ];
 }
+
+export const getGlyphColor = (
+  color: InterctableColor,
+  disabled: boolean | undefined,
+  bare: boolean | undefined
+): TextColor => {
+  if (disabled) {
+    return "subtle";
+  }
+
+  switch (color) {
+    case "positive":
+      return bare ? "highlight" : "light";
+    case "negative":
+      return bare ? "negative" : "light";
+    case "secondary":
+      return "primary";
+  }
+};
