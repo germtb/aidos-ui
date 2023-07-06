@@ -1,4 +1,4 @@
-import { spawn } from "child_process";
+import { spawn, spawnSync } from "child_process";
 
 const spawnPromise = (command, args) => {
   return new Promise((resolve, reject) => {
@@ -39,14 +39,41 @@ async function chain(reverseComands) {
 }
 
 async function run() {
-  chain([
+  const commands = [
     ["npm", ["run", "build:lib"]],
     ["git", ["add", "--all"]],
     ["git", ["commit", "-m", "'build:lib'"]],
     ["git", ["push"]],
     ["npm", ["version", "patch"]],
     ["npm", ["publish"]],
-  ]);
+  ];
+
+  while (commands.length) {
+    const [command, args = []] = commands.pop();
+    const { error, stdout } = spawnSync(command, args);
+    if (error) {
+      console.error(error);
+      break;
+    } else {
+      process.stdout.write(stdout);
+    }
+  }
+
+  // const result = spawnSync("npm", ["run", "build:lib"]);
+  // console.log({ result });
+  // spawnSync(["git", ["add", "--all"]]);
+  // spawnSync(["git", ["commit", "-m", "'build:lib'"]]);
+  // spawnSync(["git", ["push"]]);
+  // spawnSync(["npm", ["version", "patch"]]);
+  // spawnSync(["npm", ["publish"]]);
+  // chain([
+  //   ["npm", ["run", "build:lib"]],
+  //   ["git", ["add", "--all"]],
+  //   ["git", ["commit", "-m", "'build:lib'"]],
+  //   ["git", ["push"]],
+  //   ["npm", ["version", "patch"]],
+  //   ["npm", ["publish"]],
+  // ]);
 }
 
 run();
