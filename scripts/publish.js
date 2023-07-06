@@ -46,11 +46,12 @@ async function run() {
     ["git", ["push"]],
     ["npm", ["version", "patch"]],
     ["npm", ["publish"]],
-  ];
+  ].reverse();
 
   while (commands.length) {
     const [command, args = []] = commands.pop();
     const { error, stdout } = spawnSync(command, args);
+    console.log({ command, args, error });
     if (error) {
       console.error(error);
       break;
