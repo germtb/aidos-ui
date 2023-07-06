@@ -1,11 +1,11 @@
 import React, { ReactNode, useRef, useCallback } from "react";
 
-import { createJSStyles } from "./Styles";
+import { createJSStyle } from "./Styles";
 import { Column } from "./Column";
 import { useIsTopOfStack } from "./StackContext";
 import { queryFocusables } from "./aria";
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   root: {
     marginBottom: 0,
     flexGrow: 1,

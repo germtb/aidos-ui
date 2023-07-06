@@ -2,13 +2,13 @@ import React, { useContext, useMemo, useRef, useState } from "react";
 
 import { BaseView } from "./BaseView";
 import { Text } from "./Text";
-import { createClassNames, createJSStyles } from "./Styles";
+import { createClassNames, createJSStyle } from "./Styles";
 import { ListDivider } from "./ListDivider";
 import { Column } from "./Column";
 import { Row } from "./Row";
 import { IconButton } from "./IconButton";
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   dialog: {
     border: "1px solid var(--divider)",
     borderRadius: "var(--border-radius-m)",

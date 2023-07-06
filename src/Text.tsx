@@ -1,13 +1,14 @@
 import React, { ReactNode } from "react";
 import {
-  createJSStyles,
+  createJSStyle,
   createClassNames,
   TextColor,
   Size,
   getTextColor,
+  JSStyle,
 } from "./Styles";
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   root: {},
   ellipsis: {
     overflow: "hidden",
@@ -54,6 +55,7 @@ export interface TextProps {
   align?: "center" | "none";
   type?: TextType;
   grow?: boolean;
+  jsStyle?: JSStyle;
 }
 
 export type TextType = "span" | "p" | "h1" | "h2" | "h3" | "h4";
@@ -66,6 +68,7 @@ export function Text({
   ellipsis = "default",
   grow,
   type: Type = "span",
+  jsStyle,
 }: TextProps) {
   if (ellipsis === "default") {
     ellipsis = Type === "span";
@@ -84,6 +87,7 @@ export function Text({
         align === "center" && jsStyles.textAlignCenter,
         ellipsis && jsStyles.ellipsis,
         grow && jsStyles.grow,
+        jsStyle,
       ])}
     >
       {children}

@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
-import { createJSStyles, JSStyles } from "./Styles";
+import { createJSStyle, JSStyle } from "./Styles";
 import { BaseView } from "./BaseView";
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   container: {
     display: "grid",
     gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr 1fr",
@@ -32,7 +32,7 @@ export const Calendar = React.forwardRef(
     }: {
       date: Date;
       header: (props: { weekday: string }) => JSX.Element;
-      jsStyle?: JSStyles;
+      jsStyle?: JSStyle;
       cell: (props: {
         today?: boolean;
         date: Date;

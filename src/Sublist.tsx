@@ -1,11 +1,11 @@
 import React, { ReactNode } from "react";
-import { createJSStyles, JSStyles, Color, TextColor } from "./Styles";
+import { createJSStyle, JSStyle, Color, TextColor } from "./Styles";
 import { ListPressableRow } from "./ListPressableRow";
 import { Icon } from "./Icon";
 import { Box } from "./Box";
 import { Row } from "./Row";
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   icon: {
     transition: "transform 0.15s ease-in",
   },
@@ -26,7 +26,7 @@ export function Sublist({
   initialState?: {
     collapsed: boolean;
   };
-  jsStyle?: JSStyles;
+  jsStyle?: JSStyle;
   secondaryAddOn?: ReactNode;
 }) {
   const [collapsed, setCollapsed] = React.useState(initialState.collapsed);

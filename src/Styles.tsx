@@ -79,13 +79,13 @@ type Stylesheet = {
   };
 };
 
-export type JSStyles =
+export type JSStyle =
   | Styles
   | null
   | false
   | undefined
   | { [key: string]: Styles }
-  | Array<JSStyles>;
+  | Array<JSStyle>;
 
 export type FlatStyles = Styles & { other: { [key: string]: Styles } };
 
@@ -149,7 +149,7 @@ function identifier(
   }
 }
 
-export function createJSStyle(
+function addToStylesheet(
   styles: Styles,
   { useIncrementalIdentifiers }: { useIncrementalIdentifiers: boolean } = {
     useIncrementalIdentifiers: false,
@@ -184,7 +184,7 @@ export function createJSStyle(
         type: "SIMPLE",
       };
     } else if (typeof value === "object" && key.startsWith("@media")) {
-      const hashedValue = hash(JSON.stringify(value, null, 2));
+      const hashedValue = hash(key + JSON.stringify(value, null, 2));
       const id = identifier(`${key}${hashedValue}`, {
         useIncrementalIdentifiers,
       });
@@ -214,26 +214,29 @@ export function createJSStyle(
   return styles;
 }
 
-export const createJSStyles = <
+export const createJSStyle = <
   T extends {
     [key: string]: Styles | { [key: string]: Styles };
   }
 >(
-  styles: T
+  styles: T,
+  { useIncrementalIdentifiers }: { useIncrementalIdentifiers: boolean } = {
+    useIncrementalIdentifiers: false,
+  }
 ): T => {
   for (const style of Object.values(styles)) {
-    createJSStyle(style);
+    addToStylesheet(style, { useIncrementalIdentifiers });
   }
 
   return styles;
 };
 
-const flattenJSStyle = (jsStyle: JSStyles): Styles => {
+const flattenJSStyle = (jsStyle: JSStyle): Styles => {
   if (!jsStyle) {
     return {};
   } else if (Array.isArray(jsStyle)) {
     // @ts-ignore
-    return jsStyle.reduce((acc: Styles, jsStyle: JSStyles) => {
+    return jsStyle.reduce((acc: Styles, jsStyle: JSStyle) => {
       return { ...acc, ...flattenJSStyle(jsStyle) };
     }, {});
   } else {
@@ -261,7 +264,7 @@ const aliasStyles = (styles: Styles): Styles => {
   return aliasedStyles;
 };
 
-export const createClassNames = (...styles: Array<JSStyles>): string => {
+export const createClassNames = (...styles: Array<JSStyle>): string => {
   if (styles.length === 0) {
     return "";
   }
@@ -275,7 +278,7 @@ export const createClassNames = (...styles: Array<JSStyles>): string => {
       const className = stylesheet[key][value].className;
       classNames.push(className);
     } else if (typeof value === "object" && key.startsWith("@media")) {
-      const hashedValue = hash(JSON.stringify(value, null, 2));
+      const hashedValue = hash(key + JSON.stringify(value, null, 2));
       const className = stylesheet[key][hashedValue].className;
       classNames.push(className);
     } else if (typeof value === "object") {
@@ -574,7 +577,7 @@ export const StylesProvider = ({
   );
 };
 
-const backgroundStyles = createJSStyles({
+const backgroundStyles = createJSStyle({
   highlight: {
     backgroundColor: "var(--highlight)",
   },
@@ -602,7 +605,7 @@ export const getBackground = (color: Color) => {
   return backgroundStyles[color];
 };
 
-const justifyStyles = createJSStyles({
+const justifyStyles = createJSStyle({
   ["space-between"]: {
     justifyContent: "space-between",
   },
@@ -624,7 +627,7 @@ export const getJustify = (prop: Justify) => {
   return justifyStyles[prop];
 };
 
-const alignStyles = createJSStyles({
+const alignStyles = createJSStyle({
   ["stretch"]: {
     alignItems: "stretch",
   },
@@ -643,7 +646,7 @@ export const getAlign = (prop: Align) => {
   return alignStyles[prop];
 };
 
-const gapStyles = createJSStyles({
+const gapStyles = createJSStyle({
   xsmall: {
     gap: "var(--spacing-xs)",
   },
@@ -665,7 +668,7 @@ export const getGap = (gap: Gap) => {
   return gapStyles[`${gap}`];
 };
 
-export const paddingStyles = createJSStyles({
+export const paddingStyles = createJSStyle({
   xsmall: {
     padding: "var(--spacing-xs)",
   },
@@ -723,7 +726,7 @@ export const paddingStyles = createJSStyles({
   },
 });
 
-export const marginStyles = createJSStyles({
+export const marginStyles = createJSStyle({
   xsmall: {
     margin: "var(--spacing-xs)",
   },
@@ -799,11 +802,11 @@ export const getMargin = (margin: Margin) => {
   }
 };
 
-export const grow = createJSStyles({ grow: { flexGrow: 1 } }).grow;
+export const grow = createJSStyle({ grow: { flexGrow: 1 } }).grow;
 
-export const shrink = createJSStyles({ shrink: { flexShrink: 1 } });
+export const shrink = createJSStyle({ shrink: { flexShrink: 1 } });
 
-const flexStyles = createJSStyles({
+const flexStyles = createJSStyle({
   row: {
     display: "flex",
     flexDirection: "row",
@@ -818,7 +821,7 @@ export const getFlex = (direction: FlexDirection) => {
   return flexStyles[direction];
 };
 
-const borderStyles = createJSStyles({
+const borderStyles = createJSStyle({
   top: {
     borderTop: "1px solid var(--divider)",
   },
@@ -883,7 +886,7 @@ export const withMedia = (styles: {
   };
 };
 
-const textColorStyles = createJSStyles({
+const textColorStyles = createJSStyle({
   primary: {
     color: "var(--primary-text)",
   },

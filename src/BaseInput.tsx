@@ -1,9 +1,9 @@
 import React, { ReactNode, useId, useMemo } from "react";
-import { createClassNames, JSStyles } from "./Styles";
+import { createClassNames, JSStyle } from "./Styles";
 
 export interface BaseInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
-  jsStyle?: JSStyles;
+  jsStyle?: JSStyle;
   className?: undefined;
   size?: undefined;
   children?: undefined;

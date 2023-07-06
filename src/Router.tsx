@@ -1,13 +1,13 @@
 import React, { Suspense } from "react";
 
 import { StackContextProvider } from "./StackContext";
-import { createJSStyles } from "./Styles";
+import { createJSStyle } from "./Styles";
 import { Column } from "./Column";
 import { ListDivider } from "./ListDivider";
 import { BaseView } from "./BaseView";
 import { useRouterState } from "./RouterState";
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   root: {
     display: "flex",
     flexDirection: "column",

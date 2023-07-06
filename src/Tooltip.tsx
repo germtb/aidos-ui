@@ -1,11 +1,11 @@
 import React, { useRef, useState } from "react";
 
 import { BaseView } from "./BaseView";
-import { createClassNames, createJSStyles, JSStyles } from "./Styles";
+import { createClassNames, createJSStyle, JSStyle } from "./Styles";
 import { useRefEffect } from "./useRefEffect";
 import { Text } from "./Text";
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   root: {
     position: "relative",
   },
@@ -23,7 +23,7 @@ const jsStyles = createJSStyles({
 
 interface TooltipProps {
   content: string;
-  jsStyle?: JSStyles;
+  jsStyle?: JSStyle;
   className?: undefined;
   grow?: boolean;
   shrink?: boolean;

@@ -1,7 +1,7 @@
 import React from "react";
-import { createClassNames, createJSStyles, JSStyles } from "./Styles";
+import { createClassNames, createJSStyle, JSStyle } from "./Styles";
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   relative: {
     position: "relative",
   },
@@ -14,7 +14,7 @@ const jsStyles = createJSStyles({
 });
 
 export interface BaseViewProps extends React.HTMLAttributes<HTMLElement> {
-  jsStyle?: JSStyles;
+  jsStyle?: JSStyle;
   ref?: React.Ref<HTMLDivElement>;
   className?: undefined;
   grow?: boolean;

@@ -2,10 +2,10 @@ import React, { useRef, useState } from "react";
 import { queryFocusables } from "./aria";
 
 import { BaseView } from "./BaseView";
-import { createClassNames, createJSStyles, JSStyles } from "./Styles";
+import { createClassNames, createJSStyle, JSStyle } from "./Styles";
 import { useRefEffect } from "./useRefEffect";
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   root: {
     position: "relative",
   },
@@ -80,7 +80,7 @@ export function Popover({ children, close }) {
 
 interface PopoverTriggerProps<Input> {
   PopoverComponent: (props: { close: () => void } & Input) => JSX.Element;
-  jsStyle?: JSStyles;
+  jsStyle?: JSStyle;
   className?: undefined;
   grow?: boolean;
   shrink?: boolean;

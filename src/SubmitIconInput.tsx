@@ -3,9 +3,9 @@ import { BaseInput, BaseInputProps } from "./BaseInput";
 import { Box } from "./Box";
 import { Icon } from "./Icon";
 import { IconType } from "./IconType";
-import { createJSStyles } from "./Styles";
+import { createJSStyle } from "./Styles";
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   button: {
     cursor: "pointer",
     display: "flex",

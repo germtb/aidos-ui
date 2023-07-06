@@ -1,11 +1,11 @@
 import React, { ReactNode } from "react";
-import { createJSStyles, Size, TextColor } from "./Styles";
+import { createJSStyle, Size, TextColor } from "./Styles";
 import { TextPairing } from "./TextPairing";
 import { BaseView } from "./BaseView";
 import { BaseListRow, BaseListRowProps } from "./BaseListRow";
 import { Column } from "./Column";
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   root: {
     position: "relative",
     paddingTop: "var(--spacing-s)",

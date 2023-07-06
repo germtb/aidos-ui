@@ -1,9 +1,9 @@
 import React from "react";
 
-import { getBackground, Color, createJSStyles, Size } from "./Styles";
+import { getBackground, Color, createJSStyle, Size } from "./Styles";
 import { BaseView } from "./BaseView";
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   xsmall: {
     width: 4,
     height: 4,

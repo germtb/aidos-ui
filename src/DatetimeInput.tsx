@@ -3,9 +3,9 @@ import { BaseInput, BaseInputProps } from "./BaseInput";
 import { Box } from "./Box";
 import { Icon } from "./Icon";
 import { IconType } from "./IconType";
-import { createJSStyles } from "./Styles";
+import { createJSStyle } from "./Styles";
 import { Row } from "./Row";
-import { JSStyles } from "./Styles";
+import { JSStyle } from "./Styles";
 
 export interface DatetimeInputProps extends BaseInputProps {
   onDateChange: (date: Date) => void;
@@ -13,10 +13,10 @@ export interface DatetimeInputProps extends BaseInputProps {
   icon?: IconType;
   addOn?: ReactNode;
   onChange?: undefined;
-  jsStyle?: JSStyles;
+  jsStyle?: JSStyle;
 }
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   root: {
     backgroundColor: "var(--primary-background)",
   },

@@ -1,11 +1,11 @@
 import React from "react";
 import { BaseButton, BaseButtonProps } from "./BaseButton";
 import { Icon } from "./Icon";
-import { createJSStyles, Size, TextColor } from "./Styles";
+import { createJSStyle, Size, TextColor } from "./Styles";
 import { IconType } from "./IconType";
 import { InterctableColor } from "./Interactable";
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   button: {
     display: "flex",
     justifyContent: "center",

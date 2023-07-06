@@ -1,7 +1,7 @@
 import React from "react";
 import {
-  JSStyles,
-  createJSStyles,
+  JSStyle,
+  createJSStyle,
   getBackground,
   Color,
   Padding,
@@ -10,14 +10,14 @@ import { ListDivider } from "./ListDivider";
 import { Row, RowProps } from "./Row";
 
 export interface BaseListRowProps extends RowProps {
-  jsStyle?: JSStyles;
+  jsStyle?: JSStyle;
   withDivider?: boolean;
   role?: undefined;
   backgroundColor?: Color;
   padding?: Padding;
 }
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   root: {
     position: "relative",
   },

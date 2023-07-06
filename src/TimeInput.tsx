@@ -3,7 +3,7 @@ import { BaseInput, BaseInputProps } from "./BaseInput";
 import { Box } from "./Box";
 import { Icon } from "./Icon";
 import { IconType } from "./IconType";
-import { createJSStyles } from "./Styles";
+import { createJSStyle } from "./Styles";
 import { Row } from "./Row";
 
 export interface TimeInputProps extends BaseInputProps {
@@ -14,7 +14,7 @@ export interface TimeInputProps extends BaseInputProps {
   onChange?: undefined;
 }
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   root: {
     backgroundColor: "inherit",
   },

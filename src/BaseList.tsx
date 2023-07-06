@@ -1,8 +1,8 @@
 import React from "react";
 import { BaseView, BaseViewProps } from "./BaseView";
-import { createJSStyles } from "./Styles";
+import { createJSStyle } from "./Styles";
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   root: {
     backgroundColor: "var(--primary-background)",
     display: "flex",

@@ -1,11 +1,11 @@
 import React from "react";
-import { JSStyles, createClassNames, Padding, createJSStyles } from "./Styles";
+import { JSStyle, createClassNames, Padding, createJSStyle } from "./Styles";
 import { InterctableColor, getInteractableJSStyles } from "./Interactable";
 
 export interface BaseLinkProps
   extends React.LinkHTMLAttributes<HTMLAnchorElement> {
   onPress?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
-  jsStyle?: JSStyles;
+  jsStyle?: JSStyle;
   color: InterctableColor;
   disabled?: boolean;
   bare?: boolean;
@@ -14,7 +14,7 @@ export interface BaseLinkProps
   padding?: Padding;
 }
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   root: {
     textDecoration: "none",
   },

@@ -1,9 +1,9 @@
 import React from "react";
-import { createJSStyles, getTextColor, Size, TextColor } from "./Styles";
+import { createJSStyle, getTextColor, Size, TextColor } from "./Styles";
 import { BaseView } from "./BaseView";
 import { IconType } from "./IconType";
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   root: {
     display: "flex",
     justifyContent: "center",

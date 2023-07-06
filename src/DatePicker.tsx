@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
-import { createClassNames, createJSStyles, TextColor } from "./Styles";
+import { createClassNames, createJSStyle, TextColor } from "./Styles";
 import { Text } from "./Text";
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   dateInput: {
     border: "1px solid var(--divider)",
     backgroundColor: "var(--primary-background)",

@@ -1,8 +1,8 @@
 import React from "react";
-import { createJSStyles } from "./Styles";
+import { createJSStyle } from "./Styles";
 import { Box, BoxProps } from "./Box";
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   root: {
     borderRadius: "50%",
     overflow: "hidden",

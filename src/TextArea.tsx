@@ -1,16 +1,16 @@
 import React from "react";
-import { createClassNames, JSStyles, createJSStyles } from "./Styles";
+import { createClassNames, JSStyle, createJSStyle } from "./Styles";
 
 export interface TextAreaProps
   extends React.InputHTMLAttributes<HTMLTextAreaElement> {
-  jsStyle?: JSStyles;
+  jsStyle?: JSStyle;
   onValueChange?: (value: string) => void;
   value?: string;
   className?: undefined;
   size?: undefined;
 }
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   root: {
     padding: "var(--spacing-m)",
     flexGrow: 1,

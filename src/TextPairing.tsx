@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import {
   Align,
-  createJSStyles,
+  createJSStyle,
   Position,
   Gap,
   TextColor,
@@ -13,7 +13,7 @@ import { Row } from "./Row";
 import { BaseView } from "./BaseView";
 import { Column } from "./Column";
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   overflow: {
     overflow: "hidden",
   },

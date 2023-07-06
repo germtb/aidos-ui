@@ -1,8 +1,8 @@
 import React from "react";
 import { BaseListRow, BaseListRowProps } from "./BaseListRow";
-import { createJSStyles, grow } from "./Styles";
+import { createJSStyle, grow } from "./Styles";
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   root: {
     position: "relative",
     padding: "var(--spacing-m)",

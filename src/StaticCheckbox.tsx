@@ -1,5 +1,5 @@
 import React from "react";
-import { createJSStyles, createClassNames, Size } from "./Styles";
+import { createJSStyle, createClassNames, Size } from "./Styles";
 import { BaseView } from "./BaseView";
 import { Icon } from "./Icon";
 
@@ -9,7 +9,7 @@ type TextInputProps = {
   size: Size;
 };
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   root: {
     position: "relative",
     backgroundColor: "var(--primary-background)",

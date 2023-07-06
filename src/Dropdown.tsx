@@ -3,12 +3,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { BaseView } from "./BaseView";
 import { guid } from "./guid";
 import { Button } from "./Button";
-import { getBackground, createJSStyles, grow, JSStyles } from "./Styles";
+import { getBackground, createJSStyle, grow, JSStyle } from "./Styles";
 import { Column } from "./Column";
 import { useNavigation } from "./useNavigation";
 import { useRefEffect } from "./useRefEffect";
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   root: {
     position: "relative",
     display: "flex",
@@ -41,7 +41,7 @@ export function Dropdown<T>({
   options: Set<T>;
   setSelection: (selection: T) => void;
   selection: T;
-  jsStyle?: JSStyles;
+  jsStyle?: JSStyle;
 }) {
   const triggerRef = useRef(null);
   const [expanded, setExpanded] = useState(false);

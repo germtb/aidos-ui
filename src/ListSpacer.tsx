@@ -1,8 +1,8 @@
 import React from "react";
-import { createJSStyles } from "./Styles";
+import { createJSStyle } from "./Styles";
 import { BaseView } from "./BaseView";
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   root: {
     height: "var(--spacing-xl)",
     backgroundColor: "var(--secondary-background)",

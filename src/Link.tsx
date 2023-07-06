@@ -1,7 +1,7 @@
 import React from "react";
 import {
   Align,
-  createJSStyles,
+  createJSStyle,
   grow,
   Justify,
   Gap,
@@ -31,7 +31,7 @@ export interface LinkProps extends BaseLinkProps {
   justify?: Justify;
 }
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   root: {
     borderRadius: "var(--border-radius-m)",
     justifyContent: "center",

@@ -1,7 +1,7 @@
 import React from "react";
-import { createClassNames, createJSStyles } from "./Styles";
+import { createClassNames, createJSStyle } from "./Styles";
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   root: {
     backgroundColor: "var(--secondary-background)",
     transform: "rotate(-90deg)",

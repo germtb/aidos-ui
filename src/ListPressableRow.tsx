@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import {
   Color,
-  createJSStyles,
+  createJSStyle,
   Position,
   Size,
   Spacing,
@@ -13,7 +13,7 @@ import { BaseListRow, BaseListRowProps } from "./BaseListRow";
 import { ListCell } from "./ListCell";
 import { InterctableColor } from "./Interactable";
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   root: {
     position: "relative",
   },

@@ -21,6 +21,8 @@ import { DarkModeContext } from "./DarkModeStore";
 import { Popover, PopoverTrigger } from "./Popover";
 import { Tooltip } from "./Tooltip";
 import { Link } from "./Link";
+import { BaseView } from "./BaseView";
+import { createJSStyle, getBackground, withMedia } from "./Styles";
 
 function ExampleDialog({ close }) {
   const darkMode = useContext(DarkModeContext);
@@ -37,6 +39,15 @@ function ExampleDialog({ close }) {
     </Dialog>
   );
 }
+
+const jsStyle = createJSStyle({
+  responsive: withMedia({
+    phone: getBackground("negative"),
+    tablet: getBackground("divider"),
+    laptop: getBackground("highlight"),
+    desktop: getBackground("warning"),
+  }),
+});
 
 export function DesignBook() {
   const dialog = useDialog<void>(
@@ -261,6 +272,12 @@ export function DesignBook() {
               disabled={true}
             />
           </CenteredListRow>
+        </Sublist>
+
+        <Sublist label="Responsiveness" initialState={{ collapsed: false }}>
+          <Text jsStyle={jsStyle.responsive}>
+            Background will change with screen size
+          </Text>
         </Sublist>
 
         <ListSpacer />

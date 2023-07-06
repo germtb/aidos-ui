@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { createJSStyles, JSStyles, Padding } from "./Styles";
+import { createJSStyle, JSStyle, Padding } from "./Styles";
 import { BaseInput, BaseInputProps } from "./BaseInput";
 import { IconType } from "./IconType";
 import { Icon } from "./Icon";
@@ -8,14 +8,14 @@ import { Box } from "./Box";
 
 export interface TextInputProps extends BaseInputProps {
   onValueChange?: (value: string) => void;
-  rootJSStyle?: JSStyles;
+  rootJSStyle?: JSStyle;
   icon?: IconType;
   addOn?: ReactNode;
   onChange?: undefined;
   indentation?: Padding;
 }
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   root: {
     backgroundColor: "inherit",
   },

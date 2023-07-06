@@ -1,6 +1,6 @@
 import React from "react";
 import { BaseInput, BaseInputProps } from "./BaseInput";
-import { createJSStyles, createClassNames, Size } from "./Styles";
+import { createJSStyle, createClassNames, Size } from "./Styles";
 import { BaseView } from "./BaseView";
 import { Icon } from "./Icon";
 
@@ -13,7 +13,7 @@ interface CheckboxProps extends BaseInputProps {
   onChange?: undefined;
 }
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   root: {
     position: "relative",
     backgroundColor: "var(--primary-background)",

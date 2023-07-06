@@ -3,7 +3,7 @@ import { BaseInput, BaseInputProps } from "./BaseInput";
 import { Box } from "./Box";
 import { Icon } from "./Icon";
 import { IconType } from "./IconType";
-import { createJSStyles, JSStyles } from "./Styles";
+import { createJSStyle, JSStyle } from "./Styles";
 import { Row } from "./Row";
 
 export interface DateInputProps extends BaseInputProps {
@@ -12,10 +12,10 @@ export interface DateInputProps extends BaseInputProps {
   icon?: IconType;
   addOn?: ReactNode;
   onChange?: undefined;
-  jsStyles?: JSStyles;
+  jsStyles?: JSStyle;
 }
 
-const jsStyles = createJSStyles({
+const jsStyles = createJSStyle({
   root: {
     backgroundColor: "inherit",
   },
