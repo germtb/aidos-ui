@@ -40,7 +40,6 @@ async function run() {
     ["git", ["add", "--all"]],
     ["git", ["commit", "-m", "'minor version update'"]],
     ["npm", ["version", "patch"]],
-    ["npm", ["publish"]],
   ]);
 }
 
