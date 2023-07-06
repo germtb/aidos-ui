@@ -39,6 +39,7 @@ async function run() {
   chain([
     ["git", ["add", "--all"]],
     ["git", ["commit", "-m", "'minor version update'"]],
+    ["git", ["push"]],
     ["npm", ["version", "patch"]],
   ]);
 }

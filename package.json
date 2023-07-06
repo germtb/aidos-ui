@@ -6,7 +6,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "next dev",
-    "publish": "./scripts/publish.js",
+    "npm:publish": "./scripts/publish.js",
     "build": "next build",
     "build-lib": "rimraf ./dist && tsc --build",
     "tsc": "tsc --watch",
