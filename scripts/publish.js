@@ -37,6 +37,7 @@ async function chain(reverseComands) {
 
 async function run() {
   chain([
+    ["npm", ["run", "build:lib"]],
     ["git", ["add", "--all"]],
     ["git", ["commit", "-m", "'minor version update'"]],
     ["git", ["push"]],

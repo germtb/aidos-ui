@@ -8,7 +8,7 @@
     "dev": "next dev",
     "npm:publish": "./scripts/publish.js",
     "build": "next build",
-    "build-lib": "rimraf ./dist && tsc --build",
+    "build:lib": "rimraf ./dist && tsc --build",
     "tsc": "tsc --watch",
     "start": "next start",
     "lint": "next lint",
