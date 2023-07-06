@@ -1,12 +1,12 @@
 {
   "name": "aidos-ui",
-  "version": "2.0.2",
+  "version": "2.0.1",
   "description": "A humble UI framework",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "next dev",
-    "npm:publish": "./scripts/publish.js",
+    "npm:publish": "node ./scripts/publish.js",
     "build": "next build",
     "build:lib": "rimraf ./dist && tsc --build",
     "tsc": "tsc --watch",
