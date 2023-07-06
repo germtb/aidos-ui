@@ -18,6 +18,7 @@ const spawnPromise = (command, args) => {
         resolve(code);
       });
     } catch (e) {
+      console.error(e);
       reject(-1);
     }
   });
