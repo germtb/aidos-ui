@@ -50,8 +50,9 @@ async function run() {
 
   while (commands.length) {
     const [command, args = []] = commands.pop();
+    console.log(`Executing ${command} ${args.join(" ")}`);
     const { error, stdout } = spawnSync(command, args);
-    console.log({ command, args, error });
+
     if (error) {
       console.error(error);
       break;
