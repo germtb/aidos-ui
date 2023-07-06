@@ -21,7 +21,6 @@ import { DarkModeContext } from "./DarkModeStore";
 import { Popover, PopoverTrigger } from "./Popover";
 import { Tooltip } from "./Tooltip";
 import { Link } from "./Link";
-import { BaseView } from "./BaseView";
 import { createJSStyle, getBackground, withMedia } from "./Styles";
 
 function ExampleDialog({ close }) {

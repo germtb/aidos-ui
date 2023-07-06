@@ -5,7 +5,6 @@ async function run() {
     ["npm", ["run", "build:lib"]],
     ["git", ["add", "--all"]],
     ["git", ["commit", "-m", "'build:lib'"]],
-    ["git", ["push"]],
     ["npm", ["version", "patch"]],
     ["npm", ["publish"]],
   ].reverse();
