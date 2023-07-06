@@ -10,7 +10,7 @@ const spawnPromise = (command, args) => {
       });
 
       instance.stderr.on("data", (data) => {
-        process.stdout.write(data);
+        process.stderr.write(data);
         reject(-1);
       });
 
