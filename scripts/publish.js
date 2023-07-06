@@ -29,7 +29,9 @@ async function chain(reverseComands) {
     const [command, args = []] = commands.pop();
     const code = await spawnPromise(command, args).catch(() => -1);
     if (code !== 0) {
-      console.error(`Error while executing ${command} ${args.join(" ")}`);
+      console.error(
+        `Error with code ${code} while executing ${command} ${args.join(" ")}`
+      );
       break;
     }
   }
