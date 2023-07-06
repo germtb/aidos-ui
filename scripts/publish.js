@@ -27,13 +27,13 @@ async function chain(reverseComands) {
   const commands = reverseComands.reverse();
   while (commands.length) {
     const [command, args = []] = commands.pop();
-    const code = await spawnPromise(command, args).catch(() => "runtime-error");
-    if (code === "runtime-error") {
-      console.error(
-        `Error with code ${code} while executing ${command} ${args.join(" ")}`
-      );
-      break;
-    }
+    await spawnPromise(command, args);
+    // if (code === "runtime-error") {
+    //   console.error(
+    //     `Error with code ${code} while executing ${command} ${args.join(" ")}`
+    //   );
+    //   break;
+    // }
   }
 }
 
