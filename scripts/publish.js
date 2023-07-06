@@ -36,12 +36,11 @@ async function chain(reverseComands) {
 }
 
 async function run() {
-  // const result = await spawnPromise("npm version patch");
   chain([
     ["git", ["add", "--all"]],
     ["git", ["commit", "-m", "'minor version update'"]],
     ["npm", ["version", "patch"]],
-    // ["npm"[("version", "patch")]],
+    ["npm", ["publish"]],
   ]);
 }
 
