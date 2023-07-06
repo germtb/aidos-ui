@@ -10,7 +10,7 @@ import {
   Padding,
   Justify,
   Gap,
-} from "./Palette";
+} from "./Styles";
 import { BaseView, BaseViewProps } from "./BaseView";
 
 export interface FlexLayoutProps extends BaseViewProps {

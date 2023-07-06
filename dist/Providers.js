@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { DarkModeProvider } from "./DarkModeStore";
 import { DialogProvider } from "./Dialog";
 import { initializeIcons } from "./Icon";
-import { darkTheme, lightTheme, PaletteProvider } from "./Palette";
+import { darkTheme, lightTheme, StylesProvider } from "./Styles";
 import { useCookie } from "./useCookie";
 export function Providers({ children, themes = { light: lightTheme, dark: darkTheme }, }) {
     const [darkModeEnabled, setDarkModeEnabled] = useCookie("dark-mode", {
@@ -13,7 +13,7 @@ export function Providers({ children, themes = { light: lightTheme, dark: darkTh
     useEffect(() => {
         initializeIcons();
     }, []);
-    return (React.createElement(PaletteProvider, { themes: themes },
+    return (React.createElement(StylesProvider, { themes: themes },
         React.createElement(DarkModeProvider, { enabled: darkModeEnabled, toggle: toggleDarkMode },
             React.createElement(DialogProvider, null, children))));
 }

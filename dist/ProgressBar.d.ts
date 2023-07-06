@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { Color, JSStyles, Size } from "./Palette";
+import { Color, JSStyles, Size } from "./Styles";
 export declare function ProgressBar({ color, progress, size, jsStyle, }: {
     progress: number;
     color: Color;

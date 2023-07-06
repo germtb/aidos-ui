@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { JSStyles } from "./Palette";
+import { JSStyles } from "./Styles";
 export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     jsStyle?: JSStyles;
     className?: undefined;

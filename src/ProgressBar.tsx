@@ -6,7 +6,7 @@ import {
   getBorder,
   JSStyles,
   Size,
-} from "./Palette";
+} from "./Styles";
 import { BaseView } from "./BaseView";
 
 const jsStyles = createJSStyles({

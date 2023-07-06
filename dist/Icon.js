@@ -1,5 +1,5 @@
 import React from "react";
-import { createJSStyles, getTextColor } from "./Palette";
+import { createJSStyles, getTextColor } from "./Styles";
 import { BaseView } from "./BaseView";
 const jsStyles = createJSStyles({
     root: {

@@ -1,5 +1,5 @@
 import React from "react";
-import { JSStyles, Color, Padding } from "./Palette";
+import { JSStyles, Color, Padding } from "./Styles";
 import { RowProps } from "./Row";
 export interface BaseListRowProps extends RowProps {
     jsStyle?: JSStyles;

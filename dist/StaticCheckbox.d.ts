@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { Size } from "./Palette";
+import { Size } from "./Styles";
 type TextInputProps = {
     checked: boolean;
     size: Size;

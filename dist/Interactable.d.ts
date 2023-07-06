@@ -1,4 +1,4 @@
-import { Padding, TextColor } from "./Palette";
+import { Padding, TextColor } from "./Styles";
 export type InterctableColor = "positive" | "secondary" | "negative";
 export declare function getInteractableJSStyles({ color, bare, disabled, animateInteraction, padding, }: {
     color: InterctableColor;

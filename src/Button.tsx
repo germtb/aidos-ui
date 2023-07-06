@@ -8,7 +8,7 @@ import {
   Size,
   TextColor,
   getPadding,
-} from "./Palette";
+} from "./Styles";
 import { BaseButton, BaseButtonProps } from "./BaseButton";
 import { Text } from "./Text";
 import { IconType } from "./IconType";

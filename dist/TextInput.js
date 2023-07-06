@@ -1,5 +1,5 @@
 import React from "react";
-import { createJSStyles } from "./Palette";
+import { createJSStyles } from "./Styles";
 import { BaseInput } from "./BaseInput";
 import { Icon } from "./Icon";
 import { Row } from "./Row";

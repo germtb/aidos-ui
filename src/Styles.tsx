@@ -130,22 +130,31 @@ const aliases: {
   },
 };
 
-// const identifiers = new Map<string, string>();
+const identifiers = new Map<string, string>();
 
-function identifier(string: string): string {
-  return `x${hash(string)}`;
-  // TODO: This breaks for some reason
-  // const hashed_string = hash(string);
-
-  // if (identifiers.has(hashed_string)) {
-  //   return identifiers.get(hashed_string);
-  // } else {
-  //   identifiers.set(hashed_string, numberToBase(identifiers.size));
-  //   return identifiers.get(hashed_string);
-  // }
+function identifier(
+  string: string,
+  { useIncrementalIdentifiers }: { useIncrementalIdentifiers: boolean }
+): string {
+  if (useIncrementalIdentifiers) {
+    const hashed_string = hash(string);
+    if (identifiers.has(hashed_string)) {
+      return identifiers.get(hashed_string);
+    } else {
+      identifiers.set(hashed_string, numberToBase(identifiers.size));
+      return identifiers.get(hashed_string);
+    }
+  } else {
+    return `x${hash(string)}`;
+  }
 }
 
-export function createJSStyle(styles: Styles): Styles {
+export function createJSStyle(
+  styles: Styles,
+  { useIncrementalIdentifiers }: { useIncrementalIdentifiers: boolean } = {
+    useIncrementalIdentifiers: false,
+  }
+): Styles {
   const stylesStack = Object.entries(styles);
 
   while (stylesStack.length) {
@@ -161,14 +170,14 @@ export function createJSStyle(styles: Styles): Styles {
     }
 
     if (typeof value === "number") {
-      const id = identifier(`${key}${value}`);
+      const id = identifier(`${key}${value}`, { useIncrementalIdentifiers });
       stylesheet[key][value] = {
         className: id,
         selector: `.${id}`,
         type: "SIMPLE",
       };
     } else if (typeof value === "string") {
-      const id = identifier(`${key}${value}`);
+      const id = identifier(`${key}${value}`, { useIncrementalIdentifiers });
       stylesheet[key][value] = {
         className: id,
         selector: `.${id}`,
@@ -176,7 +185,9 @@ export function createJSStyle(styles: Styles): Styles {
       };
     } else if (typeof value === "object" && key.startsWith("@media")) {
       const hashedValue = hash(JSON.stringify(value, null, 2));
-      const id = identifier(`${key}${hashedValue}`);
+      const id = identifier(`${key}${hashedValue}`, {
+        useIncrementalIdentifiers,
+      });
       stylesheet[key][hashedValue] = {
         className: id,
         media: key,
@@ -186,7 +197,9 @@ export function createJSStyle(styles: Styles): Styles {
       };
     } else if (typeof value === "object") {
       const hashedValue = hash(JSON.stringify(value, null, 2));
-      const id = identifier(`${key}${hashedValue}`);
+      const id = identifier(`${key}${hashedValue}`, {
+        useIncrementalIdentifiers,
+      });
       stylesheet[key][hashedValue] = {
         className: id,
         selector: `.${id}${key}`,
@@ -310,9 +323,7 @@ const toPixelValue = (key, value) => {
     return sValue;
   }
 
-  return pixelStyles.has(key) &&
-    !value.toString().includes("%") &&
-    Number.isInteger(parseInt(value, 10))
+  return pixelStyles.has(key) && Number.isInteger(parseInt(value, 10))
     ? `${value}px`
     : value;
 };
@@ -532,40 +543,15 @@ body {
   background-color: var(--primary-background);
 }
 
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-textarea:-webkit-autofill:active,
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  box-shadow: 0 0 0 30px var(--primary-background) inset !important;
-  -webkit-box-shadow: 0 0 0 30px var(--primary-background) inset !important;
-  -webkit-text-fill-color: var(--secondary-text) !important;
-}
-
 ul,
+ol,
 li {
   list-style: none;
 }
 
-input[type="date"]::-webkit-inner-spin-button,
-input[type="date"]::-webkit-calendar-picker-indicator {
-  margin-left: -10px;
-}
-
-@keyframes fadeOut {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
 `;
 
-export const PaletteProvider = ({
+export const StylesProvider = ({
   children,
   themes,
 }: {
@@ -858,17 +844,42 @@ export const getBorder = (direction?: "top" | "bottom" | "left" | "right") => {
   return borderStyles[direction];
 };
 
-export const getDisplayMedia = (styles: {
-  phone: Styles;
-  tablet: Styles;
-  laptop: Styles;
-  desktop: Styles;
+export const MOBILE = 750;
+export const TABLET = 1000;
+export const LAPTOP = 1200;
+
+export const withMedia = (styles: {
+  phone?: Styles;
+  tablet?: Styles;
+  laptop?: Styles;
+  desktop?: Styles;
 }) => {
+  const phone = styles.phone
+    ? {
+        [`@media (min-width: 0px) and (max-width: ${MOBILE}px)`]: styles.phone,
+      }
+    : {};
+  const tablet = styles.tablet
+    ? {
+        [`@media (min-width: ${MOBILE}px) and (max-width: ${TABLET}px)`]:
+          styles.tablet,
+      }
+    : {};
+  const laptop = styles.laptop
+    ? {
+        [`@media (min-width: ${TABLET}px) and (max-width: ${LAPTOP}px)`]:
+          styles.laptop,
+      }
+    : {};
+  const desktop = styles.desktop
+    ? { [`@media (min-width: ${LAPTOP}px)`]: styles.desktop }
+    : {};
+
   return {
-    ["@media (min-width: 0px) and (max-width: 750px)"]: styles.phone,
-    ["@media (min-width: 750px) and (max-width: 1000px)"]: styles.tablet,
-    ["@media (min-width: 1000px) and (max-width: 1200px)"]: styles.laptop,
-    ["@media (min-width: 1200px)"]: styles.desktop,
+    ...phone,
+    ...tablet,
+    ...laptop,
+    ...desktop,
   };
 };
 

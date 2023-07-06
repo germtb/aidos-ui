@@ -1,5 +1,5 @@
 import React, { useId } from "react";
-import { createClassNames } from "./Palette";
+import { createClassNames } from "./Styles";
 export const BaseInput = React.forwardRef(({ jsStyle, labelContent, ...otherProps }, ref) => {
     const id = useId();
     return (React.createElement(React.Fragment, null,

@@ -1,7 +1,7 @@
 import React from "react";
 import { BaseButton } from "./BaseButton";
 import { Icon } from "./Icon";
-import { createJSStyles } from "./Palette";
+import { createJSStyles } from "./Styles";
 const jsStyles = createJSStyles({
     button: {
         display: "flex",

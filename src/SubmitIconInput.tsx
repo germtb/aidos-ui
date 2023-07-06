@@ -3,7 +3,7 @@ import { BaseInput, BaseInputProps } from "./BaseInput";
 import { Box } from "./Box";
 import { Icon } from "./Icon";
 import { IconType } from "./IconType";
-import { createJSStyles } from "./Palette";
+import { createJSStyles } from "./Styles";
 
 const jsStyles = createJSStyles({
   button: {

@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { createClassNames, createJSStyles, TextColor } from "./Palette";
+import { createClassNames, createJSStyles, TextColor } from "./Styles";
 import { Text } from "./Text";
 
 const jsStyles = createJSStyles({

@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { Color, Position, Size, Spacing, TextColor } from "./Palette";
+import { Color, Position, Size, Spacing, TextColor } from "./Styles";
 import { BaseListRowProps } from "./BaseListRow";
 import { InterctableColor } from "./Interactable";
 interface ListPressableRow extends BaseListRowProps {

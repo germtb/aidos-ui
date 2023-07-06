@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { StackContextProvider } from "./StackContext";
-import { createJSStyles } from "./Palette";
+import { createJSStyles } from "./Styles";
 import { Column } from "./Column";
 import { ListDivider } from "./ListDivider";
 import { BaseView } from "./BaseView";

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { queryFocusables } from "./aria";
 import { BaseView } from "./BaseView";
-import { createClassNames, createJSStyles } from "./Palette";
+import { createClassNames, createJSStyles } from "./Styles";
 import { useRefEffect } from "./useRefEffect";
 const jsStyles = createJSStyles({
     root: {

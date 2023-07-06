@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { JSStyles } from "./Palette";
+import { JSStyles } from "./Styles";
 export declare function Dropdown<T>({ id, label, options, selection, setSelection, jsStyle, }: {
     id?: string;
     label: string;

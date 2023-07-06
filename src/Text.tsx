@@ -5,7 +5,7 @@ import {
   TextColor,
   Size,
   getTextColor,
-} from "./Palette";
+} from "./Styles";
 
 const jsStyles = createJSStyles({
   root: {},

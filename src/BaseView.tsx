@@ -1,5 +1,5 @@
 import React from "react";
-import { createClassNames, createJSStyles, JSStyles } from "./Palette";
+import { createClassNames, createJSStyles, JSStyles } from "./Styles";
 
 const jsStyles = createJSStyles({
   relative: {

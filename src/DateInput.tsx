@@ -3,7 +3,7 @@ import { BaseInput, BaseInputProps } from "./BaseInput";
 import { Box } from "./Box";
 import { Icon } from "./Icon";
 import { IconType } from "./IconType";
-import { createJSStyles, JSStyles } from "./Palette";
+import { createJSStyles, JSStyles } from "./Styles";
 import { Row } from "./Row";
 
 export interface DateInputProps extends BaseInputProps {

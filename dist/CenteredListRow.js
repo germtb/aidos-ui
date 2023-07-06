@@ -1,6 +1,6 @@
 import React from "react";
 import { BaseListRow } from "./BaseListRow";
-import { createJSStyles, grow } from "./Palette";
+import { createJSStyles, grow } from "./Styles";
 const jsStyles = createJSStyles({
     root: {
         position: "relative",

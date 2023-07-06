@@ -1,5 +1,5 @@
 import React from "react";
-import { getBackground, createJSStyles } from "./Palette";
+import { getBackground, createJSStyles } from "./Styles";
 import { BaseView } from "./BaseView";
 const jsStyles = createJSStyles({
     xsmall: {

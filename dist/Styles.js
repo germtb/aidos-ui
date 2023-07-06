@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { hash } from "./hash";
+import { numberToBase } from "./numberToBase";
 const stylesheet = {};
 const aliases = {
     margin: (value) => {
@@ -39,19 +40,25 @@ const aliases = {
         }
     },
 };
-// const identifiers = new Map<string, string>();
-function identifier(string) {
-    return `x${hash(string)}`;
-    // TODO: This breaks for some reason
-    // const hashed_string = hash(string);
-    // if (identifiers.has(hashed_string)) {
-    //   return identifiers.get(hashed_string);
-    // } else {
-    //   identifiers.set(hashed_string, numberToBase(identifiers.size));
-    //   return identifiers.get(hashed_string);
-    // }
+const identifiers = new Map();
+function identifier(string, { useIncrementalIdentifiers }) {
+    if (useIncrementalIdentifiers) {
+        const hashed_string = hash(string);
+        if (identifiers.has(hashed_string)) {
+            return identifiers.get(hashed_string);
+        }
+        else {
+            identifiers.set(hashed_string, numberToBase(identifiers.size));
+            return identifiers.get(hashed_string);
+        }
+    }
+    else {
+        return `x${hash(string)}`;
+    }
 }
-export function createJSStyle(styles) {
+export function createJSStyle(styles, { useIncrementalIdentifiers } = {
+    useIncrementalIdentifiers: false,
+}) {
     const stylesStack = Object.entries(styles);
     while (stylesStack.length) {
         const [key, value] = stylesStack.pop();
@@ -63,7 +70,7 @@ export function createJSStyle(styles) {
             stylesheet[key] = {};
         }
         if (typeof value === "number") {
-            const id = identifier(`${key}${value}`);
+            const id = identifier(`${key}${value}`, { useIncrementalIdentifiers });
             stylesheet[key][value] = {
                 className: id,
                 selector: `.${id}`,
@@ -71,7 +78,7 @@ export function createJSStyle(styles) {
             };
         }
         else if (typeof value === "string") {
-            const id = identifier(`${key}${value}`);
+            const id = identifier(`${key}${value}`, { useIncrementalIdentifiers });
             stylesheet[key][value] = {
                 className: id,
                 selector: `.${id}`,
@@ -80,7 +87,9 @@ export function createJSStyle(styles) {
         }
         else if (typeof value === "object" && key.startsWith("@media")) {
             const hashedValue = hash(JSON.stringify(value, null, 2));
-            const id = identifier(`${key}${hashedValue}`);
+            const id = identifier(`${key}${hashedValue}`, {
+                useIncrementalIdentifiers,
+            });
             stylesheet[key][hashedValue] = {
                 className: id,
                 media: key,
@@ -91,7 +100,9 @@ export function createJSStyle(styles) {
         }
         else if (typeof value === "object") {
             const hashedValue = hash(JSON.stringify(value, null, 2));
-            const id = identifier(`${key}${hashedValue}`);
+            const id = identifier(`${key}${hashedValue}`, {
+                useIncrementalIdentifiers,
+            });
             stylesheet[key][hashedValue] = {
                 className: id,
                 selector: `.${id}${key}`,
@@ -198,9 +209,7 @@ const toPixelValue = (key, value) => {
     if (sValue.includes("%") || sValue.includes("v") || sValue.includes("px")) {
         return sValue;
     }
-    return pixelStyles.has(key) &&
-        !value.toString().includes("%") &&
-        Number.isInteger(parseInt(value, 10))
+    return pixelStyles.has(key) && Number.isInteger(parseInt(value, 10))
         ? `${value}px`
         : value;
 };
@@ -363,39 +372,14 @@ body {
   background-color: var(--primary-background);
 }
 
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-textarea:-webkit-autofill:active,
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-  box-shadow: 0 0 0 30px var(--primary-background) inset !important;
-  -webkit-box-shadow: 0 0 0 30px var(--primary-background) inset !important;
-  -webkit-text-fill-color: var(--secondary-text) !important;
-}
-
 ul,
+ol,
 li {
   list-style: none;
 }
 
-input[type="date"]::-webkit-inner-spin-button,
-input[type="date"]::-webkit-calendar-picker-indicator {
-  margin-left: -10px;
-}
-
-@keyframes fadeOut {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
 `;
-export const PaletteProvider = ({ children, themes, }) => {
+export const StylesProvider = ({ children, themes, }) => {
     const stylesheetRef = useRef(null);
     if (stylesheetRef.current == null) {
         stylesheetRef.current = generateStylesheet(themes);
@@ -657,12 +641,33 @@ export const getBorder = (direction) => {
     }
     return borderStyles[direction];
 };
-export const getDisplayMedia = (styles) => {
+export const MOBILE = 750;
+export const TABLET = 1000;
+export const LAPTOP = 1200;
+export const withMedia = (styles) => {
+    const phone = styles.phone
+        ? {
+            [`@media (min-width: 0px) and (max-width: ${MOBILE}px)`]: styles.phone,
+        }
+        : {};
+    const tablet = styles.tablet
+        ? {
+            [`@media (min-width: ${MOBILE}px) and (max-width: ${TABLET}px)`]: styles.tablet,
+        }
+        : {};
+    const laptop = styles.laptop
+        ? {
+            [`@media (min-width: ${TABLET}px) and (max-width: ${LAPTOP}px)`]: styles.laptop,
+        }
+        : {};
+    const desktop = styles.desktop
+        ? { [`@media (min-width: ${LAPTOP}px)`]: styles.desktop }
+        : {};
     return {
-        ["@media (min-width: 0px) and (max-width: 750px)"]: styles.phone,
-        ["@media (min-width: 750px) and (max-width: 1000px)"]: styles.tablet,
-        ["@media (min-width: 1000px) and (max-width: 1200px)"]: styles.laptop,
-        ["@media (min-width: 1200px)"]: styles.desktop,
+        ...phone,
+        ...tablet,
+        ...laptop,
+        ...desktop,
     };
 };
 const textColorStyles = createJSStyles({
@@ -691,4 +696,4 @@ const textColorStyles = createJSStyles({
 export const getTextColor = (color) => {
     return textColorStyles[color];
 };
-//# sourceMappingURL=Palette.js.map
+//# sourceMappingURL=Styles.js.map

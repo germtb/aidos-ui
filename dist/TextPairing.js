@@ -1,5 +1,5 @@
 import React from "react";
-import { createJSStyles, } from "./Palette";
+import { createJSStyles, } from "./Styles";
 import { Text } from "./Text";
 import { Row } from "./Row";
 import { BaseView } from "./BaseView";

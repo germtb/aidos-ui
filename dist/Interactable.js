@@ -1,4 +1,4 @@
-import { createJSStyles, getPadding } from "./Palette";
+import { createJSStyles, getPadding } from "./Styles";
 const jsStyles = createJSStyles({
     root: {
         cursor: "pointer",

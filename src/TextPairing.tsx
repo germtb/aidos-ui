@@ -7,7 +7,7 @@ import {
   TextColor,
   Size,
   Padding,
-} from "./Palette";
+} from "./Styles";
 import { Display, Text, TextType } from "./Text";
 import { Row } from "./Row";
 import { BaseView } from "./BaseView";

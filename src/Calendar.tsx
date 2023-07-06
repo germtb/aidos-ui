@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { createJSStyles, JSStyles } from "./Palette";
+import { createJSStyles, JSStyles } from "./Styles";
 import { BaseView } from "./BaseView";
 
 const jsStyles = createJSStyles({

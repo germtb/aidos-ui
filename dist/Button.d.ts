@@ -1,5 +1,5 @@
 import React from "react";
-import { Align, Justify, Gap, Size } from "./Palette";
+import { Align, Justify, Gap, Size } from "./Styles";
 import { BaseButtonProps } from "./BaseButton";
 import { IconType } from "./IconType";
 import { FlexLayoutProps } from "./FlexLayout";

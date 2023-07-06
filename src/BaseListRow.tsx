@@ -5,7 +5,7 @@ import {
   getBackground,
   Color,
   Padding,
-} from "./Palette";
+} from "./Styles";
 import { ListDivider } from "./ListDivider";
 import { Row, RowProps } from "./Row";
 

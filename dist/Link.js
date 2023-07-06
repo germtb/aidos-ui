@@ -1,5 +1,5 @@
 import React from "react";
-import { createJSStyles, grow, getPadding, } from "./Palette";
+import { createJSStyles, grow, getPadding, } from "./Styles";
 import { BaseLink } from "./BaseLink";
 import { Text } from "./Text";
 import { Row } from "./Row";

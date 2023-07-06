@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { DarkModeProvider } from "./DarkModeStore";
 import { DialogProvider } from "./Dialog";
 import { initializeIcons } from "./Icon";
-import { darkTheme, lightTheme, PaletteProvider, Theme } from "./Palette";
+import { darkTheme, lightTheme, StylesProvider, Theme } from "./Styles";
 import { useCookie } from "./useCookie";
 
 export function Providers({
@@ -26,10 +26,10 @@ export function Providers({
   }, []);
 
   return (
-    <PaletteProvider themes={themes}>
+    <StylesProvider themes={themes}>
       <DarkModeProvider enabled={darkModeEnabled} toggle={toggleDarkMode}>
         <DialogProvider>{children}</DialogProvider>
       </DarkModeProvider>
-    </PaletteProvider>
+    </StylesProvider>
   );
 }

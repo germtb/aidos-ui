@@ -2,7 +2,7 @@ import React from "react";
 import { BaseInput } from "./BaseInput";
 import { Box } from "./Box";
 import { Icon } from "./Icon";
-import { createJSStyles } from "./Palette";
+import { createJSStyles } from "./Styles";
 import { Row } from "./Row";
 const jsStyles = createJSStyles({
     root: {

@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { queryFocusables } from "./aria";
 
 import { BaseView } from "./BaseView";
-import { createClassNames, createJSStyles, JSStyles } from "./Palette";
+import { createClassNames, createJSStyles, JSStyles } from "./Styles";
 import { useRefEffect } from "./useRefEffect";
 
 const jsStyles = createJSStyles({

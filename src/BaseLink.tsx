@@ -1,5 +1,5 @@
 import React from "react";
-import { JSStyles, createClassNames, Padding, createJSStyles } from "./Palette";
+import { JSStyles, createClassNames, Padding, createJSStyles } from "./Styles";
 import { InterctableColor, getInteractableJSStyles } from "./Interactable";
 
 export interface BaseLinkProps

@@ -1,5 +1,5 @@
 import React from "react";
-import { createJSStyles, createClassNames, getTextColor, } from "./Palette";
+import { createJSStyles, createClassNames, getTextColor, } from "./Styles";
 const jsStyles = createJSStyles({
     root: {},
     ellipsis: {

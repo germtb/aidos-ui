@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { BaseView } from "./BaseView";
-import { createClassNames, createJSStyles } from "./Palette";
+import { createClassNames, createJSStyles } from "./Styles";
 import { useRefEffect } from "./useRefEffect";
 import { Text } from "./Text";
 const jsStyles = createJSStyles({

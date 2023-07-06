@@ -1,5 +1,5 @@
 import React from "react";
-import { createClassNames, createJSStyles } from "./Palette";
+import { createClassNames, createJSStyles } from "./Styles";
 import { getInteractableJSStyles } from "./Interactable";
 const jsStyles = createJSStyles({
     root: {

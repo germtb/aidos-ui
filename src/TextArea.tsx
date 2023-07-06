@@ -1,5 +1,5 @@
 import React from "react";
-import { createClassNames, JSStyles, createJSStyles } from "./Palette";
+import { createClassNames, JSStyles, createJSStyles } from "./Styles";
 
 export interface TextAreaProps
   extends React.InputHTMLAttributes<HTMLTextAreaElement> {

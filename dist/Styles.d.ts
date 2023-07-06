@@ -21,7 +21,9 @@ export type FlatStyles = Styles & {
         [key: string]: Styles;
     };
 };
-export declare function createJSStyle(styles: Styles): Styles;
+export declare function createJSStyle(styles: Styles, { useIncrementalIdentifiers }?: {
+    useIncrementalIdentifiers: boolean;
+}): Styles;
 export declare const createJSStyles: <T extends {
     [key: string]: Styles | {
         [key: string]: Styles;
@@ -69,7 +71,7 @@ export type Theme = {
 };
 export declare const lightTheme: Theme;
 export declare const darkTheme: Theme;
-export declare const PaletteProvider: ({ children, themes, }: {
+export declare const StylesProvider: ({ children, themes, }: {
     children: ReactNode;
     themes: {
         light: Theme;
@@ -222,16 +224,16 @@ export declare const getBorder: (direction?: "top" | "bottom" | "left" | "right"
 } | {
     border: string;
 };
-export declare const getDisplayMedia: (styles: {
-    phone: Styles;
-    tablet: Styles;
-    laptop: Styles;
-    desktop: Styles;
+export declare const MOBILE = 750;
+export declare const TABLET = 1000;
+export declare const LAPTOP = 1200;
+export declare const withMedia: (styles: {
+    phone?: Styles;
+    tablet?: Styles;
+    laptop?: Styles;
+    desktop?: Styles;
 }) => {
-    "@media (min-width: 0px) and (max-width: 750px)": Styles;
-    "@media (min-width: 750px) and (max-width: 1000px)": Styles;
-    "@media (min-width: 1000px) and (max-width: 1200px)": Styles;
-    "@media (min-width: 1200px)": Styles;
+    [x: string]: Styles;
 };
 export declare const getTextColor: (color: TextColor) => {
     color: "var(--primary-text)";

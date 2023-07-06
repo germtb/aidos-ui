@@ -1,5 +1,5 @@
 import React, { ReactNode, useId, useMemo } from "react";
-import { createClassNames, JSStyles } from "./Palette";
+import { createClassNames, JSStyles } from "./Styles";
 
 export interface BaseInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {

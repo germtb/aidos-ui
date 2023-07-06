@@ -1,5 +1,5 @@
 import React from "react";
-import { JSStyles, Padding } from "./Palette";
+import { JSStyles, Padding } from "./Styles";
 import { InterctableColor } from "./Interactable";
 export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     onPress: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;

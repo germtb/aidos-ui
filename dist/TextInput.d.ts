@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { JSStyles, Padding } from "./Palette";
+import { JSStyles, Padding } from "./Styles";
 import { BaseInputProps } from "./BaseInput";
 import { IconType } from "./IconType";
 export interface TextInputProps extends BaseInputProps {

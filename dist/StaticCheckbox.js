@@ -1,5 +1,5 @@
 import React from "react";
-import { createJSStyles, createClassNames } from "./Palette";
+import { createJSStyles, createClassNames } from "./Styles";
 import { BaseView } from "./BaseView";
 import { Icon } from "./Icon";
 const jsStyles = createJSStyles({

@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { Size, TextColor } from "./Palette";
+import { Size, TextColor } from "./Styles";
 import { BaseListRowProps } from "./BaseListRow";
 interface ListStaticRow extends BaseListRowProps {
     headline: string;

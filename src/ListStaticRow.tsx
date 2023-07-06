@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { createJSStyles, Size, TextColor } from "./Palette";
+import { createJSStyles, Size, TextColor } from "./Styles";
 import { TextPairing } from "./TextPairing";
 import { BaseView } from "./BaseView";
 import { BaseListRow, BaseListRowProps } from "./BaseListRow";

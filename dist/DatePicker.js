@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { createClassNames, createJSStyles } from "./Palette";
+import { createClassNames, createJSStyles } from "./Styles";
 import { Text } from "./Text";
 const jsStyles = createJSStyles({
     dateInput: {

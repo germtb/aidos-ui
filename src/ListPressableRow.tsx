@@ -6,7 +6,7 @@ import {
   Size,
   Spacing,
   TextColor,
-} from "./Palette";
+} from "./Styles";
 import { BaseButton } from "./BaseButton";
 import { TextPairing } from "./TextPairing";
 import { BaseListRow, BaseListRowProps } from "./BaseListRow";

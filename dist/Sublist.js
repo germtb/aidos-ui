@@ -1,5 +1,5 @@
 import React from "react";
-import { createJSStyles } from "./Palette";
+import { createJSStyles } from "./Styles";
 import { ListPressableRow } from "./ListPressableRow";
 import { Icon } from "./Icon";
 import { Box } from "./Box";

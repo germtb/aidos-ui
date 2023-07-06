@@ -1,5 +1,5 @@
 import React from "react";
-import { Align, FlexDirection, Padding, Justify, Gap } from "./Palette";
+import { Align, FlexDirection, Padding, Justify, Gap } from "./Styles";
 import { BaseViewProps } from "./BaseView";
 export interface FlexLayoutProps extends BaseViewProps {
     justify?: Justify;

@@ -1,5 +1,5 @@
 import React from "react";
-import { JSStyles } from "./Palette";
+import { JSStyles } from "./Styles";
 export interface BaseViewProps extends React.HTMLAttributes<HTMLElement> {
     jsStyle?: JSStyles;
     ref?: React.Ref<HTMLDivElement>;

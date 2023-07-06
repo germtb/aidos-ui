@@ -1,6 +1,6 @@
 import React from "react";
 import { BaseView } from "./BaseView";
-import { createJSStyles } from "./Palette";
+import { createJSStyles } from "./Styles";
 const jsStyles = createJSStyles({
     root: {
         backgroundColor: "var(--primary-background)",

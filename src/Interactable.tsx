@@ -1,4 +1,4 @@
-import { createJSStyles, Padding, getPadding, TextColor } from "./Palette";
+import { createJSStyles, Padding, getPadding, TextColor } from "./Styles";
 
 export type InterctableColor = "positive" | "secondary" | "negative";
 

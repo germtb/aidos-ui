@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { BaseView } from "./BaseView";
 import { guid } from "./guid";
 import { Button } from "./Button";
-import { getBackground, createJSStyles, grow, JSStyles } from "./Palette";
+import { getBackground, createJSStyles, grow, JSStyles } from "./Styles";
 import { Column } from "./Column";
 import { useNavigation } from "./useNavigation";
 import { useRefEffect } from "./useRefEffect";

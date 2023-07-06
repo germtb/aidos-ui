@@ -1,5 +1,5 @@
 import React from "react";
-import { createClassNames, createJSStyles } from "./Palette";
+import { createClassNames, createJSStyles } from "./Styles";
 const jsStyles = createJSStyles({
     root: {
         backgroundColor: "var(--secondary-background)",

@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { Theme } from "./Palette";
+import { Theme } from "./Styles";
 export declare function Providers({ children, themes, }: {
     children: JSX.Element;
     themes?: {

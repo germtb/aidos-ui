@@ -8,7 +8,7 @@ import {
   Size,
   TextColor,
   getPadding,
-} from "./Palette";
+} from "./Styles";
 import { BaseLink, BaseLinkProps } from "./BaseLink";
 import { Text } from "./Text";
 import { IconType } from "./IconType";

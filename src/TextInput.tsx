@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { createJSStyles, JSStyles, Padding } from "./Palette";
+import { createJSStyles, JSStyles, Padding } from "./Styles";
 import { BaseInput, BaseInputProps } from "./BaseInput";
 import { IconType } from "./IconType";
 import { Icon } from "./Icon";

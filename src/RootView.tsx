@@ -1,6 +1,6 @@
 import React, { ReactNode, useRef, useCallback } from "react";
 
-import { createJSStyles } from "./Palette";
+import { createJSStyles } from "./Styles";
 import { Column } from "./Column";
 import { useIsTopOfStack } from "./StackContext";
 import { queryFocusables } from "./aria";

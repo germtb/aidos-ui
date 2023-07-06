@@ -1,6 +1,6 @@
 import React from "react";
 import { BaseInput, BaseInputProps } from "./BaseInput";
-import { createJSStyles, createClassNames, Size } from "./Palette";
+import { createJSStyles, createClassNames, Size } from "./Styles";
 import { BaseView } from "./BaseView";
 import { Icon } from "./Icon";
 
