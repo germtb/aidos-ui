@@ -148,7 +148,8 @@ export const jss = (jsStyle: JSStyle): string => {
       continue;
     }
 
-    const selector = numberToBase(rawHashMap.size);
+    // const selector = numberToBase(rawHashMap.size);
+    const selector = `x${rawHash}`;
     rawHashMap.set(rawHash, selector);
     classNames.push(selector);
 
