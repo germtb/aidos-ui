@@ -1,10 +1,4 @@
-import CSS from "csstype";
-import React, { ReactNode, useRef } from "react";
-
-import { hash } from "./hash";
-import { numberToBase } from "./numberToBase";
-
-type StylesValueType = string | number | CSS.Properties<string | number>;
+import { ReactNode, useEffect, useRef, useState } from "react";
 
 export type Size = "xsmall" | "small" | "medium" | "large" | "xlarge";
 
@@ -50,350 +44,6 @@ export type TextColor =
   | "subtle"
   | "light"
   | "inherit";
-
-export type Styles = CSS.Properties<
-  string | number | CSS.Properties<string | number>
->;
-
-type Stylesheet = {
-  [cssProp: string]: {
-    [cssValue: string]:
-      | {
-          className: string;
-          selector: string;
-          type: "SIMPLE";
-        }
-      | {
-          className: string;
-          media: string;
-          selector: string;
-          type: "MEDIA";
-          style: CSS.Properties<string | number>;
-        }
-      | {
-          className: string;
-          selector: string;
-          type: "NESTED";
-          style: CSS.Properties<string | number>;
-        };
-  };
-};
-
-export type JSStyle =
-  | Styles
-  | null
-  | false
-  | undefined
-  | { [key: string]: Styles }
-  | Array<JSStyle>;
-
-export type FlatStyles = Styles & { other: { [key: string]: Styles } };
-
-const stylesheet: Stylesheet = {};
-
-const aliases: {
-  [alias: string]: (value: StylesValueType) => [string, StylesValueType][];
-} = {
-  margin: (value) => {
-    return [
-      ["margin-top", value],
-      ["margin-bottom", value],
-      ["margin-left", value],
-      ["margin-right", value],
-    ];
-  },
-  padding: (value) => {
-    return [
-      ["padding-top", value],
-      ["padding-bottom", value],
-      ["padding-left", value],
-      ["padding-right", value],
-    ];
-  },
-  border: (value) => {
-    if (value === "none") {
-      return [
-        ["border-width", 0],
-        ["border-style", "none"],
-        ["border-color", "currentcolor"],
-      ];
-    } else if (typeof value === "string") {
-      const matches = Array.from(value.matchAll(/(.+) (.+) (.+)$/g))[0];
-      return [
-        ["border-width", matches[1]],
-        ["border-style", matches[2]],
-        ["border-color", matches[3]],
-      ];
-    } else {
-      throw new Error("Cannot parse the value assigned to 'border'");
-    }
-  },
-};
-
-const identifiers = new Map<string, string>();
-
-function identifier(
-  string: string,
-  { useIncrementalIdentifiers }: { useIncrementalIdentifiers: boolean }
-): string {
-  if (useIncrementalIdentifiers) {
-    const hashed_string = hash(string);
-    if (identifiers.has(hashed_string)) {
-      return identifiers.get(hashed_string);
-    } else {
-      identifiers.set(hashed_string, numberToBase(identifiers.size));
-      return identifiers.get(hashed_string);
-    }
-  } else {
-    return `x${hash(string)}`;
-  }
-}
-
-function addToStylesheet(
-  styles: Styles,
-  { useIncrementalIdentifiers }: { useIncrementalIdentifiers: boolean } = {
-    useIncrementalIdentifiers: false,
-  }
-): Styles {
-  const stylesStack = Object.entries(styles);
-
-  while (stylesStack.length) {
-    const [key, value] = stylesStack.pop();
-
-    if (aliases[key]) {
-      stylesStack.push(...aliases[key](value));
-      continue;
-    }
-
-    if (stylesheet[key] == null) {
-      stylesheet[key] = {};
-    }
-
-    if (typeof value === "number") {
-      const id = identifier(`${key}${value}`, { useIncrementalIdentifiers });
-      stylesheet[key][value] = {
-        className: id,
-        selector: `.${id}`,
-        type: "SIMPLE",
-      };
-    } else if (typeof value === "string") {
-      const id = identifier(`${key}${value}`, { useIncrementalIdentifiers });
-      stylesheet[key][value] = {
-        className: id,
-        selector: `.${id}`,
-        type: "SIMPLE",
-      };
-    } else if (typeof value === "object" && key.startsWith("@media")) {
-      const hashedValue = hash(key + JSON.stringify(value, null, 2));
-      const id = identifier(`${key}${hashedValue}`, {
-        useIncrementalIdentifiers,
-      });
-      stylesheet[key][hashedValue] = {
-        className: id,
-        media: key,
-        selector: `.${id}`,
-        type: "MEDIA",
-        style: value,
-      };
-    } else if (typeof value === "object") {
-      const hashedValue = hash(JSON.stringify(value, null, 2));
-      const id = identifier(`${key}${hashedValue}`, {
-        useIncrementalIdentifiers,
-      });
-      stylesheet[key][hashedValue] = {
-        className: id,
-        selector: `.${id}${key}`,
-        type: "NESTED",
-        style: value,
-      };
-    } else {
-      throw new Error("Invalid CSS value");
-    }
-  }
-
-  return styles;
-}
-
-export const createJSStyle = <
-  T extends {
-    [key: string]: Styles | { [key: string]: Styles };
-  }
->(
-  styles: T,
-  { useIncrementalIdentifiers }: { useIncrementalIdentifiers: boolean } = {
-    useIncrementalIdentifiers: false,
-  }
-): T => {
-  for (const style of Object.values(styles)) {
-    addToStylesheet(style, { useIncrementalIdentifiers });
-  }
-
-  return styles;
-};
-
-const flattenJSStyle = (jsStyle: JSStyle): Styles => {
-  if (!jsStyle) {
-    return {};
-  } else if (Array.isArray(jsStyle)) {
-    // @ts-ignore
-    return jsStyle.reduce((acc: Styles, jsStyle: JSStyle) => {
-      return { ...acc, ...flattenJSStyle(jsStyle) };
-    }, {});
-  } else {
-    return jsStyle;
-  }
-};
-
-const aliasStyles = (styles: Styles): Styles => {
-  const aliasedStyles: Styles = {};
-
-  const stack = Object.entries(styles);
-
-  while (stack.length) {
-    const [key, value] = stack.pop();
-
-    const alias = aliases[key];
-
-    if (alias) {
-      stack.push(...alias(value));
-    } else {
-      aliasedStyles[key] = value;
-    }
-  }
-
-  return aliasedStyles;
-};
-
-export const createClassNames = (...styles: Array<JSStyle>): string => {
-  if (styles.length === 0) {
-    return "";
-  }
-
-  const flatStyles = flattenJSStyle(styles);
-  const aliasedStyles: Styles = aliasStyles(flatStyles);
-  const classNames: string[] = [];
-
-  for (const [key, value] of Object.entries(aliasedStyles)) {
-    if (typeof value === "string" || typeof value === "number") {
-      const className = stylesheet[key][value].className;
-      classNames.push(className);
-    } else if (typeof value === "object" && key.startsWith("@media")) {
-      const hashedValue = hash(key + JSON.stringify(value, null, 2));
-      const className = stylesheet[key][hashedValue].className;
-      classNames.push(className);
-    } else if (typeof value === "object") {
-      const hashedValue = hash(JSON.stringify(value, null, 2));
-      const className = stylesheet[key][hashedValue].className;
-      classNames.push(className);
-    } else {
-      throw new Error("Unknown style type");
-    }
-  }
-
-  return classNames.join(" ");
-};
-
-const pixelStyles = new Set([
-  "min-height",
-  "height",
-  "max-height",
-  "min-width",
-  "width",
-  "max-width",
-  "margin",
-  "margin-top",
-  "margin-bottom",
-  "margin-left",
-  "margin-right",
-  "padding",
-  "padding-top",
-  "padding-bottom",
-  "padding-left",
-  "padding-right",
-  "border-radius",
-  "font-size",
-  "top",
-  "bottom",
-  "left",
-  "right",
-  "outline-offset",
-]);
-
-const toPixelValue = (key, value) => {
-  const sValue = value.toString();
-
-  if (sValue.includes("%") || sValue.includes("v") || sValue.includes("px")) {
-    return sValue;
-  }
-
-  return pixelStyles.has(key) && Number.isInteger(parseInt(value, 10))
-    ? `${value}px`
-    : value;
-};
-
-const getCSS = (key, value) => {
-  const cssProp = key.replace(/[A-Z]/g, (m) => "-" + m.toLowerCase());
-  const cssValue = toPixelValue(cssProp, value);
-  return [cssProp, cssValue];
-};
-
-export const generateStylesheet = ({
-  light,
-  dark,
-}: {
-  light: Theme;
-  dark: Theme;
-}) => {
-  const css: string[] = [];
-
-  css.push(baseStyles);
-
-  css.push(`body {
-    color-scheme: light;
-    ${Object.entries(light)
-      .map(([key, value]) => `${key}: ${value};`)
-      .join("\n   ")}
-  }`);
-
-  css.push(`body.dark-mode {
-    color-scheme: dark;
-    ${Object.entries(dark)
-      .map(([key, value]) => `${key}: ${value};`)
-      .join("\n    ")}
-  }`);
-
-  for (const key of Object.keys(stylesheet)) {
-    for (const value of Object.keys(stylesheet[key])) {
-      const style = stylesheet[key][value];
-      const selector = style.selector;
-
-      if (style.type === "SIMPLE") {
-        const [cssProp, cssValue] = getCSS(key, value);
-        css.push(`${selector} { ${cssProp}: ${cssValue}; }`);
-      } else if (style.type === "MEDIA") {
-        const media = style.media;
-        const cssValue = Object.entries(style.style)
-          .map(([key, value]) => {
-            const [cssProp, cssValue] = getCSS(key, value);
-            return `${cssProp}: ${cssValue}; `;
-          })
-          .join(" ");
-        css.push(`${media} { ${selector} { ${cssValue} } }`);
-      } else if (style.type === "NESTED") {
-        const cssValue = Object.entries(style.style)
-          .map(([key, value]) => {
-            const [cssProp, cssValue] = getCSS(key, value);
-            return `${cssProp}: ${cssValue}; `;
-          })
-          .join(" ");
-
-        css.push(`${selector} { ${cssValue} }`);
-      }
-    }
-  }
-
-  return css.join("\n\n");
-};
 
 export type Theme = {
   /* Background */
@@ -518,7 +168,7 @@ export const darkTheme: Theme = {
   ["--nav-bar-height"]: "50px",
 };
 
-const baseStyles = `
+export const baseStyles = `
 * {
   box-sizing: border-box;
   padding: 0;
@@ -554,30 +204,7 @@ li {
 
 `;
 
-export const StylesProvider = ({
-  children,
-  themes,
-}: {
-  children: ReactNode;
-  themes: { light: Theme; dark: Theme };
-}): JSX.Element => {
-  const stylesheetRef = useRef(null);
-
-  if (stylesheetRef.current == null) {
-    stylesheetRef.current = generateStylesheet(themes);
-  }
-
-  return (
-    <>
-      <style
-        dangerouslySetInnerHTML={{ __html: stylesheetRef.current }}
-      ></style>
-      {children}
-    </>
-  );
-};
-
-const backgroundStyles = createJSStyle({
+const backgroundStyles = {
   highlight: {
     backgroundColor: "var(--highlight)",
   },
@@ -599,13 +226,13 @@ const backgroundStyles = createJSStyle({
   inherit: {
     backgroundColor: "inherit",
   },
-});
+};
 
-export const getBackground = (color: Color) => {
+export const getBackground = (color: Color): JSStyle => {
   return backgroundStyles[color];
 };
 
-const justifyStyles = createJSStyle({
+const justifyStyles = {
   ["space-between"]: {
     justifyContent: "space-between",
   },
@@ -621,13 +248,13 @@ const justifyStyles = createJSStyle({
   ["flex-start"]: {
     justifyContent: "flex-start",
   },
-});
+};
 
-export const getJustify = (prop: Justify) => {
+export const getJustify = (prop: Justify): JSStyle => {
   return justifyStyles[prop];
 };
 
-const alignStyles = createJSStyle({
+const alignStyles = {
   ["stretch"]: {
     alignItems: "stretch",
   },
@@ -640,13 +267,13 @@ const alignStyles = createJSStyle({
   ["flex-end"]: {
     alignItems: "flex-end",
   },
-});
+};
 
 export const getAlign = (prop: Align) => {
   return alignStyles[prop];
 };
 
-const gapStyles = createJSStyle({
+const gapStyles = {
   xsmall: {
     gap: "var(--spacing-xs)",
   },
@@ -662,13 +289,13 @@ const gapStyles = createJSStyle({
   xlarge: {
     gap: "var(--spacing-xl)",
   },
-});
+};
 
 export const getGap = (gap: Gap) => {
   return gapStyles[`${gap}`];
 };
 
-export const paddingStyles = createJSStyle({
+export const paddingStyles = {
   xsmall: {
     padding: "var(--spacing-xs)",
   },
@@ -724,9 +351,9 @@ export const paddingStyles = createJSStyle({
     paddingTop: "var(--spacing-xl)",
     paddingBottom: "var(--spacing-xl)",
   },
-});
+};
 
-export const marginStyles = createJSStyle({
+export const marginStyles = {
   xsmall: {
     margin: "var(--spacing-xs)",
   },
@@ -782,7 +409,7 @@ export const marginStyles = createJSStyle({
     marginTop: "var(--spacing-xl)",
     marginBottom: "var(--spacing-xl)",
   },
-});
+};
 
 export const getPadding = (padding: Padding) => {
   if (Array.isArray(padding)) {
@@ -802,11 +429,11 @@ export const getMargin = (margin: Margin) => {
   }
 };
 
-export const grow = createJSStyle({ grow: { flexGrow: 1 } }).grow;
+export const grow = { flexGrow: 1 };
 
-export const shrink = createJSStyle({ shrink: { flexShrink: 1 } });
+export const shrink = { flexShrink: 1 };
 
-const flexStyles = createJSStyle({
+const flexStyles = {
   row: {
     display: "flex",
     flexDirection: "row",
@@ -815,13 +442,13 @@ const flexStyles = createJSStyle({
     display: "flex",
     flexDirection: "column",
   },
-});
+};
 
 export const getFlex = (direction: FlexDirection) => {
   return flexStyles[direction];
 };
 
-const borderStyles = createJSStyle({
+const borderStyles = {
   top: {
     borderTop: "1px solid var(--divider)",
   },
@@ -837,7 +464,7 @@ const borderStyles = createJSStyle({
   all: {
     border: "1px solid var(--divider)",
   },
-});
+};
 
 export const getBorder = (direction?: "top" | "bottom" | "left" | "right") => {
   if (!direction) {
@@ -886,7 +513,7 @@ export const withMedia = (styles: {
   };
 };
 
-const textColorStyles = createJSStyle({
+const textColorStyles = {
   primary: {
     color: "var(--primary-text)",
   },
@@ -908,8 +535,30 @@ const textColorStyles = createJSStyle({
   inherit: {
     color: "inherit",
   },
-});
+};
 
 export const getTextColor = (color: TextColor) => {
   return textColorStyles[color];
 };
+
+export function getBaseStyles(): string[] {
+  const css: string[] = [];
+
+  css.push(baseStyles);
+
+  css.push(`body {
+      color-scheme: light;
+      ${Object.entries(lightTheme)
+        .map(([key, value]) => `${key}: ${value};`)
+        .join("\n   ")}
+    }`);
+
+  css.push(`body.dark-mode {
+      color-scheme: dark;
+      ${Object.entries(darkTheme)
+        .map(([key, value]) => `${key}: ${value};`)
+        .join("\n    ")}
+    }`);
+
+  return css;
+}

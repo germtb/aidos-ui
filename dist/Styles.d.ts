@@ -21,6 +21,7 @@ export type FlatStyles = Styles & {
         [key: string]: Styles;
     };
 };
+export declare const jss: (styles: Styles) => string;
 export declare const createJSStyle: <T extends {
     [key: string]: Styles | {
         [key: string]: Styles;

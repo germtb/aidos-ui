@@ -116,6 +116,59 @@ function addToStylesheet(styles, { useIncrementalIdentifiers } = {
     }
     return styles;
 }
+const rawHashMap = new Map();
+function createStyleNode(content) {
+    const style = document.createElement("style");
+    style.appendChild(document.createTextNode(content));
+    return style;
+}
+export const jss = (styles) => {
+    const stylesStack = Object.entries(styles);
+    const classNames = [];
+    while (stylesStack.length) {
+        const [key, value] = stylesStack.pop();
+        if (aliases[key]) {
+            stylesStack.push(...aliases[key](value));
+            continue;
+        }
+        const rawHash = hash(key + JSON.stringify(value));
+        const cachedSelector = rawHashMap.get(rawHash);
+        if (cachedSelector != null) {
+            classNames.push(cachedSelector);
+            break;
+        }
+        const selector = numberToBase(identifiers.size);
+        classNames.push(selector);
+        rawHashMap.set(rawHash, selector);
+        if (typeof value === "number" || typeof value === "string") {
+            const [cssProp, cssValue] = getCSS(key, value);
+            const style = createStyleNode(`${selector} { ${cssProp}: ${cssValue}; }`);
+            document.head.appendChild(style);
+        }
+        else if (typeof value === "object" && key.startsWith("@media")) {
+            const media = key;
+            const cssValue = Object.entries(value)
+                .map(([key, value]) => {
+                const [cssProp, cssValue] = getCSS(key, value);
+                return `${cssProp}: ${cssValue}; `;
+            })
+                .join(" ");
+            const style = createStyleNode(`${media} { ${selector} { ${cssValue} } }`);
+            document.head.appendChild(style);
+        }
+        else if (typeof value === "object") {
+            const cssValue = Object.entries(value)
+                .map(([key, value]) => {
+                const [cssProp, cssValue] = getCSS(key, value);
+                return `${cssProp}: ${cssValue}; `;
+            })
+                .join(" ");
+            const style = createStyleNode(`${selector} { ${cssValue} }`);
+            document.head.appendChild(style);
+        }
+    }
+    return classNames.join(" ");
+};
 export const createJSStyle = (styles, { useIncrementalIdentifiers } = {
     useIncrementalIdentifiers: false,
 }) => {
@@ -294,16 +347,16 @@ export const lightTheme = {
     ["--background-button-negative"]: "rgb(255, 59, 48)",
     ["--background-button-disabled"]: "rgb(218, 218, 223)",
     /* Spacing */
-    ["--spacing-xs"]: "2px",
-    ["--spacing-s"]: "4px",
-    ["--spacing-m"]: "8px",
-    ["--spacing-l"]: "12px",
-    ["--spacing-xl"]: "16px",
-    ["--spacing-xxl"]: "24px",
-    ["--spacing-xxxl"]: "32px",
-    ["--border-radius-s"]: "2px",
-    ["--border-radius-m"]: "4px",
-    ["--border-radius-l"]: "8px",
+    ["--spacing-xs"]: "0.125rem",
+    ["--spacing-s"]: "0.25rem",
+    ["--spacing-m"]: "0.5rem",
+    ["--spacing-l"]: "0.75px",
+    ["--spacing-xl"]: "1rem",
+    ["--spacing-xxl"]: "1.5px",
+    ["--spacing-xxxl"]: "2rem",
+    ["--border-radius-s"]: "0.125rem",
+    ["--border-radius-m"]: "0.25rem",
+    ["--border-radius-l"]: "0.5rem",
     ["--nav-bar-height"]: "50px",
 };
 export const darkTheme = {
