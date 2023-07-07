@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
-import { createClassNames, createJSStyle, TextColor } from "./Styles";
 import { Text } from "./Text";
+import { TextColor, jss } from "./JSS";
 
-const jsStyles = createJSStyle({
+const jsStyles = {
   dateInput: {
     border: "1px solid var(--divider)",
     backgroundColor: "var(--primary-background)",
@@ -11,7 +11,7 @@ const jsStyles = createJSStyle({
     fontSize: 20,
     lineHeight: 24 / 20,
   },
-});
+};
 
 export interface DatePickerProps {
   id: string;
@@ -47,7 +47,7 @@ export function DatePicker({
       <input
         min={min}
         max={max}
-        className={createClassNames(jsStyles.dateInput)}
+        className={jss(jsStyles.dateInput)}
         type="date"
         id={id}
         value={date.toISOString().substring(0, 10)}

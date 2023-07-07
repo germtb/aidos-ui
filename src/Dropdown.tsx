@@ -3,12 +3,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { BaseView } from "./BaseView";
 import { guid } from "./guid";
 import { Button } from "./Button";
-import { getBackground, createJSStyle, grow, JSStyle } from "./Styles";
 import { Column } from "./Column";
 import { useNavigation } from "./useNavigation";
 import { useRefEffect } from "./useRefEffect";
+import { JSStyle, grow, getBackground } from "./JSS";
 
-const jsStyles = createJSStyle({
+const jsStyles: { [key: string]: JSStyle } = {
   root: {
     position: "relative",
     display: "flex",
@@ -27,7 +27,7 @@ const jsStyles = createJSStyle({
     boxShadow: "0px 1px 2px var(--divider)",
     zIndex: 1,
   },
-});
+};
 export function Dropdown<T>({
   id = guid(),
   label,

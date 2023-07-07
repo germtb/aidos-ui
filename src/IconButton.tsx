@@ -1,11 +1,11 @@
 import React from "react";
 import { BaseButton, BaseButtonProps } from "./BaseButton";
 import { Icon } from "./Icon";
-import { createJSStyle, Size, TextColor } from "./Styles";
 import { IconType } from "./IconType";
 import { InterctableColor } from "./Interactable";
+import { Size, TextColor } from "./JSS";
 
-const jsStyles = createJSStyle({
+const jsStyles = {
   button: {
     display: "flex",
     justifyContent: "center",
@@ -41,7 +41,7 @@ const jsStyles = createJSStyle({
     width: 48,
     borderRadius: 24,
   },
-});
+};
 
 export interface IconButtonProps extends BaseButtonProps {
   icon: IconType;

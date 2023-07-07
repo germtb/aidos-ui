@@ -1,6 +1,6 @@
 import React from "react";
-import { JSStyle, createClassNames, Padding, createJSStyle } from "./Styles";
 import { InterctableColor, getInteractableJSStyles } from "./Interactable";
+import { JSStyle, Padding, jss } from "./JSS";
 
 export interface BaseLinkProps
   extends React.LinkHTMLAttributes<HTMLAnchorElement> {
@@ -13,12 +13,6 @@ export interface BaseLinkProps
   animateInteraction?: boolean;
   padding?: Padding;
 }
-
-const jsStyles = createJSStyle({
-  root: {
-    textDecoration: "none",
-  },
-});
 
 export const BaseLink = React.forwardRef(
   (
@@ -51,7 +45,7 @@ export const BaseLink = React.forwardRef(
               }
             : undefined
         }
-        className={createClassNames([
+        className={jss([
           ...getInteractableJSStyles({
             color,
             bare,
@@ -59,7 +53,9 @@ export const BaseLink = React.forwardRef(
             animateInteraction,
             padding,
           }),
-          jsStyles.root,
+          {
+            textDecoration: "none",
+          },
           jsStyle,
         ])}
       >

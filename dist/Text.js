@@ -1,7 +1,6 @@
 import React from "react";
-import { createJSStyle, createClassNames, getTextColor, } from "./Styles";
-const jsStyles = createJSStyle({
-    root: {},
+import { getTextColor, jss } from "./JSS";
+const jsStyles = {
     ellipsis: {
         overflow: "hidden",
         textOverflow: "ellipsis",
@@ -35,13 +34,12 @@ const jsStyles = createJSStyle({
     grow: {
         flexGrow: 1,
     },
-});
+};
 export function Text({ children, color = "primary", size = "medium", align = "none", ellipsis = "default", grow, type: Type = "span", jsStyle, }) {
     if (ellipsis === "default") {
         ellipsis = Type === "span";
     }
-    return (React.createElement(Type, { className: createClassNames([
-            jsStyles.root,
+    return (React.createElement(Type, { className: jss([
             getTextColor(color),
             size === "xsmall" && jsStyles.size1,
             size === "small" && jsStyles.size2,

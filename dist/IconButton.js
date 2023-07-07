@@ -1,8 +1,7 @@
 import React from "react";
 import { BaseButton } from "./BaseButton";
 import { Icon } from "./Icon";
-import { createJSStyle } from "./Styles";
-const jsStyles = createJSStyle({
+const jsStyles = {
     button: {
         display: "flex",
         justifyContent: "center",
@@ -38,7 +37,7 @@ const jsStyles = createJSStyle({
         width: 48,
         borderRadius: 24,
     },
-});
+};
 const getIconColor = (color, disabled, bare) => {
     if (disabled) {
         return "subtle";

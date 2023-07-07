@@ -1,18 +1,18 @@
 import React, { ReactNode } from "react";
-import { createJSStyle, JSStyle, Color, TextColor } from "./Styles";
 import { ListPressableRow } from "./ListPressableRow";
 import { Icon } from "./Icon";
 import { Box } from "./Box";
 import { Row } from "./Row";
+import { JSStyle } from "./JSS";
 
-const jsStyles = createJSStyle({
+const jsStyles = {
   icon: {
     transition: "transform 0.15s ease-in",
   },
   iconRotated: {
     transform: "rotateZ(90deg)",
   },
-});
+};
 
 export function Sublist({
   children,

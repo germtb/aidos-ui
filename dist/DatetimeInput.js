@@ -2,9 +2,8 @@ import React from "react";
 import { BaseInput } from "./BaseInput";
 import { Box } from "./Box";
 import { Icon } from "./Icon";
-import { createJSStyle } from "./Styles";
 import { Row } from "./Row";
-const jsStyles = createJSStyle({
+const jsStyles = {
     root: {
         backgroundColor: "var(--primary-background)",
     },
@@ -24,7 +23,7 @@ const jsStyles = createJSStyle({
             color: "var(--subtle-text);",
         },
     },
-});
+};
 export const DatetimeInput = React.forwardRef(({ date, onDateChange, jsStyle, icon, addOn, ...inputProps }, ref) => {
     return (React.createElement(Row, { jsStyle: jsStyles.root },
         icon && (React.createElement(Box, { padding: "medium" },

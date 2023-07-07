@@ -1,5 +1,5 @@
-import React, { ReactNode, useId, useMemo } from "react";
-import { createClassNames, JSStyle } from "./Styles";
+import React, { ReactNode, useId } from "react";
+import { JSStyle, jss } from "./JSS";
 
 export interface BaseInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -21,12 +21,7 @@ export const BaseInput = React.forwardRef(
     return (
       <>
         {labelContent && <label htmlFor={id}>{labelContent}</label>}
-        <input
-          id={id}
-          ref={ref}
-          className={createClassNames(jsStyle)}
-          {...otherProps}
-        />
+        <input id={id} ref={ref} className={jss(jsStyle)} {...otherProps} />
       </>
     );
   }

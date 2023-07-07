@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  Align,
-  createJSStyle,
-  grow,
-  Justify,
-  Gap,
-  Size,
-  TextColor,
-  getPadding,
-} from "./Styles";
+
 import { BaseLink, BaseLinkProps } from "./BaseLink";
 import { Text } from "./Text";
 import { IconType } from "./IconType";
@@ -16,6 +7,7 @@ import { Row } from "./Row";
 import { Icon } from "./Icon";
 import { FlexLayoutProps } from "./FlexLayout";
 import { InterctableColor, getGlyphColor } from "./Interactable";
+import { Size, Align, Gap, Justify, getPadding, grow } from "./JSS";
 
 export interface LinkProps extends BaseLinkProps {
   label: string;
@@ -30,14 +22,6 @@ export interface LinkProps extends BaseLinkProps {
   gap?: Gap;
   justify?: Justify;
 }
-
-const jsStyles = createJSStyle({
-  root: {
-    borderRadius: "var(--border-radius-m)",
-    justifyContent: "center",
-    userSelect: "none",
-  },
-});
 
 export const Link = React.forwardRef(
   (
@@ -65,7 +49,15 @@ export const Link = React.forwardRef(
         ref={ref}
         color={color}
         disabled={disabled}
-        jsStyle={[jsStyles.root, getPadding("medium"), jsStyle]}
+        jsStyle={[
+          {
+            borderRadius: "var(--border-radius-m)",
+            justifyContent: "center",
+            userSelect: "none",
+          },
+          getPadding("medium"),
+          jsStyle,
+        ]}
       >
         <Row jsStyle={grow} align={align} gap={gap} justify={justify}>
           {icon && iconPosition === "left" && (

@@ -1,9 +1,9 @@
 import React from "react";
 
-import { getBackground, Color, createJSStyle, Size } from "./Styles";
 import { BaseView } from "./BaseView";
+import { Color, Size, getBackground } from "./JSS";
 
-const jsStyles = createJSStyle({
+const jsStyles = {
   xsmall: {
     width: 4,
     height: 4,
@@ -29,7 +29,7 @@ const jsStyles = createJSStyle({
     height: 24,
     borderRadius: 12,
   },
-});
+};
 
 export function Badge({
   size = "medium",

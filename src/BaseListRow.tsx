@@ -1,13 +1,8 @@
 import React from "react";
-import {
-  JSStyle,
-  createJSStyle,
-  getBackground,
-  Color,
-  Padding,
-} from "./Styles";
+
 import { ListDivider } from "./ListDivider";
 import { Row, RowProps } from "./Row";
+import { JSStyle, Color, Padding, getBackground } from "./JSS";
 
 export interface BaseListRowProps extends RowProps {
   jsStyle?: JSStyle;
@@ -16,12 +11,6 @@ export interface BaseListRowProps extends RowProps {
   backgroundColor?: Color;
   padding?: Padding;
 }
-
-const jsStyles = createJSStyle({
-  root: {
-    position: "relative",
-  },
-});
 
 export const BaseListRow = React.forwardRef(
   (
@@ -41,7 +30,13 @@ export const BaseListRow = React.forwardRef(
           ref={ref}
           tag="li"
           role="row"
-          jsStyle={[jsStyles.root, getBackground(backgroundColor), jsStyle]}
+          jsStyle={[
+            {
+              position: "relative",
+            },
+            getBackground(backgroundColor),
+            jsStyle,
+          ]}
         >
           {children}
         </Row>

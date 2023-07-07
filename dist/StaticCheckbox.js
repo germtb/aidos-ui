@@ -1,8 +1,8 @@
 import React from "react";
-import { createJSStyle, createClassNames } from "./Styles";
 import { BaseView } from "./BaseView";
 import { Icon } from "./Icon";
-const jsStyles = createJSStyle({
+import { jss } from "./JSS";
+const jsStyles = {
     root: {
         position: "relative",
         backgroundColor: "var(--primary-background)",
@@ -57,9 +57,16 @@ const jsStyles = createJSStyle({
         height: 48,
         width: 48,
     },
-});
+};
 export function StaticCheckbox({ checked, size }) {
-    return (React.createElement("label", { className: createClassNames(jsStyles.root, size === "xsmall" && jsStyles.xsmall, size === "small" && jsStyles.small, size === "medium" && jsStyles.medium, size === "large" && jsStyles.large, size === "xlarge" && jsStyles.xlarge) },
+    return (React.createElement("label", { className: jss([
+            jsStyles.root,
+            size === "xsmall" && jsStyles.xsmall,
+            size === "small" && jsStyles.small,
+            size === "medium" && jsStyles.medium,
+            size === "large" && jsStyles.large,
+            size === "xlarge" && jsStyles.xlarge,
+        ]) },
         React.createElement(BaseView, { jsStyle: [jsStyles.border, checked && jsStyles.borderChecked] }),
         checked && (React.createElement(BaseView, { jsStyle: jsStyles.icon },
             React.createElement(Icon, { size: size, color: "light", icon: "fa-check" })))));

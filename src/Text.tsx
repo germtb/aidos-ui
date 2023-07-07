@@ -1,15 +1,7 @@
 import React, { ReactNode } from "react";
-import {
-  createJSStyle,
-  createClassNames,
-  TextColor,
-  Size,
-  getTextColor,
-  JSStyle,
-} from "./Styles";
+import { JSStyle, Size, TextColor, getTextColor, jss } from "./JSS";
 
-const jsStyles = createJSStyle({
-  root: {},
+const jsStyles: { [key: string]: JSStyle } = {
   ellipsis: {
     overflow: "hidden",
     textOverflow: "ellipsis",
@@ -43,7 +35,7 @@ const jsStyles = createJSStyle({
   grow: {
     flexGrow: 1,
   },
-});
+};
 
 export type Display = "inline" | "block";
 
@@ -76,8 +68,7 @@ export function Text({
 
   return (
     <Type
-      className={createClassNames([
-        jsStyles.root,
+      className={jss([
         getTextColor(color),
         size === "xsmall" && jsStyles.size1,
         size === "small" && jsStyles.size2,

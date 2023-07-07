@@ -1,11 +1,11 @@
 import React, { ReactNode } from "react";
-import { createJSStyle, Size, TextColor } from "./Styles";
 import { TextPairing } from "./TextPairing";
 import { BaseView } from "./BaseView";
 import { BaseListRow, BaseListRowProps } from "./BaseListRow";
 import { Column } from "./Column";
+import { JSStyle, Size, TextColor } from "./JSS";
 
-const jsStyles = createJSStyle({
+const jsStyles: { [key: string]: JSStyle } = {
   root: {
     position: "relative",
     paddingTop: "var(--spacing-s)",
@@ -44,7 +44,7 @@ const jsStyles = createJSStyle({
     flexGrow: 0,
     flexShrink: 0,
   },
-});
+};
 
 interface ListStaticRow extends BaseListRowProps {
   headline: string;

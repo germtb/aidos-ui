@@ -1,6 +1,6 @@
 import React from "react";
-import { JSStyle, createClassNames, Padding } from "./Styles";
 import { InterctableColor, getInteractableJSStyles } from "./Interactable";
+import { JSStyle, Padding, jss } from "./JSS";
 
 export interface BaseButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -40,7 +40,7 @@ export const BaseButton = React.forwardRef(
 
           onPress(event);
         }}
-        className={createClassNames([
+        className={jss([
           ...getInteractableJSStyles({
             color,
             bare,

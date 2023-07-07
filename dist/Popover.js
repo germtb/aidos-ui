@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
 import { queryFocusables } from "./aria";
 import { BaseView } from "./BaseView";
-import { createClassNames, createJSStyle } from "./Styles";
 import { useRefEffect } from "./useRefEffect";
-const jsStyles = createJSStyle({
+import { jss } from "./JSS";
+const jsStyles = {
     root: {
         position: "relative",
     },
@@ -14,7 +14,7 @@ const jsStyles = createJSStyle({
         border: "1px solid var(--divider)",
         overflow: "hidden",
     },
-});
+};
 export function Popover({ children, close }) {
     const activeElementRef = useRef(null);
     const focusTrapRoot = useRefEffect((root) => {
@@ -81,7 +81,7 @@ export function PopoverTrigger({ PopoverComponent, jsStyle, grow, shrink, tag, c
         children({ toggle }),
         React.createElement("dialog", { ref: (ref) => {
                 dialogRef.current = ref;
-            }, className: createClassNames(jsStyles.popover), onClose: () => {
+            }, className: jss(jsStyles.popover), onClose: () => {
                 setPopover(null);
             }, onClick: (e) => {
                 e.preventDefault();

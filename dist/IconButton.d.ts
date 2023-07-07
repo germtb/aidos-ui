@@ -1,7 +1,7 @@
 import React from "react";
 import { BaseButtonProps } from "./BaseButton";
-import { Size } from "./Styles";
 import { IconType } from "./IconType";
+import { Size } from "./JSS";
 export interface IconButtonProps extends BaseButtonProps {
     icon: IconType;
     size: Size;

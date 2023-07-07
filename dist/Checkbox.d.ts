@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import { BaseInputProps } from "./BaseInput";
-import { Size } from "./Styles";
+import { Size } from "./JSS";
 interface CheckboxProps extends BaseInputProps {
     checked: boolean;
     onValueChange: (value: boolean) => void;

@@ -2,10 +2,10 @@ import React, { useRef, useState } from "react";
 import { queryFocusables } from "./aria";
 
 import { BaseView } from "./BaseView";
-import { createClassNames, createJSStyle, JSStyle } from "./Styles";
 import { useRefEffect } from "./useRefEffect";
+import { JSStyle, jss } from "./JSS";
 
-const jsStyles = createJSStyle({
+const jsStyles: { [key: string]: JSStyle } = {
   root: {
     position: "relative",
   },
@@ -16,7 +16,7 @@ const jsStyles = createJSStyle({
     border: "1px solid var(--divider)",
     overflow: "hidden",
   },
-});
+};
 
 export function Popover({ children, close }) {
   const activeElementRef = useRef(null);
@@ -128,7 +128,7 @@ export function PopoverTrigger<Input>({
         ref={(ref: null | HTMLDialogElement) => {
           dialogRef.current = ref;
         }}
-        className={createClassNames(jsStyles.popover)}
+        className={jss(jsStyles.popover)}
         onClose={() => {
           setPopover(null);
         }}

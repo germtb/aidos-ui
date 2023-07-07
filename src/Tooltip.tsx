@@ -1,11 +1,11 @@
 import React, { useRef, useState } from "react";
 
 import { BaseView } from "./BaseView";
-import { createClassNames, createJSStyle, JSStyle } from "./Styles";
 import { useRefEffect } from "./useRefEffect";
 import { Text } from "./Text";
+import { JSStyle, jss } from "./JSS";
 
-const jsStyles = createJSStyle({
+const jsStyles: { [key: string]: JSStyle } = {
   root: {
     position: "relative",
   },
@@ -19,7 +19,7 @@ const jsStyles = createJSStyle({
     boxShadow: "0px 1px 2px var(--divider)",
     overflow: "hidden",
   },
-});
+};
 
 interface TooltipProps {
   content: string;
@@ -78,7 +78,7 @@ export function Tooltip({
             dialogRef.current = ref;
             focusTrapRoot(ref);
           }}
-          className={createClassNames(jsStyles.tooltip)}
+          className={jss(jsStyles.tooltip)}
           onClose={() => {
             setTooltip(null);
           }}

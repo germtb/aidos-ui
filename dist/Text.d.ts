@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { TextColor, Size, JSStyle } from "./Styles";
+import { JSStyle, Size, TextColor } from "./JSS";
 export type Display = "inline" | "block";
 export interface TextProps {
     children: ReactNode;

@@ -1,9 +1,9 @@
 import React from "react";
-import { Align, Justify, Gap, Size } from "./Styles";
 import { BaseLinkProps } from "./BaseLink";
 import { IconType } from "./IconType";
 import { FlexLayoutProps } from "./FlexLayout";
 import { InterctableColor } from "./Interactable";
+import { Size, Align, Gap, Justify } from "./JSS";
 export interface LinkProps extends BaseLinkProps {
     label: string;
     color: InterctableColor;

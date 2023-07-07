@@ -1,5 +1,13 @@
+/// <reference types="react" />
 import CSS from "csstype";
-import { ReactNode } from "react";
+export type Styles = CSS.Properties<string | number | CSS.Properties<string | number>>;
+export type JSStyle = Styles | null | false | undefined | {
+    [key: string]: Styles;
+} | Array<JSStyle>;
+export declare const jss: (jsStyle: JSStyle) => string;
+export declare function JSStyles({ getBaseStyles }: {
+    getBaseStyles: () => string[];
+}): JSX.Element;
 export type Size = "xsmall" | "small" | "medium" | "large" | "xlarge";
 export type Spacing = "none" | Size;
 export type Gap = Spacing;
@@ -12,28 +20,6 @@ export type Align = "none" | "center" | "stretch" | "flex-start" | "flex-end";
 export type FlexDirection = "row" | "column";
 export type Color = "none" | "negative" | "warning" | "highlight" | "primary-background" | "secondary-background" | "divider" | "inherit";
 export type TextColor = "primary" | "secondary" | "highlight" | "negative" | "subtle" | "light" | "inherit";
-export type Styles = CSS.Properties<string | number | CSS.Properties<string | number>>;
-export type JSStyle = Styles | null | false | undefined | {
-    [key: string]: Styles;
-} | Array<JSStyle>;
-export type FlatStyles = Styles & {
-    other: {
-        [key: string]: Styles;
-    };
-};
-export declare const jss: (styles: Styles) => string;
-export declare const createJSStyle: <T extends {
-    [key: string]: Styles | {
-        [key: string]: Styles;
-    };
-}>(styles: T, { useIncrementalIdentifiers }?: {
-    useIncrementalIdentifiers: boolean;
-}) => T;
-export declare const createClassNames: (...styles: Array<JSStyle>) => string;
-export declare const generateStylesheet: ({ light, dark, }: {
-    light: Theme;
-    dark: Theme;
-}) => string;
 export type Theme = {
     ["--primary-background"]: string;
     ["--secondary-background"]: string;
@@ -71,15 +57,9 @@ export type Theme = {
 };
 export declare const lightTheme: Theme;
 export declare const darkTheme: Theme;
-export declare const StylesProvider: ({ children, themes, }: {
-    children: ReactNode;
-    themes: {
-        light: Theme;
-        dark: Theme;
-    };
-}) => JSX.Element;
-export declare const getBackground: (color: Color) => any;
-export declare const getJustify: (prop: Justify) => any;
+export declare const baseStyles = "\n* {\n  box-sizing: border-box;\n  padding: 0;\n  border: none;\n  touch-action: manipulation;\n  font-family: sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\nul {\n  margin: 0;\n}\n\n*:focus {\n  outline-color: var(--highlight);\n}\n\nhtml,\nbody {\n  margin: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  background-color: var(--primary-background);\n}\n\nul,\nol,\nli {\n  list-style: none;\n}\n\na {\n  text-decoration: none;\n}\n\n";
+export declare const getBackground: (color: Color) => JSStyle;
+export declare const getJustify: (prop: Justify) => JSStyle;
 export declare const getAlign: (prop: Align) => any;
 export declare const getGap: (gap: Gap) => any;
 export declare const paddingStyles: {
@@ -202,16 +182,14 @@ export declare const grow: {
     flexGrow: number;
 };
 export declare const shrink: {
-    shrink: {
-        flexShrink: number;
-    };
+    flexShrink: number;
 };
 export declare const getFlex: (direction: FlexDirection) => {
-    display: "flex";
-    flexDirection: "row";
+    display: string;
+    flexDirection: string;
 } | {
-    display: "flex";
-    flexDirection: "column";
+    display: string;
+    flexDirection: string;
 };
 export declare const getBorder: (direction?: "top" | "bottom" | "left" | "right") => {
     borderTop: string;
@@ -236,17 +214,18 @@ export declare const withMedia: (styles: {
     [x: string]: Styles;
 };
 export declare const getTextColor: (color: TextColor) => {
-    color: "var(--primary-text)";
+    color: string;
 } | {
-    color: "var(--secondary-text)";
+    color: string;
 } | {
-    color: "var(--highlight-text)";
+    color: string;
 } | {
-    color: "var(--negative-text)";
+    color: string;
 } | {
-    color: "var(--subtle-text)";
+    color: string;
 } | {
-    color: "var(--light-text)";
+    color: string;
 } | {
-    color: "inherit";
+    color: string;
 };
+export declare function getBaseStyles(): string[];

@@ -3,29 +3,6 @@ import { BaseInput, BaseInputProps } from "./BaseInput";
 import { Box } from "./Box";
 import { Icon } from "./Icon";
 import { IconType } from "./IconType";
-import { createJSStyle } from "./Styles";
-
-const jsStyles = createJSStyle({
-  button: {
-    cursor: "pointer",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    ":hover": {
-      backgroundColor: "var(--secondary-background)",
-      opacity: 0.8,
-    },
-    ":active": {
-      transform: "scale(0.92)",
-    },
-    height: 32,
-    width: 32,
-    borderRadius: 16,
-  },
-  input: {
-    visibility: "hidden",
-  },
-});
 
 interface SubmitIconInputProps extends BaseInputProps {
   icon: IconType;
@@ -36,13 +13,32 @@ export function SubmitIconInput({ icon, ...otherProps }: SubmitIconInputProps) {
   return (
     <BaseInput
       labelContent={
-        <Box jsStyle={[jsStyles.button]}>
+        <Box
+          jsStyle={{
+            cursor: "pointer",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            ":hover": {
+              backgroundColor: "var(--secondary-background)",
+              opacity: 0.8,
+            },
+            ":active": {
+              transform: "scale(0.92)",
+            },
+            height: 32,
+            width: 32,
+            borderRadius: 16,
+          }}
+        >
           <Icon icon={icon} size="medium" color="primary" />
         </Box>
       }
       {...otherProps}
       type="submit"
-      jsStyle={[jsStyles.input]}
+      jsStyle={{
+        visibility: "hidden",
+      }}
       value=""
     />
   );

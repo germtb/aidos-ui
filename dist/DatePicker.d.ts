@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { TextColor } from "./Styles";
+import { TextColor } from "./JSS";
 export interface DatePickerProps {
     id: string;
     label: string;

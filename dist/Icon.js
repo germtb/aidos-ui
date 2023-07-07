@@ -1,7 +1,7 @@
 import React from "react";
-import { createJSStyle, getTextColor } from "./Styles";
 import { BaseView } from "./BaseView";
-const jsStyles = createJSStyle({
+import { getTextColor } from "./JSS";
+const jsStyles = {
     root: {
         display: "flex",
         justifyContent: "center",
@@ -31,7 +31,7 @@ const jsStyles = createJSStyle({
         height: 30,
         width: 30,
     },
-});
+};
 let initialized = false;
 export const initializeIcons = () => {
     if (initialized) {

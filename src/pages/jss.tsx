@@ -1,9 +1,7 @@
 import Head from "next/head";
 import React, { useRef } from "react";
 
-import { JSStyles, jss } from "../JSS";
-import { getBaseStyles } from "../JSSUtils";
-
+import { JSStyles, getBaseStyles, jss } from "../JSS";
 export default function Home() {
   return (
     <>

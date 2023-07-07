@@ -1,11 +1,10 @@
 import React, { ReactNode, useRef, useCallback } from "react";
 
-import { createJSStyle } from "./Styles";
 import { Column } from "./Column";
 import { useIsTopOfStack } from "./StackContext";
 import { queryFocusables } from "./aria";
 
-const jsStyles = createJSStyle({
+const jsStyles = {
   root: {
     marginBottom: 0,
     flexGrow: 1,
@@ -15,7 +14,7 @@ const jsStyles = createJSStyle({
     backgroundColor: "var(--secondary-background)",
     minHeight: "600px",
   },
-});
+};
 
 export function RootView({
   children,

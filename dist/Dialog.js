@@ -1,12 +1,12 @@
 import React, { useContext, useMemo, useRef, useState } from "react";
 import { BaseView } from "./BaseView";
 import { Text } from "./Text";
-import { createClassNames, createJSStyle } from "./Styles";
 import { ListDivider } from "./ListDivider";
 import { Column } from "./Column";
 import { Row } from "./Row";
 import { IconButton } from "./IconButton";
-const jsStyles = createJSStyle({
+import { jss } from "./JSS";
+const jsStyles = {
     dialog: {
         border: "1px solid var(--divider)",
         borderRadius: "var(--border-radius-m)",
@@ -29,7 +29,7 @@ const jsStyles = createJSStyle({
     content: {
         gridArea: "content",
     },
-});
+};
 export const Dialog = ({ label, children, close, }) => {
     return (React.createElement(BaseView, { jsStyle: jsStyles.root },
         React.createElement(Column, { jsStyle: jsStyles.header },
@@ -66,7 +66,7 @@ export function useDialog(DialogComponent, options) {
         setDialog(React.createElement("dialog", { ref: (ref) => {
                 dialogRef.current = ref;
                 ref && ref.showModal();
-            }, className: createClassNames(jsStyles.dialog), onClose: () => {
+            }, className: jss(jsStyles.dialog), onClose: () => {
                 closeRef.current();
             }, onClick: (e) => {
                 if (dialogRef.current == null) {

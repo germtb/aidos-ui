@@ -1,7 +1,7 @@
 import React from "react";
-import { createJSStyle, getBackground, } from "./Styles";
 import { BaseView } from "./BaseView";
-const jsStyles = createJSStyle({
+import { getBackground } from "./JSS";
+const jsStyles = {
     root: {
         width: "100%",
         display: "flex",
@@ -35,7 +35,7 @@ const jsStyles = createJSStyle({
         left: 0,
         right: 0,
     },
-});
+};
 export function ProgressBar({ color, progress, size, jsStyle, }) {
     return (React.createElement(BaseView, { jsStyle: [
             jsStyles.root,

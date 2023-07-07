@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { JSStyle } from "./Styles";
+import { JSStyle } from "./JSS";
 interface TooltipProps {
     content: string;
     jsStyle?: JSStyle;

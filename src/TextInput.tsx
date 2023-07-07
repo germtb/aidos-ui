@@ -1,10 +1,10 @@
 import React, { ReactNode } from "react";
-import { createJSStyle, JSStyle, Padding } from "./Styles";
 import { BaseInput, BaseInputProps } from "./BaseInput";
 import { IconType } from "./IconType";
 import { Icon } from "./Icon";
 import { Row } from "./Row";
 import { Box } from "./Box";
+import { JSStyle, Padding } from "./JSS";
 
 export interface TextInputProps extends BaseInputProps {
   onValueChange?: (value: string) => void;
@@ -15,12 +15,11 @@ export interface TextInputProps extends BaseInputProps {
   indentation?: Padding;
 }
 
-const jsStyles = createJSStyle({
+const jsStyles = {
   root: {
     backgroundColor: "inherit",
   },
   input: {
-    // padding: "var(--spacing-m)",
     minWidth: 0,
     flexGrow: 1,
     backgroundColor: "inherit",
@@ -36,7 +35,7 @@ const jsStyles = createJSStyle({
       color: "var(--subtle-text);",
     },
   },
-});
+};
 
 export const TextInput = React.forwardRef(
   (

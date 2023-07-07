@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
-import { createClassNames, createJSStyle } from "./Styles";
 import { Text } from "./Text";
-const jsStyles = createJSStyle({
+import { jss } from "./JSS";
+const jsStyles = {
     dateInput: {
         border: "1px solid var(--divider)",
         backgroundColor: "var(--primary-background)",
@@ -10,7 +10,7 @@ const jsStyles = createJSStyle({
         fontSize: 20,
         lineHeight: 24 / 20,
     },
-});
+};
 export function DatePicker({ id, label, color = "primary", date, onDateChange, }) {
     const initialDate = useRef(date);
     const year = initialDate.current.getFullYear();
@@ -21,7 +21,7 @@ export function DatePicker({ id, label, color = "primary", date, onDateChange, }
     return (React.createElement(React.Fragment, null,
         React.createElement("label", { htmlFor: id },
             React.createElement(Text, { size: "small", color: color }, label)),
-        React.createElement("input", { min: min, max: max, className: createClassNames(jsStyles.dateInput), type: "date", id: id, value: date.toISOString().substring(0, 10), onChange: (event) => {
+        React.createElement("input", { min: min, max: max, className: jss(jsStyles.dateInput), type: "date", id: id, value: date.toISOString().substring(0, 10), onChange: (event) => {
                 let parsedDate;
                 try {
                     parsedDate = new Date(event.target.value);

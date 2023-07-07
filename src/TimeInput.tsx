@@ -3,7 +3,6 @@ import { BaseInput, BaseInputProps } from "./BaseInput";
 import { Box } from "./Box";
 import { Icon } from "./Icon";
 import { IconType } from "./IconType";
-import { createJSStyle } from "./Styles";
 import { Row } from "./Row";
 
 export interface TimeInputProps extends BaseInputProps {
@@ -14,7 +13,7 @@ export interface TimeInputProps extends BaseInputProps {
   onChange?: undefined;
 }
 
-const jsStyles = createJSStyle({
+const jsStyles = {
   root: {
     backgroundColor: "inherit",
   },
@@ -33,7 +32,7 @@ const jsStyles = createJSStyle({
       color: "var(--subtle-text);",
     },
   },
-});
+};
 
 export const timeFormatter = Intl.DateTimeFormat("en-UK", {
   hour: "2-digit",

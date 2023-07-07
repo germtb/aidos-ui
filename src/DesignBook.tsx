@@ -21,7 +21,7 @@ import { DarkModeContext } from "./DarkModeStore";
 import { Popover, PopoverTrigger } from "./Popover";
 import { Tooltip } from "./Tooltip";
 import { Link } from "./Link";
-import { createJSStyle, getBackground, withMedia } from "./Styles";
+import { JSStyle, getBackground, withMedia } from "./JSS";
 
 function ExampleDialog({ close }) {
   const darkMode = useContext(DarkModeContext);
@@ -39,14 +39,17 @@ function ExampleDialog({ close }) {
   );
 }
 
-const jsStyle = createJSStyle({
-  responsive: withMedia({
-    phone: getBackground("negative"),
-    tablet: getBackground("divider"),
-    laptop: getBackground("highlight"),
-    desktop: getBackground("warning"),
-  }),
-});
+// TODO
+const jsStyle: { [key: string]: JSStyle } = { responsive: {} };
+
+// const jsStyle: { [key: string]: JSStyle } = {
+//   responsive: withMedia({
+//     phone: getBackground("negative"),
+//     tablet: getBackground("divider"),
+//     laptop: getBackground("highlight"),
+//     desktop: getBackground("warning"),
+//   }),
+// };
 
 export function DesignBook() {
   const dialog = useDialog<void>(

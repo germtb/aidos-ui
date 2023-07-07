@@ -1,7 +1,7 @@
 import React from "react";
-import { getBackground, createJSStyle } from "./Styles";
 import { BaseView } from "./BaseView";
-const jsStyles = createJSStyle({
+import { getBackground } from "./JSS";
+const jsStyles = {
     xsmall: {
         width: 4,
         height: 4,
@@ -27,7 +27,7 @@ const jsStyles = createJSStyle({
         height: 24,
         borderRadius: 12,
     },
-});
+};
 export function Badge({ size = "medium", color = "highlight", }) {
     return (React.createElement(BaseView, { jsStyle: [
             size === "xsmall" && jsStyles.xsmall,

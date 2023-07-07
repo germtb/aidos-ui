@@ -1,10 +1,9 @@
 import React from "react";
-import { createJSStyle, } from "./Styles";
 import { BaseButton } from "./BaseButton";
 import { TextPairing } from "./TextPairing";
 import { BaseListRow } from "./BaseListRow";
 import { ListCell } from "./ListCell";
-const jsStyles = createJSStyle({
+const jsStyles = {
     root: {
         position: "relative",
     },
@@ -52,7 +51,7 @@ const jsStyles = createJSStyle({
         flexGrow: 0,
         flexShrink: 0,
     },
-});
+};
 export const ListPressableRow = React.forwardRef(({ onPress, headline, headlineSize = "medium", headlineColor = "primary", headlineAddOn, body, bodySize = "small", bodyColor = "secondary", addOn, addOnPosition, outerAddOn, color = "secondary", disabled = false, padding = "medium", jsStyle, gap, selected, ...otherProps }, ref) => {
     return (React.createElement(BaseListRow, { ...otherProps, jsStyle: [jsStyles.root, jsStyle] },
         React.createElement(ListCell, { jsStyle: jsStyles.gridcell },

@@ -1,13 +1,12 @@
 import React from "react";
-import { createJSStyle } from "./Styles";
 import { Box, BoxProps } from "./Box";
 
-const jsStyles = createJSStyle({
+const jsStyles = {
   root: {
     borderRadius: "50%",
     overflow: "hidden",
   },
-});
+};
 
 interface CircleProps extends BoxProps {}
 

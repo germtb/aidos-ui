@@ -1,8 +1,8 @@
 import React from "react";
 import { BaseInput, BaseInputProps } from "./BaseInput";
-import { createJSStyle, createClassNames, Size } from "./Styles";
 import { BaseView } from "./BaseView";
 import { Icon } from "./Icon";
+import { JSStyle, Size, jss } from "./JSS";
 
 // @ts-ignore
 interface CheckboxProps extends BaseInputProps {
@@ -13,7 +13,7 @@ interface CheckboxProps extends BaseInputProps {
   onChange?: undefined;
 }
 
-const jsStyles = createJSStyle({
+const jsStyles: { [key: string]: JSStyle } = {
   root: {
     position: "relative",
     backgroundColor: "var(--primary-background)",
@@ -92,7 +92,7 @@ const jsStyles = createJSStyle({
     width: "100%",
     height: "100%",
   },
-});
+};
 
 export function Checkbox({
   jsStyle,
@@ -103,15 +103,15 @@ export function Checkbox({
 }: CheckboxProps) {
   return (
     <label
-      className={createClassNames(
+      className={jss([
         jsStyles.root,
         size === "xsmall" && jsStyles.xsmall,
         size === "small" && jsStyles.small,
         size === "medium" && jsStyles.medium,
         size === "large" && jsStyles.large,
         size === "xlarge" && jsStyles.xlarge,
-        checked && jsStyles.rootChecked
-      )}
+        checked && jsStyles.rootChecked,
+      ])}
     >
       <BaseView
         jsStyle={[jsStyles.border, checked && jsStyles.borderChecked]}

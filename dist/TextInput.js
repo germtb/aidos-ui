@@ -1,15 +1,13 @@
 import React from "react";
-import { createJSStyle } from "./Styles";
 import { BaseInput } from "./BaseInput";
 import { Icon } from "./Icon";
 import { Row } from "./Row";
 import { Box } from "./Box";
-const jsStyles = createJSStyle({
+const jsStyles = {
     root: {
         backgroundColor: "inherit",
     },
     input: {
-        // padding: "var(--spacing-m)",
         minWidth: 0,
         flexGrow: 1,
         backgroundColor: "inherit",
@@ -25,7 +23,7 @@ const jsStyles = createJSStyle({
             color: "var(--subtle-text);",
         },
     },
-});
+};
 export const TextInput = React.forwardRef(({ value, onValueChange, rootJSStyle, jsStyle, icon, addOn, indentation, ...inputProps }, ref) => {
     return (React.createElement(Row, { jsStyle: [jsStyles.root, rootJSStyle], padding: indentation },
         icon && (React.createElement(Box, { padding: "medium" },

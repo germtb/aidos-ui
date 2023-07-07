@@ -1,14 +1,5 @@
 import React from "react";
-import {
-  Align,
-  createJSStyle,
-  grow,
-  Justify,
-  Gap,
-  Size,
-  TextColor,
-  getPadding,
-} from "./Styles";
+
 import { BaseButton, BaseButtonProps } from "./BaseButton";
 import { Text } from "./Text";
 import { IconType } from "./IconType";
@@ -16,6 +7,7 @@ import { Row } from "./Row";
 import { Icon } from "./Icon";
 import { FlexLayoutProps } from "./FlexLayout";
 import { InterctableColor, getGlyphColor } from "./Interactable";
+import { Align, Gap, Justify, Size, getPadding, grow } from "./JSS";
 
 export interface ButtonProps extends BaseButtonProps {
   label: string;
@@ -30,14 +22,6 @@ export interface ButtonProps extends BaseButtonProps {
   gap?: Gap;
   justify?: Justify;
 }
-
-const jsStyles = createJSStyle({
-  root: {
-    borderRadius: "var(--border-radius-m)",
-    justifyContent: "center",
-    userSelect: "none",
-  },
-});
 
 export const Button = React.forwardRef(
   (
@@ -65,7 +49,15 @@ export const Button = React.forwardRef(
         ref={ref}
         color={color}
         disabled={disabled}
-        jsStyle={[jsStyles.root, getPadding("medium"), jsStyle]}
+        jsStyle={[
+          {
+            borderRadius: "var(--border-radius-m)",
+            justifyContent: "center",
+            userSelect: "none",
+          },
+          getPadding("medium"),
+          jsStyle,
+        ]}
       >
         <Row jsStyle={grow} align={align} gap={gap} justify={justify}>
           {icon && iconPosition === "left" && (

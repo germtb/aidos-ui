@@ -2,9 +2,8 @@ import React from "react";
 import { BaseInput } from "./BaseInput";
 import { Box } from "./Box";
 import { Icon } from "./Icon";
-import { createJSStyle } from "./Styles";
 import { Row } from "./Row";
-const jsStyles = createJSStyle({
+const jsStyles = {
     root: {
         backgroundColor: "inherit",
     },
@@ -23,7 +22,7 @@ const jsStyles = createJSStyle({
             color: "var(--subtle-text);",
         },
     },
-});
+};
 export const timeFormatter = Intl.DateTimeFormat("en-UK", {
     hour: "2-digit",
     minute: "2-digit",

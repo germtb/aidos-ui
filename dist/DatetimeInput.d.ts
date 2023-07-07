@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import { BaseInputProps } from "./BaseInput";
 import { IconType } from "./IconType";
-import { JSStyle } from "./Styles";
+import { JSStyle } from "./JSS";
 export interface DatetimeInputProps extends BaseInputProps {
     onDateChange: (date: Date) => void;
     date: Date;

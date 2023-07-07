@@ -2,13 +2,13 @@ import React, { useContext, useMemo, useRef, useState } from "react";
 
 import { BaseView } from "./BaseView";
 import { Text } from "./Text";
-import { createClassNames, createJSStyle } from "./Styles";
 import { ListDivider } from "./ListDivider";
 import { Column } from "./Column";
 import { Row } from "./Row";
 import { IconButton } from "./IconButton";
+import { jss } from "./JSS";
 
-const jsStyles = createJSStyle({
+const jsStyles = {
   dialog: {
     border: "1px solid var(--divider)",
     borderRadius: "var(--border-radius-m)",
@@ -31,7 +31,7 @@ const jsStyles = createJSStyle({
   content: {
     gridArea: "content",
   },
-});
+};
 
 export const Dialog = ({
   label,
@@ -106,7 +106,7 @@ export function useDialog<Input>(
           dialogRef.current = ref;
           ref && ref.showModal();
         }}
-        className={createClassNames(jsStyles.dialog)}
+        className={jss(jsStyles.dialog)}
         onClose={() => {
           closeRef.current();
         }}

@@ -1,9 +1,9 @@
 import React from "react";
-import { createJSStyle, getTextColor, Size, TextColor } from "./Styles";
 import { BaseView } from "./BaseView";
 import { IconType } from "./IconType";
+import { Size, TextColor, getTextColor } from "./JSS";
 
-const jsStyles = createJSStyle({
+const jsStyles = {
   root: {
     display: "flex",
     justifyContent: "center",
@@ -33,7 +33,7 @@ const jsStyles = createJSStyle({
     height: 30,
     width: 30,
   },
-});
+};
 
 let initialized = false;
 

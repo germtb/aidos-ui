@@ -1,7 +1,7 @@
 import React from "react";
-import { createJSStyle, createClassNames, Size } from "./Styles";
 import { BaseView } from "./BaseView";
 import { Icon } from "./Icon";
+import { JSStyle, Size, jss } from "./JSS";
 
 // @ts-ignore
 type TextInputProps = {
@@ -9,7 +9,7 @@ type TextInputProps = {
   size: Size;
 };
 
-const jsStyles = createJSStyle({
+const jsStyles: { [key: string]: JSStyle } = {
   root: {
     position: "relative",
     backgroundColor: "var(--primary-background)",
@@ -64,19 +64,19 @@ const jsStyles = createJSStyle({
     height: 48,
     width: 48,
   },
-});
+};
 
 export function StaticCheckbox({ checked, size }: TextInputProps) {
   return (
     <label
-      className={createClassNames(
+      className={jss([
         jsStyles.root,
         size === "xsmall" && jsStyles.xsmall,
         size === "small" && jsStyles.small,
         size === "medium" && jsStyles.medium,
         size === "large" && jsStyles.large,
-        size === "xlarge" && jsStyles.xlarge
-      )}
+        size === "xlarge" && jsStyles.xlarge,
+      ])}
     >
       <BaseView
         jsStyle={[jsStyles.border, checked && jsStyles.borderChecked]}

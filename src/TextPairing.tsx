@@ -1,19 +1,12 @@
 import React, { ReactNode } from "react";
-import {
-  Align,
-  createJSStyle,
-  Position,
-  Gap,
-  TextColor,
-  Size,
-  Padding,
-} from "./Styles";
+
 import { Display, Text, TextType } from "./Text";
 import { Row } from "./Row";
 import { BaseView } from "./BaseView";
 import { Column } from "./Column";
+import { TextColor, Size, Position, Gap, Padding, Align, JSStyle } from "./JSS";
 
-const jsStyles = createJSStyle({
+const jsStyles: { [key: string]: JSStyle } = {
   overflow: {
     overflow: "hidden",
   },
@@ -25,7 +18,7 @@ const jsStyles = createJSStyle({
     marginTop: "var(--spacing-xs)",
     textAlign: "start",
   },
-});
+};
 
 export interface TextPairingProps {
   headline: ReactNode;

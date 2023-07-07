@@ -1,17 +1,16 @@
 import React from "react";
-import { createJSStyle } from "./Styles";
 import { ListPressableRow } from "./ListPressableRow";
 import { Icon } from "./Icon";
 import { Box } from "./Box";
 import { Row } from "./Row";
-const jsStyles = createJSStyle({
+const jsStyles = {
     icon: {
         transition: "transform 0.15s ease-in",
     },
     iconRotated: {
         transform: "rotateZ(90deg)",
     },
-});
+};
 export function Sublist({ children, label, initialState = { collapsed: false }, jsStyle, secondaryAddOn, }) {
     const [collapsed, setCollapsed] = React.useState(initialState.collapsed);
     return (React.createElement(React.Fragment, null,

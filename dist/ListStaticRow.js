@@ -1,10 +1,9 @@
 import React from "react";
-import { createJSStyle } from "./Styles";
 import { TextPairing } from "./TextPairing";
 import { BaseView } from "./BaseView";
 import { BaseListRow } from "./BaseListRow";
 import { Column } from "./Column";
-const jsStyles = createJSStyle({
+const jsStyles = {
     root: {
         position: "relative",
         paddingTop: "var(--spacing-s)",
@@ -43,7 +42,7 @@ const jsStyles = createJSStyle({
         flexGrow: 0,
         flexShrink: 0,
     },
-});
+};
 export const ListStaticRow = React.forwardRef(({ headline, headlineSize = "medium", headlineColor = "primary", body, bodySize = "small", bodyColor = "secondary", primaryAddOn, secondaryAddOn, background = "primary", ...otherProps }, ref) => {
     return (React.createElement(BaseListRow, { ...otherProps, padding: primaryAddOn ? "none" : "medium", jsStyle: [
             jsStyles.root,

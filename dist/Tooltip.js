@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
 import { BaseView } from "./BaseView";
-import { createClassNames, createJSStyle } from "./Styles";
 import { useRefEffect } from "./useRefEffect";
 import { Text } from "./Text";
-const jsStyles = createJSStyle({
+import { jss } from "./JSS";
+const jsStyles = {
     root: {
         position: "relative",
     },
@@ -17,7 +17,7 @@ const jsStyles = createJSStyle({
         boxShadow: "0px 1px 2px var(--divider)",
         overflow: "hidden",
     },
-});
+};
 export function Tooltip({ content, jsStyle, grow, shrink, tag, children, }) {
     const [tooltip, setTooltip] = useState(null);
     const dialogRef = useRef(null);
@@ -50,7 +50,7 @@ export function Tooltip({ content, jsStyle, grow, shrink, tag, children, }) {
             setTooltip(React.createElement("dialog", { ref: (ref) => {
                     dialogRef.current = ref;
                     focusTrapRoot(ref);
-                }, className: createClassNames(jsStyles.tooltip), onClose: () => {
+                }, className: jss(jsStyles.tooltip), onClose: () => {
                     setTooltip(null);
                 }, onClick: (e) => {
                     e.preventDefault();

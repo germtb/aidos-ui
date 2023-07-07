@@ -1,6 +1,6 @@
 import React from "react";
-import { createClassNames, createJSStyle } from "./Styles";
-const jsStyles = createJSStyle({
+import { jss } from "./JSS";
+const jsStyles = {
     root: {
         padding: "var(--spacing-m)",
         flexGrow: 1,
@@ -14,8 +14,8 @@ const jsStyles = createJSStyle({
             color: "var(--secondary-text);",
         },
     },
-});
+};
 export const TextArea = React.forwardRef(({ jsStyle, onValueChange, value, onChange, ...otherProps }, ref) => {
-    return (React.createElement("textarea", { ...otherProps, ref: ref, className: createClassNames(jsStyles.root, jsStyle), value: value, onChange: onValueChange ? (e) => onValueChange(e.target.value) : undefined }));
+    return (React.createElement("textarea", { ...otherProps, ref: ref, className: jss([jsStyles.root, jsStyle]), value: value, onChange: onValueChange ? (e) => onValueChange(e.target.value) : undefined }));
 });
 //# sourceMappingURL=TextArea.js.map

@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
-import { JSStyle, Padding } from "./Styles";
 import { BaseInputProps } from "./BaseInput";
 import { IconType } from "./IconType";
+import { JSStyle, Padding } from "./JSS";
 export interface TextInputProps extends BaseInputProps {
     onValueChange?: (value: string) => void;
     rootJSStyle?: JSStyle;

@@ -1,8 +1,8 @@
-import { createJSStyle, Padding, getPadding, TextColor } from "./Styles";
+import { Padding, getPadding, TextColor } from "./JSS";
 
 export type InterctableColor = "positive" | "secondary" | "negative";
 
-const jsStyles = createJSStyle({
+const jsStyles = {
   root: {
     cursor: "pointer",
     display: "flex",
@@ -70,7 +70,7 @@ const jsStyles = createJSStyle({
     },
   },
   colorHover: {},
-});
+};
 
 export function getInteractableJSStyles({
   color,

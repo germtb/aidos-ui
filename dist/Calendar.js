@@ -1,13 +1,12 @@
 import React, { useMemo } from "react";
-import { createJSStyle } from "./Styles";
 import { BaseView } from "./BaseView";
-const jsStyles = createJSStyle({
+const jsStyles = {
     container: {
         display: "grid",
         gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr 1fr",
         gridTemplateRows: "1fr",
     },
-});
+};
 const dateFormatter = Intl.DateTimeFormat("en-UK", {
     weekday: "short",
 });

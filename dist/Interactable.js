@@ -1,5 +1,5 @@
-import { createJSStyle, getPadding } from "./Styles";
-const jsStyles = createJSStyle({
+import { getPadding } from "./JSS";
+const jsStyles = {
     root: {
         cursor: "pointer",
         display: "flex",
@@ -67,7 +67,7 @@ const jsStyles = createJSStyle({
         },
     },
     colorHover: {},
-});
+};
 export function getInteractableJSStyles({ color, bare, disabled, animateInteraction, padding, }) {
     return [
         jsStyles.root,

@@ -1,10 +1,9 @@
 import React from "react";
-import { createJSStyle, } from "./Styles";
 import { Text } from "./Text";
 import { Row } from "./Row";
 import { BaseView } from "./BaseView";
 import { Column } from "./Column";
-const jsStyles = createJSStyle({
+const jsStyles = {
     overflow: {
         overflow: "hidden",
     },
@@ -16,7 +15,7 @@ const jsStyles = createJSStyle({
         marginTop: "var(--spacing-xs)",
         textAlign: "start",
     },
-});
+};
 export function TextPairing({ headline, body, headlineColor = "primary", headlineSize = "medium", headlineAddOn, bodyColor = "secondary", bodySize = "medium", bodyType = "span", addOn, addOnPosition = "left", gap = "small", align = "stretch", grow, shrink, padding, }) {
     const textElement = (React.createElement(Column, { grow: grow, shrink: shrink, padding: addOn ? undefined : padding, align: align, jsStyle: jsStyles.overflow },
         React.createElement(Row, { align: "center", jsStyle: jsStyles.headline },

@@ -1,5 +1,5 @@
 import React from "react";
-import { JSStyle } from "./Styles";
+import { JSStyle } from "./JSS";
 export declare const Calendar: React.ForwardRefExoticComponent<{
     date: Date;
     header: (props: {

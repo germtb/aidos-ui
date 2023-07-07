@@ -1,13 +1,5 @@
 import React from "react";
-import { createClassNames, createJSStyle } from "./Styles";
-
-const jsStyles = createJSStyle({
-  root: {
-    backgroundColor: "var(--secondary-background)",
-    transform: "rotate(-90deg)",
-    borderRadius: "50%",
-  },
-});
+import { jss } from "./JSS";
 
 export function ProgressCircle({
   progress,
@@ -23,7 +15,11 @@ export function ProgressCircle({
 
   return (
     <svg
-      className={createClassNames(jsStyles.root)}
+      className={jss({
+        backgroundColor: "var(--secondary-background)",
+        transform: "rotate(-90deg)",
+        borderRadius: "50%",
+      })}
       width={(outerRadius + stroke) * 2}
       height={(outerRadius + stroke) * 2}
     >

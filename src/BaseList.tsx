@@ -1,14 +1,14 @@
 import React from "react";
 import { BaseView, BaseViewProps } from "./BaseView";
-import { createJSStyle } from "./Styles";
+import { JSStyle } from "./JSS";
 
-const jsStyles = createJSStyle({
+const jsStyles: { [key: string]: JSStyle } = {
   root: {
     backgroundColor: "var(--primary-background)",
     display: "flex",
     flexDirection: "column",
   },
-});
+};
 
 export interface BaseListProps extends BaseViewProps {
   tag?: undefined;

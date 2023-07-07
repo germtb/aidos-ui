@@ -1,19 +1,13 @@
 import React, { ReactNode } from "react";
-import {
-  Color,
-  createJSStyle,
-  Position,
-  Size,
-  Spacing,
-  TextColor,
-} from "./Styles";
+
 import { BaseButton } from "./BaseButton";
 import { TextPairing } from "./TextPairing";
 import { BaseListRow, BaseListRowProps } from "./BaseListRow";
 import { ListCell } from "./ListCell";
 import { InterctableColor } from "./Interactable";
+import { Size, TextColor, Position, Color, Spacing, JSStyle } from "./JSS";
 
-const jsStyles = createJSStyle({
+const jsStyles: { [key: string]: JSStyle } = {
   root: {
     position: "relative",
   },
@@ -61,7 +55,7 @@ const jsStyles = createJSStyle({
     flexGrow: 0,
     flexShrink: 0,
   },
-});
+};
 
 interface ListPressableRow extends BaseListRowProps {
   onPress: () => void;
