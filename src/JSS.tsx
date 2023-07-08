@@ -1,5 +1,5 @@
 import CSS from "csstype";
-import React, { ReactNode, useRef } from "react";
+import React, { useRef } from "react";
 
 import { hash } from "./hash";
 import { numberToBase } from "./numberToBase";
@@ -680,29 +680,29 @@ export const TABLET = 1000;
 export const LAPTOP = 1200;
 
 export const withMedia = (styles: {
-  phone?: Styles;
-  tablet?: Styles;
-  laptop?: Styles;
-  desktop?: Styles;
-}) => {
-  const phone = styles.phone
+  phone?: JSStyle;
+  tablet?: JSStyle;
+  laptop?: JSStyle;
+  desktop?: JSStyle;
+}): JSStyle => {
+  const phone: { [key: string]: JSStyle } = styles.phone
     ? {
         [`@media (min-width: 0px) and (max-width: ${MOBILE}px)`]: styles.phone,
       }
     : {};
-  const tablet = styles.tablet
+  const tablet: { [key: string]: JSStyle } = styles.tablet
     ? {
         [`@media (min-width: ${MOBILE}px) and (max-width: ${TABLET}px)`]:
           styles.tablet,
       }
     : {};
-  const laptop = styles.laptop
+  const laptop: { [key: string]: JSStyle } = styles.laptop
     ? {
         [`@media (min-width: ${TABLET}px) and (max-width: ${LAPTOP}px)`]:
           styles.laptop,
       }
     : {};
-  const desktop = styles.desktop
+  const desktop: { [key: string]: JSStyle } = styles.desktop
     ? { [`@media (min-width: ${LAPTOP}px)`]: styles.desktop }
     : {};
 

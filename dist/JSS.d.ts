@@ -206,13 +206,11 @@ export declare const MOBILE = 750;
 export declare const TABLET = 1000;
 export declare const LAPTOP = 1200;
 export declare const withMedia: (styles: {
-    phone?: Styles;
-    tablet?: Styles;
-    laptop?: Styles;
-    desktop?: Styles;
-}) => {
-    [x: string]: Styles;
-};
+    phone?: JSStyle;
+    tablet?: JSStyle;
+    laptop?: JSStyle;
+    desktop?: JSStyle;
+}) => JSStyle;
 export declare const getTextColor: (color: TextColor) => {
     color: string;
 } | {

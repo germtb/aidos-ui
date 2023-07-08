@@ -19,6 +19,7 @@ import { DarkModeContext } from "./DarkModeStore";
 import { Popover, PopoverTrigger } from "./Popover";
 import { Tooltip } from "./Tooltip";
 import { Link } from "./Link";
+import { getBackground, withMedia } from "./JSS";
 function ExampleDialog({ close }) {
     const darkMode = useContext(DarkModeContext);
     return (React.createElement(Dialog, { close: close, label: "Example" },
@@ -26,16 +27,14 @@ function ExampleDialog({ close }) {
             React.createElement(Text, null, "Dark mode"),
             React.createElement(Checkbox, { size: "medium", checked: darkMode.enabled, onValueChange: () => darkMode.toggle() }))));
 }
-// TODO
-const jsStyle = { responsive: {} };
-// const jsStyle: { [key: string]: JSStyle } = {
-//   responsive: withMedia({
-//     phone: getBackground("negative"),
-//     tablet: getBackground("divider"),
-//     laptop: getBackground("highlight"),
-//     desktop: getBackground("warning"),
-//   }),
-// };
+const jsStyle = {
+    responsive: withMedia({
+        phone: getBackground("negative"),
+        tablet: getBackground("divider"),
+        laptop: getBackground("highlight"),
+        desktop: getBackground("warning"),
+    }),
+};
 export function DesignBook() {
     const dialog = useDialog(({ close }) => React.createElement(ExampleDialog, { close: close }), { closeOnOutsideClick: true });
     return (React.createElement(RootView, null,

@@ -39,17 +39,14 @@ function ExampleDialog({ close }) {
   );
 }
 
-// TODO
-const jsStyle: { [key: string]: JSStyle } = { responsive: {} };
-
-// const jsStyle: { [key: string]: JSStyle } = {
-//   responsive: withMedia({
-//     phone: getBackground("negative"),
-//     tablet: getBackground("divider"),
-//     laptop: getBackground("highlight"),
-//     desktop: getBackground("warning"),
-//   }),
-// };
+const jsStyle: { [key: string]: JSStyle } = {
+  responsive: withMedia({
+    phone: getBackground("negative"),
+    tablet: getBackground("divider"),
+    laptop: getBackground("highlight"),
+    desktop: getBackground("warning"),
+  }),
+};
 
 export function DesignBook() {
   const dialog = useDialog<void>(
