@@ -28,15 +28,10 @@ export const BaseListRow = React.forwardRef(
         <Row
           {...otherProps}
           ref={ref}
+          relative={true}
           tag="li"
           role="row"
-          jsStyle={[
-            {
-              position: "relative",
-            },
-            getBackground(backgroundColor),
-            jsStyle,
-          ]}
+          jsStyle={[getBackground(backgroundColor), jsStyle]}
         >
           {children}
         </Row>

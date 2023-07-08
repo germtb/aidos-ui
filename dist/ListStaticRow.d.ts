@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { BaseListRowProps } from "./BaseListRow";
-import { Size, TextColor } from "./JSS";
+import { Size, TextColor } from "./jss";
 interface ListStaticRow extends BaseListRowProps {
     headline: string;
     headlineSize?: Size;

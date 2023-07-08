@@ -1,5 +1,5 @@
 import React from "react";
-import { jss } from "./JSS";
+import { jss } from "./jss";
 const jsStyles = {
     relative: {
         position: "relative",

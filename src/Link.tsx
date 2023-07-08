@@ -7,7 +7,7 @@ import { Row } from "./Row";
 import { Icon } from "./Icon";
 import { FlexLayoutProps } from "./FlexLayout";
 import { InterctableColor, getGlyphColor } from "./Interactable";
-import { Size, Align, Gap, Justify, getPadding, grow } from "./jss";
+import { Size, Align, Gap, Justify, cssVar } from "./jss";
 
 export interface LinkProps extends BaseLinkProps {
   label: string;
@@ -54,12 +54,12 @@ export const Link = React.forwardRef(
             borderRadius: "var(--border-radius-m)",
             justifyContent: "center",
             userSelect: "none",
+            padding: cssVar("--spacing-m"),
           },
-          getPadding("medium"),
           jsStyle,
         ]}
       >
-        <Row jsStyle={grow} align={align} gap={gap} justify={justify}>
+        <Row grow={true} align={align} gap={gap} justify={justify}>
           {icon && iconPosition === "left" && (
             <Icon
               icon={icon}

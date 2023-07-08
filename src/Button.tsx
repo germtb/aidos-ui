@@ -7,7 +7,7 @@ import { Row } from "./Row";
 import { Icon } from "./Icon";
 import { FlexLayoutProps } from "./FlexLayout";
 import { InterctableColor, getGlyphColor } from "./Interactable";
-import { Align, Gap, Justify, Size, getPadding, grow } from "./jss";
+import { Align, Gap, Justify, Size, getPadding } from "./jss";
 
 export interface ButtonProps extends BaseButtonProps {
   label: string;
@@ -54,12 +54,12 @@ export const Button = React.forwardRef(
             borderRadius: "var(--border-radius-m)",
             justifyContent: "center",
             userSelect: "none",
+            padding: getPadding("medium"),
           },
-          getPadding("medium"),
           jsStyle,
         ]}
       >
-        <Row jsStyle={grow} align={align} gap={gap} justify={justify}>
+        <Row grow={true} align={align} gap={gap} justify={justify}>
           {icon && iconPosition === "left" && (
             <Icon
               icon={icon}

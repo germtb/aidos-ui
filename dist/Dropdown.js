@@ -5,13 +5,14 @@ import { Button } from "./Button";
 import { Column } from "./Column";
 import { useNavigation } from "./useNavigation";
 import { useRefEffect } from "./useRefEffect";
-import { grow, getBackground } from "./JSS";
+import { getBackground } from "./jss";
 const jsStyles = {
     root: {
         position: "relative",
         display: "flex",
         justifyContent: "center",
         alignItems: "stretch",
+        flexGrow: 1,
     },
     button: {
         flexGrow: 1,
@@ -44,7 +45,7 @@ export function Dropdown({ id = guid(), label, options, selection, setSelection,
             triggerRef.current && triggerRef.current.focus();
         }
     }, [expanded]);
-    return (React.createElement(BaseView, { ref: rootRef, jsStyle: [jsStyles.root, grow, jsStyle] },
+    return (React.createElement(BaseView, { ref: rootRef, jsStyle: [jsStyles.root, jsStyle] },
         React.createElement(Button, { "aria-expanded": expanded ? "true" : "false", "aria-controls": id, "aria-haspopup": "true", "aria-label": label, role: "combobox", justify: "space-between", tabIndex: 0, jsStyle: jsStyles.button, label: selection.toString(), color: "positive", icon: "fa-chevron-down", iconPosition: "right", onPress: () => {
                 setExpanded((x) => !x);
             }, ref: triggerRef }),

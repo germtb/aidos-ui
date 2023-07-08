@@ -1,7 +1,7 @@
 import React from "react";
 import { BaseView } from "./BaseView";
 import { Icon } from "./Icon";
-import { jss } from "./JSS";
+import { jss } from "./jss";
 const jsStyles = {
     root: {
         position: "relative",

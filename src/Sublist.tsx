@@ -46,7 +46,7 @@ export function Sublist({
             </Box>
           </Row>
         }
-        addOnPosition="right"
+        addOnPosition="end"
       />
       {collapsed ? null : children}
     </>

@@ -209,7 +209,7 @@ export type Margin = Spacing | [Spacing, Spacing];
 
 export type Direction = "horizontal" | "vertical";
 
-export type Position = "left" | "right";
+export type Position = "start" | "end";
 
 export type Justify =
   | "none"
@@ -244,6 +244,35 @@ export type TextColor =
 
 export function cssVar(string: keyof Theme): string {
   return `var(${string})`;
+}
+
+const sizes: { [size in Size]: string } = {
+  xsmall: cssVar("--spacing-xs"),
+  small: cssVar("--spacing-s"),
+  medium: cssVar("--spacing-m"),
+  large: cssVar("--spacing-l"),
+  xlarge: cssVar("--spacing-xl"),
+};
+
+export function getSize(size: Size): string {
+  return sizes[size];
+}
+
+export function getSpacing(spacing: Spacing): string {
+  if (spacing === "none") {
+    return "0px";
+  } else {
+    return getSize(spacing);
+  }
+}
+
+export function getPadding(padding: Padding): string {
+  if (Array.isArray(padding)) {
+    const [vertical, horizontal] = padding;
+    return `${getSpacing(vertical)} ${getSpacing(horizontal)}`;
+  } else {
+    return getSpacing(padding);
+  }
 }
 
 export type Theme = {
@@ -435,248 +464,6 @@ const backgroundStyles = {
 
 export const getBackground = (color: Color): JSStyle => {
   return backgroundStyles[color];
-};
-
-const justifyStyles = {
-  ["space-between"]: {
-    justifyContent: "space-between",
-  },
-  ["center"]: {
-    justifyContent: "center",
-  },
-  ["flex-end"]: {
-    justifyContent: "flex-end",
-  },
-  ["stretch"]: {
-    justifyContent: "stretch",
-  },
-  ["flex-start"]: {
-    justifyContent: "flex-start",
-  },
-};
-
-export const getJustify = (prop: Justify): JSStyle => {
-  return justifyStyles[prop];
-};
-
-const alignStyles = {
-  ["stretch"]: {
-    alignItems: "stretch",
-  },
-  ["center"]: {
-    alignItems: "center",
-  },
-  ["flex-start"]: {
-    alignItems: "flex-start",
-  },
-  ["flex-end"]: {
-    alignItems: "flex-end",
-  },
-};
-
-export const getAlign = (prop: Align) => {
-  return alignStyles[prop];
-};
-
-const gapStyles = {
-  xsmall: {
-    gap: "var(--spacing-xs)",
-  },
-  small: {
-    gap: "var(--spacing-s)",
-  },
-  medium: {
-    gap: "var(--spacing-m)",
-  },
-  large: {
-    gap: "var(--spacing-l)",
-  },
-  xlarge: {
-    gap: "var(--spacing-xl)",
-  },
-};
-
-export const getGap = (gap: Gap) => {
-  return gapStyles[`${gap}`];
-};
-
-export const paddingStyles = {
-  xsmall: {
-    padding: "var(--spacing-xs)",
-  },
-  small: {
-    padding: "var(--spacing-s)",
-  },
-  medium: {
-    padding: "var(--spacing-m)",
-  },
-  large: {
-    padding: "var(--spacing-l)",
-  },
-  xlarge: {
-    padding: "var(--spacing-xl)",
-  },
-  ["xsmall-row"]: {
-    paddingLeft: "var(--spacing-xs)",
-    paddingRight: "var(--spacing-xs)",
-  },
-  ["small-row"]: {
-    paddingLeft: "var(--spacing-s)",
-    paddingRight: "var(--spacing-s)",
-  },
-  ["medium-row"]: {
-    paddingLeft: "var(--spacing-m)",
-    paddingRight: "var(--spacing-m)",
-  },
-  ["large-row"]: {
-    paddingLeft: "var(--spacing-l)",
-    paddingRight: "var(--spacing-l)",
-  },
-  ["xlarge-row"]: {
-    paddingLeft: "var(--spacing-xl)",
-    paddingRight: "var(--spacing-xl)",
-  },
-  ["xsmall-column"]: {
-    paddingTop: "var(--spacing-xs)",
-    paddingBottom: "var(--spacing-xs)",
-  },
-  ["small-column"]: {
-    paddingTop: "var(--spacing-s)",
-    paddingBottom: "var(--spacing-s)",
-  },
-  ["medium-column"]: {
-    paddingTop: "var(--spacing-m)",
-    paddingBottom: "var(--spacing-m)",
-  },
-  ["large-column"]: {
-    paddingTop: "var(--spacing-l)",
-    paddingBottom: "var(--spacing-l)",
-  },
-  ["xlarge-column"]: {
-    paddingTop: "var(--spacing-xl)",
-    paddingBottom: "var(--spacing-xl)",
-  },
-};
-
-export const marginStyles = {
-  xsmall: {
-    margin: "var(--spacing-xs)",
-  },
-  small: {
-    margin: "var(--spacing-s)",
-  },
-  medium: {
-    margin: "var(--spacing-m)",
-  },
-  xlarge: {
-    margin: "var(--spacing-xl)",
-  },
-  large: {
-    margin: "var(--spacing-l)",
-  },
-  ["xsmall-row"]: {
-    marginLeft: "var(--spacing-xs)",
-    marginRight: "var(--spacing-xs)",
-  },
-  ["small-row"]: {
-    marginLeft: "var(--spacing-s)",
-    marginRight: "var(--spacing-s)",
-  },
-  ["medium-row"]: {
-    marginLeft: "var(--spacing-m)",
-    marginRight: "var(--spacing-m)",
-  },
-  ["large-row"]: {
-    marginLeft: "var(--spacing-l)",
-    marginRight: "var(--spacing-l)",
-  },
-  ["xlarge-row"]: {
-    marginLeft: "var(--spacing-xl)",
-    marginRight: "var(--spacing-xl)",
-  },
-  ["xsmall-column"]: {
-    marginTop: "var(--spacing-xs)",
-    marginBottom: "var(--spacing-xs)",
-  },
-  ["small-column"]: {
-    marginTop: "var(--spacing-s)",
-    marginBottom: "var(--spacing-s)",
-  },
-  ["medium-column"]: {
-    marginTop: "var(--spacing-m)",
-    marginBottom: "var(--spacing-m)",
-  },
-  ["large-column"]: {
-    marginTop: "var(--spacing-l)",
-    marginBottom: "var(--spacing-l)",
-  },
-  ["xlarge-column"]: {
-    marginTop: "var(--spacing-xl)",
-    marginBottom: "var(--spacing-xl)",
-  },
-};
-
-export const getPadding = (padding: Padding) => {
-  if (Array.isArray(padding)) {
-    const [h, v] = padding;
-    return [paddingStyles[`${v}-row`], paddingStyles[`${h}-column`]];
-  } else {
-    return paddingStyles[padding];
-  }
-};
-
-export const getMargin = (margin: Margin) => {
-  if (Array.isArray(margin)) {
-    const [h, v] = margin;
-    return [marginStyles[`${v}-row`], marginStyles[`${h}-column`]];
-  } else {
-    return marginStyles[margin];
-  }
-};
-
-export const grow = { flexGrow: 1 };
-
-export const shrink = { flexShrink: 1 };
-
-const flexStyles = {
-  row: {
-    display: "flex",
-    flexDirection: "row",
-  },
-  column: {
-    display: "flex",
-    flexDirection: "column",
-  },
-};
-
-export const getFlex = (direction: FlexDirection) => {
-  return flexStyles[direction];
-};
-
-const borderStyles = {
-  top: {
-    borderTop: "1px solid var(--divider)",
-  },
-  bottom: {
-    borderBottom: "1px solid var(--divider)",
-  },
-  right: {
-    borderRight: "1px solid var(--divider)",
-  },
-  left: {
-    borderLeft: "1px solid var(--divider)",
-  },
-  all: {
-    border: "1px solid var(--divider)",
-  },
-};
-
-export const getBorder = (direction?: "top" | "bottom" | "left" | "right") => {
-  if (!direction) {
-    return borderStyles.all;
-  }
-
-  return borderStyles[direction];
 };
 
 export const MOBILE = 750;

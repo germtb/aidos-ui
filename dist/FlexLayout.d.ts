@@ -1,6 +1,6 @@
 import React from "react";
 import { BaseViewProps } from "./BaseView";
-import { Justify, Gap, Align, Padding, FlexDirection } from "./JSS";
+import { Justify, Gap, Align, Padding, FlexDirection } from "./jss";
 export interface FlexLayoutProps extends BaseViewProps {
     justify?: Justify;
     gap?: Gap;

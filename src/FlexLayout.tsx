@@ -7,11 +7,8 @@ import {
   Align,
   Padding,
   FlexDirection,
-  getFlex,
   getPadding,
-  getGap,
-  getJustify,
-  getAlign,
+  getSpacing,
 } from "./jss";
 
 export interface FlexLayoutProps extends BaseViewProps {
@@ -39,11 +36,14 @@ export const FlexLayout = React.forwardRef(
       <BaseView
         ref={ref}
         jsStyle={[
-          getFlex(direction),
-          getPadding(padding),
-          getGap(gap),
-          getJustify(justify),
-          getAlign(align),
+          {
+            display: "flex",
+            flexDirection: direction,
+            gap: getSpacing(gap),
+            justifyContent: justify,
+            alignItems: align,
+            padding: getPadding(padding),
+          },
           jsStyle,
         ]}
         {...otherProps}

@@ -2,13 +2,12 @@ import React from "react";
 import { BaseInput } from "./BaseInput";
 import { BaseView } from "./BaseView";
 import { Icon } from "./Icon";
-import { jss } from "./JSS";
+import { jss } from "./jss";
 const jsStyles = {
     root: {
         position: "relative",
         backgroundColor: "var(--primary-background)",
         overflow: "hidden",
-        // padding: "var(--spacing-xs)",
         ":active": {
             backgroundColor: "var(--light-highlight)",
             border: "1px solid var(--highlight)",
@@ -83,14 +82,21 @@ const jsStyles = {
         height: "100%",
     },
 };
+const sizes = {
+    xsmall: 20,
+    small: 24,
+    medium: 32,
+    large: 40,
+    xlarge: 48,
+};
 export function Checkbox({ jsStyle, checked, onValueChange, size, ...inputProps }) {
     return (React.createElement("label", { className: jss([
             jsStyles.root,
-            size === "xsmall" && jsStyles.xsmall,
-            size === "small" && jsStyles.small,
-            size === "medium" && jsStyles.medium,
-            size === "large" && jsStyles.large,
-            size === "xlarge" && jsStyles.xlarge,
+            {
+                borderRadius: size[size] / 2,
+                height: sizes[size],
+                width: sizes[size],
+            },
             checked && jsStyles.rootChecked,
         ]) },
         React.createElement(BaseView, { jsStyle: [jsStyles.border, checked && jsStyles.borderChecked] }),

@@ -19,7 +19,10 @@ import { DarkModeContext } from "./DarkModeStore";
 import { Popover, PopoverTrigger } from "./Popover";
 import { Tooltip } from "./Tooltip";
 import { Link } from "./Link";
-import { getBackground, withMedia } from "./JSS";
+import { getBackground, withMedia } from "./jss";
+import { Calendar } from "./Calendar";
+import { Box } from "./Box";
+import { Badge } from "./Badge";
 function ExampleDialog({ close }) {
     const darkMode = useContext(DarkModeContext);
     return (React.createElement(Dialog, { close: close, label: "Example" },
@@ -27,14 +30,6 @@ function ExampleDialog({ close }) {
             React.createElement(Text, null, "Dark mode"),
             React.createElement(Checkbox, { size: "medium", checked: darkMode.enabled, onValueChange: () => darkMode.toggle() }))));
 }
-const jsStyle = {
-    responsive: withMedia({
-        phone: getBackground("negative"),
-        tablet: getBackground("divider"),
-        laptop: getBackground("highlight"),
-        desktop: getBackground("warning"),
-    }),
-};
 export function DesignBook() {
     const dialog = useDialog(({ close }) => React.createElement(ExampleDialog, { close: close }), { closeOnOutsideClick: true });
     return (React.createElement(RootView, null,
@@ -91,7 +86,13 @@ export function DesignBook() {
                 React.createElement(CenteredListRow, { gap: "medium" },
                     React.createElement(Link, { bare: true, label: "Bare disabled Link", color: "positive", href: "/", disabled: true }))),
             React.createElement(Sublist, { label: "Responsiveness", initialState: { collapsed: false } },
-                React.createElement(Text, { jsStyle: jsStyle.responsive }, "Background will change with screen size")),
+                React.createElement(Row, { padding: "medium", jsStyle: withMedia({
+                        phone: getBackground("negative"),
+                        tablet: getBackground("divider"),
+                        laptop: getBackground("highlight"),
+                        desktop: getBackground("warning"),
+                    }) },
+                    React.createElement(Text, null, "Background will change with screen size"))),
             React.createElement(ListSpacer, null),
             React.createElement(Sublist, { label: "Icon button", initialState: { collapsed: false } },
                 React.createElement(ListRow, { padding: "medium", gap: "medium" },
@@ -201,6 +202,16 @@ export function DesignBook() {
                     React.createElement(Checkbox, { size: "medium", checked: true, onValueChange: () => { } }),
                     React.createElement(Checkbox, { size: "large", checked: true, onValueChange: () => { } }))),
             React.createElement(ListSpacer, null),
-            React.createElement(ListSpacer, null))));
+            React.createElement(ListSpacer, null),
+            React.createElement(Sublist, { label: "Calendar" },
+                React.createElement(Calendar, { date: new Date(), header: ({ weekday }) => (React.createElement(Box, null,
+                        React.createElement(Text, null, weekday))), cell: ({ today, date, outOfMonth }) => (React.createElement(Box, { relative: true, style: { opacity: outOfMonth ? 0.2 : 1 } },
+                        today && (React.createElement(Badge, { jsStyle: {
+                                position: "absolute",
+                                top: "50%",
+                                transform: "translateY(-50%) translateX(-75%)",
+                                right: "50%",
+                            } })),
+                        React.createElement(Text, null, date.getDate()))) })))));
 }
 //# sourceMappingURL=DesignBook.js.map

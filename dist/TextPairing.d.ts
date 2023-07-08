@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { TextType } from "./Text";
-import { TextColor, Size, Position, Gap, Padding, Align } from "./JSS";
+import { TextColor, Size, Position, Gap, Padding, Align } from "./jss";
 export interface TextPairingProps {
     headline: ReactNode;
     body?: ReactNode;

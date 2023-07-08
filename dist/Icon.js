@@ -1,6 +1,6 @@
 import React from "react";
 import { BaseView } from "./BaseView";
-import { getTextColor } from "./JSS";
+import { getTextColor } from "./jss";
 const jsStyles = {
     root: {
         display: "flex",

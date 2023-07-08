@@ -1,6 +1,7 @@
 /// <reference types="react" />
-import { Color, Size } from "./JSS";
-export declare function Badge({ size, color, }: {
+import { Color, JSStyle, Size } from "./jss";
+export declare function Badge({ size, color, jsStyle, }: {
     size?: Size;
     color?: Color;
+    jsStyle?: JSStyle;
 }): JSX.Element;

@@ -1,5 +1,5 @@
 import React from "react";
-import { JSStyle } from "./JSS";
+import { JSStyle } from "./jss";
 export interface TextAreaProps extends React.InputHTMLAttributes<HTMLTextAreaElement> {
     jsStyle?: JSStyle;
     onValueChange?: (value: string) => void;

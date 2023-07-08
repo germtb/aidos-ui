@@ -42,15 +42,6 @@ function ExampleDialog({ close }) {
   );
 }
 
-const jsStyle: { [key: string]: JSStyle } = {
-  responsive: withMedia({
-    phone: getBackground("negative"),
-    tablet: getBackground("divider"),
-    laptop: getBackground("highlight"),
-    desktop: getBackground("warning"),
-  }),
-};
-
 export function DesignBook() {
   const dialog = useDialog<void>(
     ({ close }) => <ExampleDialog close={close} />,
@@ -277,9 +268,17 @@ export function DesignBook() {
         </Sublist>
 
         <Sublist label="Responsiveness" initialState={{ collapsed: false }}>
-          <Text jsStyle={jsStyle.responsive}>
-            Background will change with screen size
-          </Text>
+          <Row
+            padding="medium"
+            jsStyle={withMedia({
+              phone: getBackground("negative"),
+              tablet: getBackground("divider"),
+              laptop: getBackground("highlight"),
+              desktop: getBackground("warning"),
+            })}
+          >
+            <Text>Background will change with screen size</Text>
+          </Row>
         </Sublist>
 
         <ListSpacer />

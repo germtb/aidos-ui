@@ -44,8 +44,7 @@ export function Text({
     <Type
       className={jss([
         getTextColor(color),
-        { lineHeight: "1.5rem" },
-        { fontSize: fontSize[size] },
+        { fontSize: fontSize[size], lineHeight: "1.7rem" },
         bold && { fontWeight: "bold" },
         align === "center" && { textAlign: "center" },
         ellipsis && {

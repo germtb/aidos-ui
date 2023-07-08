@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { JSStyle } from "./JSS";
+import { JSStyle } from "./jss";
 export declare function Popover({ children, close }: {
     children: any;
     close: any;

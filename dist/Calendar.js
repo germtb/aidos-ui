@@ -1,12 +1,5 @@
 import React, { useMemo } from "react";
 import { BaseView } from "./BaseView";
-const jsStyles = {
-    container: {
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr 1fr",
-        gridTemplateRows: "1fr",
-    },
-};
 const dateFormatter = Intl.DateTimeFormat("en-UK", {
     weekday: "short",
 });
@@ -33,7 +26,14 @@ export const Calendar = React.forwardRef(({ date, cell, header, jsStyle, }, ref)
             header({ weekday: SAT }),
             header({ weekday: SUN })));
     }, []);
-    return (React.createElement(BaseView, { ref: ref, jsStyle: [jsStyles.container, jsStyle] },
+    return (React.createElement(BaseView, { ref: ref, jsStyle: [
+            {
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr 1fr",
+                gridTemplateRows: "1fr",
+            },
+            jsStyle,
+        ] },
         headers,
         Array.from(Array(offset).keys()).map((index) => {
             const dayDate = new Date(date.getFullYear(), date.getMonth(), index + 1 - offset);
@@ -57,7 +57,9 @@ export const Calendar = React.forwardRef(({ date, cell, header, jsStyle, }, ref)
                 right: (index + offset) % 7 === 7 - 1 || index === daysInMonth - 1,
                 bottom: index > daysInMonth - 7 - 1,
                 outOfMonth: false,
-                // today: dayDate.getTime() === new,
+                today: dayDate.getDate() == new Date().getDate() &&
+                    dayDate.getMonth() == new Date().getMonth() &&
+                    dayDate.getFullYear() == new Date().getFullYear(),
             })));
         })));
 });

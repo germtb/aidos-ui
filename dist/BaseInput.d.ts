@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { JSStyle } from "./JSS";
+import { JSStyle } from "./jss";
 export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     jsStyle?: JSStyle;
     className?: undefined;

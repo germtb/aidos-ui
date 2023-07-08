@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { queryFocusables } from "./aria";
 import { BaseView } from "./BaseView";
 import { useRefEffect } from "./useRefEffect";
-import { jss } from "./JSS";
+import { jss } from "./jss";
 const jsStyles = {
     root: {
         position: "relative",

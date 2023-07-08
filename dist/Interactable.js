@@ -1,4 +1,4 @@
-import { getPadding } from "./JSS";
+import { getPadding } from "./jss";
 const jsStyles = {
     root: {
         cursor: "pointer",
@@ -14,17 +14,6 @@ const jsStyles = {
             outlineWidth: "2px",
             outlineStyle: "solid",
             outlineOffset: -2,
-        },
-    },
-    animateClick: {
-        position: "relative",
-        ":active": {
-            opacity: 0.95,
-            top: 1,
-        },
-        "[aria-disabled=true]:active": {
-            top: 0,
-            opacity: 1,
         },
     },
     positive: {
@@ -69,6 +58,7 @@ const jsStyles = {
     colorHover: {},
 };
 export function getInteractableJSStyles({ color, bare, disabled, animateInteraction, padding, }) {
+    console.log({ padding, calculatedPadding: getPadding(padding) });
     return [
         jsStyles.root,
         color === "positive" && jsStyles.positive,
@@ -77,8 +67,21 @@ export function getInteractableJSStyles({ color, bare, disabled, animateInteract
         bare && jsStyles.bare,
         disabled && jsStyles.disabled,
         !bare && jsStyles.opacityHover,
-        animateInteraction && !disabled && jsStyles.animateClick,
-        getPadding(padding),
+        animateInteraction &&
+            !disabled && {
+            position: "relative",
+            ":active": {
+                opacity: 0.95,
+                top: 1,
+            },
+            "[aria-disabled=true]:active": {
+                top: 0,
+                opacity: 1,
+            },
+        },
+        {
+            padding: getPadding(padding),
+        },
     ];
 }
 export const getGlyphColor = (color, disabled, bare) => {
@@ -91,7 +94,7 @@ export const getGlyphColor = (color, disabled, bare) => {
         case "negative":
             return bare ? "negative" : "light";
         case "secondary":
-            return "primary";
+            return bare ? "primary" : "secondary";
     }
 };
 //# sourceMappingURL=Interactable.js.map

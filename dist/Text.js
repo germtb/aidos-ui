@@ -1,54 +1,27 @@
 import React from "react";
-import { getTextColor, jss } from "./JSS";
-const jsStyles = {
-    ellipsis: {
-        overflow: "hidden",
-        textOverflow: "ellipsis",
-        whiteSpace: "nowrap",
-    },
-    size1: {
-        fontSize: 10,
-        lineHeight: "1.5rem",
-    },
-    size2: {
-        fontSize: 14,
-        lineHeight: "1.5rem",
-    },
-    size3: {
-        fontSize: 18,
-        lineHeight: "1.5rem",
-    },
-    size4: {
-        fontWeight: "bold",
-        fontSize: 24,
-        lineHeight: "1.5rem",
-    },
-    size5: {
-        fontWeight: "bold",
-        fontSize: 30,
-        lineHeight: "1.5rem",
-    },
-    textAlignCenter: {
-        textAlign: "center",
-    },
-    grow: {
-        flexGrow: 1,
-    },
+import { getTextColor, jss } from "./jss";
+const fontSize = {
+    xsmall: 10,
+    small: 14,
+    medium: 18,
+    large: 24,
+    xlarge: 30,
 };
-export function Text({ children, color = "primary", size = "medium", align = "none", ellipsis = "default", grow, type: Type = "span", jsStyle, }) {
+export function Text({ children, color = "primary", size = "medium", align = "none", bold = false, ellipsis = "default", grow, type: Type = "span", jsStyle, }) {
     if (ellipsis === "default") {
         ellipsis = Type === "span";
     }
     return (React.createElement(Type, { className: jss([
             getTextColor(color),
-            size === "xsmall" && jsStyles.size1,
-            size === "small" && jsStyles.size2,
-            size === "medium" && jsStyles.size3,
-            size === "large" && jsStyles.size4,
-            size === "xlarge" && jsStyles.size5,
-            align === "center" && jsStyles.textAlignCenter,
-            ellipsis && jsStyles.ellipsis,
-            grow && jsStyles.grow,
+            { fontSize: fontSize[size], lineHeight: "1.7rem" },
+            bold && { fontWeight: "bold" },
+            align === "center" && { textAlign: "center" },
+            ellipsis && {
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+            },
+            grow && { flexGrow: 1 },
             jsStyle,
         ]) }, children));
 }

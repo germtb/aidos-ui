@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { JSStyle } from "./JSS";
+import { JSStyle } from "./jss";
 export declare function Sublist({ children, label, initialState, jsStyle, secondaryAddOn, }: {
     children: React.ReactNode;
     label: string;

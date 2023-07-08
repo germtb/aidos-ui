@@ -6,7 +6,7 @@ import { Button } from "./Button";
 import { Column } from "./Column";
 import { useNavigation } from "./useNavigation";
 import { useRefEffect } from "./useRefEffect";
-import { JSStyle, grow, getBackground } from "./jss";
+import { JSStyle, getBackground } from "./jss";
 
 const jsStyles: { [key: string]: JSStyle } = {
   root: {
@@ -14,6 +14,7 @@ const jsStyles: { [key: string]: JSStyle } = {
     display: "flex",
     justifyContent: "center",
     alignItems: "stretch",
+    flexGrow: 1,
   },
   button: {
     flexGrow: 1,
@@ -64,7 +65,7 @@ export function Dropdown<T>({
   }, [expanded]);
 
   return (
-    <BaseView ref={rootRef} jsStyle={[jsStyles.root, grow, jsStyle]}>
+    <BaseView ref={rootRef} jsStyle={[jsStyles.root, jsStyle]}>
       <Button
         aria-expanded={expanded ? "true" : "false"}
         aria-controls={id}

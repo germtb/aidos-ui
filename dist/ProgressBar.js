@@ -1,6 +1,6 @@
 import React from "react";
 import { BaseView } from "./BaseView";
-import { getBackground } from "./JSS";
+import { getBackground } from "./jss";
 const jsStyles = {
     root: {
         width: "100%",

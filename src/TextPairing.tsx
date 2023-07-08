@@ -34,7 +34,7 @@ export function TextPairing({
   bodySize = "medium",
   bodyType = "span",
   addOn,
-  addOnPosition = "left",
+  addOnPosition = "start",
   gap = "small",
   align = "stretch",
   grow,
@@ -90,9 +90,9 @@ export function TextPairing({
           overflow: "hidden",
         }}
       >
-        {addOnPosition === "left" && addOn}
+        {addOnPosition === "start" && addOn}
         {textElement}
-        {addOnPosition === "right" && addOn}
+        {addOnPosition === "end" && addOn}
       </Row>
     );
   }

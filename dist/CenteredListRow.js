@@ -1,14 +1,14 @@
 import React from "react";
 import { BaseListRow } from "./BaseListRow";
-import { grow } from "./JSS";
+import { cssVar } from "./jss";
 export const CenteredListRow = React.forwardRef((props, ref) => {
     return (React.createElement(BaseListRow, { ...props, align: "center", justify: "center", jsStyle: [
             props.jsStyle,
             {
                 position: "relative",
-                padding: "var(--spacing-m)",
+                padding: cssVar("--spacing-m"),
+                flexGrow: 1,
             },
-            grow,
         ], ref: ref, withDivider: false }));
 });
 //# sourceMappingURL=CenteredListRow.js.map

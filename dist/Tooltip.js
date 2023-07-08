@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { BaseView } from "./BaseView";
 import { useRefEffect } from "./useRefEffect";
 import { Text } from "./Text";
-import { jss } from "./JSS";
+import { cssVar, jss } from "./jss";
 const jsStyles = {
     root: {
         position: "relative",
@@ -10,11 +10,11 @@ const jsStyles = {
     tooltip: {
         top: "-100%",
         transform: "translateY(50%)",
-        background: "var(--primary-background)",
-        padding: "var(--spacing-s)",
-        borderRadius: "var(--border-radius-m)",
-        border: "1px solid var(--divider)",
-        boxShadow: "0px 1px 2px var(--divider)",
+        background: cssVar("--primary-background"),
+        padding: cssVar("--spacing-s"),
+        borderRadius: cssVar("--border-radius-m"),
+        border: `1px solid ${cssVar("--divider")}`,
+        boxShadow: `0px 1px 2px ${cssVar("--divider")}`,
         overflow: "hidden",
     },
 };

@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { Text } from "./Text";
-import { jss } from "./JSS";
+import { jss } from "./jss";
 const jsStyles = {
     dateInput: {
         border: "1px solid var(--divider)",

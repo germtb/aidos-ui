@@ -1,6 +1,6 @@
 /// <reference types="react" />
 import { IconType } from "./IconType";
-import { Size, TextColor } from "./JSS";
+import { Size, TextColor } from "./jss";
 export declare const initializeIcons: () => void;
 export declare function Icon({ icon, size, color, ariaLabel, }: {
     ariaLabel?: string;

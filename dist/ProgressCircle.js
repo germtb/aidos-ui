@@ -1,5 +1,5 @@
 import React from "react";
-import { jss } from "./JSS";
+import { jss } from "./jss";
 export function ProgressCircle({ progress, stroke = 4, outerRadius, }) {
     const circumference = outerRadius * 2 * Math.PI;
     const strokeDashoffset = circumference - progress * circumference;

@@ -1,4 +1,4 @@
-import { Padding, getPadding, TextColor } from "./jss";
+import { JSStyle, Padding, TextColor, getPadding } from "./jss";
 
 export type InterctableColor = "positive" | "secondary" | "negative";
 
@@ -17,17 +17,6 @@ const jsStyles = {
       outlineWidth: "2px",
       outlineStyle: "solid",
       outlineOffset: -2,
-    },
-  },
-  animateClick: {
-    position: "relative",
-    ":active": {
-      opacity: 0.95,
-      top: 1,
-    },
-    "[aria-disabled=true]:active": {
-      top: 0,
-      opacity: 1,
     },
   },
   positive: {
@@ -84,7 +73,8 @@ export function getInteractableJSStyles({
   disabled: boolean;
   animateInteraction: boolean;
   padding: Padding;
-}) {
+}): Array<JSStyle> {
+  console.log({ padding, calculatedPadding: getPadding(padding) });
   return [
     jsStyles.root,
     color === "positive" && jsStyles.positive,
@@ -93,8 +83,21 @@ export function getInteractableJSStyles({
     bare && jsStyles.bare,
     disabled && jsStyles.disabled,
     !bare && jsStyles.opacityHover,
-    animateInteraction && !disabled && jsStyles.animateClick,
-    getPadding(padding),
+    animateInteraction &&
+      !disabled && {
+        position: "relative",
+        ":active": {
+          opacity: 0.95,
+          top: 1,
+        },
+        "[aria-disabled=true]:active": {
+          top: 0,
+          opacity: 1,
+        },
+      },
+    {
+      padding: getPadding(padding),
+    },
   ];
 }
 

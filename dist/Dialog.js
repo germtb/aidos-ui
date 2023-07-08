@@ -5,7 +5,7 @@ import { ListDivider } from "./ListDivider";
 import { Column } from "./Column";
 import { Row } from "./Row";
 import { IconButton } from "./IconButton";
-import { jss } from "./JSS";
+import { jss } from "./jss";
 const jsStyles = {
     dialog: {
         border: "1px solid var(--divider)",

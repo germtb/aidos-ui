@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { Size } from "./JSS";
+import { Size } from "./jss";
 type TextInputProps = {
     checked: boolean;
     size: Size;

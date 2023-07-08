@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import { BaseListRowProps } from "./BaseListRow";
 import { InterctableColor } from "./Interactable";
-import { Size, TextColor, Position, Color, Spacing } from "./JSS";
+import { Size, TextColor, Position, Color, Spacing } from "./jss";
 interface ListPressableRow extends BaseListRowProps {
     onPress: () => void;
     headline: string;

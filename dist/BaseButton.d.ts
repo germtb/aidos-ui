@@ -1,6 +1,6 @@
 import React from "react";
 import { InterctableColor } from "./Interactable";
-import { JSStyle, Padding } from "./JSS";
+import { JSStyle, Padding } from "./jss";
 export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     onPress: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
     jsStyle?: JSStyle;
