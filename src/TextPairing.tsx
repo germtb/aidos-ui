@@ -1,24 +1,10 @@
 import React, { ReactNode } from "react";
 
-import { Display, Text, TextType } from "./Text";
+import { Text, TextType } from "./Text";
 import { Row } from "./Row";
 import { BaseView } from "./BaseView";
 import { Column } from "./Column";
-import { TextColor, Size, Position, Gap, Padding, Align, JSStyle } from "./JSS";
-
-const jsStyles: { [key: string]: JSStyle } = {
-  overflow: {
-    overflow: "hidden",
-  },
-  headline: {
-    display: "flex",
-    textAlign: "start",
-  },
-  body: {
-    marginTop: "var(--spacing-xs)",
-    textAlign: "start",
-  },
-};
+import { TextColor, Size, Position, Gap, Padding, Align, cssVar } from "./jss";
 
 export interface TextPairingProps {
   headline: ReactNode;
@@ -61,16 +47,29 @@ export function TextPairing({
       shrink={shrink}
       padding={addOn ? undefined : padding}
       align={align}
-      jsStyle={jsStyles.overflow}
+      jsStyle={{
+        overflow: "hidden",
+      }}
     >
-      <Row align="center" jsStyle={jsStyles.headline}>
+      <Row
+        align="center"
+        jsStyle={{
+          textAlign: "start",
+        }}
+      >
         <Text color={headlineColor} size={headlineSize}>
           {headline}
         </Text>
         {headlineAddOn && <BaseView>{headlineAddOn}</BaseView>}
       </Row>
       {body && (
-        <Row align="center" jsStyle={jsStyles.body}>
+        <Row
+          align="center"
+          jsStyle={{
+            marginTop: cssVar("--spacing-xs"),
+            textAlign: "start",
+          }}
+        >
           <Text type={bodyType} color={bodyColor} size={bodySize}>
             {body}
           </Text>
@@ -87,7 +86,9 @@ export function TextPairing({
         gap={gap}
         align="center"
         padding={padding}
-        jsStyle={jsStyles.overflow}
+        jsStyle={{
+          overflow: "hidden",
+        }}
       >
         {addOnPosition === "left" && addOn}
         {textElement}

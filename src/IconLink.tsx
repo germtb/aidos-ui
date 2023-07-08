@@ -1,9 +1,9 @@
 import React from "react";
-import { BaseButton, BaseButtonProps } from "./BaseButton";
 import { Icon } from "./Icon";
 import { IconType } from "./IconType";
 import { getGlyphColor } from "./Interactable";
 import { Size } from "./jss";
+import { BaseLink, BaseLinkProps } from "./BaseLink";
 
 const sizes = {
   xsmall: 20,
@@ -13,7 +13,7 @@ const sizes = {
   xlarge: 48,
 };
 
-export interface IconButtonProps extends BaseButtonProps {
+export interface IconButtonProps extends BaseLinkProps {
   icon: IconType;
   size: Size;
 }
@@ -21,10 +21,10 @@ export interface IconButtonProps extends BaseButtonProps {
 export const IconButton = React.forwardRef(
   (
     { icon, size, color, bare, disabled, ...buttonProps }: IconButtonProps,
-    ref?: React.Ref<HTMLButtonElement>
+    ref?: React.Ref<HTMLAnchorElement>
   ) => {
     return (
-      <BaseButton
+      <BaseLink
         {...buttonProps}
         bare={bare}
         jsStyle={[
@@ -51,7 +51,7 @@ export const IconButton = React.forwardRef(
           icon={icon}
           color={getGlyphColor(color, disabled, bare)}
         />
-      </BaseButton>
+      </BaseLink>
     );
   }
 );

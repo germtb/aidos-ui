@@ -1,14 +1,6 @@
 import React, { useMemo } from "react";
 import { BaseView } from "./BaseView";
-import { JSStyle } from "./JSS";
-
-const jsStyles = {
-  container: {
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr 1fr",
-    gridTemplateRows: "1fr",
-  },
-};
+import { JSStyle } from "./jss";
 
 const dateFormatter = Intl.DateTimeFormat("en-UK", {
   weekday: "short",
@@ -67,7 +59,17 @@ export const Calendar = React.forwardRef(
     }, []);
 
     return (
-      <BaseView ref={ref} jsStyle={[jsStyles.container, jsStyle]}>
+      <BaseView
+        ref={ref}
+        jsStyle={[
+          {
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr 1fr",
+            gridTemplateRows: "1fr",
+          },
+          jsStyle,
+        ]}
+      >
         {headers}
         {Array.from(Array(offset).keys()).map((index) => {
           const dayDate = new Date(
@@ -109,7 +111,10 @@ export const Calendar = React.forwardRef(
                   (index + offset) % 7 === 7 - 1 || index === daysInMonth - 1,
                 bottom: index > daysInMonth - 7 - 1,
                 outOfMonth: false,
-                // today: dayDate.getTime() === new,
+                today:
+                  dayDate.getDate() == new Date().getDate() &&
+                  dayDate.getMonth() == new Date().getMonth() &&
+                  dayDate.getFullYear() == new Date().getFullYear(),
               })}
             </React.Fragment>
           );

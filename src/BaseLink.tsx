@@ -1,6 +1,6 @@
 import React from "react";
 import { InterctableColor, getInteractableJSStyles } from "./Interactable";
-import { JSStyle, Padding, jss } from "./JSS";
+import { JSStyle, Padding, jss } from "./jss";
 
 export interface BaseLinkProps
   extends React.LinkHTMLAttributes<HTMLAnchorElement> {
@@ -25,6 +25,7 @@ export const BaseLink = React.forwardRef(
       disabled,
       animateInteraction = true,
       padding,
+      href,
       ...otherProps
     }: BaseLinkProps,
     ref?: React.Ref<HTMLAnchorElement>
@@ -33,6 +34,8 @@ export const BaseLink = React.forwardRef(
       <a
         {...otherProps}
         aria-disabled={disabled ? true : undefined}
+        href={disabled ? undefined : href}
+        role="link"
         ref={ref}
         onClick={
           onPress

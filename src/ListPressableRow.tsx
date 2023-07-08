@@ -5,7 +5,7 @@ import { TextPairing } from "./TextPairing";
 import { BaseListRow, BaseListRowProps } from "./BaseListRow";
 import { ListCell } from "./ListCell";
 import { InterctableColor } from "./Interactable";
-import { Size, TextColor, Position, Color, Spacing, JSStyle } from "./JSS";
+import { Size, TextColor, Position, Color, Spacing, JSStyle } from "./jss";
 
 const jsStyles: { [key: string]: JSStyle } = {
   root: {

@@ -1,5 +1,5 @@
 import React from "react";
-import { JSStyle, jss } from "./JSS";
+import { JSStyle, jss } from "./jss";
 
 export interface TextAreaProps
   extends React.InputHTMLAttributes<HTMLTextAreaElement> {
@@ -10,22 +10,6 @@ export interface TextAreaProps
   size?: undefined;
 }
 
-const jsStyles = {
-  root: {
-    padding: "var(--spacing-m)",
-    flexGrow: 1,
-    backgroundColor: "var(--primary-background)",
-    color: "var(--primary-text)",
-    outline: "none",
-    border: "none",
-    fontSize: 20,
-    lineHeight: 24 / 20,
-    "::placeholder": {
-      color: "var(--secondary-text);",
-    },
-  },
-};
-
 export const TextArea = React.forwardRef(
   (
     { jsStyle, onValueChange, value, onChange, ...otherProps }: TextAreaProps,
@@ -35,7 +19,22 @@ export const TextArea = React.forwardRef(
       <textarea
         {...otherProps}
         ref={ref}
-        className={jss([jsStyles.root, jsStyle])}
+        className={jss([
+          {
+            padding: "var(--spacing-m)",
+            flexGrow: 1,
+            backgroundColor: "var(--primary-background)",
+            color: "var(--primary-text)",
+            outline: "none",
+            border: "none",
+            fontSize: 20,
+            lineHeight: 24 / 20,
+            "::placeholder": {
+              color: "var(--secondary-text);",
+            },
+          },
+          jsStyle,
+        ])}
         value={value}
         onChange={
           onValueChange ? (e) => onValueChange(e.target.value) : undefined

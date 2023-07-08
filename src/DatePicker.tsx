@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { Text } from "./Text";
-import { TextColor, jss } from "./JSS";
+import { TextColor, jss } from "./jss";
 
 const jsStyles = {
   dateInput: {

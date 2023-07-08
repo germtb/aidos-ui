@@ -3,18 +3,7 @@ import React, { ReactNode, useRef, useCallback } from "react";
 import { Column } from "./Column";
 import { useIsTopOfStack } from "./StackContext";
 import { queryFocusables } from "./aria";
-
-const jsStyles = {
-  root: {
-    marginBottom: 0,
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: "0%",
-    overflow: "auto",
-    backgroundColor: "var(--secondary-background)",
-    minHeight: "600px",
-  },
-};
+import { cssVar } from "./jss";
 
 export function RootView({
   children,
@@ -48,7 +37,18 @@ export function RootView({
   );
 
   return (
-    <Column ref={refCallback} jsStyle={jsStyles.root}>
+    <Column
+      ref={refCallback}
+      jsStyle={{
+        marginBottom: 0,
+        flexGrow: 1,
+        flexShrink: 1,
+        flexBasis: "0%",
+        overflow: "auto",
+        backgroundColor: cssVar("--secondary-background"),
+        minHeight: "600px",
+      }}
+    >
       {children}
     </Column>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 import { BaseListRow, BaseListRowProps } from "./BaseListRow";
-import { grow } from "./JSS";
+import { cssVar, grow } from "./jss";
 
 interface CenteredListRow extends BaseListRowProps {
   withDivider?: false;
@@ -17,7 +17,7 @@ export const CenteredListRow = React.forwardRef(
           props.jsStyle,
           {
             position: "relative",
-            padding: "var(--spacing-m)",
+            padding: cssVar("--spacing-m"),
           },
           grow,
         ]}

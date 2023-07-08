@@ -1,4 +1,4 @@
-import { Padding, getPadding, TextColor } from "./JSS";
+import { Padding, getPadding, TextColor } from "./jss";
 
 export type InterctableColor = "positive" | "secondary" | "negative";
 
@@ -113,6 +113,6 @@ export const getGlyphColor = (
     case "negative":
       return bare ? "negative" : "light";
     case "secondary":
-      return "primary";
+      return bare ? "primary" : "secondary";
   }
 };

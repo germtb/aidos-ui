@@ -1,6 +1,6 @@
 import React from "react";
 import { InterctableColor, getInteractableJSStyles } from "./Interactable";
-import { JSStyle, Padding, jss } from "./JSS";
+import { JSStyle, Padding, jss } from "./jss";
 
 export interface BaseButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {

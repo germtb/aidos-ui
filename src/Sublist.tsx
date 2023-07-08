@@ -3,16 +3,7 @@ import { ListPressableRow } from "./ListPressableRow";
 import { Icon } from "./Icon";
 import { Box } from "./Box";
 import { Row } from "./Row";
-import { JSStyle } from "./JSS";
-
-const jsStyles = {
-  icon: {
-    transition: "transform 0.15s ease-in",
-  },
-  iconRotated: {
-    transform: "rotateZ(90deg)",
-  },
-};
+import { JSStyle } from "./jss";
 
 export function Sublist({
   children,
@@ -42,7 +33,14 @@ export function Sublist({
             {secondaryAddOn}
             <Box
               padding="medium"
-              jsStyle={[jsStyles.icon, !collapsed && jsStyles.iconRotated]}
+              jsStyle={[
+                {
+                  transition: "transform 0.15s ease-in",
+                },
+                !collapsed && {
+                  transform: "rotateZ(90deg)",
+                },
+              ]}
             >
               <Icon color="primary" size="medium" icon="fa-chevron-right" />
             </Box>

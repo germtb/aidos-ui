@@ -21,7 +21,10 @@ import { DarkModeContext } from "./DarkModeStore";
 import { Popover, PopoverTrigger } from "./Popover";
 import { Tooltip } from "./Tooltip";
 import { Link } from "./Link";
-import { JSStyle, getBackground, withMedia } from "./JSS";
+import { JSStyle, cssVar, getBackground, jss, withMedia } from "./jss";
+import { Calendar } from "./Calendar";
+import { Box } from "./Box";
+import { Badge } from "./Badge";
 
 function ExampleDialog({ close }) {
   const darkMode = useContext(DarkModeContext);
@@ -652,6 +655,32 @@ export function DesignBook() {
         <ListSpacer />
 
         <ListSpacer />
+
+        <Sublist label="Calendar">
+          <Calendar
+            date={new Date()}
+            header={({ weekday }) => (
+              <Box>
+                <Text>{weekday}</Text>
+              </Box>
+            )}
+            cell={({ today, date, outOfMonth }) => (
+              <Box relative={true} style={{ opacity: outOfMonth ? 0.2 : 1 }}>
+                {today && (
+                  <Badge
+                    jsStyle={{
+                      position: "absolute",
+                      top: "50%",
+                      transform: "translateY(-50%) translateX(-75%)",
+                      right: "50%",
+                    }}
+                  />
+                )}
+                <Text>{date.getDate()}</Text>
+              </Box>
+            )}
+          />
+        </Sublist>
       </List>
     </RootView>
   );

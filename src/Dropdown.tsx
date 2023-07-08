@@ -6,7 +6,7 @@ import { Button } from "./Button";
 import { Column } from "./Column";
 import { useNavigation } from "./useNavigation";
 import { useRefEffect } from "./useRefEffect";
-import { JSStyle, grow, getBackground } from "./JSS";
+import { JSStyle, grow, getBackground } from "./jss";
 
 const jsStyles: { [key: string]: JSStyle } = {
   root: {

@@ -1,13 +1,6 @@
 import React from "react";
 import { Box, BoxProps } from "./Box";
 
-const jsStyles = {
-  root: {
-    borderRadius: "50%",
-    overflow: "hidden",
-  },
-};
-
 interface CircleProps extends BoxProps {}
 
 export function Circle({
@@ -16,6 +9,16 @@ export function Circle({
   ...otherProps
 }: CircleProps) {
   return (
-    <Box padding={padding} jsStyle={[jsStyles.root, jsStyle]} {...otherProps} />
+    <Box
+      padding={padding}
+      jsStyle={[
+        {
+          borderRadius: "50%",
+          overflow: "hidden",
+        },
+        jsStyle,
+      ]}
+      {...otherProps}
+    />
   );
 }

@@ -242,6 +242,10 @@ export type TextColor =
   | "light"
   | "inherit";
 
+export function cssVar(string: keyof Theme): string {
+  return `var(${string})`;
+}
+
 export type Theme = {
   /* Background */
   ["--primary-background"]: string;

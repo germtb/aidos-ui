@@ -1,6 +1,6 @@
 import React from "react";
 import { BaseView, BaseViewProps } from "./BaseView";
-import { JSStyle } from "./JSS";
+import { JSStyle } from "./jss";
 
 const jsStyles: { [key: string]: JSStyle } = {
   root: {

@@ -1,7 +1,7 @@
 import React from "react";
 import { BaseView } from "./BaseView";
 import { Icon } from "./Icon";
-import { JSStyle, Size, jss } from "./JSS";
+import { JSStyle, Size, jss } from "./jss";
 
 // @ts-ignore
 type TextInputProps = {

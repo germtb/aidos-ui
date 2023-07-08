@@ -7,7 +7,7 @@ import { Row } from "./Row";
 import { Icon } from "./Icon";
 import { FlexLayoutProps } from "./FlexLayout";
 import { InterctableColor, getGlyphColor } from "./Interactable";
-import { Align, Gap, Justify, Size, getPadding, grow } from "./JSS";
+import { Align, Gap, Justify, Size, getPadding, grow } from "./jss";
 
 export interface ButtonProps extends BaseButtonProps {
   label: string;

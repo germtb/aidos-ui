@@ -1,40 +1,12 @@
 import React, { ReactNode } from "react";
-import { JSStyle, Size, TextColor, getTextColor, jss } from "./JSS";
+import { JSStyle, Size, TextColor, getTextColor, jss } from "./jss";
 
-const jsStyles: { [key: string]: JSStyle } = {
-  ellipsis: {
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-    whiteSpace: "nowrap",
-  },
-  size1: {
-    fontSize: 10,
-    lineHeight: "1.5rem",
-  },
-  size2: {
-    fontSize: 14,
-    lineHeight: "1.5rem",
-  },
-  size3: {
-    fontSize: 18,
-    lineHeight: "1.5rem",
-  },
-  size4: {
-    fontWeight: "bold",
-    fontSize: 24,
-    lineHeight: "1.5rem",
-  },
-  size5: {
-    fontWeight: "bold",
-    fontSize: 30,
-    lineHeight: "1.5rem",
-  },
-  textAlignCenter: {
-    textAlign: "center",
-  },
-  grow: {
-    flexGrow: 1,
-  },
+const fontSize = {
+  xsmall: 10,
+  small: 14,
+  medium: 18,
+  large: 24,
+  xlarge: 30,
 };
 
 export type Display = "inline" | "block";
@@ -43,6 +15,7 @@ export interface TextProps {
   children: ReactNode;
   color?: TextColor;
   size?: Size;
+  bold?: boolean;
   ellipsis?: boolean | "default";
   align?: "center" | "none";
   type?: TextType;
@@ -57,6 +30,7 @@ export function Text({
   color = "primary",
   size = "medium",
   align = "none",
+  bold = false,
   ellipsis = "default",
   grow,
   type: Type = "span",
@@ -70,14 +44,16 @@ export function Text({
     <Type
       className={jss([
         getTextColor(color),
-        size === "xsmall" && jsStyles.size1,
-        size === "small" && jsStyles.size2,
-        size === "medium" && jsStyles.size3,
-        size === "large" && jsStyles.size4,
-        size === "xlarge" && jsStyles.size5,
-        align === "center" && jsStyles.textAlignCenter,
-        ellipsis && jsStyles.ellipsis,
-        grow && jsStyles.grow,
+        { lineHeight: "1.5rem" },
+        { fontSize: fontSize[size] },
+        bold && { fontWeight: "bold" },
+        align === "center" && { textAlign: "center" },
+        ellipsis && {
+          overflow: "hidden",
+          textOverflow: "ellipsis",
+          whiteSpace: "nowrap",
+        },
+        grow && { flexGrow: 1 },
         jsStyle,
       ])}
     >

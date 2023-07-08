@@ -13,27 +13,6 @@ export interface TimeInputProps extends BaseInputProps {
   onChange?: undefined;
 }
 
-const jsStyles = {
-  root: {
-    backgroundColor: "inherit",
-  },
-  input: {
-    flexGrow: 1,
-    backgroundColor: "inherit",
-    color: "var(--primary-text)",
-    outline: "none",
-    border: "none",
-    fontSize: 20,
-    lineHeight: 24 / 20,
-    "::placeholder": {
-      color: "var(--subtle-text);",
-    },
-    ":disabled": {
-      color: "var(--subtle-text);",
-    },
-  },
-};
-
 export const timeFormatter = Intl.DateTimeFormat("en-UK", {
   hour: "2-digit",
   minute: "2-digit",
@@ -51,7 +30,11 @@ function TimeInputInternal(
   ref?: React.Ref<HTMLInputElement>
 ) {
   return (
-    <Row jsStyle={jsStyles.root}>
+    <Row
+      jsStyle={{
+        backgroundColor: "inherit",
+      }}
+    >
       {icon && (
         <Box padding="medium">
           <Icon size="medium" color="secondary" icon={icon} />
@@ -75,7 +58,24 @@ function TimeInputInternal(
             )
           );
         }}
-        jsStyle={[jsStyles.input, jsStyle]}
+        jsStyle={[
+          {
+            flexGrow: 1,
+            backgroundColor: "inherit",
+            color: "var(--primary-text)",
+            outline: "none",
+            border: "none",
+            fontSize: 20,
+            lineHeight: 24 / 20,
+            "::placeholder": {
+              color: "var(--subtle-text);",
+            },
+            ":disabled": {
+              color: "var(--subtle-text);",
+            },
+          },
+          jsStyle,
+        ]}
       />
       {addOn}
     </Row>
