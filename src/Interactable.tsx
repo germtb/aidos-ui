@@ -74,7 +74,6 @@ export function getInteractableJSStyles({
   animateInteraction: boolean;
   padding: Padding;
 }): Array<JSStyle> {
-  console.log({ padding, calculatedPadding: getPadding(padding) });
   return [
     jsStyles.root,
     color === "positive" && jsStyles.positive,

@@ -1,21 +1,16 @@
 import React from "react";
 import { BaseView } from "./BaseView";
 import { Icon } from "./Icon";
-import { JSStyle, Size, jss } from "./jss";
+import { JSStyle, Size } from "./jss";
+import { IconType } from "./IconType";
 
-// @ts-ignore
-type TextInputProps = {
+type StaticCheckboxProps = {
   checked: boolean;
   size: Size;
+  icon?: IconType;
 };
 
 const jsStyles: { [key: string]: JSStyle } = {
-  root: {
-    position: "relative",
-    backgroundColor: "var(--primary-background)",
-    overflow: "hidden",
-    padding: "var(--spacing-xs)",
-  },
   border: {
     position: "absolute",
     top: "var(--spacing-xs)",
@@ -39,53 +34,41 @@ const jsStyles: { [key: string]: JSStyle } = {
     left: "var(--spacing-xs)",
     right: "var(--spacing-xs)",
   },
-  xsmall: {
-    borderRadius: 10,
-    height: 20,
-    width: 20,
-  },
-  small: {
-    borderRadius: 12,
-    height: 24,
-    width: 24,
-  },
-  medium: {
-    borderRadius: 16,
-    height: 32,
-    width: 32,
-  },
-  large: {
-    borderRadius: 20,
-    height: 40,
-    width: 40,
-  },
-  xlarge: {
-    borderRadius: 24,
-    height: 48,
-    width: 48,
-  },
 };
 
-export function StaticCheckbox({ checked, size }: TextInputProps) {
+const sizes = {
+  xsmall: 20,
+  small: 24,
+  medium: 32,
+  large: 40,
+  xlarge: 48,
+};
+
+export function StaticCheckbox({
+  checked,
+  size,
+  icon = "fa-check",
+}: StaticCheckboxProps) {
   return (
-    <label
-      className={jss([
-        jsStyles.root,
-        size === "xsmall" && jsStyles.xsmall,
-        size === "small" && jsStyles.small,
-        size === "medium" && jsStyles.medium,
-        size === "large" && jsStyles.large,
-        size === "xlarge" && jsStyles.xlarge,
-      ])}
+    <BaseView
+      jsStyle={{
+        position: "relative",
+        backgroundColor: "var(--primary-background)",
+        overflow: "hidden",
+        padding: "var(--spacing-xs)",
+        borderRadius: sizes[size] / 2,
+        height: sizes[size],
+        width: sizes[size],
+      }}
     >
       <BaseView
         jsStyle={[jsStyles.border, checked && jsStyles.borderChecked]}
       />
       {checked && (
         <BaseView jsStyle={jsStyles.icon}>
-          <Icon size={size} color="light" icon="fa-check" />
+          <Icon size={size} color="light" icon={icon} />
         </BaseView>
       )}
-    </label>
+    </BaseView>
   );
 }

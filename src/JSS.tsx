@@ -323,8 +323,8 @@ export const lightTheme: Theme = {
   ["--divider"]: "rgb(200, 200, 200)",
   ["--strong-divider"]: "rgb(100, 100, 100)",
   ["--pressed-background"]: "rgb(220, 222, 224)",
-  ["--hovered-background"]: "rgb(237, 240, 242)",
-  ["--selected-background"]: "rgb(237, 240, 242)",
+  ["--hovered-background"]: "rgb(232, 235, 237)",
+  ["--selected-background"]: "rgb(227, 230, 232)",
   ["--nav-bar"]: "rgb(232, 232, 234)",
   /* Effects */
   ["--warning"]: "rgb(255, 204, 0)",
@@ -409,7 +409,7 @@ export const baseStyles = `
   -moz-osx-font-smoothing: grayscale;
 }
 
-ul {
+ul, input, p, h1, h2, h3, h4 {
   margin: 0;
 }
 

@@ -22,6 +22,7 @@ const jsStyles: { [key: string]: JSStyle } = {
     backgroundColor: "var(--primary-background)",
     "[aria-selected=true]": {
       backgroundColor: "var(--selected-background)",
+      boxShadow: "inset 1px 1px 2px -1px #0000004a",
     },
     ":hover": {
       backgroundColor: "var(--hovered-background)",

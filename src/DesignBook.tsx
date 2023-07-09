@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import { RootView } from "./RootView";
 import { ListRow } from "./ListRow";
@@ -35,7 +35,7 @@ function ExampleDialog({ close }) {
         <Checkbox
           size="medium"
           checked={darkMode.enabled}
-          onValueChange={() => darkMode.toggle()}
+          onClick={() => darkMode.toggle()}
         />
       </Row>
     </Dialog>
@@ -47,6 +47,13 @@ export function DesignBook() {
     ({ close }) => <ExampleDialog close={close} />,
     { closeOnOutsideClick: true }
   );
+
+  const [checkbox1, setCheckbox1] = useState(true);
+  const [checkbox2, setCheckbox2] = useState(true);
+  const [checkbox3, setCheckbox3] = useState(true);
+  const [checkbox4, setCheckbox4] = useState(false);
+  const [checkbox5, setCheckbox5] = useState(false);
+  const [checkbox6, setCheckbox6] = useState(false);
 
   return (
     <RootView>
@@ -484,7 +491,9 @@ export function DesignBook() {
           <ListPressableRow
             gap="medium"
             addOn={
-              <Icon size="medium" color="primary" icon="fa-address-book" />
+              <Box padding="medium">
+                <Icon size="medium" color="primary" icon="fa-address-book" />
+              </Box>
             }
             headline="Really long body"
             body="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -640,15 +649,39 @@ export function DesignBook() {
           </ListRow>
 
           <ListRow padding="medium" gap="medium">
-            <Checkbox size="small" checked={false} onValueChange={() => {}} />
-            <Checkbox size="medium" checked={false} onValueChange={() => {}} />
-            <Checkbox size="large" checked={false} onValueChange={() => {}} />
+            <Checkbox
+              size="small"
+              checked={checkbox1}
+              onClick={() => setCheckbox1((x) => !x)}
+            />
+            <Checkbox
+              size="medium"
+              checked={checkbox2}
+              onClick={() => setCheckbox2((x) => !x)}
+            />
+            <Checkbox
+              size="large"
+              checked={checkbox3}
+              onClick={() => setCheckbox3((x) => !x)}
+            />
           </ListRow>
 
           <ListRow padding="medium" gap="medium">
-            <Checkbox size="small" checked={true} onValueChange={() => {}} />
-            <Checkbox size="medium" checked={true} onValueChange={() => {}} />
-            <Checkbox size="large" checked={true} onValueChange={() => {}} />
+            <Checkbox
+              size="small"
+              checked={checkbox4}
+              onClick={() => setCheckbox4((x) => !x)}
+            />
+            <Checkbox
+              size="medium"
+              checked={checkbox5}
+              onClick={() => setCheckbox5((x) => !x)}
+            />
+            <Checkbox
+              size="large"
+              checked={checkbox6}
+              onClick={() => setCheckbox6((x) => !x)}
+            />
           </ListRow>
         </Sublist>
         <ListSpacer />
