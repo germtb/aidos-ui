@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { RootView } from "./RootView";
 import { ListRow } from "./ListRow";
 import { Sublist } from "./Sublist";
@@ -28,10 +28,16 @@ function ExampleDialog({ close }) {
     return (React.createElement(Dialog, { close: close, label: "Example" },
         React.createElement(Row, { padding: "medium", align: "center", justify: "space-between" },
             React.createElement(Text, null, "Dark mode"),
-            React.createElement(Checkbox, { size: "medium", checked: darkMode.enabled, onValueChange: () => darkMode.toggle() }))));
+            React.createElement(Checkbox, { size: "medium", checked: darkMode.enabled, onClick: () => darkMode.toggle() }))));
 }
 export function DesignBook() {
     const dialog = useDialog(({ close }) => React.createElement(ExampleDialog, { close: close }), { closeOnOutsideClick: true });
+    const [checkbox1, setCheckbox1] = useState(true);
+    const [checkbox2, setCheckbox2] = useState(true);
+    const [checkbox3, setCheckbox3] = useState(true);
+    const [checkbox4, setCheckbox4] = useState(false);
+    const [checkbox5, setCheckbox5] = useState(false);
+    const [checkbox6, setCheckbox6] = useState(false);
     return (React.createElement(RootView, null,
         React.createElement(List, { navigation: false, ariaLabel: "Design book" },
             React.createElement(ListSpacer, null),
@@ -131,7 +137,8 @@ export function DesignBook() {
                 React.createElement(ListPressableRow, { selected: true, onPress: () => { }, headline: "Selected" }),
                 React.createElement(ListPressableRow, { onPress: () => { }, headline: "Headline", body: "Body" }),
                 React.createElement(ListPressableRow, { onPress: () => { }, headline: "Disabled", body: "Body", disabled: true }),
-                React.createElement(ListPressableRow, { gap: "medium", addOn: React.createElement(Icon, { size: "medium", color: "primary", icon: "fa-address-book" }), headline: "Really long body", body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", onPress: () => { } })),
+                React.createElement(ListPressableRow, { gap: "medium", addOn: React.createElement(Box, { padding: "medium" },
+                        React.createElement(Icon, { size: "medium", color: "primary", icon: "fa-address-book" })), headline: "Really long body", body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", onPress: () => { } })),
             React.createElement(Sublist, { label: "Text", initialState: { collapsed: false } },
                 React.createElement(ListRow, { padding: "medium", gap: "medium" },
                     React.createElement(Text, { size: "large", color: "primary" }, "Primary large"),
@@ -194,13 +201,13 @@ export function DesignBook() {
                 React.createElement(ListRow, { padding: "medium", gap: "medium" },
                     React.createElement(TextInput, { icon: "fa-user", value: "Text input", onValueChange: () => { } })),
                 React.createElement(ListRow, { padding: "medium", gap: "medium" },
-                    React.createElement(Checkbox, { size: "small", checked: false, onValueChange: () => { } }),
-                    React.createElement(Checkbox, { size: "medium", checked: false, onValueChange: () => { } }),
-                    React.createElement(Checkbox, { size: "large", checked: false, onValueChange: () => { } })),
+                    React.createElement(Checkbox, { size: "small", checked: checkbox1, onClick: () => setCheckbox1((x) => !x) }),
+                    React.createElement(Checkbox, { size: "medium", checked: checkbox2, onClick: () => setCheckbox2((x) => !x) }),
+                    React.createElement(Checkbox, { size: "large", checked: checkbox3, onClick: () => setCheckbox3((x) => !x) })),
                 React.createElement(ListRow, { padding: "medium", gap: "medium" },
-                    React.createElement(Checkbox, { size: "small", checked: true, onValueChange: () => { } }),
-                    React.createElement(Checkbox, { size: "medium", checked: true, onValueChange: () => { } }),
-                    React.createElement(Checkbox, { size: "large", checked: true, onValueChange: () => { } }))),
+                    React.createElement(Checkbox, { size: "small", checked: checkbox4, onClick: () => setCheckbox4((x) => !x) }),
+                    React.createElement(Checkbox, { size: "medium", checked: checkbox5, onClick: () => setCheckbox5((x) => !x) }),
+                    React.createElement(Checkbox, { size: "large", checked: checkbox6, onClick: () => setCheckbox6((x) => !x) }))),
             React.createElement(ListSpacer, null),
             React.createElement(ListSpacer, null),
             React.createElement(Sublist, { label: "Calendar" },

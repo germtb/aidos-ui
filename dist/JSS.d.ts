@@ -61,7 +61,7 @@ export type Theme = {
 };
 export declare const lightTheme: Theme;
 export declare const darkTheme: Theme;
-export declare const baseStyles = "\n* {\n  box-sizing: border-box;\n  padding: 0;\n  border: none;\n  touch-action: manipulation;\n  font-family: sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\nul {\n  margin: 0;\n}\n\n*:focus {\n  outline-color: var(--highlight);\n}\n\nhtml,\nbody {\n  margin: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  background-color: var(--primary-background);\n}\n\nul,\nol,\nli {\n  list-style: none;\n}\n\na {\n  text-decoration: none;\n}\n\n";
+export declare const baseStyles = "\n* {\n  box-sizing: border-box;\n  padding: 0;\n  border: none;\n  touch-action: manipulation;\n  font-family: sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\nul, input, p, h1, h2, h3, h4 {\n  margin: 0;\n}\n\n*:focus {\n  outline-color: var(--highlight);\n}\n\nhtml,\nbody {\n  margin: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  background-color: var(--primary-background);\n}\n\nul,\nol,\nli {\n  list-style: none;\n}\n\na {\n  text-decoration: none;\n}\n\n";
 export declare const getBackground: (color: Color) => JSStyle;
 export declare const MOBILE = 750;
 export declare const TABLET = 1000;

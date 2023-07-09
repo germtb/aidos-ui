@@ -58,7 +58,6 @@ const jsStyles = {
     colorHover: {},
 };
 export function getInteractableJSStyles({ color, bare, disabled, animateInteraction, padding, }) {
-    console.log({ padding, calculatedPadding: getPadding(padding) });
     return [
         jsStyles.root,
         color === "positive" && jsStyles.positive,
