@@ -57,6 +57,6 @@ export function DarkModeToggle() {
     if (!show) {
         return <BaseView jsStyle={{ width: 32, height: 32 }}/>;
     }
-    return (<IconButton icon={darkMode.enabled ? "fa-sun-o" : "fa-moon-o"} size="medium" onPress={darkMode.toggle} color="secondary" bare/>);
+    return (<IconButton icon={darkMode.enabled ? "fa-sun-o" : "fa-moon-o"} size="medium" onClick={darkMode.toggle} color="secondary" bare/>);
 }
 //# sourceMappingURL=DarkMode.jsx.map

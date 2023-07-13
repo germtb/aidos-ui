@@ -90,7 +90,7 @@ export function DarkModeToggle() {
     <IconButton
       icon={darkMode.enabled ? "fa-sun-o" : "fa-moon-o"}
       size="medium"
-      onPress={darkMode.toggle}
+      onClick={darkMode.toggle}
       color="secondary"
       bare
     />

@@ -1,0 +1,141 @@
+import { Button } from "../Button";
+import { Row } from "../Row";
+import { cssVar } from "../jss";
+
+# CSS in JS
+
+Aidos UI has a mechanism to do css in js, which, for lack of a better name, is called `jss`, which is the name of the only function that is needed. The idea is similar to other css in js frameworks: colocation is nice, adding javascrip features to CSS solves many of the problems CSS has.
+
+## How it works
+
+The way the library works looks similar to inline styles:
+
+```js
+<div className={jss({ background: "red", padding: 12 })} />
+```
+
+Internally what is happening is that each property gets atomized into a single CSS classname with a unique hash that gets re-used.
+
+```html
+<style>
+  .x1uc1pme {
+    background: red;
+  }
+
+  .x1kbdebd {
+    padding: 12;
+  }
+</style>
+<div class="x1uc1pme x1kbdebd" />
+```
+
+The CSS class name is a hash based on each key-pair. This makes it deterministic, which enables for this system to work with server rendered hydrated react.
+
+## Selectors
+
+Because of how this system works not all selectors can be written, but this is a good thing because arguably CSS selectors are so powerful that it is very easy to make something too hard to understand. These are some examples of how selectors are generated:
+
+```js
+jss({[':hover']: { background: 'blue' }})
+.x1uc1pme:hover {
+  background: blue;
+}
+```
+
+```js
+jss({[':first-child']: { background: 'blue' }})
+.x1uc1pme:first-child {
+  background: blue;
+}
+```
+
+```js
+jss({[' div']: { background: 'blue' }})
+.x1uc1pme div {
+  background: blue;
+}
+```
+
+```js
+jss({['@media (min-width: 750px)']: { maxWidth: 750 }})
+@media (min-width: 750px) .x1uc1pme {
+  maxWidth: 750
+}
+```
+
+## CSS variables
+
+Aidos UI comes with two default themes that can be overridden. These come with the following css variables that can be safely used (in typescript) with the `cssVar` utility:
+
+- `--overlay-background`
+- `--primary-background`
+- `--secondary-background`
+- `--divider`
+- `--strong-divider`
+- `--pressed-background`
+- `--hovered-background`
+- `--selected-background`
+- `--nav-bar`
+- `--warning`
+- `--highlight`
+- `--outline`
+- `--light-highlight`
+- `--primary-text`
+- `--secondary-text`
+- `--subtle-text`
+- `--highlight-text`
+- `--negative-text`
+- `--light-text`
+- `--background-button-positive`
+- `--background-button-secondary`
+- `--background-button-negative`
+- `--background-button-disabled`
+- `--spacing-xs`
+- `--spacing-s`
+- `--spacing-m`
+- `--spacing-l`
+- `--spacing-xl`
+- `--spacing-xxl`
+- `--spacing-xxxl`
+- `--border-radius-s`
+- `--border-radius-m`
+- `--border-radius-l`
+- `--nav-bar-height`
+
+For example:
+
+<Row justify="center">
+  <Button
+    jsStyle={{ border: `10px solid ${cssVar("--warning")}` }}
+    label="Hello"
+    color="positive"
+    onClick={() => {}}
+  />
+</Row>
+
+```js
+<Row justify="center">
+  <Button
+    jsStyle={{ border: `10px solid ${cssVar("--warning")}` }}
+    label="Hello"
+    color="positive"
+    onClick={() => {}}
+  />
+</Row>
+```
+
+---
+
+## Spacing
+
+- `Size`
+
+- padding
+- margin
+- gap
+
+## Font colours
+
+## Background colours
+
+## Media queries

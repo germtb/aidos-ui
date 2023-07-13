@@ -46,7 +46,7 @@ export function Dropdown({ id = guid(), label, options, selection, setSelection,
         }
     }, [expanded]);
     return (<BaseView ref={rootRef} jsStyle={[jsStyles.root, jsStyle]}>
-      <Button aria-expanded={expanded ? "true" : "false"} aria-controls={id} aria-haspopup="true" aria-label={label} role="combobox" justify="space-between" tabIndex={0} jsStyle={jsStyles.button} label={selection.toString()} color="positive" icon="fa-chevron-down" iconPosition="right" onPress={() => {
+      <Button aria-expanded={expanded ? "true" : "false"} aria-controls={id} aria-haspopup="true" aria-label={label} role="combobox" justify="space-between" tabIndex={0} jsStyle={jsStyles.button} label={selection.toString()} color="positive" icon="fa-chevron-down" iconPosition="right" onClick={() => {
             setExpanded((x) => !x);
         }} ref={triggerRef}/>
       {expanded && (<Column gap="medium" jsStyle={[jsStyles.dropdown, getBackground("secondary-background")]} id={id} role="listbox" aria-label={label} tabIndex={-1} ref={dropdownRef} onBlur={(e) => {
@@ -57,7 +57,7 @@ export function Dropdown({ id = guid(), label, options, selection, setSelection,
           {Array.from(options).map((option, index) => {
                 const optionId = `${id}-${index}`;
                 const selected = option === selection;
-                return (<Button justify={selected ? "space-between" : "flex-start"} align="center" bare={true} iconPosition="right" icon={selected ? "fa-check" : undefined} key={optionId} role="option" id={optionId} aria-selected={selected ? "true" : "false"} label={option.toString()} color="positive" onPress={() => {
+                return (<Button justify={selected ? "space-between" : "flex-start"} align="center" bare={true} iconPosition="right" icon={selected ? "fa-check" : undefined} key={optionId} role="option" id={optionId} aria-selected={selected ? "true" : "false"} label={option.toString()} color="positive" onClick={() => {
                         setSelection(option);
                         setExpanded(false);
                     }}/>);

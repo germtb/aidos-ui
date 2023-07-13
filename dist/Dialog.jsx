@@ -38,7 +38,7 @@ export const Dialog = ({ label, children, close, }) => {
           <Text size="medium" color="secondary">
             {label}
           </Text>
-          <IconButton autoFocus={true} bare={true} icon="fa-close" size="medium" onPress={close} color="secondary"/>
+          <IconButton autoFocus={true} bare={true} icon="fa-close" size="medium" onClick={close} color="secondary"/>
         </Row>
         <ListDivider />
       </Column>

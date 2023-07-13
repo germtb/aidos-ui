@@ -55,7 +55,7 @@ export const Dialog = ({
             bare={true}
             icon="fa-close"
             size="medium"
-            onPress={close}
+            onClick={close}
             color="secondary"
           />
         </Row>

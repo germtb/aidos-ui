@@ -47,11 +47,11 @@ export const ListPressableRow = React.forwardRef(({ onClick, href, headline, hea
         }}>
           {href != null ? (<BaseLink aria-selected={selected} disabled={disabled} animateInteraction={false} bare={true} color={color} href={href} 
         // @ts-ignore
-        ref={ref} jsStyle={pressabelJSStyle} aria-label={headline} onPress={onClick} padding={padding}>
+        ref={ref} jsStyle={pressabelJSStyle} aria-label={headline} onClick={onClick} padding={padding}>
               {textPairing}
             </BaseLink>) : (<BaseButton aria-selected={selected} disabled={disabled} animateInteraction={false} bare={true} color={color} 
         // @ts-ignore
-        ref={ref} jsStyle={pressabelJSStyle} aria-label={headline} onPress={onClick} padding={padding}>
+        ref={ref} jsStyle={pressabelJSStyle} aria-label={headline} onClick={onClick} padding={padding}>
               {textPairing}
             </BaseButton>)}
         </ListCell>

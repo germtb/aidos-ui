@@ -1,7 +1,16 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
-import { cssVar, darkTheme, getPadding, lightTheme } from "../jss";
+import {
+  cssVar,
+  darkTheme,
+  desktop,
+  getPadding,
+  laptop,
+  lightTheme,
+  mobile,
+  tablet,
+} from "../jss";
 import { MDXProvider } from "@mdx-js/react";
 import { Providers } from "../Providers";
 import { BaseView } from "../BaseView";
@@ -13,12 +22,11 @@ import { ListPressableRow } from "../ListPressableRow";
 import { Row } from "../Row";
 import { useRouter } from "next/dist/client/router";
 import { highlightAll } from "prismjs";
-import { Column } from "../Column";
 import { IconLink } from "../IconLink";
 import { DarkModeToggle } from "../DarkMode";
-import { Link } from "../Link";
 
 import "./prism.css";
+import { IconButton } from "../IconButton";
 
 const monospace = Roboto({ weight: "400", subsets: ["latin"] });
 
@@ -31,7 +39,7 @@ const pages = [
   "FlexLayout",
   "Icon",
   "IconButton",
-  "jss",
+  "css-in-js",
   "List",
   "Popover",
   "ProgressBar",
@@ -110,6 +118,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   const [pathname, setPathname] = useState(router.pathname);
+  const [showList, setShowList] = useState(false);
 
   useEffect(() => {
     highlightAll();
@@ -123,68 +132,150 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Providers themes={{ light: lightTheme, dark: darkTheme }}>
+        {/* @ts-ignore */}
         <MDXProvider components={components}>
-          <Row jsStyle={{ height: "100%", overflow: "hidden" }}>
-            <Column
-              gap="medium"
-              jsStyle={{
-                minWidth: 400,
-                borderRight: `1px solid ${cssVar("--divider")}`,
+          <BaseView
+            jsStyle={[
+              {
                 height: "100%",
+                overflow: "hidden",
+                display: "grid",
+              },
+              mobile({
+                gridTemplateColumns: "1fr",
+                gridTemplateRows: "auto 1fr",
+                gridTemplateAreas: `
+                  "header"
+                  "content"
+                `,
+              }),
+              tablet({
+                gridTemplateColumns: "1fr",
+                gridTemplateRows: "auto 1fr",
+                gridTemplateAreas: `
+                  "header"
+                  "content"
+                `,
+              }),
+              laptop({
+                gridTemplateColumns: "350px 1fr",
+                gridTemplateRows: "auto 1fr",
+                gridTemplateAreas: `
+                  "header content"
+                  "list   content"
+                `,
+              }),
+              desktop({
+                gridTemplateColumns: "400px 1fr",
+                gridTemplateRows: "auto 1fr",
+                gridTemplateAreas: `
+                  "header content"
+                  "list   content"
+                `,
+              }),
+            ]}
+          >
+            <Row
+              jsStyle={{
+                gridArea: "header",
+                borderBottom: `1px solid ${cssVar("--divider")}`,
               }}
+              padding="medium"
+              align="center"
+              justify="space-between"
             >
-              <Column>
-                <Row padding="medium" align="center" justify="space-between">
-                  <Row gap="medium" align="center">
-                    <DarkModeToggle />
-                    <IconLink
-                      href="https://github.com/germtb/aidos-ui"
-                      icon="fa-github"
-                      size="medium"
-                      color="secondary"
-                      bare
-                    />
-                  </Row>
-                  <Span>aidos-ui@2.0.13</Span>
-                </Row>
-                <ListDivider />
-              </Column>
-              <List
-                navigation={true}
-                jsStyle={{
-                  overflow: "scroll",
-                }}
-                ariaLabel={"API"}
-              >
-                <ListPressableRow
+              <Row gap="medium" align="center">
+                <DarkModeToggle />
+                <IconLink
+                  target="_blank"
+                  href="https://github.com/germtb/aidos-ui"
+                  icon="fa-github"
+                  size="medium"
+                  color="secondary"
                   bare
-                  selected={pathname === "/"}
-                  onClick={() => setPathname("/")}
-                  href="/"
-                  headline={"Aidos UI"}
-                  headlineSize="large"
                 />
-                {pages.map((page) => (
-                  <ListPressableRow
-                    key={page}
-                    bare
-                    onClick={() => setPathname(`/${page}`)}
-                    selected={pathname === `/${page}`}
-                    href={`/${page}`}
-                    headline={page}
-                  />
-                ))}
-              </List>
-            </Column>
+              </Row>
+              <Row gap="medium" align="center">
+                <Span>aidos-ui@2.0.14</Span>
+                <IconButton
+                  jsStyle={[
+                    laptop({ display: "none" }),
+                    desktop({ display: "none" }),
+                  ]}
+                  icon={showList ? "fa-close" : "fa-bars"}
+                  color="secondary"
+                  onClick={() => setShowList((x) => !x)}
+                  size="medium"
+                  bare
+                />
+              </Row>
+            </Row>
+            <ListDivider />
+            <List
+              navigation={true}
+              jsStyle={[
+                {
+                  gridArea: "list",
+                  zIndex: 1,
+                  overflow: "scroll",
+                  background: cssVar("--primary-background"),
+                  paddingTop: cssVar("--spacing-m"),
+                },
+                mobile({
+                  position: "absolute",
+                  display: showList ? "flex" : "none",
+                  left: 0,
+                  right: 0,
+                  top: 49,
+                  bottom: 0,
+                }),
+                tablet({
+                  position: "absolute",
+                  display: showList ? "flex" : "none",
+                  left: 0,
+                  right: 0,
+                  top: 49,
+                  bottom: 0,
+                }),
+              ]}
+              ariaLabel={"API"}
+            >
+              <ListPressableRow
+                bare
+                selected={pathname === "/"}
+                onClick={() => {
+                  setPathname("/");
+                  setShowList(false);
+                }}
+                href="/"
+                headline={"Aidos UI"}
+                headlineSize="large"
+              />
+              {pages.map((page) => (
+                <ListPressableRow
+                  key={page}
+                  bare
+                  onClick={() => {
+                    setPathname(`/${page}`);
+                    setShowList(false);
+                  }}
+                  selected={pathname === `/${page}`}
+                  href={`/${page}`}
+                  headline={page}
+                />
+              ))}
+            </List>
             <BaseView
               jsStyle={{
+                borderLeft: `1px solid ${cssVar("--divider")}`,
+                gridArea: "content",
                 padding: getPadding(["large", "xlarge"]),
                 overflow: "scroll",
               }}
             >
               <Component {...pageProps} />
             </BaseView>
-          </Row>
+          </BaseView>
         </MDXProvider>
       </Providers>
     </>

@@ -64,7 +64,7 @@ export function DesignBook() {
             <Button
               label="Positive button"
               color="positive"
-              onPress={() => {
+              onClick={() => {
                 dialog.open();
               }}
             />
@@ -111,7 +111,7 @@ export function DesignBook() {
                   style={{ position: "relative" }}
                   label="Secondary button"
                   color="secondary"
-                  onPress={() => {
+                  onClick={() => {
                     toggle(undefined);
                   }}
                 />
@@ -159,7 +159,7 @@ export function DesignBook() {
                 <Button
                   label="Negative button"
                   color="negative"
-                  onPress={() => {
+                  onClick={() => {
                     toggle(undefined);
                   }}
                 />
@@ -172,7 +172,7 @@ export function DesignBook() {
               <Button
                 label="Disabled button"
                 color="positive"
-                onPress={() => {}}
+                onClick={() => {}}
                 disabled={true}
               />
             </Tooltip>
@@ -183,7 +183,7 @@ export function DesignBook() {
               bare={true}
               label="Bare positive button"
               color="positive"
-              onPress={() => {}}
+              onClick={() => {}}
             />
           </CenteredListRow>
 
@@ -192,7 +192,7 @@ export function DesignBook() {
               bare={true}
               label="Bare secondary button"
               color="secondary"
-              onPress={() => {}}
+              onClick={() => {}}
             />
           </CenteredListRow>
 
@@ -201,7 +201,7 @@ export function DesignBook() {
               bare={true}
               label="Bare negative button"
               color="negative"
-              onPress={() => {}}
+              onClick={() => {}}
             />
           </CenteredListRow>
 
@@ -210,7 +210,7 @@ export function DesignBook() {
               bare={true}
               label="Bare disabled button"
               color="positive"
-              onPress={() => {}}
+              onClick={() => {}}
               disabled={true}
             />
           </CenteredListRow>
@@ -295,39 +295,39 @@ export function DesignBook() {
               size="large"
               icon="fa-check"
               color="positive"
-              onPress={() => {}}
+              onClick={() => {}}
             />
             <IconButton
               size="medium"
               icon="fa-check"
               color="positive"
-              onPress={() => {}}
+              onClick={() => {}}
             />
             <IconButton
               size="small"
               icon="fa-check"
               color="positive"
-              onPress={() => {}}
+              onClick={() => {}}
             />
             <IconButton
               size="large"
               icon="fa-check"
               color="positive"
-              onPress={() => {}}
+              onClick={() => {}}
               bare={true}
             />
             <IconButton
               size="medium"
               icon="fa-check"
               color="positive"
-              onPress={() => {}}
+              onClick={() => {}}
               bare={true}
             />
             <IconButton
               size="small"
               icon="fa-check"
               color="positive"
-              onPress={() => {}}
+              onClick={() => {}}
               bare={true}
             />
           </ListRow>
@@ -337,39 +337,39 @@ export function DesignBook() {
               size="large"
               icon="fa-remove"
               color="negative"
-              onPress={() => {}}
+              onClick={() => {}}
             />
             <IconButton
               size="medium"
               icon="fa-remove"
               color="negative"
-              onPress={() => {}}
+              onClick={() => {}}
             />
             <IconButton
               size="small"
               icon="fa-remove"
               color="negative"
-              onPress={() => {}}
+              onClick={() => {}}
             />
             <IconButton
               size="large"
               icon="fa-remove"
               color="negative"
-              onPress={() => {}}
+              onClick={() => {}}
               bare={true}
             />
             <IconButton
               size="medium"
               icon="fa-remove"
               color="negative"
-              onPress={() => {}}
+              onClick={() => {}}
               bare={true}
             />
             <IconButton
               size="small"
               icon="fa-remove"
               color="negative"
-              onPress={() => {}}
+              onClick={() => {}}
               bare={true}
             />
           </ListRow>
@@ -379,39 +379,39 @@ export function DesignBook() {
               size="large"
               icon="fa-info"
               color="secondary"
-              onPress={() => {}}
+              onClick={() => {}}
             />
             <IconButton
               size="medium"
               icon="fa-info"
               color="secondary"
-              onPress={() => {}}
+              onClick={() => {}}
             />
             <IconButton
               size="small"
               icon="fa-info"
               color="secondary"
-              onPress={() => {}}
+              onClick={() => {}}
             />
             <IconButton
               size="large"
               icon="fa-info"
               color="secondary"
-              onPress={() => {}}
+              onClick={() => {}}
               bare={true}
             />
             <IconButton
               size="medium"
               icon="fa-info"
               color="secondary"
-              onPress={() => {}}
+              onClick={() => {}}
               bare={true}
             />
             <IconButton
               size="small"
               icon="fa-info"
               color="secondary"
-              onPress={() => {}}
+              onClick={() => {}}
               bare={true}
             />
           </ListRow>
@@ -422,28 +422,28 @@ export function DesignBook() {
               size="large"
               icon="fa-check"
               color="positive"
-              onPress={() => {}}
+              onClick={() => {}}
             />
             <IconButton
               disabled={true}
               size="medium"
               icon="fa-check"
               color="positive"
-              onPress={() => {}}
+              onClick={() => {}}
             />
             <IconButton
               disabled={true}
               size="small"
               icon="fa-check"
               color="positive"
-              onPress={() => {}}
+              onClick={() => {}}
             />
             <IconButton
               disabled={true}
               size="large"
               icon="fa-check"
               color="positive"
-              onPress={() => {}}
+              onClick={() => {}}
               bare={true}
             />
             <IconButton
@@ -451,7 +451,7 @@ export function DesignBook() {
               size="medium"
               icon="fa-check"
               color="positive"
-              onPress={() => {}}
+              onClick={() => {}}
               bare={true}
             />
             <IconButton
@@ -459,7 +459,7 @@ export function DesignBook() {
               size="small"
               icon="fa-check"
               color="positive"
-              onPress={() => {}}
+              onClick={() => {}}
               bare={true}
             />
           </ListRow>

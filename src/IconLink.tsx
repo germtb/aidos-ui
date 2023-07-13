@@ -20,12 +20,12 @@ export interface IconLinkProps extends BaseLinkProps {
 
 export const IconLink = React.forwardRef(
   (
-    { icon, size, color, bare, disabled, ...buttonProps }: IconLinkProps,
+    { icon, size, color, bare, disabled, ...otherProps }: IconLinkProps,
     ref?: React.Ref<HTMLAnchorElement>
   ) => {
     return (
       <BaseLink
-        {...buttonProps}
+        {...otherProps}
         bare={bare}
         jsStyle={[
           {

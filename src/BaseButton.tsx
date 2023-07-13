@@ -4,7 +4,7 @@ import { JSStyle, Padding, jss } from "./jss";
 
 export interface BaseButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  onPress: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   jsStyle?: JSStyle;
   color: InterctableColor;
   bare?: boolean;
@@ -16,7 +16,7 @@ export interface BaseButtonProps
 export const BaseButton = React.forwardRef(
   (
     {
-      onPress,
+      onClick,
       children,
       jsStyle,
       color,
@@ -38,7 +38,7 @@ export const BaseButton = React.forwardRef(
             return;
           }
 
-          onPress(event);
+          onClick(event);
         }}
         className={jss([
           ...getInteractableJSStyles({

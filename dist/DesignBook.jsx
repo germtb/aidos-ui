@@ -45,7 +45,7 @@ export function DesignBook() {
         <ListSpacer />
         <Sublist label="Button" initialState={{ collapsed: false }}>
           <CenteredListRow gap="medium">
-            <Button label="Positive button" color="positive" onPress={() => {
+            <Button label="Positive button" color="positive" onClick={() => {
             dialog.open();
         }}/>
           </CenteredListRow>
@@ -59,7 +59,7 @@ export function DesignBook() {
                     </List>
                   </Popover>);
         }}>
-              {({ toggle }) => (<Button style={{ position: "relative" }} label="Secondary button" color="secondary" onPress={() => {
+              {({ toggle }) => (<Button style={{ position: "relative" }} label="Secondary button" color="secondary" onClick={() => {
                 toggle(undefined);
             }}/>)}
             </PopoverTrigger>
@@ -74,7 +74,7 @@ export function DesignBook() {
                     </List>
                   </Popover>);
         }}>
-              {({ toggle }) => (<Button label="Negative button" color="negative" onPress={() => {
+              {({ toggle }) => (<Button label="Negative button" color="negative" onClick={() => {
                 toggle(undefined);
             }}/>)}
             </PopoverTrigger>
@@ -82,24 +82,24 @@ export function DesignBook() {
 
           <CenteredListRow gap="medium">
             <Tooltip content="Tooltip here">
-              <Button label="Disabled button" color="positive" onPress={() => { }} disabled={true}/>
+              <Button label="Disabled button" color="positive" onClick={() => { }} disabled={true}/>
             </Tooltip>
           </CenteredListRow>
 
           <CenteredListRow gap="medium">
-            <Button bare={true} label="Bare positive button" color="positive" onPress={() => { }}/>
+            <Button bare={true} label="Bare positive button" color="positive" onClick={() => { }}/>
           </CenteredListRow>
 
           <CenteredListRow gap="medium">
-            <Button bare={true} label="Bare secondary button" color="secondary" onPress={() => { }}/>
+            <Button bare={true} label="Bare secondary button" color="secondary" onClick={() => { }}/>
           </CenteredListRow>
 
           <CenteredListRow gap="medium">
-            <Button bare={true} label="Bare negative button" color="negative" onPress={() => { }}/>
+            <Button bare={true} label="Bare negative button" color="negative" onClick={() => { }}/>
           </CenteredListRow>
 
           <CenteredListRow gap="medium">
-            <Button bare={true} label="Bare disabled button" color="positive" onPress={() => { }} disabled={true}/>
+            <Button bare={true} label="Bare disabled button" color="positive" onClick={() => { }} disabled={true}/>
           </CenteredListRow>
         </Sublist>
 
@@ -149,39 +149,39 @@ export function DesignBook() {
         <ListSpacer />
         <Sublist label="Icon button" initialState={{ collapsed: false }}>
           <ListRow padding="medium" gap="medium">
-            <IconButton size="large" icon="fa-check" color="positive" onPress={() => { }}/>
-            <IconButton size="medium" icon="fa-check" color="positive" onPress={() => { }}/>
-            <IconButton size="small" icon="fa-check" color="positive" onPress={() => { }}/>
-            <IconButton size="large" icon="fa-check" color="positive" onPress={() => { }} bare={true}/>
-            <IconButton size="medium" icon="fa-check" color="positive" onPress={() => { }} bare={true}/>
-            <IconButton size="small" icon="fa-check" color="positive" onPress={() => { }} bare={true}/>
+            <IconButton size="large" icon="fa-check" color="positive" onClick={() => { }}/>
+            <IconButton size="medium" icon="fa-check" color="positive" onClick={() => { }}/>
+            <IconButton size="small" icon="fa-check" color="positive" onClick={() => { }}/>
+            <IconButton size="large" icon="fa-check" color="positive" onClick={() => { }} bare={true}/>
+            <IconButton size="medium" icon="fa-check" color="positive" onClick={() => { }} bare={true}/>
+            <IconButton size="small" icon="fa-check" color="positive" onClick={() => { }} bare={true}/>
           </ListRow>
 
           <ListRow padding="medium" gap="medium">
-            <IconButton size="large" icon="fa-remove" color="negative" onPress={() => { }}/>
-            <IconButton size="medium" icon="fa-remove" color="negative" onPress={() => { }}/>
-            <IconButton size="small" icon="fa-remove" color="negative" onPress={() => { }}/>
-            <IconButton size="large" icon="fa-remove" color="negative" onPress={() => { }} bare={true}/>
-            <IconButton size="medium" icon="fa-remove" color="negative" onPress={() => { }} bare={true}/>
-            <IconButton size="small" icon="fa-remove" color="negative" onPress={() => { }} bare={true}/>
+            <IconButton size="large" icon="fa-remove" color="negative" onClick={() => { }}/>
+            <IconButton size="medium" icon="fa-remove" color="negative" onClick={() => { }}/>
+            <IconButton size="small" icon="fa-remove" color="negative" onClick={() => { }}/>
+            <IconButton size="large" icon="fa-remove" color="negative" onClick={() => { }} bare={true}/>
+            <IconButton size="medium" icon="fa-remove" color="negative" onClick={() => { }} bare={true}/>
+            <IconButton size="small" icon="fa-remove" color="negative" onClick={() => { }} bare={true}/>
           </ListRow>
 
           <ListRow padding="medium" gap="medium">
-            <IconButton size="large" icon="fa-info" color="secondary" onPress={() => { }}/>
-            <IconButton size="medium" icon="fa-info" color="secondary" onPress={() => { }}/>
-            <IconButton size="small" icon="fa-info" color="secondary" onPress={() => { }}/>
-            <IconButton size="large" icon="fa-info" color="secondary" onPress={() => { }} bare={true}/>
-            <IconButton size="medium" icon="fa-info" color="secondary" onPress={() => { }} bare={true}/>
-            <IconButton size="small" icon="fa-info" color="secondary" onPress={() => { }} bare={true}/>
+            <IconButton size="large" icon="fa-info" color="secondary" onClick={() => { }}/>
+            <IconButton size="medium" icon="fa-info" color="secondary" onClick={() => { }}/>
+            <IconButton size="small" icon="fa-info" color="secondary" onClick={() => { }}/>
+            <IconButton size="large" icon="fa-info" color="secondary" onClick={() => { }} bare={true}/>
+            <IconButton size="medium" icon="fa-info" color="secondary" onClick={() => { }} bare={true}/>
+            <IconButton size="small" icon="fa-info" color="secondary" onClick={() => { }} bare={true}/>
           </ListRow>
 
           <ListRow padding="medium" gap="medium">
-            <IconButton disabled={true} size="large" icon="fa-check" color="positive" onPress={() => { }}/>
-            <IconButton disabled={true} size="medium" icon="fa-check" color="positive" onPress={() => { }}/>
-            <IconButton disabled={true} size="small" icon="fa-check" color="positive" onPress={() => { }}/>
-            <IconButton disabled={true} size="large" icon="fa-check" color="positive" onPress={() => { }} bare={true}/>
-            <IconButton disabled={true} size="medium" icon="fa-check" color="positive" onPress={() => { }} bare={true}/>
-            <IconButton disabled={true} size="small" icon="fa-check" color="positive" onPress={() => { }} bare={true}/>
+            <IconButton disabled={true} size="large" icon="fa-check" color="positive" onClick={() => { }}/>
+            <IconButton disabled={true} size="medium" icon="fa-check" color="positive" onClick={() => { }}/>
+            <IconButton disabled={true} size="small" icon="fa-check" color="positive" onClick={() => { }}/>
+            <IconButton disabled={true} size="large" icon="fa-check" color="positive" onClick={() => { }} bare={true}/>
+            <IconButton disabled={true} size="medium" icon="fa-check" color="positive" onClick={() => { }} bare={true}/>
+            <IconButton disabled={true} size="small" icon="fa-check" color="positive" onClick={() => { }} bare={true}/>
           </ListRow>
         </Sublist>
         <ListSpacer />

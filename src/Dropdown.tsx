@@ -79,7 +79,7 @@ export function Dropdown<T>({
         color="positive"
         icon="fa-chevron-down"
         iconPosition="right"
-        onPress={() => {
+        onClick={() => {
           setExpanded((x) => !x);
         }}
         ref={triggerRef}
@@ -115,7 +115,7 @@ export function Dropdown<T>({
                 aria-selected={selected ? "true" : "false"}
                 label={option.toString()}
                 color="positive"
-                onPress={() => {
+                onClick={() => {
                   setSelection(option);
                   setExpanded(false);
                 }}

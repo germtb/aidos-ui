@@ -142,7 +142,7 @@ export const ListPressableRow = React.forwardRef(
               ref={ref}
               jsStyle={pressabelJSStyle}
               aria-label={headline}
-              onPress={onClick}
+              onClick={onClick}
               padding={padding}
             >
               {textPairing}
@@ -158,7 +158,7 @@ export const ListPressableRow = React.forwardRef(
               ref={ref}
               jsStyle={pressabelJSStyle}
               aria-label={headline}
-              onPress={onClick}
+              onClick={onClick}
               padding={padding}
             >
               {textPairing}

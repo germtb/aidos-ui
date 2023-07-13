@@ -20,7 +20,15 @@ export interface IconButtonProps extends BaseButtonProps {
 
 export const IconButton = React.forwardRef(
   (
-    { icon, size, color, bare, disabled, ...buttonProps }: IconButtonProps,
+    {
+      icon,
+      size,
+      color,
+      bare,
+      disabled,
+      jsStyle,
+      ...buttonProps
+    }: IconButtonProps,
     ref?: React.Ref<HTMLButtonElement>
   ) => {
     return (
@@ -41,6 +49,7 @@ export const IconButton = React.forwardRef(
               transform: "scale(0.92)",
             },
           },
+          jsStyle,
         ]}
         color={color}
         ref={ref}

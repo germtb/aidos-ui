@@ -4,7 +4,8 @@ import { JSStyle, Padding, jss } from "./jss";
 
 export interface BaseLinkProps
   extends React.LinkHTMLAttributes<HTMLAnchorElement> {
-  onPress?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
+  onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
+  target?: string;
   jsStyle?: JSStyle;
   color: InterctableColor;
   href: string;
@@ -18,7 +19,7 @@ export interface BaseLinkProps
 export const BaseLink = React.forwardRef(
   (
     {
-      onPress,
+      onClick,
       children,
       jsStyle,
       color,
@@ -39,13 +40,13 @@ export const BaseLink = React.forwardRef(
         role="link"
         ref={ref}
         onClick={
-          onPress
+          onClick
             ? (event) => {
                 if (disabled) {
                   return;
                 }
 
-                onPress(event);
+                onClick(event);
               }
             : undefined
         }
