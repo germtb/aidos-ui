@@ -206,7 +206,7 @@ export const jss = (jsStyle: JSStyle): string => {
         })
         .join(" ");
       createStyleNode(`${media} { .${selector} { ${cssValue} } }`);
-    } else if (typeof value === "object") {
+    } else if (typeof value === "object" && value != null) {
       const cssValue = Object.entries(value)
         .map(([key, value]) => {
           const [cssProp, cssValue] = getCSS(key, value);
