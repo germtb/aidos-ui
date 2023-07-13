@@ -54,8 +54,8 @@ export const Button = React.forwardRef(
             borderRadius: "var(--border-radius-m)",
             justifyContent: "center",
             userSelect: "none",
-            padding: getPadding("medium"),
           },
+          getPadding("medium"),
           jsStyle,
         ]}
       >

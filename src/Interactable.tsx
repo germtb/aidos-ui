@@ -94,9 +94,7 @@ export function getInteractableJSStyles({
           opacity: 1,
         },
       },
-    {
-      padding: getPadding(padding),
-    },
+    getPadding(padding),
   ];
 }
 

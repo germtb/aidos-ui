@@ -78,9 +78,7 @@ export function getInteractableJSStyles({ color, bare, disabled, animateInteract
                 opacity: 1,
             },
         },
-        {
-            padding: getPadding(padding),
-        },
+        getPadding(padding),
     ];
 }
 export const getGlyphColor = (color, disabled, bare) => {

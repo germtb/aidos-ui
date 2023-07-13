@@ -19,7 +19,6 @@ import { DarkModeContext } from "./DarkMode";
 import { Popover, PopoverTrigger } from "./Popover";
 import { Tooltip } from "./Tooltip";
 import { Link } from "./Link";
-import { getBackground, withMedia } from "./jss";
 import { Calendar } from "./Calendar";
 import { Box } from "./Box";
 import { Badge } from "./Badge";
@@ -91,14 +90,6 @@ export function DesignBook() {
                     React.createElement(Link, { bare: true, label: "Bare negative Link", color: "negative", href: "/" })),
                 React.createElement(CenteredListRow, { gap: "medium" },
                     React.createElement(Link, { bare: true, label: "Bare disabled Link", color: "positive", href: "/", disabled: true }))),
-            React.createElement(Sublist, { label: "Responsiveness", initialState: { collapsed: false } },
-                React.createElement(Row, { padding: "medium", jsStyle: withMedia({
-                        phone: getBackground("negative"),
-                        tablet: getBackground("divider"),
-                        laptop: getBackground("highlight"),
-                        desktop: getBackground("warning"),
-                    }) },
-                    React.createElement(Text, null, "Background will change with screen size"))),
             React.createElement(ListSpacer, null),
             React.createElement(Sublist, { label: "Icon button", initialState: { collapsed: false } },
                 React.createElement(ListRow, { padding: "medium", gap: "medium" },

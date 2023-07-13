@@ -9,8 +9,8 @@ export const FlexLayout = React.forwardRef(({ jsStyle, gap = "none", justify = "
                 gap: getSpacing(gap),
                 justifyContent: justify,
                 alignItems: align,
-                padding: getPadding(padding),
             },
+            getPadding(padding),
             jsStyle,
         ], ...otherProps }));
 });

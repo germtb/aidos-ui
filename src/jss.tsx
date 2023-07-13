@@ -289,7 +289,7 @@ export type TextColor =
   | "inherit";
 
 export function cssVar(string: keyof Theme): string {
-  return `var(${string})`;
+  return `var(--${string})`;
 }
 
 const sizes: { [size in Size]: string } = {
@@ -312,12 +312,35 @@ export function getSpacing(spacing: Spacing): string {
   }
 }
 
-export function getPadding(padding: Padding): string {
+export function getPadding(padding: Padding): JSStyle {
   if (Array.isArray(padding)) {
     const [vertical, horizontal] = padding;
-    return `${getSpacing(vertical)} ${getSpacing(horizontal)}`;
+    return {
+      paddingTop: getSpacing(vertical),
+      paddingBottom: getSpacing(vertical),
+      paddingLeft: getSpacing(horizontal),
+      paddingRight: getSpacing(horizontal),
+    };
   } else {
-    return getSpacing(padding);
+    return {
+      padding: getSpacing(padding),
+    };
+  }
+}
+
+export function getMargin(margin: Margin): JSStyle {
+  if (Array.isArray(margin)) {
+    const [vertical, horizontal] = margin;
+    return {
+      marginTop: getSpacing(vertical),
+      marginBottom: getSpacing(vertical),
+      marginLeft: getSpacing(horizontal),
+      marginRight: getSpacing(horizontal),
+    };
+  } else {
+    return {
+      margin: getSpacing(margin),
+    };
   }
 }
 

@@ -28,7 +28,8 @@ export type TextColor = "primary" | "secondary" | "highlight" | "negative" | "su
 export declare function cssVar(string: keyof Theme): string;
 export declare function getSize(size: Size): string;
 export declare function getSpacing(spacing: Spacing): string;
-export declare function getPadding(padding: Padding): string;
+export declare function getPadding(padding: Padding): JSStyle;
+export declare function getMargin(margin: Margin): JSStyle;
 export type Theme = {
     ["--overlay-background"]: string;
     ["--primary-background"]: string;

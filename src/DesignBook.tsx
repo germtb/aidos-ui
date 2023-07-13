@@ -21,7 +21,7 @@ import { DarkModeContext } from "./DarkMode";
 import { Popover, PopoverTrigger } from "./Popover";
 import { Tooltip } from "./Tooltip";
 import { Link } from "./Link";
-import { getBackground, withMedia } from "./jss";
+import { getBackground } from "./jss";
 import { Calendar } from "./Calendar";
 import { Box } from "./Box";
 import { Badge } from "./Badge";
@@ -272,20 +272,6 @@ export function DesignBook() {
               disabled={true}
             />
           </CenteredListRow>
-        </Sublist>
-
-        <Sublist label="Responsiveness" initialState={{ collapsed: false }}>
-          <Row
-            padding="medium"
-            jsStyle={withMedia({
-              phone: getBackground("negative"),
-              tablet: getBackground("divider"),
-              laptop: getBackground("highlight"),
-              desktop: getBackground("warning"),
-            })}
-          >
-            <Text>Background will change with screen size</Text>
-          </Row>
         </Sublist>
 
         <ListSpacer />

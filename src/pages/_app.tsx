@@ -196,7 +196,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 />
               </Row>
               <Row gap="medium" align="center">
-                <Span>aidos-ui@2.0.15</Span>
+                <Span>aidos-ui@2.0.16</Span>
                 <IconButton
                   jsStyle={[
                     laptop({ display: "none" }),
@@ -266,12 +266,14 @@ export default function App({ Component, pageProps }: AppProps) {
               ))}
             </List>
             <BaseView
-              jsStyle={{
-                borderLeft: `1px solid ${cssVar("--divider")}`,
-                gridArea: "content",
-                padding: getPadding(["large", "xlarge"]),
-                overflow: "scroll",
-              }}
+              jsStyle={[
+                {
+                  borderLeft: `1px solid ${cssVar("--divider")}`,
+                  gridArea: "content",
+                  overflow: "scroll",
+                },
+                getPadding(["large", "xlarge"]),
+              ]}
             >
               <Component {...pageProps} />
             </BaseView>
