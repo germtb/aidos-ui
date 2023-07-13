@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BaseView } from "./BaseView";
 import { getTextColor } from "./jss";
 const jsStyles = {
@@ -33,7 +33,7 @@ const jsStyles = {
     },
 };
 let initialized = false;
-export const initializeIcons = () => {
+const initializeIcons = () => {
     if (initialized) {
         return;
     }
@@ -48,6 +48,12 @@ export const initializeIcons = () => {
     document.head.appendChild(script);
     initialized = true;
 };
+export function IconProvider({ children }) {
+    useEffect(() => {
+        initializeIcons();
+    }, []);
+    return children;
+}
 export function Icon({ icon, size, color, ariaLabel, }) {
     return (React.createElement(BaseView, { key: icon, "aria-label": ariaLabel, jsStyle: [
             jsStyles.root,

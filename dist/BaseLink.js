@@ -17,9 +17,6 @@ export const BaseLink = React.forwardRef(({ onPress, children, jsStyle, color, b
                 animateInteraction,
                 padding,
             }),
-            {
-                textDecoration: "none",
-            },
             jsStyle,
         ]) }, children));
 });

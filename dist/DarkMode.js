@@ -44,9 +44,7 @@ export function DarkModeProvider({ children, enabled, toggle, }) {
             }
         }
     }, [enabled]);
-    return (<DarkModeContext.Provider value={{ enabled, toggle }}>
-      {children}
-    </DarkModeContext.Provider>);
+    return (React.createElement(DarkModeContext.Provider, { value: { enabled, toggle } }, children));
 }
 export function DarkModeToggle() {
     const darkMode = useContext(DarkModeContext);
@@ -55,8 +53,8 @@ export function DarkModeToggle() {
         setShow(true);
     }, []);
     if (!show) {
-        return <BaseView jsStyle={{ width: 32, height: 32 }}/>;
+        return React.createElement(BaseView, { jsStyle: { width: 32, height: 32 } });
     }
-    return (<IconButton icon={darkMode.enabled ? "fa-sun-o" : "fa-moon-o"} size="medium" onPress={darkMode.toggle} color="secondary" bare/>);
+    return (React.createElement(IconButton, { icon: darkMode.enabled ? "fa-sun-o" : "fa-moon-o", size: "medium", onPress: darkMode.toggle, color: "secondary", bare: true }));
 }
-//# sourceMappingURL=DarkMode.jsx.map
+//# sourceMappingURL=DarkMode.js.map

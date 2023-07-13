@@ -1,18 +1,18 @@
-import React, { useEffect } from "react";
-import { DarkModeProvider } from "./DarkModeStore";
+import React from "react";
+import { DarkModeProvider } from "./DarkMode";
 import { DialogProvider } from "./Dialog";
-import { initializeIcons } from "./Icon";
+import { IconProvider } from "./Icon";
 import { useCookie } from "./useCookie";
-export function Providers({ children }) {
+import { JSStylesProvider } from "./jss";
+export function Providers({ children, themes, }) {
     const [darkModeEnabled, setDarkModeEnabled] = useCookie("dark-mode", {
         initialValue: false,
         loadingValue: false,
     });
     const toggleDarkMode = React.useCallback(() => setDarkModeEnabled((x) => !x), []);
-    useEffect(() => {
-        initializeIcons();
-    }, []);
-    return (React.createElement(DarkModeProvider, { enabled: darkModeEnabled, toggle: toggleDarkMode },
-        React.createElement(DialogProvider, null, children)));
+    return (React.createElement(JSStylesProvider, { themes: themes },
+        React.createElement(IconProvider, null,
+            React.createElement(DarkModeProvider, { enabled: darkModeEnabled, toggle: toggleDarkMode },
+                React.createElement(DialogProvider, null, children)))));
 }
 //# sourceMappingURL=Providers.js.map

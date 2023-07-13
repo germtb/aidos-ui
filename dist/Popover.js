@@ -8,6 +8,7 @@ const jsStyles = {
         position: "relative",
     },
     popover: {
+        padding: 0,
         zIndex: 1,
         backgroundColor: "var(--primary-background)",
         borderRadius: "var(--border-radius-m)",

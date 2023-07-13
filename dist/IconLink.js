@@ -9,7 +9,7 @@ const sizes = {
     large: 40,
     xlarge: 48,
 };
-export const IconButton = React.forwardRef(({ icon, size, color, bare, disabled, ...buttonProps }, ref) => {
+export const IconLink = React.forwardRef(({ icon, size, color, bare, disabled, ...buttonProps }, ref) => {
     return (React.createElement(BaseLink, { ...buttonProps, bare: bare, jsStyle: [
             {
                 display: "flex",
@@ -18,6 +18,7 @@ export const IconButton = React.forwardRef(({ icon, size, color, bare, disabled,
                 height: sizes[size],
                 width: sizes[size],
                 borderRadius: sizes[size] / 2,
+                textDecoration: "none",
             },
             !disabled && {
                 ":active": {

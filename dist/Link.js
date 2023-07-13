@@ -12,6 +12,8 @@ export const Link = React.forwardRef(({ label, color, bare, disabled, icon, icon
                 justifyContent: "center",
                 userSelect: "none",
                 padding: cssVar("--spacing-m"),
+                display: "inline-flex",
+                textDecoration: "none",
             },
             jsStyle,
         ] },
