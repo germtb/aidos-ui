@@ -7,6 +7,7 @@ async function run() {
     ["git", ["commit", "-m", "'build:lib'"]],
     ["npm", ["version", "patch"]],
     ["npm", ["publish"]],
+    ["git", ["push"]],
   ].reverse();
 
   while (commands.length) {
