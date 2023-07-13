@@ -4,7 +4,7 @@ import { Text, TextType } from "./Text";
 import { Row } from "./Row";
 import { BaseView } from "./BaseView";
 import { Column } from "./Column";
-import { TextColor, Size, Position, Gap, Padding, Align, cssVar } from "./jss";
+import { TextColor, Size, Position, Gap, Padding, Align, cssVar } from "./jss2";
 
 export interface TextPairingProps {
   headline: ReactNode;

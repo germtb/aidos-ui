@@ -37,7 +37,7 @@ export * from "./ListSpacer";
 export * from "./ListStaticHeaderRow";
 export * from "./ListStaticRow";
 export * from "./OnVisible";
-export * from "./jss";
+export * from "./jss2";
 export * from "./Popover";
 export * from "./ProgressBar";
 export * from "./ProgressCircle";

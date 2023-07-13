@@ -3,7 +3,7 @@ import { TextPairing } from "./TextPairing";
 import { BaseView } from "./BaseView";
 import { BaseListRow, BaseListRowProps } from "./BaseListRow";
 import { Column } from "./Column";
-import { JSStyle, Size, TextColor } from "./jss";
+import { JSStyle, Size, TextColor } from "./jss2";
 
 const jsStyles: { [key: string]: JSStyle } = {
   root: {

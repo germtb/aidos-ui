@@ -2,7 +2,7 @@ import React from "react";
 
 import { ListDivider } from "./ListDivider";
 import { Row, RowProps } from "./Row";
-import { JSStyle, Color, Padding, getBackground } from "./jss";
+import { JSStyle, Color, Padding, getBackground } from "./jss2";
 
 export interface BaseListRowProps extends RowProps {
   jsStyle?: JSStyle;

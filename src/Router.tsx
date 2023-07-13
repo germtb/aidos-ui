@@ -5,7 +5,7 @@ import { Column } from "./Column";
 import { ListDivider } from "./ListDivider";
 import { BaseView } from "./BaseView";
 import { useRouterState } from "./RouterState";
-import { JSStyle } from "./jss";
+import { JSStyle } from "./jss2";
 
 const jsStyles: { [key: string]: JSStyle } = {
   root: {

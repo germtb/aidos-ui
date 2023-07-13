@@ -1,7 +1,7 @@
 import React from "react";
 import { BaseView } from "./BaseView";
 import { Icon } from "./Icon";
-import { JSStyle, Size } from "./jss";
+import { JSStyle, Size } from "./jss2";
 import { IconType } from "./IconType";
 
 type StaticCheckboxProps = {
