@@ -1,6 +1,6 @@
 import React from "react";
 import { BaseView } from "./BaseView";
-import { Color, Size, JSStyle, getBackground } from "./jss2";
+import { Color, Size, JSStyle, getBackground } from "./jss";
 
 const jsStyles: { [key: string]: JSStyle } = {
   root: {

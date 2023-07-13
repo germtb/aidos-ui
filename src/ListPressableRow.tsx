@@ -13,7 +13,7 @@ import {
   Spacing,
   JSStyle,
   cssVar,
-} from "./jss2";
+} from "./jss";
 import { BaseLink } from "./BaseLink";
 
 interface ListPressableRow extends BaseListRowProps {

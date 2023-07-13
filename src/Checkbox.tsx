@@ -1,7 +1,7 @@
 import React from "react";
 import { BaseInput, BaseInputProps } from "./BaseInput";
 import {} from "./BaseView";
-import { Size, jss } from "./jss2";
+import { Size, jss } from "./jss";
 import { StaticCheckbox } from "./StaticCheckbox";
 
 // @ts-ignore

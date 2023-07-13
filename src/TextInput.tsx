@@ -4,7 +4,7 @@ import { IconType } from "./IconType";
 import { Icon } from "./Icon";
 import { Row } from "./Row";
 import { Box } from "./Box";
-import { JSStyle, Padding } from "./jss2";
+import { JSStyle, Padding } from "./jss";
 
 export interface TextInputProps extends BaseInputProps {
   onValueChange?: (value: string) => void;

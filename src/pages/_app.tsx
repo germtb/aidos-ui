@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
-import { cssVar, darkTheme, getPadding, lightTheme } from "../jss2";
+import { cssVar, darkTheme, getPadding, lightTheme } from "../jss";
 import { MDXProvider } from "@mdx-js/react";
 import { Providers } from "../Providers";
 import { BaseView } from "../BaseView";

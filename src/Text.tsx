@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { JSStyle, Size, TextColor, getTextColor, jss } from "./jss2";
+import { JSStyle, Size, TextColor, getTextColor, jss } from "./jss";
 
 const fontSize = {
   xsmall: "0.75rem",

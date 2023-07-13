@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { BaseView } from "./BaseView";
 import { IconType } from "./IconType";
-import { Size, TextColor, getTextColor } from "./jss2";
+import { Size, TextColor, getTextColor } from "./jss";
 
 const jsStyles = {
   root: {

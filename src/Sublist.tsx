@@ -3,7 +3,7 @@ import { ListPressableRow } from "./ListPressableRow";
 import { Icon } from "./Icon";
 import { Box } from "./Box";
 import { Row } from "./Row";
-import { JSStyle } from "./jss2";
+import { JSStyle } from "./jss";
 
 export function Sublist({
   children,

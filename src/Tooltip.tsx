@@ -3,7 +3,7 @@ import React, { useRef, useState } from "react";
 import { BaseView } from "./BaseView";
 import { useRefEffect } from "./useRefEffect";
 import { Text } from "./Text";
-import { JSStyle, cssVar, jss } from "./jss2";
+import { JSStyle, cssVar, jss } from "./jss";
 
 const jsStyles: { [key: string]: JSStyle } = {
   root: {

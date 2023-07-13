@@ -1,6 +1,6 @@
 import React from "react";
 import { BaseListRow, BaseListRowProps } from "./BaseListRow";
-import { cssVar } from "./jss2";
+import { cssVar } from "./jss";
 
 interface CenteredListRow extends BaseListRowProps {
   withDivider?: false;

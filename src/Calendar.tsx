@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { BaseView } from "./BaseView";
-import { JSStyle } from "./jss2";
+import { JSStyle } from "./jss";
 
 const dateFormatter = Intl.DateTimeFormat("en-UK", {
   weekday: "short",

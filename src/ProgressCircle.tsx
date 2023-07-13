@@ -1,5 +1,5 @@
 import React from "react";
-import { jss } from "./jss2";
+import { jss } from "./jss";
 
 export function ProgressCircle({
   progress,

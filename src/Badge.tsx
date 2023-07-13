@@ -1,7 +1,7 @@
 import React from "react";
 
 import { BaseView } from "./BaseView";
-import { Color, JSStyle, Size, getBackground } from "./jss2";
+import { Color, JSStyle, Size, getBackground } from "./jss";
 
 const sizes = {
   xsmall: 4,

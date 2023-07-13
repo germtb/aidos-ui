@@ -6,7 +6,7 @@ import { ListDivider } from "./ListDivider";
 import { Column } from "./Column";
 import { Row } from "./Row";
 import { IconButton } from "./IconButton";
-import { jss } from "./jss2";
+import { jss } from "./jss";
 
 const jsStyles = {
   dialog: {

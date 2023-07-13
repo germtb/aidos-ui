@@ -3,7 +3,7 @@ import React, { ReactNode, useRef, useCallback } from "react";
 import { Column } from "./Column";
 import { useIsTopOfStack } from "./StackContext";
 import { queryFocusables } from "./aria";
-import { cssVar } from "./jss2";
+import { cssVar } from "./jss";
 
 export function RootView({
   children,

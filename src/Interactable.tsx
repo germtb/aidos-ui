@@ -1,4 +1,4 @@
-import { JSStyle, Padding, TextColor, getPadding } from "./jss2";
+import { JSStyle, Padding, TextColor, getPadding } from "./jss";
 
 export type InterctableColor = "positive" | "secondary" | "negative";
 

@@ -4,7 +4,7 @@ import { Box } from "./Box";
 import { Icon } from "./Icon";
 import { IconType } from "./IconType";
 import { Row } from "./Row";
-import { JSStyle } from "./jss2";
+import { JSStyle } from "./jss";
 
 export interface DateInputProps extends BaseInputProps {
   onDateChange: (date: Date) => void;

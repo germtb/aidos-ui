@@ -9,7 +9,7 @@ import {
   FlexDirection,
   getPadding,
   getSpacing,
-} from "./jss2";
+} from "./jss";
 
 export interface FlexLayoutProps extends BaseViewProps {
   justify?: Justify;

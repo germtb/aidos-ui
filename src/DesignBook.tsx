@@ -21,7 +21,7 @@ import { DarkModeContext } from "./DarkMode";
 import { Popover, PopoverTrigger } from "./Popover";
 import { Tooltip } from "./Tooltip";
 import { Link } from "./Link";
-import { getBackground, withMedia } from "./jss2";
+import { getBackground, withMedia } from "./jss";
 import { Calendar } from "./Calendar";
 import { Box } from "./Box";
 import { Badge } from "./Badge";

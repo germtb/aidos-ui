@@ -1,5 +1,5 @@
 import { BaseView } from "./BaseView";
-import { cssVar } from "./jss2";
+import { cssVar } from "./jss";
 
 export function Card({ children }: { children: JSX.Element }) {
   return (

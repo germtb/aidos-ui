@@ -1,5 +1,5 @@
 import React from "react";
-import { JSStyle, jss } from "./jss2";
+import { JSStyle, jss } from "./jss";
 
 export interface TextAreaProps
   extends React.InputHTMLAttributes<HTMLTextAreaElement> {

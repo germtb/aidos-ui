@@ -2,7 +2,7 @@ import React from "react";
 import { Icon } from "./Icon";
 import { IconType } from "./IconType";
 import { getGlyphColor } from "./Interactable";
-import { Size } from "./jss2";
+import { Size } from "./jss";
 import { BaseLink, BaseLinkProps } from "./BaseLink";
 
 const sizes = {

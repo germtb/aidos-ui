@@ -3,7 +3,7 @@ import { BaseButton, BaseButtonProps } from "./BaseButton";
 import { Icon } from "./Icon";
 import { IconType } from "./IconType";
 import { getGlyphColor } from "./Interactable";
-import { Size } from "./jss2";
+import { Size } from "./jss";
 
 const sizes = {
   xsmall: 20,

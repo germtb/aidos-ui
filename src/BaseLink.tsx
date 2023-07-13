@@ -1,6 +1,6 @@
 import React from "react";
 import { InterctableColor, getInteractableJSStyles } from "./Interactable";
-import { JSStyle, Padding, jss } from "./jss2";
+import { JSStyle, Padding, jss } from "./jss";
 
 export interface BaseLinkProps
   extends React.LinkHTMLAttributes<HTMLAnchorElement> {

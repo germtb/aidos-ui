@@ -3,7 +3,7 @@ import { queryFocusables } from "./aria";
 
 import { BaseView } from "./BaseView";
 import { useRefEffect } from "./useRefEffect";
-import { JSStyle, jss } from "./jss2";
+import { JSStyle, jss } from "./jss";
 
 const jsStyles: { [key: string]: JSStyle } = {
   root: {
