@@ -145,7 +145,7 @@ export default function App({ Component, pageProps }: AppProps) {
                       bare
                     />
                   </Row>
-                  <Span>aidos-ui@2.0.12</Span>
+                  <Span>aidos-ui@2.0.13</Span>
                 </Row>
                 <ListDivider />
               </Column>
