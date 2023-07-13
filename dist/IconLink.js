@@ -9,8 +9,8 @@ const sizes = {
     large: 40,
     xlarge: 48,
 };
-export const IconLink = React.forwardRef(({ icon, size, color, bare, disabled, ...buttonProps }, ref) => {
-    return (React.createElement(BaseLink, { ...buttonProps, bare: bare, jsStyle: [
+export const IconLink = React.forwardRef(({ icon, size, color, bare, disabled, ...otherProps }, ref) => {
+    return (React.createElement(BaseLink, { ...otherProps, bare: bare, jsStyle: [
             {
                 display: "flex",
                 justifyContent: "center",

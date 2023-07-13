@@ -9,7 +9,7 @@ const sizes = {
     large: 40,
     xlarge: 48,
 };
-export const IconButton = React.forwardRef(({ icon, size, color, bare, disabled, ...buttonProps }, ref) => {
+export const IconButton = React.forwardRef(({ icon, size, color, bare, disabled, jsStyle, ...buttonProps }, ref) => {
     return (React.createElement(BaseButton, { ...buttonProps, bare: bare, jsStyle: [
             {
                 display: "flex",
@@ -24,6 +24,7 @@ export const IconButton = React.forwardRef(({ icon, size, color, bare, disabled,
                     transform: "scale(0.92)",
                 },
             },
+            jsStyle,
         ], color: color, ref: ref, disabled: disabled },
         React.createElement(Icon, { size: size, icon: icon, color: getGlyphColor(color, disabled, bare) })));
 });

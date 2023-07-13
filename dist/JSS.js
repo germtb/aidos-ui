@@ -49,26 +49,6 @@ const aliases = {
             ];
         }
     },
-    border: (value) => {
-        if (value === "none") {
-            return [
-                ["border-width", 0],
-                ["border-style", "none"],
-                ["border-color", "currentcolor"],
-            ];
-        }
-        else if (typeof value === "string") {
-            const matches = Array.from(value.matchAll(/(.+) (.+) (.+)$/g))[0];
-            return [
-                ["border-width", matches[1]],
-                ["border-style", matches[2]],
-                ["border-color", matches[3]],
-            ];
-        }
-        else {
-            throw new Error("Cannot parse the value assigned to 'border'");
-        }
-    },
 };
 const rawHashMap = new Map();
 function createStyleNode(content) {
@@ -324,7 +304,7 @@ export const baseStyles = `
 }
 
 *:focus {
-  outline-color: var(--highlight);
+  outline-color: ${cssVar("--highlight")};
 }
 
 html,
@@ -333,28 +313,28 @@ body {
   height: 100%;
   width: 100%;
   overflow: hidden;
-  background-color: var(--primary-background);
+  background-color: ${cssVar("--primary-background")};
 }
 
 `;
 const backgroundStyles = {
     highlight: {
-        backgroundColor: "var(--highlight)",
+        backgroundColor: cssVar("--highlight"),
     },
     warning: {
-        backgroundColor: "var(--warning)",
+        backgroundColor: cssVar("--warning"),
     },
     "primary-background": {
-        backgroundColor: "var(--primary-background)",
+        backgroundColor: cssVar("--primary-background"),
     },
     negative: {
-        backgroundColor: "var(--negative-text)",
+        backgroundColor: cssVar("--negative-text"),
     },
     "secondary-background": {
-        backgroundColor: "var(--secondary-background)",
+        backgroundColor: cssVar("--secondary-background"),
     },
     divider: {
-        backgroundColor: "var(--divider)",
+        backgroundColor: cssVar("--divider"),
     },
     inherit: {
         backgroundColor: "inherit",
@@ -366,50 +346,48 @@ export const getBackground = (color) => {
 export const MOBILE = 750;
 export const TABLET = 1000;
 export const LAPTOP = 1200;
-export const withMedia = (styles) => {
-    const phone = styles.phone
-        ? {
-            [`@media (min-width: 0px) and (max-width: ${MOBILE}px)`]: styles.phone,
-        }
-        : {};
-    const tablet = styles.tablet
-        ? {
-            [`@media (min-width: ${MOBILE}px) and (max-width: ${TABLET}px)`]: styles.tablet,
-        }
-        : {};
-    const laptop = styles.laptop
-        ? {
-            [`@media (min-width: ${TABLET}px) and (max-width: ${LAPTOP}px)`]: styles.laptop,
-        }
-        : {};
-    const desktop = styles.desktop
-        ? { [`@media (min-width: ${LAPTOP}px)`]: styles.desktop }
-        : {};
+export const MOBILE_MEDIA = `@media (min-width: 0px) and (max-width: ${MOBILE}px)`;
+export const TABLET_MEDIA = `@media (min-width: ${MOBILE}px) and (max-width: ${TABLET}px)`;
+export const LAPTOP_MEDIA = `@media (min-width: ${TABLET}px) and (max-width: ${LAPTOP}px)`;
+export const DESKTOP_MEDIA = `@media (min-width: ${LAPTOP}px)`;
+export function mobile(jsStyle) {
     return {
-        ...phone,
-        ...tablet,
-        ...laptop,
-        ...desktop,
+        [MOBILE_MEDIA]: jsStyle,
     };
-};
+}
+export function tablet(jsStyle) {
+    return {
+        [TABLET_MEDIA]: jsStyle,
+    };
+}
+export function laptop(jsStyle) {
+    return {
+        [LAPTOP_MEDIA]: jsStyle,
+    };
+}
+export function desktop(jsStyle) {
+    return {
+        [DESKTOP_MEDIA]: jsStyle,
+    };
+}
 const textColorStyles = {
     primary: {
-        color: "var(--primary-text)",
+        color: cssVar("--primary-text"),
     },
     secondary: {
-        color: "var(--secondary-text)",
+        color: cssVar("--secondary-text"),
     },
     highlight: {
-        color: "var(--highlight-text)",
+        color: cssVar("--highlight-text"),
     },
     negative: {
-        color: "var(--negative-text)",
+        color: cssVar("--negative-text"),
     },
     subtle: {
-        color: "var(--subtle-text)",
+        color: cssVar("--subtle-text"),
     },
     light: {
-        color: "var(--light-text)",
+        color: cssVar("--light-text"),
     },
     inherit: {
         color: "inherit",

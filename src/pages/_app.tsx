@@ -196,7 +196,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 />
               </Row>
               <Row gap="medium" align="center">
-                <Span>aidos-ui@2.0.14</Span>
+                <Span>aidos-ui@2.0.15</Span>
                 <IconButton
                   jsStyle={[
                     laptop({ display: "none" }),
