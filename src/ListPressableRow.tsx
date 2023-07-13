@@ -138,6 +138,7 @@ export const ListPressableRow = React.forwardRef(
               bare={true}
               color={color}
               href={href}
+              // @ts-ignore
               ref={ref}
               jsStyle={pressabelJSStyle}
               aria-label={headline}
@@ -153,6 +154,7 @@ export const ListPressableRow = React.forwardRef(
               animateInteraction={false}
               bare={true}
               color={color}
+              // @ts-ignore
               ref={ref}
               jsStyle={pressabelJSStyle}
               aria-label={headline}
