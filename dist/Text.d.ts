@@ -11,11 +11,13 @@ export interface TextProps {
     type?: TextType;
     grow?: boolean;
     jsStyle?: JSStyle;
+    id?: string;
 }
-export type TextType = "span" | "p" | "h1" | "h2" | "h3" | "h4";
-export declare function Text({ children, color, size, align, bold, ellipsis, grow, type: Type, jsStyle, }: TextProps): JSX.Element;
+export type TextType = "span" | "p" | "h1" | "h2" | "h3" | "h4" | "li";
+export declare function Text({ children, color, size, align, bold, ellipsis, grow, type: Type, jsStyle, id, }: TextProps): JSX.Element;
 export declare function Span({ size, type, ...rest }: TextProps): JSX.Element;
 export declare function P({ size, type, ...rest }: TextProps): JSX.Element;
 export declare function H1({ size, type, ...rest }: TextProps): JSX.Element;
 export declare function H2({ size, type, ...rest }: TextProps): JSX.Element;
 export declare function H3({ size, type, ...rest }: TextProps): JSX.Element;
+export declare function Li({ size, type, ...rest }: TextProps): JSX.Element;

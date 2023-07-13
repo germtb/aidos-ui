@@ -21,21 +21,56 @@ export type JSStyle =
 const aliases: {
   [alias: string]: (value: StylesValueType) => [string, StylesValueType][];
 } = {
-  margin: (value) => {
-    return [
-      ["margin-top", value],
-      ["margin-bottom", value],
-      ["margin-left", value],
-      ["margin-right", value],
-    ];
+  margin: (value: string) => {
+    if (value == null) {
+      return [];
+    }
+
+    const matches =
+      typeof value === "string"
+        ? Array.from(value.matchAll(/(.+) (.+)$/g))[0]
+        : null;
+    if (matches) {
+      return [
+        ["margin-top", matches[1]],
+        ["margin-bottom", matches[1]],
+        ["margin-left", matches[2]],
+        ["margin-right", matches[2]],
+      ];
+    } else {
+      return [
+        ["margin-top", value],
+        ["margin-bottom", value],
+        ["margin-left", value],
+        ["margin-right", value],
+      ];
+    }
   },
-  padding: (value) => {
-    return [
-      ["padding-top", value],
-      ["padding-bottom", value],
-      ["padding-left", value],
-      ["padding-right", value],
-    ];
+  padding: (value: string) => {
+    if (value == null) {
+      return [];
+    }
+
+    const matches =
+      typeof value === "string"
+        ? Array.from(value.matchAll(/(.+) (.+)$/g))[0]
+        : null;
+
+    if (matches) {
+      return [
+        ["padding-top", matches[1]],
+        ["padding-bottom", matches[1]],
+        ["padding-left", matches[2]],
+        ["padding-right", matches[2]],
+      ];
+    } else {
+      return [
+        ["padding-top", value],
+        ["padding-bottom", value],
+        ["padding-left", value],
+        ["padding-right", value],
+      ];
+    }
   },
   border: (value) => {
     if (value === "none") {
@@ -98,7 +133,13 @@ const pixelStyles = new Set([
 const toPixelValue = (key: string, value): string => {
   const sValue = value.toString();
 
-  if (sValue.includes("%") || sValue.includes("v") || sValue.includes("px")) {
+  if (
+    sValue.includes("%") ||
+    sValue.includes("v") ||
+    sValue.includes("px") ||
+    sValue.includes("em") ||
+    sValue.includes("rem")
+  ) {
     return sValue;
   }
 
@@ -181,11 +222,34 @@ export const jss = (jsStyle: JSStyle): string => {
 
 const serverStyles = [];
 
-export function JSStyles({ getBaseStyles }: { getBaseStyles: () => string[] }) {
+export function JSStylesProvider({
+  themes,
+  children,
+}: {
+  themes: { dark: Theme; light: Theme };
+  children: JSX.Element;
+}) {
   const stylesRef = useRef<string[] | null>(null);
 
   if (stylesRef.current == null) {
-    stylesRef.current = getBaseStyles().concat(serverStyles);
+    stylesRef.current = getBaseStyles(themes);
+  }
+
+  return (
+    <>
+      {stylesRef.current.map((style, i) => (
+        <style key={i} dangerouslySetInnerHTML={{ __html: style }} />
+      ))}
+      {children}
+    </>
+  );
+}
+
+export function JSServerStyles() {
+  const stylesRef = useRef<string[] | null>(null);
+
+  if (stylesRef.current == null) {
+    stylesRef.current = serverStyles;
   }
 
   return (
@@ -277,6 +341,7 @@ export function getPadding(padding: Padding): string {
 
 export type Theme = {
   /* Background */
+  ["--overlay-background"]: string;
   ["--primary-background"]: string;
   ["--secondary-background"]: string;
   ["--divider"]: string;
@@ -318,6 +383,7 @@ export type Theme = {
 
 export const lightTheme: Theme = {
   /* Background */
+  ["--overlay-background"]: "rgb(245, 246, 250)",
   ["--primary-background"]: "rgb(239, 239, 244)",
   ["--secondary-background"]: "rgb(232, 232, 234)",
   ["--divider"]: "rgb(200, 200, 200)",
@@ -344,21 +410,22 @@ export const lightTheme: Theme = {
   ["--background-button-negative"]: "rgb(255, 59, 48)",
   ["--background-button-disabled"]: "rgb(218, 218, 223)",
   /* Spacing */
-  ["--spacing-xs"]: "0.125rem",
-  ["--spacing-s"]: "0.25rem",
-  ["--spacing-m"]: "0.5rem",
-  ["--spacing-l"]: "0.75px",
-  ["--spacing-xl"]: "1rem",
-  ["--spacing-xxl"]: "1.5px",
-  ["--spacing-xxxl"]: "2rem",
-  ["--border-radius-s"]: "0.125rem",
-  ["--border-radius-m"]: "0.25rem",
-  ["--border-radius-l"]: "0.5rem",
+  ["--spacing-xs"]: "2px",
+  ["--spacing-s"]: "4px",
+  ["--spacing-m"]: "8px",
+  ["--spacing-l"]: "12px",
+  ["--spacing-xl"]: "16px",
+  ["--spacing-xxl"]: "24px",
+  ["--spacing-xxxl"]: "32px",
+  ["--border-radius-s"]: "2px",
+  ["--border-radius-m"]: "4px",
+  ["--border-radius-l"]: "8px",
   ["--nav-bar-height"]: "50px",
 };
 
 export const darkTheme: Theme = {
   /* Background */
+  ["--overlay-background"]: "rgb(22, 23, 24)",
   ["--primary-background"]: "rgb(42, 43, 46)",
   ["--secondary-background"]: "rgb(65, 66, 67)",
   ["--divider"]: "rgb(70, 72, 73)",
@@ -371,7 +438,7 @@ export const darkTheme: Theme = {
   ["--warning"]: "rgb(255, 204, 0)",
   ["--highlight"]: "rgb(50, 140, 220)",
   ["--outline"]: "rgb(91, 170, 255)",
-  ["--light-highlight"]: "rgb(220, 232, 245)",
+  ["--light-highlight"]: "rgba(49, 57, 63)",
   /* Text */
   ["--primary-text"]: "rgb(255, 255, 255)",
   ["--secondary-text"]: "rgb(200, 200, 200)",
@@ -401,16 +468,11 @@ export const darkTheme: Theme = {
 export const baseStyles = `
 * {
   box-sizing: border-box;
-  padding: 0;
   border: none;
   touch-action: manipulation;
   font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-ul, input, p, h1, h2, h3, h4 {
-  margin: 0;
 }
 
 *:focus {
@@ -424,16 +486,6 @@ body {
   width: 100%;
   overflow: hidden;
   background-color: var(--primary-background);
-}
-
-ul,
-ol,
-li {
-  list-style: none;
-}
-
-a {
-  text-decoration: none;
 }
 
 `;
@@ -533,21 +585,21 @@ export const getTextColor = (color: TextColor) => {
   return textColorStyles[color];
 };
 
-export function getBaseStyles(): string[] {
+export function getBaseStyles(themes: { light: Theme; dark: Theme }): string[] {
   const css: string[] = [];
 
   css.push(baseStyles);
 
   css.push(`body {
       color-scheme: light;
-      ${Object.entries(lightTheme)
+      ${Object.entries(themes.light)
         .map(([key, value]) => `${key}: ${value};`)
         .join("\n   ")}
     }`);
 
   css.push(`body.dark-mode {
       color-scheme: dark;
-      ${Object.entries(darkTheme)
+      ${Object.entries(themes.dark)
         .map(([key, value]) => `${key}: ${value};`)
         .join("\n    ")}
     }`);

@@ -2,11 +2,11 @@ import React, { ReactNode } from "react";
 import { JSStyle, Size, TextColor, getTextColor, jss } from "./jss";
 
 const fontSize = {
-  xsmall: 10,
-  small: 14,
-  medium: 18,
-  large: 24,
-  xlarge: 30,
+  xsmall: "0.75rem",
+  small: "1rem",
+  medium: "1.25rem",
+  large: "1.5rem",
+  xlarge: "2rem",
 };
 
 export type Display = "inline" | "block";
@@ -21,9 +21,10 @@ export interface TextProps {
   type?: TextType;
   grow?: boolean;
   jsStyle?: JSStyle;
+  id?: string;
 }
 
-export type TextType = "span" | "p" | "h1" | "h2" | "h3" | "h4";
+export type TextType = "span" | "p" | "h1" | "h2" | "h3" | "h4" | "li";
 
 export function Text({
   children,
@@ -35,27 +36,28 @@ export function Text({
   grow,
   type: Type = "span",
   jsStyle,
+  id,
 }: TextProps) {
   if (ellipsis === "default") {
     ellipsis = Type === "span";
   }
 
+  const className = jss([
+    getTextColor(color),
+    { fontSize: fontSize[size], padding: 0, margin: 0 },
+    bold && { fontWeight: "bold" },
+    align === "center" && { textAlign: "center" },
+    ellipsis && {
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      whiteSpace: "nowrap",
+    },
+    grow && { flexGrow: 1 },
+    jsStyle,
+  ]);
+
   return (
-    <Type
-      className={jss([
-        getTextColor(color),
-        { fontSize: fontSize[size], lineHeight: "1.7rem" },
-        bold && { fontWeight: "bold" },
-        align === "center" && { textAlign: "center" },
-        ellipsis && {
-          overflow: "hidden",
-          textOverflow: "ellipsis",
-          whiteSpace: "nowrap",
-        },
-        grow && { flexGrow: 1 },
-        jsStyle,
-      ])}
-    >
+    <Type id={id} className={className}>
       {children}
     </Type>
   );
@@ -69,14 +71,18 @@ export function P({ size = "small", type = "p", ...rest }: TextProps) {
   return <Text size={size} type={type} {...rest} />;
 }
 
-export function H1({ size = "large", type = "h1", ...rest }: TextProps) {
+export function H1({ size = "xlarge", type = "h1", ...rest }: TextProps) {
   return <Text size={size} type={type} {...rest} />;
 }
 
-export function H2({ size = "medium", type = "h2", ...rest }: TextProps) {
+export function H2({ size = "large", type = "h2", ...rest }: TextProps) {
   return <Text size={size} type={type} {...rest} />;
 }
 
-export function H3({ size = "small", type = "h3", ...rest }: TextProps) {
+export function H3({ size = "medium", type = "h3", ...rest }: TextProps) {
+  return <Text size={size} type={type} {...rest} />;
+}
+
+export function Li({ size = "small", type = "li", ...rest }: TextProps) {
   return <Text size={size} type={type} {...rest} />;
 }

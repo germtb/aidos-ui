@@ -1,0 +1,56 @@
+import { Checkbox } from "../Checkbox";
+import { StaticCheckbox } from "../StaticCheckbox";
+import { Column } from "../Column";
+import { Row } from "../Row";
+
+# Checkbox
+
+The `Checkbox` component is an input of type checkbox with the visual style of a checkbox.
+
+<Column>
+  <Row padding="medium" gap="medium" justify="center">
+    <Checkbox size="small" checked={true} onClick={() => {}} />
+    <Checkbox size="medium" checked={true} onClick={() => {}} />
+    <Checkbox size="large" checked={true} onClick={() => {}} />
+  </Row>
+  <Row padding="medium" gap="medium" justify="center">
+    <Checkbox size="small" checked={false} onClick={() => {}} />
+    <Checkbox size="medium" checked={false} onClick={() => {}} />
+    <Checkbox size="large" checked={false} onClick={() => {}} />
+  </Row>
+</Column>
+
+```js
+<Column>
+  <Row padding="medium" gap="medium" justify="center">
+    <Checkbox size="small" checked={true} onClick={() => {}} />
+    <Checkbox size="medium" checked={true} onClick={() => {}} />
+    <Checkbox size="large" checked={true} onClick={() => {}} />
+  </Row>
+  <Row padding="medium" gap="medium" justify="center">
+    <Checkbox size="small" checked={false} onClick={() => {}} />
+    <Checkbox size="medium" checked={false} onClick={() => {}} />
+    <Checkbox size="large" checked={false} onClick={() => {}} />
+  </Row>
+</Column>
+```
+
+---
+
+## Static checkbox
+
+The variant `StaticCheckbox` can be used when one only needs the visual representation of a checkbox but the `<input type="checkbox" />` does not make sense.
+
+<Row padding="medium" gap="medium" justify="center" align="center">
+  <StaticCheckbox size="small" checked={true} />
+  <StaticCheckbox size="medium" checked={true} />
+  <StaticCheckbox size="large" checked={true} />
+</Row>
+
+```js
+<Row padding="medium" gap="medium" justify="center" align="center">
+  <StaticCheckbox size="small" checked={true} />
+  <StaticCheckbox size="medium" checked={true} />
+  <StaticCheckbox size="large" checked={true} />
+</Row>
+```

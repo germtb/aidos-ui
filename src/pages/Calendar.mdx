@@ -1,0 +1,60 @@
+import { Calendar } from "../Calendar";
+import { Box } from "../Box";
+import { Badge } from "../Badge";
+import { Span, H3 } from "../Text";
+
+# Calendar
+
+The calendar component is can be used to represent months, and is customisable through render callbacks for the header and cell elemtns
+
+<Calendar
+  date={new Date()}
+  header={({ weekday }) => (
+    <Box>
+      <H3>{weekday}</H3>
+    </Box>
+  )}
+  cell={({ today, date, outOfMonth }) => (
+    <Box relative={true} style={{ opacity: outOfMonth ? 0.2 : 1 }}>
+      {today && (
+        <Badge
+          jsStyle={{
+            position: "absolute",
+            top: "50%",
+            transform: "translateY(-50%) translateX(-75%)",
+            right: "50%",
+          }}
+        />
+      )}
+      <Span>{date.getDate()}</Span>
+    </Box>
+  )}
+/>
+
+```js
+<Calendar
+  date={new Date()}
+  header={({ weekday }) => (
+    <Box>
+      <H2>{weekday}</H2>
+    </Box>
+  )}
+  cell={({ today, date, outOfMonth }) => (
+    <Box relative={true} style={{ opacity: outOfMonth ? 0.2 : 1 }}>
+      {today && (
+        <Badge
+          jsStyle={{
+            position: "absolute",
+            top: "50%",
+            transform: "translateY(-50%) translateX(-75%)",
+            right: "50%",
+          }}
+        />
+      )}
+      <Span>{date.getDate()}</Span>
+    </Box>
+  )}
+/>
+```
+
+---

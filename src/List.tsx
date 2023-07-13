@@ -2,8 +2,6 @@ import React from "react";
 import { BaseList, BaseListProps } from "./BaseList";
 import { useNavigation } from "./useNavigation";
 
-const PAGE_SIZE = 5;
-
 interface ListProps extends BaseListProps {
   ariaLabel: string;
   autofocus?: boolean;

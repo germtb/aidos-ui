@@ -55,6 +55,8 @@ export const Link = React.forwardRef(
             justifyContent: "center",
             userSelect: "none",
             padding: cssVar("--spacing-m"),
+            display: "inline-flex",
+            textDecoration: "none",
           },
           jsStyle,
         ]}

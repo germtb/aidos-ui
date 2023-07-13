@@ -12,6 +12,7 @@ const jsStyles = {
   dialog: {
     border: "1px solid var(--divider)",
     borderRadius: "var(--border-radius-m)",
+    padding: 0,
   },
   root: {
     display: "grid",
@@ -116,6 +117,10 @@ export function useDialog<Input>(
           }
 
           const dialogDimensions = dialogRef.current.getBoundingClientRect();
+
+          if (options.closeOnOutsideClick === false) {
+            return;
+          }
 
           if (
             e.clientX < dialogDimensions.left ||

@@ -26,7 +26,7 @@ export function Sublist({
     <>
       <ListPressableRow
         headline={label}
-        onPress={() => setCollapsed((x) => !x)}
+        onClick={() => setCollapsed((x) => !x)}
         jsStyle={jsStyle}
         addOn={
           <Row gap="medium" align="center">

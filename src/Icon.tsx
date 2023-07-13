@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BaseView } from "./BaseView";
 import { IconType } from "./IconType";
 import { Size, TextColor, getTextColor } from "./jss";
@@ -37,7 +37,7 @@ const jsStyles = {
 
 let initialized = false;
 
-export const initializeIcons = () => {
+const initializeIcons = () => {
   if (initialized) {
     return;
   }
@@ -56,6 +56,14 @@ export const initializeIcons = () => {
 
   initialized = true;
 };
+
+export function IconProvider({ children }: { children: JSX.Element }) {
+  useEffect(() => {
+    initializeIcons();
+  }, []);
+
+  return children;
+}
 
 export function Icon({
   icon,

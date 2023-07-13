@@ -17,11 +17,11 @@ import { CenteredListRow } from "./CenteredListRow";
 import { ListPressableRow } from "./ListPressableRow";
 import { Dialog, useDialog } from "./Dialog";
 import { Row } from "./Row";
-import { DarkModeContext } from "./DarkModeStore";
+import { DarkModeContext } from "./DarkMode";
 import { Popover, PopoverTrigger } from "./Popover";
 import { Tooltip } from "./Tooltip";
 import { Link } from "./Link";
-import { JSStyle, cssVar, getBackground, jss, withMedia } from "./jss";
+import { getBackground, withMedia } from "./jss";
 import { Calendar } from "./Calendar";
 import { Box } from "./Box";
 import { Badge } from "./Badge";
@@ -86,7 +86,7 @@ export function DesignBook() {
                           />
                         }
                         headline="Option 1"
-                        onPress={() => {}}
+                        onClick={() => {}}
                       ></ListPressableRow>
                       <ListPressableRow
                         gap="medium"
@@ -98,7 +98,7 @@ export function DesignBook() {
                           />
                         }
                         headline="Option 2"
-                        onPress={() => {}}
+                        onClick={() => {}}
                         withDivider={false}
                       ></ListPressableRow>
                     </List>
@@ -135,7 +135,7 @@ export function DesignBook() {
                           />
                         }
                         headline="Option 1"
-                        onPress={() => {}}
+                        onClick={() => {}}
                       ></ListPressableRow>
                       <ListPressableRow
                         gap="medium"
@@ -147,7 +147,7 @@ export function DesignBook() {
                           />
                         }
                         headline="Option 2"
-                        onPress={() => {}}
+                        onClick={() => {}}
                         withDivider={false}
                       ></ListPressableRow>
                     </List>
@@ -471,19 +471,19 @@ export function DesignBook() {
             collapsed: false,
           }}
         >
-          <ListPressableRow onPress={() => {}} headline="Headline" />
+          <ListPressableRow onClick={() => {}} headline="Headline" />
           <ListPressableRow
             selected={true}
-            onPress={() => {}}
+            onClick={() => {}}
             headline="Selected"
           />
           <ListPressableRow
-            onPress={() => {}}
+            onClick={() => {}}
             headline="Headline"
             body="Body"
           />
           <ListPressableRow
-            onPress={() => {}}
+            onClick={() => {}}
             headline="Disabled"
             body="Body"
             disabled={true}
@@ -497,7 +497,7 @@ export function DesignBook() {
             }
             headline="Really long body"
             body="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-            onPress={() => {}}
+            onClick={() => {}}
           ></ListPressableRow>
         </Sublist>
         <Sublist label="Text" initialState={{ collapsed: false }}>

@@ -1,0 +1,33 @@
+# jss
+
+Aidos UI has a mechanism to do css in js, which, for lack of a better name, is called `jss`, which is the name of the only function that is needed. The idea is similar to other css in js frameworks: colocation is nice, adding javascrip features to CSS solves many of the problems CSS has.
+
+## How it works
+
+The way the library works looks similar to inline styles:
+
+```js
+<div className={jss({ background: "red", padding: 12 })} />
+```
+
+Internally what is happening is that each property gets atomized into a single CSS classname with a unique hash that gets re-used.
+
+```HTML
+
+<style>
+.x1uc1pme {
+  background: red;
+}
+
+.x1kbdebd {
+  padding: 12;
+}
+</style>
+<div class="x1uc1pme x1kbdebd" />
+```
+
+The CSS class name is a hash based on each key-pair. This makes it deterministic, which enables for this system to work with server rendered hydrated react.
+
+## Selectors
+
+Because of how this system works not all selectors can be written, but this is a good thing because arguably CSS selectors are so powerful that it is very easy to make something too hard to understand

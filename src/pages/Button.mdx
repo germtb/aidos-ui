@@ -1,0 +1,57 @@
+import { Button } from "../Button";
+import { Row } from "../Row";
+
+# Button
+
+This component can be used for the user to take actions with a single click.
+
+---
+
+## Basic variants
+
+The basic `Button` comes in three main variants, and a disabled style that applies to all three.
+
+- Positive: actions that are going to create something or strongly agree
+- Secondary: actions that are less central to the user experience
+- Negative: actions that are going to delete data or remove something
+- Disabled: actions that are not available
+
+<Row gap="large" align="center" padding="large" justify="center">
+  <Button label="Positive" color="positive" onPress={() => {}} />
+  <Button label="Secondary" color="secondary" onPress={() => {}} />
+  <Button label="Negative" color="negative" onPress={() => {}} />
+  <Button label="Disabled" color="positive" disabled onPress={() => {}} />
+</Row>
+
+```js
+<Row gap="large" align="center" padding="large" justify="center">
+  <Button label="Positive" color="positive" onPress={() => {}} />
+  <Button label="Secondary" color="secondary" onPress={() => {}} />
+  <Button label="Negative" color="negative" onPress={() => {}} />
+  <Button label="Disabled" color="positive" disabled onPress={() => {}} />
+</Row>
+```
+
+---
+
+## Bare variants
+
+The bare `Button` variants fulfill the same function than the basic counterparts but have a lighter style that can be more easily integrated in complex components.
+
+<Row gap="large" align="center" padding="large" justify="center">
+  <Button bare label="Positive" color="positive" onPress={() => {}} />
+  <Button bare label="Secondary" color="secondary" onPress={() => {}} />
+  <Button bare label="Negative" color="negative" onPress={() => {}} />
+  <Button bare label="Disabled" color="positive" disabled onPress={() => {}} />
+</Row>
+
+```js
+<Row gap="large" align="center" padding="large" justify="center">
+  <Button bare label="Positive" color="positive" onPress={() => {}} />
+  <Button bare label="Secondary" color="secondary" onPress={() => {}} />
+  <Button bare label="Negative" color="negative" onPress={() => {}} />
+  <Button bare label="Disabled" color="positive" disabled onPress={() => {}} />
+</Row>
+```
+
+---

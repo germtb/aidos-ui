@@ -1,5 +1,27 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 
+export function hasCookie(key: string): boolean {
+  return (
+    document.cookie
+      .split(";")
+      .map((c) => c.trim())
+      .filter((c) => c.startsWith(`${key}=`)).length > 0
+  );
+}
+
+export function getCookie<T>(
+  key: string,
+  deserialize: (s: string) => T = JSON.parse
+): T {
+  return document.cookie
+    .split(";")
+    .map((c) => c.trim())
+    .filter((c) => c.startsWith(`${key}=`))
+    .map((s) => s.split("=")[1])
+    .map((s) => deserialize(s))
+    .pop();
+}
+
 export function useCookie<T, L>(
   key: string,
   {
@@ -17,28 +39,29 @@ export function useCookie<T, L>(
   }
 ): [T | L, (t: T | ((prevValue: T | L) => T)) => void] {
   const initializationRef = useRef(false);
-  const [cookie, setCookie] = useState<T | L>(loadingValue);
+  const [cookie, setCookie] = useState<T | L>(() => {
+    if (typeof window !== "undefined") {
+      const hasPersistedCookie = hasCookie(key);
+      if (hasPersistedCookie) {
+        return getCookie(key, deserialize);
+      } else {
+        return loadingValue;
+      }
+    }
+
+    return loadingValue;
+  });
 
   useEffect(() => {
     if (initializationRef.current === true) {
       return;
     }
 
-    const hasPersistedValue =
-      document.cookie
-        .split(";")
-        .map((c) => c.trim())
-        .filter((c) => c.startsWith(`${key}=`)).length > 0;
+    const hasPersistedCookie = hasCookie(key);
 
-    if (hasPersistedValue) {
-      const persistedValue = document.cookie
-        .split(";")
-        .map((c) => c.trim())
-        .filter((c) => c.startsWith(`${key}=`))
-        .map((s) => s.split("=")[1])
-        .map((s) => deserialize(s))
-        .pop();
-      setCookie(persistedValue);
+    if (hasPersistedCookie) {
+      const persistedCookie = getCookie(key, deserialize);
+      setCookie(persistedCookie);
     } else {
       document.cookie = `${key}=${serialize(initialValue)}; max-age=${maxAge};`;
       setCookie(initialValue);

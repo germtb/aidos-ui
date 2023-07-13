@@ -5,61 +5,20 @@ import { TextPairing } from "./TextPairing";
 import { BaseListRow, BaseListRowProps } from "./BaseListRow";
 import { ListCell } from "./ListCell";
 import { InterctableColor } from "./Interactable";
-import { Size, TextColor, Position, Color, Spacing, JSStyle } from "./jss";
-
-const jsStyles: { [key: string]: JSStyle } = {
-  root: {
-    position: "relative",
-  },
-  gridcell: {
-    display: "flex",
-    flexGrow: 1,
-    overflow: "hidden",
-  },
-  button: {
-    overflow: "hidden",
-    flexGrow: 1,
-    backgroundColor: "var(--primary-background)",
-    "[aria-selected=true]": {
-      backgroundColor: "var(--selected-background)",
-      boxShadow: "inset 1px 1px 2px -1px #0000004a",
-    },
-    ":hover": {
-      backgroundColor: "var(--hovered-background)",
-    },
-    "[aria-selected=true]:hover": {
-      backgroundColor: "var(--hovered-background)",
-    },
-    ":active:hover": {
-      backgroundColor: "var(--pressed-background)",
-    },
-    "[aria-selected=true]:active:hover": {
-      backgroundColor: "var(--pressed-background)",
-    },
-    "[aria-disabled=true]": {
-      backgroundColor: "var(--primary-background)",
-    },
-    "[aria-disabled=true]:active:hover": {
-      backgroundColor: "var(--primary-background)",
-    },
-  },
-  addOn: {
-    flexGrow: 0,
-    flexShrink: 0,
-  },
-  outerAddOn: {
-    display: "flex",
-    flexGrow: 0,
-    flexShrink: 0,
-  },
-  interactiveAddOn: {
-    flexGrow: 0,
-    flexShrink: 0,
-  },
-};
+import {
+  Size,
+  TextColor,
+  Position,
+  Color,
+  Spacing,
+  JSStyle,
+  cssVar,
+} from "./jss";
+import { BaseLink } from "./BaseLink";
 
 interface ListPressableRow extends BaseListRowProps {
-  onPress: () => void;
+  onClick?: () => void;
+  href?: string;
   headline: string;
   headlineSize?: Size;
   headlineColor?: TextColor;
@@ -76,12 +35,14 @@ interface ListPressableRow extends BaseListRowProps {
   backgroundColor?: Color;
   gap?: Spacing;
   selected?: boolean;
+  bare?: boolean;
 }
 
 export const ListPressableRow = React.forwardRef(
   (
     {
-      onPress,
+      onClick,
+      href,
       headline,
       headlineSize = "medium",
       headlineColor = "primary",
@@ -98,40 +59,109 @@ export const ListPressableRow = React.forwardRef(
       jsStyle,
       gap,
       selected,
+      bare,
       ...otherProps
     }: ListPressableRow,
-    ref?: React.Ref<HTMLButtonElement>
+    ref?: React.Ref<HTMLElement>
   ) => {
+    const textPairing = (
+      <TextPairing
+        gap={gap}
+        addOn={addOn}
+        addOnPosition={addOnPosition}
+        headline={headline}
+        headlineSize={headlineSize}
+        headlineColor={
+          disabled ? "subtle" : bare && selected ? "highlight" : headlineColor
+        }
+        headlineAddOn={headlineAddOn}
+        body={body}
+        bodySize={bodySize}
+        bodyColor={disabled ? "subtle" : bodyColor}
+        grow={true}
+        shrink={false}
+      />
+    );
+
+    const pressabelJSStyle: JSStyle = {
+      overflow: "hidden",
+      flexGrow: 1,
+      borderRadius: bare ? cssVar("--border-radius-m") : null,
+      marginLeft: bare ? cssVar("--spacing-m") : null,
+      marginRight: bare ? cssVar("--spacing-m") : null,
+      textDecoration: "none",
+      "[aria-selected=true]": {
+        backgroundColor: bare
+          ? cssVar("--light-highlight")
+          : cssVar("--selected-background"),
+        boxShadow: bare ? "" : "inset 1px 1px 2px -1px #0000004a",
+      },
+      ":hover": {
+        backgroundColor: "var(--hovered-background)",
+      },
+      "[aria-selected=true]:hover": {
+        backgroundColor: "var(--hovered-background)",
+      },
+      ":active:hover": {
+        backgroundColor: "var(--pressed-background)",
+      },
+      "[aria-selected=true]:active:hover": {
+        backgroundColor: "var(--pressed-background)",
+      },
+      "[aria-disabled=true]": {
+        backgroundColor: "var(--primary-background)",
+      },
+      "[aria-disabled=true]:active:hover": {
+        backgroundColor: "var(--primary-background)",
+      },
+    };
+
     return (
-      <BaseListRow {...otherProps} jsStyle={[jsStyles.root, jsStyle]}>
-        <ListCell jsStyle={jsStyles.gridcell}>
-          <BaseButton
-            aria-selected={selected}
-            disabled={disabled}
-            animateInteraction={false}
-            bare={true}
-            color={color}
-            ref={ref}
-            jsStyle={jsStyles.button}
-            aria-label={headline}
-            onPress={onPress}
-            padding={padding}
-          >
-            <TextPairing
-              gap={gap}
-              addOn={addOn}
-              addOnPosition={addOnPosition}
-              headline={headline}
-              headlineSize={headlineSize}
-              headlineColor={disabled ? "subtle" : headlineColor}
-              headlineAddOn={headlineAddOn}
-              body={body}
-              bodySize={bodySize}
-              bodyColor={disabled ? "subtle" : bodyColor}
-              grow={true}
-              shrink={false}
-            />
-          </BaseButton>
+      <BaseListRow
+        relative={true}
+        withDivider={!bare}
+        {...otherProps}
+        jsStyle={jsStyle}
+      >
+        <ListCell
+          jsStyle={{
+            display: "flex",
+            flexGrow: 1,
+            overflow: "hidden",
+          }}
+        >
+          {href != null ? (
+            <BaseLink
+              aria-selected={selected}
+              disabled={disabled}
+              animateInteraction={false}
+              bare={true}
+              color={color}
+              href={href}
+              ref={ref}
+              jsStyle={pressabelJSStyle}
+              aria-label={headline}
+              onPress={onClick}
+              padding={padding}
+            >
+              {textPairing}
+            </BaseLink>
+          ) : (
+            <BaseButton
+              aria-selected={selected}
+              disabled={disabled}
+              animateInteraction={false}
+              bare={true}
+              color={color}
+              ref={ref}
+              jsStyle={pressabelJSStyle}
+              aria-label={headline}
+              onPress={onClick}
+              padding={padding}
+            >
+              {textPairing}
+            </BaseButton>
+          )}
         </ListCell>
         {outerAddOn && <ListCell>{outerAddOn}</ListCell>}
       </BaseListRow>

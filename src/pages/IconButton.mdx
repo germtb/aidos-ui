@@ -1,0 +1,144 @@
+import { IconButton } from "../IconButton";
+import { Row } from "../Row";
+
+# IconButton
+
+This component is similar to the `Button` component but is styled simply as a circle containing an icon.
+
+---
+
+## Basic variants
+
+The basic `IconButton` is useful to create compound components in which it is harder to fit a button with a text description. Choosing the right icon will be helpful for the users, and in some cases a tooltip may be necessary to explain the intent.
+
+<Row gap="large" align="center" padding="large" justify="center">
+  <IconButton
+    size="medium"
+    icon="fa-check"
+    color="positive"
+    onPress={() => {}}
+  />
+  <IconButton
+    size="medium"
+    icon="fa-check"
+    color="secondary"
+    onPress={() => {}}
+  />
+  <IconButton
+    size="medium"
+    icon="fa-check"
+    color="negative"
+    onPress={() => {}}
+  />
+  <IconButton
+    size="medium"
+    icon="fa-check"
+    color="positive"
+    disabled
+    onPress={() => {}}
+  />
+</Row>
+
+```js
+<Row gap="large" align="center" padding="large" justify="center">
+  <IconButton
+    size="medium"
+    icon="fa-check"
+    color="positive"
+    onPress={() => {}}
+  />
+  <IconButton
+    size="medium"
+    icon="fa-check"
+    color="secondary"
+    onPress={() => {}}
+  />
+  <IconButton
+    size="medium"
+    icon="fa-check"
+    color="negative"
+    onPress={() => {}}
+  />
+  <IconButton
+    size="medium"
+    icon="fa-check"
+    color="positive"
+    disabled
+    onPress={() => {}}
+  />
+</Row>
+```
+
+---
+
+## Bare variants
+
+The bare `IconButton` is even more subtle than the bare `Button` so it can be used to make the interface feel ligther.
+
+<Row gap="large" align="center" justify="center">
+  <IconButton
+    size="medium"
+    bare
+    icon="fa-check"
+    color="positive"
+    onPress={() => {}}
+  />
+  <IconButton
+    size="medium"
+    bare
+    icon="fa-check"
+    color="secondary"
+    onPress={() => {}}
+  />
+  <IconButton
+    size="medium"
+    bare
+    icon="fa-check"
+    color="negative"
+    onPress={() => {}}
+  />
+  <IconButton
+    size="medium"
+    bare
+    icon="fa-check"
+    color="positive"
+    disabled
+    onPress={() => {}}
+  />
+</Row>
+
+```js
+<Row gap="large" align="center" justify="center">
+  <IconButton
+    size="medium"
+    bare
+    icon="fa-check"
+    color="positive"
+    onPress={() => {}}
+  />
+  <IconButton
+    size="medium"
+    bare
+    icon="fa-check"
+    color="secondary"
+    onPress={() => {}}
+  />
+  <IconButton
+    size="medium"
+    bare
+    icon="fa-check"
+    color="negative"
+    onPress={() => {}}
+  />
+  <IconButton
+    size="medium"
+    bare
+    icon="fa-check"
+    color="positive"
+    disabled
+    onPress={() => {}}
+  />
+</Row>
+```
+
+---

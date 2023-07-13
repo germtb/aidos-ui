@@ -5,6 +5,7 @@ export interface BaseLinkProps extends React.LinkHTMLAttributes<HTMLAnchorElemen
     onPress?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
     jsStyle?: JSStyle;
     color: InterctableColor;
+    href: string;
     disabled?: boolean;
     bare?: boolean;
     className?: undefined;

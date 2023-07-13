@@ -5,9 +5,14 @@ export type JSStyle = Styles | null | false | undefined | {
     [key: string]: Styles;
 } | Array<JSStyle>;
 export declare const jss: (jsStyle: JSStyle) => string;
-export declare function JSStyles({ getBaseStyles }: {
-    getBaseStyles: () => string[];
+export declare function JSStylesProvider({ themes, children, }: {
+    themes: {
+        dark: Theme;
+        light: Theme;
+    };
+    children: JSX.Element;
 }): JSX.Element;
+export declare function JSServerStyles(): JSX.Element;
 export type Size = "xsmall" | "small" | "medium" | "large" | "xlarge";
 export type Spacing = "none" | Size;
 export type Gap = Spacing;
@@ -25,6 +30,7 @@ export declare function getSize(size: Size): string;
 export declare function getSpacing(spacing: Spacing): string;
 export declare function getPadding(padding: Padding): string;
 export type Theme = {
+    ["--overlay-background"]: string;
     ["--primary-background"]: string;
     ["--secondary-background"]: string;
     ["--divider"]: string;
@@ -61,7 +67,7 @@ export type Theme = {
 };
 export declare const lightTheme: Theme;
 export declare const darkTheme: Theme;
-export declare const baseStyles = "\n* {\n  box-sizing: border-box;\n  padding: 0;\n  border: none;\n  touch-action: manipulation;\n  font-family: sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\nul, input, p, h1, h2, h3, h4 {\n  margin: 0;\n}\n\n*:focus {\n  outline-color: var(--highlight);\n}\n\nhtml,\nbody {\n  margin: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  background-color: var(--primary-background);\n}\n\nul,\nol,\nli {\n  list-style: none;\n}\n\na {\n  text-decoration: none;\n}\n\n";
+export declare const baseStyles = "\n* {\n  box-sizing: border-box;\n  border: none;\n  touch-action: manipulation;\n  font-family: sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\n*:focus {\n  outline-color: var(--highlight);\n}\n\nhtml,\nbody {\n  margin: 0;\n  height: 100%;\n  width: 100%;\n  overflow: hidden;\n  background-color: var(--primary-background);\n}\n\n";
 export declare const getBackground: (color: Color) => JSStyle;
 export declare const MOBILE = 750;
 export declare const TABLET = 1000;
@@ -87,4 +93,7 @@ export declare const getTextColor: (color: TextColor) => {
 } | {
     color: string;
 };
-export declare function getBaseStyles(): string[];
+export declare function getBaseStyles(themes: {
+    light: Theme;
+    dark: Theme;
+}): string[];

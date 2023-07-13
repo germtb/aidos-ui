@@ -1,6 +1,7 @@
 import { Html, Head, Main, NextScript } from "next/document";
 import React from "react";
 import { useCookie } from "../useCookie";
+import { JSServerStyles } from "../jss";
 
 export default function Document() {
   const [darkModeEnabled] = useCookie("dark-mode", {
@@ -10,7 +11,9 @@ export default function Document() {
 
   return (
     <Html lang="en">
-      <Head />
+      <Head>
+        <JSServerStyles />
+      </Head>
       <body className={darkModeEnabled ? "dark-mode" : ""}>
         <Main />
         <NextScript />

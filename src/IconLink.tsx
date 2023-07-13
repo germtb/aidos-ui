@@ -13,14 +13,14 @@ const sizes = {
   xlarge: 48,
 };
 
-export interface IconButtonProps extends BaseLinkProps {
+export interface IconLinkProps extends BaseLinkProps {
   icon: IconType;
   size: Size;
 }
 
-export const IconButton = React.forwardRef(
+export const IconLink = React.forwardRef(
   (
-    { icon, size, color, bare, disabled, ...buttonProps }: IconButtonProps,
+    { icon, size, color, bare, disabled, ...buttonProps }: IconLinkProps,
     ref?: React.Ref<HTMLAnchorElement>
   ) => {
     return (
@@ -35,6 +35,7 @@ export const IconButton = React.forwardRef(
             height: sizes[size],
             width: sizes[size],
             borderRadius: sizes[size] / 2,
+            textDecoration: "none",
           },
           !disabled && {
             ":active": {

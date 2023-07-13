@@ -1,26 +1,27 @@
 import React from "react";
-import { BaseView, BaseViewProps } from "./BaseView";
-import { JSStyle } from "./jss";
+import { Column, ColumnProps } from "./Column";
 
-const jsStyles: { [key: string]: JSStyle } = {
-  root: {
-    backgroundColor: "var(--primary-background)",
-    display: "flex",
-    flexDirection: "column",
-  },
-};
-
-export interface BaseListProps extends BaseViewProps {
+export interface BaseListProps extends ColumnProps {
   tag?: undefined;
 }
 
 export const BaseList = React.forwardRef(
-  ({ jsStyle, ...otherProps }: BaseListProps, ref?: React.Ref<HTMLElement>) => {
+  (
+    { jsStyle, ...otherProps }: BaseListProps,
+    ref?: React.Ref<HTMLDivElement>
+  ) => {
     return (
-      <BaseView
+      <Column
         {...otherProps}
         tag="ul"
-        jsStyle={[jsStyles.root, jsStyle]}
+        jsStyle={[
+          {
+            listStyle: "none",
+            margin: 0,
+            padding: 0,
+          },
+          jsStyle,
+        ]}
         ref={ref}
       />
     );

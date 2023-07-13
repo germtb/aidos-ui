@@ -7,6 +7,7 @@ export interface BaseLinkProps
   onPress?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
   jsStyle?: JSStyle;
   color: InterctableColor;
+  href: string;
   disabled?: boolean;
   bare?: boolean;
   className?: undefined;
@@ -56,9 +57,6 @@ export const BaseLink = React.forwardRef(
             animateInteraction,
             padding,
           }),
-          {
-            textDecoration: "none",
-          },
           jsStyle,
         ])}
       >

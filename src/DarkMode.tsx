@@ -1,4 +1,6 @@
-import React, { ReactNode, useEffect } from "react";
+import React, { ReactNode, useContext, useEffect, useState } from "react";
+import { IconButton } from "./IconButton";
+import { BaseView } from "./BaseView";
 
 type State = {
   enabled: boolean;
@@ -9,6 +11,20 @@ export const DarkModeContext = React.createContext<State>({
   enabled: false,
   toggle: () => {},
 });
+
+if (typeof window !== "undefined") {
+  const darkMode = document.cookie
+    .split(";")
+    .map((c) => c.trim())
+    .filter((c) => c.startsWith("dark-mode="))
+    .map((s) => s.split("=")[1])
+    .map((s) => s)
+    .pop();
+
+  if (darkMode === "true") {
+    document.body.classList.add("dark-mode");
+  }
+}
 
 export function DarkModeProvider({
   children,
@@ -54,5 +70,29 @@ export function DarkModeProvider({
     <DarkModeContext.Provider value={{ enabled, toggle }}>
       {children}
     </DarkModeContext.Provider>
+  );
+}
+
+export function DarkModeToggle() {
+  const darkMode = useContext(DarkModeContext);
+
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    setShow(true);
+  }, []);
+
+  if (!show) {
+    return <BaseView jsStyle={{ width: 32, height: 32 }} />;
+  }
+
+  return (
+    <IconButton
+      icon={darkMode.enabled ? "fa-sun-o" : "fa-moon-o"}
+      size="medium"
+      onPress={darkMode.toggle}
+      color="secondary"
+      bare
+    />
   );
 }

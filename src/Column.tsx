@@ -1,7 +1,7 @@
 import React from "react";
 import { FlexLayout, FlexLayoutProps } from "./FlexLayout";
 
-interface ColumnProps extends FlexLayoutProps {
+export interface ColumnProps extends FlexLayoutProps {
   direction?: "column";
 }
 

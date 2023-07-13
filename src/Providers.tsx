@@ -1,10 +1,17 @@
-import React, { useEffect } from "react";
-import { DarkModeProvider } from "./DarkModeStore";
+import React, { ReactElement, useEffect } from "react";
+import { DarkModeProvider } from "./DarkMode";
 import { DialogProvider } from "./Dialog";
-import { initializeIcons } from "./Icon";
+import { IconProvider } from "./Icon";
 import { useCookie } from "./useCookie";
+import { JSStylesProvider, Theme } from "./jss";
 
-export function Providers({ children }: { children: JSX.Element }) {
+export function Providers({
+  children,
+  themes,
+}: {
+  children: JSX.Element;
+  themes: { light: Theme; dark: Theme };
+}) {
   const [darkModeEnabled, setDarkModeEnabled] = useCookie("dark-mode", {
     initialValue: false,
     loadingValue: false,
@@ -14,13 +21,13 @@ export function Providers({ children }: { children: JSX.Element }) {
     []
   );
 
-  useEffect(() => {
-    initializeIcons();
-  }, []);
-
   return (
-    <DarkModeProvider enabled={darkModeEnabled} toggle={toggleDarkMode}>
-      <DialogProvider>{children}</DialogProvider>
-    </DarkModeProvider>
+    <JSStylesProvider themes={themes}>
+      <IconProvider>
+        <DarkModeProvider enabled={darkModeEnabled} toggle={toggleDarkMode}>
+          <DialogProvider>{children}</DialogProvider>
+        </DarkModeProvider>
+      </IconProvider>
+    </JSStylesProvider>
   );
 }
