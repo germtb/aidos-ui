@@ -289,7 +289,7 @@ export type TextColor =
   | "inherit";
 
 export function cssVar(string: keyof Theme): string {
-  return `var(--${string})`;
+  return `var(${string})`;
 }
 
 const sizes: { [size in Size]: string } = {

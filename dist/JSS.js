@@ -182,7 +182,7 @@ export function JSServerStyles() {
     return (React.createElement(React.Fragment, null, stylesRef.current.map((style, i) => (React.createElement("style", { key: i, dangerouslySetInnerHTML: { __html: style } })))));
 }
 export function cssVar(string) {
-    return `var(--${string})`;
+    return `var(${string})`;
 }
 const sizes = {
     xsmall: cssVar("--spacing-xs"),
