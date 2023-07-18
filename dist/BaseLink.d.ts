@@ -1,11 +1,11 @@
 import React from "react";
-import { InterctableColor } from "./Interactable";
+import { InteractableColor } from "./Interactable";
 import { JSStyle, Padding } from "./jss";
 export interface BaseLinkProps extends React.LinkHTMLAttributes<HTMLAnchorElement> {
     onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
     target?: string;
     jsStyle?: JSStyle;
-    color: InterctableColor;
+    color: InteractableColor;
     href: string;
     disabled?: boolean;
     bare?: boolean;

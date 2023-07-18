@@ -1,0 +1,28 @@
+import { Button } from "../Button";
+import { Tooltip } from "../Tooltip";
+
+# Tooltip
+
+The `Tooltip` component can be used to display light contextual information about an element. The content of a tooltip should not be interactable (to make it accessible interactable elements should be dialgs) so they only accept content of type `string`.
+
+<Tooltip content="Tooltip here">
+  <Button
+    bare
+    label="Hover to show tooltip"
+    color="positive"
+    onClick={() => {}}
+  />
+</Tooltip>
+
+```js
+<Tooltip content="Tooltip here">
+  <Button
+    bare
+    label="Hover to show tooltip"
+    color="positive"
+    onClick={() => {}}
+  />
+</Tooltip>
+```
+
+---

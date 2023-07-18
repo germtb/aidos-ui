@@ -6,9 +6,6 @@ import { useRefEffect } from "./useRefEffect";
 import { JSStyle, jss } from "./jss";
 
 const jsStyles: { [key: string]: JSStyle } = {
-  root: {
-    position: "relative",
-  },
   popover: {
     padding: 0,
     zIndex: 1,
@@ -62,10 +59,9 @@ export function Popover({ children, close }) {
       close();
     };
 
-    window.addEventListener("keydown", keydown);
-
     // This is needed so that the trigger click is not captured immediatly, which would close the popover as it opens
     setTimeout(() => {
+      window.addEventListener("keydown", keydown);
       window.addEventListener("click", click);
     }, 0);
 
@@ -122,7 +118,7 @@ export function PopoverTrigger<Input>({
       shrink={shrink}
       tag={tag}
       relative={true}
-      jsStyle={[jsStyle, jsStyles.root]}
+      jsStyle={[jsStyle, { position: "relative", display: "inline-block" }]}
     >
       {children({ toggle })}
       <dialog

@@ -3,13 +3,26 @@ import { BaseInput } from "./BaseInput";
 import { Icon } from "./Icon";
 import { Row } from "./Row";
 import { Box } from "./Box";
-export const TextInput = React.forwardRef(({ value, onValueChange, rootJSStyle, jsStyle, icon, addOn, indentation, ...inputProps }, ref) => {
+import { cssVar, getPadding } from "./jss";
+export const TextInput = React.forwardRef(({ value, onValueChange, rootJSStyle, jsStyle, icon, addOn, padding = "medium", bare, ...inputProps }, ref) => {
     return (React.createElement(Row, { jsStyle: [
             {
-                backgroundColor: "inherit",
+                borderRadius: cssVar("--border-radius-l"),
+                overflow: "hidden",
             },
+            bare
+                ? {
+                    backgroundColor: "inherit",
+                    ":has(:focus-visible)": {
+                        background: cssVar("--light-highlight"),
+                    },
+                }
+                : {
+                    border: `1px solid ${cssVar("--divider")}`,
+                    background: cssVar("--overlay-background"),
+                },
             rootJSStyle,
-        ], padding: indentation },
+        ] },
         icon && (React.createElement(Box, { padding: "medium" },
             React.createElement(Icon, { size: "medium", color: "secondary", icon: icon }))),
         React.createElement(BaseInput, { ...inputProps, ref: ref, value: value, onChange: onValueChange ? (e) => onValueChange(e.target.value) : undefined, jsStyle: [
@@ -17,18 +30,19 @@ export const TextInput = React.forwardRef(({ value, onValueChange, rootJSStyle, 
                     minWidth: 0,
                     flexGrow: 1,
                     backgroundColor: "inherit",
-                    color: "var(--primary-text)",
+                    color: cssVar("--primary-text"),
                     outline: "none",
                     border: "none",
                     fontSize: 20,
                     lineHeight: 24 / 20,
                     "::placeholder": {
-                        color: "var(--subtle-text);",
+                        color: cssVar("--subtle-text"),
                     },
                     ":disabled": {
-                        color: "var(--subtle-text);",
+                        color: cssVar("--subtle-text"),
                     },
                 },
+                getPadding(padding),
                 jsStyle,
             ] }),
         addOn));

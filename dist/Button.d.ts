@@ -2,11 +2,11 @@ import React from "react";
 import { BaseButtonProps } from "./BaseButton";
 import { IconType } from "./IconType";
 import { FlexLayoutProps } from "./FlexLayout";
-import { InterctableColor } from "./Interactable";
+import { InteractableColor } from "./Interactable";
 import { Align, Gap, Justify, Size } from "./jss";
 export interface ButtonProps extends BaseButtonProps {
     label: string;
-    color: InterctableColor;
+    color: InteractableColor;
     size?: Size;
     icon?: IconType;
     iconSize?: Size;

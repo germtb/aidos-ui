@@ -6,12 +6,12 @@ import { IconType } from "./IconType";
 import { Row } from "./Row";
 import { Icon } from "./Icon";
 import { FlexLayoutProps } from "./FlexLayout";
-import { InterctableColor, getGlyphColor } from "./Interactable";
-import { Align, Gap, Justify, Size, getPadding } from "./jss";
+import { InteractableColor, getGlyphColor } from "./Interactable";
+import { Align, Gap, Justify, Size, cssVar, getPadding } from "./jss";
 
 export interface ButtonProps extends BaseButtonProps {
   label: string;
-  color: InterctableColor;
+  color: InteractableColor;
   size?: Size;
   icon?: IconType;
   iconSize?: Size;
@@ -51,7 +51,7 @@ export const Button = React.forwardRef(
         disabled={disabled}
         jsStyle={[
           {
-            borderRadius: "var(--border-radius-m)",
+            borderRadius: cssVar("--border-radius-m"),
             justifyContent: "center",
             userSelect: "none",
           },

@@ -1,8 +1,8 @@
-import { getPadding } from "./jss";
+import { cssVar, getPadding } from "./jss";
 const jsStyles = {
     root: {
         cursor: "pointer",
-        display: "flex",
+        display: "inline-flex",
         alignItems: "center",
         transition: "opacity 0.1s ease-in",
         outlineColor: "var(--outline)",
@@ -93,5 +93,37 @@ export const getGlyphColor = (color, disabled, bare) => {
         case "secondary":
             return bare ? "primary" : "secondary";
     }
+};
+export const getInteractableListItemJSStyles = ({ bare, }) => {
+    return {
+        overflow: "hidden",
+        flexGrow: 1,
+        borderRadius: bare ? cssVar("--border-radius-m") : null,
+        textDecoration: "none",
+        "[aria-selected=true]": {
+            backgroundColor: bare
+                ? cssVar("--light-highlight")
+                : cssVar("--selected-background"),
+            boxShadow: bare ? "" : "inset 1px 1px 2px -1px #0000004a",
+        },
+        ":hover": {
+            backgroundColor: "var(--hovered-background)",
+        },
+        "[aria-selected=true]:hover": {
+            backgroundColor: "var(--hovered-background)",
+        },
+        ":active:hover": {
+            backgroundColor: "var(--pressed-background)",
+        },
+        "[aria-selected=true]:active:hover": {
+            backgroundColor: "var(--pressed-background)",
+        },
+        "[aria-disabled=true]": {
+            backgroundColor: "var(--primary-background)",
+        },
+        "[aria-disabled=true]:active:hover": {
+            backgroundColor: "var(--primary-background)",
+        },
+    };
 };
 //# sourceMappingURL=Interactable.js.map

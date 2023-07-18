@@ -1,0 +1,15 @@
+# useCookie
+
+`useCookie` is a hook that can be used to get acceess to cookies by name, and use them as if they were React component state.
+
+```js
+const [darkModeEnabled, setDarkModeEnabled] = useCookie("dark-mode", {
+  initialValue: false,
+  // loadingValue could be different to initial value for example if we are server rendering,
+  // in which case we do not have access to cookies and you may decide to assign another
+  // value, like "pending".
+  loadingValue: false,
+});
+```
+
+---

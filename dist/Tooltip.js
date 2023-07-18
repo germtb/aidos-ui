@@ -4,9 +4,6 @@ import { useRefEffect } from "./useRefEffect";
 import { Text } from "./Text";
 import { cssVar, jss } from "./jss";
 const jsStyles = {
-    root: {
-        position: "relative",
-    },
     tooltip: {
         top: "-100%",
         transform: "translateY(50%)",
@@ -18,7 +15,7 @@ const jsStyles = {
         overflow: "hidden",
     },
 };
-export function Tooltip({ content, jsStyle, grow, shrink, tag, children, }) {
+export function Tooltip({ content, jsStyle, tag, children }) {
     const [tooltip, setTooltip] = useState(null);
     const dialogRef = useRef(null);
     const focusTrapRoot = useRefEffect((root) => {
@@ -62,7 +59,7 @@ export function Tooltip({ content, jsStyle, grow, shrink, tag, children, }) {
             setTooltip(null);
         }
     };
-    return (React.createElement(BaseView, { grow: grow, shrink: shrink, tag: tag, relative: true, jsStyle: [jsStyle, jsStyles.root], onMouseEnter: () => {
+    return (React.createElement(BaseView, { tag: tag, relative: true, jsStyle: [{ display: "inline-block" }, jsStyle], onMouseEnter: () => {
             if (tooltip == null) {
                 toggle();
             }

@@ -1,20 +1,15 @@
 import { useRef, useCallback, useEffect } from "react";
 
 import { queryFocusables, focusElement, normalizeElements } from "./aria";
+import { useRefEffect } from "./useRefEffect";
 
 export function useNavigation({
   autofocus = false,
   rowLength = 1,
   enabled = true,
 } = {}) {
-  const unsubscribeRef = useRef<(() => void) | null>(null);
-
-  const refCallback = useCallback((root: HTMLElement | null) => {
+  return useRefEffect((root: HTMLElement) => {
     if (!enabled) {
-      return;
-    }
-
-    if (root === null) {
       return;
     }
 
@@ -87,18 +82,8 @@ export function useNavigation({
     });
     observer.observe(root, { childList: true });
 
-    unsubscribeRef.current = () => {
+    return () => {
       root.removeEventListener("keydown", onKeyDown);
     };
-  }, []);
-
-  useEffect(() => {
-    if (!enabled) {
-      return;
-    }
-
-    return () => unsubscribeRef.current && unsubscribeRef.current();
-  }, []);
-
-  return refCallback;
+  });
 }

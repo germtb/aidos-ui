@@ -16,9 +16,10 @@ import { Providers } from "../Providers";
 import { BaseView } from "../BaseView";
 import { H1, H2, H3, Li, P, Span } from "../Text";
 import { ListDivider } from "../ListDivider";
+import { ListHeaderItem } from "../ListHeaderItem";
 import { Roboto } from "next/font/google";
 import { List } from "../List";
-import { ListPressableRow } from "../ListPressableRow";
+import { ListLinkItem } from "../ListLinkItem";
 import { Row } from "../Row";
 import { useRouter } from "next/dist/client/router";
 import { highlightAll } from "prismjs";
@@ -27,29 +28,44 @@ import { DarkModeToggle } from "../DarkMode";
 
 import "./prism.css";
 import { IconButton } from "../IconButton";
+import { Column } from "../Column";
 
 const monospace = Roboto({ weight: "400", subsets: ["latin"] });
 
-const pages = [
-  "Badge",
-  "Button",
-  "Calendar",
-  "Checkbox",
-  "Dialog",
-  "FlexLayout",
-  "Icon",
-  "IconButton",
-  "css-in-js",
-  "List",
-  "Popover",
-  "ProgressBar",
-  "ProgressCircle",
-  "Text",
-  "TextInput",
-  "Tooltip",
-  "useCookie",
-  "useNavigation",
-  "usePromise",
+const pages: Array<
+  | {
+      type: "header";
+      label: string;
+    }
+  | {
+      type: "link";
+      page: string;
+      name?: string;
+    }
+> = [
+  { type: "header", label: "CSS" },
+  { type: "link", page: "css-in-js", name: "jss" },
+  { type: "link", page: "FlexLayout" },
+  { type: "header", label: "Components" },
+  { type: "link", page: "Text" },
+  { type: "link", page: "TextPairing" },
+  { type: "link", page: "Button" },
+  { type: "link", page: "Icon" },
+  { type: "link", page: "IconButton" },
+  { type: "link", page: "List" },
+  { type: "link", page: "Checkbox" },
+  { type: "link", page: "Dialog" },
+  { type: "link", page: "Popover" },
+  { type: "link", page: "Tooltip" },
+  { type: "link", page: "Badge" },
+  { type: "link", page: "Calendar" },
+  { type: "link", page: "ProgressBar" },
+  { type: "link", page: "ProgressCircle" },
+  { type: "link", page: "TextInput" },
+  { type: "header", label: "Hooks" },
+  { type: "link", page: "useCookie" },
+  { type: "link", page: "useNavigation" },
+  { type: "link", page: "usePromise" },
 ];
 
 const components = {
@@ -211,60 +227,78 @@ export default function App({ Component, pageProps }: AppProps) {
               </Row>
             </Row>
             <ListDivider />
-            <List
-              navigation={true}
-              jsStyle={[
-                {
-                  gridArea: "list",
-                  zIndex: 1,
-                  overflow: "scroll",
-                  background: cssVar("--primary-background"),
-                  paddingTop: cssVar("--spacing-m"),
-                },
-                mobile({
-                  position: "absolute",
-                  display: showList ? "flex" : "none",
-                  left: 0,
-                  right: 0,
-                  top: 49,
-                  bottom: 0,
-                }),
-                tablet({
-                  position: "absolute",
-                  display: showList ? "flex" : "none",
-                  left: 0,
-                  right: 0,
-                  top: 49,
-                  bottom: 0,
-                }),
-              ]}
-              ariaLabel={"API"}
+            <Column
+              jsStyle={{
+                gridArea: "list",
+                zIndex: 1,
+                padding: cssVar("--spacing-m"),
+                overflow: "hidden",
+              }}
             >
-              <ListPressableRow
+              <List
                 bare
-                selected={pathname === "/"}
-                onClick={() => {
-                  setPathname("/");
-                  setShowList(false);
-                }}
-                href="/"
-                headline={"Aidos UI"}
-                headlineSize="large"
-              />
-              {pages.map((page) => (
-                <ListPressableRow
-                  key={page}
+                navigation={true}
+                jsStyle={[
+                  { overflow: "scroll" },
+                  mobile({
+                    position: "absolute",
+                    display: showList ? "flex" : "none",
+                    left: 0,
+                    right: 0,
+                    top: 49,
+                    bottom: 0,
+                  }),
+                  tablet({
+                    position: "absolute",
+                    display: showList ? "flex" : "none",
+                    left: 0,
+                    right: 0,
+                    top: 49,
+                    bottom: 0,
+                  }),
+                ]}
+                ariaLabel={"API"}
+              >
+                <ListLinkItem
                   bare
+                  selected={pathname === "/"}
                   onClick={() => {
-                    setPathname(`/${page}`);
+                    setPathname("/");
                     setShowList(false);
                   }}
-                  selected={pathname === `/${page}`}
-                  href={`/${page}`}
-                  headline={page}
+                  href="/"
+                  headline={"Aidos UI"}
+                  headlineSize="large"
                 />
-              ))}
-            </List>
+                {pages.map((element) => {
+                  if (element.type === "link") {
+                    const page = element.page;
+                    return (
+                      <ListLinkItem
+                        key={page}
+                        bare
+                        onClick={() => {
+                          setPathname(`/${page}`);
+                          setShowList(false);
+                        }}
+                        selected={pathname === `/${page}`}
+                        href={`/${page}`}
+                        headline={page}
+                      />
+                    );
+                  } else if (element.type === "header") {
+                    return (
+                      <ListHeaderItem
+                        bare
+                        headline={element.label}
+                      ></ListHeaderItem>
+                    );
+                  } else {
+                    const _: never = element;
+                  }
+                })}
+              </List>
+            </Column>
             <BaseView
               jsStyle={[
                 {

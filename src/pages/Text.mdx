@@ -1,0 +1,133 @@
+import { Column } from "../Column";
+import { Text, Span, P, H1, H2, H3, Li } from "../Text";
+
+# Text
+
+The `Text` component has mant props and is central to many of the other components, that make use of it to ensure consistent styles accross the desgin system.
+
+---
+
+## Semantic API
+
+In general the `Text` component is too flexible for general use, since it has many props that can lead to jarring styling. Instead, there is a higher level API that replicates HTML semantics with consitent stylin. These are really thin wrappers around `Text` that can be custimased to the same level; and one can still use `Text` whenever semantics are not important and there is need for very specific styling.
+
+<Column gap="medium">
+  <Span>Span</Span>
+  <P>P</P>
+  <H1 tag="h2">H1</H1>
+  <H2>H2</H2>
+  <H3>H3</H3>
+  <Li>Li</Li>
+</Column>
+
+<br />
+\* If you inspect the DOM you will see that in the previous example I override the
+HTML tag for the component `H1` because having more than one H1 is discouraged for
+accessibility.
+
+```js
+<Column gap="medium">
+  <Span>Span</Span>
+  <P>P</P>
+  <H1>H1</H1>
+  <H2>H2</H2>
+  <H3>H3</H3>
+  <Li>Li</Li>
+</Column>
+```
+
+---
+
+## Size
+
+<Column gap="medium">
+  <Text size="xsmall">{"xsmall"}</Text>
+  <Text size="small">{"small"}</Text>
+  <Text size="medium">{"medium"}</Text>
+  <Text size="large">{"large"}</Text>
+  <Text size="xlarge">{"xlarge"}</Text>
+</Column>
+
+```js
+<Column gap="medium">
+  <Text size="xsmall">xsmall</Text>
+  <Text size="small">small</Text>
+  <Text size="medium">medium</Text>
+  <Text size="large">large</Text>
+  <Text size="xlarge">xlarge</Text>
+</Column>
+```
+
+---
+
+## Color
+
+<Column gap="medium">
+  <Text color="primary">{"primary"}</Text>
+  <Text color="secondary">{"secondary"}</Text>
+  <Text color="highlight">{"highlight"}</Text>
+  <Text color="negative">{"negative"}</Text>
+  <Text color="subtle">{"subtle"}</Text>
+  <Text color="light">{"light"}</Text>
+  <Text color="inherit">{"inherit"}</Text>
+</Column>
+
+```js
+<Column gap="medium">
+  <Text color="primary">{"primary"}</Text>
+  <Text color="secondary">{"secondary"}</Text>
+  <Text color="highlight">{"highlight"}</Text>
+  <Text color="negative">{"negative"}</Text>
+  <Text color="subtle">{"subtle"}</Text>
+  <Text color="light">{"light"}</Text>
+  <Text color="inherit">{"inherit"}</Text>
+</Column>
+```
+
+---
+
+## Bold
+
+<Column gap="medium">
+  <Text bold>{"bold"}</Text>
+  <Text>{"not bold"}</Text>
+</Column>
+
+```js
+<Column gap="medium">
+  <Text bold>{"bold"}</Text>
+  <Text>{"not bold"}</Text>
+</Column>
+```
+
+---
+
+## Ellipsis
+
+By default ellipsis is enabled in the `Span` element, but can be configured with the `ellipsis` prop.
+
+---
+
+### Span
+
+<Column>
+  <Span>
+    {
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    }
+  </Span>
+</Column>
+
+---
+
+### P
+
+<Column>
+  <P>
+    {
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    }
+  </P>
+</Column>
+
+---

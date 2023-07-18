@@ -1,12 +1,8 @@
-import { useRef, useCallback, useEffect } from "react";
 import { queryFocusables, focusElement, normalizeElements } from "./aria";
+import { useRefEffect } from "./useRefEffect";
 export function useNavigation({ autofocus = false, rowLength = 1, enabled = true, } = {}) {
-    const unsubscribeRef = useRef(null);
-    const refCallback = useCallback((root) => {
+    return useRefEffect((root) => {
         if (!enabled) {
-            return;
-        }
-        if (root === null) {
             return;
         }
         let index = 0;
@@ -75,16 +71,9 @@ export function useNavigation({ autofocus = false, rowLength = 1, enabled = true
             }
         });
         observer.observe(root, { childList: true });
-        unsubscribeRef.current = () => {
+        return () => {
             root.removeEventListener("keydown", onKeyDown);
         };
-    }, []);
-    useEffect(() => {
-        if (!enabled) {
-            return;
-        }
-        return () => unsubscribeRef.current && unsubscribeRef.current();
-    }, []);
-    return refCallback;
+    });
 }
 //# sourceMappingURL=useNavigation.js.map

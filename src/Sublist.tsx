@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { ListPressableRow } from "./ListPressableRow";
+import { ListButtonItem } from "./ListButtonItem";
 import { Icon } from "./Icon";
 import { Box } from "./Box";
 import { Row } from "./Row";
@@ -11,7 +11,9 @@ export function Sublist({
   initialState = { collapsed: false },
   jsStyle,
   secondaryAddOn,
+  bare,
 }: {
+  bare?: boolean;
   children: React.ReactNode;
   label: string;
   initialState?: {
@@ -24,7 +26,8 @@ export function Sublist({
 
   return (
     <>
-      <ListPressableRow
+      <ListButtonItem
+        bare={bare}
         headline={label}
         onClick={() => setCollapsed((x) => !x)}
         jsStyle={jsStyle}
@@ -47,6 +50,7 @@ export function Sublist({
           </Row>
         }
         addOnPosition="end"
+        color="secondary"
       />
       {collapsed ? null : children}
     </>

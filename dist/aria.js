@@ -37,6 +37,6 @@ export const focusElement = (focusables, index) => {
     normalizeElements(focusables, index);
     const element = focusables[index] ?? focusables[focusables.length - 1];
     element.focus();
-    element.scrollIntoView(false);
+    // element.scrollIntoView(false);
 };
 //# sourceMappingURL=aria.js.map

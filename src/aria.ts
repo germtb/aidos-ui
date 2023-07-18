@@ -68,5 +68,5 @@ export const focusElement = (
   normalizeElements(focusables, index);
   const element = focusables[index] ?? focusables[focusables.length - 1];
   element.focus();
-  element.scrollIntoView(false);
+  // element.scrollIntoView(false);
 };

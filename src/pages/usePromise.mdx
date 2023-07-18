@@ -1,0 +1,15 @@
+# usePromise
+
+This hook can be used to unwrap a promsie value, with an initial value that can be assigned while the promise has not resolved.
+
+```js
+function Foo() {
+  const [result, error] = usePromise(Promise.resolve(10));
+
+  if (error != null) {
+    return <p>{error}</p>;
+  }
+
+  return <span>{result}</span>;
+}
+```

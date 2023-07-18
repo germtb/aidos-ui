@@ -1,0 +1,30 @@
+# useNavigation
+
+The `useNavigation` hook is easy to use but complicated under the hood, so I expect there will be situations in which it will break, especially if the HTML markup is not perfectly correct. The gist of it is that it enables keyboard navigation by manipulating the `tabInde` property for all the elements under a certain element (the root). To the 'active' element we assign the `tabIndex` 0, while every other elements gets assigned `tabIndex` -1. This means that the whole area will be a single tab stop. Then, when we detect the arrow down or right we push change the active element by changing the `tabInde` and calling `element.focus()`.
+
+This is following the [grid layout pattern](https://www.w3.org/WAI/ARIA/apg/patterns/grid/examples/layout-grids/).
+
+```js
+export function List() {
+  const rootRef = useNavigation();
+
+  return (
+    <ul aria-label={ariaLabel} ref={rootRef}>
+      <li>
+        <button>Button 1</button>
+      </li>
+      <li>
+        <button>Button 2</button>
+      </li>
+      <li>
+        <button>Button 3</button>
+      </li>
+      <li>
+        <button>Button 4</button>
+      </li>
+    </ul>
+  );
+}
+```
+
+---

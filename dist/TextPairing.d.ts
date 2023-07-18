@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
-import { TextType } from "./Text";
-import { TextColor, Size, Position, Gap, Padding, Align } from "./jss";
+import { TextColor, Size, Position, Gap, Padding, Align, JSStyle } from "./jss";
 export interface TextPairingProps {
     headline: ReactNode;
     body?: ReactNode;
@@ -9,7 +8,6 @@ export interface TextPairingProps {
     headlineAddOn?: ReactNode;
     bodyColor?: TextColor;
     bodySize?: Size;
-    bodyType?: TextType;
     addOn?: ReactNode;
     addOnPosition?: Position;
     gap?: Gap;
@@ -17,5 +15,7 @@ export interface TextPairingProps {
     align?: Align;
     grow?: boolean;
     shrink?: boolean;
+    headlineBold?: boolean;
+    jsStyle?: JSStyle;
 }
-export declare function TextPairing({ headline, body, headlineColor, headlineSize, headlineAddOn, bodyColor, bodySize, bodyType, addOn, addOnPosition, gap, align, grow, shrink, padding, }: TextPairingProps): JSX.Element;
+export declare function TextPairing({ headline, body, headlineColor, headlineSize, headlineAddOn, bodyColor, bodySize, addOn, addOnPosition, gap, align, grow, shrink, headlineBold, padding, jsStyle, }: TextPairingProps): JSX.Element;

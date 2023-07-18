@@ -4,9 +4,6 @@ import { BaseView } from "./BaseView";
 import { useRefEffect } from "./useRefEffect";
 import { jss } from "./jss";
 const jsStyles = {
-    root: {
-        position: "relative",
-    },
     popover: {
         padding: 0,
         zIndex: 1,
@@ -51,9 +48,9 @@ export function Popover({ children, close }) {
         const click = () => {
             close();
         };
-        window.addEventListener("keydown", keydown);
         // This is needed so that the trigger click is not captured immediatly, which would close the popover as it opens
         setTimeout(() => {
+            window.addEventListener("keydown", keydown);
             window.addEventListener("click", click);
         }, 0);
         return () => {
@@ -78,7 +75,7 @@ export function PopoverTrigger({ PopoverComponent, jsStyle, grow, shrink, tag, c
             dialogRef && dialogRef.current.close();
         }
     };
-    return (React.createElement(BaseView, { grow: grow, shrink: shrink, tag: tag, relative: true, jsStyle: [jsStyle, jsStyles.root] },
+    return (React.createElement(BaseView, { grow: grow, shrink: shrink, tag: tag, relative: true, jsStyle: [jsStyle, { position: "relative", display: "inline-block" }] },
         children({ toggle }),
         React.createElement("dialog", { ref: (ref) => {
                 dialogRef.current = ref;

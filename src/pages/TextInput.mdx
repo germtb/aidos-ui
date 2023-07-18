@@ -1,0 +1,87 @@
+import { Column } from "../Column";
+import { Row } from "../Row";
+import { TextInput } from "../TextInput";
+
+# TextInput
+
+The `TextInput` component is an `HTML` input with some extra markup to support more advanced styles, like icons.
+
+## Base TextInput
+
+<Column gap="medium">
+  <TextInput
+    value=""
+    placeholder="Placeholder text input"
+    onValueChange={() => {}}
+  />
+  <TextInput
+    value=""
+    icon="fa-user"
+    placeholder="Placeholder text input"
+    onValueChange={() => {}}
+  />
+  <TextInput value="Text input" onValueChange={() => {}} />
+  <TextInput icon="fa-user" value="Text input" onValueChange={() => {}} />
+</Column>
+
+```js
+<Column gap="medium">
+  <TextInput
+    value=""
+    placeholder="Placeholder text input"
+    onValueChange={() => {}}
+  />
+  <TextInput
+    value=""
+    icon="fa-user"
+    placeholder="Placeholder text input"
+    onValueChange={() => {}}
+  />
+  <TextInput value="Text input" onValueChange={() => {}} />
+  <TextInput icon="fa-user" value="Text input" onValueChange={() => {}} />
+</Column>
+```
+
+---
+
+## Bare TextInput
+
+<Column gap="medium">
+  <TextInput
+    bare
+    value=""
+    placeholder="Placeholder text input"
+    onValueChange={() => {}}
+  />
+  <TextInput
+    bare
+    value=""
+    icon="fa-user"
+    placeholder="Placeholder text input"
+    onValueChange={() => {}}
+  />
+  <TextInput bare value="Text input" onValueChange={() => {}} />
+  <TextInput bare icon="fa-user" value="Text input" onValueChange={() => {}} />
+</Column>
+
+```js
+<Column gap="medium">
+  <TextInput
+    bare
+    value=""
+    placeholder="Placeholder text input"
+    onValueChange={() => {}}
+  />
+  <TextInput
+    bare
+    value=""
+    icon="fa-user"
+    placeholder="Placeholder text input"
+    onValueChange={() => {}}
+  />
+  <TextInput bare value="Text input" onValueChange={() => {}} />
+  <TextInput bare icon="fa-user" value="Text input" onValueChange={() => {}} />
+</Column>
+```
+
+---

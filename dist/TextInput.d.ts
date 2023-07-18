@@ -8,6 +8,7 @@ export interface TextInputProps extends BaseInputProps {
     icon?: IconType;
     addOn?: ReactNode;
     onChange?: undefined;
-    indentation?: Padding;
+    padding?: Padding;
+    bare?: boolean;
 }
 export declare const TextInput: React.ForwardRefExoticComponent<TextInputProps & React.RefAttributes<HTMLInputElement>>;

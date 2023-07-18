@@ -6,12 +6,12 @@ import { IconType } from "./IconType";
 import { Row } from "./Row";
 import { Icon } from "./Icon";
 import { FlexLayoutProps } from "./FlexLayout";
-import { InterctableColor, getGlyphColor } from "./Interactable";
+import { InteractableColor, getGlyphColor } from "./Interactable";
 import { Size, Align, Gap, Justify, cssVar } from "./jss";
 
 export interface LinkProps extends BaseLinkProps {
   label: string;
-  color: InterctableColor;
+  color: InteractableColor;
   size?: Size;
   icon?: IconType;
   iconSize?: Size;

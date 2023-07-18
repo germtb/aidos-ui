@@ -6,9 +6,6 @@ import { Text } from "./Text";
 import { JSStyle, cssVar, jss } from "./jss";
 
 const jsStyles: { [key: string]: JSStyle } = {
-  root: {
-    position: "relative",
-  },
   tooltip: {
     top: "-100%",
     transform: "translateY(50%)",
@@ -25,20 +22,11 @@ interface TooltipProps {
   content: string;
   jsStyle?: JSStyle;
   className?: undefined;
-  grow?: boolean;
-  shrink?: boolean;
   tag?: keyof HTMLElementTagNameMap;
   children: JSX.Element;
 }
 
-export function Tooltip({
-  content,
-  jsStyle,
-  grow,
-  shrink,
-  tag,
-  children,
-}: TooltipProps) {
+export function Tooltip({ content, jsStyle, tag, children }: TooltipProps) {
   const [tooltip, setTooltip] = useState<JSX.Element>(null);
   const dialogRef = useRef(null);
   const focusTrapRoot = useRefEffect((root: HTMLDialogElement) => {
@@ -99,11 +87,9 @@ export function Tooltip({
 
   return (
     <BaseView
-      grow={grow}
-      shrink={shrink}
       tag={tag}
       relative={true}
-      jsStyle={[jsStyle, jsStyles.root]}
+      jsStyle={[{ display: "inline-block" }, jsStyle]}
       onMouseEnter={() => {
         if (tooltip == null) {
           toggle();

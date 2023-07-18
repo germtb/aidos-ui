@@ -1,10 +1,10 @@
 import React from "react";
-import { jss } from "./jss";
+import { cssVar, jss } from "./jss";
 export function ProgressCircle({ progress, stroke = 4, outerRadius, }) {
     const circumference = outerRadius * 2 * Math.PI;
     const strokeDashoffset = circumference - progress * circumference;
     return (React.createElement("svg", { className: jss({
-            backgroundColor: "var(--secondary-background)",
+            backgroundColor: cssVar("--secondary-background"),
             transform: "rotate(-90deg)",
             borderRadius: "50%",
         }), width: (outerRadius + stroke) * 2, height: (outerRadius + stroke) * 2 },

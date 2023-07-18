@@ -4,7 +4,16 @@ import { Text, TextType } from "./Text";
 import { Row } from "./Row";
 import { BaseView } from "./BaseView";
 import { Column } from "./Column";
-import { TextColor, Size, Position, Gap, Padding, Align, cssVar } from "./jss";
+import {
+  TextColor,
+  Size,
+  Position,
+  Gap,
+  Padding,
+  Align,
+  cssVar,
+  JSStyle,
+} from "./jss";
 
 export interface TextPairingProps {
   headline: ReactNode;
@@ -14,7 +23,6 @@ export interface TextPairingProps {
   headlineAddOn?: ReactNode;
   bodyColor?: TextColor;
   bodySize?: Size;
-  bodyType?: TextType;
   addOn?: ReactNode;
   addOnPosition?: Position;
   gap?: Gap;
@@ -22,6 +30,8 @@ export interface TextPairingProps {
   align?: Align;
   grow?: boolean;
   shrink?: boolean;
+  headlineBold?: boolean;
+  jsStyle?: JSStyle;
 }
 
 export function TextPairing({
@@ -32,14 +42,15 @@ export function TextPairing({
   headlineAddOn,
   bodyColor = "secondary",
   bodySize = "medium",
-  bodyType = "span",
   addOn,
   addOnPosition = "start",
   gap = "small",
   align = "stretch",
   grow,
   shrink,
+  headlineBold,
   padding,
+  jsStyle,
 }: TextPairingProps) {
   const textElement = (
     <Column
@@ -47,9 +58,12 @@ export function TextPairing({
       shrink={shrink}
       padding={addOn ? undefined : padding}
       align={align}
-      jsStyle={{
-        overflow: "hidden",
-      }}
+      jsStyle={[
+        {
+          overflow: "hidden",
+        },
+        jsStyle,
+      ]}
     >
       <Row
         align="center"
@@ -57,7 +71,7 @@ export function TextPairing({
           textAlign: "start",
         }}
       >
-        <Text color={headlineColor} size={headlineSize}>
+        <Text bold={headlineBold} color={headlineColor} size={headlineSize}>
           {headline}
         </Text>
         {headlineAddOn && <BaseView>{headlineAddOn}</BaseView>}
@@ -70,7 +84,7 @@ export function TextPairing({
             textAlign: "start",
           }}
         >
-          <Text type={bodyType} color={bodyColor} size={bodySize}>
+          <Text ellipsis={true} color={bodyColor} size={bodySize}>
             {body}
           </Text>
         </Row>

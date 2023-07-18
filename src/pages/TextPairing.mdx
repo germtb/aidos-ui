@@ -1,0 +1,155 @@
+import { TextPairing } from "../TextPairing";
+import { Column } from "../Column";
+import { ListDivider } from "../ListDivider";
+import { Icon } from "../Icon";
+import { cssVar } from "../jss";
+
+# TextPairing
+
+The `TextPairing` is a seemingly simple component that can be used to represent multiple visual ideas. Many of the other components use it to create more complex elements.
+
+In its simplest form a `TextPairing` is formed of two text elements (headline and body) laid out vertically. However it accepts multiple props to enable much more complex representations.
+
+<Column
+  jsStyle={{ [" > *"]: { borderBottom: `1px solid ${cssVar("--divider")}` } }}
+>
+  <TextPairing headline="Headline" body="Body" />
+  <TextPairing headline="Headline" headlineBold body="Body" />
+  <TextPairing
+    headline="Headline"
+    headlineBold
+    headlineSize="large"
+    body="Body"
+  />
+  <TextPairing
+    headline="Headline"
+    headlineBold
+    headlineSize="large"
+    body="Body"
+    bodyColor="subtle"
+  />
+  <TextPairing
+    headline="Headline"
+    headlineBold
+    headlineSize="large"
+    body="Body"
+    bodyColor="subtle"
+    bodySize="small"
+  />
+  <TextPairing
+    headline="Headline"
+    headlineBold
+    headlineSize="large"
+    body="Body"
+    bodyColor="subtle"
+    bodySize="small"
+    addOn={<Icon icon="fa-bicycle" color="primary" size="xxlarge" />}
+  />
+  <TextPairing
+    headline="Headline"
+    headlineBold
+    headlineSize="large"
+    body="Body"
+    bodyColor="subtle"
+    bodySize="small"
+    addOn={<Icon icon="fa-bicycle" color="primary" size="xxlarge" />}
+    gap="medium"
+  />
+  <TextPairing
+    headline="Headline"
+    headlineBold
+    headlineSize="large"
+    body="Body"
+    bodyColor="subtle"
+    bodySize="small"
+    addOn={<Icon icon="fa-bicycle" color="primary" size="xxlarge" />}
+    gap="medium"
+    addOnPosition="end"
+  />
+  <TextPairing
+    headline="Headline"
+    headlineBold
+    headlineSize="large"
+    body="Body"
+    bodyColor="subtle"
+    bodySize="small"
+    addOn={<Icon icon="fa-bicycle" color="primary" size="xxlarge" />}
+    headlineAddOn={<Icon icon="fa-plus" color="primary" size="small" />}
+    gap="medium"
+    addOnPosition="end"
+  />
+</Column>
+
+```js
+<Column
+  jsStyle={{ [" > *"]: { borderBottom: `1px solid ${cssVar("--divider")}` } }}
+>
+  <TextPairing headline="Headline" body="Body" />
+  <TextPairing headline="Headline" headlineBold body="Body" />
+  <TextPairing
+    headline="Headline"
+    headlineBold
+    headlineSize="large"
+    body="Body"
+  />
+  <TextPairing
+    headline="Headline"
+    headlineBold
+    headlineSize="large"
+    body="Body"
+    bodyColor="subtle"
+  />
+  <TextPairing
+    headline="Headline"
+    headlineBold
+    headlineSize="large"
+    body="Body"
+    bodyColor="subtle"
+    bodySize="small"
+  />
+  <TextPairing
+    headline="Headline"
+    headlineBold
+    headlineSize="large"
+    body="Body"
+    bodyColor="subtle"
+    bodySize="small"
+    addOn={<Icon icon="fa-bicycle" color="primary" size="xxlarge" />}
+  />
+  <TextPairing
+    headline="Headline"
+    headlineBold
+    headlineSize="large"
+    body="Body"
+    bodyColor="subtle"
+    bodySize="small"
+    addOn={<Icon icon="fa-bicycle" color="primary" size="xxlarge" />}
+    gap="medium"
+  />
+  <TextPairing
+    headline="Headline"
+    headlineBold
+    headlineSize="large"
+    body="Body"
+    bodyColor="subtle"
+    bodySize="small"
+    addOn={<Icon icon="fa-bicycle" color="primary" size="xxlarge" />}
+    gap="medium"
+    addOnPosition="end"
+  />
+  <TextPairing
+    headline="Headline"
+    headlineBold
+    headlineSize="large"
+    body="Body"
+    bodyColor="subtle"
+    bodySize="small"
+    addOn={<Icon icon="fa-bicycle" color="primary" size="xxlarge" />}
+    headlineAddOn={<Icon icon="fa-plus" color="primary" size="small" />}
+    gap="medium"
+    addOnPosition="end"
+  />
+</Column>
+```
+
+---
