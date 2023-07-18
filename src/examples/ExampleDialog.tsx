@@ -23,8 +23,6 @@ export function DialogTrigger() {
   );
 
   return (
-    <Row justify="center">
-      <Button label="Show dialog" color={"positive"} onClick={() => open()} />
-    </Row>
+    <Button label="Show dialog" color={"positive"} onClick={() => open()} />
   );
 }

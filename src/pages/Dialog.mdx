@@ -24,11 +24,7 @@ export function DialogTrigger() {
     { closeOnOutsideClick: true }
   );
 
-  return (
-    <Row justify="center">
-      <Button label="Show dialog" color={"positive"} onClick={() => open()} />
-    </Row>
-  );
+  return <Button label="Show dialog" color={"positive"} onClick={() => open()} />;
 }
 
 ```
