@@ -2,11 +2,7 @@
 
 This is a React design system library with many utilities and zero dependencies. It was built with the aim to be simple, lightweight and beautiful.
 
-- [Why](/#why)
-- [Who is this for](/#who-is-this-for)
-- [Design philosophy](/#design-philosophy)
-- [Installation](/#installation)
-- [How to use](/#how-to-use)
+Documentation can be found [here](https://aidos-ui.vercel.app);
 
 ## Why?
 
