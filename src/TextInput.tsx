@@ -35,7 +35,7 @@ export const TextInput = React.forwardRef(
       <Row
         jsStyle={[
           {
-            borderRadius: cssVar("--border-radius-l"),
+            borderRadius: cssVar("--border-radius-m"),
             overflow: "hidden",
           },
           bare

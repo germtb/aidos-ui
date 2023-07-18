@@ -1,0 +1,57 @@
+import { Link } from "../Link";
+import { Row } from "../Row";
+
+# Link
+
+The `Link` component looks the same as the `Button` component and the only difference is that the underlying HTML is an anchor tag.
+
+---
+
+## Basic variants
+
+The basic `Link` comes in three main variants, and a disabled style that applies to all three.
+
+- Positive: actions that are going to create something or strongly agree
+- Secondary: actions that are less central to the user experience
+- Negative: actions that are going to delete data or remove something
+- Disabled: actions that are not available
+
+<Row gap="large" align="center" padding="large" justify="center">
+  <Link label="Positive" color="positive" href="/" />
+  <Link label="Secondary" color="secondary" href="/" />
+  <Link label="Negative" color="negative" href="/" />
+  <Link label="Disabled" color="positive" disabled href="/" />
+</Row>
+
+```js
+<Row gap="large" align="center" padding="large" justify="center">
+  <Link label="Positive" color="positive" href="/" />
+  <Link label="Secondary" color="secondary" href="/" />
+  <Link label="Negative" color="negative" href="/" />
+  <Link label="Disabled" color="positive" disabled href="/" />
+</Row>
+```
+
+---
+
+## Bare variants
+
+The bare `Link` variants fulfill the same function than the basic counterparts but have a lighter style that can be more easily integrated in complex components.
+
+<Row gap="large" align="center" padding="large" justify="center">
+  <Link bare label="Positive" color="positive" href="/" />
+  <Link bare label="Secondary" color="secondary" href="/" />
+  <Link bare label="Negative" color="negative" href="/" />
+  <Link bare label="Disabled" color="positive" disabled href="/" />
+</Row>
+
+```js
+<Row gap="large" align="center" padding="large" justify="center">
+  <Link bare label="Positive" color="positive" href="/" />
+  <Link bare label="Secondary" color="secondary" href="/" />
+  <Link bare label="Negative" color="negative" href="/" />
+  <Link bare label="Disabled" color="positive" disabled href="/" />
+</Row>
+```
+
+---

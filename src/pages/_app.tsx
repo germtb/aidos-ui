@@ -51,6 +51,7 @@ const pages: Array<
   { type: "link", page: "TextPairing" },
   { type: "link", page: "TextInput" },
   { type: "link", page: "Button" },
+  { type: "link", page: "Link" },
   { type: "link", page: "Icon" },
   { type: "link", page: "IconButton" },
   { type: "link", page: "List" },
@@ -291,7 +292,8 @@ export default function App({ Component, pageProps }: AppProps) {
                       <ListHeaderItem
                         bare
                         headline={element.label}
-                      ></ListHeaderItem>
+                        key={element.label}
+                      />
                     );
                   } else {
                     const _: never = element;
