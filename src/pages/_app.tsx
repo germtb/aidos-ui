@@ -45,10 +45,11 @@ const pages: Array<
 > = [
   { type: "header", label: "CSS" },
   { type: "link", page: "css-in-js", name: "jss" },
-  { type: "link", page: "FlexLayout" },
   { type: "header", label: "Components" },
+  { type: "link", page: "FlexLayout" },
   { type: "link", page: "Text" },
   { type: "link", page: "TextPairing" },
+  { type: "link", page: "TextInput" },
   { type: "link", page: "Button" },
   { type: "link", page: "Icon" },
   { type: "link", page: "IconButton" },
@@ -61,7 +62,6 @@ const pages: Array<
   { type: "link", page: "Calendar" },
   { type: "link", page: "ProgressBar" },
   { type: "link", page: "ProgressCircle" },
-  { type: "link", page: "TextInput" },
   { type: "header", label: "Hooks" },
   { type: "link", page: "useCookie" },
   { type: "link", page: "useNavigation" },
@@ -283,7 +283,7 @@ export default function App({ Component, pageProps }: AppProps) {
                         }}
                         selected={pathname === `/${page}`}
                         href={`/${page}`}
-                        headline={page}
+                        headline={element.name ?? page}
                       />
                     );
                   } else if (element.type === "header") {
