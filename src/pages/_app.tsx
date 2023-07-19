@@ -1,7 +1,8 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
+  Size,
   cssVar,
   darkTheme,
   desktop,
@@ -24,15 +25,18 @@ import { Row } from "../Row";
 import { useRouter } from "next/dist/client/router";
 import { highlightAll } from "prismjs";
 import { IconLink } from "../IconLink";
+import { TextInput } from "../TextInput";
 import { DarkModeToggle } from "../DarkMode";
+import { useKeyboard } from "../useKeyboard";
 
 import "./prism.css";
 import { IconButton } from "../IconButton";
 import { Column } from "../Column";
+import { Icon } from "../Icon";
 
 const monospace = Roboto({ weight: "400", subsets: ["latin"] });
 
-const pages: Array<
+type Page =
   | {
       type: "header";
       label: string;
@@ -41,8 +45,18 @@ const pages: Array<
       type: "link";
       page: string;
       name?: string;
-    }
-> = [
+      headlineSize?: Size;
+      headlineBold?: boolean;
+    };
+
+const pages: Array<Page> = [
+  {
+    type: "link",
+    page: "",
+    name: "Aidos UI",
+    headlineSize: "large",
+    headlineBold: true,
+  },
   { type: "header", label: "CSS" },
   { type: "link", page: "css-in-js", name: "jss" },
   { type: "header", label: "Components" },
@@ -66,6 +80,7 @@ const pages: Array<
   { type: "header", label: "Hooks" },
   { type: "link", page: "useCookie" },
   { type: "link", page: "useNavigation" },
+  { type: "link", page: "useKeyboard" },
   { type: "link", page: "usePromise" },
 ];
 
@@ -136,6 +151,103 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const [pathname, setPathname] = useState(router.pathname);
   const [showList, setShowList] = useState(false);
+  const [query, setQuery] = useState("");
+  const filteredPagesRef = useRef<Array<Page>>([]);
+  const queryIndexRef = useRef<void | number>(undefined);
+  const queryInputRef = useKeyboard<HTMLInputElement>([
+    {
+      key: "K",
+      metaKey: true,
+      action: (root) => root.focus(),
+    },
+    {
+      key: "ArrowUp",
+      onlyWhenFocused: true,
+      action: () => {
+        setQueryIndex((current) => Math.max((current ?? 0) - 1, 0));
+      },
+    },
+    {
+      key: "K",
+      ctrlKey: true,
+      onlyWhenFocused: true,
+      action: () => {
+        setQueryIndex((current) => Math.max((current ?? 0) - 1, 0));
+      },
+    },
+    {
+      key: "ArrowDown",
+      onlyWhenFocused: true,
+      action: () => {
+        setQueryIndex((current) =>
+          Math.min((current ?? 0) + 1, filteredPagesRef.current.length - 1)
+        );
+      },
+    },
+    {
+      key: "J",
+      onlyWhenFocused: true,
+      ctrlKey: true,
+      action: () => {
+        setQueryIndex((current) =>
+          Math.min((current ?? 0) + 1, filteredPagesRef.current.length - 1)
+        );
+      },
+    },
+    {
+      key: "Enter",
+      onlyWhenFocused: true,
+      action: () => {
+        if (queryIndexRef.current === undefined) {
+          return;
+        } else {
+          const element = filteredPagesRef.current[queryIndexRef.current];
+          if (element.type === "link") {
+            window.open(`/${element.page}`, "_self");
+          }
+        }
+      },
+    },
+    {
+      key: "Escape",
+      onlyWhenFocused: true,
+      action: () => {
+        setQuery("");
+      },
+    },
+  ]);
+  const [queryIndex, setQueryIndex] = useState<void | number>(undefined);
+
+  const sanetisedQuery = query
+    .replace(/[^a-zA-Z]+/g, "")
+    .trim()
+    .toLowerCase();
+
+  useEffect(() => {
+    if (sanetisedQuery.length === 0) {
+      setQueryIndex(undefined);
+    } else {
+      setQueryIndex(0);
+    }
+  }, [sanetisedQuery]);
+
+  useEffect(() => {
+    queryIndexRef.current = queryIndex;
+  }, [queryIndex]);
+
+  filteredPagesRef.current =
+    sanetisedQuery.length > 0
+      ? pages.filter((element) => {
+          if (element.type == "header") {
+            return false;
+          }
+
+          return (
+            element.page.toLowerCase().includes(sanetisedQuery) ||
+            element?.name?.toLowerCase()?.includes(sanetisedQuery)
+          );
+        })
+      : pages;
 
   useEffect(() => {
     highlightAll();
@@ -197,11 +309,23 @@ export default function App({ Component, pageProps }: AppProps) {
                 gridArea: "header",
                 borderBottom: `1px solid ${cssVar("--divider")}`,
               }}
+              gap="medium"
               padding="medium"
               align="center"
               justify="space-between"
             >
+              <TextInput
+                rootJSStyle={{ flexGrow: 1 }}
+                ref={queryInputRef}
+                placeholder="Search (⌘K)"
+                value={query}
+                onValueChange={setQuery}
+                addOn={
+                  <Icon icon="fa-search" size="medium" color="secondary" />
+                }
+              />
               <Row gap="medium" align="center">
+                {/* <Span>aidos-ui@2.0.17</Span> */}
                 <DarkModeToggle />
                 <IconLink
                   target="_blank"
@@ -211,9 +335,6 @@ export default function App({ Component, pageProps }: AppProps) {
                   color="secondary"
                   bare
                 />
-              </Row>
-              <Row gap="medium" align="center">
-                <Span>aidos-ui@2.0.17</Span>
                 <IconButton
                   jsStyle={[
                     laptop({ display: "none" }),
@@ -229,49 +350,39 @@ export default function App({ Component, pageProps }: AppProps) {
             </Row>
             <ListDivider />
             <Column
-              jsStyle={{
-                gridArea: "list",
-                zIndex: 1,
-                padding: cssVar("--spacing-m"),
-                overflow: "hidden",
-              }}
+              jsStyle={[
+                {
+                  gridArea: "list",
+                  zIndex: 1,
+                  padding: cssVar("--spacing-m"),
+                  overflow: "hidden",
+                  background: cssVar("--primary-background"),
+                },
+                mobile({
+                  position: "absolute",
+                  display: showList ? "flex" : "none",
+                  left: 0,
+                  right: 0,
+                  top: 59,
+                  bottom: 0,
+                }),
+                tablet({
+                  position: "absolute",
+                  display: showList ? "flex" : "none",
+                  left: 0,
+                  right: 0,
+                  top: 59,
+                  bottom: 0,
+                }),
+              ]}
             >
               <List
                 bare
                 navigation={true}
-                jsStyle={[
-                  { overflow: "scroll" },
-                  mobile({
-                    position: "absolute",
-                    display: showList ? "flex" : "none",
-                    left: 0,
-                    right: 0,
-                    top: 49,
-                    bottom: 0,
-                  }),
-                  tablet({
-                    position: "absolute",
-                    display: showList ? "flex" : "none",
-                    left: 0,
-                    right: 0,
-                    top: 49,
-                    bottom: 0,
-                  }),
-                ]}
+                jsStyle={[{ overflow: "scroll" }]}
                 ariaLabel={"API"}
               >
-                <ListLinkItem
-                  bare
-                  selected={pathname === "/"}
-                  onClick={() => {
-                    setPathname("/");
-                    setShowList(false);
-                  }}
-                  href="/"
-                  headline={"Aidos UI"}
-                  headlineSize="large"
-                />
-                {pages.map((element) => {
+                {filteredPagesRef.current.map((element, index) => {
                   if (element.type === "link") {
                     const page = element.page;
                     return (
@@ -282,9 +393,15 @@ export default function App({ Component, pageProps }: AppProps) {
                           setPathname(`/${page}`);
                           setShowList(false);
                         }}
-                        selected={pathname === `/${page}`}
+                        selected={
+                          sanetisedQuery.length > 0
+                            ? index === queryIndex
+                            : pathname === `/${page}`
+                        }
                         href={`/${page}`}
                         headline={element.name ?? page}
+                        headlineSize={element.headlineSize}
+                        headlineBold={element.headlineBold}
                       />
                     );
                   } else if (element.type === "header") {

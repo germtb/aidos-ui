@@ -1,16 +1,15 @@
 import React, { ReactNode } from "react";
 import { BaseInput, BaseInputProps } from "./BaseInput";
-import { IconType } from "./IconType";
-import { Icon } from "./Icon";
 import { Row } from "./Row";
-import { Box } from "./Box";
-import { JSStyle, Padding, cssVar, getPadding } from "./jss";
+import { Gap, JSStyle, Padding, cssVar, getPadding } from "./jss";
+import { Column } from "./Column";
 
 export interface TextInputProps extends BaseInputProps {
   onValueChange?: (value: string) => void;
   rootJSStyle?: JSStyle;
-  icon?: IconType;
   addOn?: ReactNode;
+  addOnPosition?: "start" | "end";
+  gap?: Gap;
   onChange?: undefined;
   padding?: Padding;
   bare?: boolean;
@@ -23,8 +22,9 @@ export const TextInput = React.forwardRef(
       onValueChange,
       rootJSStyle,
       jsStyle,
-      icon,
       addOn,
+      gap = "small",
+      addOnPosition = "start",
       padding = "medium",
       bare,
       ...inputProps
@@ -33,6 +33,7 @@ export const TextInput = React.forwardRef(
   ) => {
     return (
       <Row
+        gap={gap}
         jsStyle={[
           {
             borderRadius: cssVar("--border-radius-m"),
@@ -48,14 +49,22 @@ export const TextInput = React.forwardRef(
             : {
                 border: `1px solid ${cssVar("--divider")}`,
                 background: cssVar("--overlay-background"),
+                ":has(:focus-visible)": {
+                  outline: `2px solid ${cssVar("--highlight")}`,
+                  outlineOffset: -2,
+                },
               },
           rootJSStyle,
         ]}
       >
-        {icon && (
-          <Box padding="medium">
-            <Icon size="medium" color="secondary" icon={icon} />
-          </Box>
+        {addOnPosition === "start" && addOn && (
+          <Column
+            justify="center"
+            align="center"
+            jsStyle={[getPadding(padding), { paddingRight: 0 }]}
+          >
+            {addOn}
+          </Column>
         )}
         <BaseInput
           {...inputProps}
@@ -82,10 +91,20 @@ export const TextInput = React.forwardRef(
               },
             },
             getPadding(padding),
+            addOn && addOnPosition === "start" ? { paddingLeft: 0 } : null,
+            addOn && addOnPosition === "end" ? { paddingRight: 0 } : null,
             jsStyle,
           ]}
         />
-        {addOn}
+        {addOnPosition === "end" && addOn && (
+          <Column
+            justify="center"
+            align="center"
+            jsStyle={[getPadding(padding), { paddingLeft: 0 }]}
+          >
+            {addOn}
+          </Column>
+        )}
       </Row>
     );
   }

@@ -1,0 +1,20 @@
+# useKeyboard
+
+This hook can be used to create keyboard shortcuts to make using a website easier and more accessible.
+
+```js
+const ref = useKeyboard([
+  {
+    key: "K",
+    metaKey: true,
+    action: (root) => root.focus(),
+  },
+  {
+    key: "Escape",
+    onlyWhenFocused: true,
+    action: () => {
+      setQuery("");
+    },
+  },
+]);
+```

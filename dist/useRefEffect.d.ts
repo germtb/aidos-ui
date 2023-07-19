@@ -1,1 +1,1 @@
-export declare function useRefEffect(callback: (root: HTMLElement) => (() => void) | void): (root: HTMLElement) => void;
+export declare function useRefEffect<T>(callback: (root: T) => (() => void) | void): (root: T) => void;

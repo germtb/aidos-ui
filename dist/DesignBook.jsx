@@ -302,15 +302,7 @@ export function DesignBook() {
           </Row>
 
           <Row padding="medium" gap="medium">
-            <TextInput value="" icon="fa-user" placeholder="Placeholder text input" onValueChange={() => { }}/>
-          </Row>
-
-          <Row padding="medium" gap="medium">
             <TextInput value="Text input" onValueChange={() => { }}/>
-          </Row>
-
-          <Row padding="medium" gap="medium">
-            <TextInput icon="fa-user" value="Text input" onValueChange={() => { }}/>
           </Row>
 
           <Row padding="medium" gap="medium">

@@ -47,7 +47,7 @@ export function Dropdown<T>({
   const triggerRef = useRef(null);
   const [expanded, setExpanded] = useState(false);
   const dropdownRef = useNavigation({ autofocus: true });
-  const rootRef = useRefEffect((root) => {
+  const rootRef = useRefEffect<HTMLElement>((root) => {
     const onKeyDown = (e) => {
       if (e.code === "Escape") {
         setExpanded(false);

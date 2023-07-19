@@ -1,5 +1,6 @@
 import { Column } from "../Column";
 import { Row } from "../Row";
+import { Icon } from "../Icon";
 import { TextInput } from "../TextInput";
 
 # TextInput
@@ -14,14 +15,19 @@ The `TextInput` component is an `HTML` input with some extra markup to support m
     placeholder="Placeholder text input"
     onValueChange={() => {}}
   />
+  <TextInput value="Text input" onValueChange={() => {}} />
   <TextInput
-    value=""
-    icon="fa-user"
+    addOn={<Icon icon="fa-user" color="primary" size="medium" />}
+    value="Text input"
+    onValueChange={() => {}}
+  />
+  <TextInput
+    value="Text input"
+    addOn={<Icon icon="fa-user" color="primary" size="medium" />}
+    addOnPosition="end"
     placeholder="Placeholder text input"
     onValueChange={() => {}}
   />
-  <TextInput value="Text input" onValueChange={() => {}} />
-  <TextInput icon="fa-user" value="Text input" onValueChange={() => {}} />
 </Column>
 
 ```js
@@ -31,14 +37,19 @@ The `TextInput` component is an `HTML` input with some extra markup to support m
     placeholder="Placeholder text input"
     onValueChange={() => {}}
   />
+  <TextInput value="Text input" onValueChange={() => {}} />
   <TextInput
-    value=""
-    icon="fa-user"
+    addOn={<Icon icon="fa-user" color="primary" size="medium" />}
+    value="Text input"
+    onValueChange={() => {}}
+  />
+  <TextInput
+    value="Text input"
+    addOn={<Icon icon="fa-user" color="primary" size="medium" />}
+    addOnPosition="end"
     placeholder="Placeholder text input"
     onValueChange={() => {}}
   />
-  <TextInput value="Text input" onValueChange={() => {}} />
-  <TextInput icon="fa-user" value="Text input" onValueChange={() => {}} />
 </Column>
 ```
 
@@ -53,15 +64,21 @@ The `TextInput` component is an `HTML` input with some extra markup to support m
     placeholder="Placeholder text input"
     onValueChange={() => {}}
   />
+  <TextInput bare value="Text input" onValueChange={() => {}} />
   <TextInput
     bare
-    value=""
-    icon="fa-user"
+    addOn={<Icon icon="fa-user" color="primary" size="medium" />}
+    value="Text input"
+    onValueChange={() => {}}
+  />
+  <TextInput
+    bare
+    value="Text input"
+    addOn={<Icon icon="fa-user" color="primary" size="medium" />}
+    addOnPosition="end"
     placeholder="Placeholder text input"
     onValueChange={() => {}}
   />
-  <TextInput bare value="Text input" onValueChange={() => {}} />
-  <TextInput bare icon="fa-user" value="Text input" onValueChange={() => {}} />
 </Column>
 
 ```js
@@ -72,15 +89,21 @@ The `TextInput` component is an `HTML` input with some extra markup to support m
     placeholder="Placeholder text input"
     onValueChange={() => {}}
   />
+  <TextInput bare value="Text input" onValueChange={() => {}} />
   <TextInput
     bare
-    value=""
-    icon="fa-user"
+    addOn={<Icon icon="fa-user" color="primary" size="medium" />}
+    value="Text input"
+    onValueChange={() => {}}
+  />
+  <TextInput
+    bare
+    value="Text input"
+    addOn={<Icon icon="fa-user" color="primary" size="medium" />}
+    addOnPosition="end"
     placeholder="Placeholder text input"
     onValueChange={() => {}}
   />
-  <TextInput bare value="Text input" onValueChange={() => {}} />
-  <TextInput bare icon="fa-user" value="Text input" onValueChange={() => {}} />
 </Column>
 ```
 
