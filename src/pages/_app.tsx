@@ -34,6 +34,7 @@ import "./prism.css";
 import { IconButton } from "../IconButton";
 import { Column } from "../Column";
 import { Icon } from "../Icon";
+import { BaseLink } from "../BaseLink";
 
 const monospace = Roboto({ weight: "400", subsets: ["latin"] });
 
@@ -106,7 +107,25 @@ const components = {
     <P jsStyle={{ marginBottom: cssVar("--spacing-m") }} {...props} />
   ),
   span: (props) => <Span {...props} />,
-  li: (props) => <Li {...props} />,
+  li: (props) => (
+    <Li jsStyle={{ marginBottom: cssVar("--spacing-s") }} {...props} />
+  ),
+  a: (props) => {
+    return (
+      <BaseLink
+        bare
+        color="positive"
+        jsStyle={{
+          display: "inline-block",
+          paddingBottom: cssVar("--spacing-s"),
+          paddingTop: cssVar("--spacing-s"),
+        }}
+        href={props.href}
+      >
+        {props.children}
+      </BaseLink>
+    );
+  },
   hr: () => (
     <BaseView
       jsStyle={{
