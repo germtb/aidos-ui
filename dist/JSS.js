@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
+import { useRef } from "react";
 import { hash } from "./hash";
 const aliases = {
     margin: (value) => {
@@ -170,16 +171,14 @@ export function JSStylesProvider({ themes, children, }) {
     if (stylesRef.current == null) {
         stylesRef.current = getBaseStyles(themes);
     }
-    return (React.createElement(React.Fragment, null,
-        stylesRef.current.map((style, i) => (React.createElement("style", { key: i, dangerouslySetInnerHTML: { __html: style } }))),
-        children));
+    return (_jsxs(_Fragment, { children: [stylesRef.current.map((style, i) => (_jsx("style", { dangerouslySetInnerHTML: { __html: style } }, i))), children] }));
 }
 export function JSServerStyles() {
     const stylesRef = useRef(null);
     if (stylesRef.current == null) {
         stylesRef.current = serverStyles;
     }
-    return (React.createElement(React.Fragment, null, stylesRef.current.map((style, i) => (React.createElement("style", { key: i, dangerouslySetInnerHTML: { __html: style } })))));
+    return (_jsx(_Fragment, { children: stylesRef.current.map((style, i) => (_jsx("style", { dangerouslySetInnerHTML: { __html: style } }, i))) }));
 }
 export function cssVar(string) {
     return `var(${string})`;

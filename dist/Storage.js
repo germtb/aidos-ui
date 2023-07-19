@@ -1,3 +1,4 @@
+import { jsx as _jsx } from "react/jsx-runtime";
 import React from "react";
 import { useState, useCallback, useEffect, createContext, useRef, } from "react";
 import { createEmitter } from "./Emitter";
@@ -49,11 +50,11 @@ export function createStorage({ initialState, name = "simple-storage", }) {
                 fr.readAsText(blob);
             });
         }, []);
-        return (React.createElement(StorageContext.Provider, { value: {
+        return (_jsx(StorageContext.Provider, { value: {
                 subscribe,
                 mutate,
                 persist,
-            } }, children));
+            }, children: children }));
     }
     function useStorage(selector) {
         const [localState, setLocalState] = useState(() => selector(state.current));

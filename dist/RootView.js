@@ -1,4 +1,5 @@
-import React, { useRef, useCallback } from "react";
+import { jsx as _jsx } from "react/jsx-runtime";
+import { useRef, useCallback } from "react";
 import { Column } from "./Column";
 import { useIsTopOfStack } from "./StackContext";
 import { queryFocusables } from "./aria";
@@ -21,7 +22,7 @@ export function RootView({ children, focusOnlyOnFirstMount = true, }) {
         firstMountRef.current = false;
         firstFocusable && firstFocusable.focus();
     }, [isTopOfStack, focusOnlyOnFirstMount]);
-    return (React.createElement(Column, { ref: refCallback, jsStyle: {
+    return (_jsx(Column, { ref: refCallback, jsStyle: {
             marginBottom: 0,
             flexGrow: 1,
             flexShrink: 1,
@@ -29,6 +30,6 @@ export function RootView({ children, focusOnlyOnFirstMount = true, }) {
             overflow: "auto",
             backgroundColor: cssVar("--secondary-background"),
             minHeight: "600px",
-        } }, children));
+        }, children: children }));
 }
 //# sourceMappingURL=RootView.js.map

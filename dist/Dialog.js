@@ -1,3 +1,4 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import React, { useContext, useMemo, useRef, useState } from "react";
 import { BaseView } from "./BaseView";
 import { Text } from "./Text";
@@ -32,13 +33,7 @@ const jsStyles = {
     },
 };
 export const Dialog = ({ label, children, close, }) => {
-    return (React.createElement(BaseView, { jsStyle: jsStyles.root },
-        React.createElement(Column, { jsStyle: jsStyles.header },
-            React.createElement(Row, { padding: "medium", justify: "space-between", align: "center" },
-                React.createElement(Text, { size: "medium", color: "secondary" }, label),
-                React.createElement(IconButton, { autoFocus: true, bare: true, icon: "fa-close", size: "medium", onClick: close, color: "secondary" })),
-            React.createElement(ListDivider, null)),
-        React.createElement(BaseView, { jsStyle: jsStyles.content }, children)));
+    return (_jsxs(BaseView, { jsStyle: jsStyles.root, children: [_jsxs(Column, { jsStyle: jsStyles.header, children: [_jsxs(Row, { padding: "medium", justify: "space-between", align: "center", children: [_jsx(Text, { size: "medium", color: "secondary", children: label }), _jsx(IconButton, { autoFocus: true, bare: true, icon: "fa-close", size: "medium", onClick: close, color: "secondary" })] }), _jsx(ListDivider, {})] }), _jsx(BaseView, { jsStyle: jsStyles.content, children: children })] }));
 };
 const DialogContext = React.createContext({
     setDialog: () => { },
@@ -46,9 +41,7 @@ const DialogContext = React.createContext({
 export function DialogProvider({ children }) {
     const [dialog, setDialog] = useState(null);
     const value = useMemo(() => ({ setDialog }), []);
-    return (React.createElement(DialogContext.Provider, { value: value },
-        dialog,
-        children));
+    return (_jsxs(DialogContext.Provider, { value: value, children: [dialog, children] }));
 }
 export function useDialog(DialogComponent, options) {
     const { setDialog } = useContext(DialogContext);
@@ -64,7 +57,7 @@ export function useDialog(DialogComponent, options) {
     };
     const open = (input) => {
         activeElementRef.current = document.activeElement;
-        setDialog(React.createElement("dialog", { ref: (ref) => {
+        setDialog(_jsx("dialog", { ref: (ref) => {
                 dialogRef.current = ref;
                 ref && ref.showModal();
             }, className: jss(jsStyles.dialog), onClose: () => {
@@ -83,8 +76,7 @@ export function useDialog(DialogComponent, options) {
                     e.clientY < dialogDimensions.top) {
                     dialogRef.current.close();
                 }
-            } },
-            React.createElement(DialogComponent, { ...input, close: () => closeRef.current() })));
+            }, children: _jsx(DialogComponent, { ...input, close: () => closeRef.current() }) }));
     };
     return {
         open,

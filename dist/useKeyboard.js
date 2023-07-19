@@ -2,11 +2,17 @@ import { useRefEffect } from "./useRefEffect";
 export function useKeyboard(shortcuts) {
     return useRefEffect((root) => {
         const onKeyDown = (e) => {
-            for (const { metaKey, key, action } of shortcuts) {
+            for (const { metaKey, key, action, ctrlKey, onlyWhenFocused, } of shortcuts) {
                 if (metaKey && e.metaKey !== true) {
-                    return;
+                    continue;
                 }
-                if (e.key === key.toLowerCase()) {
+                else if (ctrlKey && e.ctrlKey !== true) {
+                    continue;
+                }
+                else if (onlyWhenFocused && document.activeElement !== root) {
+                    continue;
+                }
+                if (e.key.toLowerCase() === key.toLowerCase()) {
                     action(root);
                 }
             }
@@ -17,4 +23,4 @@ export function useKeyboard(shortcuts) {
         };
     });
 }
-//# sourceMappingURL=useKeyboard.jsx.map
+//# sourceMappingURL=useKeyboard.js.map

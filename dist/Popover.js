@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { useRef, useState } from "react";
 import { queryFocusables } from "./aria";
 import { BaseView } from "./BaseView";
 import { useRefEffect } from "./useRefEffect";
@@ -59,7 +60,7 @@ export function Popover({ children, close }) {
             window.removeEventListener("click", click);
         };
     });
-    return React.createElement(BaseView, { ref: focusTrapRoot }, children);
+    return _jsx(BaseView, { ref: focusTrapRoot, children: children });
 }
 export function PopoverTrigger({ PopoverComponent, jsStyle, grow, shrink, tag, children, }) {
     const [popover, setPopover] = useState(null);
@@ -67,7 +68,7 @@ export function PopoverTrigger({ PopoverComponent, jsStyle, grow, shrink, tag, c
     const toggle = (input) => {
         if (popover == null) {
             dialogRef && dialogRef.current.show();
-            setPopover(React.createElement(PopoverComponent, { ...input, close: () => {
+            setPopover(_jsx(PopoverComponent, { ...input, close: () => {
                     dialogRef && dialogRef.current.close();
                 } }));
         }
@@ -75,15 +76,13 @@ export function PopoverTrigger({ PopoverComponent, jsStyle, grow, shrink, tag, c
             dialogRef && dialogRef.current.close();
         }
     };
-    return (React.createElement(BaseView, { grow: grow, shrink: shrink, tag: tag, relative: true, jsStyle: [jsStyle, { position: "relative", display: "inline-block" }] },
-        children({ toggle }),
-        React.createElement("dialog", { ref: (ref) => {
-                dialogRef.current = ref;
-            }, className: jss(jsStyles.popover), onClose: () => {
-                setPopover(null);
-            }, onClick: (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-            } }, popover)));
+    return (_jsxs(BaseView, { grow: grow, shrink: shrink, tag: tag, relative: true, jsStyle: [jsStyle, { position: "relative", display: "inline-block" }], children: [children({ toggle }), _jsx("dialog", { ref: (ref) => {
+                    dialogRef.current = ref;
+                }, className: jss(jsStyles.popover), onClose: () => {
+                    setPopover(null);
+                }, onClick: (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }, children: popover })] }));
 }
 //# sourceMappingURL=Popover.js.map

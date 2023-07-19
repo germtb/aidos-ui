@@ -1,9 +1,9 @@
-import React from "react";
+import { jsx as _jsx } from "react/jsx-runtime";
 import { BaseInput } from "./BaseInput";
 import { Box } from "./Box";
 import { Icon } from "./Icon";
 export function SubmitIconInput({ icon, ...otherProps }) {
-    return (React.createElement(BaseInput, { labelContent: React.createElement(Box, { jsStyle: {
+    return (_jsx(BaseInput, { labelContent: _jsx(Box, { jsStyle: {
                 cursor: "pointer",
                 display: "flex",
                 justifyContent: "center",
@@ -18,8 +18,7 @@ export function SubmitIconInput({ icon, ...otherProps }) {
                 height: 32,
                 width: 32,
                 borderRadius: 16,
-            } },
-            React.createElement(Icon, { icon: icon, size: "medium", color: "primary" })), ...otherProps, type: "submit", jsStyle: {
+            }, children: _jsx(Icon, { icon: icon, size: "medium", color: "primary" }) }), ...otherProps, type: "submit", jsStyle: {
             visibility: "hidden",
         }, value: "" }));
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { BaseView } from "./BaseView";
 import { Icon } from "./Icon";
 const jsStyles = {
@@ -34,7 +34,7 @@ const sizes = {
     xlarge: 48,
 };
 export function StaticCheckbox({ checked, size, icon = "fa-check", }) {
-    return (React.createElement(BaseView, { jsStyle: {
+    return (_jsxs(BaseView, { jsStyle: {
             position: "relative",
             backgroundColor: "var(--primary-background)",
             overflow: "hidden",
@@ -42,9 +42,6 @@ export function StaticCheckbox({ checked, size, icon = "fa-check", }) {
             borderRadius: sizes[size] / 2,
             height: sizes[size],
             width: sizes[size],
-        } },
-        React.createElement(BaseView, { jsStyle: [jsStyles.border, checked && jsStyles.borderChecked] }),
-        checked && (React.createElement(BaseView, { jsStyle: jsStyles.icon },
-            React.createElement(Icon, { size: size, color: "light", icon: icon })))));
+        }, children: [_jsx(BaseView, { jsStyle: [jsStyles.border, checked && jsStyles.borderChecked] }), checked && (_jsx(BaseView, { jsStyle: jsStyles.icon, children: _jsx(Icon, { size: size, color: "light", icon: icon }) }))] }));
 }
 //# sourceMappingURL=StaticCheckbox.js.map

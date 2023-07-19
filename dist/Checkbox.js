@@ -1,9 +1,9 @@
-import React from "react";
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { BaseInput } from "./BaseInput";
 import { jss } from "./jss";
 import { StaticCheckbox } from "./StaticCheckbox";
 export function Checkbox({ checked, onClick, size, ...inputProps }) {
-    return (React.createElement("label", { className: jss({
+    return (_jsxs("label", { className: jss({
             position: "relative",
             display: "flex",
             justifyContent: "center",
@@ -15,18 +15,16 @@ export function Checkbox({ checked, onClick, size, ...inputProps }) {
             ":has(:active)": {
                 transform: "scale(0.92)",
             },
-        }) },
-        React.createElement(StaticCheckbox, { checked: checked, size: size }),
-        React.createElement(BaseInput, { ...inputProps, type: "checkbox", role: "checkbox", "aria-checked": `${checked}`, tabIndex: 0, checked: checked, onChange: onClick, jsStyle: {
-                position: "absolute",
-                opacity: 0,
-                cursor: "pointer",
-                top: 0,
-                bottom: 0,
-                left: 0,
-                right: 0,
-                width: "100%",
-                height: "100%",
-            } })));
+        }), children: [_jsx(StaticCheckbox, { checked: checked, size: size }), _jsx(BaseInput, { ...inputProps, type: "checkbox", role: "checkbox", "aria-checked": `${checked}`, tabIndex: 0, checked: checked, onChange: onClick, jsStyle: {
+                    position: "absolute",
+                    opacity: 0,
+                    cursor: "pointer",
+                    top: 0,
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    width: "100%",
+                    height: "100%",
+                } })] }));
 }
 //# sourceMappingURL=Checkbox.js.map

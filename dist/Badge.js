@@ -1,4 +1,4 @@
-import React from "react";
+import { jsx as _jsx } from "react/jsx-runtime";
 import { BaseView } from "./BaseView";
 import { getBackground } from "./jss";
 const sizes = {
@@ -9,7 +9,7 @@ const sizes = {
     xlarge: 24,
 };
 export function Badge({ size = "medium", color = "highlight", jsStyle, }) {
-    return (React.createElement(BaseView, { jsStyle: [
+    return (_jsx(BaseView, { jsStyle: [
             {
                 width: sizes[size],
                 height: sizes[size],

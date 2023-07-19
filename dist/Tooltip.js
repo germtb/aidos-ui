@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { useRef, useState } from "react";
 import { BaseView } from "./BaseView";
 import { useRefEffect } from "./useRefEffect";
 import { Text } from "./Text";
@@ -44,7 +45,7 @@ export function Tooltip({ content, jsStyle, tag, children }) {
     });
     const toggle = () => {
         if (tooltip == null) {
-            setTooltip(React.createElement("dialog", { ref: (ref) => {
+            setTooltip(_jsx("dialog", { ref: (ref) => {
                     dialogRef.current = ref;
                     focusTrapRoot(ref);
                 }, className: jss(jsStyles.tooltip), onClose: () => {
@@ -52,14 +53,13 @@ export function Tooltip({ content, jsStyle, tag, children }) {
                 }, onClick: (e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                } },
-                React.createElement(Text, { size: "medium", color: "secondary" }, content)));
+                }, children: _jsx(Text, { size: "medium", color: "secondary", children: content }) }));
         }
         else {
             setTooltip(null);
         }
     };
-    return (React.createElement(BaseView, { tag: tag, relative: true, jsStyle: [{ display: "inline-block" }, jsStyle], onMouseEnter: () => {
+    return (_jsxs(BaseView, { tag: tag, relative: true, jsStyle: [{ display: "inline-block" }, jsStyle], onMouseEnter: () => {
             if (tooltip == null) {
                 toggle();
             }
@@ -67,8 +67,6 @@ export function Tooltip({ content, jsStyle, tag, children }) {
             if (tooltip != null) {
                 toggle();
             }
-        } },
-        children,
-        tooltip));
+        }, children: [children, tooltip] }));
 }
 //# sourceMappingURL=Tooltip.js.map

@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import { jsx as _jsx } from "react/jsx-runtime";
+import { useEffect } from "react";
 import { BaseView } from "./BaseView";
 import { getTextColor } from "./jss";
 const jsStyles = {
@@ -55,7 +56,7 @@ export function IconProvider({ children }) {
     return children;
 }
 export function Icon({ icon, size, color, ariaLabel, }) {
-    return (React.createElement(BaseView, { key: icon, "aria-label": ariaLabel, jsStyle: [
+    return (_jsx(BaseView, { "aria-label": ariaLabel, jsStyle: [
             jsStyles.root,
             size === "xsmall" && jsStyles.xsmall,
             size === "small" && jsStyles.small,
@@ -63,7 +64,6 @@ export function Icon({ icon, size, color, ariaLabel, }) {
             size === "large" && jsStyles.large,
             size === "xlarge" && jsStyles.xlarge,
             getTextColor(color),
-        ] },
-        React.createElement("span", { className: "iconify", "data-icon": icon })));
+        ], children: _jsx("span", { className: "iconify", "data-icon": icon }) }, icon));
 }
 //# sourceMappingURL=Icon.js.map

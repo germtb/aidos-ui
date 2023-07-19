@@ -1,7 +1,8 @@
+import { jsx as _jsx } from "react/jsx-runtime";
 import React from "react";
 import { jss } from "./jss";
 export const TextArea = React.forwardRef(({ jsStyle, onValueChange, value, onChange, ...otherProps }, ref) => {
-    return (React.createElement("textarea", { ...otherProps, ref: ref, className: jss([
+    return (_jsx("textarea", { ...otherProps, ref: ref, className: jss([
             {
                 padding: "var(--spacing-m)",
                 flexGrow: 1,

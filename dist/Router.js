@@ -1,4 +1,5 @@
-import React, { Suspense } from "react";
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
+import { Suspense } from "react";
 import { StackContextProvider } from "./StackContext";
 import { Column } from "./Column";
 import { ListDivider } from "./ListDivider";
@@ -28,13 +29,9 @@ const jsStyles = {
 };
 export function Router() {
     const { context: { navigationStack }, } = useRouterState();
-    return (React.createElement(BaseView, { jsStyle: jsStyles.root }, navigationStack.map(({ route, routeProps }, index, list) => {
-        const isTopOfStack = index === list.length - 1;
-        return (React.createElement(StackContextProvider, { key: route.title(routeProps), isTopOfStack: isTopOfStack },
-            React.createElement(Column, { jsStyle: [jsStyles.route, !isTopOfStack && jsStyles.hidden], "aria-hidden": !isTopOfStack },
-                React.createElement(ListDivider, null),
-                React.createElement(Suspense, { fallback: null },
-                    React.createElement(route.root, { ...routeProps })))));
-    })));
+    return (_jsx(BaseView, { jsStyle: jsStyles.root, children: navigationStack.map(({ route, routeProps }, index, list) => {
+            const isTopOfStack = index === list.length - 1;
+            return (_jsx(StackContextProvider, { isTopOfStack: isTopOfStack, children: _jsxs(Column, { jsStyle: [jsStyles.route, !isTopOfStack && jsStyles.hidden], "aria-hidden": !isTopOfStack, children: [_jsx(ListDivider, {}), _jsx(Suspense, { fallback: null, children: _jsx(route.root, { ...routeProps }) })] }) }, route.title(routeProps)));
+        }) }));
 }
 //# sourceMappingURL=Router.js.map

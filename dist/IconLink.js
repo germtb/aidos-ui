@@ -1,3 +1,4 @@
+import { jsx as _jsx } from "react/jsx-runtime";
 import React from "react";
 import { Icon } from "./Icon";
 import { getGlyphColor } from "./Interactable";
@@ -10,7 +11,7 @@ const sizes = {
     xlarge: 48,
 };
 export const IconLink = React.forwardRef(({ icon, size, color, bare, disabled, ...otherProps }, ref) => {
-    return (React.createElement(BaseLink, { ...otherProps, bare: bare, jsStyle: [
+    return (_jsx(BaseLink, { ...otherProps, bare: bare, jsStyle: [
             {
                 display: "flex",
                 justifyContent: "center",
@@ -25,7 +26,6 @@ export const IconLink = React.forwardRef(({ icon, size, color, bare, disabled, .
                     transform: "scale(0.92)",
                 },
             },
-        ], color: color, ref: ref, disabled: disabled },
-        React.createElement(Icon, { size: size, icon: icon, color: getGlyphColor(color, disabled, bare) })));
+        ], color: color, ref: ref, disabled: disabled, children: _jsx(Icon, { size: size, icon: icon, color: getGlyphColor(color, disabled, bare) }) }));
 });
 //# sourceMappingURL=IconLink.js.map

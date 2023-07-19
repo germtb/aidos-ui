@@ -1,4 +1,4 @@
-import React from "react";
+import { jsx as _jsx } from "react/jsx-runtime";
 import { BaseView } from "./BaseView";
 const jsStyles = {
     root: {
@@ -7,6 +7,6 @@ const jsStyles = {
     },
 };
 export function ListDivider() {
-    return React.createElement(BaseView, { jsStyle: jsStyles.root });
+    return _jsx(BaseView, { jsStyle: jsStyles.root });
 }
 //# sourceMappingURL=ListDivider.js.map

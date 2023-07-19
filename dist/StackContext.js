@@ -1,3 +1,4 @@
+import { jsx as _jsx } from "react/jsx-runtime";
 import React, { useContext, useState, useMemo, useRef, useEffect, } from "react";
 import { createEmitter } from "./Emitter";
 const StackContext = React.createContext({
@@ -11,7 +12,7 @@ export function StackContextProvider({ children, isTopOfStack }) {
         emitterRef.current.emit(isTopOfStack);
     }, [isTopOfStack]);
     const value = useMemo(() => ({ subscribe: emitterRef.current.subscribe }), []);
-    return (React.createElement(StackContext.Provider, { value: value }, children));
+    return (_jsx(StackContext.Provider, { value: value, children: children }));
 }
 export function useIsTopOfStack() {
     const [isTopOfStack, setIsTopOfStack] = useState(true);

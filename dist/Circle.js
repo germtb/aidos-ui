@@ -1,7 +1,7 @@
-import React from "react";
+import { jsx as _jsx } from "react/jsx-runtime";
 import { Box } from "./Box";
 export function Circle({ jsStyle, padding = "medium", ...otherProps }) {
-    return (React.createElement(Box, { padding: padding, jsStyle: [
+    return (_jsx(Box, { padding: padding, jsStyle: [
             {
                 borderRadius: "50%",
                 overflow: "hidden",

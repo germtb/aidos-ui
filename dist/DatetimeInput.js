@@ -1,3 +1,4 @@
+import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import React from "react";
 import { BaseInput } from "./BaseInput";
 import { Box } from "./Box";
@@ -25,10 +26,6 @@ const jsStyles = {
     },
 };
 export const DatetimeInput = React.forwardRef(({ date, onDateChange, jsStyle, icon, addOn, ...inputProps }, ref) => {
-    return (React.createElement(Row, { jsStyle: jsStyles.root },
-        icon && (React.createElement(Box, { padding: "medium" },
-            React.createElement(Icon, { size: "medium", color: "secondary", icon: icon }))),
-        React.createElement(BaseInput, { ...inputProps, type: "datetime-local", ref: ref, value: date.toISOString().substring(0, 16), onChange: (e) => onDateChange(new Date(e.target.value)), jsStyle: [jsStyles.input, jsStyle] }),
-        addOn));
+    return (_jsxs(Row, { jsStyle: jsStyles.root, children: [icon && (_jsx(Box, { padding: "medium", children: _jsx(Icon, { size: "medium", color: "secondary", icon: icon }) })), _jsx(BaseInput, { ...inputProps, type: "datetime-local", ref: ref, value: date.toISOString().substring(0, 16), onChange: (e) => onDateChange(new Date(e.target.value)), jsStyle: [jsStyles.input, jsStyle] }), addOn] }));
 });
 //# sourceMappingURL=DatetimeInput.js.map

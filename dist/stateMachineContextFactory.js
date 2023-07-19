@@ -1,3 +1,4 @@
+import { jsx as _jsx } from "react/jsx-runtime";
 import React, { useContext, useCallback, useMemo, useRef, } from "react";
 import { createEmitter } from "./Emitter";
 export function stateMachineContextFactory(stateMachineConfig) {
@@ -37,7 +38,7 @@ export function stateMachineContextFactory(stateMachineConfig) {
             emitterRef.current.emit(newState);
         }, []);
         const value = useMemo(() => ({ subscribe, send }), [subscribe, send]);
-        return (React.createElement(StateMachineContext.Provider, { value: value }, children));
+        return (_jsx(StateMachineContext.Provider, { value: value, children: children }));
     }
     function useStateMachine() {
         return useContext(StateMachineContext);

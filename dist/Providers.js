@@ -1,3 +1,4 @@
+import { jsx as _jsx } from "react/jsx-runtime";
 import React from "react";
 import { DarkModeProvider } from "./DarkMode";
 import { DialogProvider } from "./Dialog";
@@ -10,9 +11,6 @@ export function Providers({ children, themes, }) {
         loadingValue: false,
     });
     const toggleDarkMode = React.useCallback(() => setDarkModeEnabled((x) => !x), []);
-    return (React.createElement(JSStylesProvider, { themes: themes },
-        React.createElement(IconProvider, null,
-            React.createElement(DarkModeProvider, { enabled: darkModeEnabled, toggle: toggleDarkMode },
-                React.createElement(DialogProvider, null, children)))));
+    return (_jsx(JSStylesProvider, { themes: themes, children: _jsx(IconProvider, { children: _jsx(DarkModeProvider, { enabled: darkModeEnabled, toggle: toggleDarkMode, children: _jsx(DialogProvider, { children: children }) }) }) }));
 }
 //# sourceMappingURL=Providers.js.map

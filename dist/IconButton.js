@@ -1,3 +1,4 @@
+import { jsx as _jsx } from "react/jsx-runtime";
 import React from "react";
 import { BaseButton } from "./BaseButton";
 import { Icon } from "./Icon";
@@ -10,7 +11,7 @@ const sizes = {
     xlarge: 48,
 };
 export const IconButton = React.forwardRef(({ icon, size, color, bare, disabled, jsStyle, ...buttonProps }, ref) => {
-    return (React.createElement(BaseButton, { ...buttonProps, bare: bare, jsStyle: [
+    return (_jsx(BaseButton, { ...buttonProps, bare: bare, jsStyle: [
             {
                 display: "flex",
                 justifyContent: "center",
@@ -25,7 +26,6 @@ export const IconButton = React.forwardRef(({ icon, size, color, bare, disabled,
                 },
             },
             jsStyle,
-        ], color: color, ref: ref, disabled: disabled },
-        React.createElement(Icon, { size: size, icon: icon, color: getGlyphColor(color, disabled, bare) })));
+        ], color: color, ref: ref, disabled: disabled, children: _jsx(Icon, { size: size, icon: icon, color: getGlyphColor(color, disabled, bare) }) }));
 });
 //# sourceMappingURL=IconButton.js.map

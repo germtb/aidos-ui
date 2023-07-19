@@ -1,3 +1,4 @@
+import { jsx as _jsx } from "react/jsx-runtime";
 import React, { useContext, useEffect, useState } from "react";
 import { IconButton } from "./IconButton";
 import { BaseView } from "./BaseView";
@@ -44,7 +45,7 @@ export function DarkModeProvider({ children, enabled, toggle, }) {
             }
         }
     }, [enabled]);
-    return (React.createElement(DarkModeContext.Provider, { value: { enabled, toggle } }, children));
+    return (_jsx(DarkModeContext.Provider, { value: { enabled, toggle }, children: children }));
 }
 export function DarkModeToggle() {
     const darkMode = useContext(DarkModeContext);
@@ -53,8 +54,8 @@ export function DarkModeToggle() {
         setShow(true);
     }, []);
     if (!show) {
-        return React.createElement(BaseView, { jsStyle: { width: 32, height: 32 } });
+        return _jsx(BaseView, { jsStyle: { width: 32, height: 32 } });
     }
-    return (React.createElement(IconButton, { icon: darkMode.enabled ? "fa-sun-o" : "fa-moon-o", size: "medium", onClick: darkMode.toggle, color: "secondary", bare: true }));
+    return (_jsx(IconButton, { icon: darkMode.enabled ? "fa-sun-o" : "fa-moon-o", size: "medium", onClick: darkMode.toggle, color: "secondary", bare: true }));
 }
 //# sourceMappingURL=DarkMode.js.map

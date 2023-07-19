@@ -1,4 +1,4 @@
-import React from "react";
+import { jsx as _jsx } from "react/jsx-runtime";
 import { getTextColor, jss } from "./jss";
 const fontSize = {
     xsmall: "0.75rem",
@@ -24,24 +24,24 @@ export function Text({ children, color = "primary", size = "medium", align = "no
         grow && { flexGrow: 1 },
         jsStyle,
     ]);
-    return (React.createElement(Type, { id: id, className: className }, children));
+    return (_jsx(Type, { id: id, className: className, children: children }));
 }
 export function Span({ size = "small", type = "span", ...rest }) {
-    return React.createElement(Text, { size: size, type: type, ...rest });
+    return _jsx(Text, { size: size, type: type, ...rest });
 }
 export function P({ size = "small", type = "p", ...rest }) {
-    return React.createElement(Text, { size: size, type: type, ...rest });
+    return _jsx(Text, { size: size, type: type, ...rest });
 }
 export function H1({ size = "xlarge", type = "h1", ...rest }) {
-    return React.createElement(Text, { size: size, type: type, ...rest });
+    return _jsx(Text, { size: size, type: type, ...rest });
 }
 export function H2({ size = "large", type = "h2", ...rest }) {
-    return React.createElement(Text, { size: size, type: type, ...rest });
+    return _jsx(Text, { size: size, type: type, ...rest });
 }
 export function H3({ size = "medium", type = "h3", ...rest }) {
-    return React.createElement(Text, { size: size, type: type, ...rest });
+    return _jsx(Text, { size: size, type: type, ...rest });
 }
 export function Li({ size = "small", type = "li", ...rest }) {
-    return React.createElement(Text, { size: size, type: type, ...rest });
+    return _jsx(Text, { size: size, type: type, ...rest });
 }
 //# sourceMappingURL=Text.js.map

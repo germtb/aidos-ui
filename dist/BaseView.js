@@ -1,3 +1,4 @@
+import { jsx as _jsx } from "react/jsx-runtime";
 import React from "react";
 import { jss } from "./jss";
 const jsStyles = {
@@ -15,11 +16,11 @@ export const BaseView = React.forwardRef(({ jsStyle, children, tag, grow, shrink
     const Tag = tag ?? "div";
     return (
     // @ts-ignore
-    React.createElement(Tag, { ref: ref, className: jss([
+    _jsx(Tag, { ref: ref, className: jss([
             jsStyle,
             grow && jsStyles.grow,
             shrink && jsStyles.shrink,
             relative && jsStyles.relative,
-        ]), ...otherProps }, children));
+        ]), ...otherProps, children: children }));
 });
 //# sourceMappingURL=BaseView.js.map

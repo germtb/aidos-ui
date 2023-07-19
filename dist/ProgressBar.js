@@ -1,4 +1,4 @@
-import React from "react";
+import { jsx as _jsx } from "react/jsx-runtime";
 import { BaseView } from "./BaseView";
 import { getBackground } from "./jss";
 const jsStyles = {
@@ -29,15 +29,14 @@ const sizes = {
     xlarge: 20,
 };
 export function ProgressBar({ color, progress, size, jsStyle, }) {
-    return (React.createElement(BaseView, { jsStyle: [
+    return (_jsx(BaseView, { jsStyle: [
             jsStyles.root,
             {
                 height: sizes[size],
             },
             jsStyle,
-        ] },
-        React.createElement(BaseView, { jsStyle: [jsStyles.fill, getBackground(color)], style: {
+        ], children: _jsx(BaseView, { jsStyle: [jsStyles.fill, getBackground(color)], style: {
                 transform: `scaleX(${progress > 1 ? 1 : progress})`,
-            } })));
+            } }) }));
 }
 //# sourceMappingURL=ProgressBar.js.map
