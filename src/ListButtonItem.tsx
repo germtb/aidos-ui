@@ -44,6 +44,7 @@ export const ListButtonItem = React.forwardRef(
         headlineColor={getGlyphColor(color, disabled, true)}
         bodyColor={getGlyphColor(color, disabled, true)}
         selected={selected}
+        aria-selected={selected}
         bare={bare}
         {...otherProps}
         jsStyle={jsStyle}
@@ -51,7 +52,6 @@ export const ListButtonItem = React.forwardRef(
         {({ content }) => (
           <BaseButton
             padding={padding}
-            aria-selected={selected}
             disabled={disabled}
             animateInteraction={false}
             bare={true}

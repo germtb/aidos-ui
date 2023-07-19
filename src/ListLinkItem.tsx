@@ -41,6 +41,7 @@ export const ListLinkItem = React.forwardRef(
       <BaseListItem
         withDivider={!bare}
         disabled={disabled}
+        aria-selected={selected}
         padding="none"
         gap={gap}
         headlineColor={getGlyphColor(color, disabled, true)}
@@ -53,7 +54,7 @@ export const ListLinkItem = React.forwardRef(
         {({ content }) => (
           <BaseLink
             padding={padding}
-            aria-selected={selected}
+            aria-current={selected ? "page" : undefined}
             disabled={disabled}
             animateInteraction={false}
             bare={true}
