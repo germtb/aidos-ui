@@ -2,7 +2,7 @@ import React from "react";
 import { BaseInput, BaseInputProps } from "./BaseInput";
 import {} from "./BaseView";
 import { Size, jss } from "./jss";
-import { StaticCheckbox } from "./StaticCheckbox";
+import { StaticCheckbox, sizes } from "./StaticCheckbox";
 
 // @ts-ignore
 interface CheckboxProps extends BaseInputProps {
@@ -26,6 +26,8 @@ export function Checkbox({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        height: sizes[size],
+        width: sizes[size],
         ":has(:focus-visible)": {
           outline: "2px solid var(--outline)",
           borderRadius: "50%",

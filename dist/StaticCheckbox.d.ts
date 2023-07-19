@@ -6,5 +6,12 @@ type StaticCheckboxProps = {
     size: Size;
     icon?: IconType;
 };
+export declare const sizes: {
+    xsmall: number;
+    small: number;
+    medium: number;
+    large: number;
+    xlarge: number;
+};
 export declare function StaticCheckbox({ checked, size, icon, }: StaticCheckboxProps): JSX.Element;
 export {};

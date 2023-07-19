@@ -1,7 +1,7 @@
 import React from "react";
 import { BaseView } from "./BaseView";
 import { Icon } from "./Icon";
-import { JSStyle, Size } from "./jss";
+import { JSStyle, Size, cssVar } from "./jss";
 import { IconType } from "./IconType";
 
 type StaticCheckboxProps = {
@@ -36,7 +36,7 @@ const jsStyles: { [key: string]: JSStyle } = {
   },
 };
 
-const sizes = {
+export const sizes = {
   xsmall: 20,
   small: 24,
   medium: 32,
@@ -53,9 +53,9 @@ export function StaticCheckbox({
     <BaseView
       jsStyle={{
         position: "relative",
-        backgroundColor: "var(--primary-background)",
+        backgroundColor: cssVar("--primary-background"),
         overflow: "hidden",
-        padding: "var(--spacing-xs)",
+        padding: cssVar("--spacing-xs"),
         borderRadius: sizes[size] / 2,
         height: sizes[size],
         width: sizes[size],

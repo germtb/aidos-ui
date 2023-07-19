@@ -1,13 +1,15 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import { BaseInput } from "./BaseInput";
 import { jss } from "./jss";
-import { StaticCheckbox } from "./StaticCheckbox";
+import { StaticCheckbox, sizes } from "./StaticCheckbox";
 export function Checkbox({ checked, onClick, size, ...inputProps }) {
     return (_jsxs("label", { className: jss({
             position: "relative",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            height: sizes[size],
+            width: sizes[size],
             ":has(:focus-visible)": {
                 outline: "2px solid var(--outline)",
                 borderRadius: "50%",
