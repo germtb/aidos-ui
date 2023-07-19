@@ -56,6 +56,6 @@ export function DarkModeToggle() {
     if (!show) {
         return _jsx(BaseView, { jsStyle: { width: 32, height: 32 } });
     }
-    return (_jsx(IconButton, { icon: darkMode.enabled ? "fa-sun-o" : "fa-moon-o", size: "medium", onClick: darkMode.toggle, color: "secondary", bare: true }));
+    return (_jsx(IconButton, { "aria-label": "Toggle dark mode", icon: darkMode.enabled ? "fa-sun-o" : "fa-moon-o", size: "medium", onClick: darkMode.toggle, color: "secondary", bare: true }));
 }
 //# sourceMappingURL=DarkMode.js.map

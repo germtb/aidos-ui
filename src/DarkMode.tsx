@@ -88,6 +88,7 @@ export function DarkModeToggle() {
 
   return (
     <IconButton
+      aria-label="Toggle dark mode"
       icon={darkMode.enabled ? "fa-sun-o" : "fa-moon-o"}
       size="medium"
       onClick={darkMode.toggle}

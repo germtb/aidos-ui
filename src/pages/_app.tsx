@@ -328,6 +328,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 {/* <Span>aidos-ui@2.0.17</Span> */}
                 <DarkModeToggle />
                 <IconLink
+                  aria-label="github"
                   target="_blank"
                   href="https://github.com/germtb/aidos-ui"
                   icon="fa-github"
@@ -336,6 +337,7 @@ export default function App({ Component, pageProps }: AppProps) {
                   bare
                 />
                 <IconButton
+                  aria-label={showList ? "Hide list" : "Open list"}
                   jsStyle={[
                     laptop({ display: "none" }),
                     desktop({ display: "none" }),
