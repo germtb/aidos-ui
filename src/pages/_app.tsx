@@ -3,6 +3,7 @@ import Head from "next/head";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Size,
+  TABLET,
   cssVar,
   darkTheme,
   desktop,
@@ -226,8 +227,14 @@ export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     if (sanetisedQuery.length === 0) {
       setQueryIndex(undefined);
+      if (window.innerWidth <= TABLET) {
+        setShowList(false);
+      }
     } else {
       setQueryIndex(0);
+      if (window.innerWidth <= TABLET) {
+        setShowList(true);
+      }
     }
   }, [sanetisedQuery]);
 
@@ -319,13 +326,14 @@ export default function App({ Component, pageProps }: AppProps) {
                 ref={queryInputRef}
                 placeholder="Search (⌘K)"
                 value={query}
-                onValueChange={setQuery}
+                onValueChange={(value) => {
+                  setQuery(value);
+                }}
                 addOn={
                   <Icon icon="fa-search" size="medium" color="secondary" />
                 }
               />
               <Row gap="medium" align="center">
-                {/* <Span>aidos-ui@2.0.17</Span> */}
                 <DarkModeToggle />
                 <IconLink
                   aria-label="github"
