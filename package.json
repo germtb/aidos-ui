@@ -1,5 +1,5 @@
 {
-  "name": "aidos-ui",
+  "name": "@simple/ui",
   "version": "1.0.0",
   "description": "A simple UI framework",
   "main": "./dist/index.js",

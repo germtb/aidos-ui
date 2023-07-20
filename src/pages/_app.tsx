@@ -55,7 +55,7 @@ const pages: Array<Page> = [
   {
     type: "link",
     page: "",
-    name: "Aidos UI",
+    name: "Simple UI",
     headlineSize: "large",
     headlineBold: true,
   },
@@ -282,7 +282,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Aidos UI</title>
+        <title>Simple UI</title>
         <meta name="description" content="A simple UI toolkit" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
@@ -357,7 +357,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 <IconLink
                   aria-label="github"
                   target="_blank"
-                  href="https://github.com/germtb/aidos-ui"
+                  href="https://github.com/germtb/simple-ui"
                   icon="fa-github"
                   size="medium"
                   color="secondary"

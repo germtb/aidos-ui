@@ -1,8 +1,8 @@
-# Aidos-UI
+# Simple UI
 
 This is a React design system library with many utilities and zero dependencies. It was built with the aim to be simple, lightweight and beautiful.
 
-Documentation can be found [here](https://aidos-ui.vercel.app);
+Documentation can be found [here](https://simple-ui.vercel.app);
 
 ## Why?
 
@@ -41,14 +41,14 @@ As few dependencies as possible, to keep things light and under control. The onl
 This library can be installed through npm
 
 ```bash
-npm install --save aidos-ui
+npm install --save @simple/ui
 ```
 
 ---
 
 ## How to use
 
-- Import components from the `dist` folder (e.g. `import {Button} from 'aidos-ui/dist`)
+- Import components from the `dist` folder (e.g. `import {Button} from '@simple/ui/dist`)
 - The `Providers` component somewhere in the application.
 - If the application is running in nextjs, the `JSServerStyles` component has to be used in the \_document `<Head />`, this enables jss to work also server side.
 
