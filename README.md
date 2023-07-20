@@ -2,7 +2,7 @@
 
 This is a React design system library with many utilities and zero dependencies. It was built with the aim to be simple, lightweight and beautiful.
 
-Documentation can be found [here](https://simple-ui.vercel.app);
+Documentation can be found [here](https://simple-ui-core.vercel.app);
 
 ## Why?
 
