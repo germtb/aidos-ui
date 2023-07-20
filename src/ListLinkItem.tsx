@@ -61,7 +61,7 @@ export const ListLinkItem = React.forwardRef(
             color={color}
             href={href}
             ref={ref}
-            jsStyle={getInteractableListItemJSStyles({ bare })}
+            jsStyle={getInteractableListItemJSStyles({ bare, selected })}
             onClick={onClick}
           >
             {content}

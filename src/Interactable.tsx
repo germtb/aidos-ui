@@ -119,37 +119,41 @@ export const getGlyphColor = (
 
 export const getInteractableListItemJSStyles = ({
   bare,
+  selected,
 }: {
   bare: boolean;
+  selected: boolean;
 }) => {
-  return {
-    overflow: "hidden",
-    flexGrow: 1,
-    borderRadius: bare ? cssVar("--border-radius-m") : null,
-    textDecoration: "none",
-    "[aria-selected=true]": {
+  return [
+    {
+      overflow: "hidden",
+      flexGrow: 1,
+      borderRadius: bare ? cssVar("--border-radius-m") : null,
+      textDecoration: "none",
+      ":hover": {
+        backgroundColor: "var(--hovered-background)",
+      },
+      ":active:hover": {
+        backgroundColor: "var(--pressed-background)",
+      },
+      "[aria-disabled=true]": {
+        backgroundColor: "var(--primary-background)",
+      },
+      "[aria-disabled=true]:active:hover": {
+        backgroundColor: "var(--primary-background)",
+      },
+    },
+    selected && {
       backgroundColor: bare
         ? cssVar("--light-highlight")
         : cssVar("--selected-background"),
       boxShadow: bare ? "" : "inset 1px 1px 2px -1px #0000004a",
+      ":hover": {
+        backgroundColor: "var(--hovered-background)",
+      },
+      ":active:hover": {
+        backgroundColor: "var(--pressed-background)",
+      },
     },
-    ":hover": {
-      backgroundColor: "var(--hovered-background)",
-    },
-    "[aria-selected=true]:hover": {
-      backgroundColor: "var(--hovered-background)",
-    },
-    ":active:hover": {
-      backgroundColor: "var(--pressed-background)",
-    },
-    "[aria-selected=true]:active:hover": {
-      backgroundColor: "var(--pressed-background)",
-    },
-    "[aria-disabled=true]": {
-      backgroundColor: "var(--primary-background)",
-    },
-    "[aria-disabled=true]:active:hover": {
-      backgroundColor: "var(--primary-background)",
-    },
-  };
+  ];
 };

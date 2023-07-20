@@ -8,27 +8,18 @@ export declare function getInteractableJSStyles({ color, bare, disabled, animate
     padding: Padding;
 }): Array<JSStyle>;
 export declare const getGlyphColor: (color: InteractableColor, disabled: boolean | undefined, bare: boolean | undefined) => TextColor;
-export declare const getInteractableListItemJSStyles: ({ bare, }: {
+export declare const getInteractableListItemJSStyles: ({ bare, selected, }: {
     bare: boolean;
-}) => {
+    selected: boolean;
+}) => ({
     overflow: string;
     flexGrow: number;
     borderRadius: string;
     textDecoration: string;
-    "[aria-selected=true]": {
-        backgroundColor: string;
-        boxShadow: string;
-    };
     ":hover": {
         backgroundColor: string;
     };
-    "[aria-selected=true]:hover": {
-        backgroundColor: string;
-    };
     ":active:hover": {
-        backgroundColor: string;
-    };
-    "[aria-selected=true]:active:hover": {
         backgroundColor: string;
     };
     "[aria-disabled=true]": {
@@ -37,4 +28,21 @@ export declare const getInteractableListItemJSStyles: ({ bare, }: {
     "[aria-disabled=true]:active:hover": {
         backgroundColor: string;
     };
-};
+    backgroundColor?: undefined;
+    boxShadow?: undefined;
+} | {
+    backgroundColor: string;
+    boxShadow: string;
+    ":hover": {
+        backgroundColor: string;
+    };
+    ":active:hover": {
+        backgroundColor: string;
+    };
+    overflow?: undefined;
+    flexGrow?: undefined;
+    borderRadius?: undefined;
+    textDecoration?: undefined;
+    "[aria-disabled=true]"?: undefined;
+    "[aria-disabled=true]:active:hover"?: undefined;
+})[];
