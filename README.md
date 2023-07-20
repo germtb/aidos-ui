@@ -41,14 +41,14 @@ As few dependencies as possible, to keep things light and under control. The onl
 This library can be installed through npm
 
 ```bash
-npm install --save @simple/ui
+npm install --save simple-ui-core
 ```
 
 ---
 
 ## How to use
 
-- Import components from the `dist` folder (e.g. `import {Button} from '@simple/ui/dist`)
+- Import components from the `dist` folder (e.g. `import {Button} from 'simple-ui-core/dist`)
 - The `Providers` component somewhere in the application.
 - If the application is running in nextjs, the `JSServerStyles` component has to be used in the \_document `<Head />`, this enables jss to work also server side.
 
