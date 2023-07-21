@@ -293,31 +293,6 @@ export default function App({ Component, pageProps }: AppProps) {
     highlightAll();
   });
 
-  const scrollPosition = useRef(0);
-
-  useEffect(() => {
-    const onRouteChangeStart = () => {
-      const list = document.getElementById("main-list");
-      scrollPosition.current = list?.scrollTop ?? 0;
-    };
-
-    const onRouteChangeComplete = () => {
-      const list = document.getElementById("main-list");
-      list?.scroll({
-        top: scrollPosition.current,
-        behavior: "auto",
-      });
-    };
-
-    router.events.on("routeChangeStart", onRouteChangeStart);
-    router.events.on("routeChangeComplete", onRouteChangeComplete);
-
-    return () => {
-      router.events.off("routeChangeStart", onRouteChangeStart);
-      router.events.off("routeChangeComplete", onRouteChangeComplete);
-    };
-  }, [router]);
-
   return (
     <>
       <Head>
