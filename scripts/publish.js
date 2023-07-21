@@ -4,7 +4,7 @@ async function run() {
   const commands = [
     ["npm", ["run", "build:lib"]],
     ["git", ["add", "--all"]],
-    ["git", ["commit", "-m", "'build:lib'"]],
+    ["git", ["commit", "-m", "build:lib"]],
     ["npm", ["version", "patch"]],
     ["npm", ["publish"]],
     ["git", ["push"]],
