@@ -129,7 +129,7 @@ export const jss = (jsStyle) => {
             stylesStack.push(...aliases[key](value));
             continue;
         }
-        const rawHash = hash(key + JSON.stringify(value));
+        const rawHash = hash(key + JSON.stringify(value)).toString(32);
         const cachedSelector = rawHashMap.get(rawHash);
         if (cachedSelector != null) {
             classNames.push(cachedSelector);

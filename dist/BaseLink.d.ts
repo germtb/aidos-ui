@@ -13,4 +13,5 @@ export interface BaseLinkProps extends React.LinkHTMLAttributes<HTMLAnchorElemen
     animateInteraction?: boolean;
     padding?: Padding;
 }
+export declare const BaseLinkComponentOverrideContext: React.Context<(props: any) => JSX.Element>;
 export declare const BaseLink: React.ForwardRefExoticComponent<BaseLinkProps & React.RefAttributes<HTMLAnchorElement>>;
