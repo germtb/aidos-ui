@@ -1,0 +1,94 @@
+import { List } from "../List";
+import { Icon } from "../Icon";
+import { ListItem } from "../ListItem";
+import { ListHeaderItem } from "../ListHeaderItem";
+
+# List headers
+
+`ListHeaders` have a variety of styles and support both regular and bare styling. They can be used to give contextual information about what a list contains or to visually separate a subgroup of elements.
+
+<List ariaLabel="example">
+  <ListHeaderItem headline="Header" />
+  <ListItem headline="Headline 1" body="Body 1" />
+  <ListHeaderItem
+    headline="Header"
+    addOn={<Icon icon="fa-chain-broken" size="medium" color="primary" />}
+  />
+  <ListItem headline="Headline 2" body="Body 2" />
+  <ListHeaderItem highlight headline="Header" />
+  <ListItem headline="Headline 3" body="Body 3" />
+  <ListHeaderItem
+    highlight
+    headline="Header"
+    addOn={<Icon icon="fa-chain-broken" size="medium" color="light" />}
+  />
+  <ListItem withDivider={false} headline="Headline 4" body="Body 3" />
+</List>
+
+```js
+<List ariaLabel="example">
+  <ListHeaderItem headline="Header" />
+  <ListItem headline="Headline 1" body="Body 1" />
+  <ListHeaderItem
+    headline="Header"
+    addOn={<Icon icon="fa-chain-broken" size="medium" color="primary" />}
+  />
+  <ListItem headline="Headline 2" body="Body 2" />
+  <ListHeaderItem highlight headline="Header" />
+  <ListItem headline="Headline 3" body="Body 3" />
+  <ListHeaderItem
+    highlight
+    headline="Header"
+    addOn={<Icon icon="fa-chain-broken" size="medium" color="light" />}
+  />
+  <ListItem withDivider={false} headline="Headline 4" body="Body 3" />
+</List>
+```
+
+---
+
+## Bare list headers
+
+<List bare ariaLabel="example">
+  <ListHeaderItem bare headline="Header" />
+  <ListItem bare headline="Headline 1" body="Body 1" />
+  <ListHeaderItem
+    bare
+    headline="Header"
+    addOn={<Icon icon="fa-chain-broken" size="medium" color="primary" />}
+  />
+  <ListItem bare headline="Headline 2" body="Body 2" />
+  <ListHeaderItem bare highlight headline="Header" />
+  <ListItem bare headline="Headline 3" body="Body 3" />
+  <ListHeaderItem
+    bare
+    highlight
+    headline="Header"
+    addOn={<Icon icon="fa-chain-broken" size="medium" color="highlight" />}
+  />
+  <ListItem bare withDivider={false} headline="Headline 4" body="Body 3" />
+</List>
+
+```js
+<List bare ariaLabel="example">
+  <ListHeaderItem bare headline="Header" />
+  <ListItem bare headline="Headline 1" body="Body 1" />
+  <ListHeaderItem
+    bare
+    headline="Header"
+    addOn={<Icon icon="fa-chain-broken" size="medium" color="primary" />}
+  />
+  <ListItem bare headline="Headline 2" body="Body 2" />
+  <ListHeaderItem bare highlight headline="Header" />
+  <ListItem bare headline="Headline 3" body="Body 3" />
+  <ListHeaderItem
+    bare
+    highlight
+    headline="Header"
+    addOn={<Icon icon="fa-chain-broken" size="medium" color="light" />}
+  />
+  <ListItem bare withDivider={false} headline="Headline 4" body="Body 3" />
+</List>
+```
+
+---

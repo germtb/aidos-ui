@@ -1,0 +1,56 @@
+import { List } from "../List";
+import { ListButtonItem } from "../ListButtonItem";
+
+## List navigation
+
+Lists support keyboard navigation by default via the `useNavigation` hook. It can be disabled by passing the prop `navigation` and tries to emulate the [grid layout spec](https://www.w3.org/WAI/ARIA/apg/patterns/grid/examples/layout-grids/):
+
+<List ariaLabel="example" navigation={true}>
+  <ListButtonItem color="secondary" headline="Headline 1" onClick={() => {}} />
+  <ListButtonItem color="secondary" headline="Headline 2" onClick={() => {}} />
+  <ListButtonItem
+    withDivider={false}
+    color="secondary"
+    headline="Headline 3"
+    onClick={() => {}}
+  />
+</List>
+
+---
+
+<List ariaLabel="example" navigation={false}>
+  <ListButtonItem color="secondary" headline="Headline 1" onClick={() => {}} />
+  <ListButtonItem color="secondary" headline="Headline 2" onClick={() => {}} />
+  <ListButtonItem
+    withDivider={false}
+    color="secondary"
+    headline="Headline 3"
+    onClick={() => {}}
+  />
+</List>
+
+```js
+<List ariaLabel="example" navigation={true}>
+  <ListButtonItem color="secondary" headline="Headline 1" onClick={() => {}} />
+  <ListButtonItem color="secondary" headline="Headline 2" onClick={() => {}} />
+  <ListButtonItem
+    withDivider={false}
+    color="secondary"
+    headline="Headline 3"
+    onClick={() => {}}
+  />
+</List>
+
+<List ariaLabel="example" navigation={false}>
+  <ListButtonItem color="secondary" headline="Headline 1" onClick={() => {}} />
+  <ListButtonItem color="secondary" headline="Headline 2" onClick={() => {}} />
+  <ListButtonItem
+    withDivider={false}
+    color="secondary"
+    headline="Headline 3"
+    onClick={() => {}}
+  />
+</List>
+```
+
+---

@@ -77,6 +77,8 @@ const pages: Array<Page> = [
   { type: "link", page: "Checkbox" },
   { type: "header", label: "List" },
   { type: "link", page: "List" },
+  { type: "link", page: "ListHeader" },
+  { type: "link", page: "navigation", name: "List navigation" },
   { type: "header", label: "Modals" },
   { type: "link", page: "Dialog" },
   { type: "link", page: "Popover" },
