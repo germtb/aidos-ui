@@ -19,6 +19,7 @@ interface ListLinkItemProps extends BaseListItemProps {
   disabled?: boolean;
   selected?: boolean;
   bare?: boolean;
+  target?: string;
 }
 
 export const ListLinkItem = React.forwardRef(
@@ -33,6 +34,7 @@ export const ListLinkItem = React.forwardRef(
       selected,
       bare,
       color = "secondary",
+      target,
       ...otherProps
     }: ListLinkItemProps,
     ref?: React.Ref<HTMLAnchorElement>
@@ -53,6 +55,7 @@ export const ListLinkItem = React.forwardRef(
       >
         {({ content }) => (
           <BaseLink
+            target={target}
             padding={padding}
             aria-current={selected ? "page" : undefined}
             disabled={disabled}
