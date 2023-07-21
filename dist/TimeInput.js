@@ -1,17 +1,34 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import React from "react";
 import { BaseInput } from "./BaseInput";
-import { Box } from "./Box";
-import { Icon } from "./Icon";
 import { Row } from "./Row";
+import { cssVar } from "./jss";
 export const timeFormatter = Intl.DateTimeFormat("en-UK", {
     hour: "2-digit",
     minute: "2-digit",
 });
-function TimeInputInternal({ time: date, onTimeChange: onDateChange, jsStyle, icon, addOn, ...inputProps }, ref) {
-    return (_jsxs(Row, { jsStyle: {
-            backgroundColor: "inherit",
-        }, children: [icon && (_jsx(Box, { padding: "medium", children: _jsx(Icon, { size: "medium", color: "secondary", icon: icon }) })), _jsx(BaseInput, { ...inputProps, type: "time", ref: ref, value: timeFormatter.format(date), onChange: (e) => {
+function TimeInputInternal({ time: date, onTimeChange: onDateChange, jsStyle, addOn, padding = "small", gap = "none", addOnPosition = "start", bare, ...inputProps }, ref) {
+    return (_jsxs(Row, { padding: padding, gap: gap, align: "center", jsStyle: [
+            {
+                borderRadius: cssVar("--border-radius-m"),
+                overflow: "hidden",
+            },
+            bare
+                ? {
+                    backgroundColor: "inherit",
+                    ":has(:focus-visible)": {
+                        background: cssVar("--light-highlight"),
+                    },
+                }
+                : {
+                    border: `1px solid ${cssVar("--divider")}`,
+                    background: cssVar("--overlay-background"),
+                    ":has(:focus-visible)": {
+                        outline: `2px solid ${cssVar("--highlight")}`,
+                        outlineOffset: -2,
+                    },
+                },
+        ], children: [addOnPosition === "start" && addOn, _jsx(BaseInput, { ...inputProps, type: "time", ref: ref, value: timeFormatter.format(date), onChange: (e) => {
                     const value = e.target.value;
                     const [hour, minute] = value.split(":");
                     onDateChange(new Date(date.getFullYear(), date.getMonth(), date.getDate(), parseInt(hour), parseInt(minute)));
@@ -30,9 +47,12 @@ function TimeInputInternal({ time: date, onTimeChange: onDateChange, jsStyle, ic
                         ":disabled": {
                             color: "var(--subtle-text);",
                         },
+                        "::-webkit-calendar-picker-indicator": {
+                            background: "none",
+                        },
                     },
                     jsStyle,
-                ] }), addOn] }));
+                ] }), addOnPosition === "end" && addOn] }));
 }
 export const TimeInput = React.forwardRef(TimeInputInternal);
 //# sourceMappingURL=TimeInput.js.map

@@ -1,7 +1,8 @@
 import { ReactNode } from "react";
 import { Position } from "./jss";
-export declare function ListHeaderItem({ bare, headline, body, withDivider, addOn, addOnPosition, }: {
+export declare function ListHeaderItem({ bare, highlight, headline, body, withDivider, addOn, addOnPosition, }: {
     bare?: boolean;
+    highlight?: boolean;
     headline: string;
     body?: string;
     withDivider?: boolean;

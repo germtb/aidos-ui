@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import React, { useState } from "react";
+import React from "react";
 import { BaseInput } from "./BaseInput";
 import { Row } from "./Row";
 import { cssVar } from "./jss";
@@ -29,8 +29,4 @@ export const RangeInput = React.forwardRef(({ value, onValueChange, rootJSStyle,
                     jsStyle,
                 ] }), addOnPosition === "end" && addOn] }));
 });
-export function ExampleRangeInput() {
-    const [state, setState] = useState(0);
-    return _jsx(RangeInput, { label: "Example", value: state, onValueChange: setState });
-}
 //# sourceMappingURL=RangeInput.js.map
