@@ -22,9 +22,18 @@ export interface TextProps {
   grow?: boolean;
   jsStyle?: JSStyle;
   id?: string;
+  htmlFor?: string;
 }
 
-export type TextType = "span" | "p" | "h1" | "h2" | "h3" | "h4" | "li";
+export type TextType =
+  | "label"
+  | "span"
+  | "p"
+  | "h1"
+  | "h2"
+  | "h3"
+  | "h4"
+  | "li";
 
 export function Text({
   children,
@@ -37,9 +46,10 @@ export function Text({
   type: Type = "span",
   jsStyle,
   id,
+  htmlFor,
 }: TextProps) {
   if (ellipsis === "default") {
-    ellipsis = Type === "span";
+    ellipsis = Type === "span" || Type === "label";
   }
 
   const className = jss([
@@ -57,10 +67,14 @@ export function Text({
   ]);
 
   return (
-    <Type id={id} className={className}>
+    <Type id={id} className={className} htmlFor={htmlFor}>
       {children}
     </Type>
   );
+}
+
+export function Label({ size = "small", type = "label", ...rest }: TextProps) {
+  return <Text size={size} type={type} {...rest} />;
 }
 
 export function Span({ size = "small", type = "span", ...rest }: TextProps) {

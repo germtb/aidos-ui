@@ -66,6 +66,7 @@ const pages: Array<Page> = [
   { type: "link", page: "Text" },
   { type: "link", page: "TextPairing" },
   { type: "link", page: "TextInput" },
+  { type: "link", page: "RangeInput" },
   { type: "link", page: "Button" },
   { type: "link", page: "Link" },
   { type: "link", page: "Icon" },

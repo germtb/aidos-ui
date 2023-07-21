@@ -1,5 +1,6 @@
 import React, { ReactNode, useId } from "react";
-import { JSStyle, jss } from "./jss";
+import { JSStyle, Size, TextColor, jss } from "./jss";
+import { Label } from "./Text";
 
 export interface BaseInputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -8,20 +9,48 @@ export interface BaseInputProps
   size?: undefined;
   children?: undefined;
   id?: undefined;
-  labelContent?: ReactNode;
+  label?: string;
+  labelSize?: Size;
+  labelColor?: TextColor;
+  labelBold?: boolean;
+  labelPosition?: "start" | "end";
 }
 
 export const BaseInput = React.forwardRef(
   (
-    { jsStyle, labelContent, ...otherProps }: BaseInputProps,
+    {
+      jsStyle,
+      label,
+      labelPosition = "end",
+      labelSize,
+      labelColor,
+      labelBold,
+      ...otherProps
+    }: BaseInputProps,
     ref?: React.Ref<HTMLInputElement>
   ) => {
     const id = useId();
+    const labelElement = (
+      <Label
+        size={labelSize}
+        bold={labelBold}
+        color={labelColor}
+        jsStyle={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+        htmlFor={id}
+      >
+        {label}
+      </Label>
+    );
 
     return (
       <>
-        {labelContent && <label htmlFor={id}>{labelContent}</label>}
+        {label && labelPosition === "start" && labelElement}
         <input id={id} ref={ref} className={jss(jsStyle)} {...otherProps} />
+        {label && labelPosition === "end" && labelElement}
       </>
     );
   }

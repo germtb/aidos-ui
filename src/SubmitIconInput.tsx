@@ -12,7 +12,7 @@ interface SubmitIconInputProps extends BaseInputProps {
 export function SubmitIconInput({ icon, ...otherProps }: SubmitIconInputProps) {
   return (
     <BaseInput
-      labelContent={
+      label={
         <Box
           jsStyle={{
             cursor: "pointer",

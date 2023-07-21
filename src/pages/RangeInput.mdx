@@ -1,0 +1,109 @@
+import { RangeInput } from "../RangeInput";
+import { Column } from "../Column";
+import { Icon } from "../Icon";
+
+# RangeInput
+
+The `RangeInput` item is a thin wrapper over the HTML `<input type="range">` element with some options for adding addOn and customise the label for it.
+
+<Column>
+  <RangeInput value={12.5} onValueChange={() => {}} />
+  <RangeInput value={25} onValueChange={() => {}} label="Right" />
+  <RangeInput
+    value={37.5}
+    onValueChange={() => {}}
+    label="Left"
+    labelPosition="start"
+  />
+  <RangeInput
+    addOn={<Icon icon="fa-volume-up" color="primary" size="medium" />}
+    value={50}
+    onValueChange={() => {}}
+    label="Right"
+  />
+  <RangeInput
+    addOn={<Icon icon="fa-volume-up" color="primary" size="medium" />}
+    addOnPosition="end"
+    value={62.5}
+    onValueChange={() => {}}
+    label="Left"
+    labelPosition="start"
+  />
+  <RangeInput
+    addOn={<Icon icon="fa-volume-up" color="primary" size="medium" />}
+    value={75}
+    onValueChange={() => {}}
+    label="Right"
+    labelSize="large"
+  />
+  <RangeInput
+    addOn={<Icon icon="fa-volume-up" color="primary" size="medium" />}
+    value={87.5}
+    onValueChange={() => {}}
+    label="Right"
+    labelSize="large"
+    labelColor="highlight"
+  />
+  <RangeInput
+    addOn={<Icon icon="fa-volume-up" color="primary" size="medium" />}
+    value={100}
+    onValueChange={() => {}}
+    label="Right"
+    labelSize="large"
+    labelColor="highlight"
+    labelBold
+  />
+</Column>
+
+```js
+<Column>
+  <RangeInput value={12.5} onValueChange={() => {}} />
+  <RangeInput value={25} onValueChange={() => {}} label="Right" />
+  <RangeInput
+    value={37.5}
+    onValueChange={() => {}}
+    label="Left"
+    labelPosition="start"
+  />
+  <RangeInput
+    addOn={<Icon icon="fa-volume-up" color="primary" size="medium" />}
+    value={50}
+    onValueChange={() => {}}
+    label="Right"
+  />
+  <RangeInput
+    addOn={<Icon icon="fa-volume-up" color="primary" size="medium" />}
+    addOnPosition="end"
+    value={62.5}
+    onValueChange={() => {}}
+    label="Left"
+    labelPosition="start"
+  />
+  <RangeInput
+    addOn={<Icon icon="fa-volume-up" color="primary" size="medium" />}
+    value={75}
+    onValueChange={() => {}}
+    label="Right"
+    labelSize="large"
+  />
+  <RangeInput
+    addOn={<Icon icon="fa-volume-up" color="primary" size="medium" />}
+    value={87.5}
+    onValueChange={() => {}}
+    label="Right"
+    labelSize="large"
+    labelColor="highlight"
+  />
+  <RangeInput
+    addOn={<Icon icon="fa-volume-up" color="primary" size="medium" />}
+    value={100}
+    onValueChange={() => {}}
+    label="Right"
+    labelSize="large"
+    labelColor="highlight"
+    labelBold
+  />
+</Column>
+```
+
+---
