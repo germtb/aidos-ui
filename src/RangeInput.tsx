@@ -81,8 +81,3 @@ export const RangeInput = React.forwardRef(
     );
   }
 );
-
-export function ExampleRangeInput() {
-  const [state, setState] = useState(0);
-  return <RangeInput label="Example" value={state} onValueChange={setState} />;
-}
