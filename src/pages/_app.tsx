@@ -1,4 +1,5 @@
 import type { AppProps } from "next/app";
+import Link from "next/link";
 import Head from "next/head";
 import React, { useEffect, useRef, useState } from "react";
 import {
@@ -34,7 +35,7 @@ import "./prism.css";
 import { IconButton } from "../IconButton";
 import { Column } from "../Column";
 import { Icon } from "../Icon";
-import { BaseLink } from "../BaseLink";
+import { BaseLink, BaseLinkComponentOverrideContext } from "../BaseLink";
 
 const monospace = Roboto({ weight: "400", subsets: ["latin"] });
 
@@ -93,6 +94,7 @@ const pages: Array<Page> = [
   { type: "link", page: "useCookie" },
   { type: "link", page: "useNavigation" },
   { type: "link", page: "useKeyboard" },
+  { type: "link", page: "useRefEffect" },
   { type: "link", page: "usePromise" },
   { type: "header", label: "Utils" },
   { type: "link", page: "Hashing" },
@@ -291,6 +293,31 @@ export default function App({ Component, pageProps }: AppProps) {
     highlightAll();
   });
 
+  const scrollPosition = useRef(0);
+
+  useEffect(() => {
+    const onRouteChangeStart = () => {
+      const list = document.getElementById("main-list");
+      scrollPosition.current = list?.scrollTop ?? 0;
+    };
+
+    const onRouteChangeComplete = () => {
+      const list = document.getElementById("main-list");
+      list?.scroll({
+        top: scrollPosition.current,
+        behavior: "auto",
+      });
+    };
+
+    router.events.on("routeChangeStart", onRouteChangeStart);
+    router.events.on("routeChangeComplete", onRouteChangeComplete);
+
+    return () => {
+      router.events.off("routeChangeStart", onRouteChangeStart);
+      router.events.off("routeChangeComplete", onRouteChangeComplete);
+    };
+  }, [router]);
+
   return (
     <>
       <Head>
@@ -298,182 +325,185 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="description" content="A simple UI toolkit" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <Providers themes={{ light: lightTheme, dark: darkTheme }}>
-        {/* @ts-ignore */}
-        <MDXProvider components={components}>
-          <BaseView
-            jsStyle={[
-              {
-                height: "100%",
-                overflow: "hidden",
-                display: "grid",
-              },
-              mobile({
-                gridTemplateColumns: "1fr",
-                gridTemplateRows: "auto 1fr",
-                gridTemplateAreas: `
-                  "header"
-                  "content"
-                `,
-              }),
-              tablet({
-                gridTemplateColumns: "1fr",
-                gridTemplateRows: "auto 1fr",
-                gridTemplateAreas: `
-                  "header"
-                  "content"
-                `,
-              }),
-              laptop({
-                gridTemplateColumns: "350px 1fr",
-                gridTemplateRows: "auto 1fr",
-                gridTemplateAreas: `
-                  "header content"
-                  "list   content"
-                `,
-              }),
-              desktop({
-                gridTemplateColumns: "400px 1fr",
-                gridTemplateRows: "auto 1fr",
-                gridTemplateAreas: `
-                  "header content"
-                  "list   content"
-                `,
-              }),
-            ]}
-          >
-            <Row
-              jsStyle={{
-                gridArea: "header",
-                borderBottom: `1px solid ${cssVar("--divider")}`,
-              }}
-              gap="medium"
-              padding="medium"
-              align="center"
-              justify="space-between"
-            >
-              <TextInput
-                rootJSStyle={{ flexGrow: 1 }}
-                ref={queryInputRef}
-                placeholder="Search (⌘K)"
-                value={query}
-                onValueChange={(value) => {
-                  setQuery(value);
-                }}
-                addOn={
-                  <Icon icon="fa-search" size="medium" color="secondary" />
-                }
-              />
-              <Row gap="medium" align="center">
-                <DarkModeToggle />
-                <IconLink
-                  aria-label="github"
-                  target="_blank"
-                  href="https://github.com/germtb/simple-ui"
-                  icon="fa-github"
-                  size="medium"
-                  color="secondary"
-                  bare
-                />
-                <IconButton
-                  aria-label={showList ? "Hide list" : "Open list"}
-                  jsStyle={[
-                    laptop({ display: "none" }),
-                    desktop({ display: "none" }),
-                  ]}
-                  icon={showList ? "fa-close" : "fa-bars"}
-                  color="secondary"
-                  onClick={() => setShowList((x) => !x)}
-                  size="medium"
-                  bare
-                />
-              </Row>
-            </Row>
-            <ListDivider />
-            <Column
-              jsStyle={[
-                {
-                  gridArea: "list",
-                  zIndex: 1,
-                  padding: cssVar("--spacing-m"),
-                  overflow: "hidden",
-                  background: cssVar("--primary-background"),
-                },
-                mobile({
-                  position: "absolute",
-                  display: showList ? "flex" : "none",
-                  left: 0,
-                  right: 0,
-                  top: 59,
-                  bottom: 0,
-                }),
-                tablet({
-                  position: "absolute",
-                  display: showList ? "flex" : "none",
-                  left: 0,
-                  right: 0,
-                  top: 59,
-                  bottom: 0,
-                }),
-              ]}
-            >
-              <List
-                bare
-                navigation={true}
-                jsStyle={[{ overflow: "scroll" }]}
-                ariaLabel={"API"}
-              >
-                {filteredPagesRef.current.map((element, index) => {
-                  if (element.type === "link") {
-                    const page = element.page;
-                    return (
-                      <ListLinkItem
-                        key={page}
-                        bare
-                        onClick={() => {
-                          setPathname(`/${page}`);
-                          setShowList(false);
-                        }}
-                        selected={
-                          sanetisedQuery.length > 0
-                            ? index === queryIndex
-                            : pathname === `/${page}`
-                        }
-                        href={`/${page}`}
-                        headline={element.name ?? page}
-                        headlineSize={element.headlineSize}
-                        headlineBold={element.headlineBold}
-                      />
-                    );
-                  } else if (element.type === "header") {
-                    return (
-                      <ListHeaderItem
-                        bare
-                        headline={element.label}
-                        key={`header-${element.label}`}
-                      />
-                    );
-                  } else {
-                    const _: never = element;
-                  }
-                })}
-              </List>
-            </Column>
+      <BaseLinkComponentOverrideContext.Provider value={Link}>
+        <Providers themes={{ light: lightTheme, dark: darkTheme }}>
+          {/* @ts-ignore */}
+          <MDXProvider components={components}>
             <BaseView
               jsStyle={[
                 {
-                  borderLeft: `1px solid ${cssVar("--divider")}`,
-                  gridArea: "content",
-                  overflow: "scroll",
+                  height: "100%",
+                  overflow: "hidden",
+                  display: "grid",
                 },
-                getPadding(["large", "xlarge"]),
+                mobile({
+                  gridTemplateColumns: "1fr",
+                  gridTemplateRows: "auto 1fr",
+                  gridTemplateAreas: `
+                  "header"
+                  "content"
+                `,
+                }),
+                tablet({
+                  gridTemplateColumns: "1fr",
+                  gridTemplateRows: "auto 1fr",
+                  gridTemplateAreas: `
+                  "header"
+                  "content"
+                `,
+                }),
+                laptop({
+                  gridTemplateColumns: "350px 1fr",
+                  gridTemplateRows: "auto 1fr",
+                  gridTemplateAreas: `
+                  "header content"
+                  "list   content"
+                `,
+                }),
+                desktop({
+                  gridTemplateColumns: "400px 1fr",
+                  gridTemplateRows: "auto 1fr",
+                  gridTemplateAreas: `
+                  "header content"
+                  "list   content"
+                `,
+                }),
               ]}
             >
-              <Component {...pageProps} />
+              <Row
+                jsStyle={{
+                  gridArea: "header",
+                  borderBottom: `1px solid ${cssVar("--divider")}`,
+                }}
+                gap="medium"
+                padding="medium"
+                align="center"
+                justify="space-between"
+              >
+                <TextInput
+                  rootJSStyle={{ flexGrow: 1 }}
+                  ref={queryInputRef}
+                  placeholder="Search (⌘K)"
+                  value={query}
+                  onValueChange={(value) => {
+                    setQuery(value);
+                  }}
+                  addOn={
+                    <Icon icon="fa-search" size="medium" color="secondary" />
+                  }
+                />
+                <Row gap="medium" align="center">
+                  <DarkModeToggle />
+                  <IconLink
+                    aria-label="github"
+                    target="_blank"
+                    href="https://github.com/germtb/simple-ui"
+                    icon="fa-github"
+                    size="medium"
+                    color="secondary"
+                    bare
+                  />
+                  <IconButton
+                    aria-label={showList ? "Hide list" : "Open list"}
+                    jsStyle={[
+                      laptop({ display: "none" }),
+                      desktop({ display: "none" }),
+                    ]}
+                    icon={showList ? "fa-close" : "fa-bars"}
+                    color="secondary"
+                    onClick={() => setShowList((x) => !x)}
+                    size="medium"
+                    bare
+                  />
+                </Row>
+              </Row>
+              <ListDivider />
+              <Column
+                jsStyle={[
+                  {
+                    gridArea: "list",
+                    zIndex: 1,
+                    padding: cssVar("--spacing-m"),
+                    overflow: "hidden",
+                    background: cssVar("--primary-background"),
+                  },
+                  mobile({
+                    position: "absolute",
+                    display: showList ? "flex" : "none",
+                    left: 0,
+                    right: 0,
+                    top: 59,
+                    bottom: 0,
+                  }),
+                  tablet({
+                    position: "absolute",
+                    display: showList ? "flex" : "none",
+                    left: 0,
+                    right: 0,
+                    top: 59,
+                    bottom: 0,
+                  }),
+                ]}
+              >
+                <List
+                  bare
+                  id="main-list"
+                  navigation={true}
+                  jsStyle={[{ overflow: "scroll" }]}
+                  ariaLabel={"API"}
+                >
+                  {filteredPagesRef.current.map((element, index) => {
+                    if (element.type === "link") {
+                      const page = element.page;
+                      return (
+                        <ListLinkItem
+                          key={page}
+                          bare
+                          onClick={() => {
+                            setPathname(`/${page}`);
+                            setShowList(false);
+                          }}
+                          selected={
+                            sanetisedQuery.length > 0
+                              ? index === queryIndex
+                              : pathname === `/${page}`
+                          }
+                          href={`/${page}`}
+                          headline={element.name ?? page}
+                          headlineSize={element.headlineSize}
+                          headlineBold={element.headlineBold}
+                        />
+                      );
+                    } else if (element.type === "header") {
+                      return (
+                        <ListHeaderItem
+                          bare
+                          headline={element.label}
+                          key={`header-${element.label}`}
+                        />
+                      );
+                    } else {
+                      const _: never = element;
+                    }
+                  })}
+                </List>
+              </Column>
+              <BaseView
+                jsStyle={[
+                  {
+                    borderLeft: `1px solid ${cssVar("--divider")}`,
+                    gridArea: "content",
+                    overflow: "scroll",
+                  },
+                  getPadding(["large", "xlarge"]),
+                ]}
+              >
+                <Component {...pageProps} />
+              </BaseView>
             </BaseView>
-          </BaseView>
-        </MDXProvider>
-      </Providers>
+          </MDXProvider>
+        </Providers>
+      </BaseLinkComponentOverrideContext.Provider>
     </>
   );
 }

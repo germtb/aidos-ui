@@ -1,4 +1,4 @@
-import { useRef, useCallback, useEffect } from "react";
+import { useRef, useCallback } from "react";
 
 export function useRefEffect<T>(
   callback: (root: T) => (() => void) | void

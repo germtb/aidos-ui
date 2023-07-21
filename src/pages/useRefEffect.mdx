@@ -1,7 +1,23 @@
+# useRefEffect
+
+This effect is useful when you want to run an effect for a component once only (`useEffect` does not reliably do this). This implies that this component cannot have dependencies in the way other hooks do. Other hooks in this library are implemented using this.
+
+```js
 import { useRefEffect } from "./useRefEffect";
-export function useKeyboard(shortcuts) {
-  return useRefEffect((root) => {
-    const onKeyDown = (e) => {
+
+export type KeyboardShortcut<T> = {
+  key: string;
+  metaKey?: boolean;
+  ctrlKey?: boolean;
+  action: (root: T) => void;
+  onlyWhenFocused?: boolean;
+};
+
+export function useKeyboard<T extends HTMLElement>(
+  shortcuts: Array<KeyboardShortcut<T>>
+) {
+  return useRefEffect<T>((root: T) => {
+    const onKeyDown = (e: KeyboardEvent) => {
       for (const {
         metaKey,
         key,
@@ -16,15 +32,18 @@ export function useKeyboard(shortcuts) {
         } else if (onlyWhenFocused && document.activeElement !== root) {
           continue;
         }
+
         if (e.key.toLowerCase() === key.toLowerCase()) {
           action(root);
         }
       }
     };
+
     window.addEventListener("keydown", onKeyDown);
+
     return () => {
       window.removeEventListener("keydown", onKeyDown);
     };
   });
 }
-//# sourceMappingURL=useKeyboard.js.map
+```

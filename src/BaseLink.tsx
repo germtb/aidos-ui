@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { InteractableColor, getInteractableJSStyles } from "./Interactable";
 import { JSStyle, Padding, jss } from "./jss";
 
@@ -16,6 +16,11 @@ export interface BaseLinkProps
   padding?: Padding;
 }
 
+// This only exists to make NextJS happy, it should not be used in any other case
+export const BaseLinkComponentOverrideContext = React.createContext((props) => (
+  <a {...props} />
+));
+
 export const BaseLink = React.forwardRef(
   (
     {
@@ -32,11 +37,13 @@ export const BaseLink = React.forwardRef(
     }: BaseLinkProps,
     ref?: React.Ref<HTMLAnchorElement>
   ) => {
+    const Link = useContext(BaseLinkComponentOverrideContext);
+
     return (
-      <a
+      <Link
         {...otherProps}
         aria-disabled={disabled ? true : undefined}
-        href={disabled ? undefined : href}
+        href={href}
         role="link"
         ref={ref}
         onClick={
@@ -58,11 +65,12 @@ export const BaseLink = React.forwardRef(
             animateInteraction,
             padding,
           }),
+          disabled && { pointerEvents: "none" },
           jsStyle,
         ])}
       >
         {children}
-      </a>
+      </Link>
     );
   }
 );
