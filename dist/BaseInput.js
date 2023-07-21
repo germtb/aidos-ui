@@ -1,8 +1,14 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import React, { useId } from "react";
 import { jss } from "./jss";
-export const BaseInput = React.forwardRef(({ jsStyle, labelContent, ...otherProps }, ref) => {
+import { Label } from "./Text";
+export const BaseInput = React.forwardRef(({ jsStyle, label, labelPosition = "end", labelSize, labelColor, labelBold, ...otherProps }, ref) => {
     const id = useId();
-    return (_jsxs(_Fragment, { children: [labelContent && _jsx("label", { htmlFor: id, children: labelContent }), _jsx("input", { id: id, ref: ref, className: jss(jsStyle), ...otherProps })] }));
+    const labelElement = (_jsx(Label, { size: labelSize, bold: labelBold, color: labelColor, jsStyle: {
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+        }, htmlFor: id, children: label }));
+    return (_jsxs(_Fragment, { children: [label && labelPosition === "start" && labelElement, _jsx("input", { id: id, ref: ref, className: jss(jsStyle), ...otherProps }), label && labelPosition === "end" && labelElement] }));
 });
 //# sourceMappingURL=BaseInput.js.map

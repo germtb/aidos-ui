@@ -3,7 +3,7 @@ import { BaseInput } from "./BaseInput";
 import { Box } from "./Box";
 import { Icon } from "./Icon";
 export function SubmitIconInput({ icon, ...otherProps }) {
-    return (_jsx(BaseInput, { labelContent: _jsx(Box, { jsStyle: {
+    return (_jsx(BaseInput, { label: _jsx(Box, { jsStyle: {
                 cursor: "pointer",
                 display: "flex",
                 justifyContent: "center",

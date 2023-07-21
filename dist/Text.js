@@ -7,9 +7,9 @@ const fontSize = {
     large: "1.5rem",
     xlarge: "2rem",
 };
-export function Text({ children, color = "primary", size = "medium", align = "none", bold = false, ellipsis = "default", grow, type: Type = "span", jsStyle, id, }) {
+export function Text({ children, color = "primary", size = "medium", align = "none", bold = false, ellipsis = "default", grow, type: Type = "span", jsStyle, id, htmlFor, }) {
     if (ellipsis === "default") {
-        ellipsis = Type === "span";
+        ellipsis = Type === "span" || Type === "label";
     }
     const className = jss([
         getTextColor(color),
@@ -24,7 +24,10 @@ export function Text({ children, color = "primary", size = "medium", align = "no
         grow && { flexGrow: 1 },
         jsStyle,
     ]);
-    return (_jsx(Type, { id: id, className: className, children: children }));
+    return (_jsx(Type, { id: id, className: className, htmlFor: htmlFor, children: children }));
+}
+export function Label({ size = "small", type = "label", ...rest }) {
+    return _jsx(Text, { size: size, type: type, ...rest });
 }
 export function Span({ size = "small", type = "span", ...rest }) {
     return _jsx(Text, { size: size, type: type, ...rest });

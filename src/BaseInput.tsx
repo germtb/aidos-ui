@@ -9,7 +9,7 @@ export interface BaseInputProps
   size?: undefined;
   children?: undefined;
   id?: undefined;
-  label?: string;
+  label?: ReactNode;
   labelSize?: Size;
   labelColor?: TextColor;
   labelBold?: boolean;

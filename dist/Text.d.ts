@@ -12,9 +12,11 @@ export interface TextProps {
     grow?: boolean;
     jsStyle?: JSStyle;
     id?: string;
+    htmlFor?: string;
 }
-export type TextType = "span" | "p" | "h1" | "h2" | "h3" | "h4" | "li";
-export declare function Text({ children, color, size, align, bold, ellipsis, grow, type: Type, jsStyle, id, }: TextProps): JSX.Element;
+export type TextType = "label" | "span" | "p" | "h1" | "h2" | "h3" | "h4" | "li";
+export declare function Text({ children, color, size, align, bold, ellipsis, grow, type: Type, jsStyle, id, htmlFor, }: TextProps): JSX.Element;
+export declare function Label({ size, type, ...rest }: TextProps): JSX.Element;
 export declare function Span({ size, type, ...rest }: TextProps): JSX.Element;
 export declare function P({ size, type, ...rest }: TextProps): JSX.Element;
 export declare function H1({ size, type, ...rest }: TextProps): JSX.Element;
