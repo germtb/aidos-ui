@@ -73,6 +73,7 @@ const pages: Array<Page> = [
   { type: "header", label: "Inputs" },
   { type: "link", page: "TextInput" },
   { type: "link", page: "RangeInput" },
+  { type: "link", page: "TimeInput" },
   { type: "link", page: "Checkbox" },
   { type: "header", label: "List" },
   { type: "link", page: "List" },
@@ -445,7 +446,7 @@ export default function App({ Component, pageProps }: AppProps) {
                       <ListHeaderItem
                         bare
                         headline={element.label}
-                        key={element.label}
+                        key={`header-${element.label}`}
                       />
                     );
                   } else {

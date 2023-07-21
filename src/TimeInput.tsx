@@ -1,16 +1,18 @@
 import React, { ReactNode } from "react";
 import { BaseInput, BaseInputProps } from "./BaseInput";
-import { Box } from "./Box";
-import { Icon } from "./Icon";
 import { IconType } from "./IconType";
 import { Row } from "./Row";
+import { Gap, Padding, cssVar } from "./jss";
 
 export interface TimeInputProps extends BaseInputProps {
   onTimeChange: (date: Date) => void;
   time: Date;
-  icon?: IconType;
+  gap?: Gap;
+  padding?: Padding;
   addOn?: ReactNode;
+  addOnPosition?: "start" | "end";
   onChange?: undefined;
+  bare?: boolean;
 }
 
 export const timeFormatter = Intl.DateTimeFormat("en-UK", {
@@ -23,23 +25,43 @@ function TimeInputInternal(
     time: date,
     onTimeChange: onDateChange,
     jsStyle,
-    icon,
     addOn,
+    padding = "small",
+    gap = "none",
+    addOnPosition = "start",
+    bare,
     ...inputProps
   }: TimeInputProps,
   ref?: React.Ref<HTMLInputElement>
 ) {
   return (
     <Row
-      jsStyle={{
-        backgroundColor: "inherit",
-      }}
+      padding={padding}
+      gap={gap}
+      align="center"
+      jsStyle={[
+        {
+          borderRadius: cssVar("--border-radius-m"),
+          overflow: "hidden",
+        },
+        bare
+          ? {
+              backgroundColor: "inherit",
+              ":has(:focus-visible)": {
+                background: cssVar("--light-highlight"),
+              },
+            }
+          : {
+              border: `1px solid ${cssVar("--divider")}`,
+              background: cssVar("--overlay-background"),
+              ":has(:focus-visible)": {
+                outline: `2px solid ${cssVar("--highlight")}`,
+                outlineOffset: -2,
+              },
+            },
+      ]}
     >
-      {icon && (
-        <Box padding="medium">
-          <Icon size="medium" color="secondary" icon={icon} />
-        </Box>
-      )}
+      {addOnPosition === "start" && addOn}
       <BaseInput
         {...inputProps}
         type="time"
@@ -73,11 +95,14 @@ function TimeInputInternal(
             ":disabled": {
               color: "var(--subtle-text);",
             },
+            "::-webkit-calendar-picker-indicator": {
+              background: "none",
+            },
           },
           jsStyle,
         ]}
       />
-      {addOn}
+      {addOnPosition === "end" && addOn}
     </Row>
   );
 }

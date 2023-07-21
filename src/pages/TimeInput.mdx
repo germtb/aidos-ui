@@ -1,0 +1,73 @@
+import { Column } from "../Column";
+import { TimeInput } from "../TimeInput";
+import { Icon } from "../Icon";
+
+# TimeInput
+
+The `TimeInput` component can be used to get the time (hour and minute) from the user.
+
+<Column gap="medium" jsStyle={{ maxWidth: 150 }}>
+  <TimeInput time={new Date()} onTimeChange={() => {}} />
+  <TimeInput
+    addOn={<Icon icon="fa-clock-o" color="primary" size="medium" />}
+    time={new Date()}
+    onTimeChange={() => {}}
+  />
+  <TimeInput
+    addOn={<Icon icon="fa-clock-o" color="primary" size="medium" />}
+    addOnPosition="end"
+    time={new Date()}
+    onTimeChange={() => {}}
+  />
+  <TimeInput bare time={new Date()} onTimeChange={() => {}} />
+  <TimeInput
+    bare
+    addOn={<Icon icon="fa-clock-o" color="primary" size="medium" />}
+    time={new Date()}
+    onTimeChange={() => {}}
+  />
+  <TimeInput
+    bare
+    addOn={<Icon icon="fa-clock-o" color="primary" size="medium" />}
+    addOnPosition="end"
+    time={new Date()}
+    onTimeChange={() => {}}
+  />
+  <TimeInput disabled time={new Date()} onTimeChange={() => {}} />
+  <TimeInput bare disabled time={new Date()} onTimeChange={() => {}} />
+</Column>
+
+```js
+<Column gap="medium" jsStyle={{ maxWidth: 150 }}>
+  <TimeInput time={new Date()} onTimeChange={() => {}} />
+  <TimeInput
+    addOn={<Icon icon="fa-clock-o" color="primary" size="medium" />}
+    time={new Date()}
+    onTimeChange={() => {}}
+  />
+  <TimeInput
+    addOn={<Icon icon="fa-clock-o" color="primary" size="medium" />}
+    addOnPosition="end"
+    time={new Date()}
+    onTimeChange={() => {}}
+  />
+  <TimeInput bare time={new Date()} onTimeChange={() => {}} />
+  <TimeInput
+    bare
+    addOn={<Icon icon="fa-clock-o" color="primary" size="medium" />}
+    time={new Date()}
+    onTimeChange={() => {}}
+  />
+  <TimeInput
+    bare
+    addOn={<Icon icon="fa-clock-o" color="primary" size="medium" />}
+    addOnPosition="end"
+    time={new Date()}
+    onTimeChange={() => {}}
+  />
+  <TimeInput disabled time={new Date()} onTimeChange={() => {}} />
+  <TimeInput bare disabled time={new Date()} onTimeChange={() => {}} />
+</Column>
+```
+
+---

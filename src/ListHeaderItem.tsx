@@ -4,6 +4,7 @@ import { Position, cssVar } from "./jss";
 
 export function ListHeaderItem({
   bare,
+  highlight,
   headline,
   body,
   withDivider,
@@ -11,6 +12,7 @@ export function ListHeaderItem({
   addOnPosition,
 }: {
   bare?: boolean;
+  highlight?: boolean;
   headline: string;
   body?: string;
   withDivider?: boolean;
@@ -21,13 +23,21 @@ export function ListHeaderItem({
     <BaseListItem
       bare={bare}
       headline={headline}
-      headlineColor="primary"
+      headlineColor={highlight ? (bare ? "highlight" : "light") : "primary"}
       headlineBold={true}
       body={body}
       addOn={addOn}
       addOnPosition={addOnPosition}
       withDivider={bare ? false : withDivider}
-      jsStyle={bare ? null : { background: cssVar("--secondary-background") }}
+      jsStyle={
+        bare
+          ? null
+          : {
+              background: highlight
+                ? cssVar("--highlight")
+                : cssVar("--secondary-background"),
+            }
+      }
     >
       {({ content }) => content}
     </BaseListItem>
