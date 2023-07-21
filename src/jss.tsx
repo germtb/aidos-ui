@@ -163,7 +163,7 @@ export const jss = (jsStyle: JSStyle): string => {
       continue;
     }
 
-    const rawHash = hash(key + JSON.stringify(value));
+    const rawHash = hash(key + JSON.stringify(value)).toString(32);
     const cachedSelector = rawHashMap.get(rawHash);
 
     if (cachedSelector != null) {

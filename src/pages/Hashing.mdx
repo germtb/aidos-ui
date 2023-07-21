@@ -1,0 +1,20 @@
+# Hashing and unique IDs
+
+## hash
+
+The `hash` function can be used to create a numeric hash from a given string. If you want to constraint the hashing space you can pass an optional modulus.
+
+```js
+const id = hash("ABC"); // 64578
+const small_id = hash("ABC", 10); // 8
+```
+
+## numberToBase
+
+The `numberToBase` util will transform any number to an arbitrary base represented as a string of characters (e.g. the base two could be ["0", "1"]). This can be useful to convert between numeric representations or to compress big numbers. It defaults to a base of 26 elements formed of the English alphabet.
+
+```js
+const id_base_26 = numberToBase(hash("ABC")); // cqmv
+const id_base_2 = numberToBase(hash("ABC"), ["?", "!"]); //!!!!!???!???!?!
+const id_base_2 = numberToBase(8, ["1", "0"]); // 100
+```

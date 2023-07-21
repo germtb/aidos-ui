@@ -1,10 +1,10 @@
-export function hash(source: string, modulus?: number): string {
+export function hash(source: string, modulus?: number): number {
   let hash = 0;
   let i: number;
   let chr: number;
 
   if (source.length === 0) {
-    return hash.toString();
+    return hash;
   }
 
   for (i = 0; i < source.length; i++) {
@@ -14,8 +14,8 @@ export function hash(source: string, modulus?: number): string {
   }
 
   if (modulus) {
-    return (Math.abs(hash) % modulus).toString(32);
+    return Math.abs(hash) % modulus;
   } else {
-    return Math.abs(hash).toString(32);
+    return Math.abs(hash);
   }
 }

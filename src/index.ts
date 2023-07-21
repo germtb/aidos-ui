@@ -10,6 +10,7 @@ export * from "./BaseView";
 export * from "./Box";
 export * from "./Button";
 export * from "./Calendar";
+export * from "./numberToBase";
 export * from "./Checkbox";
 export * from "./Circle";
 export * from "./Column";

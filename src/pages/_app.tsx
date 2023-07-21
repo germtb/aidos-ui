@@ -94,6 +94,8 @@ const pages: Array<Page> = [
   { type: "link", page: "useNavigation" },
   { type: "link", page: "useKeyboard" },
   { type: "link", page: "usePromise" },
+  { type: "header", label: "Utils" },
+  { type: "link", page: "Hashing" },
 ];
 
 const components = {

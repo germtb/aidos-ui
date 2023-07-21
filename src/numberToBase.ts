@@ -37,6 +37,9 @@ export function numberToBase(
 
   let result = [];
 
+  // To make numbers 1 indexed
+  number += 1;
+
   while (number >= base.length) {
     const index = number % base.length;
     number = Math.floor(number / base.length) - 1;
