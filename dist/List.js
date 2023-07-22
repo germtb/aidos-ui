@@ -9,7 +9,7 @@ export function List({ ariaLabel, jsStyle, autofocus = false, navigation = true,
             !bare && {
                 border: `1px solid ${cssVar("--divider")}`,
                 borderRadius: cssVar("--border-radius-l"),
-                background: cssVar("--overlay-background"),
+                backgroundColor: cssVar("--overlay-background"),
             },
             jsStyle,
         ], ...otherProps }));

@@ -8,7 +8,7 @@ export const RangeInput = React.forwardRef(({ value, onValueChange, rootJSStyle,
             {
                 ":has(:focus-visible)": {
                     borderRadius: cssVar("--border-radius-m"),
-                    background: cssVar("--light-highlight"),
+                    backgroundColor: cssVar("--light-highlight"),
                 },
             },
             rootJSStyle,
@@ -16,7 +16,7 @@ export const RangeInput = React.forwardRef(({ value, onValueChange, rootJSStyle,
                     onValueChange(parseFloat(e.target.value));
                 }, jsStyle: [
                     {
-                        background: cssVar("--primary-background"),
+                        backgroundColor: cssVar("--primary-background"),
                         flexGrow: 1,
                         color: cssVar("--primary-text"),
                         margin: 0,

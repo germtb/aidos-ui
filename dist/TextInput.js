@@ -14,12 +14,12 @@ export const TextInput = React.forwardRef(({ value, onValueChange, rootJSStyle, 
                 ? {
                     backgroundColor: "inherit",
                     ":has(:focus-visible)": {
-                        background: cssVar("--light-highlight"),
+                        backgroundColor: cssVar("--light-highlight"),
                     },
                 }
                 : {
                     border: `1px solid ${cssVar("--divider")}`,
-                    background: cssVar("--overlay-background"),
+                    backgroundColor: cssVar("--overlay-background"),
                     ":has(:focus-visible)": {
                         outline: `2px solid ${cssVar("--highlight")}`,
                         outlineOffset: -2,

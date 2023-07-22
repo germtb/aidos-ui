@@ -5,7 +5,7 @@ export function ListHeaderItem({ bare, highlight, headline, body, withDivider, a
     return (_jsx(BaseListItem, { bare: bare, headline: headline, headlineColor: highlight ? (bare ? "highlight" : "light") : "primary", headlineBold: true, body: body, addOn: addOn, addOnPosition: addOnPosition, withDivider: bare ? false : withDivider, jsStyle: bare
             ? null
             : {
-                background: highlight
+                backgroundColor: highlight
                     ? cssVar("--highlight")
                     : cssVar("--secondary-background"),
             }, children: ({ content }) => content }));

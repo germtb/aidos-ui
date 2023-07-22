@@ -8,7 +8,7 @@ const jsStyles = {
     tooltip: {
         top: "-100%",
         transform: "translateY(50%)",
-        background: cssVar("--primary-background"),
+        backgroundColor: cssVar("--primary-background"),
         padding: cssVar("--spacing-s"),
         borderRadius: cssVar("--border-radius-m"),
         border: `1px solid ${cssVar("--divider")}`,
