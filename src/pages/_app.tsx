@@ -14,6 +14,7 @@ import {
   mobile,
   tablet,
 } from "../jss";
+import { Tabs } from "../Tabs";
 import { MDXProvider } from "@mdx-js/react";
 import { Providers } from "../Providers";
 import { BaseView } from "../BaseView";
@@ -89,6 +90,7 @@ const pages: Array<Page> = [
   { type: "link", page: "ProgressBar" },
   { type: "link", page: "ProgressCircle" },
   { type: "header", label: "Complex components" },
+  { type: "link", page: "Tabs" },
   { type: "link", page: "Calendar" },
   { type: "header", label: "Hooks" },
   { type: "link", page: "useCookie" },
@@ -168,7 +170,7 @@ const components = {
       className={monospace.className}
       style={{
         color: cssVar("--primary-text"),
-        background: cssVar("--secondary-background"),
+        backgroundColor: cssVar("--secondary-background"),
         borderRadius: cssVar("--border-radius-m"),
         padding: cssVar("--spacing-xs"),
         border: `1px solid ${cssVar("--divider")}`,
@@ -400,7 +402,7 @@ export default function App({ Component, pageProps }: AppProps) {
                     zIndex: 1,
                     padding: cssVar("--spacing-m"),
                     overflow: "hidden",
-                    background: cssVar("--primary-background"),
+                    backgroundColor: cssVar("--primary-background"),
                   },
                   mobile({
                     position: "absolute",

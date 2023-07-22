@@ -1,8 +1,7 @@
-import React, { ReactNode, useId, useState } from "react";
+import React from "react";
 import { BaseInput, BaseInputProps } from "./BaseInput";
 import { Row } from "./Row";
-import { Gap, JSStyle, Padding, cssVar, getPadding } from "./jss";
-import { Icon } from "./Icon";
+import { Gap, JSStyle, Padding, cssVar } from "./jss";
 
 export interface RangeInputProps extends BaseInputProps {
   onValueChange: (value: number) => void;
@@ -43,7 +42,7 @@ export const RangeInput = React.forwardRef(
           {
             ":has(:focus-visible)": {
               borderRadius: cssVar("--border-radius-m"),
-              background: cssVar("--light-highlight"),
+              backgroundColor: cssVar("--light-highlight"),
             },
           },
           rootJSStyle,
@@ -63,7 +62,7 @@ export const RangeInput = React.forwardRef(
           }}
           jsStyle={[
             {
-              background: cssVar("--primary-background"),
+              backgroundColor: cssVar("--primary-background"),
               flexGrow: 1,
               color: cssVar("--primary-text"),
               margin: 0,

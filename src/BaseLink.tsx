@@ -33,6 +33,7 @@ export const BaseLink = React.forwardRef(
       animateInteraction = true,
       padding,
       href,
+      role = "link",
       ...otherProps
     }: BaseLinkProps,
     ref?: React.Ref<HTMLAnchorElement>
@@ -44,7 +45,7 @@ export const BaseLink = React.forwardRef(
         {...otherProps}
         aria-disabled={disabled ? true : undefined}
         href={href}
-        role="link"
+        role={role}
         ref={ref}
         onClick={
           onClick

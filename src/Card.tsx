@@ -5,7 +5,7 @@ export function Card({ children }: { children: JSX.Element }) {
   return (
     <BaseView
       jsStyle={{
-        background: cssVar("--primary-background"),
+        backgroundColor: cssVar("--primary-background"),
         borderRadius: cssVar("--border-radius-l"),
         padding: cssVar("--spacing-l"),
         border: `1px solid ${cssVar("--divider")}`,

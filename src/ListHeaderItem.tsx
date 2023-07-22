@@ -33,7 +33,7 @@ export function ListHeaderItem({
         bare
           ? null
           : {
-              background: highlight
+              backgroundColor: highlight
                 ? cssVar("--highlight")
                 : cssVar("--secondary-background"),
             }
