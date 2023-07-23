@@ -14,7 +14,6 @@ import {
   mobile,
   tablet,
 } from "../jss";
-import { Tabs } from "../Tabs";
 import { MDXProvider } from "@mdx-js/react";
 import { Providers } from "../Providers";
 import { BaseView } from "../BaseView";
@@ -31,6 +30,7 @@ import { IconLink } from "../IconLink";
 import { TextInput } from "../TextInput";
 import { DarkModeToggle } from "../DarkMode";
 import { useKeyboard } from "../useKeyboard";
+import { Sublist } from "../Sublist";
 
 import "./prism.css";
 import { IconButton } from "../IconButton";
@@ -40,17 +40,20 @@ import { BaseLink, BaseLinkComponentOverrideContext } from "../BaseLink";
 
 const monospace = Roboto({ weight: "400", subsets: ["latin"] });
 
+type PageLink = {
+  type: "link";
+  page: string;
+  name?: string;
+  headlineSize?: Size;
+  headlineBold?: boolean;
+};
+
 type Page =
+  | PageLink
   | {
-      type: "header";
+      type: "section";
       label: string;
-    }
-  | {
-      type: "link";
-      page: string;
-      name?: string;
-      headlineSize?: Size;
-      headlineBold?: boolean;
+      content: Array<PageLink>;
     };
 
 const pages: Array<Page> = [
@@ -61,45 +64,91 @@ const pages: Array<Page> = [
     headlineSize: "large",
     headlineBold: true,
   },
-  { type: "header", label: "CSS" },
-  { type: "link", page: "css-in-js", name: "jss" },
-  { type: "header", label: "Primary components" },
-  { type: "link", page: "FlexLayout" },
-  { type: "link", page: "Text" },
-  { type: "link", page: "TextPairing" },
-  { type: "link", page: "Icon" },
-  { type: "header", label: "Buttons and links" },
-  { type: "link", page: "Button" },
-  { type: "link", page: "Link" },
-  { type: "link", page: "IconButton" },
-  { type: "header", label: "Inputs" },
-  { type: "link", page: "TextInput" },
-  { type: "link", page: "RangeInput" },
-  { type: "link", page: "TimeInput" },
-  { type: "link", page: "Checkbox" },
-  { type: "header", label: "List" },
-  { type: "link", page: "List" },
-  { type: "link", page: "ListHeader" },
-  { type: "link", page: "navigation", name: "List navigation" },
-  { type: "header", label: "Modals" },
-  { type: "link", page: "Dialog" },
-  { type: "link", page: "Popover" },
-  { type: "link", page: "Tooltip" },
-  { type: "header", label: "Visual indicators" },
-  { type: "link", page: "Badge" },
-  { type: "link", page: "ProgressBar" },
-  { type: "link", page: "ProgressCircle" },
-  { type: "header", label: "Complex components" },
-  { type: "link", page: "Tabs" },
-  { type: "link", page: "Calendar" },
-  { type: "header", label: "Hooks" },
-  { type: "link", page: "useCookie" },
-  { type: "link", page: "useNavigation" },
-  { type: "link", page: "useKeyboard" },
-  { type: "link", page: "useRefEffect" },
-  { type: "link", page: "usePromise" },
-  { type: "header", label: "Utils" },
-  { type: "link", page: "Hashing" },
+  {
+    type: "section",
+    label: "CSS",
+    content: [{ type: "link", page: "css-in-js", name: "jss" }],
+  },
+  {
+    type: "section",
+    label: "Primary components",
+    content: [
+      { type: "link", page: "FlexLayout" },
+      { type: "link", page: "Text" },
+      { type: "link", page: "TextPairing" },
+      { type: "link", page: "Icon" },
+    ],
+  },
+  {
+    type: "section",
+    label: "Buttons and links",
+    content: [
+      { type: "link", page: "Button" },
+      { type: "link", page: "Link" },
+      { type: "link", page: "IconButton" },
+    ],
+  },
+  {
+    type: "section",
+    label: "Inputs",
+    content: [
+      { type: "link", page: "TextInput" },
+      { type: "link", page: "RangeInput" },
+      { type: "link", page: "TimeInput" },
+      { type: "link", page: "Checkbox" },
+    ],
+  },
+  {
+    type: "section",
+    label: "List",
+    content: [
+      { type: "link", page: "List" },
+      { type: "link", page: "ListHeader" },
+      { type: "link", page: "navigation", name: "List navigation" },
+    ],
+  },
+  {
+    type: "section",
+    label: "Modals",
+    content: [
+      { type: "link", page: "Dialog" },
+      { type: "link", page: "Popover" },
+      { type: "link", page: "Tooltip" },
+    ],
+  },
+  {
+    type: "section",
+    label: "Visual indicators",
+    content: [
+      { type: "link", page: "Badge" },
+      { type: "link", page: "ProgressBar" },
+      { type: "link", page: "ProgressCircle" },
+    ],
+  },
+  {
+    type: "section",
+    label: "Complex components",
+    content: [
+      { type: "link", page: "Tabs" },
+      { type: "link", page: "Calendar" },
+    ],
+  },
+  {
+    type: "section",
+    label: "Hooks",
+    content: [
+      { type: "link", page: "useCookie" },
+      { type: "link", page: "useNavigation" },
+      { type: "link", page: "useKeyboard" },
+      { type: "link", page: "useRefEffect" },
+      { type: "link", page: "usePromise" },
+    ],
+  },
+  {
+    type: "section",
+    label: "Utils",
+    content: [{ type: "link", page: "Hashing" }],
+  },
 ];
 
 const components = {
@@ -279,16 +328,16 @@ export default function App({ Component, pageProps }: AppProps) {
 
   filteredPagesRef.current =
     sanetisedQuery.length > 0
-      ? pages.filter((element) => {
-          if (element.type == "header") {
-            return false;
-          }
-
-          return (
-            element.page.toLowerCase().includes(sanetisedQuery) ||
-            element?.name?.toLowerCase()?.includes(sanetisedQuery)
-          );
-        })
+      ? pages
+          .flatMap((element) =>
+            element.type === "section" ? element.content : element
+          )
+          .filter((element) => {
+            return (
+              element.page.toLowerCase().includes(sanetisedQuery) ||
+              element?.name?.toLowerCase()?.includes(sanetisedQuery)
+            );
+          })
       : pages;
 
   useEffect(() => {
@@ -429,7 +478,10 @@ export default function App({ Component, pageProps }: AppProps) {
                   jsStyle={[{ overflow: "scroll" }]}
                   ariaLabel={"API"}
                 >
-                  {filteredPagesRef.current.map((element, index) => {
+                  {(filteredPagesRef.current.length > 0
+                    ? filteredPagesRef.current
+                    : pages
+                  ).map((element, index) => {
                     if (element.type === "link") {
                       const page = element.page;
                       return (
@@ -451,13 +503,36 @@ export default function App({ Component, pageProps }: AppProps) {
                           headlineBold={element.headlineBold}
                         />
                       );
-                    } else if (element.type === "header") {
+                    } else if (element.type === "section") {
                       return (
-                        <ListHeaderItem
+                        <Sublist
+                          key={`section-${element.label}`}
+                          label={element.label}
                           bare
-                          headline={element.label}
-                          key={`header-${element.label}`}
-                        />
+                        >
+                          {element.content.map((element) => {
+                            const page = element.page;
+                            return (
+                              <ListLinkItem
+                                key={page}
+                                bare
+                                onClick={() => {
+                                  setPathname(`/${page}`);
+                                  setShowList(false);
+                                }}
+                                selected={
+                                  sanetisedQuery.length > 0
+                                    ? index === queryIndex
+                                    : pathname === `/${page}`
+                                }
+                                href={`/${page}`}
+                                headline={element.name ?? page}
+                                headlineSize={element.headlineSize}
+                                headlineBold={element.headlineBold}
+                              />
+                            );
+                          })}
+                        </Sublist>
                       );
                     } else {
                       const _: never = element;

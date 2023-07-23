@@ -148,6 +148,7 @@ export type IconType =
   | "fa-chevron-circle-up"
   | "fa-chevron-down"
   | "fa-chevron-left"
+  | "fa-solid:chevron-right"
   | "fa-chevron-right"
   | "fa-chevron-up"
   | "fa-child"

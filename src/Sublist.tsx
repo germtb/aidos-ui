@@ -45,7 +45,11 @@ export function Sublist({
                 },
               ]}
             >
-              <Icon color="primary" size="medium" icon="fa-chevron-right" />
+              <Icon
+                color="primary"
+                size="medium"
+                icon="fa-solid:chevron-right"
+              />
             </Box>
           </Row>
         }
