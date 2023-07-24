@@ -423,7 +423,7 @@ export default function App({ Component, pageProps }: AppProps) {
                   <IconLink
                     aria-label="github"
                     target="_blank"
-                    href="https://github.com/germtb/simple-ui"
+                    href="https://github.com/germtb/aidos-ui"
                     icon="fa-github"
                     size="medium"
                     color="secondary"
