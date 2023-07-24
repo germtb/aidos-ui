@@ -13,7 +13,7 @@ const VERSION = 1;
 
 export function createStorage<State>({
   initialState,
-  name = "simple-storage",
+  name = "aidos-storage",
 }: {
   initialState: State;
   name?: string;

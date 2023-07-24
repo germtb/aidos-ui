@@ -44,7 +44,7 @@ const initializeIcons = () => {
         return;
     }
     const script = document.createElement("script");
-    script.src = "https://code.iconify.design/2/2.2.1/iconify.min.js";
+    script.src = "https://code.iconify.design/3/3.1.1/iconify.min.js";
     script.id = "iconify";
     document.head.appendChild(script);
     initialized = true;

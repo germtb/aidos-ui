@@ -1,6 +1,6 @@
 {
-  "name": "simple-ui-core",
-  "version": "1.0.7",
+  "name": "aidos-ui",
+  "version": "3.0.0",
   "description": "A simple UI framework",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

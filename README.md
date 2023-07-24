@@ -1,4 +1,4 @@
-# Simple UI
+# Aidos UI
 
 This is a React design system library with many utilities and zero dependencies. It was built with the aim to be simple, lightweight and beautiful.
 
@@ -41,7 +41,7 @@ As few dependencies as possible, to keep things light and under control. The onl
 This library can be installed through npm
 
 ```bash
-npm install --save simple-ui-core
+npm install --save aidos-ui
 ```
 
 ---

@@ -60,7 +60,7 @@ const pages: Array<Page> = [
   {
     type: "link",
     page: "",
-    name: "Simple UI",
+    name: "Aidos UI",
     headlineSize: "large",
     headlineBold: true,
   },
@@ -347,8 +347,8 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Simple UI</title>
-        <meta name="description" content="A simple UI toolkit" />
+        <title>Aidos UI</title>
+        <meta name="description" content="A humble UI toolkit" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <BaseLinkComponentOverrideContext.Provider value={Link}>

@@ -3,7 +3,7 @@ import React from "react";
 import { useState, useCallback, useEffect, createContext, useRef, } from "react";
 import { createEmitter } from "./Emitter";
 const VERSION = 1;
-export function createStorage({ initialState, name = "simple-storage", }) {
+export function createStorage({ initialState, name = "aidos-storage", }) {
     const StorageContext = createContext({
         subscribe: () => {
             throw new Error("Not implemented");
