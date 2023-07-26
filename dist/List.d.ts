@@ -5,6 +5,7 @@ interface ListProps extends BaseListProps {
     autofocus?: boolean;
     role?: undefined;
     navigation?: boolean;
+    carded?: boolean;
 }
-export declare function List({ ariaLabel, jsStyle, autofocus, navigation, bare, ...otherProps }: ListProps): import("react/jsx-runtime").JSX.Element;
+export declare function List({ ariaLabel, jsStyle, autofocus, navigation, bare, carded, ...otherProps }: ListProps): import("react/jsx-runtime").JSX.Element;
 export {};

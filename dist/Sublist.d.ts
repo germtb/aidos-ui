@@ -1,9 +1,10 @@
 import React, { ReactNode } from "react";
 import { JSStyle } from "./jss";
-export declare function Sublist({ children, label, initialState, jsStyle, secondaryAddOn, bare, }: {
+export declare function Sublist({ children, label, labelBold, initialState, jsStyle, secondaryAddOn, bare, }: {
     bare?: boolean;
     children: React.ReactNode;
     label: string;
+    labelBold?: boolean;
     initialState?: {
         collapsed: boolean;
     };
