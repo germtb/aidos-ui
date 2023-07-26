@@ -11,8 +11,8 @@ export declare function JSStylesProvider({ themes, children, }: {
         light: Theme;
     };
     children: JSX.Element;
-}): JSX.Element;
-export declare function JSServerStyles(): JSX.Element;
+}): import("react/jsx-runtime").JSX.Element;
+export declare function JSServerStyles(): import("react/jsx-runtime").JSX.Element;
 export type Size = "xsmall" | "small" | "medium" | "large" | "xlarge";
 export type Spacing = "none" | Size;
 export type Gap = Spacing;

@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { BaseListProps } from "./BaseList";
 interface ListProps extends BaseListProps {
     ariaLabel: string;
@@ -7,5 +6,5 @@ interface ListProps extends BaseListProps {
     role?: undefined;
     navigation?: boolean;
 }
-export declare function List({ ariaLabel, jsStyle, autofocus, navigation, bare, ...otherProps }: ListProps): JSX.Element;
+export declare function List({ ariaLabel, jsStyle, autofocus, navigation, bare, ...otherProps }: ListProps): import("react/jsx-runtime").JSX.Element;
 export {};

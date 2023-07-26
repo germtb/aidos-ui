@@ -8,4 +8,4 @@ export declare function ListHeaderItem({ bare, highlight, headline, body, withDi
     withDivider?: boolean;
     addOn?: ReactNode;
     addOnPosition?: Position;
-}): JSX.Element;
+}): import("react/jsx-runtime").JSX.Element;

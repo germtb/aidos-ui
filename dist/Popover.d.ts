@@ -3,7 +3,7 @@ import { JSStyle } from "./jss";
 export declare function Popover({ children, close }: {
     children: any;
     close: any;
-}): JSX.Element;
+}): import("react/jsx-runtime").JSX.Element;
 interface PopoverTriggerProps<Input> {
     PopoverComponent: (props: {
         close: () => void;
@@ -17,5 +17,5 @@ interface PopoverTriggerProps<Input> {
         toggle: (input: Input) => void;
     }) => JSX.Element;
 }
-export declare function PopoverTrigger<Input>({ PopoverComponent, jsStyle, grow, shrink, tag, children, }: PopoverTriggerProps<Input>): JSX.Element;
+export declare function PopoverTrigger<Input>({ PopoverComponent, jsStyle, grow, shrink, tag, children, }: PopoverTriggerProps<Input>): import("react/jsx-runtime").JSX.Element;
 export {};

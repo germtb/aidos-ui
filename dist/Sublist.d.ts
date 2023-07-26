@@ -9,4 +9,4 @@ export declare function Sublist({ children, label, initialState, jsStyle, second
     };
     jsStyle?: JSStyle;
     secondaryAddOn?: ReactNode;
-}): JSX.Element;
+}): import("react/jsx-runtime").JSX.Element;

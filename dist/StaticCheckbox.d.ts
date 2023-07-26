@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { Size } from "./jss";
 import { IconType } from "./IconType";
 type StaticCheckboxProps = {
@@ -13,5 +12,5 @@ export declare const sizes: {
     large: number;
     xlarge: number;
 };
-export declare function StaticCheckbox({ checked, size, icon, }: StaticCheckboxProps): JSX.Element;
+export declare function StaticCheckbox({ checked, size, icon, }: StaticCheckboxProps): import("react/jsx-runtime").JSX.Element;
 export {};

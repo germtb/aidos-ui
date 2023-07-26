@@ -9,4 +9,4 @@ export declare function Icon({ icon, size, color, ariaLabel, }: {
     icon: IconType;
     size: Size;
     color: TextColor;
-}): JSX.Element;
+}): import("react/jsx-runtime").JSX.Element;

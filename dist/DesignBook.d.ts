@@ -1,2 +1,1 @@
-/// <reference types="react" />
-export declare function DesignBook(): JSX.Element;
+export declare function DesignBook(): import("react/jsx-runtime").JSX.Element;

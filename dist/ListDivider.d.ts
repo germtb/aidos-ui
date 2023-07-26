@@ -1,2 +1,1 @@
-/// <reference types="react" />
-export declare function ListDivider(): JSX.Element;
+export declare function ListDivider(): import("react/jsx-runtime").JSX.Element;

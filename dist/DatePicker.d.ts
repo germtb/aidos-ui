@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { TextColor } from "./jss";
 export interface DatePickerProps {
     id: string;
@@ -9,4 +8,4 @@ export interface DatePickerProps {
     max?: string;
     onDateChange: (date: Date) => void;
 }
-export declare function DatePicker({ id, label, color, date, onDateChange, }: DatePickerProps): JSX.Element;
+export declare function DatePicker({ id, label, color, date, onDateChange, }: DatePickerProps): import("react/jsx-runtime").JSX.Element;

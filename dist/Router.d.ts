@@ -1,2 +1,1 @@
-/// <reference types="react" />
-export declare function Router(): JSX.Element;
+export declare function Router(): import("react/jsx-runtime").JSX.Element;

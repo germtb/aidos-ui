@@ -30,7 +30,7 @@ type StateMachineContextType<State, Context> = {
 export declare function stateMachineContextFactory<State, Transition, Context>(stateMachineConfig: StateMachineConfig<State, Transition, Context>): {
     Provider: ({ children }: {
         children: ReactNode;
-    }) => JSX.Element;
+    }) => import("react/jsx-runtime").JSX.Element;
     useStateMachine: () => StateMachineContextType<State, Context>;
 };
 export {};

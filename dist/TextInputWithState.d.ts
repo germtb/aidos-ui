@@ -7,4 +7,4 @@ export interface TextInputWithStateProps extends BaseInputProps {
     icon?: IconType;
     onChange?: undefined;
 }
-export declare function TextInputWithState({ valueRef, onValueChange: externalOnChange, icon, ...otherProps }: TextInputWithStateProps): JSX.Element;
+export declare function TextInputWithState({ valueRef, onValueChange: externalOnChange, icon, ...otherProps }: TextInputWithStateProps): import("react/jsx-runtime").JSX.Element;

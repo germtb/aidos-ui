@@ -6,4 +6,4 @@ export declare function Providers({ children, themes, }: {
         light: Theme;
         dark: Theme;
     };
-}): JSX.Element;
+}): import("react/jsx-runtime").JSX.Element;
