@@ -26,7 +26,6 @@ import { TextInput } from "../TextInput";
 import { DarkModeToggle } from "../DarkMode";
 import { useKeyboard } from "../useKeyboard";
 import { Sublist } from "../Sublist";
-import { CancelablePromise } from "../CancelablePromise";
 
 import "./prism.css";
 import { IconButton } from "../IconButton";
@@ -397,6 +396,7 @@ export default function App({ Component, pageProps }: AppProps) {
                         <Sublist
                           key={`section-${element.label}`}
                           label={element.label}
+                          labelBold
                           bare
                         >
                           {element.content.map((element) => {

@@ -8,6 +8,7 @@ import { JSStyle } from "./jss";
 export function Sublist({
   children,
   label,
+  labelBold,
   initialState = { collapsed: false },
   jsStyle,
   secondaryAddOn,
@@ -16,6 +17,7 @@ export function Sublist({
   bare?: boolean;
   children: React.ReactNode;
   label: string;
+  labelBold?: boolean;
   initialState?: {
     collapsed: boolean;
   };
@@ -29,6 +31,7 @@ export function Sublist({
       <ListButtonItem
         bare={bare}
         headline={label}
+        headlineBold={labelBold}
         onClick={() => setCollapsed((x) => !x)}
         jsStyle={jsStyle}
         addOn={

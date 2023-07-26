@@ -60,7 +60,7 @@ export const pages: Array<Page> = [
   },
   {
     type: "section",
-    label: "List",
+    label: "List components",
     content: [
       { type: "link", page: "List" },
       { type: "link", page: "ListHeader" },

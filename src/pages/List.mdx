@@ -11,6 +11,8 @@ The `List` component is used to represent data in a list, it has several compone
 
 ## Base list
 
+The default list style has round borders and high contrast background. It can opt out of the roundedness (for example it is useful to go edge-to-edge on small displays) and it also support a bare style, with much more subtle styling.
+
 <List ariaLabel="example">
   <ListItem
     headline="Headline"
@@ -105,9 +107,105 @@ The `List` component is used to represent data in a list, it has several compone
 </List>
 ```
 
+<List carded={false} ariaLabel="example">
+  <ListItem
+    headline="Headline"
+    body="Body"
+    addOn={<Icon color="primary" icon="fa-bell" size="medium" />}
+    addOnPosition="start"
+  />
+  <ListButtonItem
+    color="positive"
+    headline="Positive button"
+    addOn={<Icon color="highlight" icon="fa-plus" size="medium" />}
+    addOnPosition="start"
+    onClick={() => {}}
+  />
+  <ListButtonItem
+    color="secondary"
+    headline="Secondary button"
+    addOn={<Icon color="primary" icon="fa-bicycle" size="medium" />}
+    addOnPosition="start"
+    onClick={() => {}}
+  />
+  <ListButtonItem
+    color="negative"
+    headline="Negative button"
+    addOn={<Icon color="negative" icon="fa-ban" size="medium" />}
+    addOnPosition="start"
+    onClick={() => {}}
+  />
+  <ListLinkItem
+    href="/"
+    color="secondary"
+    headline="Selected link"
+    selected
+    addOn={<Icon color="primary" icon="fa-renren" size="medium" />}
+    addOnPosition="start"
+  />
+  <ListLinkItem
+    href="/"
+    color="secondary"
+    headline="Link"
+    addOn={<Icon color="primary" icon="fa-renren" size="medium" />}
+    addOnPosition="start"
+    withDivider={false}
+  />
+</List>
+
+```js
+<List carded={false} ariaLabel="example">
+  <ListItem
+    headline="Headline"
+    body="Body"
+    addOn={<Icon color="primary" icon="fa-bell" size="medium" />}
+    addOnPosition="start"
+  />
+  <ListButtonItem
+    color="positive"
+    headline="Positive button"
+    addOn={<Icon color="highlight" icon="fa-plus" size="medium" />}
+    addOnPosition="start"
+    onClick={() => {}}
+  />
+  <ListButtonItem
+    color="secondary"
+    headline="Secondary button"
+    addOn={<Icon color="primary" icon="fa-bicycle" size="medium" />}
+    addOnPosition="start"
+    onClick={() => {}}
+  />
+  <ListButtonItem
+    color="negative"
+    headline="Negative button"
+    addOn={<Icon color="negative" icon="fa-ban" size="medium" />}
+    addOnPosition="start"
+    onClick={() => {}}
+  />
+  <ListLinkItem
+    href="/"
+    color="secondary"
+    headline="Selected link"
+    selected
+    addOn={<Icon color="primary" icon="fa-renren" size="medium" />}
+    addOnPosition="start"
+  />
+  <ListLinkItem
+    href="/"
+    color="secondary"
+    headline="Link"
+    addOn={<Icon color="primary" icon="fa-renren" size="medium" />}
+    addOnPosition="start"
+    withDivider={false}
+  />
+</List>
+```
+
 ---
 
 ## Bare list
+
+The bare list, like other components that support the `bare` style, is much more subtle, has less contrast and no borders. For elements that are constantly on display but may not always be necessary (for example navigation elements) it could be preferred to make the user interface cleaner and lighter.
 
 <List bare ariaLabel="example">
   <ListItem
@@ -237,7 +335,7 @@ The `List` component is used to represent data in a list, it has several compone
 
 ---
 
-## navigation
+## Keyboard navigation
 
 Lists support keyboard navigation by default via the `useNavigation` hook. It can be disabled by passing the prop `navigation` and tries to emulate the [grid layout spec](https://www.w3.org/WAI/ARIA/apg/patterns/grid/examples/layout-grids/):
 
