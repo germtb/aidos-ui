@@ -10,7 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const __rootdir = path.join(__dirname, "..");
 const __pages = path.join(__rootdir, "src", "pages");
-const __public = path.join(__rootdir, "public");
+const __target = path.join(__rootdir, "src", "docs");
 
 const generateEmbeddings = await pipeline(
   "feature-extraction",
@@ -50,8 +50,8 @@ for (const file of files) {
 }
 
 await fs.writeFile(
-  path.join(__public, "index.json"),
-  JSON.stringify({ index })
+  path.join(__target, "searchIndex.ts"),
+  `export const index = ${JSON.stringify({ index })}`
 );
 
 function parseChildren(children) {

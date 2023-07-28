@@ -36,16 +36,13 @@ import { DocsMDXProvider, labelToID } from "../docs/mdx";
 import { dot } from "@xenova/transformers";
 import { pages } from "../docs/pages";
 
+const transformers = import("@xenova/transformers");
+const searchIndex = import("../docs/searchIndex").then(
+  (module) => module.index
+);
+
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const searchIndex = useRef<Promise<{
-    index: Array<{
-      embedding: Array<number>;
-      filename: string;
-      heading: string;
-      headingDepth: number;
-    }>;
-  }> | null>(null);
   const [pathname, setPathname] = useState(router.pathname);
   const [showList, setShowList] = useState(false);
   const [query, setQuery] = useState("");
@@ -152,17 +149,12 @@ export default function App({ Component, pageProps }: AppProps) {
     let state = { cancel: false };
 
     async function run() {
-      if (searchIndex.current == null) {
-        searchIndex.current = fetch("index.json").then((data) => data.json());
-      }
+      const data = await searchIndex;
+
       if (state.cancel) {
         return;
       }
-      const data = await searchIndex.current;
-      if (state.cancel) {
-        return;
-      }
-      const { pipeline } = await import("@xenova/transformers");
+      const { pipeline } = await transformers;
       if (state.cancel) {
         return;
       }
