@@ -4,6 +4,7 @@ import { Icon } from "./Icon";
 import { Box } from "./Box";
 import { Row } from "./Row";
 import { JSStyle } from "./jss";
+import { useListContext } from "./List";
 
 export function Sublist({
   children,
@@ -12,9 +13,7 @@ export function Sublist({
   initialState = { collapsed: false },
   jsStyle,
   secondaryAddOn,
-  bare,
 }: {
-  bare?: boolean;
   children: React.ReactNode;
   label: string;
   labelBold?: boolean;
@@ -25,11 +24,9 @@ export function Sublist({
   secondaryAddOn?: ReactNode;
 }) {
   const [collapsed, setCollapsed] = React.useState(initialState.collapsed);
-
   return (
     <>
       <ListButtonItem
-        bare={bare}
         headline={label}
         headlineBold={labelBold}
         onClick={() => setCollapsed((x) => !x)}

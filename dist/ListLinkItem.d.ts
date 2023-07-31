@@ -10,7 +10,6 @@ interface ListLinkItemProps extends BaseListItemProps {
     body?: string;
     disabled?: boolean;
     selected?: boolean;
-    bare?: boolean;
     target?: string;
 }
 export declare const ListLinkItem: React.ForwardRefExoticComponent<Omit<ListLinkItemProps, "ref"> & React.RefAttributes<HTMLAnchorElement>>;

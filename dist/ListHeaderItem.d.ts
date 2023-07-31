@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import { Position } from "./jss";
-export declare function ListHeaderItem({ bare, highlight, headline, body, withDivider, addOn, addOnPosition, }: {
-    bare?: boolean;
+export declare function ListHeaderItem({ highlight, headline, body, withDivider, addOn, addOnPosition, }: {
     highlight?: boolean;
     headline: string;
     body?: string;

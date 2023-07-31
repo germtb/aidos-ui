@@ -3,3 +3,4 @@ node_modules/
 .watchmanconfig
 .next
 tsconfig.tsbuildinfo
+.env

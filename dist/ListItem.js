@@ -1,7 +1,9 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import React from "react";
 import { BaseListItem } from "./BaseListItem";
+import { useListContext } from "./List";
 export const ListItem = React.forwardRef((props, ref) => {
-    return (_jsx(BaseListItem, { withDivider: !props.bare, ...props, jsStyle: props.jsStyle, ref: ref, children: ({ content }) => content }));
+    const { bare } = useListContext();
+    return (_jsx(BaseListItem, { withDivider: !bare, ...props, jsStyle: props.jsStyle, ref: ref, children: ({ content }) => content }));
 });
 //# sourceMappingURL=ListItem.js.map

@@ -7,6 +7,7 @@ import {
   getInteractableListItemJSStyles,
 } from "./Interactable";
 import { BaseButton } from "./BaseButton";
+import { useListContext } from "./List";
 
 // @ts-ignore
 interface ListButtonItemProps extends BaseListItemProps {
@@ -16,7 +17,6 @@ interface ListButtonItemProps extends BaseListItemProps {
   body?: string;
   disabled?: boolean;
   selected?: boolean;
-  bare?: boolean;
   children?: void;
 }
 
@@ -30,11 +30,12 @@ export const ListButtonItem = React.forwardRef(
       jsStyle,
       gap,
       selected,
-      bare,
       ...otherProps
     }: ListButtonItemProps,
     ref?: React.Ref<HTMLButtonElement>
   ) => {
+    const { bare } = useListContext();
+
     return (
       <BaseListItem
         withDivider={!bare}
@@ -45,7 +46,6 @@ export const ListButtonItem = React.forwardRef(
         bodyColor={getGlyphColor(color, disabled, true)}
         selected={selected}
         aria-selected={selected}
-        bare={bare}
         {...otherProps}
         jsStyle={jsStyle}
       >

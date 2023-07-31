@@ -8,7 +8,6 @@ interface ListButtonItemProps extends BaseListItemProps {
     body?: string;
     disabled?: boolean;
     selected?: boolean;
-    bare?: boolean;
     children?: void;
 }
 export declare const ListButtonItem: React.ForwardRefExoticComponent<Omit<ListButtonItemProps, "ref"> & React.RefAttributes<HTMLButtonElement>>;

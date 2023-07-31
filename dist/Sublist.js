@@ -4,9 +4,9 @@ import { ListButtonItem } from "./ListButtonItem";
 import { Icon } from "./Icon";
 import { Box } from "./Box";
 import { Row } from "./Row";
-export function Sublist({ children, label, labelBold, initialState = { collapsed: false }, jsStyle, secondaryAddOn, bare, }) {
+export function Sublist({ children, label, labelBold, initialState = { collapsed: false }, jsStyle, secondaryAddOn, }) {
     const [collapsed, setCollapsed] = React.useState(initialState.collapsed);
-    return (_jsxs(_Fragment, { children: [_jsx(ListButtonItem, { bare: bare, headline: label, headlineBold: labelBold, onClick: () => setCollapsed((x) => !x), jsStyle: jsStyle, addOn: _jsxs(Row, { gap: "medium", align: "center", children: [secondaryAddOn, _jsx(Box, { padding: "medium", jsStyle: [
+    return (_jsxs(_Fragment, { children: [_jsx(ListButtonItem, { headline: label, headlineBold: labelBold, onClick: () => setCollapsed((x) => !x), jsStyle: jsStyle, addOn: _jsxs(Row, { gap: "medium", align: "center", children: [secondaryAddOn, _jsx(Box, { padding: "medium", jsStyle: [
                                 {
                                     transition: "transform 0.15s ease-in",
                                 },

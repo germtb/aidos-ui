@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useMemo } from "react";
 import { BaseList, BaseListProps } from "./BaseList";
 import { useNavigation } from "./useNavigation";
 import { cssVar } from "./jss";
@@ -12,6 +12,8 @@ interface ListProps extends BaseListProps {
   carded?: boolean;
 }
 
+const ListContext = React.createContext({ bare: false });
+
 export function List({
   ariaLabel,
   jsStyle,
@@ -22,30 +24,35 @@ export function List({
   ...otherProps
 }: ListProps) {
   const rootRef = useNavigation({ autofocus, enabled: navigation });
+  const contextValue = useMemo(() => ({ bare }), [bare]);
 
   return (
-    <BaseList
-      role="grid"
-      aria-label={ariaLabel}
-      ref={rootRef}
-      jsStyle={[
-        { overflow: "hidden" },
-        !bare && {
-          backgroundColor: cssVar("--overlay-background"),
-        },
-        !bare &&
-          !carded && {
-            borderBottom: `1px solid ${cssVar("--divider")}`,
-            borderTop: `1px solid ${cssVar("--divider")}`,
+    <ListContext.Provider value={contextValue}>
+      <BaseList
+        role="grid"
+        aria-label={ariaLabel}
+        ref={rootRef}
+        jsStyle={[
+          { overflow: "hidden" },
+          !bare && {
+            backgroundColor: cssVar("--overlay-background"),
           },
-        !bare &&
-          carded && {
-            border: `1px solid ${cssVar("--divider")}`,
-            borderRadius: cssVar("--border-radius-l"),
-          },
-        jsStyle,
-      ]}
-      {...otherProps}
-    />
+          !bare &&
+            !carded && {
+              borderBottom: `1px solid ${cssVar("--divider")}`,
+              borderTop: `1px solid ${cssVar("--divider")}`,
+            },
+          !bare &&
+            carded && {
+              border: `1px solid ${cssVar("--divider")}`,
+              borderRadius: cssVar("--border-radius-l"),
+            },
+          jsStyle,
+        ]}
+        {...otherProps}
+      />
+    </ListContext.Provider>
   );
 }
+
+export const useListContext = () => useContext(ListContext);

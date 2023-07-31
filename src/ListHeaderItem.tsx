@@ -1,9 +1,9 @@
 import React, { ReactNode } from "react";
 import { BaseListItem } from "./BaseListItem";
 import { Position, cssVar } from "./jss";
+import { useListContext } from "./List";
 
 export function ListHeaderItem({
-  bare,
   highlight,
   headline,
   body,
@@ -11,7 +11,6 @@ export function ListHeaderItem({
   addOn,
   addOnPosition,
 }: {
-  bare?: boolean;
   highlight?: boolean;
   headline: string;
   body?: string;
@@ -19,9 +18,10 @@ export function ListHeaderItem({
   addOn?: ReactNode;
   addOnPosition?: Position;
 }) {
+  const { bare } = useListContext();
+
   return (
     <BaseListItem
-      bare={bare}
       headline={headline}
       headlineColor={highlight ? (bare ? "highlight" : "light") : "primary"}
       headlineBold={true}

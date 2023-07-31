@@ -22,6 +22,5 @@ export interface BaseListItemProps extends RowProps {
     role?: undefined;
     gap?: Spacing;
     selected?: boolean;
-    bare?: boolean;
 }
 export declare const BaseListItem: React.ForwardRefExoticComponent<Omit<BaseListItemProps, "ref"> & React.RefAttributes<HTMLElement>>;

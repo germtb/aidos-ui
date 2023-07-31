@@ -6,6 +6,7 @@ import { JSStyle, Size, Position, Spacing, TextColor, cssVar } from "./jss";
 import { InteractableColor } from "./Interactable";
 import { TextPairing } from "./TextPairing";
 import { BaseView } from "./BaseView";
+import { useListContext } from "./List";
 
 // @ts-ignore
 export interface BaseListItemProps extends RowProps {
@@ -27,7 +28,6 @@ export interface BaseListItemProps extends RowProps {
   role?: undefined;
   gap?: Spacing;
   selected?: boolean;
-  bare?: boolean;
 }
 
 export const BaseListItem = React.forwardRef(
@@ -50,12 +50,13 @@ export const BaseListItem = React.forwardRef(
       padding = "medium",
       gap = "medium",
       selected,
-      bare,
       headlineBold,
       ...otherProps
     }: BaseListItemProps,
     ref?: React.Ref<HTMLElement>
   ) => {
+    const { bare } = useListContext();
+
     const content = (
       <TextPairing
         headlineBold={headlineBold}

@@ -7,6 +7,7 @@ import {
   getInteractableListItemJSStyles,
 } from "./Interactable";
 import { BaseLink } from "./BaseLink";
+import { useListContext } from "./List";
 
 // @ts-ignore
 interface ListLinkItemProps extends BaseListItemProps {
@@ -18,7 +19,6 @@ interface ListLinkItemProps extends BaseListItemProps {
   body?: string;
   disabled?: boolean;
   selected?: boolean;
-  bare?: boolean;
   target?: string;
 }
 
@@ -32,13 +32,14 @@ export const ListLinkItem = React.forwardRef(
       jsStyle,
       gap,
       selected,
-      bare,
       color = "secondary",
       target,
       ...otherProps
     }: ListLinkItemProps,
     ref?: React.Ref<HTMLAnchorElement>
   ) => {
+    const { bare } = useListContext();
+
     return (
       <BaseListItem
         withDivider={!bare}
@@ -49,7 +50,6 @@ export const ListLinkItem = React.forwardRef(
         headlineColor={getGlyphColor(color, disabled, true)}
         bodyColor={getGlyphColor(color, disabled, true)}
         selected={selected}
-        bare={bare}
         {...otherProps}
         jsStyle={jsStyle}
       >

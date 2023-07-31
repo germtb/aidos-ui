@@ -5,7 +5,9 @@ import { Row } from "./Row";
 import { cssVar } from "./jss";
 import { TextPairing } from "./TextPairing";
 import { BaseView } from "./BaseView";
-export const BaseListItem = React.forwardRef(({ children, jsStyle, withDivider = true, headline, headlineSize = "medium", headlineColor = "primary", headlineAddOn, body, bodySize = "small", bodyColor = "secondary", addOn, addOnPosition, outerAddOn, disabled = false, padding = "medium", gap = "medium", selected, bare, headlineBold, ...otherProps }, ref) => {
+import { useListContext } from "./List";
+export const BaseListItem = React.forwardRef(({ children, jsStyle, withDivider = true, headline, headlineSize = "medium", headlineColor = "primary", headlineAddOn, body, bodySize = "small", bodyColor = "secondary", addOn, addOnPosition, outerAddOn, disabled = false, padding = "medium", gap = "medium", selected, headlineBold, ...otherProps }, ref) => {
+    const { bare } = useListContext();
     const content = (_jsx(TextPairing, { headlineBold: headlineBold, padding: padding, gap: gap, addOn: addOn, addOnPosition: addOnPosition, headline: headline, headlineSize: headlineSize, headlineColor: disabled ? "subtle" : bare && selected ? "highlight" : headlineColor, headlineAddOn: headlineAddOn, body: body, bodySize: bodySize, bodyColor: disabled ? "subtle" : bodyColor, grow: true, shrink: false }));
     return (_jsxs(_Fragment, { children: [_jsxs(Row, { ...otherProps, ref: ref, relative: true, tag: "li", role: "row", jsStyle: [
                     !bare && {
