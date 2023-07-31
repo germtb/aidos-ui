@@ -289,7 +289,7 @@ export default function App({ Component, pageProps }: AppProps) {
                   aria-haspopup="grid"
                   aria-expanded={isQuerying ? "true" : "false"}
                   aria-controls=""
-                  placeholder="Search (⌘K)"
+                  placeholder="Semantic search (⌘K)"
                   value={query}
                   onValueChange={(value) => {
                     setQuery(value);
