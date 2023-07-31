@@ -31,9 +31,13 @@ export const pages: Array<Page> = [
   },
   {
     type: "section",
-    label: "Primary components",
+    label: "Layout",
+    content: [{ type: "link", page: "FlexLayout" }],
+  },
+  {
+    type: "section",
+    label: "Text",
     content: [
-      { type: "link", page: "FlexLayout" },
       { type: "link", page: "Text" },
       { type: "link", page: "TextPairing" },
       { type: "link", page: "Icon" },
@@ -41,11 +45,12 @@ export const pages: Array<Page> = [
   },
   {
     type: "section",
-    label: "Buttons and links",
+    label: "Actions",
     content: [
       { type: "link", page: "Button" },
       { type: "link", page: "Link" },
       { type: "link", page: "IconButton" },
+      { type: "link", page: "Tabs" },
     ],
   },
   {
@@ -87,11 +92,8 @@ export const pages: Array<Page> = [
   },
   {
     type: "section",
-    label: "Complex components",
-    content: [
-      { type: "link", page: "Tabs" },
-      { type: "link", page: "Calendar" },
-    ],
+    label: "Time",
+    content: [{ type: "link", page: "Calendar" }],
   },
   {
     type: "section",

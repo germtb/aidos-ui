@@ -430,7 +430,7 @@ export const lightTheme: Theme = {
 
 export const darkTheme: Theme = {
   /* Background */
-  ["--overlay-background"]: "rgb(22, 23, 24)",
+  ["--overlay-background"]: "rgb(35, 36, 37)",
   ["--primary-background"]: "rgb(42, 43, 46)",
   ["--secondary-background"]: "rgb(65, 66, 67)",
   ["--divider"]: "rgb(70, 72, 73)",
