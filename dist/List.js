@@ -3,10 +3,10 @@ import React, { useContext, useMemo } from "react";
 import { BaseList } from "./BaseList";
 import { useNavigation } from "./useNavigation";
 import { cssVar } from "./jss";
-const ListContext = React.createContext({ bare: false });
+const ListContext = React.createContext({ bare: false, carded: true });
 export function List({ ariaLabel, jsStyle, autofocus = false, navigation = true, bare, carded = true, ...otherProps }) {
     const rootRef = useNavigation({ autofocus, enabled: navigation });
-    const contextValue = useMemo(() => ({ bare }), [bare]);
+    const contextValue = useMemo(() => ({ bare, carded }), [bare, carded]);
     return (_jsx(ListContext.Provider, { value: contextValue, children: _jsx(BaseList, { role: "grid", "aria-label": ariaLabel, ref: rootRef, jsStyle: [
                 { overflow: "hidden" },
                 !bare && {

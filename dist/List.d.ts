@@ -10,5 +10,6 @@ interface ListProps extends BaseListProps {
 export declare function List({ ariaLabel, jsStyle, autofocus, navigation, bare, carded, ...otherProps }: ListProps): import("react/jsx-runtime").JSX.Element;
 export declare const useListContext: () => {
     bare: boolean;
+    carded: boolean;
 };
 export {};
