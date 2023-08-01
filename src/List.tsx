@@ -12,7 +12,7 @@ interface ListProps extends BaseListProps {
   carded?: boolean;
 }
 
-const ListContext = React.createContext({ bare: false });
+const ListContext = React.createContext({ bare: false, carded: true });
 
 export function List({
   ariaLabel,
@@ -24,7 +24,7 @@ export function List({
   ...otherProps
 }: ListProps) {
   const rootRef = useNavigation({ autofocus, enabled: navigation });
-  const contextValue = useMemo(() => ({ bare }), [bare]);
+  const contextValue = useMemo(() => ({ bare, carded }), [bare, carded]);
 
   return (
     <ListContext.Provider value={contextValue}>

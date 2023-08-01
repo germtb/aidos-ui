@@ -55,7 +55,7 @@ export const BaseListItem = React.forwardRef(
     }: BaseListItemProps,
     ref?: React.Ref<HTMLElement>
   ) => {
-    const { bare } = useListContext();
+    const { bare, carded } = useListContext();
 
     const content = (
       <TextPairing
@@ -87,16 +87,17 @@ export const BaseListItem = React.forwardRef(
           tag="li"
           role="row"
           jsStyle={[
-            !bare && {
-              [":first-child *"]: {
-                borderTopLeftRadius: cssVar("--border-radius-l"),
-                borderTopRightRadius: cssVar("--border-radius-l"),
+            !bare &&
+              carded && {
+                [":first-child *"]: {
+                  borderTopLeftRadius: cssVar("--border-radius-l"),
+                  borderTopRightRadius: cssVar("--border-radius-l"),
+                },
+                [":last-child *"]: {
+                  borderBottomLeftRadius: cssVar("--border-radius-l"),
+                  borderBottomRightRadius: cssVar("--border-radius-l"),
+                },
               },
-              [":last-child *"]: {
-                borderBottomLeftRadius: cssVar("--border-radius-l"),
-                borderBottomRightRadius: cssVar("--border-radius-l"),
-              },
-            },
             jsStyle,
           ]}
         >
