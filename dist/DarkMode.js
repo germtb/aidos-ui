@@ -2,11 +2,12 @@ import { jsx as _jsx } from "react/jsx-runtime";
 import React, { useContext, useEffect, useState } from "react";
 import { IconButton } from "./IconButton";
 import { BaseView } from "./BaseView";
+import { isServer } from "./isServer";
 export const DarkModeContext = React.createContext({
     enabled: false,
     toggle: () => { },
 });
-if (typeof window !== "undefined") {
+if (!isServer()) {
     const darkMode = document.cookie
         .split(";")
         .map((c) => c.trim())

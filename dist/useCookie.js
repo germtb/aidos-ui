@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from "react";
+import { isServer } from "./isServer";
 export function hasCookie(key) {
     return (document.cookie
         .split(";")
@@ -17,7 +18,7 @@ export function getCookie(key, deserialize = JSON.parse) {
 export function useCookie(key, { initialValue = null, loadingValue, serialize = JSON.stringify, deserialize = JSON.parse, maxAge = 60 * 60 * 24 * 365, }) {
     const initializationRef = useRef(false);
     const [cookie, setCookie] = useState(() => {
-        if (typeof window !== "undefined") {
+        if (!isServer()) {
             const hasPersistedCookie = hasCookie(key);
             if (hasPersistedCookie) {
                 return getCookie(key, deserialize);
