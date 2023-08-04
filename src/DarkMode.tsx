@@ -1,6 +1,7 @@
 import React, { ReactNode, useContext, useEffect, useState } from "react";
 import { IconButton } from "./IconButton";
 import { BaseView } from "./BaseView";
+import { isServer } from "./isServer";
 
 type State = {
   enabled: boolean;
@@ -12,7 +13,7 @@ export const DarkModeContext = React.createContext<State>({
   toggle: () => {},
 });
 
-if (typeof window !== "undefined") {
+if (!isServer()) {
   const darkMode = document.cookie
     .split(";")
     .map((c) => c.trim())

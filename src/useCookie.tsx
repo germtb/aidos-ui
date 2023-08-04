@@ -1,4 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from "react";
+import { isServer } from "./isServer";
 
 export function hasCookie(key: string): boolean {
   return (
@@ -40,7 +41,7 @@ export function useCookie<T, L>(
 ): [T | L, (t: T | ((prevValue: T | L) => T)) => void] {
   const initializationRef = useRef(false);
   const [cookie, setCookie] = useState<T | L>(() => {
-    if (typeof window !== "undefined") {
+    if (!isServer()) {
       const hasPersistedCookie = hasCookie(key);
       if (hasPersistedCookie) {
         return getCookie(key, deserialize);
