@@ -1,6 +1,7 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
 import { useRef } from "react";
 import { hash } from "./hash";
+import { isServer } from "./isServer";
 const aliases = {
     margin: (value) => {
         if (value == null) {
@@ -53,7 +54,7 @@ const aliases = {
 };
 const rawHashMap = new Map();
 function createStyleNode(content) {
-    if (typeof window === "undefined") {
+    if (isServer()) {
         serverStyles.push(content);
     }
     else {
