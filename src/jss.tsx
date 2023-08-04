@@ -3,6 +3,7 @@ import React, { useRef } from "react";
 
 import { hash } from "./hash";
 import { numberToBase } from "./numberToBase";
+import { isServer } from "./isServer";
 
 type StylesValueType = string | number | CSS.Properties<string | number>;
 
@@ -77,7 +78,7 @@ const aliases: {
 const rawHashMap = new Map<string, string>();
 
 function createStyleNode(content: string) {
-  if (typeof window === "undefined") {
+  if (isServer()) {
     serverStyles.push(content);
   } else {
     const style = document.createElement("style");

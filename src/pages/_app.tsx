@@ -366,7 +366,6 @@ export default function App({ Component, pageProps }: AppProps) {
                       return (
                         <ListLinkItem
                           key={isQuerying ? `${index}-${page}` : page}
-                          bare
                           onClick={() => {
                             setPathname(`/${page}`);
                             setQuery("");
@@ -389,14 +388,12 @@ export default function App({ Component, pageProps }: AppProps) {
                           key={`section-${element.label}`}
                           label={element.label}
                           labelBold
-                          bare
                         >
                           {element.content.map((element) => {
                             const page = element.page;
                             return (
                               <ListLinkItem
                                 key={page}
-                                bare
                                 onClick={() => {
                                   setPathname(`/${page}`);
                                   setShowList(false);
