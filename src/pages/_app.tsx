@@ -33,7 +33,7 @@ import { Column } from "../Column";
 import { Icon } from "../Icon";
 import { BaseLinkComponentOverrideContext } from "../BaseLink";
 import { DocsMDXProvider, labelToID } from "../docs/mdx";
-import { dot } from "@xenova/transformers";
+import { Pipeline, dot, pipeline } from "@xenova/transformers";
 import { pages } from "../docs/pages";
 
 const transformers = import("@xenova/transformers");
@@ -141,35 +141,37 @@ export default function App({ Component, pageProps }: AppProps) {
     queryIndexRef.current = queryIndex;
   }, [queryIndex]);
 
+  const stateRef = useRef<string | null>(null);
+
   useEffect(() => {
     if (sanetisedQuery.length === 0) {
       return;
     }
 
-    let state = { cancel: false };
+    const effectId = self.crypto.randomUUID();
+    stateRef.current = effectId;
+
+    const isInvalid = () => effectId !== stateRef.current;
 
     async function run() {
       const data = await searchIndex;
 
-      if (state.cancel) {
+      if (isInvalid()) {
         return;
       }
-      const { pipeline } = await transformers;
-      if (state.cancel) {
+
+      const generateEmbeddings = await loadModel();
+
+      if (isInvalid()) {
         return;
       }
-      const generateEmbeddings = await pipeline(
-        "feature-extraction",
-        "Xenova/all-MiniLM-L6-v2"
-      );
-      if (state.cancel) {
-        return;
-      }
+
       const queryEmbeddings = await generateEmbeddings(query, {
         normalize: true,
         pooling: "mean",
       }).then((embedding) => embedding.data);
-      if (state.cancel) {
+
+      if (isInvalid()) {
         return;
       }
 
@@ -209,10 +211,6 @@ export default function App({ Component, pageProps }: AppProps) {
     }
 
     run();
-
-    return () => {
-      state.cancel = true;
-    };
   }, [sanetisedQuery]);
 
   useEffect(() => {
@@ -433,3 +431,15 @@ export default function App({ Component, pageProps }: AppProps) {
     </>
   );
 }
+
+let modelPromise: Promise<Pipeline> | null = null;
+
+const loadModel: () => Promise<Pipeline> = async () => {
+  const { pipeline } = await transformers;
+  if (modelPromise == null) {
+    modelPromise = pipeline("feature-extraction", "Xenova/all-MiniLM-L6-v2");
+  }
+  const generateEmbeddings = await modelPromise;
+
+  return generateEmbeddings;
+};
