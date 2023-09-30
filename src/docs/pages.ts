@@ -85,6 +85,7 @@ export const pages: Array<Page> = [
     type: "section",
     label: "Visual indicators",
     content: [
+      { type: "link", page: "Card" },
       { type: "link", page: "Badge" },
       { type: "link", page: "ProgressBar" },
       { type: "link", page: "ProgressCircle" },

@@ -1,5 +1,5 @@
 import React from "react";
-import { JSStyle, jss } from "./jss";
+import { JSStyle, Padding, cssVar, getPadding, jss } from "./jss";
 
 export interface TextAreaProps
   extends React.InputHTMLAttributes<HTMLTextAreaElement> {
@@ -8,11 +8,19 @@ export interface TextAreaProps
   value?: string;
   className?: undefined;
   size?: undefined;
+  padding?: Padding;
 }
 
 export const TextArea = React.forwardRef(
   (
-    { jsStyle, onValueChange, value, onChange, ...otherProps }: TextAreaProps,
+    {
+      jsStyle,
+      onValueChange,
+      value,
+      onChange,
+      padding = "medium",
+      ...otherProps
+    }: TextAreaProps,
     ref?: React.Ref<HTMLTextAreaElement>
   ) => {
     return (
@@ -21,18 +29,23 @@ export const TextArea = React.forwardRef(
         ref={ref}
         className={jss([
           {
-            padding: "var(--spacing-m)",
             flexGrow: 1,
-            backgroundColor: "var(--primary-background)",
-            color: "var(--primary-text)",
+            color: cssVar("--primary-text"),
             outline: "none",
-            border: "none",
             fontSize: 20,
             lineHeight: 24 / 20,
+            backgroundColor: cssVar("--overlay-background"),
+            border: `1px solid ${cssVar("--divider")}`,
+            borderRadius: cssVar("--border-radius-m"),
             "::placeholder": {
-              color: "var(--secondary-text);",
+              color: cssVar("--subtle-text"),
+            },
+            ":focus-visible": {
+              outline: `2px solid ${cssVar("--highlight")}`,
+              outlineOffset: -2,
             },
           },
+          getPadding(padding),
           jsStyle,
         ])}
         value={value}

@@ -1,21 +1,26 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import React from "react";
-import { jss } from "./jss";
-export const TextArea = React.forwardRef(({ jsStyle, onValueChange, value, onChange, ...otherProps }, ref) => {
+import { cssVar, getPadding, jss } from "./jss";
+export const TextArea = React.forwardRef(({ jsStyle, onValueChange, value, onChange, padding = "medium", ...otherProps }, ref) => {
     return (_jsx("textarea", { ...otherProps, ref: ref, className: jss([
             {
-                padding: "var(--spacing-m)",
                 flexGrow: 1,
-                backgroundColor: "var(--primary-background)",
-                color: "var(--primary-text)",
+                color: cssVar("--primary-text"),
                 outline: "none",
-                border: "none",
                 fontSize: 20,
                 lineHeight: 24 / 20,
+                backgroundColor: cssVar("--overlay-background"),
+                border: `1px solid ${cssVar("--divider")}`,
+                borderRadius: cssVar("--border-radius-m"),
                 "::placeholder": {
-                    color: "var(--secondary-text);",
+                    color: cssVar("--subtle-text"),
+                },
+                ":focus-visible": {
+                    outline: `2px solid ${cssVar("--highlight")}`,
+                    outlineOffset: -2,
                 },
             },
+            getPadding(padding),
             jsStyle,
         ]), value: value, onChange: onValueChange ? (e) => onValueChange(e.target.value) : undefined }));
 });

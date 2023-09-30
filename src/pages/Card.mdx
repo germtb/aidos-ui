@@ -1,0 +1,71 @@
+import { Card } from "../Card";
+import { Button } from "../Button";
+import { TextInput } from "../TextInput";
+import { TextArea } from "../TextArea";
+import { H2, P } from "../Text";
+
+# Card
+
+Cards can be used to make give cohesion to some UI elements, grouping them visually in a distinct way.
+
+<Card>
+  <H2>Contact Us</H2>
+  <P>If you have any questions or inquiries, please feel free to contact us.</P>
+  <TextInput
+    name="email"
+    placeholder="Email"
+    value={null}
+    padding={"medium"}
+    type="email"
+    onValueChange={() => {}}
+  />
+  <TextArea
+    jsStyle={{
+      resize: "vertical",
+    }}
+    name="message"
+    placeholder="Type your query here..."
+    value={null}
+    type="text"
+    onValueChange={() => {}}
+  />
+  <Button
+    jsStyle={{ animation: "all 1s ease-out" }}
+    onClick={() => {}}
+    type="submit"
+    label="Subscribe"
+    color="positive"
+  />
+</Card>
+
+```js
+<Card>
+  <H2>Contact Us</H2>
+  <P>If you have any questions or inquiries, please feel free to contact us.</P>
+  <TextInput
+    name="email"
+    placeholder="Email"
+    value={null}
+    padding={"medium"}
+    type="email"
+    onValueChange={() => {}}
+  />
+  <TextArea
+    jsStyle={{
+      resize: "vertical",
+    }}
+    name="message"
+    placeholder="Type your query here..."
+    value={null}
+    type="text"
+    onValueChange={() => {}}
+  />
+  <Button
+    jsStyle={{ animation: "all 1s ease-out" }}
+    onClick={() => {}}
+    type="submit"
+    label="Subscribe"
+    color="positive"
+  />
+</Card>
+```

@@ -1,17 +1,30 @@
-import { BaseView } from "./BaseView";
+import { FlexLayout, FlexLayoutProps } from "./FlexLayout";
 import { cssVar } from "./jss";
 
-export function Card({ children }: { children: JSX.Element }) {
+export interface CardProps extends FlexLayoutProps {}
+
+export function Card({
+  children,
+  jsStyle,
+  padding = "large",
+  gap = "large",
+  ...otherProps
+}: CardProps) {
   return (
-    <BaseView
-      jsStyle={{
-        backgroundColor: cssVar("--primary-background"),
-        borderRadius: cssVar("--border-radius-l"),
-        padding: cssVar("--spacing-l"),
-        border: `1px solid ${cssVar("--divider")}`,
-      }}
+    <FlexLayout
+      {...otherProps}
+      padding={padding}
+      gap={gap}
+      jsStyle={[
+        {
+          backgroundColor: cssVar("--overlay-background"),
+          borderRadius: cssVar("--border-radius-l"),
+          boxShadow: "1px 1px 4px 1px #e0e0e0",
+        },
+        jsStyle,
+      ]}
     >
       {children}
-    </BaseView>
+    </FlexLayout>
   );
 }

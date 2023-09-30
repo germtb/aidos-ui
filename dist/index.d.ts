@@ -1,4 +1,3 @@
-export * from "./aria";
 export * from "./Badge";
 export * from "./BaseButton";
 export * from "./BaseInput";
@@ -11,6 +10,7 @@ export * from "./Box";
 export * from "./Button";
 export * from "./Calendar";
 export * from "./Checkbox";
+export * from "./Card";
 export * from "./Circle";
 export * from "./Column";
 export * from "./DarkMode";
