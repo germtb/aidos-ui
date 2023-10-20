@@ -13,6 +13,7 @@ export function getCookie(key, deserialize = JSON.parse) {
         .filter((c) => c.startsWith(`${key}=`))
         .map((s) => s.split("=")[1])
         .map((s) => deserialize(s))
+        .reverse()
         .pop();
 }
 export function useCookie(key, { initialValue = null, loadingValue, serialize = JSON.stringify, deserialize = JSON.parse, maxAge = 60 * 60 * 24 * 365, }) {
@@ -39,7 +40,7 @@ export function useCookie(key, { initialValue = null, loadingValue, serialize = 
             setCookie(persistedCookie);
         }
         else {
-            document.cookie = `${key}=${serialize(initialValue)}; max-age=${maxAge};`;
+            document.cookie = `${key}=${serialize(initialValue)}; max-age=${maxAge};path=/;`;
             setCookie(initialValue);
         }
         initializationRef.current = true;
@@ -52,13 +53,13 @@ export function useCookie(key, { initialValue = null, loadingValue, serialize = 
                 const callback = t;
                 setCookie((oldCookie) => {
                     const newValue = callback(oldCookie);
-                    document.cookie = `${key}=${serialize(newValue)}; max-age=${maxAge};`;
+                    document.cookie = `${key}=${serialize(newValue)}; max-age=${maxAge};path=/;`;
                     return newValue;
                 });
             }
             else {
                 setCookie(t);
-                document.cookie = `${key}=${serialize(t)}; max-age=${maxAge};`;
+                document.cookie = `${key}=${serialize(t)}; max-age=${maxAge};path=/;`;
             }
         }, []),
     ];
