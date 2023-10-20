@@ -46,6 +46,7 @@ export * from "./RootView";
 export * from "./Row";
 export * from "./StackContext";
 export * from "./stateMachineContextFactory";
+export * from "./Select";
 export * from "./StaticCheckbox";
 export * from "./Storage";
 export * from "./Stream";
