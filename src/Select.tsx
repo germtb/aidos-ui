@@ -17,13 +17,15 @@ export const Select = forwardRef(
     return (
       <select
         ref={ref}
-        className={jss({
-          fontSize: 20,
-          padding: cssVar("--spacing-m"),
-          border: `1px solid ${cssVar("--divider")}`,
-          backgroundColor: cssVar("--overlay-background"),
-          borderRadius: cssVar("--border-radius-m"),
-        })}
+        className={jss([
+          {
+            fontSize: 20,
+            border: `1px solid ${cssVar("--divider")}`,
+            backgroundColor: cssVar("--overlay-background"),
+            borderRadius: cssVar("--border-radius-m"),
+          },
+          jsStyle,
+        ])}
         value={value}
         onChange={(e) => {
           onValueChange(e.target.value);
