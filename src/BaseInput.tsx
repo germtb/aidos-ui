@@ -8,7 +8,6 @@ export interface BaseInputProps
   className?: undefined;
   size?: undefined;
   children?: undefined;
-  id?: undefined;
   label?: ReactNode;
   labelSize?: Size;
   labelColor?: TextColor;
@@ -25,11 +24,13 @@ export const BaseInput = React.forwardRef(
       labelSize,
       labelColor,
       labelBold,
+      id: propId,
       ...otherProps
     }: BaseInputProps,
     ref?: React.Ref<HTMLInputElement>
   ) => {
-    const id = useId();
+    const hookid = useId();
+    const id = propId ?? hookid;
     const labelElement = (
       <Label
         size={labelSize}

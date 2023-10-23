@@ -5,7 +5,6 @@ export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputEleme
     className?: undefined;
     size?: undefined;
     children?: undefined;
-    id?: undefined;
     label?: ReactNode;
     labelSize?: Size;
     labelColor?: TextColor;
