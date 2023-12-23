@@ -9,6 +9,7 @@ interface PopoverTriggerProps<Input> {
         close: () => void;
     } & Input) => JSX.Element;
     jsStyle?: JSStyle;
+    dialogJSStyle?: JSStyle;
     className?: undefined;
     grow?: boolean;
     shrink?: boolean;
@@ -17,5 +18,5 @@ interface PopoverTriggerProps<Input> {
         toggle: (input: Input) => void;
     }) => JSX.Element;
 }
-export declare function PopoverTrigger<Input>({ PopoverComponent, jsStyle, grow, shrink, tag, children, }: PopoverTriggerProps<Input>): import("react/jsx-runtime").JSX.Element;
+export declare function PopoverTrigger<Input>({ PopoverComponent, jsStyle, dialogJSStyle, grow, shrink, tag, children, }: PopoverTriggerProps<Input>): import("react/jsx-runtime").JSX.Element;
 export {};

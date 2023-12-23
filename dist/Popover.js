@@ -62,7 +62,7 @@ export function Popover({ children, close }) {
     });
     return _jsx(BaseView, { ref: focusTrapRoot, children: children });
 }
-export function PopoverTrigger({ PopoverComponent, jsStyle, grow, shrink, tag, children, }) {
+export function PopoverTrigger({ PopoverComponent, jsStyle, dialogJSStyle, grow, shrink, tag, children, }) {
     const [popover, setPopover] = useState(null);
     const dialogRef = useRef(null);
     const toggle = (input) => {
@@ -78,7 +78,7 @@ export function PopoverTrigger({ PopoverComponent, jsStyle, grow, shrink, tag, c
     };
     return (_jsxs(BaseView, { grow: grow, shrink: shrink, tag: tag, relative: true, jsStyle: [jsStyle, { position: "relative", display: "inline-block" }], children: [children({ toggle }), _jsx("dialog", { ref: (ref) => {
                     dialogRef.current = ref;
-                }, className: jss(jsStyles.popover), onClose: () => {
+                }, className: jss([jsStyles.popover, dialogJSStyle]), onClose: () => {
                     setPopover(null);
                 }, onClick: (e) => {
                     e.preventDefault();

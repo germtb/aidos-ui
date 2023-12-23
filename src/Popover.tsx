@@ -78,6 +78,7 @@ export function Popover({ children, close }) {
 interface PopoverTriggerProps<Input> {
   PopoverComponent: (props: { close: () => void } & Input) => JSX.Element;
   jsStyle?: JSStyle;
+  dialogJSStyle?: JSStyle;
   className?: undefined;
   grow?: boolean;
   shrink?: boolean;
@@ -88,6 +89,7 @@ interface PopoverTriggerProps<Input> {
 export function PopoverTrigger<Input>({
   PopoverComponent,
   jsStyle,
+  dialogJSStyle,
   grow,
   shrink,
   tag,
@@ -125,7 +127,7 @@ export function PopoverTrigger<Input>({
         ref={(ref: null | HTMLDialogElement) => {
           dialogRef.current = ref;
         }}
-        className={jss(jsStyles.popover)}
+        className={jss([jsStyles.popover, dialogJSStyle])}
         onClose={() => {
           setPopover(null);
         }}
