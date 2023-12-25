@@ -12,23 +12,29 @@ The `Link` component looks the same as the `Button` component and the only diffe
 The basic `Link` comes in three main variants, each of them with a specific intent in mind. It also support a "disabled" variant, for cases where the button is not actionable.
 
 - Positive: actions that are going to create something or strongly agree
-- Secondary: actions that are less central to the user experience
+- Primary: actions that are less central to the user experience
 - Negative: actions that are going to delete data or remove something
+- Dark: primary actions in a dark theme
+- Light: primary actions in a light theme
 - Disabled: actions that are not available
 
 <Row gap="large" align="center" padding="large" justify="center">
   <Link label="Positive" color="positive" href="/" />
-  <Link label="Secondary" color="secondary" href="/" />
+  <Link label="Primary" color="primary" href="/" />
   <Link label="Negative" color="negative" href="/" />
   <Link label="Disabled" color="positive" disabled href="/" />
+  <Link label="Dark" color="dark" href="/" />
+  <Link label="Light" color="light" href="/" />
 </Row>
 
 ```js
 <Row gap="large" align="center" padding="large" justify="center">
   <Link label="Positive" color="positive" href="/" />
-  <Link label="Secondary" color="secondary" href="/" />
+  <Link label="Primary" color="primary" href="/" />
   <Link label="Negative" color="negative" href="/" />
   <Link label="Disabled" color="positive" disabled href="/" />
+  <Link label="Dark" color="dark" href="/" />
+  <Link label="Light" color="light" href="/" />
 </Row>
 ```
 
@@ -40,17 +46,43 @@ The bare `Link` variants fulfill the same function than the basic counterparts b
 
 <Row gap="large" align="center" padding="large" justify="center">
   <Link bare label="Positive" color="positive" href="/" />
-  <Link bare label="Secondary" color="secondary" href="/" />
+  <Link bare label="Primary" color="primary" href="/" />
   <Link bare label="Negative" color="negative" href="/" />
   <Link bare label="Disabled" color="positive" disabled href="/" />
+  <Link bare label="Dark" color="dark" href="/" />
+  <Link bare label="Light" color="light" href="/" />
 </Row>
 
 ```js
 <Row gap="large" align="center" padding="large" justify="center">
   <Link bare label="Positive" color="positive" href="/" />
-  <Link bare label="Secondary" color="secondary" href="/" />
+  <Link bare label="Primary" color="primary" href="/" />
   <Link bare label="Negative" color="negative" href="/" />
   <Link bare label="Disabled" color="positive" disabled href="/" />
+</Row>
+```
+
+## Border
+
+The `Link` can have a border which will match the current text color
+
+<Row gap="large" align="center" padding="large" justify="center">
+  <Link border bare label="Positive" color="positive" href="/" />
+  <Link border bare label="Primary" color="primary" href="/" />
+  <Link border bare label="Negative" color="negative" href="/" />
+  <Link border bare label="Disabled" color="positive" disabled href="/" />
+  <Link border bare label="Dark" color="dark" href="/" />
+  <Link border bare label="Light" color="light" href="/" />
+</Row>
+
+```js
+<Row gap="large" align="center" padding="large" justify="center">
+  <Link border bare label="Positive" color="positive" href="/" />
+  <Link border bare label="Primary" color="primary" href="/" />
+  <Link border bare label="Negative" color="negative" href="/" />
+  <Link border bare label="Disabled" color="positive" disabled href="/" />
+  <Link border bare label="Dark" color="dark" href="/" />
+  <Link border bare label="Light" color="light" href="/" />
 </Row>
 ```
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 
 import { BaseLink, BaseLinkProps } from "./BaseLink";
 import { Text } from "./Text";
@@ -21,6 +21,7 @@ export interface LinkProps extends BaseLinkProps {
   align?: Align;
   gap?: Gap;
   justify?: Justify;
+  bold?: boolean;
 }
 
 export const Link = React.forwardRef(
@@ -38,6 +39,7 @@ export const Link = React.forwardRef(
       justify = "center",
       jsStyle,
       size = "medium",
+      bold,
       ...otherProps
     }: LinkProps,
     ref?: React.Ref<HTMLAnchorElement>
@@ -69,7 +71,11 @@ export const Link = React.forwardRef(
               color={getGlyphColor(color, disabled, bare)}
             />
           )}
-          <Text size={size} color={getGlyphColor(color, disabled, bare)}>
+          <Text
+            bold={bold}
+            size={size}
+            color={getGlyphColor(color, disabled, bare)}
+          >
             {label}
           </Text>
           {icon && iconPosition === "right" && (

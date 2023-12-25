@@ -11,6 +11,7 @@ export interface BaseLinkProps
   href: string;
   disabled?: boolean;
   bare?: boolean;
+  border?: boolean;
   className?: undefined;
   animateInteraction?: boolean;
   padding?: Padding;
@@ -33,6 +34,7 @@ export const BaseLink = React.forwardRef(
       animateInteraction = true,
       padding,
       href,
+      border,
       role = "link",
       ...otherProps
     }: BaseLinkProps,
@@ -61,6 +63,7 @@ export const BaseLink = React.forwardRef(
         className={jss([
           ...getInteractableJSStyles({
             color,
+            border,
             bare,
             disabled,
             animateInteraction,

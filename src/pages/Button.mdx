@@ -12,23 +12,29 @@ The `Button` component can be used for the user to take actions with a single cl
 The basic `Button` comes in three main variants, each of them with a specific intent in mind. It also support a "disabled" variant, for cases where the button is not actionable.
 
 - Positive: actions that are going to create something or strongly agree
-- Secondary: actions that are less central to the user experience
+- Primary: actions that are less central to the user experience
 - Negative: actions that are going to delete data or remove something
+- Dark: primary actions in a dark theme
+- Light: primary actions in a light theme
 - Disabled: actions that are not available
 
 <Row gap="large" align="center" padding="large" justify="center">
   <Button label="Positive" color="positive" onClick={() => {}} />
-  <Button label="Secondary" color="secondary" onClick={() => {}} />
+  <Button label="Primary" color="primary" onClick={() => {}} />
   <Button label="Negative" color="negative" onClick={() => {}} />
   <Button label="Disabled" color="positive" disabled onClick={() => {}} />
+  <Button label="Dark" color="dark" onClick={() => {}} />
+  <Button label="Light" color="light" onClick={() => {}} />
 </Row>
 
 ```js
 <Row gap="large" align="center" padding="large" justify="center">
   <Button label="Positive" color="positive" onClick={() => {}} />
-  <Button label="Secondary" color="secondary" onClick={() => {}} />
+  <Button label="Primary" color="primary" onClick={() => {}} />
   <Button label="Negative" color="negative" onClick={() => {}} />
   <Button label="Disabled" color="positive" disabled onClick={() => {}} />
+  <Button label="Dark" color="dark" onClick={() => {}} />
+  <Button label="Light" color="light" onClick={() => {}} />
 </Row>
 ```
 
@@ -40,17 +46,59 @@ The bare `Button` variants fulfill the same function than the basic counterparts
 
 <Row gap="large" align="center" padding="large" justify="center">
   <Button bare label="Positive" color="positive" onClick={() => {}} />
-  <Button bare label="Secondary" color="secondary" onClick={() => {}} />
+  <Button bare label="Primary" color="primary" onClick={() => {}} />
   <Button bare label="Negative" color="negative" onClick={() => {}} />
   <Button bare label="Disabled" color="positive" disabled onClick={() => {}} />
+  <Button bare label="Dark" color="dark" onClick={() => {}} />
+  <Button bare label="Light" color="light" onClick={() => {}} />
 </Row>
 
 ```js
 <Row gap="large" align="center" padding="large" justify="center">
   <Button bare label="Positive" color="positive" onClick={() => {}} />
-  <Button bare label="Secondary" color="secondary" onClick={() => {}} />
+  <Button bare label="Primary" color="primary" onClick={() => {}} />
   <Button bare label="Negative" color="negative" onClick={() => {}} />
   <Button bare label="Disabled" color="positive" disabled onClick={() => {}} />
+  <Button bare label="Dark" color="dark" onClick={() => {}} />
+  <Button bare label="Light" color="light" onClick={() => {}} />
+</Row>
+```
+
+## Border
+
+The `Button` can have a border which will match the current text color
+
+<Row gap="large" align="center" padding="large" justify="center">
+  <Button border bare label="Positive" color="positive" onClick={() => {}} />
+  <Button border bare label="Primary" color="primary" onClick={() => {}} />
+  <Button border bare label="Negative" color="negative" onClick={() => {}} />
+  <Button
+    border
+    bare
+    label="Disabled"
+    color="positive"
+    disabled
+    onClick={() => {}}
+  />
+  <Button border bare label="Dark" color="dark" onClick={() => {}} />
+  <Button border bare label="Light" color="light" onClick={() => {}} />
+</Row>
+
+```js
+<Row gap="large" align="center" padding="large" justify="center">
+  <Button border bare label="Positive" color="positive" onClick={() => {}} />
+  <Button border bare label="Primary" color="primary" onClick={() => {}} />
+  <Button border bare label="Negative" color="negative" onClick={() => {}} />
+  <Button
+    border
+    bare
+    label="Disabled"
+    color="positive"
+    disabled
+    onClick={() => {}}
+  />
+  <Button border bare label="Dark" color="dark" onClick={() => {}} />
+  <Button border bare label="Light" color="light" onClick={() => {}} />
 </Row>
 ```
 

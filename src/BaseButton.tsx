@@ -8,6 +8,7 @@ export interface BaseButtonProps
   jsStyle?: JSStyle;
   color: InteractableColor;
   bare?: boolean;
+  border?: boolean;
   className?: undefined;
   animateInteraction?: boolean;
   padding?: Padding;
@@ -21,6 +22,7 @@ export const BaseButton = React.forwardRef(
       jsStyle,
       color,
       bare = false,
+      border = false,
       disabled,
       animateInteraction = true,
       padding,
@@ -44,6 +46,7 @@ export const BaseButton = React.forwardRef(
           ...getInteractableJSStyles({
             color,
             bare,
+            border,
             disabled,
             animateInteraction,
             padding,

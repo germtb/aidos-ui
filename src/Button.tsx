@@ -21,6 +21,7 @@ export interface ButtonProps extends BaseButtonProps {
   align?: Align;
   gap?: Gap;
   justify?: Justify;
+  bold?: boolean;
 }
 
 export const Button = React.forwardRef(
@@ -38,6 +39,7 @@ export const Button = React.forwardRef(
       justify = "center",
       jsStyle,
       size = "medium",
+      bold,
       ...otherProps
     }: ButtonProps,
     ref?: React.Ref<HTMLButtonElement>
@@ -67,7 +69,11 @@ export const Button = React.forwardRef(
               color={getGlyphColor(color, disabled, bare)}
             />
           )}
-          <Text size={size} color={getGlyphColor(color, disabled, bare)}>
+          <Text
+            bold={bold}
+            size={size}
+            color={getGlyphColor(color, disabled, bare)}
+          >
             {label}
           </Text>
           {icon && iconPosition === "right" && (
