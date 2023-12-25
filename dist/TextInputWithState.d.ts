@@ -5,4 +5,4 @@ export interface TextInputWithStateProps extends BaseInputProps {
     valueRef: React.MutableRefObject<string>;
     onChange?: undefined;
 }
-export declare function TextInputWithState({ valueRef, onValueChange: externalOnChange, ...otherProps }: TextInputWithStateProps): React.JSX.Element;
+export declare function TextInputWithState({ valueRef, onValueChange: externalOnChange, ...otherProps }: TextInputWithStateProps): import("react/jsx-runtime").JSX.Element;

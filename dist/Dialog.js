@@ -33,7 +33,7 @@ const jsStyles = {
     },
 };
 export const Dialog = ({ label, children, close, }) => {
-    return (_jsxs(BaseView, { jsStyle: jsStyles.root, children: [_jsxs(Column, { jsStyle: jsStyles.header, children: [_jsxs(Row, { padding: "medium", justify: "space-between", align: "center", children: [_jsx(Text, { size: "medium", color: "secondary", children: label }), _jsx(IconButton, { autoFocus: true, bare: true, icon: "fa-close", size: "medium", onClick: close, color: "secondary" })] }), _jsx(ListDivider, {})] }), _jsx(BaseView, { jsStyle: jsStyles.content, children: children })] }));
+    return (_jsxs(BaseView, { jsStyle: jsStyles.root, children: [_jsxs(Column, { jsStyle: jsStyles.header, children: [_jsxs(Row, { padding: "medium", justify: "space-between", align: "center", children: [_jsx(Text, { size: "medium", color: "secondary", children: label }), _jsx(IconButton, { autoFocus: true, bare: true, icon: "fa-close", size: "medium", onClick: close, color: "primary" })] }), _jsx(ListDivider, {})] }), _jsx(BaseView, { jsStyle: jsStyles.content, children: children })] }));
 };
 const DialogContext = React.createContext({
     setDialog: () => { },

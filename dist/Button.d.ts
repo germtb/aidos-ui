@@ -16,5 +16,6 @@ export interface ButtonProps extends BaseButtonProps {
     align?: Align;
     gap?: Gap;
     justify?: Justify;
+    bold?: boolean;
 }
 export declare const Button: React.ForwardRefExoticComponent<ButtonProps & React.RefAttributes<HTMLButtonElement>>;

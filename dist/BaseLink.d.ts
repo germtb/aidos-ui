@@ -9,9 +9,10 @@ export interface BaseLinkProps extends React.LinkHTMLAttributes<HTMLAnchorElemen
     href: string;
     disabled?: boolean;
     bare?: boolean;
+    border?: boolean;
     className?: undefined;
     animateInteraction?: boolean;
     padding?: Padding;
 }
-export declare const BaseLinkComponentOverrideContext: React.Context<(props: any) => React.JSX.Element>;
+export declare const BaseLinkComponentOverrideContext: React.Context<(props: any) => import("react/jsx-runtime").JSX.Element>;
 export declare const BaseLink: React.ForwardRefExoticComponent<BaseLinkProps & React.RefAttributes<HTMLAnchorElement>>;

@@ -13,6 +13,6 @@ export function Sublist({ children, label, labelBold, initialState = { collapsed
                                 !collapsed && {
                                     transform: "rotateZ(90deg)",
                                 },
-                            ], children: _jsx(Icon, { color: "primary", size: "medium", icon: "fa-solid:chevron-right" }) })] }), addOnPosition: "end", color: "secondary" }), collapsed ? null : children] }));
+                            ], children: _jsx(Icon, { color: "primary", size: "medium", icon: "fa-solid:chevron-right" }) })] }), addOnPosition: "end", color: "primary" }), collapsed ? null : children] }));
 }
 //# sourceMappingURL=Sublist.js.map

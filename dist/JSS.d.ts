@@ -1,5 +1,5 @@
+/// <reference types="react" />
 import CSS from "csstype";
-import React from "react";
 export type Styles = CSS.Properties<string | number | CSS.Properties<string | number>>;
 export type JSStyle = Styles | null | false | undefined | {
     [key: string]: Styles;
@@ -11,8 +11,8 @@ export declare function JSStylesProvider({ themes, children, }: {
         light: Theme;
     };
     children: JSX.Element;
-}): React.JSX.Element;
-export declare function JSServerStyles(): React.JSX.Element;
+}): import("react/jsx-runtime").JSX.Element;
+export declare function JSServerStyles(): import("react/jsx-runtime").JSX.Element;
 export type Size = "xsmall" | "small" | "medium" | "large" | "xlarge";
 export type Spacing = "none" | Size;
 export type Gap = Spacing;

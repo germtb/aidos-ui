@@ -1,2 +1,1 @@
-import React from "react";
-export declare function ListSpacer(): React.JSX.Element;
+export declare function ListSpacer(): import("react/jsx-runtime").JSX.Element;

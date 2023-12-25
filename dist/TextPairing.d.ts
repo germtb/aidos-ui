@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import { TextColor, Size, Position, Gap, Padding, Align, JSStyle } from "./jss";
 export interface TextPairingProps {
     headline: ReactNode;
@@ -18,4 +18,4 @@ export interface TextPairingProps {
     headlineBold?: boolean;
     jsStyle?: JSStyle;
 }
-export declare function TextPairing({ headline, body, headlineColor, headlineSize, headlineAddOn, bodyColor, bodySize, addOn, addOnPosition, gap, align, grow, shrink, headlineBold, padding, jsStyle, }: TextPairingProps): React.JSX.Element;
+export declare function TextPairing({ headline, body, headlineColor, headlineSize, headlineAddOn, bodyColor, bodySize, addOn, addOnPosition, gap, align, grow, shrink, headlineBold, padding, jsStyle, }: TextPairingProps): import("react/jsx-runtime").JSX.Element;

@@ -1,5 +1,5 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 export declare function RootView({ children, focusOnlyOnFirstMount, }: {
     children: ReactNode;
     focusOnlyOnFirstMount?: boolean;
-}): React.JSX.Element;
+}): import("react/jsx-runtime").JSX.Element;

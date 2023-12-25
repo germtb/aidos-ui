@@ -5,10 +5,10 @@ const jsStyles = {
         display: "inline-flex",
         alignItems: "center",
         transition: "opacity 0.1s ease-in",
-        outlineColor: "var(--outline)",
+        outlineColor: cssVar("--outline"),
         "[aria-disabled=true]": {
-            color: "var(--secondary-text)",
-            backgroundColor: "var(--background-button-secondary)",
+            color: cssVar("--secondary-text"),
+            backgroundColor: cssVar("--background-button-secondary"),
         },
         ":focus-visible": {
             outlineWidth: "2px",
@@ -16,22 +16,34 @@ const jsStyles = {
             outlineOffset: -2,
         },
     },
-    positive: {
-        backgroundColor: "var(--background-button-positive)",
+    dark: {
+        backgroundColor: "black",
         "[aria-disabled=true]": {
-            backgroundColor: "var(--background-button-disabled)",
+            backgroundColor: cssVar("--background-button-disabled"),
         },
     },
-    secondary: {
-        backgroundColor: "var(--background-button-secondary)",
+    light: {
+        backgroundColor: "white",
         "[aria-disabled=true]": {
-            backgroundColor: "var(--background-button-disabled)",
+            backgroundColor: cssVar("--background-button-disabled"),
+        },
+    },
+    positive: {
+        backgroundColor: cssVar("--background-button-positive"),
+        "[aria-disabled=true]": {
+            backgroundColor: cssVar("--background-button-disabled"),
+        },
+    },
+    primary: {
+        backgroundColor: cssVar("--background-button-secondary"),
+        "[aria-disabled=true]": {
+            backgroundColor: cssVar("--background-button-disabled"),
         },
     },
     negative: {
-        backgroundColor: "var(--background-button-negative)",
+        backgroundColor: cssVar("--background-button-negative"),
         "[aria-disabled=true]": {
-            backgroundColor: "var(--background-button-disabled)",
+            backgroundColor: cssVar("--background-button-disabled"),
         },
     },
     disabled: {
@@ -39,13 +51,41 @@ const jsStyles = {
     },
     bare: {
         backgroundColor: "inherit",
-        outlineColor: "var(--outline)",
+        outlineColor: cssVar("--outline"),
         "[aria-disabled=true]": {
             backgroundColor: "inherit",
         },
         "[aria-disabled=true]:hover": {
             backgroundColor: "inherit",
         },
+    },
+    border: {
+        borderTopWidth: "1px",
+        borderRightWidth: "1px",
+        borderBottomWidth: "1px",
+        borderLeftWidth: "1px",
+        borderTopStyle: "solid",
+        borderRightStyle: "solid",
+        borderBottomStyle: "solid",
+        borderLeftStyle: "solid",
+    },
+    borderDark: {
+        borderColor: "black",
+    },
+    borderLight: {
+        borderColor: "white",
+    },
+    borderPositive: {
+        borderColor: cssVar("--highlight-text"),
+    },
+    borderNegative: {
+        borderColor: cssVar("--negative-text"),
+    },
+    borderPrimary: {
+        borderColor: cssVar("--primary-text"),
+    },
+    borderDisabled: {
+        borderColor: cssVar("--subtle-text"),
     },
     opacityHover: {
         ":hover": {
@@ -57,12 +97,21 @@ const jsStyles = {
     },
     colorHover: {},
 };
-export function getInteractableJSStyles({ color, bare, disabled, animateInteraction, padding, }) {
+export function getInteractableJSStyles({ color, bare, disabled, animateInteraction, padding, border, }) {
     return [
         jsStyles.root,
+        color === "dark" && jsStyles.dark,
+        color === "light" && jsStyles.light,
         color === "positive" && jsStyles.positive,
-        color === "secondary" && jsStyles.secondary,
+        color === "primary" && jsStyles.primary,
         color === "negative" && jsStyles.negative,
+        border && jsStyles.border,
+        border && !disabled && color === "positive" && jsStyles.borderPositive,
+        border && !disabled && color === "negative" && jsStyles.borderNegative,
+        border && !disabled && color === "primary" && jsStyles.borderPrimary,
+        border && !disabled && color === "dark" && jsStyles.borderDark,
+        border && !disabled && color === "light" && jsStyles.borderLight,
+        border && disabled && jsStyles.borderDisabled,
         bare && jsStyles.bare,
         disabled && jsStyles.disabled,
         !bare && jsStyles.opacityHover,
@@ -90,8 +139,12 @@ export const getGlyphColor = (color, disabled, bare) => {
             return bare ? "highlight" : "light";
         case "negative":
             return bare ? "negative" : "light";
-        case "secondary":
+        case "primary":
             return bare ? "primary" : "secondary";
+        case "dark":
+            return bare ? "primary" : "light";
+        case "light":
+            return bare ? "light" : "primary";
     }
 };
 export const getInteractableListItemJSStyles = ({ bare, selected, }) => {
@@ -102,16 +155,16 @@ export const getInteractableListItemJSStyles = ({ bare, selected, }) => {
             borderRadius: bare ? cssVar("--border-radius-m") : null,
             textDecoration: "none",
             ":hover": {
-                backgroundColor: "var(--hovered-background)",
+                backgroundColor: cssVar("--hovered-background"),
             },
             ":active:hover": {
-                backgroundColor: "var(--pressed-background)",
+                backgroundColor: cssVar("--pressed-background"),
             },
             "[aria-disabled=true]": {
-                backgroundColor: "var(--primary-background)",
+                backgroundColor: cssVar("--primary-background"),
             },
             "[aria-disabled=true]:active:hover": {
-                backgroundColor: "var(--primary-background)",
+                backgroundColor: cssVar("--primary-background"),
             },
         },
         selected && {
@@ -120,10 +173,10 @@ export const getInteractableListItemJSStyles = ({ bare, selected, }) => {
                 : cssVar("--selected-background"),
             boxShadow: bare ? "" : "inset 1px 1px 2px -1px #0000004a",
             ":hover": {
-                backgroundColor: "var(--hovered-background)",
+                backgroundColor: cssVar("--hovered-background"),
             },
             ":active:hover": {
-                backgroundColor: "var(--pressed-background)",
+                backgroundColor: cssVar("--pressed-background"),
             },
         },
     ];

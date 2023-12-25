@@ -16,5 +16,6 @@ export interface LinkProps extends BaseLinkProps {
     align?: Align;
     gap?: Gap;
     justify?: Justify;
+    bold?: boolean;
 }
 export declare const Link: React.ForwardRefExoticComponent<LinkProps & React.RefAttributes<HTMLAnchorElement>>;

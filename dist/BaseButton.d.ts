@@ -6,6 +6,7 @@ export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonEl
     jsStyle?: JSStyle;
     color: InteractableColor;
     bare?: boolean;
+    border?: boolean;
     className?: undefined;
     animateInteraction?: boolean;
     padding?: Padding;
