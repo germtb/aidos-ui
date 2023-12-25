@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import React from "react";
 import { Theme } from "./jss";
 export declare function Providers({ children, themes, }: {
     children: JSX.Element;
@@ -6,4 +6,4 @@ export declare function Providers({ children, themes, }: {
         light: Theme;
         dark: Theme;
     };
-}): import("react/jsx-runtime").JSX.Element;
+}): React.JSX.Element;

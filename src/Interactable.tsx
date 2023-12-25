@@ -1,6 +1,6 @@
 import { JSStyle, Padding, TextColor, cssVar, getPadding } from "./jss";
 
-export type InteractableColor = "positive" | "secondary" | "negative";
+export type InteractableColor = "positive" | "primary" | "negative";
 
 const jsStyles = {
   root: {
@@ -25,7 +25,7 @@ const jsStyles = {
       backgroundColor: "var(--background-button-disabled)",
     },
   },
-  secondary: {
+  primary: {
     backgroundColor: "var(--background-button-secondary)",
     "[aria-disabled=true]": {
       backgroundColor: "var(--background-button-disabled)",
@@ -77,7 +77,7 @@ export function getInteractableJSStyles({
   return [
     jsStyles.root,
     color === "positive" && jsStyles.positive,
-    color === "secondary" && jsStyles.secondary,
+    color === "primary" && jsStyles.primary,
     color === "negative" && jsStyles.negative,
     bare && jsStyles.bare,
     disabled && jsStyles.disabled,
@@ -112,7 +112,7 @@ export const getGlyphColor = (
       return bare ? "highlight" : "light";
     case "negative":
       return bare ? "negative" : "light";
-    case "secondary":
+    case "primary":
       return bare ? "primary" : "secondary";
   }
 };

@@ -93,7 +93,7 @@ export function DarkModeToggle() {
       icon={darkMode.enabled ? "fa-sun-o" : "fa-moon-o"}
       size="medium"
       onClick={darkMode.toggle}
-      color="secondary"
+      color="primary"
       bare
     />
   );

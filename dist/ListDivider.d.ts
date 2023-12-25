@@ -1,1 +1,2 @@
-export declare function ListDivider(): import("react/jsx-runtime").JSX.Element;
+import React from "react";
+export declare function ListDivider(): React.JSX.Element;

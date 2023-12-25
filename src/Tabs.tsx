@@ -60,7 +60,7 @@ export function Tabs({
             aria-selected={selected ? "true" : undefined}
             key={label}
             bare
-            color={selected ? "positive" : "secondary"}
+            color={selected ? "positive" : "primary"}
             href={href}
             onClick={onClick}
             animateInteraction={false}

@@ -32,7 +32,7 @@ export const ListLinkItem = React.forwardRef(
       jsStyle,
       gap,
       selected,
-      color = "secondary",
+      color = "primary",
       target,
       ...otherProps
     }: ListLinkItemProps,

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { Subscribe } from "./Emitter";
 export type Reducer<State, Context> = <Data extends any>({ state, context, data, }: {
     state: State;
@@ -30,7 +30,7 @@ type StateMachineContextType<State, Context> = {
 export declare function stateMachineContextFactory<State, Transition, Context>(stateMachineConfig: StateMachineConfig<State, Transition, Context>): {
     Provider: ({ children }: {
         children: ReactNode;
-    }) => import("react/jsx-runtime").JSX.Element;
+    }) => React.JSX.Element;
     useStateMachine: () => StateMachineContextType<State, Context>;
 };
 export {};

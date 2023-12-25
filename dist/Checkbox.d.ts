@@ -1,3 +1,4 @@
+import React from "react";
 import { BaseInputProps } from "./BaseInput";
 import { Size } from "./jss";
 interface CheckboxProps extends BaseInputProps {
@@ -7,5 +8,5 @@ interface CheckboxProps extends BaseInputProps {
     value?: undefined;
     onChange?: undefined;
 }
-export declare function Checkbox({ checked, onClick, size, ...inputProps }: CheckboxProps): import("react/jsx-runtime").JSX.Element;
+export declare function Checkbox({ checked, onClick, size, ...inputProps }: CheckboxProps): React.JSX.Element;
 export {};

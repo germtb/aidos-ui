@@ -1,5 +1,5 @@
 import { JSStyle, Padding, TextColor } from "./jss";
-export type InteractableColor = "positive" | "secondary" | "negative";
+export type InteractableColor = "positive" | "primary" | "negative";
 export declare function getInteractableJSStyles({ color, bare, disabled, animateInteraction, padding, }: {
     color: InteractableColor;
     bare: boolean;

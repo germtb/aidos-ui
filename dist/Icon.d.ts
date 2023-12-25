@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import React from "react";
 import { IconType } from "./IconType";
 import { Size, TextColor } from "./jss";
 export declare function IconProvider({ children }: {
@@ -9,4 +9,4 @@ export declare function Icon({ icon, size, color, ariaLabel, }: {
     icon: IconType;
     size: Size;
     color: TextColor;
-}): import("react/jsx-runtime").JSX.Element;
+}): React.JSX.Element;

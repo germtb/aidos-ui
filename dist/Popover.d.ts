@@ -1,9 +1,9 @@
-/// <reference types="react" />
+import React from "react";
 import { JSStyle } from "./jss";
 export declare function Popover({ children, close }: {
     children: any;
     close: any;
-}): import("react/jsx-runtime").JSX.Element;
+}): React.JSX.Element;
 interface PopoverTriggerProps<Input> {
     PopoverComponent: (props: {
         close: () => void;
@@ -18,5 +18,5 @@ interface PopoverTriggerProps<Input> {
         toggle: (input: Input) => void;
     }) => JSX.Element;
 }
-export declare function PopoverTrigger<Input>({ PopoverComponent, jsStyle, dialogJSStyle, grow, shrink, tag, children, }: PopoverTriggerProps<Input>): import("react/jsx-runtime").JSX.Element;
+export declare function PopoverTrigger<Input>({ PopoverComponent, jsStyle, dialogJSStyle, grow, shrink, tag, children, }: PopoverTriggerProps<Input>): React.JSX.Element;
 export {};

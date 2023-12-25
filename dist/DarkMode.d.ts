@@ -8,6 +8,6 @@ export declare function DarkModeProvider({ children, enabled, toggle, }: {
     children: ReactNode;
     enabled: boolean;
     toggle: () => void;
-}): import("react/jsx-runtime").JSX.Element;
-export declare function DarkModeToggle(): import("react/jsx-runtime").JSX.Element;
+}): React.JSX.Element;
+export declare function DarkModeToggle(): React.JSX.Element;
 export {};

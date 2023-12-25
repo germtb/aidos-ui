@@ -4,7 +4,6 @@ import { Icon } from "./Icon";
 import { Box } from "./Box";
 import { Row } from "./Row";
 import { JSStyle } from "./jss";
-import { useListContext } from "./List";
 
 export function Sublist({
   children,
@@ -54,7 +53,7 @@ export function Sublist({
           </Row>
         }
         addOnPosition="end"
-        color="secondary"
+        color="primary"
       />
       {collapsed ? null : children}
     </>

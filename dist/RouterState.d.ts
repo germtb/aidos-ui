@@ -23,7 +23,7 @@ type Route<Props, State extends RouteState> = {
 };
 export declare const Provider: ({ children }: {
     children: import("react").ReactNode;
-}) => import("react/jsx-runtime").JSX.Element, useStateMachine: () => {
+}) => import("react").JSX.Element, useStateMachine: () => {
     subscribe: import("./Emitter").Subscribe<{
         state: RouteState;
         context: Context;

@@ -56,7 +56,7 @@ export const Dialog = ({
             icon="fa-close"
             size="medium"
             onClick={close}
-            color="secondary"
+            color="primary"
           />
         </Row>
         <ListDivider />

@@ -24,7 +24,7 @@ export const ListButtonItem = React.forwardRef(
   (
     {
       onClick,
-      color = "secondary",
+      color = "primary",
       disabled = false,
       padding = "medium",
       jsStyle,
@@ -55,7 +55,7 @@ export const ListButtonItem = React.forwardRef(
             disabled={disabled}
             animateInteraction={false}
             bare={true}
-            color={bare ? "secondary" : color}
+            color={bare ? "primary" : color}
             ref={ref}
             jsStyle={getInteractableListItemJSStyles({ bare, selected })}
             onClick={onClick}

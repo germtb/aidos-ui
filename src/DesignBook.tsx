@@ -109,7 +109,7 @@ export function DesignBook() {
                 <Button
                   style={{ position: "relative" }}
                   label="Secondary button"
-                  color="secondary"
+                  color="primary"
                   onClick={() => {
                     toggle(undefined);
                   }}
@@ -192,7 +192,7 @@ export function DesignBook() {
             <Button
               bare={true}
               label="Bare secondary button"
-              color="secondary"
+              color="primary"
               onClick={() => {}}
             />
           </Row>
@@ -223,7 +223,7 @@ export function DesignBook() {
           </Row>
 
           <Row gap="medium">
-            <Link label="Secondary link" color="secondary" href="/" />
+            <Link label="Secondary link" color="primary" href="/" />
           </Row>
 
           <Row gap="medium">
@@ -250,7 +250,7 @@ export function DesignBook() {
             <Link
               bare={true}
               label="Bare secondary Link"
-              color="secondary"
+              color="primary"
               href="/"
             />
           </Row>
@@ -365,39 +365,39 @@ export function DesignBook() {
             <IconButton
               size="large"
               icon="fa-info"
-              color="secondary"
+              color="primary"
               onClick={() => {}}
             />
             <IconButton
               size="medium"
               icon="fa-info"
-              color="secondary"
+              color="primary"
               onClick={() => {}}
             />
             <IconButton
               size="small"
               icon="fa-info"
-              color="secondary"
+              color="primary"
               onClick={() => {}}
             />
             <IconButton
               size="large"
               icon="fa-info"
-              color="secondary"
+              color="primary"
               onClick={() => {}}
               bare={true}
             />
             <IconButton
               size="medium"
               icon="fa-info"
-              color="secondary"
+              color="primary"
               onClick={() => {}}
               bare={true}
             />
             <IconButton
               size="small"
               icon="fa-info"
-              color="secondary"
+              color="primary"
               onClick={() => {}}
               bare={true}
             />
