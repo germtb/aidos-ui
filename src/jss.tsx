@@ -244,7 +244,14 @@ export function JSServerStyles() {
   );
 }
 
-export type Size = "xsmall" | "small" | "medium" | "large" | "xlarge";
+export type Size =
+  | "xsmall"
+  | "small"
+  | "medium"
+  | "large"
+  | "xlarge"
+  | "xxlarge"
+  | "xxxlarge";
 
 export type Spacing = "none" | Size;
 
@@ -299,6 +306,8 @@ const sizes: { [size in Size]: string } = {
   medium: cssVar("--spacing-m"),
   large: cssVar("--spacing-l"),
   xlarge: cssVar("--spacing-xl"),
+  xxlarge: cssVar("--spacing-xxl"),
+  xxxlarge: cssVar("--spacing-xxxl"),
 };
 
 export function getSize(size: Size): string {

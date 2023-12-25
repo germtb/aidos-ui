@@ -13,7 +13,7 @@ export declare function JSStylesProvider({ themes, children, }: {
     children: JSX.Element;
 }): import("react/jsx-runtime").JSX.Element;
 export declare function JSServerStyles(): import("react/jsx-runtime").JSX.Element;
-export type Size = "xsmall" | "small" | "medium" | "large" | "xlarge";
+export type Size = "xsmall" | "small" | "medium" | "large" | "xlarge" | "xxlarge" | "xxxlarge";
 export type Spacing = "none" | Size;
 export type Gap = Spacing;
 export type Padding = Spacing | [Spacing, Spacing];

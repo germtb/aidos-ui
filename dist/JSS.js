@@ -190,6 +190,8 @@ const sizes = {
     medium: cssVar("--spacing-m"),
     large: cssVar("--spacing-l"),
     xlarge: cssVar("--spacing-xl"),
+    xxlarge: cssVar("--spacing-xxl"),
+    xxxlarge: cssVar("--spacing-xxxl"),
 };
 export function getSize(size) {
     return sizes[size];
