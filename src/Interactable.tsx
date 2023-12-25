@@ -67,33 +67,23 @@ const jsStyles = {
       backgroundColor: "inherit",
     },
   },
-  border: {
-    borderTopWidth: "1px",
-    borderRightWidth: "1px",
-    borderBottomWidth: "1px",
-    borderLeftWidth: "1px",
-    borderTopStyle: "solid",
-    borderRightStyle: "solid",
-    borderBottomStyle: "solid",
-    borderLeftStyle: "solid",
-  },
   borderDark: {
-    borderColor: "black",
+    border: "1px solid black",
   },
   borderLight: {
-    borderColor: "white",
+    border: "1px solid white",
   },
   borderPositive: {
-    borderColor: cssVar("--highlight-text"),
+    border: `1px solid ${cssVar("--highlight-text")}`,
   },
   borderNegative: {
-    borderColor: cssVar("--negative-text"),
+    border: `1px solid ${cssVar("--negative-text")}`,
   },
   borderPrimary: {
-    borderColor: cssVar("--primary-text"),
+    border: `1px solid ${cssVar("--primary-text")}`,
   },
   borderDisabled: {
-    borderColor: cssVar("--subtle-text"),
+    border: `1px solid ${cssVar("--subtle-text")}`,
   },
   opacityHover: {
     ":hover": {
@@ -128,7 +118,6 @@ export function getInteractableJSStyles({
     color === "positive" && jsStyles.positive,
     color === "primary" && jsStyles.primary,
     color === "negative" && jsStyles.negative,
-    border && jsStyles.border,
     border && !disabled && color === "positive" && jsStyles.borderPositive,
     border && !disabled && color === "negative" && jsStyles.borderNegative,
     border && !disabled && color === "primary" && jsStyles.borderPrimary,
