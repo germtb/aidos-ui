@@ -23,7 +23,7 @@ export type Position = "start" | "end";
 export type Justify = "none" | "center" | "flex-start" | "space-between" | "flex-end" | "stretch";
 export type Align = "none" | "center" | "stretch" | "flex-start" | "flex-end";
 export type FlexDirection = "row" | "column";
-export type Color = "none" | "negative" | "warning" | "highlight" | "primary-background" | "secondary-background" | "divider" | "inherit";
+export type Color = "none" | "light" | "dark" | "negative" | "warning" | "highlight" | "primary-background" | "secondary-background" | "divider" | "inherit";
 export type TextColor = "primary" | "secondary" | "highlight" | "negative" | "subtle" | "light" | "inherit";
 export declare function cssVar(string: keyof Theme): string;
 export declare function getSize(size: Size): string;

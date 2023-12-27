@@ -279,6 +279,8 @@ export type FlexDirection = "row" | "column";
 
 export type Color =
   | "none"
+  | "light"
+  | "dark"
   | "negative"
   | "warning"
   | "highlight"
@@ -508,6 +510,12 @@ body {
 const backgroundStyles = {
   highlight: {
     backgroundColor: cssVar("--highlight"),
+  },
+  light: {
+    backgroundColor: "white",
+  },
+  dark: {
+    backgroundColor: "black",
   },
   warning: {
     backgroundColor: cssVar("--warning"),

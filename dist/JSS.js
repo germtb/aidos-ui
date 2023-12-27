@@ -346,6 +346,12 @@ const backgroundStyles = {
     highlight: {
         backgroundColor: cssVar("--highlight"),
     },
+    light: {
+        backgroundColor: "white",
+    },
+    dark: {
+        backgroundColor: "black",
+    },
     warning: {
         backgroundColor: cssVar("--warning"),
     },
