@@ -9,6 +9,7 @@ export interface LinkProps extends BaseLinkProps {
     color: InteractableColor;
     size?: Size;
     icon?: IconType;
+    underline?: boolean;
     iconSize?: Size;
     children?: undefined;
     iconPosition?: "left" | "right";

@@ -59,24 +59,6 @@ const jsStyles = {
             backgroundColor: "inherit",
         },
     },
-    borderDark: {
-        border: "1px solid black",
-    },
-    borderLight: {
-        border: "1px solid white",
-    },
-    borderPositive: {
-        border: `1px solid ${cssVar("--highlight-text")}`,
-    },
-    borderNegative: {
-        border: `1px solid ${cssVar("--negative-text")}`,
-    },
-    borderPrimary: {
-        border: `1px solid ${cssVar("--primary-text")}`,
-    },
-    borderDisabled: {
-        border: `1px solid ${cssVar("--subtle-text")}`,
-    },
     opacityHover: {
         ":hover": {
             opacity: 0.8,
@@ -95,12 +77,9 @@ export function getInteractableJSStyles({ color, bare, disabled, animateInteract
         color === "positive" && jsStyles.positive,
         color === "primary" && jsStyles.primary,
         color === "negative" && jsStyles.negative,
-        border && !disabled && color === "positive" && jsStyles.borderPositive,
-        border && !disabled && color === "negative" && jsStyles.borderNegative,
-        border && !disabled && color === "primary" && jsStyles.borderPrimary,
-        border && !disabled && color === "dark" && jsStyles.borderDark,
-        border && !disabled && color === "light" && jsStyles.borderLight,
-        border && disabled && jsStyles.borderDisabled,
+        border && {
+            border: `1px solid ${getCSSColor(color, disabled, bare)}`,
+        },
         bare && jsStyles.bare,
         disabled && jsStyles.disabled,
         !bare && jsStyles.opacityHover,
@@ -134,6 +113,23 @@ export const getGlyphColor = (color, disabled, bare) => {
             return bare ? "primary" : "light";
         case "light":
             return bare ? "light" : "primary";
+    }
+};
+export const getCSSColor = (color, disabled, bare) => {
+    if (disabled) {
+        return cssVar("--subtle-text");
+    }
+    switch (color) {
+        case "positive":
+            return bare ? cssVar("--highlight") : cssVar("--light-text");
+        case "negative":
+            return bare ? cssVar("--negative-text") : cssVar("--light-text");
+        case "primary":
+            return bare ? cssVar("--primary-text") : cssVar("--secondary-text");
+        case "dark":
+            return bare ? cssVar("--primary-text") : cssVar("--light-text");
+        case "light":
+            return bare ? cssVar("--light-text") : cssVar("--primary-text");
     }
 };
 export const getInteractableListItemJSStyles = ({ bare, selected, }) => {

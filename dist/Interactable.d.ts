@@ -9,6 +9,7 @@ export declare function getInteractableJSStyles({ color, bare, disabled, animate
     border: boolean;
 }): Array<JSStyle>;
 export declare const getGlyphColor: (color: InteractableColor, disabled: boolean | undefined, bare: boolean | undefined) => TextColor;
+export declare const getCSSColor: (color: InteractableColor, disabled: boolean | undefined, bare: boolean | undefined) => string;
 export declare const getInteractableListItemJSStyles: ({ bare, selected, }: {
     bare: boolean;
     selected: boolean;

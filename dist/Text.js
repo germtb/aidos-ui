@@ -6,6 +6,8 @@ const fontSize = {
     medium: "1.25rem",
     large: "1.5rem",
     xlarge: "2rem",
+    xxlarge: "3rem",
+    xxxlarge: "4rem",
 };
 export function Text({ children, color = "primary", size = "medium", align = "none", bold = false, ellipsis = "default", grow, type: Type = "span", jsStyle, id, htmlFor, }) {
     if (ellipsis === "default") {

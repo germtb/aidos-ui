@@ -6,14 +6,15 @@ import { IconType } from "./IconType";
 import { Row } from "./Row";
 import { Icon } from "./Icon";
 import { FlexLayoutProps } from "./FlexLayout";
-import { InteractableColor, getGlyphColor } from "./Interactable";
-import { Size, Align, Gap, Justify, cssVar } from "./jss";
+import { InteractableColor, getGlyphColor, getCSSColor } from "./Interactable";
+import { Size, Align, Gap, Justify, cssVar, JSStylesProvider } from "./jss";
 
 export interface LinkProps extends BaseLinkProps {
   label: string;
   color: InteractableColor;
   size?: Size;
   icon?: IconType;
+  underline?: boolean;
   iconSize?: Size;
   children?: undefined;
   iconPosition?: "left" | "right";
@@ -32,6 +33,7 @@ export const Link = React.forwardRef(
       bare,
       disabled,
       icon,
+      underline,
       iconSize = "medium",
       iconPosition = "left",
       align = "center",
@@ -59,6 +61,12 @@ export const Link = React.forwardRef(
             padding: cssVar("--spacing-m"),
             display: "inline-flex",
             textDecoration: "none",
+          },
+          underline && {
+            textDecorationLine: "underline",
+            textDecorationThickness: "2px",
+            textUnderlineOffset: "2px",
+            textDecorationColor: getCSSColor(color, disabled, bare),
           },
           jsStyle,
         ]}

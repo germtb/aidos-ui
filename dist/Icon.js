@@ -29,8 +29,16 @@ const jsStyles = {
         width: 24,
     },
     xlarge: {
-        height: 30,
-        width: 30,
+        height: 32,
+        width: 32,
+    },
+    xxlarge: {
+        height: 48,
+        width: 48,
+    },
+    xxxlarge: {
+        height: 64,
+        width: 64,
     },
 };
 let initialized = false;
@@ -63,6 +71,8 @@ export function Icon({ icon, size, color, ariaLabel, }) {
             size === "medium" && jsStyles.medium,
             size === "large" && jsStyles.large,
             size === "xlarge" && jsStyles.xlarge,
+            size === "xxlarge" && jsStyles.xxlarge,
+            size === "xxxlarge" && jsStyles.xxxlarge,
             getTextColor(color),
         ], children: _jsx("span", { className: "iconify", "data-icon": icon }) }, icon));
 }

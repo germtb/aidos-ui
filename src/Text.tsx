@@ -7,6 +7,8 @@ const fontSize = {
   medium: "1.25rem",
   large: "1.5rem",
   xlarge: "2rem",
+  xxlarge: "3rem",
+  xxxlarge: "4rem",
 };
 
 export type Display = "inline" | "block";
