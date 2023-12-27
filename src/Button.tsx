@@ -40,6 +40,7 @@ export const Button = React.forwardRef(
       jsStyle,
       size = "medium",
       bold,
+      padding = "medium",
       ...otherProps
     }: ButtonProps,
     ref?: React.Ref<HTMLButtonElement>
@@ -51,13 +52,13 @@ export const Button = React.forwardRef(
         ref={ref}
         color={color}
         disabled={disabled}
+        padding={padding}
         jsStyle={[
           {
             borderRadius: cssVar("--border-radius-m"),
             justifyContent: "center",
             userSelect: "none",
           },
-          getPadding("medium"),
           jsStyle,
         ]}
       >

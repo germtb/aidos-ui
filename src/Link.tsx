@@ -7,7 +7,15 @@ import { Row } from "./Row";
 import { Icon } from "./Icon";
 import { FlexLayoutProps } from "./FlexLayout";
 import { InteractableColor, getGlyphColor, getCSSColor } from "./Interactable";
-import { Size, Align, Gap, Justify, cssVar, JSStylesProvider } from "./jss";
+import {
+  Size,
+  Align,
+  Gap,
+  Justify,
+  cssVar,
+  JSStylesProvider,
+  getPadding,
+} from "./jss";
 
 export interface LinkProps extends BaseLinkProps {
   label: string;
@@ -41,6 +49,7 @@ export const Link = React.forwardRef(
       justify = "center",
       jsStyle,
       size = "medium",
+      padding = "medium",
       bold,
       ...otherProps
     }: LinkProps,
@@ -53,12 +62,12 @@ export const Link = React.forwardRef(
         ref={ref}
         color={color}
         disabled={disabled}
+        padding={padding}
         jsStyle={[
           {
-            borderRadius: "var(--border-radius-m)",
+            borderRadius: cssVar("--border-radius-m"),
             justifyContent: "center",
             userSelect: "none",
-            padding: cssVar("--spacing-m"),
             display: "inline-flex",
             textDecoration: "none",
           },

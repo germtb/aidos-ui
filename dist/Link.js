@@ -5,14 +5,13 @@ import { Text } from "./Text";
 import { Row } from "./Row";
 import { Icon } from "./Icon";
 import { getGlyphColor, getCSSColor } from "./Interactable";
-import { cssVar } from "./jss";
-export const Link = React.forwardRef(({ label, color, bare, disabled, icon, underline, iconSize = "medium", iconPosition = "left", align = "center", gap = "small", justify = "center", jsStyle, size = "medium", bold, ...otherProps }, ref) => {
-    return (_jsx(BaseLink, { ...otherProps, bare: bare, ref: ref, color: color, disabled: disabled, jsStyle: [
+import { cssVar, } from "./jss";
+export const Link = React.forwardRef(({ label, color, bare, disabled, icon, underline, iconSize = "medium", iconPosition = "left", align = "center", gap = "small", justify = "center", jsStyle, size = "medium", padding = "medium", bold, ...otherProps }, ref) => {
+    return (_jsx(BaseLink, { ...otherProps, bare: bare, ref: ref, color: color, disabled: disabled, padding: padding, jsStyle: [
             {
-                borderRadius: "var(--border-radius-m)",
+                borderRadius: cssVar("--border-radius-m"),
                 justifyContent: "center",
                 userSelect: "none",
-                padding: cssVar("--spacing-m"),
                 display: "inline-flex",
                 textDecoration: "none",
             },
