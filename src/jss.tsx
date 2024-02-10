@@ -487,7 +487,6 @@ export const baseStyles = `
   box-sizing: border-box;
   border: none;
   touch-action: manipulation;
-  font-family: sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
