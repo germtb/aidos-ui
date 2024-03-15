@@ -36,6 +36,10 @@ import { DocsMDXProvider, labelToID } from "../docs/mdx";
 import { Pipeline, dot, pipeline } from "@xenova/transformers";
 import { pages } from "../docs/pages";
 
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"] });
+
 const transformers = import("@xenova/transformers");
 const searchIndex = import("../docs/searchIndex").then(
   (module) => module.index
@@ -227,6 +231,13 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <BaseLinkComponentOverrideContext.Provider value={link}>
+        {/* @ts-ignore */}
+        <style jsx global>{`
+          html {
+            font-family: ${inter.style.fontFamily};
+          }
+        `}</style>
+
         <Providers themes={{ light: lightTheme, dark: darkTheme }}>
           <DocsMDXProvider>
             <BaseView
