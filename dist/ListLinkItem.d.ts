@@ -4,7 +4,6 @@ import { InteractableColor } from "./Interactable";
 interface ListLinkItemProps extends BaseListItemProps {
     color?: InteractableColor;
     children?: void;
-    onClick?: () => void;
     href: string;
     headline: string;
     body?: string;

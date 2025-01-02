@@ -13,7 +13,6 @@ import { useListContext } from "./List";
 interface ListLinkItemProps extends BaseListItemProps {
   color?: InteractableColor;
   children?: void;
-  onClick?: () => void;
   href: string;
   headline: string;
   body?: string;
@@ -36,7 +35,7 @@ export const ListLinkItem = React.forwardRef(
       target,
       ...otherProps
     }: ListLinkItemProps,
-    ref?: React.Ref<HTMLAnchorElement>
+    ref?: React.Ref<HTMLAnchorElement>,
   ) => {
     const { bare } = useListContext();
 
@@ -72,5 +71,5 @@ export const ListLinkItem = React.forwardRef(
         )}
       </BaseListItem>
     );
-  }
+  },
 );
