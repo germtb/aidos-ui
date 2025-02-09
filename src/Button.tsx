@@ -10,12 +10,11 @@ import { InteractableColor, getGlyphColor } from "./Interactable";
 import { Align, Gap, Justify, Size, cssVar, getPadding } from "./jss";
 
 export interface ButtonProps extends BaseButtonProps {
-  label: string;
+  children: string;
   color: InteractableColor;
   size?: Size;
   icon?: IconType;
   iconSize?: Size;
-  children?: undefined;
   iconPosition?: "left" | "right";
   rowProps?: FlexLayoutProps;
   align?: Align;
@@ -27,7 +26,7 @@ export interface ButtonProps extends BaseButtonProps {
 export const Button = React.forwardRef(
   (
     {
-      label,
+      children,
       color,
       bare,
       disabled,
@@ -43,7 +42,7 @@ export const Button = React.forwardRef(
       padding = "medium",
       ...otherProps
     }: ButtonProps,
-    ref?: React.Ref<HTMLButtonElement>
+    ref?: React.Ref<HTMLButtonElement>,
   ) => {
     return (
       <BaseButton
@@ -75,7 +74,7 @@ export const Button = React.forwardRef(
             size={size}
             color={getGlyphColor(color, disabled, bare)}
           >
-            {label}
+            {children}
           </Text>
           {icon && iconPosition === "right" && (
             <Icon
@@ -87,5 +86,5 @@ export const Button = React.forwardRef(
         </Row>
       </BaseButton>
     );
-  }
+  },
 );

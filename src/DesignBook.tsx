@@ -42,7 +42,7 @@ function ExampleDialog({ close }) {
 export function DesignBook() {
   const dialog = useDialog<void>(
     ({ close }) => <ExampleDialog close={close} />,
-    { closeOnOutsideClick: true }
+    { closeOnOutsideClick: true },
   );
 
   const [checkbox1, setCheckbox1] = useState(true);
@@ -59,12 +59,13 @@ export function DesignBook() {
         <Sublist label="Button" initialState={{ collapsed: false }}>
           <Row gap="medium">
             <Button
-              label="Positive button"
               color="positive"
               onClick={() => {
                 dialog.open();
               }}
-            />
+            >
+              Positive button
+            </Button>
           </Row>
 
           <Row gap="medium">
@@ -108,12 +109,13 @@ export function DesignBook() {
               {({ toggle }) => (
                 <Button
                   style={{ position: "relative" }}
-                  label="Secondary button"
                   color="primary"
                   onClick={() => {
                     toggle(undefined);
                   }}
-                />
+                >
+                  Secondary button
+                </Button>
               )}
             </PopoverTrigger>
           </Row>
@@ -158,62 +160,52 @@ export function DesignBook() {
             >
               {({ toggle }) => (
                 <Button
-                  label="Negative button"
                   color="negative"
                   onClick={() => {
                     toggle(undefined);
                   }}
-                />
+                >
+                  Negative button
+                </Button>
               )}
             </PopoverTrigger>
           </Row>
 
           <Row gap="medium">
             <Tooltip content="Tooltip here">
-              <Button
-                label="Disabled button"
-                color="positive"
-                onClick={() => {}}
-                disabled={true}
-              />
+              <Button color="positive" onClick={() => {}} disabled={true}>
+                Disabled button
+              </Button>
             </Tooltip>
           </Row>
 
           <Row gap="medium">
-            <Button
-              bare={true}
-              label="Bare positive button"
-              color="positive"
-              onClick={() => {}}
-            />
+            <Button bare={true} color="positive" onClick={() => {}}>
+              Bare positive button
+            </Button>
+          </Row>
+
+          <Row gap="medium">
+            <Button bare={true} color="primary" onClick={() => {}}>
+              Bare secondary button
+            </Button>
+          </Row>
+
+          <Row gap="medium">
+            <Button bare={true} color="negative" onClick={() => {}}>
+              Bare negative button
+            </Button>
           </Row>
 
           <Row gap="medium">
             <Button
               bare={true}
-              label="Bare secondary button"
-              color="primary"
-              onClick={() => {}}
-            />
-          </Row>
-
-          <Row gap="medium">
-            <Button
-              bare={true}
-              label="Bare negative button"
-              color="negative"
-              onClick={() => {}}
-            />
-          </Row>
-
-          <Row gap="medium">
-            <Button
-              bare={true}
-              label="Bare disabled button"
               color="positive"
               onClick={() => {}}
               disabled={true}
-            />
+            >
+              Bare disabled button
+            </Button>
           </Row>
         </Sublist>
 

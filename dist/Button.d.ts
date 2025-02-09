@@ -5,12 +5,11 @@ import { FlexLayoutProps } from "./FlexLayout";
 import { InteractableColor } from "./Interactable";
 import { Align, Gap, Justify, Size } from "./jss";
 export interface ButtonProps extends BaseButtonProps {
-    label: string;
+    children: string;
     color: InteractableColor;
     size?: Size;
     icon?: IconType;
     iconSize?: Size;
-    children?: undefined;
     iconPosition?: "left" | "right";
     rowProps?: FlexLayoutProps;
     align?: Align;

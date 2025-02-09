@@ -75,7 +75,6 @@ export function Dropdown<T>({
         justify="space-between"
         tabIndex={0}
         jsStyle={jsStyles.button}
-        label={selection.toString()}
         color="positive"
         icon="fa-chevron-down"
         iconPosition="right"
@@ -83,7 +82,9 @@ export function Dropdown<T>({
           setExpanded((x) => !x);
         }}
         ref={triggerRef}
-      />
+      >
+        {selection.toString()}
+      </Button>
       {expanded && (
         <Column
           gap="medium"
@@ -113,13 +114,14 @@ export function Dropdown<T>({
                 role="option"
                 id={optionId}
                 aria-selected={selected ? "true" : "false"}
-                label={option.toString()}
                 color="positive"
                 onClick={() => {
                   setSelection(option);
                   setExpanded(false);
                 }}
-              />
+              >
+                {option.toString()}
+              </Button>
             );
           })}
         </Column>

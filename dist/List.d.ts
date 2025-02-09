@@ -1,3 +1,4 @@
+import React from "react";
 import { BaseListProps } from "./BaseList";
 interface ListProps extends BaseListProps {
     ariaLabel: string;
@@ -7,7 +8,7 @@ interface ListProps extends BaseListProps {
     navigation?: boolean;
     carded?: boolean;
 }
-export declare function List({ ariaLabel, jsStyle, autofocus, navigation, bare, carded, ...otherProps }: ListProps): import("react/jsx-runtime").JSX.Element;
+export declare function List({ ariaLabel, jsStyle, autofocus, navigation, bare, carded, ...otherProps }: ListProps): React.JSX.Element;
 export declare const useListContext: () => {
     bare: boolean;
     carded: boolean;
