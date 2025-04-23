@@ -549,7 +549,7 @@ export type IconType =
   | "fa-road"
   | "fa-rocket"
   | "fa-rotate-lef"
-  | "fa-rotate-righ"
+  | "fa-rotate-right"
   | "fa-roubl"
   | "fa-rss"
   | "fa-rss-square"
