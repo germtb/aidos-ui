@@ -6,7 +6,7 @@ import { Button } from "./Button";
 import { Column } from "./Column";
 import { useNavigation } from "./useNavigation";
 import { useRefEffect } from "./useRefEffect";
-import { JSStyle, getBackground } from "./jss";
+import { Gap, JSStyle, Padding, Size, getBackground } from "./jss";
 
 const jsStyles: { [key: string]: JSStyle } = {
   root: {
@@ -29,13 +29,18 @@ const jsStyles: { [key: string]: JSStyle } = {
     zIndex: 1,
   },
 };
-export function Dropdown<T>({
+export function Dropdown<T extends string | number>({
   id = guid(),
   label,
   options,
   selection,
   setSelection,
   jsStyle,
+  jsStyleButton,
+  optionLabel,
+  padding,
+  size,
+  gap = "medium",
 }: {
   id?: string;
   label: string;
@@ -43,6 +48,11 @@ export function Dropdown<T>({
   setSelection: (selection: T) => void;
   selection: T;
   jsStyle?: JSStyle;
+  jsStyleButton?: JSStyle;
+  optionLabel: (option: T) => string;
+  padding?: Padding;
+  gap?: Gap;
+  size?: Size;
 }) {
   const triggerRef = useRef(null);
   const [expanded, setExpanded] = useState(false);
@@ -67,6 +77,8 @@ export function Dropdown<T>({
   return (
     <BaseView ref={rootRef} jsStyle={[jsStyles.root, jsStyle]}>
       <Button
+        size={size}
+        padding={padding}
         aria-expanded={expanded ? "true" : "false"}
         aria-controls={id}
         aria-haspopup="true"
@@ -74,7 +86,7 @@ export function Dropdown<T>({
         role="combobox"
         justify="space-between"
         tabIndex={0}
-        jsStyle={jsStyles.button}
+        jsStyle={[jsStyles.button, jsStyleButton]}
         color="positive"
         icon="fa-chevron-down"
         iconPosition="right"
@@ -83,11 +95,11 @@ export function Dropdown<T>({
         }}
         ref={triggerRef}
       >
-        {selection.toString()}
+        {optionLabel(selection)}
       </Button>
       {expanded && (
         <Column
-          gap="medium"
+          gap={gap}
           jsStyle={[jsStyles.dropdown, getBackground("secondary-background")]}
           id={id}
           role="listbox"
@@ -105,6 +117,8 @@ export function Dropdown<T>({
             const selected = option === selection;
             return (
               <Button
+                size={size}
+                padding={padding}
                 justify={selected ? "space-between" : "flex-start"}
                 align="center"
                 bare={true}
@@ -120,7 +134,7 @@ export function Dropdown<T>({
                   setExpanded(false);
                 }}
               >
-                {option.toString()}
+                {optionLabel(selection)}
               </Button>
             );
           })}

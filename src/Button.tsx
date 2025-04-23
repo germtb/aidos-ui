@@ -42,7 +42,7 @@ export const Button = React.forwardRef(
       padding = "medium",
       ...otherProps
     }: ButtonProps,
-    ref?: React.Ref<HTMLButtonElement>,
+    ref?: React.Ref<HTMLButtonElement>
   ) => {
     return (
       <BaseButton
@@ -86,5 +86,5 @@ export const Button = React.forwardRef(
         </Row>
       </BaseButton>
     );
-  },
+  }
 );

@@ -28,7 +28,7 @@ const jsStyles = {
         zIndex: 1,
     },
 };
-export function Dropdown({ id = guid(), label, options, selection, setSelection, jsStyle, }) {
+export function Dropdown({ id = guid(), label, options, selection, setSelection, jsStyle, jsStyleButton, optionLabel, padding, size, gap = "medium", }) {
     const triggerRef = useRef(null);
     const [expanded, setExpanded] = useState(false);
     const dropdownRef = useNavigation({ autofocus: true });
@@ -46,19 +46,19 @@ export function Dropdown({ id = guid(), label, options, selection, setSelection,
             triggerRef.current && triggerRef.current.focus();
         }
     }, [expanded]);
-    return (_jsxs(BaseView, { ref: rootRef, jsStyle: [jsStyles.root, jsStyle], children: [_jsx(Button, { "aria-expanded": expanded ? "true" : "false", "aria-controls": id, "aria-haspopup": "true", "aria-label": label, role: "combobox", justify: "space-between", tabIndex: 0, jsStyle: jsStyles.button, color: "positive", icon: "fa-chevron-down", iconPosition: "right", onClick: () => {
+    return (_jsxs(BaseView, { ref: rootRef, jsStyle: [jsStyles.root, jsStyle], children: [_jsx(Button, { size: size, padding: padding, "aria-expanded": expanded ? "true" : "false", "aria-controls": id, "aria-haspopup": "true", "aria-label": label, role: "combobox", justify: "space-between", tabIndex: 0, jsStyle: [jsStyles.button, jsStyleButton], color: "positive", icon: "fa-chevron-down", iconPosition: "right", onClick: () => {
                     setExpanded((x) => !x);
-                }, ref: triggerRef, children: selection.toString() }), expanded && (_jsx(Column, { gap: "medium", jsStyle: [jsStyles.dropdown, getBackground("secondary-background")], id: id, role: "listbox", "aria-label": label, tabIndex: -1, ref: dropdownRef, onBlur: (e) => {
+                }, ref: triggerRef, children: optionLabel(selection) }), expanded && (_jsx(Column, { gap: gap, jsStyle: [jsStyles.dropdown, getBackground("secondary-background")], id: id, role: "listbox", "aria-label": label, tabIndex: -1, ref: dropdownRef, onBlur: (e) => {
                     if (!e.currentTarget.contains(e.relatedTarget)) {
                         setExpanded(false);
                     }
                 }, children: Array.from(options).map((option, index) => {
                     const optionId = `${id}-${index}`;
                     const selected = option === selection;
-                    return (_jsx(Button, { justify: selected ? "space-between" : "flex-start", align: "center", bare: true, iconPosition: "right", icon: selected ? "fa-check" : undefined, role: "option", id: optionId, "aria-selected": selected ? "true" : "false", color: "positive", onClick: () => {
+                    return (_jsx(Button, { size: size, padding: padding, justify: selected ? "space-between" : "flex-start", align: "center", bare: true, iconPosition: "right", icon: selected ? "fa-check" : undefined, role: "option", id: optionId, "aria-selected": selected ? "true" : "false", color: "positive", onClick: () => {
                             setSelection(option);
                             setExpanded(false);
-                        }, children: option.toString() }, optionId));
+                        }, children: optionLabel(selection) }, optionId));
                 }) }))] }));
 }
 //# sourceMappingURL=Dropdown.js.map
