@@ -379,6 +379,15 @@ export type Theme = {
   ["--highlight-text"]: string;
   ["--negative-text"]: string;
   ["--light-text"]: string;
+
+  ["--font-xsmall"]: string;
+  ["--font-small"]: string;
+  ["--font-medium"]: string;
+  ["--font-large"]: string;
+  ["--font-xlarge"]: string;
+  ["--font-xxlarge"]: string;
+  ["--font-xxxlarge"]: string;
+
   /* Buttons */
   ["--background-button-positive"]: string;
   ["--background-button-secondary"]: string;
@@ -421,6 +430,13 @@ export const lightTheme: Theme = {
   ["--highlight-text"]: "rgb(0, 122, 255)",
   ["--negative-text"]: "rgb(255, 59, 48)",
   ["--light-text"]: "rgb(255, 255, 255)",
+  ["--font-xsmall"]: "0.50rem",
+  ["--font-small"]: "0.75rem",
+  ["--font-medium"]: "1rem",
+  ["--font-large"]: "1.25rem",
+  ["--font-xlarge"]: "1.5rem",
+  ["--font-xxlarge"]: "2rem",
+  ["--font-xxxlarge"]: "4rem",
   /* Buttons */
   ["--background-button-positive"]: "rgb(0, 122, 255)",
   ["--background-button-secondary"]: "rgb(218, 218, 223)",
@@ -463,6 +479,13 @@ export const darkTheme: Theme = {
   ["--highlight-text"]: "#4ca7f8",
   ["--negative-text"]: "rgb(255, 59, 48)",
   ["--light-text"]: "rgb(255, 255, 255)",
+  ["--font-xsmall"]: "0.50rem",
+  ["--font-small"]: "0.75rem",
+  ["--font-medium"]: "1rem",
+  ["--font-large"]: "1.25rem",
+  ["--font-xlarge"]: "1.5rem",
+  ["--font-xxlarge"]: "2rem",
+  ["--font-xxxlarge"]: "4rem",
   /* Buttons */
   ["--background-button-positive"]: "rgb(50, 140, 220)",
   ["--background-button-secondary"]: "rgb(82, 83, 86)",

@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import React from "react";
 import { JSStyle } from "./jss";
 interface TooltipProps {
     content: string;
@@ -7,5 +7,5 @@ interface TooltipProps {
     tag?: keyof HTMLElementTagNameMap;
     children: JSX.Element;
 }
-export declare function Tooltip({ content, jsStyle, tag, children }: TooltipProps): import("react/jsx-runtime").JSX.Element;
+export declare function Tooltip({ content, jsStyle, tag, children }: TooltipProps): React.JSX.Element;
 export {};

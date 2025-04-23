@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { Position } from "./jss";
 export declare function ListHeaderItem({ highlight, headline, body, withDivider, addOn, addOnPosition, }: {
     highlight?: boolean;
@@ -7,4 +7,4 @@ export declare function ListHeaderItem({ highlight, headline, body, withDivider,
     withDivider?: boolean;
     addOn?: ReactNode;
     addOnPosition?: Position;
-}): import("react/jsx-runtime").JSX.Element;
+}): React.JSX.Element;

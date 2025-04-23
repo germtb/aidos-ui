@@ -1,1 +1,2 @@
-export declare function DesignBook(): import("react/jsx-runtime").JSX.Element;
+import React from "react";
+export declare function DesignBook(): React.JSX.Element;

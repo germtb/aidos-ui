@@ -1,5 +1,5 @@
-/// <reference types="react" />
 import CSS from "csstype";
+import React from "react";
 export type Styles = CSS.Properties<string | number | CSS.Properties<string | number>>;
 export type JSStyle = Styles | null | false | undefined | {
     [key: string]: Styles;
@@ -11,8 +11,8 @@ export declare function JSStylesProvider({ themes, children, }: {
         light: Theme;
     };
     children: JSX.Element;
-}): import("react/jsx-runtime").JSX.Element;
-export declare function JSServerStyles(): import("react/jsx-runtime").JSX.Element;
+}): React.JSX.Element;
+export declare function JSServerStyles(): React.JSX.Element;
 export type Size = "xsmall" | "small" | "medium" | "large" | "xlarge" | "xxlarge" | "xxxlarge";
 export type Spacing = "none" | Size;
 export type Gap = Spacing;
@@ -50,6 +50,13 @@ export type Theme = {
     ["--highlight-text"]: string;
     ["--negative-text"]: string;
     ["--light-text"]: string;
+    ["--font-xsmall"]: string;
+    ["--font-small"]: string;
+    ["--font-medium"]: string;
+    ["--font-large"]: string;
+    ["--font-xlarge"]: string;
+    ["--font-xxlarge"]: string;
+    ["--font-xxxlarge"]: string;
     ["--background-button-positive"]: string;
     ["--background-button-secondary"]: string;
     ["--background-button-negative"]: string;

@@ -1,14 +1,14 @@
 import React, { ReactNode } from "react";
-import { JSStyle, Size, TextColor, getTextColor, jss } from "./jss";
+import { JSStyle, Size, TextColor, cssVar, getTextColor, jss } from "./jss";
 
 const fontSize = {
-  xsmall: "0.75rem",
-  small: "1rem",
-  medium: "1.25rem",
-  large: "1.5rem",
-  xlarge: "2rem",
-  xxlarge: "3rem",
-  xxxlarge: "4rem",
+  xsmall: cssVar("--font-xsmall"),
+  small: cssVar("--font-small"),
+  medium: cssVar("--font-medium"),
+  large: cssVar("--font-large"),
+  xlarge: cssVar("--font-xlarge"),
+  xxlarge: cssVar("--font-xxlarge"),
+  xxxlarge: cssVar("--font-xxxlarge"),
 };
 
 export type Display = "inline" | "block";
