@@ -61,6 +61,7 @@ export * from "./TextInputWithState";
 export * from "./TextPairing";
 export * from "./TimeInput";
 export * from "./TimeInput";
+export * from "./Tooltip";
 export * from "./useCookie";
 export * from "./useNavigation";
 export * from "./usePromise";
