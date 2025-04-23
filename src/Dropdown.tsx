@@ -134,7 +134,7 @@ export function Dropdown<T extends string | number>({
                   setExpanded(false);
                 }}
               >
-                {optionLabel(selection)}
+                {optionLabel(option)}
               </Button>
             );
           })}

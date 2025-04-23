@@ -58,7 +58,7 @@ export function Dropdown({ id = guid(), label, options, selection, setSelection,
                     return (_jsx(Button, { size: size, padding: padding, justify: selected ? "space-between" : "flex-start", align: "center", bare: true, iconPosition: "right", icon: selected ? "fa-check" : undefined, role: "option", id: optionId, "aria-selected": selected ? "true" : "false", color: "positive", onClick: () => {
                             setSelection(option);
                             setExpanded(false);
-                        }, children: optionLabel(selection) }, optionId));
+                        }, children: optionLabel(option) }, optionId));
                 }) }))] }));
 }
 //# sourceMappingURL=Dropdown.js.map
