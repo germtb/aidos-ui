@@ -31,6 +31,7 @@ export interface LinkProps extends BaseLinkProps {
   gap?: Gap;
   justify?: Justify;
   bold?: boolean;
+  inline?: boolean;
 }
 
 export const Link = React.forwardRef(
@@ -50,6 +51,7 @@ export const Link = React.forwardRef(
       jsStyle,
       size = "medium",
       padding = "medium",
+      inline = true,
       bold,
       ...otherProps
     }: LinkProps,
@@ -68,7 +70,7 @@ export const Link = React.forwardRef(
             borderRadius: cssVar("--border-radius-m"),
             justifyContent: "center",
             userSelect: "none",
-            display: "inline-flex",
+            display: inline ? "inline-flex" : "flex",
             textDecoration: "none",
           },
           underline && {
@@ -80,7 +82,15 @@ export const Link = React.forwardRef(
           jsStyle,
         ]}
       >
-        <Row grow={true} align={align} gap={gap} justify={justify}>
+        <Row
+          jsStyle={{
+            display: inline ? "inline-flex" : "flex",
+          }}
+          grow={true}
+          align={align}
+          gap={gap}
+          justify={justify}
+        >
           {icon && iconPosition === "left" && (
             <Icon
               icon={icon}

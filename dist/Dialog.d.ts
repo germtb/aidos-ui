@@ -1,12 +1,12 @@
-/// <reference types="react" />
+import React from "react";
 export declare const Dialog: ({ label, children, close, }: {
     label: string;
     children: JSX.Element;
     close: () => void;
-}) => import("react/jsx-runtime").JSX.Element;
+}) => React.JSX.Element;
 export declare function DialogProvider({ children }: {
     children: any;
-}): import("react/jsx-runtime").JSX.Element;
+}): React.JSX.Element;
 export declare function useDialog<Input>(DialogComponent: (props: {
     close: () => void;
 } & Input) => JSX.Element, options: {
