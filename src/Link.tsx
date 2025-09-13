@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactNode } from "react";
 
 import { BaseLink, BaseLinkProps } from "./BaseLink";
 import { Text } from "./Text";
@@ -7,24 +7,15 @@ import { Row } from "./Row";
 import { Icon } from "./Icon";
 import { FlexLayoutProps } from "./FlexLayout";
 import { InteractableColor, getGlyphColor, getCSSColor } from "./Interactable";
-import {
-  Size,
-  Align,
-  Gap,
-  Justify,
-  cssVar,
-  JSStylesProvider,
-  getPadding,
-} from "./jss";
+import { Size, Align, Gap, Justify, cssVar } from "./jss";
 
 export interface LinkProps extends BaseLinkProps {
-  label: string;
+  children?: ReactNode;
   color: InteractableColor;
   size?: Size;
   icon?: IconType;
   underline?: boolean;
   iconSize?: Size;
-  children?: undefined;
   iconPosition?: "left" | "right";
   rowProps?: FlexLayoutProps;
   align?: Align;
@@ -37,7 +28,7 @@ export interface LinkProps extends BaseLinkProps {
 export const Link = React.forwardRef(
   (
     {
-      label,
+      children,
       color,
       bare,
       disabled,
@@ -103,7 +94,7 @@ export const Link = React.forwardRef(
             size={size}
             color={getGlyphColor(color, disabled, bare)}
           >
-            {label}
+            {children}
           </Text>
           {icon && iconPosition === "right" && (
             <Icon

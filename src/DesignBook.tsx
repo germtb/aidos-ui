@@ -42,7 +42,7 @@ function ExampleDialog({ close }) {
 export function DesignBook() {
   const dialog = useDialog<void>(
     ({ close }) => <ExampleDialog close={close} />,
-    { closeOnOutsideClick: true },
+    { closeOnOutsideClick: true }
   );
 
   const [checkbox1, setCheckbox1] = useState(true);
@@ -211,59 +211,47 @@ export function DesignBook() {
 
         <Sublist label="Link" initialState={{ collapsed: false }}>
           <Row gap="medium">
-            <Link label="Positive link" color="positive" href="/" />
+            <Link color="positive" href="/">
+              Positive link
+            </Link>
           </Row>
 
           <Row gap="medium">
-            <Link label="Secondary link" color="primary" href="/" />
+            <Link color="primary" href="/">
+              Secondary link
+            </Link>
           </Row>
 
           <Row gap="medium">
             <Tooltip content="Tooltip here">
-              <Link
-                label="Disabled link"
-                color="positive"
-                href="/"
-                disabled={true}
-              />
+              <Link color="positive" href="/" disabled={true}>
+                Disabled link
+              </Link>
             </Tooltip>
           </Row>
 
           <Row gap="medium">
-            <Link
-              bare={true}
-              label="Bare positive Link"
-              color="positive"
-              href="/"
-            />
+            <Link bare={true} color="positive" href="/">
+              Bare positive link
+            </Link>
           </Row>
 
           <Row gap="medium">
-            <Link
-              bare={true}
-              label="Bare secondary Link"
-              color="primary"
-              href="/"
-            />
+            <Link bare={true} color="primary" href="/">
+              Bare secondary link
+            </Link>
           </Row>
 
           <Row gap="medium">
-            <Link
-              bare={true}
-              label="Bare negative Link"
-              color="negative"
-              href="/"
-            />
+            <Link bare={true} color="negative" href="/">
+              Bare negative link
+            </Link>
           </Row>
 
           <Row gap="medium">
-            <Link
-              bare={true}
-              label="Bare disabled Link"
-              color="positive"
-              href="/"
-              disabled={true}
-            />
+            <Link bare={true} color="positive" href="/" disabled={true}>
+              Bare disabled Link
+            </Link>
           </Row>
         </Sublist>
 
