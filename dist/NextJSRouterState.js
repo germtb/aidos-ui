@@ -108,4 +108,4 @@ export const useRouterSend = () => {
     const { send } = useStateMachine();
     return send;
 };
-//# sourceMappingURL=NextJSRouterState.jsx.map
+//# sourceMappingURL=NextJSRouterState.js.map

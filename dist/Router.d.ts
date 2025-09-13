@@ -1,4 +1,4 @@
-import React from "react";
+/// <reference types="react" />
 export declare function useRouter(): [Route, (pathname: Route) => void];
 export type Route = {
     pathname: string;
@@ -8,4 +8,4 @@ export type Route = {
 };
 export declare function Router({ routeTree }: {
     routeTree: Route;
-}): React.JSX.Element;
+}): import("react/jsx-runtime").JSX.Element;
