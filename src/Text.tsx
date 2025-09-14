@@ -75,30 +75,30 @@ export function Text({
   );
 }
 
-export function Label({ size = "small", type = "label", ...rest }: TextProps) {
+export function Label({ size = "medium", type = "label", ...rest }: TextProps) {
   return <Text size={size} type={type} {...rest} />;
 }
 
-export function Span({ size = "small", type = "span", ...rest }: TextProps) {
+export function Span({ size = "medium", type = "span", ...rest }: TextProps) {
   return <Text size={size} type={type} {...rest} />;
 }
 
-export function P({ size = "small", type = "p", ...rest }: TextProps) {
+export function P({ size = "medium", type = "p", ...rest }: TextProps) {
   return <Text size={size} type={type} {...rest} />;
 }
 
-export function H1({ size = "xlarge", type = "h1", ...rest }: TextProps) {
+export function H1({ size = "xxlarge", type = "h1", ...rest }: TextProps) {
   return <Text size={size} type={type} {...rest} />;
 }
 
-export function H2({ size = "large", type = "h2", ...rest }: TextProps) {
+export function H2({ size = "xlarge", type = "h2", ...rest }: TextProps) {
   return <Text size={size} type={type} {...rest} />;
 }
 
-export function H3({ size = "medium", type = "h3", ...rest }: TextProps) {
+export function H3({ size = "large", type = "h3", ...rest }: TextProps) {
   return <Text size={size} type={type} {...rest} />;
 }
 
-export function Li({ size = "small", type = "li", ...rest }: TextProps) {
+export function Li({ size = "medium", type = "li", ...rest }: TextProps) {
   return <Text size={size} type={type} {...rest} />;
 }
