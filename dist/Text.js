@@ -28,25 +28,25 @@ export function Text({ children, color = "primary", size = "medium", align = "no
     ]);
     return (_jsx(Type, { id: id, className: className, htmlFor: htmlFor, children: children }));
 }
-export function Label({ size = "small", type = "label", ...rest }) {
+export function Label({ size = "medium", type = "label", ...rest }) {
     return _jsx(Text, { size: size, type: type, ...rest });
 }
-export function Span({ size = "small", type = "span", ...rest }) {
+export function Span({ size = "medium", type = "span", ...rest }) {
     return _jsx(Text, { size: size, type: type, ...rest });
 }
-export function P({ size = "small", type = "p", ...rest }) {
+export function P({ size = "medium", type = "p", ...rest }) {
     return _jsx(Text, { size: size, type: type, ...rest });
 }
-export function H1({ size = "xlarge", type = "h1", ...rest }) {
+export function H1({ size = "xxlarge", type = "h1", ...rest }) {
     return _jsx(Text, { size: size, type: type, ...rest });
 }
-export function H2({ size = "large", type = "h2", ...rest }) {
+export function H2({ size = "xlarge", type = "h2", ...rest }) {
     return _jsx(Text, { size: size, type: type, ...rest });
 }
-export function H3({ size = "medium", type = "h3", ...rest }) {
+export function H3({ size = "large", type = "h3", ...rest }) {
     return _jsx(Text, { size: size, type: type, ...rest });
 }
-export function Li({ size = "small", type = "li", ...rest }) {
+export function Li({ size = "medium", type = "li", ...rest }) {
     return _jsx(Text, { size: size, type: type, ...rest });
 }
 //# sourceMappingURL=Text.js.map
