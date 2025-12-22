@@ -6,128 +6,81 @@ import { ListDivider } from "./ListDivider";
 import { Column } from "./Column";
 import { Row } from "./Row";
 import { IconButton } from "./IconButton";
-import { jss } from "./jss";
+import { toClassnames } from "./jss";
 const jsss = {
-  dialog: {
-    border: "1px solid var(--divider)",
-    borderRadius: "var(--border-radius-m)",
-    padding: 0,
-  },
-  root: {
-    display: "grid",
-    width: "calc(100vw - 48px)",
-    gridTemplateAreas: `
+    dialog: {
+        border: "1px solid var(--divider)",
+        borderRadius: "var(--border-radius-m)",
+        padding: 0,
+    },
+    root: {
+        display: "grid",
+        width: "calc(100vw - 48px)",
+        gridTemplateAreas: `
         "header"
         "content"
     `,
-    "@media (min-width: 750px)": {
-      maxWidth: 750,
+        "@media (min-width: 750px)": {
+            maxWidth: 750,
+        },
+        backgroundColor: "var(--secondary-background)",
     },
-    backgroundColor: "var(--secondary-background)",
-  },
-  header: {
-    gridArea: "header",
-  },
-  content: {
-    gridArea: "content",
-  },
+    header: {
+        gridArea: "header",
+    },
+    content: {
+        gridArea: "content",
+    },
 };
-export const Dialog = ({ label, children, close }) => {
-  return _jsxs(BaseView, {
-    jss: jsss.root,
-    children: [
-      _jsxs(Column, {
-        jss: jsss.header,
-        children: [
-          _jsxs(Row, {
-            padding: "medium",
-            justify: "space-between",
-            align: "center",
-            children: [
-              _jsx(Text, {
-                size: "medium",
-                color: "secondary",
-                children: label,
-              }),
-              _jsx(IconButton, {
-                autoFocus: true,
-                bare: true,
-                icon: "fa-close",
-                size: "medium",
-                onClick: close,
-                color: "primary",
-              }),
-            ],
-          }),
-          _jsx(ListDivider, {}),
-        ],
-      }),
-      _jsx(BaseView, { jss: jsss.content, children: children }),
-    ],
-  });
+export const Dialog = ({ label, children, close, }) => {
+    return (_jsxs(BaseView, { jss: jsss.root, children: [_jsxs(Column, { jss: jsss.header, children: [_jsxs(Row, { padding: "medium", justify: "space-between", align: "center", children: [_jsx(Text, { size: "medium", color: "secondary", children: label }), _jsx(IconButton, { autoFocus: true, bare: true, icon: "fa-close", size: "medium", onClick: close, color: "primary" })] }), _jsx(ListDivider, {})] }), _jsx(BaseView, { jss: jsss.content, children: children })] }));
 };
 const DialogContext = React.createContext({
-  setDialog: () => {},
+    setDialog: () => { },
 });
 export function DialogProvider({ children }) {
-  const [dialog, setDialog] = useState(null);
-  const value = useMemo(() => ({ setDialog }), []);
-  return _jsxs(DialogContext.Provider, {
-    value: value,
-    children: [dialog, children],
-  });
+    const [dialog, setDialog] = useState(null);
+    const value = useMemo(() => ({ setDialog }), []);
+    return (_jsxs(DialogContext.Provider, { value: value, children: [dialog, children] }));
 }
 export function useDialog(DialogComponent, options) {
-  const { setDialog } = useContext(DialogContext);
-  const dialogRef = useRef(null);
-  const activeElementRef = useRef(null);
-  const closeRef = useRef(null);
-  closeRef.current = () => {
-    dialogRef.current && dialogRef.current.close();
-    activeElementRef.current && activeElementRef.current.focus();
-    dialogRef.current = null;
-    activeElementRef.current = null;
-    setDialog(null);
-  };
-  const open = (input) => {
-    activeElementRef.current = document.activeElement;
-    setDialog(
-      _jsx("dialog", {
-        ref: (ref) => {
-          dialogRef.current = ref;
-          ref && ref.showModal();
-        },
-        className: jss(jsss.dialog),
-        onClose: () => {
-          closeRef.current();
-        },
-        onClick: (e) => {
-          if (dialogRef.current == null) {
-            return;
-          }
-          const dialogDimensions = dialogRef.current.getBoundingClientRect();
-          if (options.closeOnOutsideClick === false) {
-            return;
-          }
-          if (
-            e.clientX < dialogDimensions.left ||
-            e.clientX > dialogDimensions.right ||
-            e.clientY > dialogDimensions.bottom ||
-            e.clientY < dialogDimensions.top
-          ) {
-            dialogRef.current.close();
-          }
-        },
-        children: _jsx(DialogComponent, {
-          ...input,
-          close: () => closeRef.current(),
-        }),
-      })
-    );
-  };
-  return {
-    open,
-    close: () => closeRef.current(),
-  };
+    const { setDialog } = useContext(DialogContext);
+    const dialogRef = useRef(null);
+    const activeElementRef = useRef(null);
+    const closeRef = useRef(null);
+    closeRef.current = () => {
+        dialogRef.current && dialogRef.current.close();
+        activeElementRef.current && activeElementRef.current.focus();
+        dialogRef.current = null;
+        activeElementRef.current = null;
+        setDialog(null);
+    };
+    const open = (input) => {
+        activeElementRef.current = document.activeElement;
+        setDialog(_jsx("dialog", { ref: (ref) => {
+                dialogRef.current = ref;
+                ref && ref.showModal();
+            }, className: toClassnames(jsss.dialog), onClose: () => {
+                closeRef.current();
+            }, onClick: (e) => {
+                if (dialogRef.current == null) {
+                    return;
+                }
+                const dialogDimensions = dialogRef.current.getBoundingClientRect();
+                if (options.closeOnOutsideClick === false) {
+                    return;
+                }
+                if (e.clientX < dialogDimensions.left ||
+                    e.clientX > dialogDimensions.right ||
+                    e.clientY > dialogDimensions.bottom ||
+                    e.clientY < dialogDimensions.top) {
+                    dialogRef.current.close();
+                }
+            }, children: _jsx(DialogComponent, { ...input, close: () => closeRef.current() }) }));
+    };
+    return {
+        open,
+        close: () => closeRef.current(),
+    };
 }
 //# sourceMappingURL=Dialog.js.map

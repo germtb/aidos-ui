@@ -18,4 +18,4 @@ export interface TabsProps extends RowProps {
     tabJSStyle?: JSStyle;
     labelRenderer?: (label: string) => ReactNode;
 }
-export declare function Tabs({ tabs, gap, padding, tabPadding, labelSize, jss, tabJSStyle, labelRenderer, ["aria-controls"]: ariaControls, ...otherProps }: TabsProps): import("react").JSX.Element;
+export declare function Tabs({ tabs, gap, padding, tabPadding, labelSize, jss, tabJSStyle, labelRenderer, ["aria-controls"]: ariaControls, ...otherProps }: TabsProps): import("react/jsx-runtime").JSX.Element;

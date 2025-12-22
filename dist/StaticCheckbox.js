@@ -3,56 +3,46 @@ import { BaseView } from "./BaseView";
 import { Icon } from "./Icon";
 import { cssVar } from "./jss";
 const jsss = {
-  border: {
-    position: "absolute",
-    top: "var(--spacing-xs)",
-    bottom: "var(--spacing-xs)",
-    left: "var(--spacing-xs)",
-    right: "var(--spacing-xs)",
-    border: "1px solid var(--divider)",
-    borderRadius: "50%",
-  },
-  borderChecked: {
-    border: "none",
-    backgroundColor: "var(--highlight)",
-  },
-  icon: {
-    position: "absolute",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    top: "var(--spacing-xs)",
-    bottom: "var(--spacing-xs)",
-    left: "var(--spacing-xs)",
-    right: "var(--spacing-xs)",
-  },
+    border: {
+        position: "absolute",
+        top: "var(--spacing-xs)",
+        bottom: "var(--spacing-xs)",
+        left: "var(--spacing-xs)",
+        right: "var(--spacing-xs)",
+        border: "1px solid var(--divider)",
+        borderRadius: "50%",
+    },
+    borderChecked: {
+        border: "none",
+        backgroundColor: "var(--highlight)",
+    },
+    icon: {
+        position: "absolute",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        top: "var(--spacing-xs)",
+        bottom: "var(--spacing-xs)",
+        left: "var(--spacing-xs)",
+        right: "var(--spacing-xs)",
+    },
 };
 export const sizes = {
-  xsmall: 20,
-  small: 24,
-  medium: 32,
-  large: 40,
-  xlarge: 48,
+    xsmall: 20,
+    small: 24,
+    medium: 32,
+    large: 40,
+    xlarge: 48,
 };
-export function StaticCheckbox({ checked, size, icon = "fa-check" }) {
-  return _jsxs(BaseView, {
-    jss: {
-      position: "relative",
-      backgroundColor: cssVar("--primary-background"),
-      overflow: "hidden",
-      padding: cssVar("--spacing-xs"),
-      borderRadius: sizes[size] / 2,
-      height: sizes[size],
-      width: sizes[size],
-    },
-    children: [
-      _jsx(BaseView, { jss: [jsss.border, checked && jsss.borderChecked] }),
-      checked &&
-        _jsx(BaseView, {
-          jss: jsss.icon,
-          children: _jsx(Icon, { size: size, color: "light", icon: icon }),
-        }),
-    ],
-  });
+export function StaticCheckbox({ checked, size, icon = "fa-check", }) {
+    return (_jsxs(BaseView, { jss: {
+            position: "relative",
+            backgroundColor: cssVar("--primary-background"),
+            overflow: "hidden",
+            padding: cssVar("--spacing-xs"),
+            borderRadius: sizes[size] / 2,
+            height: sizes[size],
+            width: sizes[size],
+        }, children: [_jsx(BaseView, { jss: [jsss.border, checked && jsss.borderChecked] }), checked && (_jsx(BaseView, { jss: jsss.icon, children: _jsx(Icon, { size: size, color: "light", icon: icon }) }))] }));
 }
 //# sourceMappingURL=StaticCheckbox.js.map

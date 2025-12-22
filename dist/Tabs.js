@@ -4,76 +4,36 @@ import { Row } from "./Row";
 import { cssVar, getPadding } from "./jss";
 import { useNavigation } from "./useNavigation";
 import { Text } from "./Text";
-export function Tabs({
-  tabs,
-  gap = "none",
-  padding = "none",
-  tabPadding = "medium",
-  labelSize = "large",
-  jss,
-  tabJSStyle,
-  ["aria-controls"]: ariaControls,
-  ...otherProps
-}) {
-  const root = useNavigation();
-  return _jsx(Row, {
-    role: "tablist",
-    jss: jss,
-    gap: gap,
-    padding: padding,
-    ref: root,
-    ...otherProps,
-    children: tabs.map(
-      ({ label, href, onClick, selected, addOn, addOnPosition = "start" }) =>
-        _jsxs(
-          BaseLink,
-          {
-            "aria-controls": ariaControls,
-            role: "tab",
-            "aria-selected": selected ? "true" : undefined,
-            bare: true,
-            color: selected ? "positive" : "primary",
-            href: href,
-            onClick: onClick,
-            animateInteraction: false,
-            jss: [
-              {
-                textDecoration: "none",
-                borderBottom: selected
-                  ? `3px solid ${cssVar("--highlight")}`
-                  : `3px solid transparent`,
-                ":active span": {
-                  transform: "scale(0.97)",
-                },
-                ":first-child": {
-                  borderTopLeftRadius: cssVar("--border-radius-m"),
-                },
-                ":last-child": {
-                  borderTopRightRadius: cssVar("--border-radius-m"),
-                },
-                ":hover": {
-                  backgroundColor: cssVar("--hovered-background"),
-                },
-                ":active:hover": {
-                  backgroundColor: cssVar("--pressed-background"),
-                },
-              },
-              getPadding(tabPadding),
-              tabJSStyle,
-            ],
-            children: [
-              addOnPosition === "start" && addOn,
-              _jsx(Text, {
-                size: labelSize,
-                color: selected ? "primary" : "secondary",
-                children: label,
-              }),
-              addOnPosition === "end" && addOn,
-            ],
-          },
-          label
-        )
-    ),
-  });
+import { BaseButton } from "./BaseButton";
+export function Tabs({ tabs, gap = "none", padding = "none", tabPadding = "medium", labelSize = "large", jss, tabJSStyle, labelRenderer, ["aria-controls"]: ariaControls, ...otherProps }) {
+    const root = useNavigation();
+    return (_jsx(Row, { role: "tablist", jss: jss, gap: gap, padding: padding, ref: root, ...otherProps, children: tabs.map(({ label, href, onClick, selected, addOn, addOnPosition = "start", }) => {
+            const BaseComponent = href != null ? BaseLink : BaseButton;
+            return (_jsxs(BaseComponent, { "aria-controls": ariaControls, role: "tab", "aria-selected": selected ? "true" : undefined, bare: true, color: selected ? "positive" : "primary", href: href, onClick: onClick, animateInteraction: false, jss: [
+                    {
+                        textDecoration: "none",
+                        borderBottom: selected
+                            ? `3px solid ${cssVar("--highlight")}`
+                            : `3px solid transparent`,
+                        ":active span": {
+                            transform: "scale(0.97)",
+                        },
+                        ":first-child": {
+                            borderTopLeftRadius: cssVar("--border-radius-m"),
+                        },
+                        ":last-child": {
+                            borderTopRightRadius: cssVar("--border-radius-m"),
+                        },
+                        ":hover": {
+                            backgroundColor: cssVar("--hovered-background"),
+                        },
+                        ":active:hover": {
+                            backgroundColor: cssVar("--pressed-background"),
+                        },
+                    },
+                    getPadding(tabPadding),
+                    tabJSStyle,
+                ], children: [addOnPosition === "start" && addOn, _jsx(Text, { size: labelSize, color: selected ? "primary" : "secondary", children: labelRenderer ? labelRenderer(label) : label }), addOnPosition === "end" && addOn] }, label));
+        }) }));
 }
 //# sourceMappingURL=Tabs.js.map

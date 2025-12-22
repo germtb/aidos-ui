@@ -1,9 +1,9 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { cssVar, jss } from "./jss";
+import { cssVar, toClassnames } from "./jss";
 export function ProgressCircle({ progress, stroke = 4, outerRadius, }) {
     const circumference = outerRadius * 2 * Math.PI;
     const strokeDashoffset = circumference - progress * circumference;
-    return (_jsx("svg", { className: jss({
+    return (_jsx("svg", { className: toClassnames({
             backgroundColor: cssVar("--secondary-background"),
             transform: "rotate(-90deg)",
             borderRadius: "50%",

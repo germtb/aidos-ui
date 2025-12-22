@@ -6,84 +6,24 @@ import { Row } from "./Row";
 import { Icon } from "./Icon";
 import { getGlyphColor, getCSSColor } from "./Interactable";
 import { cssVar } from "./jss";
-export const Link = React.forwardRef(
-  (
-    {
-      children,
-      color,
-      bare,
-      disabled,
-      icon,
-      underline,
-      iconSize = "medium",
-      iconPosition = "left",
-      align = "center",
-      gap = "small",
-      justify = "center",
-      jss,
-      size = "medium",
-      padding = "medium",
-      inline = true,
-      bold,
-      ...otherProps
-    },
-    ref
-  ) => {
-    return _jsx(BaseLink, {
-      ...otherProps,
-      bare: bare,
-      ref: ref,
-      color: color,
-      disabled: disabled,
-      padding: padding,
-      jss: [
-        {
-          borderRadius: cssVar("--border-radius-m"),
-          justifyContent: "center",
-          userSelect: "none",
-          display: inline ? "inline-flex" : "flex",
-          textDecoration: "none",
-        },
-        underline && {
-          textDecorationLine: "underline",
-          textDecorationThickness: "2px",
-          textUnderlineOffset: "2px",
-          textDecorationColor: getCSSColor(color, disabled, bare),
-        },
-        jss,
-      ],
-      children: _jsxs(Row, {
-        jss: {
-          display: inline ? "inline-flex" : "flex",
-        },
-        grow: true,
-        align: align,
-        gap: gap,
-        justify: justify,
-        children: [
-          icon &&
-            iconPosition === "left" &&
-            _jsx(Icon, {
-              icon: icon,
-              size: iconSize,
-              color: getGlyphColor(color, disabled, bare),
-            }),
-          _jsx(Text, {
-            bold: bold,
-            size: size,
-            color: getGlyphColor(color, disabled, bare),
-            children: children,
-          }),
-          icon &&
-            iconPosition === "right" &&
-            _jsx(Icon, {
-              icon: icon,
-              size: iconSize,
-              color: getGlyphColor(color, disabled, bare),
-            }),
-        ],
-      }),
-    });
-  }
-);
+export const Link = React.forwardRef(({ children, color, bare, disabled, icon, underline, iconSize = "medium", iconPosition = "left", align = "center", gap = "small", justify = "center", jss, size = "medium", padding = "medium", inline = true, bold, ...otherProps }, ref) => {
+    return (_jsx(BaseLink, { ...otherProps, bare: bare, ref: ref, color: color, disabled: disabled, padding: padding, jss: [
+            {
+                borderRadius: cssVar("--border-radius-m"),
+                justifyContent: "center",
+                userSelect: "none",
+                display: inline ? "inline-flex" : "flex",
+                textDecoration: "none",
+            },
+            underline && {
+                textDecorationLine: "underline",
+                textDecorationThickness: "2px",
+                textUnderlineOffset: "2px",
+                textDecorationColor: getCSSColor(color, disabled, bare),
+            },
+            jss,
+        ], children: _jsxs(Row, { jss: {
+                display: inline ? "inline-flex" : "flex",
+            }, grow: true, align: align, gap: gap, justify: justify, children: [icon && iconPosition === "left" && (_jsx(Icon, { icon: icon, size: iconSize, color: getGlyphColor(color, disabled, bare) })), _jsx(Text, { bold: bold, size: size, color: getGlyphColor(color, disabled, bare), children: children }), icon && iconPosition === "right" && (_jsx(Icon, { icon: icon, size: iconSize, color: getGlyphColor(color, disabled, bare) }))] }) }));
+});
 //# sourceMappingURL=Link.js.map
