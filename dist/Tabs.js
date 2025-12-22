@@ -32,7 +32,9 @@ export function Tabs({ tabs, gap = "none", padding = "none", tabPadding = "mediu
                         },
                     },
                     getPadding(tabPadding),
-                    tabJSStyle,
+                    typeof tabJSStyle === "function"
+                        ? tabJSStyle({ selected })
+                        : tabJSStyle,
                 ], children: [addOnPosition === "start" && addOn, _jsx(Text, { size: labelSize, color: selected ? "primary" : "secondary", children: labelRenderer ? labelRenderer(label) : label }), addOnPosition === "end" && addOn] }, label));
         }) }));
 }
