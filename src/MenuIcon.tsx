@@ -7,7 +7,7 @@ export function MenuIcon({ open, color }: { open: boolean; color: Color }) {
     <Column gap="small">
       <Bar
         color={color}
-        jsStyle={{
+        jss={{
           transform: open ? "rotateZ(135deg)" : "",
           transformOrigin: "center",
           top: open ? 8 : 0,
@@ -15,13 +15,13 @@ export function MenuIcon({ open, color }: { open: boolean; color: Color }) {
       />
       <Bar
         color={color}
-        jsStyle={{
+        jss={{
           opacity: open ? 0 : 1,
         }}
       />
       <Bar
         color={color}
-        jsStyle={{
+        jss={{
           transform: open ? "rotateZ(-135deg)" : "",
           transformOrigin: "center",
           top: open ? -8 : 0,
@@ -31,10 +31,10 @@ export function MenuIcon({ open, color }: { open: boolean; color: Color }) {
   );
 }
 
-function Bar({ jsStyle, color }: { jsStyle: JSStyle; color: Color }) {
+function Bar({ jss, color }: { jss: JSStyle; color: Color }) {
   return (
     <BaseView
-      jsStyle={[
+      jss={[
         {
           position: "relative",
           width: 24,
@@ -43,7 +43,7 @@ function Bar({ jsStyle, color }: { jsStyle: JSStyle; color: Color }) {
           transition: "all 200ms ease-out",
         },
         getBackground(color),
-        jsStyle,
+        jss,
       ]}
     />
   );

@@ -4,19 +4,19 @@ import { Box, BoxProps } from "./Box";
 interface CircleProps extends BoxProps {}
 
 export function Circle({
-  jsStyle,
+  jss,
   padding = "medium",
   ...otherProps
 }: CircleProps) {
   return (
     <Box
       padding={padding}
-      jsStyle={[
+      jss={[
         {
           borderRadius: "50%",
           overflow: "hidden",
         },
-        jsStyle,
+        jss,
       ]}
       {...otherProps}
     />

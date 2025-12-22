@@ -1,11 +1,11 @@
 import React from "react";
 import { InteractableColor, getInteractableJSStyles } from "./Interactable";
-import { JSStyle, Padding, jss } from "./jss";
+import { JSStyle, Padding, toClassnames } from "./jss";
 
 export interface BaseButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  jsStyle?: JSStyle;
+  jss?: JSStyle;
   color: InteractableColor;
   bare?: boolean;
   border?: boolean;
@@ -19,7 +19,7 @@ export const BaseButton = React.forwardRef(
     {
       onClick,
       children,
-      jsStyle,
+      jss,
       color,
       bare = false,
       border = false,
@@ -40,9 +40,9 @@ export const BaseButton = React.forwardRef(
             return;
           }
 
-          onClick(event);
+          onClick?.(event);
         }}
-        className={jss([
+        className={toClassnames([
           ...getInteractableJSStyles({
             color,
             bare,
@@ -51,7 +51,7 @@ export const BaseButton = React.forwardRef(
             animateInteraction,
             padding,
           }),
-          jsStyle,
+          jss,
         ])}
       >
         {children}

@@ -7,7 +7,7 @@ export type InteractableColor =
   | "dark"
   | "light";
 
-const jsStyles = {
+const jsss = {
   root: {
     cursor: "pointer",
     display: "inline-flex",
@@ -94,18 +94,18 @@ export function getInteractableJSStyles({
   border: boolean;
 }): Array<JSStyle> {
   return [
-    jsStyles.root,
-    color === "dark" && jsStyles.dark,
-    color === "light" && jsStyles.light,
-    color === "positive" && jsStyles.positive,
-    color === "primary" && jsStyles.primary,
-    color === "negative" && jsStyles.negative,
+    jsss.root,
+    color === "dark" && jsss.dark,
+    color === "light" && jsss.light,
+    color === "positive" && jsss.positive,
+    color === "primary" && jsss.primary,
+    color === "negative" && jsss.negative,
     border && {
       border: `1px solid ${getCSSColor(color, disabled, bare)}`,
     },
-    bare && jsStyles.bare,
-    disabled && jsStyles.disabled,
-    !bare && jsStyles.opacityHover,
+    bare && jsss.bare,
+    disabled && jsss.disabled,
+    !bare && jsss.opacityHover,
     animateInteraction &&
       !disabled && {
         position: "relative",

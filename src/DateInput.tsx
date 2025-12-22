@@ -12,17 +12,17 @@ export interface DateInputProps extends BaseInputProps {
   icon?: IconType;
   addOn?: ReactNode;
   onChange?: undefined;
-  jsStyles?: JSStyle;
+  jsss?: JSStyle;
 }
 
 export const DateInput = React.forwardRef(
   (
-    { date, onDateChange, jsStyle, icon, addOn, ...inputProps }: DateInputProps,
+    { date, onDateChange, jss, icon, addOn, ...inputProps }: DateInputProps,
     ref?: React.Ref<HTMLInputElement>
   ) => {
     return (
       <Row
-        jsStyle={{
+        jss={{
           backgroundColor: "inherit",
         }}
       >
@@ -37,7 +37,7 @@ export const DateInput = React.forwardRef(
           ref={ref}
           value={date.toISOString().substring(0, 10)}
           onChange={(e) => onDateChange(new Date(e.target.value))}
-          jsStyle={[
+          jss={[
             {
               flexGrow: 1,
               backgroundColor: "inherit",
@@ -53,7 +53,7 @@ export const DateInput = React.forwardRef(
                 color: "var(--subtle-text);",
               },
             },
-            jsStyle,
+            jss,
           ]}
         />
         {addOn}

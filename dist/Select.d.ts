@@ -3,7 +3,7 @@ import { JSStyle } from "./jss";
 export interface SelectProps extends React.HTMLAttributes<HTMLSelectElement> {
     value: string;
     onValueChange: (value: string) => void;
-    jsStyle?: JSStyle;
+    jss?: JSStyle;
     ref?: React.Ref<HTMLSelectElement>;
     className?: undefined;
 }

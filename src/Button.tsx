@@ -36,7 +36,7 @@ export const Button = React.forwardRef(
       align = "center",
       gap = "small",
       justify = "center",
-      jsStyle,
+      jss,
       size = "medium",
       bold,
       padding = "medium",
@@ -52,13 +52,13 @@ export const Button = React.forwardRef(
         color={color}
         disabled={disabled}
         padding={padding}
-        jsStyle={[
+        jss={[
           {
             borderRadius: cssVar("--border-radius-m"),
             justifyContent: "center",
             userSelect: "none",
           },
-          jsStyle,
+          jss,
         ]}
       >
         <Row grow={true} align={align} gap={gap} justify={justify}>

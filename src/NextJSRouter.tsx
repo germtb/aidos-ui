@@ -7,7 +7,7 @@ import { BaseView } from "./BaseView";
 import { useRouterState } from "./NextJSRouterState";
 import { JSStyle } from "./jss";
 
-const jsStyles: { [key: string]: JSStyle } = {
+const jsss: { [key: string]: JSStyle } = {
   root: {
     display: "flex",
     flexDirection: "column",
@@ -36,7 +36,7 @@ export function Router() {
   } = useRouterState();
 
   return (
-    <BaseView jsStyle={jsStyles.root}>
+    <BaseView jss={jsss.root}>
       {navigationStack.map(({ route, routeProps }, index, list) => {
         const isTopOfStack = index === list.length - 1;
 
@@ -46,7 +46,7 @@ export function Router() {
             isTopOfStack={isTopOfStack}
           >
             <Column
-              jsStyle={[jsStyles.route, !isTopOfStack && jsStyles.hidden]}
+              jss={[jsss.route, !isTopOfStack && jsss.hidden]}
               aria-hidden={!isTopOfStack}
             >
               <ListDivider />

@@ -14,7 +14,7 @@ export function SubmitIconInput({ icon, ...otherProps }: SubmitIconInputProps) {
     <BaseInput
       label={
         <Box
-          jsStyle={{
+          jss={{
             cursor: "pointer",
             display: "flex",
             justifyContent: "center",
@@ -36,7 +36,7 @@ export function SubmitIconInput({ icon, ...otherProps }: SubmitIconInputProps) {
       }
       {...otherProps}
       type="submit"
-      jsStyle={{
+      jss={{
         visibility: "hidden",
       }}
       value=""

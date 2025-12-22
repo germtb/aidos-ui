@@ -20,11 +20,11 @@ export const Calendar = React.forwardRef(
       date,
       cell,
       header,
-      jsStyle,
+      jss,
     }: {
       date: Date;
       header: (props: { weekday: string }) => JSX.Element;
-      jsStyle?: JSStyle;
+      jss?: JSStyle;
       cell: (props: {
         today?: boolean;
         date: Date;
@@ -61,13 +61,13 @@ export const Calendar = React.forwardRef(
     return (
       <BaseView
         ref={ref}
-        jsStyle={[
+        jss={[
           {
             display: "grid",
             gridTemplateColumns: "1fr 1fr 1fr 1fr 1fr 1fr 1fr",
             gridTemplateRows: "1fr",
           },
-          jsStyle,
+          jss,
         ]}
       >
         {headers}

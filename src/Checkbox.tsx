@@ -1,7 +1,7 @@
 import React from "react";
 import { BaseInput, BaseInputProps } from "./BaseInput";
 import {} from "./BaseView";
-import { Size, jss } from "./jss";
+import { Size, toClassnames } from "./jss";
 import { StaticCheckbox, sizes } from "./StaticCheckbox";
 
 // @ts-ignore
@@ -21,7 +21,7 @@ export function Checkbox({
 }: CheckboxProps) {
   return (
     <label
-      className={jss({
+      className={toClassnames({
         position: "relative",
         display: "flex",
         justifyContent: "center",
@@ -46,7 +46,7 @@ export function Checkbox({
         tabIndex={0}
         checked={checked}
         onChange={onClick}
-        jsStyle={{
+        jss={{
           position: "absolute",
           opacity: 0,
           cursor: "pointer",

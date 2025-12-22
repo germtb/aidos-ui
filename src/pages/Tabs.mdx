@@ -45,7 +45,7 @@ The `Tabs` component is made of a horizontal container with the role `tablist`, 
         href: "/Tabs",
         addOn: (
           <Badge
-            jsStyle={{ margin: cssVar("--spacing-m") }}
+            jss={{ margin: cssVar("--spacing-m") }}
             color="highlight"
             size="medium"
           />
@@ -72,7 +72,7 @@ The `Tabs` component is made of a horizontal container with the role `tablist`, 
         href: "/Tabs",
         addOn: (
           <Badge
-            jsStyle={{ margin: cssVar("--spacing-m") }}
+            jss={{ margin: cssVar("--spacing-m") }}
             color="highlight"
             size="medium"
           />
@@ -124,7 +124,7 @@ The `Tabs` component is made of a horizontal container with the role `tablist`, 
         href: "/Tabs",
         addOn: (
           <Badge
-            jsStyle={{ margin: cssVar("--spacing-m") }}
+            jss={{ margin: cssVar("--spacing-m") }}
             color="highlight"
             size="medium"
           />
@@ -151,7 +151,7 @@ The `Tabs` component is made of a horizontal container with the role `tablist`, 
         href: "/Tabs",
         addOn: (
           <Badge
-            jsStyle={{ margin: cssVar("--spacing-m") }}
+            jss={{ margin: cssVar("--spacing-m") }}
             color="highlight"
             size="medium"
           />
@@ -166,3 +166,201 @@ The `Tabs` component is made of a horizontal container with the role `tablist`, 
 ```
 
 ---
+
+## Tabs as buttons
+
+You can also use the `Tabs` component with buttons instead of links by omitting the `href` property in the tabs.
+
+<Column gap="medium">
+  <Tabs
+    aria-controls="foo"
+    tabs={[
+      {
+        selected: true,
+        label: "Tab 1",
+      },
+      {
+        selected: false,
+        label: "Tab 2",
+      },
+      {
+        selected: false,
+        label: "Tab 3",
+      },
+    ]}
+  />
+  <Tabs
+    aria-controls="foo"
+    tabs={[
+      {
+        selected: false,
+        label: "Tab 1",
+      },
+      {
+        selected: true,
+        label: "Tab 2",
+      },
+      {
+        addOn: (
+          <Badge
+            jss={{ margin: cssVar("--spacing-m") }}
+            color="highlight"
+            size="medium"
+          />
+        ),
+        selected: false,
+        label: "Tab 3",
+      },
+    ]}
+  />
+  <Tabs
+    aria-controls="foo"
+    tabs={[
+      {
+        selected: false,
+        label: "Tab 1",
+      },
+      {
+        selected: false,
+        label: "Tab 2",
+      },
+      {
+        addOn: (
+          <Badge
+            jss={{ margin: cssVar("--spacing-m") }}
+            color="highlight"
+            size="medium"
+          />
+        ),
+        addOnPosition: "end",
+        selected: true,
+        label: "Tab 3",
+      },
+    ]}
+  />
+</Column>
+
+```js
+<Column gap="medium">
+  <Tabs
+    aria-controls="foo"
+    tabs={[
+      {
+        selected: true,
+        label: "Tab 1",
+      },
+      {
+        selected: false,
+        label: "Tab 2",
+      },
+      {
+        selected: false,
+        label: "Tab 3",
+      },
+    ]}
+  />
+  <Tabs
+    aria-controls="foo"
+    tabs={[
+      {
+        selected: false,
+        label: "Tab 1",
+      },
+      {
+        selected: true,
+        label: "Tab 2",
+      },
+      {
+        addOn: (
+          <Badge
+            jss={{ margin: cssVar("--spacing-m") }}
+            color="highlight"
+            size="medium"
+          />
+        ),
+        selected: false,
+        label: "Tab 3",
+      },
+    ]}
+  />
+  <Tabs
+    aria-controls="foo"
+    tabs={[
+      {
+        selected: false,
+        label: "Tab 1",
+      },
+      {
+        selected: false,
+        label: "Tab 2",
+      },
+      {
+        addOn: (
+          <Badge
+            jss={{ margin: cssVar("--spacing-m") }}
+            color="highlight"
+            size="medium"
+          />
+        ),
+        addOnPosition: "end",
+        selected: true,
+        label: "Tab 3",
+      },
+    ]}
+  />
+</Column>
+```
+
+## Label pre renderers
+
+You can customize how tab labels are rendered by providing a `labelRenderer` function that takes the label value and returns a ReactNode.
+
+<Column>
+  <Tabs
+    aria-controls="foo"
+    labelRenderer={(value) => value.split(" ").map((word, index) => index % 2 === 0 ? <strong key={index}>{word} </strong> : word + " ")}
+    tabs={[
+      {
+        href: "/Tabs",
+        selected: true,
+        label: "Bold Tab 1",
+      },
+      {
+        href: "/Tabs",
+        selected: false,
+        label: "Bold Tab 2",
+      },
+      {
+        href: "/Tabs",
+        selected: false,
+        label: "Bold Tab 3",
+      },
+    ]}
+  />
+</Column>
+
+```js
+<Column>
+  <Tabs
+    aria-controls="foo"
+    labelRenderer={(value) => value.split(" ").map((word, index) => index % 2 === 0 ? <strong key={index}>{word} </strong> : word + " ")}
+    tabs={[
+      {
+        href: "/Tabs",
+        selected: true,
+        label: "Bold Tab 1",
+      },
+      {
+        href: "/Tabs",
+        selected: false,
+        label: "Bold Tab 2",
+      },
+      {
+        href: "/Tabs",
+        selected: false,
+        label: "Bold Tab 3",
+      },
+    ]}
+  />
+</Column>
+```

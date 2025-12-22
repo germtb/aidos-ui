@@ -5,7 +5,7 @@ export declare const Calendar: React.ForwardRefExoticComponent<{
     header: (props: {
         weekday: string;
     }) => JSX.Element;
-    jsStyle?: JSStyle;
+    jss?: JSStyle;
     cell: (props: {
         today?: boolean;
         date: Date;

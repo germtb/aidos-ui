@@ -3,9 +3,9 @@ import React, { useRef, useState } from "react";
 import { BaseView } from "./BaseView";
 import { useRefEffect } from "./useRefEffect";
 import { Text } from "./Text";
-import { JSStyle, cssVar, jss } from "./jss";
+import { JSStyle, cssVar, toClassnames } from "./jss";
 
-const jsStyles: { [key: string]: JSStyle } = {
+const jsss: { [key: string]: JSStyle } = {
   tooltip: {
     top: "-100%",
     transform: "translateY(50%)",
@@ -20,13 +20,13 @@ const jsStyles: { [key: string]: JSStyle } = {
 
 interface TooltipProps {
   content: string;
-  jsStyle?: JSStyle;
+  jss?: JSStyle;
   className?: undefined;
   tag?: keyof HTMLElementTagNameMap;
   children: JSX.Element;
 }
 
-export function Tooltip({ content, jsStyle, tag, children }: TooltipProps) {
+export function Tooltip({ content, jss, tag, children }: TooltipProps) {
   const [tooltip, setTooltip] = useState<JSX.Element>(null);
   const dialogRef = useRef(null);
   const focusTrapRoot = useRefEffect((root: HTMLDialogElement) => {
@@ -66,7 +66,7 @@ export function Tooltip({ content, jsStyle, tag, children }: TooltipProps) {
             dialogRef.current = ref;
             focusTrapRoot(ref);
           }}
-          className={jss(jsStyles.tooltip)}
+          className={toClassnames(jsss.tooltip)}
           onClose={() => {
             setTooltip(null);
           }}
@@ -89,7 +89,7 @@ export function Tooltip({ content, jsStyle, tag, children }: TooltipProps) {
     <BaseView
       tag={tag}
       relative={true}
-      jsStyle={[{ display: "inline-block" }, jsStyle]}
+      jss={[{ display: "inline-block" }, jss]}
       onMouseEnter={() => {
         if (tooltip == null) {
           toggle();

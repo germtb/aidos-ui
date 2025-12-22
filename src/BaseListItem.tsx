@@ -11,7 +11,7 @@ import { useListContext } from "./List";
 // @ts-ignore
 export interface BaseListItemProps extends RowProps {
   children: (elements: { content: JSX.Element }) => ReactNode;
-  jsStyle?: JSStyle;
+  jss?: JSStyle;
   withDivider?: boolean;
   headline: string;
   headlineSize?: Size;
@@ -34,7 +34,7 @@ export const BaseListItem = React.forwardRef(
   (
     {
       children,
-      jsStyle,
+      jss,
       withDivider = true,
       headline,
       headlineSize = "medium",
@@ -86,7 +86,7 @@ export const BaseListItem = React.forwardRef(
           relative
           tag="li"
           role="row"
-          jsStyle={[
+          jss={[
             !bare &&
               carded && {
                 [":first-child *"]: {
@@ -98,13 +98,13 @@ export const BaseListItem = React.forwardRef(
                   borderBottomRightRadius: cssVar("--border-radius-l"),
                 },
               },
-            jsStyle,
+            jss,
           ]}
         >
           <Row
             grow
             role="gridcell"
-            jsStyle={{
+            jss={{
               overflow: "hidden",
             }}
           >

@@ -6,21 +6,18 @@ export interface BaseListProps extends ColumnProps {
 }
 
 export const BaseList = React.forwardRef(
-  (
-    { jsStyle, ...otherProps }: BaseListProps,
-    ref?: React.Ref<HTMLDivElement>
-  ) => {
+  ({ jss, ...otherProps }: BaseListProps, ref?: React.Ref<HTMLDivElement>) => {
     return (
       <Column
         {...otherProps}
         tag="ul"
-        jsStyle={[
+        jss={[
           {
             listStyle: "none",
             margin: 0,
             padding: 0,
           },
-          jsStyle,
+          jss,
         ]}
         ref={ref}
       />

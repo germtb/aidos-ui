@@ -2,7 +2,7 @@ import React from "react";
 import { BaseView } from "./BaseView";
 import { Color, Size, JSStyle, getBackground } from "./jss";
 
-const jsStyles: { [key: string]: JSStyle } = {
+const jsss: { [key: string]: JSStyle } = {
   root: {
     width: "100%",
     display: "flex",
@@ -35,25 +35,25 @@ export function ProgressBar({
   color,
   progress,
   size,
-  jsStyle,
+  jss,
 }: {
   progress: number;
   color: Color;
   size: Size;
-  jsStyle?: JSStyle;
+  jss?: JSStyle;
 }) {
   return (
     <BaseView
-      jsStyle={[
-        jsStyles.root,
+      jss={[
+        jsss.root,
         {
           height: sizes[size],
         },
-        jsStyle,
+        jss,
       ]}
     >
       <BaseView
-        jsStyle={[jsStyles.fill, getBackground(color)]}
+        jss={[jsss.fill, getBackground(color)]}
         style={{
           transform: `scaleX(${progress > 1 ? 1 : progress})`,
         }}

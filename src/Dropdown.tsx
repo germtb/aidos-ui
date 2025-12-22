@@ -8,7 +8,7 @@ import { useNavigation } from "./useNavigation";
 import { useRefEffect } from "./useRefEffect";
 import { Gap, JSStyle, Padding, Size, getBackground } from "./jss";
 
-const jsStyles: { [key: string]: JSStyle } = {
+const jsss: { [key: string]: JSStyle } = {
   root: {
     position: "relative",
     display: "flex",
@@ -35,8 +35,8 @@ export function Dropdown<T extends string | number>({
   options,
   selection,
   setSelection,
-  jsStyle,
-  jsStyleButton,
+  jss,
+  jssButton,
   optionLabel,
   padding,
   size,
@@ -47,8 +47,8 @@ export function Dropdown<T extends string | number>({
   options: Set<T>;
   setSelection: (selection: T) => void;
   selection: T;
-  jsStyle?: JSStyle;
-  jsStyleButton?: JSStyle;
+  jss?: JSStyle;
+  jssButton?: JSStyle;
   optionLabel: (option: T) => string;
   padding?: Padding;
   gap?: Gap;
@@ -75,7 +75,7 @@ export function Dropdown<T extends string | number>({
   }, [expanded]);
 
   return (
-    <BaseView ref={rootRef} jsStyle={[jsStyles.root, jsStyle]}>
+    <BaseView ref={rootRef} jss={[jsss.root, jss]}>
       <Button
         size={size}
         padding={padding}
@@ -86,7 +86,7 @@ export function Dropdown<T extends string | number>({
         role="combobox"
         justify="space-between"
         tabIndex={0}
-        jsStyle={[jsStyles.button, jsStyleButton]}
+        jss={[jsss.button, jssButton]}
         color="positive"
         icon="fa-chevron-down"
         iconPosition="right"
@@ -100,7 +100,7 @@ export function Dropdown<T extends string | number>({
       {expanded && (
         <Column
           gap={gap}
-          jsStyle={[jsStyles.dropdown, getBackground("secondary-background")]}
+          jss={[jsss.dropdown, getBackground("secondary-background")]}
           id={id}
           role="listbox"
           aria-label={label}

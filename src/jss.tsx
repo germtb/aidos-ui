@@ -137,23 +137,23 @@ const getCSS = (key: string, value): [string, string] => {
   return [cssProp, cssValue];
 };
 
-const flattenJSStyle = (jsStyle: JSStyle): Styles => {
-  if (!jsStyle) {
+const flattenJSStyle = (jss: JSStyle): Styles => {
+  if (!jss) {
     return {};
-  } else if (Array.isArray(jsStyle)) {
+  } else if (Array.isArray(jss)) {
     // @ts-ignore
-    return jsStyle.reduce((acc: Styles, jsStyle: JSStyle) => {
-      return { ...acc, ...flattenJSStyle(jsStyle) };
+    return jss.reduce((acc: Styles, jss: JSStyle) => {
+      return { ...acc, ...flattenJSStyle(jss) };
     }, {});
   } else {
-    return jsStyle;
+    return jss;
   }
 };
 
-export const jss = (jsStyle: JSStyle): string => {
-  jsStyle = flattenJSStyle(jsStyle);
+export const toClassnames = (jss: JSStyle): string => {
+  jss = flattenJSStyle(jss);
 
-  const stylesStack = Object.entries(jsStyle);
+  const stylesStack = Object.entries(jss);
   const classNames = [];
 
   while (stylesStack.length) {
@@ -572,27 +572,27 @@ export const TABLET_MEDIA = `@media (min-width: ${MOBILE}px) and (max-width: ${T
 export const LAPTOP_MEDIA = `@media (min-width: ${TABLET}px) and (max-width: ${LAPTOP}px)`;
 export const DESKTOP_MEDIA = `@media (min-width: ${LAPTOP}px)`;
 
-export function mobile(jsStyle: JSStyle): { [key: string]: JSStyle } {
+export function mobile(jss: JSStyle): { [key: string]: JSStyle } {
   return {
-    [MOBILE_MEDIA]: jsStyle,
+    [MOBILE_MEDIA]: jss,
   };
 }
 
-export function tablet(jsStyle: JSStyle): { [key: string]: JSStyle } {
+export function tablet(jss: JSStyle): { [key: string]: JSStyle } {
   return {
-    [TABLET_MEDIA]: jsStyle,
+    [TABLET_MEDIA]: jss,
   };
 }
 
-export function laptop(jsStyle: JSStyle): { [key: string]: JSStyle } {
+export function laptop(jss: JSStyle): { [key: string]: JSStyle } {
   return {
-    [LAPTOP_MEDIA]: jsStyle,
+    [LAPTOP_MEDIA]: jss,
   };
 }
 
-export function desktop(jsStyle: JSStyle): { [key: string]: JSStyle } {
+export function desktop(jss: JSStyle): { [key: string]: JSStyle } {
   return {
-    [DESKTOP_MEDIA]: jsStyle,
+    [DESKTOP_MEDIA]: jss,
   };
 }
 

@@ -241,7 +241,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <Providers themes={{ light: lightTheme, dark: darkTheme }}>
           <DocsMDXProvider>
             <BaseView
-              jsStyle={[
+              jss={[
                 {
                   height: "100%",
                   overflow: "hidden",
@@ -282,7 +282,7 @@ export default function App({ Component, pageProps }: AppProps) {
               ]}
             >
               <Row
-                jsStyle={{
+                jss={{
                   gridArea: "header",
                   borderBottom: `1px solid ${cssVar("--divider")}`,
                 }}
@@ -320,7 +320,7 @@ export default function App({ Component, pageProps }: AppProps) {
                   />
                   <IconButton
                     aria-label={showList ? "Hide list" : "Open list"}
-                    jsStyle={[
+                    jss={[
                       laptop({ display: "none" }),
                       desktop({ display: "none" }),
                     ]}
@@ -334,7 +334,7 @@ export default function App({ Component, pageProps }: AppProps) {
               </Row>
               <ListDivider />
               <Column
-                jsStyle={[
+                jss={[
                   {
                     gridArea: "list",
                     zIndex: 1,
@@ -364,7 +364,7 @@ export default function App({ Component, pageProps }: AppProps) {
                   bare
                   id="main-list"
                   navigation={true}
-                  jsStyle={[{ overflow: "scroll" }]}
+                  jss={[{ overflow: "scroll" }]}
                   ariaLabel={"API"}
                 >
                   {(isQuerying ? queriedPages : pages).map((element, index) => {
@@ -424,7 +424,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 </List>
               </Column>
               <BaseView
-                jsStyle={[
+                jss={[
                   {
                     borderLeft: `1px solid ${cssVar("--divider")}`,
                     gridArea: "content",

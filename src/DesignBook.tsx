@@ -658,7 +658,7 @@ export function DesignBook() {
               <Box relative={true} style={{ opacity: outOfMonth ? 0.2 : 1 }}>
                 {today && (
                   <Badge
-                    jsStyle={{
+                    jss={{
                       position: "absolute",
                       top: "50%",
                       transform: "translateY(-50%) translateX(-75%)",

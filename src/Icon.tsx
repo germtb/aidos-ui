@@ -3,7 +3,7 @@ import { BaseView } from "./BaseView";
 import { IconType } from "./IconType";
 import { Size, TextColor, getTextColor } from "./jss";
 
-const jsStyles = {
+const jsss = {
   root: {
     display: "flex",
     justifyContent: "center",
@@ -88,15 +88,15 @@ export function Icon({
     <BaseView
       key={icon}
       aria-label={ariaLabel}
-      jsStyle={[
-        jsStyles.root,
-        size === "xsmall" && jsStyles.xsmall,
-        size === "small" && jsStyles.small,
-        size === "medium" && jsStyles.medium,
-        size === "large" && jsStyles.large,
-        size === "xlarge" && jsStyles.xlarge,
-        size === "xxlarge" && jsStyles.xxlarge,
-        size === "xxxlarge" && jsStyles.xxxlarge,
+      jss={[
+        jsss.root,
+        size === "xsmall" && jsss.xsmall,
+        size === "small" && jsss.small,
+        size === "medium" && jsss.medium,
+        size === "large" && jsss.large,
+        size === "xlarge" && jsss.xlarge,
+        size === "xxlarge" && jsss.xxlarge,
+        size === "xxxlarge" && jsss.xxxlarge,
         getTextColor(color),
       ]}
     >

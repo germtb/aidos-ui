@@ -7,58 +7,123 @@ import { Column } from "./Column";
 import { useNavigation } from "./useNavigation";
 import { useRefEffect } from "./useRefEffect";
 import { getBackground } from "./jss";
-const jsStyles = {
-    root: {
-        position: "relative",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "stretch",
-        flexGrow: 1,
-    },
-    button: {
-        flexGrow: 1,
-    },
-    dropdown: {
-        position: "absolute",
-        top: "100%",
-        left: 0,
-        right: 0,
-        borderRadius: "var(--border-radius-m)",
-        boxShadow: "0px 1px 2px var(--divider)",
-        zIndex: 1,
-    },
+const jsss = {
+  root: {
+    position: "relative",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "stretch",
+    flexGrow: 1,
+  },
+  button: {
+    flexGrow: 1,
+  },
+  dropdown: {
+    position: "absolute",
+    top: "100%",
+    left: 0,
+    right: 0,
+    borderRadius: "var(--border-radius-m)",
+    boxShadow: "0px 1px 2px var(--divider)",
+    zIndex: 1,
+  },
 };
-export function Dropdown({ id = guid(), label, options, selection, setSelection, jsStyle, jsStyleButton, optionLabel, padding, size, gap = "medium", }) {
-    const triggerRef = useRef(null);
-    const [expanded, setExpanded] = useState(false);
-    const dropdownRef = useNavigation({ autofocus: true });
-    const rootRef = useRefEffect((root) => {
-        const onKeyDown = (e) => {
-            if (e.code === "Escape") {
-                setExpanded(false);
+export function Dropdown({
+  id = guid(),
+  label,
+  options,
+  selection,
+  setSelection,
+  jss,
+  jssButton,
+  optionLabel,
+  padding,
+  size,
+  gap = "medium",
+}) {
+  const triggerRef = useRef(null);
+  const [expanded, setExpanded] = useState(false);
+  const dropdownRef = useNavigation({ autofocus: true });
+  const rootRef = useRefEffect((root) => {
+    const onKeyDown = (e) => {
+      if (e.code === "Escape") {
+        setExpanded(false);
+      }
+    };
+    root.addEventListener("keydown", onKeyDown);
+    return () => root.removeEventListener("keydown", onKeyDown);
+  });
+  useEffect(() => {
+    if (!expanded) {
+      triggerRef.current && triggerRef.current.focus();
+    }
+  }, [expanded]);
+  return _jsxs(BaseView, {
+    ref: rootRef,
+    jss: [jsss.root, jss],
+    children: [
+      _jsx(Button, {
+        size: size,
+        padding: padding,
+        "aria-expanded": expanded ? "true" : "false",
+        "aria-controls": id,
+        "aria-haspopup": "true",
+        "aria-label": label,
+        role: "combobox",
+        justify: "space-between",
+        tabIndex: 0,
+        jss: [jsss.button, jssButton],
+        color: "positive",
+        icon: "fa-chevron-down",
+        iconPosition: "right",
+        onClick: () => {
+          setExpanded((x) => !x);
+        },
+        ref: triggerRef,
+        children: optionLabel(selection),
+      }),
+      expanded &&
+        _jsx(Column, {
+          gap: gap,
+          jss: [jsss.dropdown, getBackground("secondary-background")],
+          id: id,
+          role: "listbox",
+          "aria-label": label,
+          tabIndex: -1,
+          ref: dropdownRef,
+          onBlur: (e) => {
+            if (!e.currentTarget.contains(e.relatedTarget)) {
+              setExpanded(false);
             }
-        };
-        root.addEventListener("keydown", onKeyDown);
-        return () => root.removeEventListener("keydown", onKeyDown);
-    });
-    useEffect(() => {
-        if (!expanded) {
-            triggerRef.current && triggerRef.current.focus();
-        }
-    }, [expanded]);
-    return (_jsxs(BaseView, { ref: rootRef, jsStyle: [jsStyles.root, jsStyle], children: [_jsx(Button, { size: size, padding: padding, "aria-expanded": expanded ? "true" : "false", "aria-controls": id, "aria-haspopup": "true", "aria-label": label, role: "combobox", justify: "space-between", tabIndex: 0, jsStyle: [jsStyles.button, jsStyleButton], color: "positive", icon: "fa-chevron-down", iconPosition: "right", onClick: () => {
-                    setExpanded((x) => !x);
-                }, ref: triggerRef, children: optionLabel(selection) }), expanded && (_jsx(Column, { gap: gap, jsStyle: [jsStyles.dropdown, getBackground("secondary-background")], id: id, role: "listbox", "aria-label": label, tabIndex: -1, ref: dropdownRef, onBlur: (e) => {
-                    if (!e.currentTarget.contains(e.relatedTarget)) {
-                        setExpanded(false);
-                    }
-                }, children: Array.from(options).map((option, index) => {
-                    const optionId = `${id}-${index}`;
-                    const selected = option === selection;
-                    return (_jsx(Button, { size: size, padding: padding, justify: selected ? "space-between" : "flex-start", align: "center", bare: true, iconPosition: "right", icon: selected ? "fa-check" : undefined, role: "option", id: optionId, "aria-selected": selected ? "true" : "false", color: "positive", onClick: () => {
-                            setSelection(option);
-                            setExpanded(false);
-                        }, children: optionLabel(option) }, optionId));
-                }) }))] }));
+          },
+          children: Array.from(options).map((option, index) => {
+            const optionId = `${id}-${index}`;
+            const selected = option === selection;
+            return _jsx(
+              Button,
+              {
+                size: size,
+                padding: padding,
+                justify: selected ? "space-between" : "flex-start",
+                align: "center",
+                bare: true,
+                iconPosition: "right",
+                icon: selected ? "fa-check" : undefined,
+                role: "option",
+                id: optionId,
+                "aria-selected": selected ? "true" : "false",
+                color: "positive",
+                onClick: () => {
+                  setSelection(option);
+                  setExpanded(false);
+                },
+                children: optionLabel(option),
+              },
+              optionId
+            );
+          }),
+        }),
+    ],
+  });
 }
 //# sourceMappingURL=Dropdown.js.map

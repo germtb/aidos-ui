@@ -12,31 +12,29 @@ const monospace = Roboto({ weight: "400", subsets: ["latin"] });
 
 const components: any = {
   h1: (props) => (
-    <H1 jsStyle={{ marginBottom: cssVar("--spacing-xl") }} {...props} />
+    <H1 jss={{ marginBottom: cssVar("--spacing-xl") }} {...props} />
   ),
   h2: (props) => (
     <H2
       id={labelToID(props.children)}
-      jsStyle={{ marginBottom: cssVar("--spacing-l") }}
+      jss={{ marginBottom: cssVar("--spacing-l") }}
       {...props}
     />
   ),
   h3: (props) => {
     return <H3 id={labelToID(props.children)} {...props} />;
   },
-  p: (props) => (
-    <P jsStyle={{ marginBottom: cssVar("--spacing-m") }} {...props} />
-  ),
+  p: (props) => <P jss={{ marginBottom: cssVar("--spacing-m") }} {...props} />,
   span: (props) => <Span {...props} />,
   li: (props) => (
-    <Li jsStyle={{ marginBottom: cssVar("--spacing-s") }} {...props} />
+    <Li jss={{ marginBottom: cssVar("--spacing-s") }} {...props} />
   ),
   a: (props) => {
     return (
       <BaseLink
         bare
         color="positive"
-        jsStyle={{
+        jss={{
           display: "inline-block",
           paddingBottom: cssVar("--spacing-s"),
           paddingTop: cssVar("--spacing-s"),
@@ -49,7 +47,7 @@ const components: any = {
   },
   hr: () => (
     <BaseView
-      jsStyle={{
+      jss={{
         marginBottom: cssVar("--spacing-xxl"),
         marginTop: cssVar("--spacing-xxl"),
       }}

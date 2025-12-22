@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import { Text } from "./Text";
-import { TextColor, jss } from "./jss";
+import { TextColor, toClassnames } from "./jss";
 
-const jsStyles = {
+const jsss = {
   dateInput: {
     border: "1px solid var(--divider)",
     backgroundColor: "var(--primary-background)",
@@ -47,7 +47,7 @@ export function DatePicker({
       <input
         min={min}
         max={max}
-        className={jss(jsStyles.dateInput)}
+        className={toClassnames(jsss.dateInput)}
         type="date"
         id={id}
         value={date.toISOString().substring(0, 10)}

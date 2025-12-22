@@ -29,7 +29,7 @@ export const ListLinkItem = React.forwardRef(
       href,
       disabled = false,
       padding = "medium",
-      jsStyle,
+      jss,
       gap,
       selected,
       color = "primary",
@@ -51,7 +51,7 @@ export const ListLinkItem = React.forwardRef(
         bodyColor={getGlyphColor(color, disabled, true)}
         selected={selected}
         {...otherProps}
-        jsStyle={jsStyle}
+        jss={jss}
       >
         {({ content }) => (
           <BaseLink
@@ -64,7 +64,7 @@ export const ListLinkItem = React.forwardRef(
             color={color}
             href={href}
             ref={ref}
-            jsStyle={getInteractableListItemJSStyles({ bare, selected })}
+            jss={getInteractableListItemJSStyles({ bare, selected })}
             onClick={onClick}
           >
             {content}

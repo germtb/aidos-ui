@@ -27,7 +27,7 @@ export const ListButtonItem = React.forwardRef(
       color = "primary",
       disabled = false,
       padding = "medium",
-      jsStyle,
+      jss,
       gap,
       selected,
       ...otherProps
@@ -47,7 +47,7 @@ export const ListButtonItem = React.forwardRef(
         selected={selected}
         aria-selected={selected}
         {...otherProps}
-        jsStyle={jsStyle}
+        jss={jss}
       >
         {({ content }) => (
           <BaseButton
@@ -57,7 +57,7 @@ export const ListButtonItem = React.forwardRef(
             bare={true}
             color={bare ? "primary" : color}
             ref={ref}
-            jsStyle={getInteractableListItemJSStyles({ bare, selected })}
+            jss={getInteractableListItemJSStyles({ bare, selected })}
             onClick={onClick}
           >
             {content}

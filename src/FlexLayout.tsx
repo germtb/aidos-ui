@@ -22,7 +22,7 @@ export interface FlexLayoutProps extends BaseViewProps {
 export const FlexLayout = React.forwardRef(
   (
     {
-      jsStyle,
+      jss,
       gap = "none",
       justify = "none",
       align = "none",
@@ -35,7 +35,7 @@ export const FlexLayout = React.forwardRef(
     return (
       <BaseView
         ref={ref}
-        jsStyle={[
+        jss={[
           {
             display: "flex",
             flexDirection: direction,
@@ -44,7 +44,7 @@ export const FlexLayout = React.forwardRef(
             alignItems: align,
           },
           getPadding(padding),
-          jsStyle,
+          jss,
         ]}
         {...otherProps}
       />

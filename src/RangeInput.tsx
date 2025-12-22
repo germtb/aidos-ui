@@ -20,7 +20,7 @@ export const RangeInput = React.forwardRef(
       value,
       onValueChange,
       rootJSStyle,
-      jsStyle,
+      jss,
       gap = "medium",
       padding = "none",
       min = 0,
@@ -38,7 +38,7 @@ export const RangeInput = React.forwardRef(
         gap={gap}
         padding={padding}
         align="center"
-        jsStyle={[
+        jss={[
           {
             ":has(:focus-visible)": {
               borderRadius: cssVar("--border-radius-m"),
@@ -60,7 +60,7 @@ export const RangeInput = React.forwardRef(
           onChange={(e) => {
             onValueChange(parseFloat(e.target.value));
           }}
-          jsStyle={[
+          jss={[
             {
               backgroundColor: cssVar("--primary-background"),
               flexGrow: 1,
@@ -72,7 +72,7 @@ export const RangeInput = React.forwardRef(
                 color: cssVar("--subtle-text"),
               },
             },
-            jsStyle,
+            jss,
           ]}
         />
         {addOnPosition === "end" && addOn}

@@ -23,7 +23,7 @@ function TimeInputInternal(
   {
     time: date,
     onTimeChange: onDateChange,
-    jsStyle,
+    jss,
     addOn,
     padding = "small",
     gap = "none",
@@ -38,7 +38,7 @@ function TimeInputInternal(
       padding={padding}
       gap={gap}
       align="center"
-      jsStyle={[
+      jss={[
         {
           borderRadius: cssVar("--border-radius-m"),
           overflow: "hidden",
@@ -79,7 +79,7 @@ function TimeInputInternal(
             )
           );
         }}
-        jsStyle={[
+        jss={[
           {
             flexGrow: 1,
             backgroundColor: "inherit",
@@ -98,7 +98,7 @@ function TimeInputInternal(
               backgroundColor: "none",
             },
           },
-          jsStyle,
+          jss,
         ]}
       />
       {addOnPosition === "end" && addOn}

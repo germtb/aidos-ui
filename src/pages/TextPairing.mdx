@@ -11,7 +11,7 @@ The `TextPairing` is a seemingly simple component that can be used to represent 
 In its simplest form a `TextPairing` is formed of two text elements (headline and body) laid out vertically. However it accepts multiple props to enable much more complex representations.
 
 <Column
-  jsStyle={{ [" > *"]: { borderBottom: `1px solid ${cssVar("--divider")}` } }}
+  jss={{ [" > *"]: { borderBottom: `1px solid ${cssVar("--divider")}` } }}
 >
   <TextPairing headline="Headline" body="Body" />
   <TextPairing headline="Headline" headlineBold body="Body" />
@@ -82,7 +82,7 @@ In its simplest form a `TextPairing` is formed of two text elements (headline an
 
 ```js
 <Column
-  jsStyle={{ [" > *"]: { borderBottom: `1px solid ${cssVar("--divider")}` } }}
+  jss={{ [" > *"]: { borderBottom: `1px solid ${cssVar("--divider")}` } }}
 >
   <TextPairing headline="Headline" body="Body" />
   <TextPairing headline="Headline" headlineBold body="Body" />

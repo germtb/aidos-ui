@@ -1,7 +1,7 @@
 import React from "react";
 import { BaseView } from "./BaseView";
 
-const jsStyles = {
+const jsss = {
   root: {
     height: "var(--spacing-xl)",
     backgroundColor: "var(--secondary-background)",
@@ -10,5 +10,5 @@ const jsStyles = {
 };
 
 export function ListSpacer() {
-  return <BaseView jsStyle={jsStyles.root} />;
+  return <BaseView jss={jsss.root} />;
 }

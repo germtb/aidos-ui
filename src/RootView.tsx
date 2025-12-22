@@ -39,7 +39,7 @@ export function RootView({
   return (
     <Column
       ref={refCallback}
-      jsStyle={{
+      jss={{
         marginBottom: 0,
         flexGrow: 1,
         flexShrink: 1,

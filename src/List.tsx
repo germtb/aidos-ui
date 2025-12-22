@@ -16,7 +16,7 @@ const ListContext = React.createContext({ bare: false, carded: true });
 
 export function List({
   ariaLabel,
-  jsStyle,
+  jss,
   autofocus = false,
   navigation = true,
   bare,
@@ -32,7 +32,7 @@ export function List({
         role="grid"
         aria-label={ariaLabel}
         ref={rootRef}
-        jsStyle={[
+        jss={[
           { overflow: "hidden" },
           !bare && {
             backgroundColor: cssVar("--overlay-background"),
@@ -47,7 +47,7 @@ export function List({
               border: `1px solid ${cssVar("--divider")}`,
               borderRadius: cssVar("--border-radius-l"),
             },
-          jsStyle,
+          jss,
         ]}
         {...otherProps}
       />

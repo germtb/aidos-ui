@@ -12,10 +12,10 @@ export interface DatetimeInputProps extends BaseInputProps {
   icon?: IconType;
   addOn?: ReactNode;
   onChange?: undefined;
-  jsStyle?: JSStyle;
+  jss?: JSStyle;
 }
 
-const jsStyles = {
+const jsss = {
   root: {
     backgroundColor: "var(--primary-background)",
   },
@@ -39,18 +39,11 @@ const jsStyles = {
 
 export const DatetimeInput = React.forwardRef(
   (
-    {
-      date,
-      onDateChange,
-      jsStyle,
-      icon,
-      addOn,
-      ...inputProps
-    }: DatetimeInputProps,
+    { date, onDateChange, jss, icon, addOn, ...inputProps }: DatetimeInputProps,
     ref?: React.Ref<HTMLInputElement>
   ) => {
     return (
-      <Row jsStyle={jsStyles.root}>
+      <Row jss={jsss.root}>
         {icon && (
           <Box padding="medium">
             <Icon size="medium" color="secondary" icon={icon} />
@@ -62,7 +55,7 @@ export const DatetimeInput = React.forwardRef(
           ref={ref}
           value={date.toISOString().substring(0, 16)}
           onChange={(e) => onDateChange(new Date(e.target.value))}
-          jsStyle={[jsStyles.input, jsStyle]}
+          jss={[jsss.input, jss]}
         />
         {addOn}
       </Row>

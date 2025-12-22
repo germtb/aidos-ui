@@ -6,9 +6,9 @@ import { ListDivider } from "./ListDivider";
 import { Column } from "./Column";
 import { Row } from "./Row";
 import { IconButton } from "./IconButton";
-import { jss } from "./jss";
+import { toClassnames } from "./jss";
 
-const jsStyles = {
+const jsss = {
   dialog: {
     border: "1px solid var(--divider)",
     borderRadius: "var(--border-radius-m)",
@@ -44,8 +44,8 @@ export const Dialog = ({
   close: () => void;
 }) => {
   return (
-    <BaseView jsStyle={jsStyles.root}>
-      <Column jsStyle={jsStyles.header}>
+    <BaseView jss={jsss.root}>
+      <Column jss={jsss.header}>
         <Row padding="medium" justify="space-between" align="center">
           <Text size="medium" color="secondary">
             {label}
@@ -61,7 +61,7 @@ export const Dialog = ({
         </Row>
         <ListDivider />
       </Column>
-      <BaseView jsStyle={jsStyles.content}>{children}</BaseView>
+      <BaseView jss={jsss.content}>{children}</BaseView>
     </BaseView>
   );
 };
@@ -107,7 +107,7 @@ export function useDialog<Input>(
           dialogRef.current = ref;
           ref && ref.showModal();
         }}
-        className={jss(jsStyles.dialog)}
+        className={toClassnames(jsss.dialog)}
         onClose={() => {
           closeRef.current();
         }}

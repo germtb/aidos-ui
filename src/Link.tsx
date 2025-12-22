@@ -39,7 +39,7 @@ export const Link = React.forwardRef(
       align = "center",
       gap = "small",
       justify = "center",
-      jsStyle,
+      jss,
       size = "medium",
       padding = "medium",
       inline = true,
@@ -56,7 +56,7 @@ export const Link = React.forwardRef(
         color={color}
         disabled={disabled}
         padding={padding}
-        jsStyle={[
+        jss={[
           {
             borderRadius: cssVar("--border-radius-m"),
             justifyContent: "center",
@@ -70,11 +70,11 @@ export const Link = React.forwardRef(
             textUnderlineOffset: "2px",
             textDecorationColor: getCSSColor(color, disabled, bare),
           },
-          jsStyle,
+          jss,
         ]}
       >
         <Row
-          jsStyle={{
+          jss={{
             display: inline ? "inline-flex" : "flex",
           }}
           grow={true}

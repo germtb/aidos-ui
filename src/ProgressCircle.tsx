@@ -1,5 +1,5 @@
 import React from "react";
-import { cssVar, jss } from "./jss";
+import { cssVar, toClassnames } from "./jss";
 
 export function ProgressCircle({
   progress,
@@ -15,7 +15,7 @@ export function ProgressCircle({
 
   return (
     <svg
-      className={jss({
+      className={toClassnames({
         backgroundColor: cssVar("--secondary-background"),
         transform: "rotate(-90deg)",
         borderRadius: "50%",

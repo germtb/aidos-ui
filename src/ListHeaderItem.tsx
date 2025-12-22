@@ -29,7 +29,7 @@ export function ListHeaderItem({
       addOn={addOn}
       addOnPosition={addOnPosition}
       withDivider={bare ? false : withDivider}
-      jsStyle={
+      jss={
         bare
           ? null
           : {

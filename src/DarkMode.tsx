@@ -84,7 +84,7 @@ export function DarkModeToggle() {
   }, []);
 
   if (!show) {
-    return <BaseView jsStyle={{ width: 32, height: 32 }} />;
+    return <BaseView jss={{ width: 32, height: 32 }} />;
   }
 
   return (

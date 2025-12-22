@@ -1,9 +1,9 @@
 import React from "react";
-import { JSStyle, Padding, cssVar, getPadding, jss } from "./jss";
+import { JSStyle, Padding, cssVar, getPadding, toClassnames } from "./jss";
 
 export interface TextAreaProps
   extends React.InputHTMLAttributes<HTMLTextAreaElement> {
-  jsStyle?: JSStyle;
+  jss?: JSStyle;
   onValueChange?: (value: string) => void;
   value?: string;
   className?: undefined;
@@ -14,7 +14,7 @@ export interface TextAreaProps
 export const TextArea = React.forwardRef(
   (
     {
-      jsStyle,
+      jss,
       onValueChange,
       value,
       onChange,
@@ -27,7 +27,7 @@ export const TextArea = React.forwardRef(
       <textarea
         {...otherProps}
         ref={ref}
-        className={jss([
+        className={toClassnames([
           {
             flexGrow: 1,
             color: cssVar("--primary-text"),
@@ -46,7 +46,7 @@ export const TextArea = React.forwardRef(
             },
           },
           getPadding(padding),
-          jsStyle,
+          jss,
         ])}
         value={value}
         onChange={

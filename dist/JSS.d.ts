@@ -1,18 +1,18 @@
-/// <reference types="react" />
 import CSS from "csstype";
+import React from "react";
 export type Styles = CSS.Properties<string | number | CSS.Properties<string | number>>;
 export type JSStyle = Styles | null | false | undefined | {
     [key: string]: Styles;
 } | Array<JSStyle>;
-export declare const jss: (jsStyle: JSStyle) => string;
+export declare const toClassnames: (jss: JSStyle) => string;
 export declare function JSStylesProvider({ themes, children, }: {
     themes: {
         dark: Theme;
         light: Theme;
     };
     children: JSX.Element;
-}): import("react/jsx-runtime").JSX.Element;
-export declare function JSServerStyles(): import("react/jsx-runtime").JSX.Element;
+}): React.JSX.Element;
+export declare function JSServerStyles(): React.JSX.Element;
 export type Size = "xsmall" | "small" | "medium" | "large" | "xlarge" | "xxlarge" | "xxxlarge";
 export type Spacing = "none" | Size;
 export type Gap = Spacing;
@@ -84,16 +84,16 @@ export declare const MOBILE_MEDIA: string;
 export declare const TABLET_MEDIA: string;
 export declare const LAPTOP_MEDIA: string;
 export declare const DESKTOP_MEDIA: string;
-export declare function mobile(jsStyle: JSStyle): {
+export declare function mobile(jss: JSStyle): {
     [key: string]: JSStyle;
 };
-export declare function tablet(jsStyle: JSStyle): {
+export declare function tablet(jss: JSStyle): {
     [key: string]: JSStyle;
 };
-export declare function laptop(jsStyle: JSStyle): {
+export declare function laptop(jss: JSStyle): {
     [key: string]: JSStyle;
 };
-export declare function desktop(jsStyle: JSStyle): {
+export declare function desktop(jss: JSStyle): {
     [key: string]: JSStyle;
 };
 export declare const getTextColor: (color: TextColor) => {

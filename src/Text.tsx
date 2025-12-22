@@ -1,5 +1,12 @@
 import React, { ReactNode } from "react";
-import { JSStyle, Size, TextColor, cssVar, getTextColor, jss } from "./jss";
+import {
+  JSStyle,
+  Size,
+  TextColor,
+  cssVar,
+  getTextColor,
+  toClassnames,
+} from "./jss";
 
 const fontSize = {
   xsmall: cssVar("--font-xsmall"),
@@ -22,7 +29,7 @@ export interface TextProps {
   align?: "center" | "none";
   type?: TextType;
   grow?: boolean;
-  jsStyle?: JSStyle;
+  jss?: JSStyle;
   id?: string;
   htmlFor?: string;
 }
@@ -46,7 +53,7 @@ export function Text({
   ellipsis = "default",
   grow,
   type: Type = "span",
-  jsStyle,
+  jss,
   id,
   htmlFor,
 }: TextProps) {
@@ -54,7 +61,7 @@ export function Text({
     ellipsis = Type === "span" || Type === "label";
   }
 
-  const className = jss([
+  const className = toClassnames([
     getTextColor(color),
     { fontSize: fontSize[size], padding: 0, margin: 0 },
     bold && { fontWeight: "bold" },
@@ -65,7 +72,7 @@ export function Text({
       whiteSpace: "nowrap",
     },
     grow && { flexGrow: 1 },
-    jsStyle,
+    jss,
   ]);
 
   return (

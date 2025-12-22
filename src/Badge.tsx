@@ -14,22 +14,22 @@ const sizes = {
 export function Badge({
   size = "medium",
   color = "highlight",
-  jsStyle,
+  jss,
 }: {
   size?: Size;
   color?: Color;
-  jsStyle?: JSStyle;
+  jss?: JSStyle;
 }) {
   return (
     <BaseView
-      jsStyle={[
+      jss={[
         {
           width: sizes[size],
           height: sizes[size],
           borderRadius: sizes[size] / 2,
         },
         getBackground(color),
-        jsStyle,
+        jss,
       ]}
     />
   );

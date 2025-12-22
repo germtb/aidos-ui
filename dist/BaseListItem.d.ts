@@ -5,7 +5,7 @@ export interface BaseListItemProps extends RowProps {
     children: (elements: {
         content: JSX.Element;
     }) => ReactNode;
-    jsStyle?: JSStyle;
+    jss?: JSStyle;
     withDivider?: boolean;
     headline: string;
     headlineSize?: Size;

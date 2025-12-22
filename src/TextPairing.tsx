@@ -31,7 +31,7 @@ export interface TextPairingProps {
   grow?: boolean;
   shrink?: boolean;
   headlineBold?: boolean;
-  jsStyle?: JSStyle;
+  jss?: JSStyle;
 }
 
 export function TextPairing({
@@ -50,7 +50,7 @@ export function TextPairing({
   shrink,
   headlineBold,
   padding,
-  jsStyle,
+  jss,
 }: TextPairingProps) {
   const textElement = (
     <Column
@@ -58,16 +58,16 @@ export function TextPairing({
       shrink={shrink}
       padding={addOn ? undefined : padding}
       align={align}
-      jsStyle={[
+      jss={[
         {
           overflow: "hidden",
         },
-        jsStyle,
+        jss,
       ]}
     >
       <Row
         align="center"
-        jsStyle={{
+        jss={{
           textAlign: "start",
         }}
       >
@@ -79,7 +79,7 @@ export function TextPairing({
       {body && (
         <Row
           align="center"
-          jsStyle={{
+          jss={{
             marginTop: cssVar("--spacing-xs"),
             textAlign: "start",
           }}
@@ -100,7 +100,7 @@ export function TextPairing({
         gap={gap}
         align="center"
         padding={padding}
-        jsStyle={{
+        jss={{
           overflow: "hidden",
         }}
       >

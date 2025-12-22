@@ -3,9 +3,9 @@ import { queryFocusables } from "./aria";
 
 import { BaseView } from "./BaseView";
 import { useRefEffect } from "./useRefEffect";
-import { JSStyle, jss } from "./jss";
+import { JSStyle, toClassnames } from "./jss";
 
-const jsStyles: { [key: string]: JSStyle } = {
+const jsss: { [key: string]: JSStyle } = {
   popover: {
     padding: 0,
     zIndex: 1,
@@ -77,7 +77,7 @@ export function Popover({ children, close }) {
 
 interface PopoverTriggerProps<Input> {
   PopoverComponent: (props: { close: () => void } & Input) => JSX.Element;
-  jsStyle?: JSStyle;
+  jss?: JSStyle;
   dialogJSStyle?: JSStyle;
   className?: undefined;
   grow?: boolean;
@@ -88,7 +88,7 @@ interface PopoverTriggerProps<Input> {
 
 export function PopoverTrigger<Input>({
   PopoverComponent,
-  jsStyle,
+  jss,
   dialogJSStyle,
   grow,
   shrink,
@@ -120,14 +120,14 @@ export function PopoverTrigger<Input>({
       shrink={shrink}
       tag={tag}
       relative={true}
-      jsStyle={[jsStyle, { position: "relative", display: "inline-block" }]}
+      jss={[jss, { position: "relative", display: "inline-block" }]}
     >
       {children({ toggle })}
       <dialog
         ref={(ref: null | HTMLDialogElement) => {
           dialogRef.current = ref;
         }}
-        className={jss([jsStyles.popover, dialogJSStyle])}
+        className={toClassnames([jsss.popover, dialogJSStyle])}
         onClose={() => {
           setPopover(null);
         }}

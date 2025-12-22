@@ -1,7 +1,7 @@
 import React from "react";
-import { JSStyle, jss } from "./jss";
+import { JSStyle, toClassnames } from "./jss";
 
-const jsStyles: { [key: string]: JSStyle } = {
+const jsss: { [key: string]: JSStyle } = {
   relative: {
     position: "relative",
   },
@@ -14,7 +14,7 @@ const jsStyles: { [key: string]: JSStyle } = {
 };
 
 export interface BaseViewProps extends React.HTMLAttributes<HTMLElement> {
-  jsStyle?: JSStyle;
+  jss?: JSStyle;
   ref?: React.Ref<HTMLDivElement>;
   className?: undefined;
   grow?: boolean;
@@ -26,7 +26,7 @@ export interface BaseViewProps extends React.HTMLAttributes<HTMLElement> {
 export const BaseView = React.forwardRef(
   (
     {
-      jsStyle,
+      jss,
       children,
       tag,
       grow,
@@ -42,11 +42,11 @@ export const BaseView = React.forwardRef(
       // @ts-ignore
       <Tag
         ref={ref}
-        className={jss([
-          jsStyle,
-          grow && jsStyles.grow,
-          shrink && jsStyles.shrink,
-          relative && jsStyles.relative,
+        className={toClassnames([
+          jss,
+          grow && jsss.grow,
+          shrink && jsss.shrink,
+          relative && jsss.relative,
         ])}
         {...otherProps}
       >

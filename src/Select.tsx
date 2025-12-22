@@ -1,30 +1,30 @@
 import { forwardRef } from "react";
-import { JSStyle, cssVar, jss } from "./jss";
+import { JSStyle, cssVar, toClassnames } from "./jss";
 
 export interface SelectProps extends React.HTMLAttributes<HTMLSelectElement> {
   value: string;
   onValueChange: (value: string) => void;
-  jsStyle?: JSStyle;
+  jss?: JSStyle;
   ref?: React.Ref<HTMLSelectElement>;
   className?: undefined;
 }
 
 export const Select = forwardRef(
   (
-    { jsStyle, children, onValueChange, value, ...otherProps }: SelectProps,
+    { jss, children, onValueChange, value, ...otherProps }: SelectProps,
     ref?: React.Ref<HTMLSelectElement>
   ) => {
     return (
       <select
         ref={ref}
-        className={jss([
+        className={toClassnames([
           {
             fontSize: 20,
             border: `1px solid ${cssVar("--divider")}`,
             backgroundColor: cssVar("--overlay-background"),
             borderRadius: cssVar("--border-radius-m"),
           },
-          jsStyle,
+          jss,
         ])}
         value={value}
         onChange={(e) => {

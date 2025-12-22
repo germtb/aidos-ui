@@ -10,7 +10,7 @@ export function Sublist({
   label,
   labelBold,
   initialState = { collapsed: false },
-  jsStyle,
+  jss,
   secondaryAddOn,
 }: {
   children: React.ReactNode;
@@ -19,7 +19,7 @@ export function Sublist({
   initialState?: {
     collapsed: boolean;
   };
-  jsStyle?: JSStyle;
+  jss?: JSStyle;
   secondaryAddOn?: ReactNode;
 }) {
   const [collapsed, setCollapsed] = React.useState(initialState.collapsed);
@@ -29,13 +29,13 @@ export function Sublist({
         headline={label}
         headlineBold={labelBold}
         onClick={() => setCollapsed((x) => !x)}
-        jsStyle={jsStyle}
+        jss={jss}
         addOn={
           <Row gap="medium" align="center">
             {secondaryAddOn}
             <Box
               padding="medium"
-              jsStyle={[
+              jss={[
                 {
                   transition: "transform 0.15s ease-in",
                 },

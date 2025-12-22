@@ -1,7 +1,7 @@
 import React from "react";
 import { JSStyle } from "./jss";
 export interface BaseViewProps extends React.HTMLAttributes<HTMLElement> {
-    jsStyle?: JSStyle;
+    jss?: JSStyle;
     ref?: React.Ref<HTMLDivElement>;
     className?: undefined;
     grow?: boolean;

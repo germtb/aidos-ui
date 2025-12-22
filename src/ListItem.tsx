@@ -16,12 +16,7 @@ export const ListItem = React.forwardRef(
     const { bare } = useListContext();
 
     return (
-      <BaseListItem
-        withDivider={!bare}
-        {...props}
-        jsStyle={props.jsStyle}
-        ref={ref}
-      >
+      <BaseListItem withDivider={!bare} {...props} jss={props.jss} ref={ref}>
         {({ content }) => content}
       </BaseListItem>
     );

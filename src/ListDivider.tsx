@@ -1,7 +1,7 @@
 import React from "react";
 import { BaseView } from "./BaseView";
 
-const jsStyles = {
+const jsss = {
   root: {
     width: "100%",
     borderBottom: "1px solid var(--divider)",
@@ -9,5 +9,5 @@ const jsStyles = {
 };
 
 export function ListDivider() {
-  return <BaseView jsStyle={jsStyles.root} />;
+  return <BaseView jss={jsss.root} />;
 }

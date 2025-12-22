@@ -27,7 +27,7 @@ export const IconLink = React.forwardRef(
       <BaseLink
         {...otherProps}
         bare={bare}
-        jsStyle={[
+        jss={[
           {
             display: "flex",
             justifyContent: "center",

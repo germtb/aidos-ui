@@ -21,7 +21,7 @@ export const TextInput = React.forwardRef(
       value,
       onValueChange,
       rootJSStyle,
-      jsStyle,
+      jss,
       addOn,
       gap = "small",
       addOnPosition = "start",
@@ -34,7 +34,7 @@ export const TextInput = React.forwardRef(
     return (
       <Row
         gap={gap}
-        jsStyle={[
+        jss={[
           {
             borderRadius: cssVar("--border-radius-m"),
             overflow: "hidden",
@@ -61,7 +61,7 @@ export const TextInput = React.forwardRef(
           <Column
             justify="center"
             align="center"
-            jsStyle={[getPadding(padding), { paddingRight: 0 }]}
+            jss={[getPadding(padding), { paddingRight: 0 }]}
           >
             {addOn}
           </Column>
@@ -73,7 +73,7 @@ export const TextInput = React.forwardRef(
           onChange={
             onValueChange ? (e) => onValueChange(e.target.value) : undefined
           }
-          jsStyle={[
+          jss={[
             {
               minWidth: 0,
               flexGrow: 1,
@@ -93,14 +93,14 @@ export const TextInput = React.forwardRef(
             getPadding(padding),
             addOn && addOnPosition === "start" ? { paddingLeft: 0 } : null,
             addOn && addOnPosition === "end" ? { paddingRight: 0 } : null,
-            jsStyle,
+            jss,
           ]}
         />
         {addOnPosition === "end" && addOn && (
           <Column
             justify="center"
             align="center"
-            jsStyle={[getPadding(padding), { paddingLeft: 0 }]}
+            jss={[getPadding(padding), { paddingLeft: 0 }]}
           >
             {addOn}
           </Column>
