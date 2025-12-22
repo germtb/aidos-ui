@@ -21,7 +21,7 @@ export interface TabsProps extends RowProps {
   labelSize?: Size;
   bare?: boolean;
   tabPadding?: Padding;
-  tabJSStyle?: JSStyle;
+  tabJSStyle?: JSStyle | ((data: { selected: boolean }) => JSStyle);
   labelRenderer?: (label: string) => ReactNode;
 }
 
@@ -93,7 +93,9 @@ export function Tabs({
                   },
                 },
                 getPadding(tabPadding),
-                tabJSStyle,
+                typeof tabJSStyle === "function"
+                  ? tabJSStyle({ selected })
+                  : tabJSStyle,
               ]}
             >
               {addOnPosition === "start" && addOn}

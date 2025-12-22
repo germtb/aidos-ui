@@ -364,3 +364,62 @@ You can customize how tab labels are rendered by providing a `labelRenderer` fun
   />
 </Column>
 ```
+
+
+## Custom tab styles
+
+You can provide custom styles to individual tabs using the `tabJSStyle` prop, which can either be a style object or a function that receives the tab's selected state.
+
+<Column>
+  <Tabs
+    aria-controls="foo"
+    tabJSStyle={(data) => ({
+      borderBottom: data.selected ? "2px solid cyan" : "2px solid magenta",
+    })}
+    tabs={[
+      {
+        href: "/Tabs",
+        selected: true,
+        label: "Styled Tab 1",
+      },
+      {
+        href: "/Tabs",
+        selected: false,
+        label: "Styled Tab 2",
+      },
+      {
+        href: "/Tabs",
+        selected: false,
+        label: "Styled Tab 3",
+      },
+    ]}
+  />
+</Column>
+
+```js
+<Column>
+  <Tabs
+    aria-controls="foo"
+    tabJSStyle={(data) => ({
+      borderBottom: data.selected ? "2px solid cyan" : "2px solid magenta",
+    })}
+    tabs={[
+      {
+        href: "/Tabs",
+        selected: true,
+        label: "Styled Tab 1",
+      },
+      {
+        href: "/Tabs",
+        selected: false,
+        label: "Styled Tab 2",
+      },
+      {
+        href: "/Tabs",
+        selected: false,
+        label: "Styled Tab 3",
+      },
+    ]}
+  />
+</Column>
+```
