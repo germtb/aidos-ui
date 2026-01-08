@@ -106,14 +106,14 @@ const getCSS = (key, value) => {
     const cssValue = toPixelValue(cssProp, value);
     return [cssProp, cssValue];
 };
-const flattenJSStyle = (jss) => {
+const flattenJSS = (jss) => {
     if (!jss) {
         return {};
     }
     else if (Array.isArray(jss)) {
         // @ts-ignore
         return jss.reduce((acc, jss) => {
-            return { ...acc, ...flattenJSStyle(jss) };
+            return { ...acc, ...flattenJSS(jss) };
         }, {});
     }
     else {
@@ -121,7 +121,7 @@ const flattenJSStyle = (jss) => {
     }
 };
 export const toClassnames = (jss) => {
-    jss = flattenJSStyle(jss);
+    jss = flattenJSS(jss);
     const stylesStack = Object.entries(jss);
     const classNames = [];
     while (stylesStack.length) {
@@ -167,7 +167,7 @@ export const toClassnames = (jss) => {
     return classNames.join(" ");
 };
 const serverStyles = [];
-export function JSStylesProvider({ themes, children, }) {
+export function JSSProvider({ themes, children, }) {
     const stylesRef = useRef(null);
     if (stylesRef.current == null) {
         stylesRef.current = getBaseStyles(themes);

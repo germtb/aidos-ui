@@ -1,6 +1,6 @@
-import { Color, JSStyle, Size } from "./jss";
+import { Color, JSS, Size } from "./jss";
 export declare function Badge({ size, color, jss, }: {
     size?: Size;
     color?: Color;
-    jss?: JSStyle;
+    jss?: JSS;
 }): import("react/jsx-runtime").JSX.Element;

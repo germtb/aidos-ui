@@ -1,4 +1,4 @@
-import { JSStyle, Padding, TextColor, cssVar, getPadding } from "./jss";
+import { JSS, Padding, TextColor, cssVar, getPadding } from "./jss";
 
 export type InteractableColor =
   | "positive"
@@ -78,7 +78,7 @@ const jsss = {
   colorHover: {},
 };
 
-export function getInteractableJSStyles({
+export function getInteractableJSS({
   color,
   bare,
   disabled,
@@ -92,7 +92,7 @@ export function getInteractableJSStyles({
   animateInteraction: boolean;
   padding: Padding;
   border: boolean;
-}): Array<JSStyle> {
+}): Array<JSS> {
   return [
     jsss.root,
     color === "dark" && jsss.dark,
@@ -168,7 +168,7 @@ export const getCSSColor = (
   }
 };
 
-export const getInteractableListItemJSStyles = ({
+export const getInteractableListItemJSS = ({
   bare,
   selected,
 }: {

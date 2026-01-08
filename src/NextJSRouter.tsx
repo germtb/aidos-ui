@@ -5,9 +5,9 @@ import { Column } from "./Column";
 import { ListDivider } from "./ListDivider";
 import { BaseView } from "./BaseView";
 import { useRouterState } from "./NextJSRouterState";
-import { JSStyle } from "./jss";
+import { JSS } from "./jss";
 
-const jsss: { [key: string]: JSStyle } = {
+const jsss: { [key: string]: JSS } = {
   root: {
     display: "flex",
     flexDirection: "column",

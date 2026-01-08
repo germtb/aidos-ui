@@ -3,9 +3,9 @@ import React, { useRef, useState } from "react";
 import { BaseView } from "./BaseView";
 import { useRefEffect } from "./useRefEffect";
 import { Text } from "./Text";
-import { JSStyle, cssVar, toClassnames } from "./jss";
+import { JSS, cssVar, toClassnames } from "./jss";
 
-const jsss: { [key: string]: JSStyle } = {
+const jsss: { [key: string]: JSS } = {
   tooltip: {
     top: "-100%",
     transform: "translateY(50%)",
@@ -20,7 +20,7 @@ const jsss: { [key: string]: JSStyle } = {
 
 interface TooltipProps {
   content: string;
-  jss?: JSStyle;
+  jss?: JSS;
   className?: undefined;
   tag?: keyof HTMLElementTagNameMap;
   children: JSX.Element;

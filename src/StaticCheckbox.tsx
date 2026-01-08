@@ -1,7 +1,7 @@
 import React from "react";
 import { BaseView } from "./BaseView";
 import { Icon } from "./Icon";
-import { JSStyle, Size, cssVar } from "./jss";
+import { JSS, Size, cssVar } from "./jss";
 import { IconType } from "./IconType";
 
 type StaticCheckboxProps = {
@@ -10,7 +10,7 @@ type StaticCheckboxProps = {
   icon?: IconType;
 };
 
-const jsss: { [key: string]: JSStyle } = {
+const jsss: { [key: string]: JSS } = {
   border: {
     position: "absolute",
     top: "var(--spacing-xs)",

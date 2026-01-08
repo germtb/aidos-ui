@@ -10,7 +10,7 @@ const sizes = {
     large: 40,
     xlarge: 48,
 };
-export const IconLink = React.forwardRef(({ icon, size, color, bare, disabled, ...otherProps }, ref) => {
+export const IconLink = React.forwardRef(({ icon, size, color, bare, disabled, jss, ...otherProps }, ref) => {
     return (_jsx(BaseLink, { ...otherProps, bare: bare, jss: [
             {
                 display: "flex",
@@ -26,6 +26,7 @@ export const IconLink = React.forwardRef(({ icon, size, color, bare, disabled, .
                     transform: "scale(0.92)",
                 },
             },
+            jss,
         ], color: color, ref: ref, disabled: disabled, children: _jsx(Icon, { size: size, icon: icon, color: getGlyphColor(color, disabled, bare) }) }));
 });
 //# sourceMappingURL=IconLink.js.map

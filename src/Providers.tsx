@@ -3,7 +3,7 @@ import { DarkModeProvider } from "./DarkMode";
 import { DialogProvider } from "./Dialog";
 import { IconProvider } from "./Icon";
 import { useCookie } from "./useCookie";
-import { JSStylesProvider, Theme } from "./jss";
+import { JSSProvider, Theme } from "./jss";
 
 export function Providers({
   children,
@@ -22,12 +22,12 @@ export function Providers({
   );
 
   return (
-    <JSStylesProvider themes={themes}>
+    <JSSProvider themes={themes}>
       <IconProvider>
         <DarkModeProvider enabled={darkModeEnabled} toggle={toggleDarkMode}>
           <DialogProvider>{children}</DialogProvider>
         </DarkModeProvider>
       </IconProvider>
-    </JSStylesProvider>
+    </JSSProvider>
   );
 }

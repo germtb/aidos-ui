@@ -5,7 +5,7 @@ import { cssVar, getPadding } from "./jss";
 import { useNavigation } from "./useNavigation";
 import { Text } from "./Text";
 import { BaseButton } from "./BaseButton";
-export function Tabs({ tabs, gap = "none", padding = "none", tabPadding = "medium", labelSize = "large", jss, tabJSStyle, labelRenderer, ["aria-controls"]: ariaControls, ...otherProps }) {
+export function Tabs({ tabs, gap = "none", padding = "none", tabPadding = "medium", labelSize = "large", jss, jssTab, labelRenderer, ["aria-controls"]: ariaControls, ...otherProps }) {
     const root = useNavigation();
     return (_jsx(Row, { role: "tablist", jss: jss, gap: gap, padding: padding, ref: root, ...otherProps, children: tabs.map(({ label, href, onClick, selected, addOn, addOnPosition = "start", }) => {
             const BaseComponent = href != null ? BaseLink : BaseButton;
@@ -32,9 +32,7 @@ export function Tabs({ tabs, gap = "none", padding = "none", tabPadding = "mediu
                         },
                     },
                     getPadding(tabPadding),
-                    typeof tabJSStyle === "function"
-                        ? tabJSStyle({ selected })
-                        : tabJSStyle,
+                    typeof jssTab === "function" ? jssTab({ selected }) : jssTab,
                 ], children: [addOnPosition === "start" && addOn, _jsx(Text, { size: labelSize, color: selected ? "primary" : "secondary", children: labelRenderer ? labelRenderer(label) : label }), addOnPosition === "end" && addOn] }, label));
         }) }));
 }

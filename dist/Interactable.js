@@ -69,7 +69,7 @@ const jsss = {
     },
     colorHover: {},
 };
-export function getInteractableJSStyles({ color, bare, disabled, animateInteraction, padding, border, }) {
+export function getInteractableJSS({ color, bare, disabled, animateInteraction, padding, border, }) {
     return [
         jsss.root,
         color === "dark" && jsss.dark,
@@ -132,7 +132,7 @@ export const getCSSColor = (color, disabled, bare) => {
             return bare ? cssVar("--light-text") : cssVar("--primary-text");
     }
 };
-export const getInteractableListItemJSStyles = ({ bare, selected, }) => {
+export const getInteractableListItemJSS = ({ bare, selected, }) => {
     return [
         {
             overflow: "hidden",

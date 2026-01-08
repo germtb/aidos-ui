@@ -1,8 +1,8 @@
 /// <reference types="react" />
-import { JSStyle } from "./jss";
+import { JSS } from "./jss";
 interface TooltipProps {
     content: string;
-    jss?: JSStyle;
+    jss?: JSS;
     className?: undefined;
     tag?: keyof HTMLElementTagNameMap;
     children: JSX.Element;

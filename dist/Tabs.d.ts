@@ -1,5 +1,5 @@
 import { RowProps } from "./Row";
-import { JSStyle, Padding, Size } from "./jss";
+import { JSS, Padding, Size } from "./jss";
 import { ReactNode } from "react";
 export type Tab = {
     label: string;
@@ -15,9 +15,9 @@ export interface TabsProps extends RowProps {
     labelSize?: Size;
     bare?: boolean;
     tabPadding?: Padding;
-    tabJSStyle?: JSStyle | ((data: {
+    jssTab?: JSS | ((data: {
         selected: boolean;
-    }) => JSStyle);
+    }) => JSS);
     labelRenderer?: (label: string) => ReactNode;
 }
-export declare function Tabs({ tabs, gap, padding, tabPadding, labelSize, jss, tabJSStyle, labelRenderer, ["aria-controls"]: ariaControls, ...otherProps }: TabsProps): import("react/jsx-runtime").JSX.Element;
+export declare function Tabs({ tabs, gap, padding, tabPadding, labelSize, jss, jssTab, labelRenderer, ["aria-controls"]: ariaControls, ...otherProps }: TabsProps): import("react/jsx-runtime").JSX.Element;

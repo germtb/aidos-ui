@@ -1,9 +1,9 @@
 import React from "react";
-import { JSStyle, Padding, cssVar, getPadding, toClassnames } from "./jss";
+import { JSS, Padding, cssVar, getPadding, toClassnames } from "./jss";
 
 export interface TextAreaProps
   extends React.InputHTMLAttributes<HTMLTextAreaElement> {
-  jss?: JSStyle;
+  jss?: JSS;
   onValueChange?: (value: string) => void;
   value?: string;
   className?: undefined;

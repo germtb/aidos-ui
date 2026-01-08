@@ -3,7 +3,7 @@ import React from "react";
 import { BaseInput } from "./BaseInput";
 import { Row } from "./Row";
 import { cssVar } from "./jss";
-export const RangeInput = React.forwardRef(({ value, onValueChange, rootJSStyle, jss, gap = "medium", padding = "none", min = 0, max = 100, step = 1, label, addOn, addOnPosition = "start", ...inputProps }, ref) => {
+export const RangeInput = React.forwardRef(({ value, onValueChange, jssRoot, jss, gap = "medium", padding = "none", min = 0, max = 100, step = 1, label, addOn, addOnPosition = "start", ...inputProps }, ref) => {
     return (_jsxs(Row, { gap: gap, padding: padding, align: "center", jss: [
             {
                 ":has(:focus-visible)": {
@@ -11,7 +11,7 @@ export const RangeInput = React.forwardRef(({ value, onValueChange, rootJSStyle,
                     backgroundColor: cssVar("--light-highlight"),
                 },
             },
-            rootJSStyle,
+            jssRoot,
         ], children: [addOnPosition === "start" && addOn, _jsx(BaseInput, { ...inputProps, label: label, min: min, max: max, type: "range", ref: ref, value: value, onChange: (e) => {
                     onValueChange(parseFloat(e.target.value));
                 }, jss: [

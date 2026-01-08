@@ -4,7 +4,7 @@ import { Box } from "./Box";
 import { Icon } from "./Icon";
 import { IconType } from "./IconType";
 import { Row } from "./Row";
-import { JSStyle } from "./jss";
+import { JSS } from "./jss";
 
 export interface DateInputProps extends BaseInputProps {
   onDateChange: (date: Date) => void;
@@ -12,7 +12,7 @@ export interface DateInputProps extends BaseInputProps {
   icon?: IconType;
   addOn?: ReactNode;
   onChange?: undefined;
-  jsss?: JSStyle;
+  jsss?: JSS;
 }
 
 export const DateInput = React.forwardRef(

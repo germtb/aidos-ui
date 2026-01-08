@@ -1,9 +1,9 @@
 /// <reference types="react" />
-import { JSStyle } from "./jss";
+import { JSS } from "./jss";
 export interface SelectProps extends React.HTMLAttributes<HTMLSelectElement> {
     value: string;
     onValueChange: (value: string) => void;
-    jss?: JSStyle;
+    jss?: JSS;
     ref?: React.Ref<HTMLSelectElement>;
     className?: undefined;
 }

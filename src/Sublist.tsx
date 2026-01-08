@@ -3,7 +3,7 @@ import { ListButtonItem } from "./ListButtonItem";
 import { Icon } from "./Icon";
 import { Box } from "./Box";
 import { Row } from "./Row";
-import { JSStyle } from "./jss";
+import { JSS } from "./jss";
 
 export function Sublist({
   children,
@@ -19,7 +19,7 @@ export function Sublist({
   initialState?: {
     collapsed: boolean;
   };
-  jss?: JSStyle;
+  jss?: JSS;
   secondaryAddOn?: ReactNode;
 }) {
   const [collapsed, setCollapsed] = React.useState(initialState.collapsed);

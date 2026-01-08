@@ -4,7 +4,7 @@ import { BaseListItem, BaseListItemProps } from "./BaseListItem";
 import {
   InteractableColor,
   getGlyphColor,
-  getInteractableListItemJSStyles,
+  getInteractableListItemJSS,
 } from "./Interactable";
 import { BaseButton } from "./BaseButton";
 import { useListContext } from "./List";
@@ -57,7 +57,7 @@ export const ListButtonItem = React.forwardRef(
             bare={true}
             color={bare ? "primary" : color}
             ref={ref}
-            jss={getInteractableListItemJSStyles({ bare, selected })}
+            jss={getInteractableListItemJSS({ bare, selected })}
             onClick={onClick}
           >
             {content}

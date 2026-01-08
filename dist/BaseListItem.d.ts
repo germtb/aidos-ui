@@ -1,11 +1,11 @@
 import React, { ReactNode } from "react";
 import { RowProps } from "./Row";
-import { JSStyle, Size, Position, Spacing, TextColor } from "./jss";
+import { JSS, Size, Position, Spacing, TextColor } from "./jss";
 export interface BaseListItemProps extends RowProps {
     children: (elements: {
         content: JSX.Element;
     }) => ReactNode;
-    jss?: JSStyle;
+    jss?: JSS;
     withDivider?: boolean;
     headline: string;
     headlineSize?: Size;

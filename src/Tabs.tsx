@@ -1,6 +1,6 @@
 import { BaseLink } from "./BaseLink";
 import { Row, RowProps } from "./Row";
-import { JSStyle, Padding, Size, cssVar, getPadding } from "./jss";
+import { JSS, Padding, Size, cssVar, getPadding } from "./jss";
 import { useNavigation } from "./useNavigation";
 import { Text } from "./Text";
 import { ReactNode } from "react";
@@ -21,7 +21,7 @@ export interface TabsProps extends RowProps {
   labelSize?: Size;
   bare?: boolean;
   tabPadding?: Padding;
-  tabJSStyle?: JSStyle | ((data: { selected: boolean }) => JSStyle);
+  jssTab?: JSS | ((data: { selected: boolean }) => JSS);
   labelRenderer?: (label: string) => ReactNode;
 }
 
@@ -32,7 +32,7 @@ export function Tabs({
   tabPadding = "medium",
   labelSize = "large",
   jss,
-  tabJSStyle,
+  jssTab,
   labelRenderer,
   ["aria-controls"]: ariaControls,
   ...otherProps
@@ -93,9 +93,7 @@ export function Tabs({
                   },
                 },
                 getPadding(tabPadding),
-                typeof tabJSStyle === "function"
-                  ? tabJSStyle({ selected })
-                  : tabJSStyle,
+                typeof jssTab === "function" ? jssTab({ selected }) : jssTab,
               ]}
             >
               {addOnPosition === "start" && addOn}

@@ -1,10 +1,10 @@
 import { forwardRef } from "react";
-import { JSStyle, cssVar, toClassnames } from "./jss";
+import { JSS, cssVar, toClassnames } from "./jss";
 
 export interface SelectProps extends React.HTMLAttributes<HTMLSelectElement> {
   value: string;
   onValueChange: (value: string) => void;
-  jss?: JSStyle;
+  jss?: JSS;
   ref?: React.Ref<HTMLSelectElement>;
   className?: undefined;
 }

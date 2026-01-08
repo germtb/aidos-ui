@@ -4,7 +4,7 @@ import { BaseListItem, BaseListItemProps } from "./BaseListItem";
 import {
   InteractableColor,
   getGlyphColor,
-  getInteractableListItemJSStyles,
+  getInteractableListItemJSS,
 } from "./Interactable";
 import { BaseLink } from "./BaseLink";
 import { useListContext } from "./List";
@@ -64,7 +64,7 @@ export const ListLinkItem = React.forwardRef(
             color={color}
             href={href}
             ref={ref}
-            jss={getInteractableListItemJSStyles({ bare, selected })}
+            jss={getInteractableListItemJSS({ bare, selected })}
             onClick={onClick}
           >
             {content}

@@ -1,12 +1,12 @@
 import React, { ReactNode } from "react";
 import { BaseInput, BaseInputProps } from "./BaseInput";
 import { Row } from "./Row";
-import { Gap, JSStyle, Padding, cssVar, getPadding } from "./jss";
+import { Gap, JSS, Padding, cssVar, getPadding } from "./jss";
 import { Column } from "./Column";
 
 export interface TextInputProps extends BaseInputProps {
   onValueChange?: (value: string) => void;
-  rootJSStyle?: JSStyle;
+  jssRoot?: JSS;
   addOn?: ReactNode;
   addOnPosition?: "start" | "end";
   gap?: Gap;
@@ -20,7 +20,7 @@ export const TextInput = React.forwardRef(
     {
       value,
       onValueChange,
-      rootJSStyle,
+      jssRoot,
       jss,
       addOn,
       gap = "small",
@@ -54,7 +54,7 @@ export const TextInput = React.forwardRef(
                   outlineOffset: -2,
                 },
               },
-          rootJSStyle,
+          jssRoot,
         ]}
       >
         {addOnPosition === "start" && addOn && (

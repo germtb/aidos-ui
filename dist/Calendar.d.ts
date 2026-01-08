@@ -1,11 +1,11 @@
 import React from "react";
-import { JSStyle } from "./jss";
+import { JSS } from "./jss";
 export declare const Calendar: React.ForwardRefExoticComponent<{
     date: Date;
     header: (props: {
         weekday: string;
     }) => JSX.Element;
-    jss?: JSStyle;
+    jss?: JSS;
     cell: (props: {
         today?: boolean;
         date: Date;

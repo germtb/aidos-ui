@@ -292,7 +292,7 @@ export default function App({ Component, pageProps }: AppProps) {
                 justify="space-between"
               >
                 <TextInput
-                  rootJSStyle={{ flexGrow: 1 }}
+                  jssRoot={{ flexGrow: 1 }}
                   ref={queryInputRef}
                   role="combobox"
                   aria-haspopup="grid"

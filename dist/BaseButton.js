@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import React from "react";
-import { getInteractableJSStyles } from "./Interactable";
+import { getInteractableJSS } from "./Interactable";
 import { toClassnames } from "./jss";
 export const BaseButton = React.forwardRef(({ onClick, children, jss, color, bare = false, border = false, disabled, animateInteraction = true, padding, ...otherProps }, ref) => {
     return (_jsx("button", { ...otherProps, "aria-disabled": disabled ? true : undefined, ref: ref, onClick: (event) => {
@@ -9,7 +9,7 @@ export const BaseButton = React.forwardRef(({ onClick, children, jss, color, bar
             }
             onClick?.(event);
         }, className: toClassnames([
-            ...getInteractableJSStyles({
+            ...getInteractableJSS({
                 color,
                 bare,
                 border,

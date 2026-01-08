@@ -11,13 +11,13 @@ export type Styles = CSS.Properties<
   string | number | CSS.Properties<string | number>
 >;
 
-export type JSStyle =
+export type JSS =
   | Styles
   | null
   | false
   | undefined
   | { [key: string]: Styles }
-  | Array<JSStyle>;
+  | Array<JSS>;
 
 const aliases: {
   [alias: string]: (value: StylesValueType) => [string, StylesValueType][];
@@ -137,21 +137,21 @@ const getCSS = (key: string, value): [string, string] => {
   return [cssProp, cssValue];
 };
 
-const flattenJSStyle = (jss: JSStyle): Styles => {
+const flattenJSS = (jss: JSS): Styles => {
   if (!jss) {
     return {};
   } else if (Array.isArray(jss)) {
     // @ts-ignore
-    return jss.reduce((acc: Styles, jss: JSStyle) => {
-      return { ...acc, ...flattenJSStyle(jss) };
+    return jss.reduce((acc: Styles, jss: JSS) => {
+      return { ...acc, ...flattenJSS(jss) };
     }, {});
   } else {
     return jss;
   }
 };
 
-export const toClassnames = (jss: JSStyle): string => {
-  jss = flattenJSStyle(jss);
+export const toClassnames = (jss: JSS): string => {
+  jss = flattenJSS(jss);
 
   const stylesStack = Object.entries(jss);
   const classNames = [];
@@ -205,7 +205,7 @@ export const toClassnames = (jss: JSStyle): string => {
 
 const serverStyles = [];
 
-export function JSStylesProvider({
+export function JSSProvider({
   themes,
   children,
 }: {
@@ -324,7 +324,7 @@ export function getSpacing(spacing: Spacing): string {
   }
 }
 
-export function getPadding(padding: Padding): JSStyle {
+export function getPadding(padding: Padding): JSS {
   if (Array.isArray(padding)) {
     const [vertical, horizontal] = padding;
     return {
@@ -340,7 +340,7 @@ export function getPadding(padding: Padding): JSStyle {
   }
 }
 
-export function getMargin(margin: Margin): JSStyle {
+export function getMargin(margin: Margin): JSS {
   if (Array.isArray(margin)) {
     const [vertical, horizontal] = margin;
     return {
@@ -559,7 +559,7 @@ const backgroundStyles = {
   },
 };
 
-export const getBackground = (color: Color): JSStyle => {
+export const getBackground = (color: Color): JSS => {
   return backgroundStyles[color];
 };
 
@@ -572,25 +572,25 @@ export const TABLET_MEDIA = `@media (min-width: ${MOBILE}px) and (max-width: ${T
 export const LAPTOP_MEDIA = `@media (min-width: ${TABLET}px) and (max-width: ${LAPTOP}px)`;
 export const DESKTOP_MEDIA = `@media (min-width: ${LAPTOP}px)`;
 
-export function mobile(jss: JSStyle): { [key: string]: JSStyle } {
+export function mobile(jss: JSS): { [key: string]: JSS } {
   return {
     [MOBILE_MEDIA]: jss,
   };
 }
 
-export function tablet(jss: JSStyle): { [key: string]: JSStyle } {
+export function tablet(jss: JSS): { [key: string]: JSS } {
   return {
     [TABLET_MEDIA]: jss,
   };
 }
 
-export function laptop(jss: JSStyle): { [key: string]: JSStyle } {
+export function laptop(jss: JSS): { [key: string]: JSS } {
   return {
     [LAPTOP_MEDIA]: jss,
   };
 }
 
-export function desktop(jss: JSStyle): { [key: string]: JSStyle } {
+export function desktop(jss: JSS): { [key: string]: JSS } {
   return {
     [DESKTOP_MEDIA]: jss,
   };

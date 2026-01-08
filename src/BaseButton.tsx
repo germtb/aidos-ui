@@ -1,11 +1,11 @@
 import React from "react";
-import { InteractableColor, getInteractableJSStyles } from "./Interactable";
-import { JSStyle, Padding, toClassnames } from "./jss";
+import { InteractableColor, getInteractableJSS } from "./Interactable";
+import { JSS, Padding, toClassnames } from "./jss";
 
 export interface BaseButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  jss?: JSStyle;
+  jss?: JSS;
   color: InteractableColor;
   bare?: boolean;
   border?: boolean;
@@ -43,7 +43,7 @@ export const BaseButton = React.forwardRef(
           onClick?.(event);
         }}
         className={toClassnames([
-          ...getInteractableJSStyles({
+          ...getInteractableJSS({
             color,
             bare,
             border,

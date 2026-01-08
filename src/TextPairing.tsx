@@ -12,7 +12,7 @@ import {
   Padding,
   Align,
   cssVar,
-  JSStyle,
+  JSS,
 } from "./jss";
 
 export interface TextPairingProps {
@@ -31,7 +31,7 @@ export interface TextPairingProps {
   grow?: boolean;
   shrink?: boolean;
   headlineBold?: boolean;
-  jss?: JSStyle;
+  jss?: JSS;
 }
 
 export function TextPairing({

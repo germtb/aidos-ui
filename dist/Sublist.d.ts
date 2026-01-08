@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { JSStyle } from "./jss";
+import { JSS } from "./jss";
 export declare function Sublist({ children, label, labelBold, initialState, jss, secondaryAddOn, }: {
     children: React.ReactNode;
     label: string;
@@ -7,6 +7,6 @@ export declare function Sublist({ children, label, labelBold, initialState, jss,
     initialState?: {
         collapsed: boolean;
     };
-    jss?: JSStyle;
+    jss?: JSS;
     secondaryAddOn?: ReactNode;
 }): import("react/jsx-runtime").JSX.Element;

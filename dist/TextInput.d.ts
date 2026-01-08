@@ -1,9 +1,9 @@
 import React, { ReactNode } from "react";
 import { BaseInputProps } from "./BaseInput";
-import { Gap, JSStyle, Padding } from "./jss";
+import { Gap, JSS, Padding } from "./jss";
 export interface TextInputProps extends BaseInputProps {
     onValueChange?: (value: string) => void;
-    rootJSStyle?: JSStyle;
+    jssRoot?: JSS;
     addOn?: ReactNode;
     addOnPosition?: "start" | "end";
     gap?: Gap;

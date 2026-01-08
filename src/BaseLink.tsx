@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
-import { InteractableColor, getInteractableJSStyles } from "./Interactable";
-import { JSStyle, Padding, toClassnames } from "./jss";
+import { InteractableColor, getInteractableJSS } from "./Interactable";
+import { JSS, Padding, toClassnames } from "./jss";
 
 export interface BaseLinkProps
   extends React.LinkHTMLAttributes<HTMLAnchorElement> {
   onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
   target?: string;
-  jss?: JSStyle;
+  jss?: JSS;
   color: InteractableColor;
   href: string;
   disabled?: boolean;
@@ -61,7 +61,7 @@ export const BaseLink = React.forwardRef(
             : undefined
         }
         className={toClassnames([
-          ...getInteractableJSStyles({
+          ...getInteractableJSS({
             color,
             border,
             bare,

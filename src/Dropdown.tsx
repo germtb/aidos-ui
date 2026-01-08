@@ -6,9 +6,9 @@ import { Button } from "./Button";
 import { Column } from "./Column";
 import { useNavigation } from "./useNavigation";
 import { useRefEffect } from "./useRefEffect";
-import { Gap, JSStyle, Padding, Size, getBackground } from "./jss";
+import { Gap, JSS, Padding, Size, getBackground } from "./jss";
 
-const jsss: { [key: string]: JSStyle } = {
+const jsss: { [key: string]: JSS } = {
   root: {
     position: "relative",
     display: "flex",
@@ -47,8 +47,8 @@ export function Dropdown<T extends string | number>({
   options: Set<T>;
   setSelection: (selection: T) => void;
   selection: T;
-  jss?: JSStyle;
-  jssButton?: JSStyle;
+  jss?: JSS;
+  jssButton?: JSS;
   optionLabel: (option: T) => string;
   padding?: Padding;
   gap?: Gap;

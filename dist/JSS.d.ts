@@ -1,11 +1,11 @@
 /// <reference types="react" />
 import CSS from "csstype";
 export type Styles = CSS.Properties<string | number | CSS.Properties<string | number>>;
-export type JSStyle = Styles | null | false | undefined | {
+export type JSS = Styles | null | false | undefined | {
     [key: string]: Styles;
-} | Array<JSStyle>;
-export declare const toClassnames: (jss: JSStyle) => string;
-export declare function JSStylesProvider({ themes, children, }: {
+} | Array<JSS>;
+export declare const toClassnames: (jss: JSS) => string;
+export declare function JSSProvider({ themes, children, }: {
     themes: {
         dark: Theme;
         light: Theme;
@@ -28,8 +28,8 @@ export type TextColor = "primary" | "secondary" | "highlight" | "negative" | "su
 export declare function cssVar(string: keyof Theme): string;
 export declare function getSize(size: Size): string;
 export declare function getSpacing(spacing: Spacing): string;
-export declare function getPadding(padding: Padding): JSStyle;
-export declare function getMargin(margin: Margin): JSStyle;
+export declare function getPadding(padding: Padding): JSS;
+export declare function getMargin(margin: Margin): JSS;
 export type Theme = {
     ["--overlay-background"]: string;
     ["--primary-background"]: string;
@@ -76,7 +76,7 @@ export type Theme = {
 export declare const lightTheme: Theme;
 export declare const darkTheme: Theme;
 export declare const baseStyles: string;
-export declare const getBackground: (color: Color) => JSStyle;
+export declare const getBackground: (color: Color) => JSS;
 export declare const MOBILE = 750;
 export declare const TABLET = 1000;
 export declare const LAPTOP = 1200;
@@ -84,17 +84,17 @@ export declare const MOBILE_MEDIA: string;
 export declare const TABLET_MEDIA: string;
 export declare const LAPTOP_MEDIA: string;
 export declare const DESKTOP_MEDIA: string;
-export declare function mobile(jss: JSStyle): {
-    [key: string]: JSStyle;
+export declare function mobile(jss: JSS): {
+    [key: string]: JSS;
 };
-export declare function tablet(jss: JSStyle): {
-    [key: string]: JSStyle;
+export declare function tablet(jss: JSS): {
+    [key: string]: JSS;
 };
-export declare function laptop(jss: JSStyle): {
-    [key: string]: JSStyle;
+export declare function laptop(jss: JSS): {
+    [key: string]: JSS;
 };
-export declare function desktop(jss: JSStyle): {
-    [key: string]: JSStyle;
+export declare function desktop(jss: JSS): {
+    [key: string]: JSS;
 };
 export declare const getTextColor: (color: TextColor) => {
     color: string;

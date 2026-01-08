@@ -1,7 +1,7 @@
 import React from "react";
-import { JSStyle, toClassnames } from "./jss";
+import { JSS, toClassnames } from "./jss";
 
-const jsss: { [key: string]: JSStyle } = {
+const jsss: { [key: string]: JSS } = {
   relative: {
     position: "relative",
   },
@@ -14,7 +14,7 @@ const jsss: { [key: string]: JSStyle } = {
 };
 
 export interface BaseViewProps extends React.HTMLAttributes<HTMLElement> {
-  jss?: JSStyle;
+  jss?: JSS;
   ref?: React.Ref<HTMLDivElement>;
   className?: undefined;
   grow?: boolean;

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { BaseView } from "./BaseView";
-import { Color, JSStyle, Size, getBackground } from "./jss";
+import { Color, JSS, Size, getBackground } from "./jss";
 
 const sizes = {
   xsmall: 4,
@@ -18,7 +18,7 @@ export function Badge({
 }: {
   size?: Size;
   color?: Color;
-  jss?: JSStyle;
+  jss?: JSS;
 }) {
   return (
     <BaseView

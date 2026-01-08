@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 
 import { ListDivider } from "./ListDivider";
 import { Row, RowProps } from "./Row";
-import { JSStyle, Size, Position, Spacing, TextColor, cssVar } from "./jss";
+import { JSS, Size, Position, Spacing, TextColor, cssVar } from "./jss";
 import { InteractableColor } from "./Interactable";
 import { TextPairing } from "./TextPairing";
 import { BaseView } from "./BaseView";
@@ -11,7 +11,7 @@ import { useListContext } from "./List";
 // @ts-ignore
 export interface BaseListItemProps extends RowProps {
   children: (elements: { content: JSX.Element }) => ReactNode;
-  jss?: JSStyle;
+  jss?: JSS;
   withDivider?: boolean;
   headline: string;
   headlineSize?: Size;

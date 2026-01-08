@@ -1,10 +1,10 @@
 import React from "react";
 import { BaseInputProps } from "./BaseInput";
-import { Gap, JSStyle, Padding } from "./jss";
+import { Gap, JSS, Padding } from "./jss";
 export interface RangeInputProps extends BaseInputProps {
     onValueChange: (value: number) => void;
     value: number;
-    rootJSStyle?: JSStyle;
+    jssRoot?: JSS;
     onChange?: undefined;
     padding?: Padding;
     gap?: Gap;

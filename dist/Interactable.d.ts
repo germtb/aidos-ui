@@ -1,16 +1,16 @@
-import { JSStyle, Padding, TextColor } from "./jss";
+import { JSS, Padding, TextColor } from "./jss";
 export type InteractableColor = "positive" | "primary" | "negative" | "dark" | "light";
-export declare function getInteractableJSStyles({ color, bare, disabled, animateInteraction, padding, border, }: {
+export declare function getInteractableJSS({ color, bare, disabled, animateInteraction, padding, border, }: {
     color: InteractableColor;
     bare: boolean;
     disabled: boolean;
     animateInteraction: boolean;
     padding: Padding;
     border: boolean;
-}): Array<JSStyle>;
+}): Array<JSS>;
 export declare const getGlyphColor: (color: InteractableColor, disabled: boolean | undefined, bare: boolean | undefined) => TextColor;
 export declare const getCSSColor: (color: InteractableColor, disabled: boolean | undefined, bare: boolean | undefined) => string;
-export declare const getInteractableListItemJSStyles: ({ bare, selected, }: {
+export declare const getInteractableListItemJSS: ({ bare, selected, }: {
     bare: boolean;
     selected: boolean;
 }) => ({

@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { BaseView } from "./BaseView";
-import { JSStyle } from "./jss";
+import { JSS } from "./jss";
 
 const dateFormatter = Intl.DateTimeFormat("en-UK", {
   weekday: "short",
@@ -24,7 +24,7 @@ export const Calendar = React.forwardRef(
     }: {
       date: Date;
       header: (props: { weekday: string }) => JSX.Element;
-      jss?: JSStyle;
+      jss?: JSS;
       cell: (props: {
         today?: boolean;
         date: Date;

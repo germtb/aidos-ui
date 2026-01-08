@@ -4,7 +4,7 @@ import { BaseInput } from "./BaseInput";
 import { Row } from "./Row";
 import { cssVar, getPadding } from "./jss";
 import { Column } from "./Column";
-export const TextInput = React.forwardRef(({ value, onValueChange, rootJSStyle, jss, addOn, gap = "small", addOnPosition = "start", padding = "medium", bare, ...inputProps }, ref) => {
+export const TextInput = React.forwardRef(({ value, onValueChange, jssRoot, jss, addOn, gap = "small", addOnPosition = "start", padding = "medium", bare, ...inputProps }, ref) => {
     return (_jsxs(Row, { gap: gap, jss: [
             {
                 borderRadius: cssVar("--border-radius-m"),
@@ -25,7 +25,7 @@ export const TextInput = React.forwardRef(({ value, onValueChange, rootJSStyle, 
                         outlineOffset: -2,
                     },
                 },
-            rootJSStyle,
+            jssRoot,
         ], children: [addOnPosition === "start" && addOn && (_jsx(Column, { justify: "center", align: "center", jss: [getPadding(padding), { paddingRight: 0 }], children: addOn })), _jsx(BaseInput, { ...inputProps, ref: ref, value: value, onChange: onValueChange ? (e) => onValueChange(e.target.value) : undefined, jss: [
                     {
                         minWidth: 0,

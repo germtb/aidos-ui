@@ -1,12 +1,12 @@
 import React from "react";
 import { BaseInput, BaseInputProps } from "./BaseInput";
 import { Row } from "./Row";
-import { Gap, JSStyle, Padding, cssVar } from "./jss";
+import { Gap, JSS, Padding, cssVar } from "./jss";
 
 export interface RangeInputProps extends BaseInputProps {
   onValueChange: (value: number) => void;
   value: number;
-  rootJSStyle?: JSStyle;
+  jssRoot?: JSS;
   onChange?: undefined;
   padding?: Padding;
   gap?: Gap;
@@ -19,7 +19,7 @@ export const RangeInput = React.forwardRef(
     {
       value,
       onValueChange,
-      rootJSStyle,
+      jssRoot,
       jss,
       gap = "medium",
       padding = "none",
@@ -45,7 +45,7 @@ export const RangeInput = React.forwardRef(
               backgroundColor: cssVar("--light-highlight"),
             },
           },
-          rootJSStyle,
+          jssRoot,
         ]}
       >
         {addOnPosition === "start" && addOn}

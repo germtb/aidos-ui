@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
-import { JSStyle, Size, TextColor } from "./jss";
+import { JSS, Size, TextColor } from "./jss";
 export interface BaseInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-    jss?: JSStyle;
+    jss?: JSS;
     className?: undefined;
     size?: undefined;
     children?: undefined;

@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import {
-  JSStyle,
+  JSS,
   Size,
   TextColor,
   cssVar,
@@ -29,7 +29,7 @@ export interface TextProps {
   align?: "center" | "none";
   type?: TextType;
   grow?: boolean;
-  jss?: JSStyle;
+  jss?: JSS;
   id?: string;
   htmlFor?: string;
 }

@@ -1,6 +1,6 @@
 import { BaseView } from "./BaseView";
 import { Column } from "./Column";
-import { Color, JSStyle, getBackground } from "./jss";
+import { Color, JSS, getBackground } from "./jss";
 
 export function MenuIcon({ open, color }: { open: boolean; color: Color }) {
   return (
@@ -31,7 +31,7 @@ export function MenuIcon({ open, color }: { open: boolean; color: Color }) {
   );
 }
 
-function Bar({ jss, color }: { jss: JSStyle; color: Color }) {
+function Bar({ jss, color }: { jss: JSS; color: Color }) {
   return (
     <BaseView
       jss={[

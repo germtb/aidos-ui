@@ -1,8 +1,8 @@
 import React from "react";
 import { BaseView } from "./BaseView";
-import { Color, Size, JSStyle, getBackground } from "./jss";
+import { Color, Size, JSS, getBackground } from "./jss";
 
-const jsss: { [key: string]: JSStyle } = {
+const jsss: { [key: string]: JSS } = {
   root: {
     width: "100%",
     display: "flex",
@@ -40,7 +40,7 @@ export function ProgressBar({
   progress: number;
   color: Color;
   size: Size;
-  jss?: JSStyle;
+  jss?: JSS;
 }) {
   return (
     <BaseView

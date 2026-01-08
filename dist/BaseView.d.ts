@@ -1,7 +1,7 @@
 import React from "react";
-import { JSStyle } from "./jss";
+import { JSS } from "./jss";
 export interface BaseViewProps extends React.HTMLAttributes<HTMLElement> {
-    jss?: JSStyle;
+    jss?: JSS;
     ref?: React.Ref<HTMLDivElement>;
     className?: undefined;
     grow?: boolean;

@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import React, { useContext } from "react";
-import { getInteractableJSStyles } from "./Interactable";
+import { getInteractableJSS } from "./Interactable";
 import { toClassnames } from "./jss";
 // This only exists to make NextJS happy, it should not be used in any other case
 export const BaseLinkComponentOverrideContext = React.createContext((props) => (_jsx("a", { ...props })));
@@ -14,7 +14,7 @@ export const BaseLink = React.forwardRef(({ onClick, children, jss, color, bare 
                 onClick(event);
             }
             : undefined, className: toClassnames([
-            ...getInteractableJSStyles({
+            ...getInteractableJSS({
                 color,
                 border,
                 bare,
