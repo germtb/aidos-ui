@@ -72,6 +72,11 @@ export type Theme = {
     ["--border-radius-m"]: string;
     ["--border-radius-l"]: string;
     ["--nav-bar-height"]: string;
+    ["--shadow-sm"]: string;
+    ["--shadow-md"]: string;
+    ["--shadow-lg"]: string;
+    ["--transition-fast"]: string;
+    ["--transition-normal"]: string;
 };
 export declare const lightTheme: Theme;
 export declare const darkTheme: Theme;

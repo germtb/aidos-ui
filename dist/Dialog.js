@@ -10,8 +10,14 @@ import { toClassnames } from "./jss";
 const jsss = {
     dialog: {
         border: "1px solid var(--divider)",
-        borderRadius: "var(--border-radius-m)",
+        borderRadius: "var(--border-radius-l)",
         padding: 0,
+        boxShadow: "var(--shadow-lg)",
+        animation: "dialogFadeIn 0.2s ease-out",
+        "::backdrop": {
+            backgroundColor: "rgba(0, 0, 0, 0.4)",
+            animation: "backdropFadeIn 0.2s ease-out",
+        },
     },
     root: {
         display: "grid",

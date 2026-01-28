@@ -283,6 +283,13 @@ export const lightTheme = {
     ["--border-radius-m"]: "4px",
     ["--border-radius-l"]: "8px",
     ["--nav-bar-height"]: "50px",
+    /* Shadows */
+    ["--shadow-sm"]: "0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1)",
+    ["--shadow-md"]: "0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05)",
+    ["--shadow-lg"]: "0 10px 25px rgba(0, 0, 0, 0.15), 0 4px 10px rgba(0, 0, 0, 0.1)",
+    /* Transitions */
+    ["--transition-fast"]: "0.15s ease",
+    ["--transition-normal"]: "0.2s ease",
 };
 export const darkTheme = {
     /* Background */
@@ -331,6 +338,13 @@ export const darkTheme = {
     ["--border-radius-m"]: "4px",
     ["--border-radius-l"]: "8px",
     ["--nav-bar-height"]: "50px",
+    /* Shadows - stronger for dark mode to be visible */
+    ["--shadow-sm"]: "0 1px 2px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.3)",
+    ["--shadow-md"]: "0 4px 6px rgba(0, 0, 0, 0.25), 0 2px 4px rgba(0, 0, 0, 0.2)",
+    ["--shadow-lg"]: "0 10px 25px rgba(0, 0, 0, 0.35), 0 4px 10px rgba(0, 0, 0, 0.25)",
+    /* Transitions */
+    ["--transition-fast"]: "0.15s ease",
+    ["--transition-normal"]: "0.2s ease",
 };
 export const baseStyles = `
 * {
@@ -352,6 +366,37 @@ body {
   width: 100%;
   overflow: hidden;
   background-color: ${cssVar("--primary-background")};
+}
+
+@keyframes dialogFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes backdropFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes popoverFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 `;
