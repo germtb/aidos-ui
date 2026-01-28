@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import { BaseInputProps } from "./BaseInput";
 import { Gap, JSS, Padding, Size } from "./jss";
-export interface TextInputProps extends BaseInputProps {
+export interface TextInputProps extends Omit<BaseInputProps, "size"> {
     onValueChange?: (value: string) => void;
     jssRoot?: JSS;
     addOn?: ReactNode;
