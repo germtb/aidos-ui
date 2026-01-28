@@ -10,9 +10,11 @@ const jsss: { [key: string]: JSS } = {
     padding: 0,
     zIndex: 1,
     backgroundColor: "var(--primary-background)",
-    borderRadius: "var(--border-radius-m)",
+    borderRadius: "var(--border-radius-l)",
     border: "1px solid var(--divider)",
     overflow: "hidden",
+    boxShadow: "var(--shadow-lg)",
+    animation: "popoverFadeIn 0.15s ease-out",
   },
 };
 

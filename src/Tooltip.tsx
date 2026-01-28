@@ -10,11 +10,12 @@ const jsss: { [key: string]: JSS } = {
     top: "-100%",
     transform: "translateY(50%)",
     backgroundColor: cssVar("--primary-background"),
-    padding: cssVar("--spacing-s"),
+    padding: `${cssVar("--spacing-s")} ${cssVar("--spacing-m")}`,
     borderRadius: cssVar("--border-radius-m"),
     border: `1px solid ${cssVar("--divider")}`,
-    boxShadow: `0px 1px 2px ${cssVar("--divider")}`,
+    boxShadow: cssVar("--shadow-md"),
     overflow: "hidden",
+    animation: "popoverFadeIn 0.15s ease-out",
   },
 };
 
