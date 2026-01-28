@@ -1,9 +1,15 @@
 import { List } from "../List";
 import { ListButtonItem } from "../ListButtonItem";
 
-## List navigation
+# List Navigation
 
-Lists support keyboard navigation by default via the `useNavigation` hook. It can be disabled by passing the prop `navigation` and tries to emulate the [grid layout spec](https://www.w3.org/WAI/ARIA/apg/patterns/grid/examples/layout-grids/):
+Lists support built-in keyboard navigation using the `useNavigation` hook. This creates an accessible, keyboard-friendly experience following WAI-ARIA patterns.
+
+---
+
+## Enabling navigation
+
+Use the `navigation` prop to enable or disable keyboard navigation:
 
 <List ariaLabel="example" navigation={true}>
   <ListButtonItem color="secondary" headline="Headline 1" onClick={() => {}} />
@@ -16,7 +22,19 @@ Lists support keyboard navigation by default via the `useNavigation` hook. It ca
   />
 </List>
 
+```js
+<List ariaLabel="example" navigation={true}>
+  <ListButtonItem headline="Headline 1" onClick={() => {}} />
+  <ListButtonItem headline="Headline 2" onClick={() => {}} />
+  <ListButtonItem headline="Headline 3" onClick={() => {}} />
+</List>
+```
+
 ---
+
+## Without navigation
+
+When `navigation` is `false`, each item is a separate tab stop:
 
 <List ariaLabel="example" navigation={false}>
   <ListButtonItem color="secondary" headline="Headline 1" onClick={() => {}} />
@@ -30,27 +48,111 @@ Lists support keyboard navigation by default via the `useNavigation` hook. It ca
 </List>
 
 ```js
-<List ariaLabel="example" navigation={true}>
-  <ListButtonItem color="secondary" headline="Headline 1" onClick={() => {}} />
-  <ListButtonItem color="secondary" headline="Headline 2" onClick={() => {}} />
-  <ListButtonItem
-    withDivider={false}
-    color="secondary"
-    headline="Headline 3"
-    onClick={() => {}}
-  />
-</List>
-
 <List ariaLabel="example" navigation={false}>
-  <ListButtonItem color="secondary" headline="Headline 1" onClick={() => {}} />
-  <ListButtonItem color="secondary" headline="Headline 2" onClick={() => {}} />
-  <ListButtonItem
-    withDivider={false}
-    color="secondary"
-    headline="Headline 3"
-    onClick={() => {}}
-  />
+  <ListButtonItem headline="Headline 1" onClick={() => {}} />
+  <ListButtonItem headline="Headline 2" onClick={() => {}} />
+  <ListButtonItem headline="Headline 3" onClick={() => {}} />
 </List>
 ```
 
 ---
+
+## Keyboard controls
+
+When navigation is enabled:
+
+| Key | Action |
+|-----|--------|
+| **Arrow Down** | Move to next item |
+| **Arrow Up** | Move to previous item |
+| **Arrow Right** | Move to next item |
+| **Arrow Left** | Move to previous item |
+| **Enter / Space** | Activate the focused item |
+| **Tab** | Move focus out of the list |
+
+Navigation wraps around - pressing down on the last item moves to the first.
+
+---
+
+## How it works
+
+The navigation system uses `tabIndex` management:
+
+1. **Single tab stop**: The entire list is one tab stop
+2. **Active item**: Gets `tabIndex="0"` (focusable)
+3. **Other items**: Get `tabIndex="-1"` (not in tab order)
+4. **Arrow keys**: Move the active state between items
+
+This follows the [WAI-ARIA grid layout pattern](https://www.w3.org/WAI/ARIA/apg/patterns/grid/examples/layout-grids/).
+
+---
+
+## Benefits
+
+**With navigation enabled:**
+- Faster keyboard navigation (single Tab to enter list)
+- Arrow keys to move between items
+- Better for long lists
+- More efficient for power users
+
+**With navigation disabled:**
+- Standard Tab behavior between items
+- Simpler mental model
+- Better for short lists (2-3 items)
+- Each item is independently focusable
+
+---
+
+## Accessibility considerations
+
+Always provide an `ariaLabel` for the list:
+
+```js
+<List ariaLabel="Search results" navigation={true}>
+  {/* items */}
+</List>
+
+<List ariaLabel="User menu options" navigation={true}>
+  {/* items */}
+</List>
+```
+
+This helps screen reader users understand the list's purpose.
+
+---
+
+## When to use navigation
+
+**Enable navigation for:**
+- Long lists (5+ items)
+- Menu-like interfaces
+- Search results
+- Option lists
+- File browsers
+
+**Disable navigation for:**
+- Short action lists (2-3 items)
+- Form field groups
+- Simple button groups
+- When each item needs independent focus
+
+---
+
+## Implementation
+
+Lists use the `useNavigation` hook internally:
+
+```js
+// Simplified internal implementation
+function List({ navigation = true, children, ariaLabel }) {
+  const rootRef = useNavigation({ enabled: navigation });
+
+  return (
+    <ul ref={rootRef} aria-label={ariaLabel}>
+      {children}
+    </ul>
+  );
+}
+```
+
+See the [useNavigation documentation](/useNavigation) for more details on the underlying hook.

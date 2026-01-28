@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { Icon as IconifyIcon } from "@iconify/react";
 import { BaseView } from "./BaseView";
 import { IconType } from "./IconType";
 import { Size, TextColor, getTextColor } from "./jss";
@@ -43,33 +44,7 @@ const jsss = {
   },
 };
 
-let initialized = false;
-
-const initializeIcons = () => {
-  if (initialized) {
-    return;
-  }
-
-  const hasIconify = document.getElementById("iconify");
-
-  if (hasIconify) {
-    initialized = true;
-    return;
-  }
-
-  const script = document.createElement("script");
-  script.src = "https://code.iconify.design/3/3.1.1/iconify.min.js";
-  script.id = "iconify";
-  document.head.appendChild(script);
-
-  initialized = true;
-};
-
-export function IconProvider({ children }: { children: JSX.Element }) {
-  useEffect(() => {
-    initializeIcons();
-  }, []);
-
+export function IconProvider({ children }: { children: React.JSX.Element }) {
   return children;
 }
 
@@ -86,7 +61,6 @@ export function Icon({
 }) {
   return (
     <BaseView
-      key={icon}
       aria-label={ariaLabel}
       jss={[
         jsss.root,
@@ -100,7 +74,7 @@ export function Icon({
         getTextColor(color),
       ]}
     >
-      <span className="iconify" data-icon={icon}></span>
+      <IconifyIcon icon={icon} width="100%" height="100%" />
     </BaseView>
   );
 }

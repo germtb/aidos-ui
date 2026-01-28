@@ -83,6 +83,46 @@ const components: any = {
       {children}
     </span>
   ),
+  table: (props) => (
+    <table
+      style={{
+        width: "100%",
+        borderCollapse: "collapse",
+        marginBottom: cssVar("--spacing-l"),
+        fontSize: 14,
+      }}
+      {...props}
+    />
+  ),
+  thead: (props) => (
+    <thead
+      style={{
+        borderBottom: `2px solid ${cssVar("--divider")}`,
+      }}
+      {...props}
+    />
+  ),
+  th: (props) => (
+    <th
+      style={{
+        textAlign: "left",
+        padding: cssVar("--spacing-s"),
+        color: cssVar("--primary-text"),
+        fontWeight: "bold",
+      }}
+      {...props}
+    />
+  ),
+  td: (props) => (
+    <td
+      style={{
+        padding: cssVar("--spacing-s"),
+        borderBottom: `1px solid ${cssVar("--divider")}`,
+        color: cssVar("--secondary-text"),
+      }}
+      {...props}
+    />
+  ),
 };
 
 export function labelToID(string: string): string {

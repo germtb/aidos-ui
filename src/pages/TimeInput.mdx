@@ -1,13 +1,49 @@
 import { Column } from "../Column";
+import { Row } from "../Row";
 import { TimeInput } from "../TimeInput";
 import { Icon } from "../Icon";
+import { Span } from "../Text";
 
 # TimeInput
 
-The `TimeInput` component can be used to get the time (hour and minute) from the user.
+A styled time picker component that wraps the native HTML `<input type="time">` element. Returns hours and minutes as a Date object.
+
+---
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `time` | `Date` | Required | Current time value |
+| `onTimeChange` | `(date: Date) => void` | Required | Called when time changes |
+| `bare` | `boolean` | `false` | Remove border and background styling |
+| `disabled` | `boolean` | - | Disables the input |
+| `addOn` | `ReactNode` | - | Icon or element to display |
+| `addOnPosition` | `"start" \| "end"` | `"start"` | Position of the add-on |
+| `gap` | `Gap` | `"none"` | Space between elements |
+| `padding` | `Padding` | `"small"` | Container padding |
+
+---
+
+## Basic usage
 
 <Column gap="medium" jss={{ maxWidth: 150 }}>
   <TimeInput time={new Date()} onTimeChange={() => {}} />
+</Column>
+
+```js
+const [time, setTime] = useState(new Date());
+
+<TimeInput time={time} onTimeChange={setTime} />
+```
+
+---
+
+## With icon
+
+Add a clock icon for visual context:
+
+<Column gap="medium" jss={{ maxWidth: 200 }}>
   <TimeInput
     addOn={<Icon icon="fa-clock-o" color="primary" size="medium" />}
     time={new Date()}
@@ -19,6 +55,32 @@ The `TimeInput` component can be used to get the time (hour and minute) from the
     time={new Date()}
     onTimeChange={() => {}}
   />
+</Column>
+
+```js
+// Icon at start (default)
+<TimeInput
+  addOn={<Icon icon="fa-clock-o" color="primary" size="medium" />}
+  time={time}
+  onTimeChange={setTime}
+/>
+
+// Icon at end
+<TimeInput
+  addOn={<Icon icon="fa-clock-o" color="primary" size="medium" />}
+  addOnPosition="end"
+  time={time}
+  onTimeChange={setTime}
+/>
+```
+
+---
+
+## Bare variant
+
+The bare variant removes the border and background, useful for inline editing:
+
+<Column gap="medium" jss={{ maxWidth: 200 }}>
   <TimeInput bare time={new Date()} onTimeChange={() => {}} />
   <TimeInput
     bare
@@ -26,48 +88,91 @@ The `TimeInput` component can be used to get the time (hour and minute) from the
     time={new Date()}
     onTimeChange={() => {}}
   />
-  <TimeInput
-    bare
-    addOn={<Icon icon="fa-clock-o" color="primary" size="medium" />}
-    addOnPosition="end"
-    time={new Date()}
-    onTimeChange={() => {}}
-  />
+</Column>
+
+```js
+<TimeInput bare time={time} onTimeChange={setTime} />
+
+<TimeInput
+  bare
+  addOn={<Icon icon="fa-clock-o" color="primary" size="medium" />}
+  time={time}
+  onTimeChange={setTime}
+/>
+```
+
+---
+
+## Disabled state
+
+<Column gap="medium" jss={{ maxWidth: 200 }}>
   <TimeInput disabled time={new Date()} onTimeChange={() => {}} />
   <TimeInput bare disabled time={new Date()} onTimeChange={() => {}} />
 </Column>
 
 ```js
-<Column gap="medium" jss={{ maxWidth: 150 }}>
-  <TimeInput time={new Date()} onTimeChange={() => {}} />
-  <TimeInput
-    addOn={<Icon icon="fa-clock-o" color="primary" size="medium" />}
-    time={new Date()}
-    onTimeChange={() => {}}
-  />
-  <TimeInput
-    addOn={<Icon icon="fa-clock-o" color="primary" size="medium" />}
-    addOnPosition="end"
-    time={new Date()}
-    onTimeChange={() => {}}
-  />
-  <TimeInput bare time={new Date()} onTimeChange={() => {}} />
-  <TimeInput
-    bare
-    addOn={<Icon icon="fa-clock-o" color="primary" size="medium" />}
-    time={new Date()}
-    onTimeChange={() => {}}
-  />
-  <TimeInput
-    bare
-    addOn={<Icon icon="fa-clock-o" color="primary" size="medium" />}
-    addOnPosition="end"
-    time={new Date()}
-    onTimeChange={() => {}}
-  />
-  <TimeInput disabled time={new Date()} onTimeChange={() => {}} />
-  <TimeInput bare disabled time={new Date()} onTimeChange={() => {}} />
-</Column>
+<TimeInput disabled time={time} onTimeChange={setTime} />
+<TimeInput bare disabled time={time} onTimeChange={setTime} />
 ```
 
 ---
+
+## Working with Date objects
+
+The component works with JavaScript Date objects. Only the hours and minutes are used:
+
+```js
+function ScheduleForm() {
+  const [startTime, setStartTime] = useState(new Date());
+  const [endTime, setEndTime] = useState(new Date());
+
+  // Get just the time portion
+  const formatTime = (date) => {
+    return date.toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
+  return (
+    <Column gap="medium">
+      <Row gap="medium" align="center">
+        <Span>From:</Span>
+        <TimeInput time={startTime} onTimeChange={setStartTime} />
+      </Row>
+      <Row gap="medium" align="center">
+        <Span>To:</Span>
+        <TimeInput time={endTime} onTimeChange={setEndTime} />
+      </Row>
+      <Span color="secondary">
+        Selected: {formatTime(startTime)} - {formatTime(endTime)}
+      </Span>
+    </Column>
+  );
+}
+```
+
+---
+
+## Setting initial time
+
+```js
+// Current time
+const [time, setTime] = useState(new Date());
+
+// Specific time (e.g., 9:30 AM)
+const [time, setTime] = useState(() => {
+  const date = new Date();
+  date.setHours(9, 30, 0, 0);
+  return date;
+});
+```
+
+---
+
+## Accessibility
+
+- Uses native `<input type="time">` for full browser accessibility support
+- Focus states are visually indicated
+- Works with keyboard navigation
+- Screen readers announce the input purpose

@@ -1,9 +1,9 @@
-/// <reference types="react" />
+import React from "react";
 import { IconType } from "./IconType";
 import { Size, TextColor } from "./jss";
 export declare function IconProvider({ children }: {
-    children: JSX.Element;
-}): JSX.Element;
+    children: React.JSX.Element;
+}): React.JSX.Element;
 export declare function Icon({ icon, size, color, ariaLabel, }: {
     ariaLabel?: string;
     icon: IconType;

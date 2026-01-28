@@ -1,15 +1,280 @@
 # usePromise
 
-This hook can be used to unwrap a promsie value, with an initial value that can be assigned while the promise has not resolved.
+A React hook for unwrapping Promise values into React state. Handles loading, success, and error states automatically.
+
+---
+
+## Signature
+
+```ts
+function usePromise<T>(
+  promiseFactory: () => Promise<T>,
+  inputs: Array<any>,
+  initialValue: T
+): [T | null, any]
+```
+
+---
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `promiseFactory` | `() => Promise<T>` | Factory function that returns a Promise |
+| `inputs` | `Array<any>` | Dependency array (like useEffect deps) |
+| `initialValue` | `T` | Value to use before the Promise resolves |
+
+---
+
+## Returns
+
+A tuple with two elements:
+
+| Index | Type | Description |
+|-------|------|-------------|
+| `0` | `T \| null` | The resolved value, or `initialValue` while loading |
+| `1` | `any` | Error if the Promise rejected, otherwise `null` |
+
+---
+
+## Basic usage
 
 ```js
-function Foo() {
-  const [result, error] = usePromise(Promise.resolve(10));
+import { usePromise } from "aidos-ui";
 
-  if (error != null) {
-    return <p>{error}</p>;
+function UserProfile({ userId }) {
+  const [user, error] = usePromise(
+    () => fetchUser(userId),
+    [userId],
+    null
+  );
+
+  if (error) {
+    return <ErrorMessage error={error} />;
   }
 
-  return <span>{result}</span>;
+  if (!user) {
+    return <LoadingSpinner />;
+  }
+
+  return <div>{user.name}</div>;
 }
+```
+
+---
+
+## With initial value
+
+Provide an initial value to show immediately while loading:
+
+```js
+function Counter() {
+  const [count, error] = usePromise(
+    () => fetchCurrentCount(),
+    [],
+    0  // Show 0 while loading
+  );
+
+  return <span>{count}</span>;
+}
+```
+
+---
+
+## Dependency-based refetching
+
+The Promise re-executes when dependencies change:
+
+```js
+function SearchResults({ query }) {
+  const [results, error] = usePromise(
+    () => searchAPI(query),
+    [query],  // Refetch when query changes
+    []
+  );
+
+  return (
+    <ul>
+      {results.map((result) => (
+        <li key={result.id}>{result.title}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+---
+
+## Error handling
+
+```js
+function DataDisplay() {
+  const [data, error] = usePromise(
+    () => fetchData(),
+    [],
+    null
+  );
+
+  if (error) {
+    return (
+      <Card>
+        <Span color="negative">Error: {error.message}</Span>
+        <Button onClick={() => window.location.reload()}>
+          Retry
+        </Button>
+      </Card>
+    );
+  }
+
+  if (!data) {
+    return <Spinner />;
+  }
+
+  return <DataTable data={data} />;
+}
+```
+
+---
+
+## Multiple async calls
+
+Use multiple `usePromise` hooks for parallel data fetching:
+
+```js
+function Dashboard() {
+  const [stats, statsError] = usePromise(
+    () => fetchStats(),
+    [],
+    null
+  );
+
+  const [notifications, notifError] = usePromise(
+    () => fetchNotifications(),
+    [],
+    []
+  );
+
+  const [user, userError] = usePromise(
+    () => fetchCurrentUser(),
+    [],
+    null
+  );
+
+  const isLoading = !stats || !user;
+  const hasError = statsError || notifError || userError;
+
+  if (hasError) {
+    return <ErrorPage />;
+  }
+
+  if (isLoading) {
+    return <LoadingSkeleton />;
+  }
+
+  return (
+    <Column gap="large">
+      <StatsWidget stats={stats} />
+      <NotificationList notifications={notifications} />
+      <UserGreeting user={user} />
+    </Column>
+  );
+}
+```
+
+---
+
+## With typed responses
+
+```ts
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
+
+function UserCard({ userId }: { userId: string }) {
+  const [user, error] = usePromise<User | null>(
+    () => fetchUser(userId),
+    [userId],
+    null
+  );
+
+  // user is typed as User | null
+  if (user) {
+    return <span>{user.name}</span>;
+  }
+
+  return <span>Loading...</span>;
+}
+```
+
+---
+
+## Conditional fetching
+
+Use dependencies to control when fetching occurs:
+
+```js
+function OptionalData({ shouldFetch, id }) {
+  const [data, error] = usePromise(
+    () => shouldFetch ? fetchData(id) : Promise.resolve(null),
+    [shouldFetch, id],
+    null
+  );
+
+  // ...
+}
+```
+
+---
+
+## Comparison with other approaches
+
+### vs. plain useEffect
+
+```js
+// ❌ Manual state management
+const [data, setData] = useState(null);
+const [error, setError] = useState(null);
+
+useEffect(() => {
+  fetchData()
+    .then(setData)
+    .catch(setError);
+}, []);
+
+// ✅ usePromise - cleaner
+const [data, error] = usePromise(() => fetchData(), [], null);
+```
+
+### vs. React Query / SWR
+
+`usePromise` is simpler but lacks:
+- Caching
+- Background refetching
+- Stale-while-revalidate
+- Automatic retries
+
+Use `usePromise` for simple cases; consider React Query or SWR for complex data fetching needs.
+
+---
+
+## Best practices
+
+1. **Use meaningful initial values** - Choose values that make sense for your UI (empty array for lists, null for objects)
+
+2. **Handle all states** - Always check for error and loading states
+
+3. **Keep factories stable** - Avoid creating new functions on each render:
+
+```js
+// ❌ Creates new function each render
+const [data] = usePromise(() => fetch(`/api/${id}`), [id], null);
+
+// ✅ Factory only changes when id changes
+const [data] = usePromise(
+  () => fetchById(id),
+  [id],
+  null
+);
 ```

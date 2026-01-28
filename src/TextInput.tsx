@@ -1,10 +1,20 @@
 import React, { ReactNode } from "react";
 import { BaseInput, BaseInputProps } from "./BaseInput";
-import { Row } from "./Row";
-import { Gap, JSS, Padding, cssVar, getPadding } from "./jss";
 import { Column } from "./Column";
+import { Row } from "./Row";
+import { Gap, JSS, Padding, Size, cssVar, getPadding } from "./jss";
 
-export interface TextInputProps extends BaseInputProps {
+const fontSize = {
+  xsmall: cssVar("--font-xsmall"),
+  small: cssVar("--font-small"),
+  medium: cssVar("--font-medium"),
+  large: cssVar("--font-large"),
+  xlarge: cssVar("--font-xlarge"),
+  xxlarge: cssVar("--font-xxlarge"),
+  xxxlarge: cssVar("--font-xxxlarge"),
+};
+
+export interface TextInputProps extends Omit<BaseInputProps, "size"> {
   onValueChange?: (value: string) => void;
   jssRoot?: JSS;
   addOn?: ReactNode;
@@ -13,6 +23,7 @@ export interface TextInputProps extends BaseInputProps {
   onChange?: undefined;
   padding?: Padding;
   bare?: boolean;
+  size?: Size;
 }
 
 export const TextInput = React.forwardRef(
@@ -27,6 +38,7 @@ export const TextInput = React.forwardRef(
       addOnPosition = "start",
       padding = "medium",
       bare,
+      size = "medium",
       ...inputProps
     }: TextInputProps,
     ref?: React.Ref<HTMLInputElement>
@@ -81,8 +93,8 @@ export const TextInput = React.forwardRef(
               color: cssVar("--primary-text"),
               outline: "none",
               border: "none",
-              fontSize: 20,
-              lineHeight: 24 / 20,
+              fontSize: fontSize[size],
+              lineHeight: 1.2,
               "::placeholder": {
                 color: cssVar("--subtle-text"),
               },

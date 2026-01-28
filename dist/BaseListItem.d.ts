@@ -3,7 +3,7 @@ import { RowProps } from "./Row";
 import { JSS, Size, Position, Spacing, TextColor } from "./jss";
 export interface BaseListItemProps extends RowProps {
     children: (elements: {
-        content: JSX.Element;
+        content: React.JSX.Element;
     }) => ReactNode;
     jss?: JSS;
     withDivider?: boolean;

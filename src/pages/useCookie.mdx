@@ -1,15 +1,176 @@
 # useCookie
 
-`useCookie` is a hook that can be used to get acceess to cookies by name, and use them as if they were React component state.
+A React hook for reading and writing browser cookies with React state-like API. Handles SSR gracefully and persists values across page reloads.
+
+---
+
+## Signature
+
+```ts
+function useCookie<T, L>(
+  key: string,
+  options: {
+    initialValue: T;
+    loadingValue: L;
+    serialize?: (value: T) => string;
+    deserialize?: (value: string) => T;
+    maxAge?: number;
+  }
+): [T | L, (value: T | ((prev: T | L) => T)) => void]
+```
+
+---
+
+## Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `key` | `string` | Required | Cookie name |
+| `options.initialValue` | `T` | Required | Value to set if cookie doesn't exist |
+| `options.loadingValue` | `L` | Required | Value to use during SSR or initial load |
+| `options.serialize` | `(T) => string` | `JSON.stringify` | Custom serialization function |
+| `options.deserialize` | `(string) => T` | `JSON.parse` | Custom deserialization function |
+| `options.maxAge` | `number` | 1 year | Cookie expiration in seconds |
+
+---
+
+## Returns
+
+Returns a tuple similar to `useState`:
+
+1. **Current value** - The cookie value (or `loadingValue` during SSR)
+2. **Setter function** - Updates the cookie (accepts value or callback)
+
+---
+
+## Basic usage
 
 ```js
-const [darkModeEnabled, setDarkModeEnabled] = useCookie("dark-mode", {
-  initialValue: false,
-  // loadingValue could be different to initial value for example if we are server rendering,
-  // in which case we do not have access to cookies and you may decide to assign another
-  // value, like "pending".
-  loadingValue: false,
+import { useCookie } from "aidos-ui";
+
+function Settings() {
+  const [theme, setTheme] = useCookie("theme", {
+    initialValue: "light",
+    loadingValue: "light",
+  });
+
+  return (
+    <Button onClick={() => setTheme(theme === "light" ? "dark" : "light")}>
+      Current: {theme}
+    </Button>
+  );
+}
+```
+
+---
+
+## With callback setter
+
+Like `useState`, the setter accepts a callback function:
+
+```js
+const [count, setCount] = useCookie("visit-count", {
+  initialValue: 0,
+  loadingValue: 0,
+});
+
+// Increment based on previous value
+setCount((prev) => prev + 1);
+```
+
+---
+
+## SSR handling
+
+The `loadingValue` is used during server-side rendering when cookies aren't available:
+
+```js
+const [user, setUser] = useCookie("user-preferences", {
+  initialValue: { notifications: true },
+  loadingValue: null, // Renders nothing during SSR
+});
+
+if (user === null) {
+  return <Spinner />;
+}
+
+return <Settings preferences={user} />;
+```
+
+---
+
+## Custom serialization
+
+For complex data or non-JSON formats:
+
+```js
+const [date, setDate] = useCookie("last-visit", {
+  initialValue: new Date(),
+  loadingValue: null,
+  serialize: (d) => d.toISOString(),
+  deserialize: (s) => new Date(s),
 });
 ```
 
 ---
+
+## Custom expiration
+
+Set cookie expiration with `maxAge` (in seconds):
+
+```js
+// Expire in 1 hour
+const [session, setSession] = useCookie("session", {
+  initialValue: null,
+  loadingValue: null,
+  maxAge: 60 * 60, // 1 hour
+});
+
+// Expire in 30 days
+const [preferences, setPreferences] = useCookie("prefs", {
+  initialValue: {},
+  loadingValue: {},
+  maxAge: 60 * 60 * 24 * 30, // 30 days
+});
+```
+
+---
+
+## Helper functions
+
+The module also exports utility functions:
+
+```js
+import { hasCookie, getCookie } from "aidos-ui";
+
+// Check if cookie exists
+if (hasCookie("user-token")) {
+  // ...
+}
+
+// Get cookie value directly
+const token = getCookie("user-token");
+```
+
+---
+
+## Dark mode example
+
+```js
+function App() {
+  const [darkMode, setDarkMode] = useCookie("dark-mode", {
+    initialValue: false,
+    loadingValue: false,
+  });
+
+  useEffect(() => {
+    document.body.classList.toggle("dark-mode", darkMode);
+  }, [darkMode]);
+
+  return (
+    <Button onClick={() => setDarkMode(!darkMode)}>
+      {darkMode ? "Light mode" : "Dark mode"}
+    </Button>
+  );
+}
+```

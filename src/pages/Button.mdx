@@ -1,105 +1,163 @@
 import { Button } from "../Button";
 import { Row } from "../Row";
+import { Column } from "../Column";
+import { Icon } from "../Icon";
 
 # Button
 
-The `Button` component can be used for the user to take actions with a single click, it supports a variety of styles each of them with different semantics.
+The `Button` component enables users to trigger actions with a single click. It supports multiple color variants for different semantic purposes and can include icons.
 
 ---
 
-## Button variants
+## Props
 
-The basic `Button` comes in three main variants, each of them with a specific intent in mind. It also support a "disabled" variant, for cases where the button is not actionable.
+| Prop | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `children` | `string` | Yes | - | Button text label |
+| `color` | `InteractableColor` | Yes | - | `"positive"`, `"primary"`, `"negative"`, `"dark"`, `"light"` |
+| `onClick` | `function` | Yes | - | Click handler |
+| `bare` | `boolean` | No | `false` | Removes background for a lighter appearance |
+| `border` | `boolean` | No | `false` | Adds a border matching the text color |
+| `disabled` | `boolean` | No | `false` | Disables interaction |
+| `icon` | `IconType` | No | - | Icon to display alongside text |
+| `iconPosition` | `"left"` \| `"right"` | No | `"left"` | Icon placement relative to text |
+| `iconSize` | `Size` | No | `"medium"` | Icon size |
+| `size` | `Size` | No | `"medium"` | Text size |
+| `padding` | `Padding` | No | `"medium"` | Internal padding |
+| `bold` | `boolean` | No | `false` | Bold text |
 
-- Positive: actions that are going to create something or strongly agree
-- Primary: actions that are less central to the user experience
-- Negative: actions that are going to delete data or remove something
-- Dark: primary actions in a dark theme
-- Light: primary actions in a light theme
-- Disabled: actions that are not available
+---
+
+## Color variants
+
+Each color variant communicates a different intent to users:
+
+- **Positive**: Confirmations, submissions, primary actions
+- **Primary**: Secondary or neutral actions
+- **Negative**: Destructive actions like delete or remove
+- **Dark/Light**: Theme-specific variants for special contexts
 
 <Row gap="large" align="center" padding="large" justify="center">
-  <Button label="Positive" color="positive" onClick={() => {}} />
-  <Button label="Primary" color="primary" onClick={() => {}} />
-  <Button label="Negative" color="negative" onClick={() => {}} />
-  <Button label="Disabled" color="positive" disabled onClick={() => {}} />
-  <Button label="Dark" color="dark" onClick={() => {}} />
-  <Button label="Light" color="light" onClick={() => {}} />
+  <Button color="positive" onClick={() => {}}>Positive</Button>
+  <Button color="primary" onClick={() => {}}>Primary</Button>
+  <Button color="negative" onClick={() => {}}>Negative</Button>
+  <Button color="dark" onClick={() => {}}>Dark</Button>
+  <Button color="light" onClick={() => {}}>Light</Button>
 </Row>
 
 ```js
-<Row gap="large" align="center" padding="large" justify="center">
-  <Button label="Positive" color="positive" onClick={() => {}} />
-  <Button label="Primary" color="primary" onClick={() => {}} />
-  <Button label="Negative" color="negative" onClick={() => {}} />
-  <Button label="Disabled" color="positive" disabled onClick={() => {}} />
-  <Button label="Dark" color="dark" onClick={() => {}} />
-  <Button label="Light" color="light" onClick={() => {}} />
-</Row>
+<Button color="positive" onClick={() => {}}>Positive</Button>
+<Button color="primary" onClick={() => {}}>Primary</Button>
+<Button color="negative" onClick={() => {}}>Negative</Button>
+<Button color="dark" onClick={() => {}}>Dark</Button>
+<Button color="light" onClick={() => {}}>Light</Button>
 ```
 
 ---
 
-## Bare button
+## Bare variant
 
-The bare `Button` variants fulfill the same function than the basic counterparts but have a lighter style that can be more easily integrated in complex components.
+The `bare` prop removes the background color, creating a lighter appearance that integrates well within complex layouts or when you need a less prominent action.
 
 <Row gap="large" align="center" padding="large" justify="center">
-  <Button bare label="Positive" color="positive" onClick={() => {}} />
-  <Button bare label="Primary" color="primary" onClick={() => {}} />
-  <Button bare label="Negative" color="negative" onClick={() => {}} />
-  <Button bare label="Disabled" color="positive" disabled onClick={() => {}} />
-  <Button bare label="Dark" color="dark" onClick={() => {}} />
-  <Button bare label="Light" color="light" onClick={() => {}} />
+  <Button bare color="positive" onClick={() => {}}>Positive</Button>
+  <Button bare color="primary" onClick={() => {}}>Primary</Button>
+  <Button bare color="negative" onClick={() => {}}>Negative</Button>
+  <Button bare color="dark" onClick={() => {}}>Dark</Button>
+  <Button bare color="light" onClick={() => {}}>Light</Button>
 </Row>
 
 ```js
-<Row gap="large" align="center" padding="large" justify="center">
-  <Button bare label="Positive" color="positive" onClick={() => {}} />
-  <Button bare label="Primary" color="primary" onClick={() => {}} />
-  <Button bare label="Negative" color="negative" onClick={() => {}} />
-  <Button bare label="Disabled" color="positive" disabled onClick={() => {}} />
-  <Button bare label="Dark" color="dark" onClick={() => {}} />
-  <Button bare label="Light" color="light" onClick={() => {}} />
-</Row>
-```
-
-## Border
-
-The `Button` can have a border which will match the current text color
-
-<Row gap="large" align="center" padding="large" justify="center">
-  <Button border bare label="Positive" color="positive" onClick={() => {}} />
-  <Button border bare label="Primary" color="primary" onClick={() => {}} />
-  <Button border bare label="Negative" color="negative" onClick={() => {}} />
-  <Button
-    border
-    bare
-    label="Disabled"
-    color="positive"
-    disabled
-    onClick={() => {}}
-  />
-  <Button border bare label="Dark" color="dark" onClick={() => {}} />
-  <Button border bare label="Light" color="light" onClick={() => {}} />
-</Row>
-
-```js
-<Row gap="large" align="center" padding="large" justify="center">
-  <Button border bare label="Positive" color="positive" onClick={() => {}} />
-  <Button border bare label="Primary" color="primary" onClick={() => {}} />
-  <Button border bare label="Negative" color="negative" onClick={() => {}} />
-  <Button
-    border
-    bare
-    label="Disabled"
-    color="positive"
-    disabled
-    onClick={() => {}}
-  />
-  <Button border bare label="Dark" color="dark" onClick={() => {}} />
-  <Button border bare label="Light" color="light" onClick={() => {}} />
-</Row>
+<Button bare color="positive" onClick={() => {}}>Positive</Button>
+<Button bare color="primary" onClick={() => {}}>Primary</Button>
+<Button bare color="negative" onClick={() => {}}>Negative</Button>
 ```
 
 ---
+
+## With border
+
+Add a `border` prop to give buttons a defined edge. Works well with `bare` for outlined button styles.
+
+<Row gap="large" align="center" padding="large" justify="center">
+  <Button border bare color="positive" onClick={() => {}}>Positive</Button>
+  <Button border bare color="primary" onClick={() => {}}>Primary</Button>
+  <Button border bare color="negative" onClick={() => {}}>Negative</Button>
+</Row>
+
+```js
+<Button border bare color="positive" onClick={() => {}}>Outlined</Button>
+<Button border bare color="primary" onClick={() => {}}>Outlined</Button>
+<Button border bare color="negative" onClick={() => {}}>Outlined</Button>
+```
+
+---
+
+## With icon
+
+Buttons can include icons to reinforce their purpose. Use `icon` to specify the icon and `iconPosition` to place it on the left or right.
+
+<Row gap="large" align="center" padding="large" justify="center">
+  <Button color="positive" icon="fa-check" onClick={() => {}}>Confirm</Button>
+  <Button color="negative" icon="fa-trash" onClick={() => {}}>Delete</Button>
+  <Button color="primary" icon="fa-arrow-right" iconPosition="right" onClick={() => {}}>Next</Button>
+</Row>
+
+```js
+<Button color="positive" icon="fa-check" onClick={() => {}}>
+  Confirm
+</Button>
+
+<Button color="negative" icon="fa-trash" onClick={() => {}}>
+  Delete
+</Button>
+
+<Button color="primary" icon="fa-arrow-right" iconPosition="right" onClick={() => {}}>
+  Next
+</Button>
+```
+
+---
+
+## Disabled state
+
+Disabled buttons prevent interaction and display a muted appearance. The component uses `aria-disabled` for accessibility.
+
+<Row gap="large" align="center" padding="large" justify="center">
+  <Button color="positive" disabled onClick={() => {}}>Disabled</Button>
+  <Button bare color="positive" disabled onClick={() => {}}>Disabled bare</Button>
+  <Button border bare color="positive" disabled onClick={() => {}}>Disabled outlined</Button>
+</Row>
+
+```js
+<Button color="positive" disabled onClick={() => {}}>
+  Disabled
+</Button>
+```
+
+---
+
+## Sizes
+
+Control text size with the `size` prop. Available sizes: `"xsmall"`, `"small"`, `"medium"`, `"large"`, `"xlarge"`.
+
+<Row gap="large" align="center" padding="large" justify="center">
+  <Button color="positive" size="small" onClick={() => {}}>Small</Button>
+  <Button color="positive" size="medium" onClick={() => {}}>Medium</Button>
+  <Button color="positive" size="large" onClick={() => {}}>Large</Button>
+</Row>
+
+```js
+<Button color="positive" size="small" onClick={() => {}}>Small</Button>
+<Button color="positive" size="medium" onClick={() => {}}>Medium</Button>
+<Button color="positive" size="large" onClick={() => {}}>Large</Button>
+```
+
+---
+
+## Accessibility
+
+- Buttons use semantic `<button>` elements
+- Disabled state is communicated via `aria-disabled` attribute
+- Focus states are clearly visible with outline styling
+- Click handlers are ignored when disabled, preventing accidental actions

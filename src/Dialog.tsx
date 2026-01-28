@@ -40,7 +40,7 @@ export const Dialog = ({
   close,
 }: {
   label: string;
-  children: JSX.Element;
+  children: React.JSX.Element;
   close: () => void;
 }) => {
   return (
@@ -71,7 +71,7 @@ const DialogContext = React.createContext<{ setDialog: React.Dispatch<any> }>({
 });
 
 export function DialogProvider({ children }) {
-  const [dialog, setDialog] = useState<JSX.Element>(null);
+  const [dialog, setDialog] = useState<React.JSX.Element>(null);
   const value = useMemo(() => ({ setDialog }), []);
 
   return (
@@ -83,7 +83,7 @@ export function DialogProvider({ children }) {
 }
 
 export function useDialog<Input>(
-  DialogComponent: (props: { close: () => void } & Input) => JSX.Element,
+  DialogComponent: (props: { close: () => void } & Input) => React.JSX.Element,
   options: { closeOnOutsideClick: boolean }
 ) {
   const { setDialog } = useContext(DialogContext);

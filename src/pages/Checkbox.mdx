@@ -2,55 +2,130 @@ import { Checkbox } from "../Checkbox";
 import { StaticCheckbox } from "../StaticCheckbox";
 import { Column } from "../Column";
 import { Row } from "../Row";
+import { Span } from "../Text";
 
 # Checkbox
 
-The `Checkbox` component is an input of type checkbox with the visual style of a checkbox.
+A styled checkbox input with custom visual appearance. Built on native HTML checkbox for full accessibility support.
 
-<Column>
-  <Row padding="medium" gap="medium" justify="center" align="center">
+---
+
+## Props
+
+### Checkbox
+
+| Prop | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `checked` | `boolean` | Yes | - | Whether the checkbox is checked |
+| `onClick` | `() => void` | Yes | - | Called when checkbox is toggled |
+| `size` | `Size` | Yes | - | `"small"` (16px), `"medium"` (20px), `"large"` (24px) |
+
+Also accepts standard HTML input attributes.
+
+### StaticCheckbox
+
+| Prop | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `checked` | `boolean` | Yes | - | Whether the checkbox appears checked |
+| `size` | `Size` | Yes | - | `"small"`, `"medium"`, `"large"` |
+
+---
+
+## Sizes
+
+<Row padding="medium" gap="xlarge" justify="center" align="center">
+  <Column gap="small" align="center">
     <Checkbox size="small" checked={true} onClick={() => {}} />
+    <Span size="small" color="secondary">small</Span>
+  </Column>
+  <Column gap="small" align="center">
     <Checkbox size="medium" checked={true} onClick={() => {}} />
+    <Span size="small" color="secondary">medium</Span>
+  </Column>
+  <Column gap="small" align="center">
     <Checkbox size="large" checked={true} onClick={() => {}} />
-  </Row>
-  <Row padding="medium" gap="medium" justify="center" align="center">
-    <Checkbox size="small" checked={false} onClick={() => {}} />
-    <Checkbox size="medium" checked={false} onClick={() => {}} />
-    <Checkbox size="large" checked={false} onClick={() => {}} />
-  </Row>
-</Column>
+    <Span size="small" color="secondary">large</Span>
+  </Column>
+</Row>
 
 ```js
-<Column>
-  <Row padding="medium" gap="medium" justify="center" align="center">
-    <Checkbox size="small" checked={true} onClick={() => {}} />
-    <Checkbox size="medium" checked={true} onClick={() => {}} />
-    <Checkbox size="large" checked={true} onClick={() => {}} />
-  </Row>
-  <Row padding="medium" gap="medium" justify="center" align="center">
-    <Checkbox size="small" checked={false} onClick={() => {}} />
-    <Checkbox size="medium" checked={false} onClick={() => {}} />
-    <Checkbox size="large" checked={false} onClick={() => {}} />
-  </Row>
-</Column>
+<Checkbox size="small" checked={checked} onClick={toggle} />
+<Checkbox size="medium" checked={checked} onClick={toggle} />
+<Checkbox size="large" checked={checked} onClick={toggle} />
 ```
 
 ---
 
-## Static checkbox
+## States
 
-The variant `StaticCheckbox` can be used when one only needs the visual representation of a checkbox but the `<input type="checkbox" />` does not make sense.
+<Row padding="medium" gap="xlarge" justify="center" align="center">
+  <Column gap="small" align="center">
+    <Checkbox size="medium" checked={false} onClick={() => {}} />
+    <Span size="small" color="secondary">unchecked</Span>
+  </Column>
+  <Column gap="small" align="center">
+    <Checkbox size="medium" checked={true} onClick={() => {}} />
+    <Span size="small" color="secondary">checked</Span>
+  </Column>
+</Row>
 
-<Row padding="medium" gap="medium" justify="center" align="center">
+```js
+const [checked, setChecked] = useState(false);
+
+<Checkbox
+  size="medium"
+  checked={checked}
+  onClick={() => setChecked(!checked)}
+/>
+```
+
+---
+
+## StaticCheckbox
+
+Use `StaticCheckbox` when you need just the visual appearance without the underlying `<input>` element. Useful when the checkbox is part of a larger interactive component.
+
+<Row padding="medium" gap="large" justify="center" align="center">
   <StaticCheckbox size="small" checked={true} />
   <StaticCheckbox size="medium" checked={true} />
   <StaticCheckbox size="large" checked={true} />
 </Row>
 
 ```js
-<Row padding="medium" gap="medium" justify="center" align="center">
-  <StaticCheckbox size="small" checked={true} />
-  <StaticCheckbox size="medium" checked={true} />
-  <StaticCheckbox size="large" checked={true} />
+// Visual only - no input element
+<StaticCheckbox size="medium" checked={isSelected} />
+
+// Used within a custom list item
+<ListButtonItem
+  headline="Option"
+  addOn={<StaticCheckbox size="medium" checked={selected} />}
+  onClick={toggleSelection}
+/>
+```
+
+---
+
+## With label
+
+Checkboxes are typically paired with labels for better UX:
+
+```js
+<Row gap="small" align="center">
+  <Checkbox
+    size="medium"
+    checked={agreed}
+    onClick={() => setAgreed(!agreed)}
+  />
+  <Span>I agree to the terms and conditions</Span>
 </Row>
 ```
+
+---
+
+## Accessibility
+
+- Uses native `<input type="checkbox">` for full keyboard and screen reader support
+- Visual checkbox is layered over the hidden input
+- Focus ring appears on keyboard navigation
+- Press animation provides tactile feedback
+- `aria-checked` attribute reflects current state

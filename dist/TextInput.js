@@ -1,10 +1,19 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 import React from "react";
 import { BaseInput } from "./BaseInput";
+import { Column } from "./Column";
 import { Row } from "./Row";
 import { cssVar, getPadding } from "./jss";
-import { Column } from "./Column";
-export const TextInput = React.forwardRef(({ value, onValueChange, jssRoot, jss, addOn, gap = "small", addOnPosition = "start", padding = "medium", bare, ...inputProps }, ref) => {
+const fontSize = {
+    xsmall: cssVar("--font-xsmall"),
+    small: cssVar("--font-small"),
+    medium: cssVar("--font-medium"),
+    large: cssVar("--font-large"),
+    xlarge: cssVar("--font-xlarge"),
+    xxlarge: cssVar("--font-xxlarge"),
+    xxxlarge: cssVar("--font-xxxlarge"),
+};
+export const TextInput = React.forwardRef(({ value, onValueChange, jssRoot, jss, addOn, gap = "small", addOnPosition = "start", padding = "medium", bare, size = "medium", ...inputProps }, ref) => {
     return (_jsxs(Row, { gap: gap, jss: [
             {
                 borderRadius: cssVar("--border-radius-m"),
@@ -34,8 +43,8 @@ export const TextInput = React.forwardRef(({ value, onValueChange, jssRoot, jss,
                         color: cssVar("--primary-text"),
                         outline: "none",
                         border: "none",
-                        fontSize: 20,
-                        lineHeight: 24 / 20,
+                        fontSize: fontSize[size],
+                        lineHeight: 1.2,
                         "::placeholder": {
                             color: cssVar("--subtle-text"),
                         },

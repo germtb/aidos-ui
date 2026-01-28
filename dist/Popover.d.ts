@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import React from "react";
 import { JSS } from "./jss";
 export declare function Popover({ children, close }: {
     children: any;
@@ -7,7 +7,7 @@ export declare function Popover({ children, close }: {
 interface PopoverTriggerProps<Input> {
     PopoverComponent: (props: {
         close: () => void;
-    } & Input) => JSX.Element;
+    } & Input) => React.JSX.Element;
     jss?: JSS;
     jssDialog?: JSS;
     className?: undefined;
@@ -16,7 +16,7 @@ interface PopoverTriggerProps<Input> {
     tag?: keyof HTMLElementTagNameMap;
     children: (props: {
         toggle: (input: Input) => void;
-    }) => JSX.Element;
+    }) => React.JSX.Element;
 }
 export declare function PopoverTrigger<Input>({ PopoverComponent, jss, jssDialog, grow, shrink, tag, children, }: PopoverTriggerProps<Input>): import("react/jsx-runtime").JSX.Element;
 export {};

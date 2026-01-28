@@ -1,20 +1,211 @@
-# Hashing and unique IDs
+# Hashing and Unique IDs
+
+Utility functions for generating consistent hashes and converting numbers to different bases. Useful for creating unique identifiers, keys, and compact representations.
+
+---
 
 ## hash
 
-The `hash` function can be used to create a numeric hash from a given string. If you want to constraint the hashing space you can pass an optional modulus.
+Generates a numeric hash from a string. The hash is deterministic - the same input always produces the same output.
+
+### Signature
+
+```ts
+function hash(source: string, modulus?: number): number
+```
+
+### Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `source` | `string` | Required | The string to hash |
+| `modulus` | `number` | - | Optional modulus to constrain the hash range |
+
+### Returns
+
+A non-negative integer hash value.
+
+### Basic usage
 
 ```js
-const id = hash("ABC"); // 64578
-const small_id = hash("ABC", 10); // 8
+import { hash } from "aidos-ui";
+
+const id = hash("ABC");        // 64578
+const id2 = hash("ABC");       // 64578 (same input = same output)
+const id3 = hash("ABCD");      // Different value
 ```
+
+### With modulus
+
+Constrain the hash to a specific range:
+
+```js
+// Hash constrained to 0-9
+const small_id = hash("ABC", 10);  // 8
+
+// Hash constrained to 0-99
+const medium_id = hash("ABC", 100);  // 78
+
+// Useful for array indices
+const colors = ["red", "blue", "green", "yellow"];
+const colorIndex = hash("user123", colors.length);
+const userColor = colors[colorIndex];
+```
+
+### Use cases
+
+```js
+// Consistent avatar colors
+function getUserColor(userId) {
+  const colors = ["#FF5733", "#33FF57", "#3357FF", "#FF33F5"];
+  return colors[hash(userId, colors.length)];
+}
+
+// Cache keys
+const cacheKey = hash(JSON.stringify(params));
+
+// Partitioning
+const partition = hash(userId, 10);  // 0-9
+```
+
+---
 
 ## numberToBase
 
-The `numberToBase` util will transform any number to an arbitrary base represented as a string of characters (e.g. the base two could be ["0", "1"]). This can be useful to convert between numeric representations or to compress big numbers. It defaults to a base of 26 elements formed of the English alphabet.
+Converts a number to a string representation in an arbitrary base using custom characters.
+
+### Signature
+
+```ts
+function numberToBase(
+  value: number,
+  alphabet?: string[]
+): string
+```
+
+### Parameters
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `value` | `number` | Required | The number to convert |
+| `alphabet` | `string[]` | `["a"-"z"]` | Characters to use for each digit |
+
+### Returns
+
+A string representation of the number in the given base.
+
+### Basic usage
 
 ```js
-const id_base_26 = numberToBase(hash("ABC")); // cqmv
-const id_base_2 = numberToBase(hash("ABC"), ["?", "!"]); //!!!!!???!???!?!
-const id_base_2 = numberToBase(8, ["1", "0"]); // 100
+import { numberToBase } from "aidos-ui";
+
+// Default: base-26 using lowercase letters
+const id = numberToBase(hash("ABC"));  // "cqmv"
+const id2 = numberToBase(12345);       // "wmt"
 ```
+
+### Custom bases
+
+```js
+// Binary (base-2)
+numberToBase(8, ["0", "1"]);           // "1000"
+
+// With custom symbols
+numberToBase(hash("ABC"), ["?", "!"]);  // "!!!!!???!???!?!"
+
+// Hexadecimal-like
+const hex = ["0", "1", "2", "3", "4", "5", "6", "7",
+             "8", "9", "a", "b", "c", "d", "e", "f"];
+numberToBase(255, hex);                 // "ff"
+
+// URL-safe characters
+const urlSafe = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".split("");
+numberToBase(123456789, urlSafe);       // Compact URL-safe ID
+```
+
+### Combining with hash
+
+```js
+// Generate compact, unique IDs
+function generateId(input) {
+  return numberToBase(hash(input));
+}
+
+const userId = generateId("user@example.com");  // e.g., "xkcd"
+const postId = generateId("blog-post-title");   // e.g., "qwer"
+```
+
+---
+
+## Common patterns
+
+### Unique class names
+
+```js
+function uniqueClassName(styles) {
+  const styleString = JSON.stringify(styles);
+  return `_${numberToBase(hash(styleString))}`;
+}
+
+const className = uniqueClassName({ color: "red" });  // e.g., "_abc"
+```
+
+### Consistent randomization
+
+```js
+// Same input always gives same "random" result
+function pseudoRandom(seed, max) {
+  return hash(seed, max);
+}
+
+// Consistent shuffle based on seed
+function seededShuffle(array, seed) {
+  return array.slice().sort((a, b) => {
+    return hash(`${seed}-${a}`) - hash(`${seed}-${b}`);
+  });
+}
+```
+
+### Short URLs
+
+```js
+// Convert database IDs to short codes
+function toShortCode(numericId) {
+  const chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+  return numberToBase(numericId, chars);
+}
+
+toShortCode(123456);  // e.g., "w7e"
+```
+
+### Color from string
+
+```js
+function stringToColor(str) {
+  const h = hash(str, 360);
+  return `hsl(${h}, 70%, 50%)`;
+}
+
+stringToColor("John");   // Consistent color for "John"
+stringToColor("Jane");   // Different color for "Jane"
+```
+
+---
+
+## Algorithm details
+
+The `hash` function uses a simple but effective string hashing algorithm:
+- Iterates through each character
+- Combines character codes using bit shifting
+- Produces a 32-bit integer hash
+- Applies modulus if specified
+
+This is suitable for:
+- Generating consistent keys
+- Distributing values evenly
+- Creating pseudo-random but reproducible results
+
+Not suitable for:
+- Cryptographic purposes
+- Security-sensitive hashing
+- Password storage

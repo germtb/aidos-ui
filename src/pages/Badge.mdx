@@ -1,30 +1,152 @@
 import { Badge } from "../Badge";
 import { Row } from "../Row";
+import { Column } from "../Column";
+import { Span } from "../Text";
+import { IconButton } from "../IconButton";
 
 # Badge
 
-This is a simple component that can be used to bring attention to a specific part of the user interface, for example an unread notification, an update, an important element...
+A small circular indicator used to draw attention to specific UI elements. Common uses include notification counts, status indicators, and visual markers.
 
 ---
 
-The `Badge` component supports all colours and sizes
+## Props
 
-<Row gap="large" align="center" justify="center">
-  <Badge size="xsmall" color="negative" />
-  <Badge size="small" color="warning" />
-  <Badge size="medium" color="highlight" />
-  <Badge size="large" color="secondary-background" />
-  <Badge size="xlarge" color="divider" />
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `size` | `Size` | `"medium"` | Badge size: `"xsmall"` (4px), `"small"` (6px), `"medium"` (12px), `"large"` (18px), `"xlarge"` (24px) |
+| `color` | `Color` | `"highlight"` | Background color from theme |
+
+---
+
+## Sizes
+
+<Row gap="large" align="center" justify="center" padding="medium">
+  <Column align="center" gap="small">
+    <Badge size="xsmall" />
+    <Span size="small" color="secondary">xsmall</Span>
+  </Column>
+  <Column align="center" gap="small">
+    <Badge size="small" />
+    <Span size="small" color="secondary">small</Span>
+  </Column>
+  <Column align="center" gap="small">
+    <Badge size="medium" />
+    <Span size="small" color="secondary">medium</Span>
+  </Column>
+  <Column align="center" gap="small">
+    <Badge size="large" />
+    <Span size="small" color="secondary">large</Span>
+  </Column>
+  <Column align="center" gap="small">
+    <Badge size="xlarge" />
+    <Span size="small" color="secondary">xlarge</Span>
+  </Column>
 </Row>
 
 ```js
-<Row gap="large" align="center" justify="center">
-  <Badge size="xsmall" color="negative" />
-  <Badge size="small" color="warning" />
-  <Badge size="medium" color="highlight" />
-  <Badge size="large" color="secondary-background" />
-  <Badge size="xlarge" color="divider" />
+<Badge size="xsmall" />  // 4px
+<Badge size="small" />   // 6px
+<Badge size="medium" />  // 12px (default)
+<Badge size="large" />   // 18px
+<Badge size="xlarge" />  // 24px
+```
+
+---
+
+## Colors
+
+<Row gap="large" align="center" justify="center" padding="medium">
+  <Column align="center" gap="small">
+    <Badge color="highlight" />
+    <Span size="small" color="secondary">highlight</Span>
+  </Column>
+  <Column align="center" gap="small">
+    <Badge color="negative" />
+    <Span size="small" color="secondary">negative</Span>
+  </Column>
+  <Column align="center" gap="small">
+    <Badge color="warning" />
+    <Span size="small" color="secondary">warning</Span>
+  </Column>
+  <Column align="center" gap="small">
+    <Badge color="divider" />
+    <Span size="small" color="secondary">divider</Span>
+  </Column>
+</Row>
+
+```js
+<Badge color="highlight" />  // Accent/brand color
+<Badge color="negative" />   // Error/alert
+<Badge color="warning" />    // Warning
+<Badge color="divider" />    // Neutral/muted
+```
+
+---
+
+## Common use cases
+
+### Notification indicator
+
+<Row gap="medium" align="center" padding="medium">
+  <Row jss={{ position: "relative" }}>
+    <IconButton bare icon="fa-bell" size="large" color="secondary" onClick={() => {}} />
+    <Badge size="small" color="negative" jss={{ position: "absolute", top: 0, right: 0 }} />
+  </Row>
+  <Span color="secondary">Unread notifications</Span>
+</Row>
+
+```js
+<Row jss={{ position: "relative" }}>
+  <IconButton bare icon="fa-bell" size="large" color="secondary" onClick={() => {}} />
+  <Badge
+    size="small"
+    color="negative"
+    jss={{ position: "absolute", top: 0, right: 0 }}
+  />
+</Row>
+```
+
+### Status indicator
+
+<Column gap="small" padding="medium">
+  <Row gap="small" align="center">
+    <Badge size="small" color="highlight" />
+    <Span>Online</Span>
+  </Row>
+  <Row gap="small" align="center">
+    <Badge size="small" color="warning" />
+    <Span>Away</Span>
+  </Row>
+  <Row gap="small" align="center">
+    <Badge size="small" color="divider" />
+    <Span>Offline</Span>
+  </Row>
+</Column>
+
+```js
+<Row gap="small" align="center">
+  <Badge size="small" color="highlight" />
+  <Span>Online</Span>
 </Row>
 ```
 
 ---
+
+## Visual markers
+
+Use badges to highlight new or important items:
+
+<Row gap="medium" align="center" padding="medium">
+  <Row gap="small" align="center">
+    <Span>New feature</Span>
+    <Badge size="xsmall" color="highlight" />
+  </Row>
+</Row>
+
+```js
+<Row gap="small" align="center">
+  <Span>New feature</Span>
+  <Badge size="xsmall" color="highlight" />
+</Row>
+```

@@ -76,14 +76,14 @@ export function Popover({ children, close }) {
 }
 
 interface PopoverTriggerProps<Input> {
-  PopoverComponent: (props: { close: () => void } & Input) => JSX.Element;
+  PopoverComponent: (props: { close: () => void } & Input) => React.JSX.Element;
   jss?: JSS;
   jssDialog?: JSS;
   className?: undefined;
   grow?: boolean;
   shrink?: boolean;
   tag?: keyof HTMLElementTagNameMap;
-  children: (props: { toggle: (input: Input) => void }) => JSX.Element;
+  children: (props: { toggle: (input: Input) => void }) => React.JSX.Element;
 }
 
 export function PopoverTrigger<Input>({
@@ -95,7 +95,7 @@ export function PopoverTrigger<Input>({
   tag,
   children,
 }: PopoverTriggerProps<Input>) {
-  const [popover, setPopover] = useState<JSX.Element>(null);
+  const [popover, setPopover] = useState<React.JSX.Element>(null);
   const dialogRef = useRef<null | HTMLDialogElement>(null);
 
   const toggle = (input: Input) => {

@@ -33,14 +33,22 @@ import { Column } from "../Column";
 import { Icon } from "../Icon";
 import { BaseLinkComponentOverrideContext } from "../BaseLink";
 import { DocsMDXProvider, labelToID } from "../docs/mdx";
-import { Pipeline, dot, pipeline } from "@xenova/transformers";
+import type { Pipeline } from "@xenova/transformers";
 import { pages } from "../docs/pages";
 
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const transformers = import("@xenova/transformers");
+let transformersPromise: Promise<typeof import("@xenova/transformers")> | null =
+  null;
+const getTransformers = () => {
+  if (!transformersPromise) {
+    transformersPromise = import("@xenova/transformers");
+  }
+  return transformersPromise;
+};
+
 const searchIndex = import("../docs/searchIndex").then(
   (module) => module.index
 );
@@ -169,6 +177,8 @@ export default function App({ Component, pageProps }: AppProps) {
       if (isInvalid()) {
         return;
       }
+
+      const { dot } = await getTransformers();
 
       const queryEmbeddings = await generateEmbeddings(query, {
         normalize: true,
@@ -446,7 +456,7 @@ export default function App({ Component, pageProps }: AppProps) {
 let modelPromise: Promise<Pipeline> | null = null;
 
 const loadModel: () => Promise<Pipeline> = async () => {
-  const { pipeline } = await transformers;
+  const { pipeline } = await getTransformers();
   if (modelPromise == null) {
     modelPromise = pipeline("feature-extraction", "Xenova/all-MiniLM-L6-v2");
   }

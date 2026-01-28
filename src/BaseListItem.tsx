@@ -10,7 +10,7 @@ import { useListContext } from "./List";
 
 // @ts-ignore
 export interface BaseListItemProps extends RowProps {
-  children: (elements: { content: JSX.Element }) => ReactNode;
+  children: (elements: { content: React.JSX.Element }) => ReactNode;
   jss?: JSS;
   withDivider?: boolean;
   headline: string;

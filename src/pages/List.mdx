@@ -2,202 +2,106 @@ import { List } from "../List";
 import { ListItem } from "../ListItem";
 import { ListButtonItem } from "../ListButtonItem";
 import { ListLinkItem } from "../ListLinkItem";
+import { ListDivider } from "../ListDivider";
 import { Icon } from "../Icon";
 import { Sublist } from "../Sublist";
+import { Row } from "../Row";
 
 # List
 
-The `List` component is used to represent data in a list, it has several components that can be used to create rich experiences within it.
+A container for displaying items in a vertical list. Lists support multiple item types, keyboard navigation, and can be styled with different visual treatments.
 
-## Base list
+---
 
-The default list style has round borders and high contrast background. It can opt out of the roundedness (for example it is useful to go edge-to-edge on small displays) and it also support a bare style, with much more subtle styling.
+## Props
 
-<List ariaLabel="example">
+### List
+
+| Prop | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `ariaLabel` | `string` | Yes | - | Accessible label for the list |
+| `bare` | `boolean` | No | `false` | Minimal styling without background/borders |
+| `carded` | `boolean` | No | `true` | Rounded corners with full border |
+| `navigation` | `boolean` | No | `true` | Enable arrow key navigation |
+| `autofocus` | `boolean` | No | `false` | Focus first item on mount |
+
+### List item components
+
+- **`ListItem`** - Static, non-interactive item
+- **`ListButtonItem`** - Clickable button item
+- **`ListLinkItem`** - Navigation link item
+- **`ListDivider`** - Visual separator
+- **`ListHeaderItem`** - Section header
+- **`Sublist`** - Collapsible group of items
+
+All item components accept `TextPairing` props (`headline`, `body`, `addOn`, etc.).
+
+---
+
+## Basic list
+
+The default list has a bordered card appearance with rounded corners.
+
+<List ariaLabel="Settings">
   <ListItem
-    headline="Headline"
-    body="Body"
+    headline="Notifications"
+    body="Manage your notification preferences"
     addOn={<Icon color="primary" icon="fa-bell" size="medium" />}
-    addOnPosition="start"
-  />
-  <ListButtonItem
-    color="positive"
-    headline="Positive button"
-    addOn={<Icon color="highlight" icon="fa-plus" size="medium" />}
-    addOnPosition="start"
-    onClick={() => {}}
   />
   <ListButtonItem
     color="secondary"
-    headline="Secondary button"
-    addOn={<Icon color="primary" icon="fa-bicycle" size="medium" />}
-    addOnPosition="start"
-    onClick={() => {}}
-  />
-  <ListButtonItem
-    color="negative"
-    headline="Negative button"
-    addOn={<Icon color="negative" icon="fa-ban" size="medium" />}
-    addOnPosition="start"
+    headline="Account"
+    body="Update your profile information"
+    addOn={<Icon color="primary" icon="fa-user" size="medium" />}
     onClick={() => {}}
   />
   <ListLinkItem
     href="/"
     color="secondary"
-    headline="Selected link"
-    selected
-    addOn={<Icon color="primary" icon="fa-renren" size="medium" />}
-    addOnPosition="start"
-  />
-  <ListLinkItem
-    href="/"
-    color="secondary"
-    headline="Link"
-    addOn={<Icon color="primary" icon="fa-renren" size="medium" />}
-    addOnPosition="start"
+    headline="Help Center"
+    addOn={<Icon color="primary" icon="fa-question-circle" size="medium" />}
     withDivider={false}
   />
 </List>
 
 ```js
-<List ariaLabel="example">
+<List ariaLabel="Settings">
   <ListItem
-    headline="Headline"
-    body="Body"
+    headline="Notifications"
+    body="Manage your notification preferences"
     addOn={<Icon color="primary" icon="fa-bell" size="medium" />}
-    addOnPosition="start"
-  />
-  <ListButtonItem
-    color="positive"
-    headline="Positive button"
-    addOn={<Icon color="highlight" icon="fa-plus" size="medium" />}
-    addOnPosition="start"
-    onClick={() => {}}
   />
   <ListButtonItem
     color="secondary"
-    headline="Secondary button"
-    addOn={<Icon color="primary" icon="fa-bicycle" size="medium" />}
-    addOnPosition="start"
-    onClick={() => {}}
-  />
-  <ListButtonItem
-    color="negative"
-    headline="Negative button"
-    addOn={<Icon color="negative" icon="fa-ban" size="medium" />}
-    addOnPosition="start"
+    headline="Account"
     onClick={() => {}}
   />
   <ListLinkItem
-    href="/"
+    href="/help"
     color="secondary"
-    headline="Selected link"
-    selected
-    addOn={<Icon color="primary" icon="fa-renren" size="medium" />}
-    addOnPosition="start"
-  />
-  <ListLinkItem
-    href="/"
-    color="secondary"
-    headline="Link"
-    addOn={<Icon color="primary" icon="fa-renren" size="medium" />}
-    addOnPosition="start"
+    headline="Help Center"
     withDivider={false}
   />
 </List>
 ```
 
-<List carded={false} ariaLabel="example">
-  <ListItem
-    headline="Headline"
-    body="Body"
-    addOn={<Icon color="primary" icon="fa-bell" size="medium" />}
-    addOnPosition="start"
-  />
-  <ListButtonItem
-    color="positive"
-    headline="Positive button"
-    addOn={<Icon color="highlight" icon="fa-plus" size="medium" />}
-    addOnPosition="start"
-    onClick={() => {}}
-  />
-  <ListButtonItem
-    color="secondary"
-    headline="Secondary button"
-    addOn={<Icon color="primary" icon="fa-bicycle" size="medium" />}
-    addOnPosition="start"
-    onClick={() => {}}
-  />
-  <ListButtonItem
-    color="negative"
-    headline="Negative button"
-    addOn={<Icon color="negative" icon="fa-ban" size="medium" />}
-    addOnPosition="start"
-    onClick={() => {}}
-  />
-  <ListLinkItem
-    href="/"
-    color="secondary"
-    headline="Selected link"
-    selected
-    addOn={<Icon color="primary" icon="fa-renren" size="medium" />}
-    addOnPosition="start"
-  />
-  <ListLinkItem
-    href="/"
-    color="secondary"
-    headline="Link"
-    addOn={<Icon color="primary" icon="fa-renren" size="medium" />}
-    addOnPosition="start"
-    withDivider={false}
-  />
+---
+
+## Edge-to-edge list
+
+Set `carded={false}` to remove rounded corners, useful for full-width layouts.
+
+<List carded={false} ariaLabel="Menu">
+  <ListButtonItem color="secondary" headline="Profile" onClick={() => {}} />
+  <ListButtonItem color="secondary" headline="Settings" onClick={() => {}} />
+  <ListButtonItem color="secondary" headline="Logout" onClick={() => {}} withDivider={false} />
 </List>
 
 ```js
-<List carded={false} ariaLabel="example">
-  <ListItem
-    headline="Headline"
-    body="Body"
-    addOn={<Icon color="primary" icon="fa-bell" size="medium" />}
-    addOnPosition="start"
-  />
-  <ListButtonItem
-    color="positive"
-    headline="Positive button"
-    addOn={<Icon color="highlight" icon="fa-plus" size="medium" />}
-    addOnPosition="start"
-    onClick={() => {}}
-  />
-  <ListButtonItem
-    color="secondary"
-    headline="Secondary button"
-    addOn={<Icon color="primary" icon="fa-bicycle" size="medium" />}
-    addOnPosition="start"
-    onClick={() => {}}
-  />
-  <ListButtonItem
-    color="negative"
-    headline="Negative button"
-    addOn={<Icon color="negative" icon="fa-ban" size="medium" />}
-    addOnPosition="start"
-    onClick={() => {}}
-  />
-  <ListLinkItem
-    href="/"
-    color="secondary"
-    headline="Selected link"
-    selected
-    addOn={<Icon color="primary" icon="fa-renren" size="medium" />}
-    addOnPosition="start"
-  />
-  <ListLinkItem
-    href="/"
-    color="secondary"
-    headline="Link"
-    addOn={<Icon color="primary" icon="fa-renren" size="medium" />}
-    addOnPosition="start"
-    withDivider={false}
-  />
+<List carded={false} ariaLabel="Menu">
+  <ListButtonItem color="secondary" headline="Profile" onClick={() => {}} />
+  <ListButtonItem color="secondary" headline="Settings" onClick={() => {}} />
+  <ListButtonItem color="secondary" headline="Logout" onClick={() => {}} withDivider={false} />
 </List>
 ```
 
@@ -205,95 +109,29 @@ The default list style has round borders and high contrast background. It can op
 
 ## Bare list
 
-The bare list, like other components that support the `bare` style, is much more subtle, has less contrast and no borders. For elements that are constantly on display but may not always be necessary (for example navigation elements) it could be preferred to make the user interface cleaner and lighter.
+The `bare` variant removes background and borders for a minimal appearance.
 
-<List bare ariaLabel="example">
-  <ListItem
-    headline="Headline"
-    body="Body"
-    addOn={<Icon color="primary" icon="fa-bell" size="medium" />}
-    addOnPosition="start"
-  />
-  <ListButtonItem
-    color="positive"
-    headline="Positive button"
-    addOn={<Icon color="highlight" icon="fa-plus" size="medium" />}
-    addOnPosition="start"
-    onClick={() => {}}
-  />
-  <ListButtonItem
-    color="secondary"
-    headline="Secondary button"
-    addOn={<Icon color="primary" icon="fa-bicycle" size="medium" />}
-    addOnPosition="start"
-    onClick={() => {}}
-  />
-  <ListButtonItem
-    color="negative"
-    headline="Negative button"
-    addOn={<Icon color="negative" icon="fa-ban" size="medium" />}
-    addOnPosition="start"
-    onClick={() => {}}
-  />
-  <ListLinkItem
-    href="/"
-    color="secondary"
-    headline="Selected link"
-    selected
-    addOn={<Icon color="highlight" icon="fa-renren" size="medium" />}
-    addOnPosition="start"
-  />
-  <ListLinkItem
-    href="/"
-    headline="Link"
-    addOn={<Icon color="primary" icon="fa-renren" size="medium" />}
-    addOnPosition="start"
-    withDivider={false}
-  />
+<List bare ariaLabel="Navigation">
+  <ListButtonItem bare color="secondary" headline="Home" addOn={<Icon color="primary" icon="fa-home" size="medium" />} onClick={() => {}} />
+  <ListButtonItem bare color="secondary" headline="Projects" addOn={<Icon color="primary" icon="fa-folder" size="medium" />} onClick={() => {}} />
+  <ListLinkItem bare href="/" color="secondary" headline="Settings" selected addOn={<Icon color="highlight" icon="fa-cog" size="medium" />} withDivider={false} />
 </List>
 
 ```js
-<List bare ariaLabel="example">
-  <ListItem
-    headline="Headline"
-    body="Body"
-    addOn={<Icon color="primary" icon="fa-bell" size="medium" />}
-    addOnPosition="start"
-  />
+<List bare ariaLabel="Navigation">
   <ListButtonItem
-    color="positive"
-    headline="Positive button"
-    addOn={<Icon color="highlight" icon="fa-plus" size="medium" />}
-    addOnPosition="start"
-    onClick={() => {}}
-  />
-  <ListButtonItem
+    bare
     color="secondary"
-    headline="Secondary button"
-    addOn={<Icon color="primary" icon="fa-bicycle" size="medium" />}
-    addOnPosition="start"
-    onClick={() => {}}
-  />
-  <ListButtonItem
-    color="negative"
-    headline="Negative button"
-    addOn={<Icon color="negative" icon="fa-ban" size="medium" />}
-    addOnPosition="start"
+    headline="Home"
+    addOn={<Icon color="primary" icon="fa-home" size="medium" />}
     onClick={() => {}}
   />
   <ListLinkItem
-    href="/"
+    bare
+    href="/settings"
     color="secondary"
-    headline="Selected link"
+    headline="Settings"
     selected
-    addOn={<Icon color="highlight" icon="fa-renren" size="medium" />}
-    addOnPosition="start"
-  />
-  <ListLinkItem
-    href="/"
-    headline="Link"
-    addOn={<Icon color="primary" icon="fa-renren" size="medium" />}
-    addOnPosition="start"
     withDivider={false}
   />
 </List>
@@ -301,22 +139,71 @@ The bare list, like other components that support the `bare` style, is much more
 
 ---
 
+## Item colors
+
+ListButtonItem and ListLinkItem support semantic colors:
+
+<List ariaLabel="Actions">
+  <ListButtonItem color="positive" headline="Create new" addOn={<Icon color="highlight" icon="fa-plus" size="medium" />} onClick={() => {}} />
+  <ListButtonItem color="secondary" headline="Edit item" addOn={<Icon color="primary" icon="fa-pencil" size="medium" />} onClick={() => {}} />
+  <ListButtonItem color="negative" headline="Delete item" addOn={<Icon color="negative" icon="fa-trash" size="medium" />} onClick={() => {}} withDivider={false} />
+</List>
+
+```js
+<ListButtonItem color="positive" headline="Create" onClick={() => {}} />
+<ListButtonItem color="secondary" headline="Edit" onClick={() => {}} />
+<ListButtonItem color="negative" headline="Delete" onClick={() => {}} />
+```
+
+---
+
+## Selected state
+
+Link items support a `selected` prop to indicate the current selection:
+
+<List bare ariaLabel="Pages">
+  <ListLinkItem bare href="/" color="secondary" headline="Dashboard" />
+  <ListLinkItem bare href="/" color="secondary" headline="Analytics" selected />
+  <ListLinkItem bare href="/" color="secondary" headline="Reports" withDivider={false} />
+</List>
+
+```js
+<ListLinkItem
+  bare
+  href="/analytics"
+  headline="Analytics"
+  selected={currentPage === "analytics"}
+/>
+```
+
+---
+
 ## Sublist
 
-<List bare ariaLabel="example">
-  <Sublist label="Sublist">
-    <ListItem headline="Headline 1" body="Body 1" />
-    <ListItem headline="Headline 2" body="Body 2" />
-    <ListItem headline="Headline 3" body="Body 3" />
+Group related items with collapsible sections:
+
+<List bare ariaLabel="Documentation">
+  <Sublist label="Getting Started">
+    <ListItem headline="Installation" />
+    <ListItem headline="Quick Start" />
+    <ListItem headline="Configuration" />
+  </Sublist>
+  <Sublist label="Components">
+    <ListItem headline="Button" />
+    <ListItem headline="Input" />
+    <ListItem headline="List" />
   </Sublist>
 </List>
 
 ```js
-<List bare ariaLabel="example">
-  <Sublist label="Sublist">
-    <ListItem headline="Headline 1" body="Body 1" />
-    <ListItem headline="Headline 2" body="Body 2" />
-    <ListItem headline="Headline 3" body="Body 3" />
+<List bare ariaLabel="Documentation">
+  <Sublist label="Getting Started">
+    <ListItem headline="Installation" />
+    <ListItem headline="Quick Start" />
+  </Sublist>
+  <Sublist label="Components">
+    <ListItem headline="Button" />
+    <ListItem headline="Input" />
   </Sublist>
 </List>
 ```
@@ -325,54 +212,51 @@ The bare list, like other components that support the `bare` style, is much more
 
 ## Keyboard navigation
 
-Lists support keyboard navigation by default via the `useNavigation` hook. It can be disabled by passing the prop `navigation` and tries to emulate the [grid layout spec](https://www.w3.org/WAI/ARIA/apg/patterns/grid/examples/layout-grids/):
+Lists support arrow key navigation by default (following [WAI-ARIA grid pattern](https://www.w3.org/WAI/ARIA/apg/patterns/grid/)):
 
-<List ariaLabel="example" navigation={true}>
-  <ListButtonItem color="secondary" headline="Headline 1" onClick={() => {}} />
-  <ListButtonItem color="secondary" headline="Headline 2" onClick={() => {}} />
-  <ListButtonItem
-    withDivider={false}
-    color="secondary"
-    headline="Headline 3"
-    onClick={() => {}}
-  />
+- **Arrow Up/Down** - Move between items
+- **Enter/Space** - Activate the focused item
+- **Home/End** - Jump to first/last item
+
+<List ariaLabel="Keyboard demo" navigation={true}>
+  <ListButtonItem color="secondary" headline="First item (use arrow keys)" onClick={() => {}} />
+  <ListButtonItem color="secondary" headline="Second item" onClick={() => {}} />
+  <ListButtonItem color="secondary" headline="Third item" onClick={() => {}} withDivider={false} />
 </List>
 
----
-
-<List ariaLabel="example" navigation={false}>
-  <ListButtonItem color="secondary" headline="Headline 1" onClick={() => {}} />
-  <ListButtonItem color="secondary" headline="Headline 2" onClick={() => {}} />
-  <ListButtonItem
-    withDivider={false}
-    color="secondary"
-    headline="Headline 3"
-    onClick={() => {}}
-  />
-</List>
+Disable navigation with `navigation={false}` if items have their own focus management.
 
 ```js
-<List ariaLabel="example" navigation={true}>
-  <ListButtonItem color="secondary" headline="Headline 1" onClick={() => {}} />
-  <ListButtonItem color="secondary" headline="Headline 2" onClick={() => {}} />
-  <ListButtonItem
-    withDivider={false}
-    color="secondary"
-    headline="Headline 3"
-    onClick={() => {}}
-  />
+// Keyboard navigation enabled (default)
+<List ariaLabel="Menu" navigation={true}>
+  ...
 </List>
 
-<List ariaLabel="example" navigation={false}>
-  <ListButtonItem color="secondary" headline="Headline 1" onClick={() => {}} />
-  <ListButtonItem color="secondary" headline="Headline 2" onClick={() => {}} />
-  <ListButtonItem
-    withDivider={false}
-    color="secondary"
-    headline="Headline 3"
-    onClick={() => {}}
-  />
+// Keyboard navigation disabled
+<List ariaLabel="Form fields" navigation={false}>
+  ...
 </List>
 ```
 
 ---
+
+## Dividers
+
+List items include dividers by default. Remove with `withDivider={false}`:
+
+```js
+<List ariaLabel="Items">
+  <ListItem headline="With divider" />
+  <ListItem headline="With divider" />
+  <ListItem headline="No divider" withDivider={false} />
+</List>
+```
+
+---
+
+## Accessibility
+
+- Uses `role="grid"` with `aria-label` for screen readers
+- Keyboard navigation follows WAI-ARIA grid pattern
+- Focus management with arrow keys, Home, and End
+- Proper focus indicators on keyboard navigation

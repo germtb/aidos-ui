@@ -1,28 +1,115 @@
 import { Button } from "../Button";
+import { IconButton } from "../IconButton";
+import { Row } from "../Row";
 import { Tooltip } from "../Tooltip";
 
 # Tooltip
 
-The `Tooltip` component can be used to display light contextual information about an element. The content of a tooltip should not be interactable (to make it accessible interactable elements should be dialgs) so they only accept content of type `string`.
+Displays contextual information when hovering over an element. Tooltips are for informational text only and should not contain interactive content.
 
-<Tooltip content="Tooltip here">
-  <Button
-    bare
-    label="Hover to show tooltip"
-    color="positive"
-    onClick={() => {}}
-  />
-</Tooltip>
+---
+
+## Props
+
+| Prop | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `content` | `string` | Yes | - | Text to display in the tooltip |
+| `children` | `ReactNode` | Yes | - | Element that triggers the tooltip on hover |
+| `tag` | `keyof HTMLElementTagNameMap` | No | - | HTML tag for the wrapper element |
+| `jss` | `JSS` | No | - | Custom styles for the wrapper |
+
+---
+
+## Basic usage
+
+Wrap any element with `Tooltip` to show contextual information on hover:
+
+<Row gap="large" padding="xlarge">
+  <Tooltip content="This confirms the action">
+    <Button bare color="positive" onClick={() => {}}>
+      Hover me
+    </Button>
+  </Tooltip>
+</Row>
 
 ```js
-<Tooltip content="Tooltip here">
-  <Button
+<Tooltip content="This confirms the action">
+  <Button bare color="positive" onClick={() => {}}>
+    Hover me
+  </Button>
+</Tooltip>
+```
+
+---
+
+## With IconButton
+
+Tooltips are especially useful with icon-only buttons to explain their purpose:
+
+<Row gap="large" padding="xlarge">
+  <Tooltip content="Save document">
+    <IconButton bare icon="fa-save" size="medium" color="secondary" onClick={() => {}} />
+  </Tooltip>
+  <Tooltip content="Print document">
+    <IconButton bare icon="fa-print" size="medium" color="secondary" onClick={() => {}} />
+  </Tooltip>
+  <Tooltip content="Share with others">
+    <IconButton bare icon="fa-share" size="medium" color="secondary" onClick={() => {}} />
+  </Tooltip>
+</Row>
+
+```js
+<Tooltip content="Save document">
+  <IconButton
     bare
-    label="Hover to show tooltip"
-    color="positive"
+    icon="fa-save"
+    size="medium"
+    color="secondary"
     onClick={() => {}}
   />
 </Tooltip>
 ```
 
 ---
+
+## Behavior
+
+- **Shows on hover**: Tooltip appears when mouse enters the wrapped element
+- **Hides on leave**: Tooltip disappears when mouse leaves
+- **Keyboard dismissal**: Pressing Escape or Tab closes the tooltip
+- **Click dismissal**: Clicking anywhere closes the tooltip
+
+---
+
+## Accessibility considerations
+
+Tooltips should contain only supplementary information:
+
+- **Do**: Use for hints, descriptions, or labels
+- **Don't**: Put interactive elements (buttons, links) inside tooltips
+- **Don't**: Put essential information only in tooltips
+
+For interactive floating content, use `Popover` instead.
+
+```js
+// Good - informational tooltip
+<Tooltip content="Keyboard shortcut: Ctrl+S">
+  <Button color="primary" onClick={save}>Save</Button>
+</Tooltip>
+
+// Bad - essential information hidden
+<Tooltip content="Click here to delete your account permanently">
+  <Button color="negative" onClick={delete}>Delete</Button>
+</Tooltip>
+```
+
+---
+
+## Tooltip vs Popover
+
+| Use Tooltip | Use Popover |
+|-------------|-------------|
+| Simple text hints | Interactive content |
+| Non-essential information | Menus, forms, selections |
+| Keyboard shortcuts | Actions requiring user input |
+| Brief descriptions | Multi-step interactions |

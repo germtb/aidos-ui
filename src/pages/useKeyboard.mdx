@@ -1,20 +1,257 @@
 # useKeyboard
 
-This hook can be used to create keyboard shortcuts to make using a website easier and more accessible.
+A React hook for creating keyboard shortcuts. Useful for improving accessibility and power-user workflows.
+
+---
+
+## Signature
+
+```ts
+function useKeyboard<T extends HTMLElement>(
+  shortcuts: Array<KeyboardShortcut<T>>
+): (root: T) => void
+```
+
+---
+
+## KeyboardShortcut type
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `key` | `string` | Required | The key to listen for (case-insensitive) |
+| `metaKey` | `boolean` | - | Require Cmd/Meta key (macOS) |
+| `ctrlKey` | `boolean` | - | Require Ctrl key |
+| `action` | `(root: T) => void` | Required | Function to execute when shortcut triggers |
+| `onlyWhenFocused` | `boolean` | - | Only trigger when the element is focused |
+
+---
+
+## Basic usage
+
+```js
+import { useKeyboard } from "aidos-ui";
+
+function SearchInput() {
+  const [query, setQuery] = useState("");
+
+  const ref = useKeyboard([
+    {
+      key: "Escape",
+      onlyWhenFocused: true,
+      action: () => setQuery(""),
+    },
+  ]);
+
+  return (
+    <input
+      ref={ref}
+      value={query}
+      onChange={(e) => setQuery(e.target.value)}
+      placeholder="Search..."
+    />
+  );
+}
+```
+
+---
+
+## Global shortcuts
+
+Create app-wide keyboard shortcuts by attaching to a root element:
+
+```js
+function App() {
+  const searchRef = useRef(null);
+
+  const rootRef = useKeyboard([
+    {
+      key: "K",
+      metaKey: true,
+      action: () => searchRef.current?.focus(),
+    },
+    {
+      key: "/",
+      action: () => searchRef.current?.focus(),
+    },
+  ]);
+
+  return (
+    <div ref={rootRef}>
+      <SearchInput ref={searchRef} />
+      {/* Rest of app */}
+    </div>
+  );
+}
+```
+
+---
+
+## Focus management
+
+Combine with `onlyWhenFocused` to create context-aware shortcuts:
+
+```js
+function CommandPalette() {
+  const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
+
+  const ref = useKeyboard([
+    {
+      key: "K",
+      metaKey: true,
+      action: () => setOpen(true),
+    },
+    {
+      key: "Escape",
+      onlyWhenFocused: true,
+      action: () => {
+        if (query) {
+          setQuery("");
+        } else {
+          setOpen(false);
+        }
+      },
+    },
+  ]);
+
+  return (
+    <div ref={ref}>
+      {open && (
+        <Dialog>
+          <TextInput
+            value={query}
+            onValueChange={setQuery}
+            placeholder="Type a command..."
+          />
+        </Dialog>
+      )}
+    </div>
+  );
+}
+```
+
+---
+
+## Modifier keys
+
+Use `metaKey` and `ctrlKey` for modifier-based shortcuts:
 
 ```js
 const ref = useKeyboard([
+  // Cmd+S (macOS) / Ctrl+S (Windows/Linux)
   {
-    key: "K",
+    key: "S",
     metaKey: true,
-    action: (root) => root.focus(),
+    action: () => saveDocument(),
   },
+  // Ctrl+Enter
   {
-    key: "Escape",
-    onlyWhenFocused: true,
-    action: () => {
-      setQuery("");
+    key: "Enter",
+    ctrlKey: true,
+    action: () => submitForm(),
+  },
+  // Cmd+Shift doesn't have a dedicated prop, but you can handle it:
+  {
+    key: "Z",
+    metaKey: true,
+    action: (root) => {
+      // Check for Shift in the action if needed
+      if (window.event?.shiftKey) {
+        redo();
+      } else {
+        undo();
+      }
     },
   },
 ]);
 ```
+
+---
+
+## Multiple shortcuts
+
+Register multiple shortcuts at once:
+
+```js
+const ref = useKeyboard([
+  { key: "ArrowUp", action: () => selectPrevious() },
+  { key: "ArrowDown", action: () => selectNext() },
+  { key: "Enter", action: () => confirm() },
+  { key: "Escape", action: () => cancel() },
+  { key: "Delete", action: () => remove() },
+  { key: "Backspace", action: () => remove() },
+]);
+```
+
+---
+
+## With TypeScript
+
+The hook is generic and preserves the element type:
+
+```ts
+// HTMLInputElement
+const inputRef = useKeyboard<HTMLInputElement>([
+  {
+    key: "Escape",
+    onlyWhenFocused: true,
+    action: (input) => {
+      input.value = "";  // TypeScript knows this is HTMLInputElement
+      input.blur();
+    },
+  },
+]);
+
+// HTMLDivElement
+const divRef = useKeyboard<HTMLDivElement>([
+  {
+    key: "Space",
+    action: (div) => div.click(),
+  },
+]);
+```
+
+---
+
+## Common patterns
+
+### Text editor shortcuts
+
+```js
+const ref = useKeyboard([
+  { key: "B", metaKey: true, action: () => toggleBold() },
+  { key: "I", metaKey: true, action: () => toggleItalic() },
+  { key: "U", metaKey: true, action: () => toggleUnderline() },
+  { key: "Z", metaKey: true, action: () => undo() },
+]);
+```
+
+### Navigation shortcuts
+
+```js
+const ref = useKeyboard([
+  { key: "H", action: () => navigate("/") },
+  { key: "S", action: () => navigate("/settings") },
+  { key: "?", action: () => showHelp() },
+]);
+```
+
+### List navigation
+
+```js
+const ref = useKeyboard([
+  { key: "J", action: () => selectNext() },
+  { key: "K", action: () => selectPrevious() },
+  { key: "G", action: () => selectFirst() },
+  { key: "G", ctrlKey: true, action: () => selectLast() },
+]);
+```
+
+---
+
+## Implementation details
+
+- Shortcuts are registered globally via `window.addEventListener`
+- Key matching is case-insensitive
+- The hook cleans up listeners when the component unmounts
+- Built on top of `useRefEffect` for reliable effect management

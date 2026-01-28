@@ -1,425 +1,281 @@
 import { Column } from "../Column";
+import { Row } from "../Row";
 import { Tabs } from "../Tabs";
 import { Badge } from "../Badge";
+import { Span } from "../Text";
 import { cssVar } from "../jss";
 
 # Tabs
 
-The `Tabs` component is made of a horizontal container with the role `tablist`, which contains tabs. It can be controlled with the keyboard and it needs to be passed an ID for the content it controls.
+A horizontal tab navigation component with full keyboard support and ARIA compliance. Tabs can render as links or buttons and support custom styling, add-ons, and label rendering.
+
+---
+
+## Props
+
+### Tabs
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `aria-controls` | `string` | Required | ID of the content panel this tab controls |
+| `tabs` | `Tab[]` | Required | Array of tab configurations |
+| `labelSize` | `Size` | `"large"` | Text size for tab labels |
+| `tabPadding` | `Padding` | `"medium"` | Padding inside each tab |
+| `gap` | `Gap` | `"none"` | Space between tabs |
+| `jssTab` | `JSS \| (data) => JSS` | - | Custom styles for tabs (can be conditional on selected state) |
+| `labelRenderer` | `(label: string) => ReactNode` | - | Custom label rendering function |
+
+### Tab object
+
+| Property | Type | Default | Description |
+|----------|------|---------|-------------|
+| `label` | `string` | Required | Tab display text |
+| `href` | `string` | - | Link URL (renders as link if provided) |
+| `onClick` | `() => void` | - | Click handler (renders as button if no href) |
+| `selected` | `boolean` | `false` | Whether this tab is currently selected |
+| `addOn` | `ReactNode` | - | Additional element (e.g., badge, icon) |
+| `addOnPosition` | `"start" \| "end"` | `"start"` | Position of add-on relative to label |
+
+---
+
+## Basic usage
 
 <Column gap="medium">
   <Tabs
-    aria-controls="foo"
+    aria-controls="panel-1"
     tabs={[
+      { href: "/Tabs", selected: true, label: "Tab 1" },
+      { href: "/Tabs", selected: false, label: "Tab 2" },
+      { href: "/Tabs", selected: false, label: "Tab 3" },
+    ]}
+  />
+</Column>
+
+```js
+<Tabs
+  aria-controls="panel-1"
+  tabs={[
+    { href: "/Tabs", selected: true, label: "Tab 1" },
+    { href: "/Tabs", selected: false, label: "Tab 2" },
+    { href: "/Tabs", selected: false, label: "Tab 3" },
+  ]}
+/>
+```
+
+---
+
+## With add-ons
+
+Add badges, icons, or other elements to tabs:
+
+<Column gap="medium">
+  <Tabs
+    aria-controls="panel-2"
+    tabs={[
+      { href: "/Tabs", selected: false, label: "Messages" },
       {
         href: "/Tabs",
         selected: true,
-        label: "Tab 1",
+        label: "Notifications",
+        addOn: <Badge jss={{ margin: cssVar("--spacing-m") }} color="negative" size="small" />,
       },
-      {
-        href: "/Tabs",
-        selected: false,
-        label: "Tab 2",
-      },
-      {
-        href: "/Tabs",
-        selected: false,
-        label: "Tab 3",
-      },
+      { href: "/Tabs", selected: false, label: "Settings" },
     ]}
   />
   <Tabs
-    aria-controls="foo"
+    aria-controls="panel-3"
     tabs={[
-      {
-        href: "/Tabs",
-        selected: false,
-        label: "Tab 1",
-      },
+      { href: "/Tabs", selected: false, label: "Overview" },
+      { href: "/Tabs", selected: false, label: "Analytics" },
       {
         href: "/Tabs",
         selected: true,
-        label: "Tab 2",
-      },
-      {
-        href: "/Tabs",
-        addOn: (
-          <Badge
-            jss={{ margin: cssVar("--spacing-m") }}
-            color="highlight"
-            size="medium"
-          />
-        ),
-        selected: false,
-        label: "Tab 3",
-      },
-    ]}
-  />
-  <Tabs
-    aria-controls="foo"
-    tabs={[
-      {
-        href: "/Tabs",
-        selected: false,
-        label: "Tab 1",
-      },
-      {
-        href: "/Tabs",
-        selected: false,
-        label: "Tab 2",
-      },
-      {
-        href: "/Tabs",
-        addOn: (
-          <Badge
-            jss={{ margin: cssVar("--spacing-m") }}
-            color="highlight"
-            size="medium"
-          />
-        ),
+        label: "New",
+        addOn: <Badge jss={{ margin: cssVar("--spacing-m") }} color="highlight" size="medium" />,
         addOnPosition: "end",
-        selected: true,
-        label: "Tab 3",
       },
     ]}
   />
 </Column>
 
 ```js
-<Column gap="medium">
-  <Tabs
-    aria-controls="foo"
-    tabs={[
-      {
-        href: "/Tabs",
-        selected: true,
-        label: "Tab 1",
-      },
-      {
-        href: "/Tabs",
-        selected: false,
-        label: "Tab 2",
-      },
-      {
-        href: "/Tabs",
-        selected: false,
-        label: "Tab 3",
-      },
-    ]}
-  />
-  <Tabs
-    aria-controls="foo"
-    tabs={[
-      {
-        href: "/Tabs",
-        selected: false,
-        label: "Tab 1",
-      },
-      {
-        href: "/Tabs",
-        selected: true,
-        label: "Tab 2",
-      },
-      {
-        href: "/Tabs",
-        addOn: (
-          <Badge
-            jss={{ margin: cssVar("--spacing-m") }}
-            color="highlight"
-            size="medium"
-          />
-        ),
-        selected: false,
-        label: "Tab 3",
-      },
-    ]}
-  />
-  <Tabs
-    aria-controls="foo"
-    tabs={[
-      {
-        href: "/Tabs",
-        selected: false,
-        label: "Tab 1",
-      },
-      {
-        href: "/Tabs",
-        selected: false,
-        label: "Tab 2",
-      },
-      {
-        href: "/Tabs",
-        addOn: (
-          <Badge
-            jss={{ margin: cssVar("--spacing-m") }}
-            color="highlight"
-            size="medium"
-          />
-        ),
-        addOnPosition: "end",
-        selected: true,
-        label: "Tab 3",
-      },
-    ]}
-  />
-</Column>
+// Badge before label (default)
+<Tabs
+  aria-controls="panel"
+  tabs={[
+    { href: "/messages", selected: false, label: "Messages" },
+    {
+      href: "/notifications",
+      selected: true,
+      label: "Notifications",
+      addOn: <Badge color="negative" size="small" />,
+    },
+  ]}
+/>
+
+// Badge after label
+<Tabs
+  aria-controls="panel"
+  tabs={[
+    {
+      href: "/new",
+      selected: true,
+      label: "New",
+      addOn: <Badge color="highlight" size="medium" />,
+      addOnPosition: "end",
+    },
+  ]}
+/>
 ```
 
 ---
 
 ## Tabs as buttons
 
-You can also use the `Tabs` component with buttons instead of links by omitting the `href` property in the tabs.
+Omit `href` to render tabs as buttons. Useful for in-page tab switching:
 
 <Column gap="medium">
   <Tabs
-    aria-controls="foo"
+    aria-controls="panel-4"
     tabs={[
-      {
-        selected: true,
-        label: "Tab 1",
-      },
-      {
-        selected: false,
-        label: "Tab 2",
-      },
-      {
-        selected: false,
-        label: "Tab 3",
-      },
-    ]}
-  />
-  <Tabs
-    aria-controls="foo"
-    tabs={[
-      {
-        selected: false,
-        label: "Tab 1",
-      },
-      {
-        selected: true,
-        label: "Tab 2",
-      },
-      {
-        addOn: (
-          <Badge
-            jss={{ margin: cssVar("--spacing-m") }}
-            color="highlight"
-            size="medium"
-          />
-        ),
-        selected: false,
-        label: "Tab 3",
-      },
-    ]}
-  />
-  <Tabs
-    aria-controls="foo"
-    tabs={[
-      {
-        selected: false,
-        label: "Tab 1",
-      },
-      {
-        selected: false,
-        label: "Tab 2",
-      },
-      {
-        addOn: (
-          <Badge
-            jss={{ margin: cssVar("--spacing-m") }}
-            color="highlight"
-            size="medium"
-          />
-        ),
-        addOnPosition: "end",
-        selected: true,
-        label: "Tab 3",
-      },
+      { selected: true, label: "Details" },
+      { selected: false, label: "Reviews" },
+      { selected: false, label: "Related" },
     ]}
   />
 </Column>
 
 ```js
-<Column gap="medium">
-  <Tabs
-    aria-controls="foo"
-    tabs={[
-      {
-        selected: true,
-        label: "Tab 1",
-      },
-      {
-        selected: false,
-        label: "Tab 2",
-      },
-      {
-        selected: false,
-        label: "Tab 3",
-      },
-    ]}
-  />
-  <Tabs
-    aria-controls="foo"
-    tabs={[
-      {
-        selected: false,
-        label: "Tab 1",
-      },
-      {
-        selected: true,
-        label: "Tab 2",
-      },
-      {
-        addOn: (
-          <Badge
-            jss={{ margin: cssVar("--spacing-m") }}
-            color="highlight"
-            size="medium"
-          />
-        ),
-        selected: false,
-        label: "Tab 3",
-      },
-    ]}
-  />
-  <Tabs
-    aria-controls="foo"
-    tabs={[
-      {
-        selected: false,
-        label: "Tab 1",
-      },
-      {
-        selected: false,
-        label: "Tab 2",
-      },
-      {
-        addOn: (
-          <Badge
-            jss={{ margin: cssVar("--spacing-m") }}
-            color="highlight"
-            size="medium"
-          />
-        ),
-        addOnPosition: "end",
-        selected: true,
-        label: "Tab 3",
-      },
-    ]}
-  />
-</Column>
+const [activeTab, setActiveTab] = useState("details");
+
+<Tabs
+  aria-controls="content-panel"
+  tabs={[
+    {
+      selected: activeTab === "details",
+      label: "Details",
+      onClick: () => setActiveTab("details"),
+    },
+    {
+      selected: activeTab === "reviews",
+      label: "Reviews",
+      onClick: () => setActiveTab("reviews"),
+    },
+    {
+      selected: activeTab === "related",
+      label: "Related",
+      onClick: () => setActiveTab("related"),
+    },
+  ]}
+/>
 ```
 
-## Label pre renderers
+---
 
-You can customize how tab labels are rendered by providing a `labelRenderer` function that takes the label value and returns a ReactNode.
+## Custom label rendering
+
+Use `labelRenderer` to customize how tab labels are displayed:
 
 <Column>
   <Tabs
-    aria-controls="foo"
+    aria-controls="panel-5"
     labelRenderer={(value) => value.split(" ").map((word, index) => index % 2 === 0 ? <strong key={index}>{word} </strong> : word + " ")}
     tabs={[
-      {
-        href: "/Tabs",
-        selected: true,
-        label: "Bold Tab 1",
-      },
-      {
-        href: "/Tabs",
-        selected: false,
-        label: "Bold Tab 2",
-      },
-      {
-        href: "/Tabs",
-        selected: false,
-        label: "Bold Tab 3",
-      },
+      { href: "/Tabs", selected: true, label: "Bold Tab 1" },
+      { href: "/Tabs", selected: false, label: "Bold Tab 2" },
+      { href: "/Tabs", selected: false, label: "Bold Tab 3" },
     ]}
   />
 </Column>
 
 ```js
-<Column>
-  <Tabs
-    aria-controls="foo"
-    labelRenderer={(value) => value.split(" ").map((word, index) => index % 2 === 0 ? <strong key={index}>{word} </strong> : word + " ")}
-    tabs={[
-      {
-        href: "/Tabs",
-        selected: true,
-        label: "Bold Tab 1",
-      },
-      {
-        href: "/Tabs",
-        selected: false,
-        label: "Bold Tab 2",
-      },
-      {
-        href: "/Tabs",
-        selected: false,
-        label: "Bold Tab 3",
-      },
-    ]}
-  />
-</Column>
+<Tabs
+  aria-controls="panel"
+  labelRenderer={(label) => (
+    <>
+      <Icon icon="fa-star" size="small" />
+      {label}
+    </>
+  )}
+  tabs={[
+    { href: "/featured", selected: true, label: "Featured" },
+    { href: "/popular", selected: false, label: "Popular" },
+  ]}
+/>
 ```
 
+---
 
 ## Custom tab styles
 
-You can provide custom styles to individual tabs using the `tabJSStyle` prop, which can either be a style object or a function that receives the tab's selected state.
+Use `jssTab` for custom styling. It can be a static style object or a function that receives the tab's selected state:
 
 <Column>
   <Tabs
-    aria-controls="foo"
-    tabJSStyle={(data) => ({
+    aria-controls="panel-6"
+    jssTab={(data) => ({
       borderBottom: data.selected ? "2px solid cyan" : "2px solid magenta",
     })}
     tabs={[
-      {
-        href: "/Tabs",
-        selected: true,
-        label: "Styled Tab 1",
-      },
-      {
-        href: "/Tabs",
-        selected: false,
-        label: "Styled Tab 2",
-      },
-      {
-        href: "/Tabs",
-        selected: false,
-        label: "Styled Tab 3",
-      },
+      { href: "/Tabs", selected: true, label: "Styled Tab 1" },
+      { href: "/Tabs", selected: false, label: "Styled Tab 2" },
+      { href: "/Tabs", selected: false, label: "Styled Tab 3" },
     ]}
   />
 </Column>
 
 ```js
-<Column>
-  <Tabs
-    aria-controls="foo"
-    tabJSStyle={(data) => ({
-      borderBottom: data.selected ? "2px solid cyan" : "2px solid magenta",
-    })}
-    tabs={[
-      {
-        href: "/Tabs",
-        selected: true,
-        label: "Styled Tab 1",
-      },
-      {
-        href: "/Tabs",
-        selected: false,
-        label: "Styled Tab 2",
-      },
-      {
-        href: "/Tabs",
-        selected: false,
-        label: "Styled Tab 3",
-      },
-    ]}
-  />
-</Column>
+// Conditional styling based on selection
+<Tabs
+  aria-controls="panel"
+  jssTab={(data) => ({
+    borderBottom: data.selected
+      ? "3px solid var(--highlight)"
+      : "3px solid transparent",
+    backgroundColor: data.selected
+      ? "var(--light-highlight)"
+      : "transparent",
+  })}
+  tabs={tabs}
+/>
+
+// Static styling for all tabs
+<Tabs
+  aria-controls="panel"
+  jssTab={{ borderRadius: 8 }}
+  tabs={tabs}
+/>
+```
+
+---
+
+## Keyboard navigation
+
+Tabs support full keyboard navigation:
+
+- **Arrow Left/Right**: Move focus between tabs
+- **Enter/Space**: Activate the focused tab
+- **Home**: Move to first tab
+- **End**: Move to last tab
+
+---
+
+## Accessibility
+
+The Tabs component follows WAI-ARIA tab patterns:
+
+- Container has `role="tablist"`
+- Each tab has `role="tab"` and `aria-controls` pointing to its panel
+- Selected tab has `aria-selected="true"`
+- Content panel should have `role="tabpanel"` and matching `id`
+
+```js
+<Tabs
+  aria-controls="settings-panel"
+  tabs={tabs}
+/>
+
+<div id="settings-panel" role="tabpanel">
+  {/* Panel content */}
+</div>
 ```

@@ -5,106 +5,231 @@ import { TextInput } from "../TextInput";
 
 # TextInput
 
-The `TextInput` component is an `HTML` input with some extra markup to support more advanced styles, like icons.
+A styled text input field with support for icons and add-ons. Built on top of the native HTML input element with enhanced styling options.
 
-## Base TextInput
+---
+
+## Props
+
+| Prop | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `value` | `string` | Yes | - | Input value (controlled) |
+| `onValueChange` | `(value: string) => void` | No | - | Callback when value changes |
+| `placeholder` | `string` | No | - | Placeholder text |
+| `addOn` | `ReactNode` | No | - | Element displayed inside the input (typically an icon) |
+| `addOnPosition` | `"start"` \| `"end"` | No | `"start"` | Add-on placement |
+| `bare` | `boolean` | No | `false` | Minimal styling without border |
+| `size` | `Size` | No | `"medium"` | Font size (matches Button sizing) |
+| `padding` | `Padding` | No | `"medium"` | Internal padding |
+| `gap` | `Gap` | No | `"small"` | Space between add-on and input |
+| `disabled` | `boolean` | No | `false` | Disables the input |
+| `type` | `string` | No | `"text"` | HTML input type |
+| `jss` | `JSS` | No | - | Custom styles for the input element |
+| `jssRoot` | `JSS` | No | - | Custom styles for the container |
+
+Also accepts all standard HTML input attributes (`name`, `id`, `autoFocus`, `maxLength`, etc.).
+
+---
+
+## Basic usage
 
 <Column gap="medium">
   <TextInput
     value=""
-    placeholder="Placeholder text input"
-    onValueChange={() => {}}
-  />
-  <TextInput value="Text input" onValueChange={() => {}} />
-  <TextInput
-    addOn={<Icon icon="fa-user" color="primary" size="medium" />}
-    value="Text input"
+    placeholder="Enter your name"
     onValueChange={() => {}}
   />
   <TextInput
-    value="Text input"
-    addOn={<Icon icon="fa-user" color="primary" size="medium" />}
-    addOnPosition="end"
-    placeholder="Placeholder text input"
+    value="John Doe"
     onValueChange={() => {}}
   />
 </Column>
 
 ```js
-<Column gap="medium">
-  <TextInput
-    value=""
-    placeholder="Placeholder text input"
-    onValueChange={() => {}}
-  />
-  <TextInput value="Text input" onValueChange={() => {}} />
-  <TextInput
-    addOn={<Icon icon="fa-user" color="primary" size="medium" />}
-    value="Text input"
-    onValueChange={() => {}}
-  />
-  <TextInput
-    value="Text input"
-    addOn={<Icon icon="fa-user" color="primary" size="medium" />}
-    addOnPosition="end"
-    placeholder="Placeholder text input"
-    onValueChange={() => {}}
-  />
-</Column>
+const [name, setName] = useState("");
+
+<TextInput
+  value={name}
+  placeholder="Enter your name"
+  onValueChange={setName}
+/>
 ```
 
 ---
 
-## Bare TextInput
+## With add-on
+
+Add icons to provide visual context. Icons can be placed at the start or end of the input.
 
 <Column gap="medium">
   <TextInput
-    bare
+    value="john@example.com"
+    addOn={<Icon icon="fa-envelope" color="primary" size="medium" />}
+    onValueChange={() => {}}
+  />
+  <TextInput
     value=""
-    placeholder="Placeholder text input"
-    onValueChange={() => {}}
-  />
-  <TextInput bare value="Text input" onValueChange={() => {}} />
-  <TextInput
-    bare
-    addOn={<Icon icon="fa-user" color="primary" size="medium" />}
-    value="Text input"
+    placeholder="Search..."
+    addOn={<Icon icon="fa-search" color="secondary" size="medium" />}
     onValueChange={() => {}}
   />
   <TextInput
-    bare
-    value="Text input"
-    addOn={<Icon icon="fa-user" color="primary" size="medium" />}
+    value="Secret"
+    placeholder="Password"
+    addOn={<Icon icon="fa-lock" color="secondary" size="medium" />}
     addOnPosition="end"
-    placeholder="Placeholder text input"
+    type="password"
     onValueChange={() => {}}
   />
 </Column>
 
 ```js
+// Icon at start (default)
+<TextInput
+  value={email}
+  addOn={<Icon icon="fa-envelope" color="primary" size="medium" />}
+  onValueChange={setEmail}
+/>
+
+// Icon at end
+<TextInput
+  value={password}
+  addOn={<Icon icon="fa-lock" color="secondary" size="medium" />}
+  addOnPosition="end"
+  type="password"
+  onValueChange={setPassword}
+/>
+```
+
+---
+
+## Bare variant
+
+The `bare` variant removes the border for a minimal look. The background highlights on focus.
+
 <Column gap="medium">
   <TextInput
     bare
     value=""
-    placeholder="Placeholder text input"
-    onValueChange={() => {}}
-  />
-  <TextInput bare value="Text input" onValueChange={() => {}} />
-  <TextInput
-    bare
-    addOn={<Icon icon="fa-user" color="primary" size="medium" />}
-    value="Text input"
+    placeholder="Minimal input"
     onValueChange={() => {}}
   />
   <TextInput
     bare
-    value="Text input"
+    value="With icon"
     addOn={<Icon icon="fa-user" color="primary" size="medium" />}
-    addOnPosition="end"
-    placeholder="Placeholder text input"
     onValueChange={() => {}}
   />
 </Column>
+
+```js
+<TextInput
+  bare
+  value={value}
+  placeholder="Search"
+  addOn={<Icon icon="fa-search" color="secondary" size="medium" />}
+  onValueChange={setValue}
+/>
 ```
 
 ---
+
+## Sizes
+
+The `size` prop controls font size and matches the Button component's sizing system.
+
+<Column gap="medium">
+  <TextInput
+    size="small"
+    value=""
+    placeholder="Small input"
+    onValueChange={() => {}}
+  />
+  <TextInput
+    size="medium"
+    value=""
+    placeholder="Medium input (default)"
+    onValueChange={() => {}}
+  />
+  <TextInput
+    size="large"
+    value=""
+    placeholder="Large input"
+    onValueChange={() => {}}
+  />
+</Column>
+
+```js
+<TextInput size="small" ... />
+<TextInput size="medium" ... />  // default
+<TextInput size="large" ... />
+```
+
+---
+
+## Disabled state
+
+<Column gap="medium">
+  <TextInput
+    value="Disabled input"
+    disabled
+    onValueChange={() => {}}
+  />
+</Column>
+
+```js
+<TextInput
+  value="Cannot edit"
+  disabled
+  onValueChange={() => {}}
+/>
+```
+
+---
+
+## Form integration
+
+TextInput works with standard form patterns and can be used with refs for form libraries.
+
+```js
+import { useRef } from "react";
+
+function Form() {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [value, setValue] = useState("");
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <TextInput
+        ref={inputRef}
+        name="email"
+        type="email"
+        value={value}
+        placeholder="Email address"
+        onValueChange={setValue}
+        addOn={<Icon icon="fa-envelope" color="primary" size="medium" />}
+      />
+    </form>
+  );
+}
+```
+
+---
+
+## Accessibility
+
+- Uses native `<input>` element for full accessibility support
+- Focus states are clearly visible
+- Placeholder text is styled with sufficient contrast
+- Works with form labels using `id` and `htmlFor`
+
+```js
+<label htmlFor="email">Email</label>
+<TextInput
+  id="email"
+  name="email"
+  type="email"
+  value={email}
+  onValueChange={setEmail}
+/>
+```

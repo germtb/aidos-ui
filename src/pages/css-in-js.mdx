@@ -1,127 +1,240 @@
 import { Button } from "../Button";
 import { Row } from "../Row";
-import { cssVar } from "../jss";
+import { Column } from "../Column";
+import { BaseView } from "../BaseView";
+import { Span } from "../Text";
+import { cssVar, mobile, tablet } from "../jss";
 
 # CSS in JS
 
-Aidos UI has a mechanism to do css in js, which, for lack of a better name, is called `jss`, which is the name of the only function that is needed. The idea is similar to other css in js frameworks: colocation is nice, adding javascrip features to CSS solves many of the problems CSS has.
+Aidos UI uses a custom CSS-in-JS system called `jss`. Every component accepts a `jss` prop for styling, and the library includes utilities for theming, responsive design, and type-safe CSS variables.
 
-## How it works
+---
 
-The way the library works looks similar to inline styles:
+## The jss prop
+
+All components accept a `jss` prop that works like inline styles but with additional capabilities:
 
 ```js
-<div className={jss({ background: "red", padding: 12 })} />
+<BaseView jss={{ backgroundColor: "red", padding: 12 }} />
 ```
 
-Internally what is happening is that each property gets atomized into a single CSS classname with a unique hash that gets re-used.
+Internally, each property becomes an atomic CSS class with a deterministic hash, enabling server-side rendering and hydration:
 
 ```html
 <style>
-  .x1uc1pme {
-    background: red;
-  }
-
-  .x1kbdebd {
-    padding: 12;
-  }
+  .x1uc1pme { background: red; }
+  .x1kbdebd { padding: 12px; }
 </style>
 <div class="x1uc1pme x1kbdebd" />
 ```
 
-The CSS class name is a hash based on each key-pair. This makes it deterministic, which enables for this system to work with server rendered hydrated react.
+---
 
-## Selectors
+## Arrays and conditionals
 
-Because of how this system works not all selectors can be written, but this is a good thing because arguably CSS selectors are so powerful that it is very easy to make something too hard to understand. These are some examples of how selectors are generated:
-
-```js
-jss({[':hover']: { background: 'blue' }})
-.x1uc1pme:hover {
-  background: blue;
-}
-```
+The `jss` prop accepts arrays and falsy values for conditional styling:
 
 ```js
-jss({[':first-child']: { background: 'blue' }})
-.x1uc1pme:first-child {
-  background: blue;
-}
-```
-
-```js
-jss({[' div']: { background: 'blue' }})
-.x1uc1pme div {
-  background: blue;
-}
-```
-
-```js
-jss({['@media (min-width: 750px)']: { maxWidth: 750 }})
-@media (min-width: 750px) .x1uc1pme {
-  maxWidth: 750
-}
-```
-
-## CSS variables
-
-Aidos UI comes with two default themes that can be overridden. These come with the following css variables that can be safely used (in typescript) with the `cssVar` utility:
-
-- `--overlay-background`
-- `--primary-background`
-- `--secondary-background`
-- `--divider`
-- `--strong-divider`
-- `--pressed-background`
-- `--hovered-background`
-- `--selected-background`
-- `--nav-bar`
-- `--warning`
-- `--highlight`
-- `--outline`
-- `--light-highlight`
-- `--primary-text`
-- `--secondary-text`
-- `--subtle-text`
-- `--highlight-text`
-- `--negative-text`
-- `--light-text`
-- `--background-button-positive`
-- `--background-button-secondary`
-- `--background-button-negative`
-- `--background-button-disabled`
-- `--spacing-xs`
-- `--spacing-s`
-- `--spacing-m`
-- `--spacing-l`
-- `--spacing-xl`
-- `--spacing-xxl`
-- `--spacing-xxxl`
-- `--border-radius-s`
-- `--border-radius-m`
-- `--border-radius-l`
-- `--nav-bar-height`
-
-For example:
-
-<Row justify="center">
-  <Button
-    jss={{ border: `10px solid ${cssVar("--warning")}` }}
-    label="Hello"
-    color="positive"
-    onClick={() => {}}
-  />
-</Row>
-
-```js
-<Row justify="center">
-  <Button
-    jss={{ border: `10px solid ${cssVar("--warning")}` }}
-    label="Hello"
-    color="positive"
-    onClick={() => {}}
-  />
-</Row>
+<BaseView
+  jss={[
+    { padding: 16 },
+    isActive && { backgroundColor: "blue" },
+    isDisabled && { opacity: 0.5 },
+  ]}
+/>
 ```
 
 ---
+
+## Automatic pixel conversion
+
+Numeric values are automatically converted to pixels for dimensional properties:
+
+```js
+<BaseView jss={{ padding: 16, fontSize: 14, opacity: 0.5 }} />
+// Results in: padding: 16px; font-size: 14px; opacity: 0.5;
+```
+
+---
+
+## Pseudo-selectors
+
+Use string keys for pseudo-classes and pseudo-elements:
+
+```js
+// Hover state
+jss({ ":hover": { backgroundColor: "blue" } })
+
+// Focus state
+jss({ ":focus": { outline: "2px solid blue" } })
+
+// First child
+jss({ ":first-child": { marginTop: 0 } })
+```
+
+---
+
+## Descendant selectors
+
+Target child elements with space-prefixed selectors:
+
+```js
+// All child divs
+jss({ " div": { padding: 8 } })
+
+// Direct children
+jss({ " > span": { color: "red" } })
+```
+
+---
+
+## Media queries
+
+Use media query strings as keys:
+
+```js
+jss({
+  padding: 8,
+  "@media (min-width: 750px)": {
+    padding: 16,
+  },
+})
+```
+
+---
+
+## Responsive helpers
+
+The library provides helper functions for common breakpoints:
+
+```js
+import { mobile, tablet, laptop, desktop } from "aidos-ui";
+
+<BaseView
+  jss={[
+    { padding: 8 },
+    tablet({ padding: 16 }),
+    desktop({ padding: 24 }),
+  ]}
+/>
+```
+
+| Helper | Breakpoint |
+|--------|------------|
+| `mobile()` | max-width: 479px |
+| `tablet()` | min-width: 480px |
+| `laptop()` | min-width: 1024px |
+| `desktop()` | min-width: 1280px |
+
+---
+
+## CSS variables
+
+Use the `cssVar()` helper for type-safe access to theme variables:
+
+<Row justify="center" padding="medium">
+  <Button
+    jss={{ border: `4px solid ${cssVar("--warning")}` }}
+    color="positive"
+    onClick={() => {}}
+  >
+    Styled button
+  </Button>
+</Row>
+
+```js
+import { cssVar } from "aidos-ui";
+
+<BaseView jss={{
+  backgroundColor: cssVar("--primary-background"),
+  color: cssVar("--primary-text"),
+  padding: cssVar("--spacing-m"),
+}} />
+```
+
+---
+
+## Available CSS variables
+
+### Colors
+
+| Variable | Purpose |
+|----------|---------|
+| `--primary-background` | Main background |
+| `--secondary-background` | Alternate background |
+| `--overlay-background` | Modal/popover background |
+| `--divider` | Border/divider color |
+| `--highlight` | Accent/brand color |
+| `--warning` | Warning indicator |
+
+### Text colors
+
+| Variable | Purpose |
+|----------|---------|
+| `--primary-text` | Main text |
+| `--secondary-text` | Supporting text |
+| `--subtle-text` | Muted/disabled text |
+| `--highlight-text` | Accent text |
+| `--negative-text` | Error/destructive text |
+| `--light-text` | Text on dark backgrounds |
+
+### Interactive states
+
+| Variable | Purpose |
+|----------|---------|
+| `--hovered-background` | Hover state |
+| `--pressed-background` | Active/pressed state |
+| `--selected-background` | Selected item |
+
+### Button backgrounds
+
+| Variable | Purpose |
+|----------|---------|
+| `--background-button-positive` | Positive action buttons |
+| `--background-button-secondary` | Secondary buttons |
+| `--background-button-negative` | Destructive buttons |
+| `--background-button-disabled` | Disabled buttons |
+
+### Spacing
+
+| Variable | Size |
+|----------|------|
+| `--spacing-xs` | 4px |
+| `--spacing-s` | 8px |
+| `--spacing-m` | 12px |
+| `--spacing-l` | 16px |
+| `--spacing-xl` | 24px |
+| `--spacing-xxl` | 32px |
+| `--spacing-xxxl` | 48px |
+
+### Border radius
+
+| Variable | Size |
+|----------|------|
+| `--border-radius-s` | 4px |
+| `--border-radius-m` | 8px |
+| `--border-radius-l` | 12px |
+
+---
+
+## Using toClassnames directly
+
+For custom components, use `toClassnames()` to convert style objects to class names:
+
+```js
+import { toClassnames } from "aidos-ui";
+
+function CustomComponent({ active }) {
+  return (
+    <div
+      className={toClassnames([
+        { padding: 16, borderRadius: 8 },
+        active && { backgroundColor: "blue" },
+      ])}
+    >
+      Content
+    </div>
+  );
+}
+```

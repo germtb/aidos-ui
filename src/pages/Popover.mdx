@@ -3,84 +3,84 @@ import { Icon } from "../Icon";
 import { Button } from "../Button";
 import { List } from "../List";
 import { ListButtonItem } from "../ListButtonItem";
+import { Row } from "../Row";
+import { Column } from "../Column";
 
 # Popover
 
-The `Popover` component can be used in conjunction with the `PopoverTrigger` component to create modal experiences:
+A floating panel that appears next to a trigger element. Unlike tooltips, popovers can contain interactive content like menus, forms, or action lists.
 
-<PopoverTrigger
-  PopoverComponent={({ close }) => (
-    <Popover close={close}>
-      <List bare ariaLabel="Popover" autofocus>
-        <ListButtonItem
-          bare
-          headline="Option 1"
-          onClick={() => {
-            close();
-          }}
-          color="secondary"
-        />
-        <ListButtonItem
-          bare
-          headline="Option 2"
-          onClick={() => {
-            close();
-          }}
-          color="secondary"
-        />
-        <ListButtonItem
-          bare
-          headline="Option 3"
-          onClick={() => {
-            close();
-          }}
-          color="secondary"
-          withDivider={false}
-        />
-      </List>
-    </Popover>
-  )}
->
-  {({ toggle }) => (
-    <Button
-      style={{ position: "relative" }}
-      label="Popover trigger"
-      color="positive"
-      onClick={() => {
-        toggle(undefined);
-      }}
-    />
-  )}
-</PopoverTrigger>
+---
+
+## Props
+
+### PopoverTrigger
+
+| Prop | Type | Required | Description |
+|------|------|----------|-------------|
+| `PopoverComponent` | `(props: { close: () => void } & Input) => JSX.Element` | Yes | Component to render in the popover |
+| `children` | `(props: { toggle: (input: Input) => void }) => JSX.Element` | Yes | Render function for the trigger element |
+| `jss` | `JSS` | No | Custom styles for the wrapper |
+| `jssDialog` | `JSS` | No | Custom styles for the popover dialog |
+| `grow` | `boolean` | No | Allow wrapper to grow |
+| `shrink` | `boolean` | No | Allow wrapper to shrink |
+| `tag` | `keyof HTMLElementTagNameMap` | No | HTML tag for the wrapper |
+
+### Popover
+
+| Prop | Type | Required | Description |
+|------|------|----------|-------------|
+| `children` | `ReactNode` | Yes | Popover content |
+| `close` | `() => void` | Yes | Function to close the popover |
+
+---
+
+## Basic usage
+
+Use `PopoverTrigger` to create a button that opens a popover with interactive options:
+
+<Row padding="large">
+  <PopoverTrigger
+    PopoverComponent={({ close }) => (
+      <Popover close={close}>
+        <List bare ariaLabel="Options">
+          <ListButtonItem bare headline="Edit" onClick={() => close()} color="secondary" />
+          <ListButtonItem bare headline="Duplicate" onClick={() => close()} color="secondary" />
+          <ListButtonItem bare headline="Delete" onClick={() => close()} color="negative" withDivider={false} />
+        </List>
+      </Popover>
+    )}
+  >
+    {({ toggle }) => (
+      <Button color="positive" onClick={() => toggle(undefined)}>
+        Show Options
+      </Button>
+    )}
+  </PopoverTrigger>
+</Row>
 
 ```js
 <PopoverTrigger
   PopoverComponent={({ close }) => (
     <Popover close={close}>
-      <List bare ariaLabel="Popover" autofocus>
+      <List bare ariaLabel="Options">
         <ListButtonItem
           bare
-          headline="Option 1"
-          onClick={() => {
-            close();
-          }}
+          headline="Edit"
+          onClick={() => close()}
           color="secondary"
         />
         <ListButtonItem
           bare
-          headline="Option 2"
-          onClick={() => {
-            close();
-          }}
+          headline="Duplicate"
+          onClick={() => close()}
           color="secondary"
         />
         <ListButtonItem
           bare
-          headline="Option 3"
-          onClick={() => {
-            close();
-          }}
-          color="secondary"
+          headline="Delete"
+          onClick={() => close()}
+          color="negative"
           withDivider={false}
         />
       </List>
@@ -88,14 +88,136 @@ The `Popover` component can be used in conjunction with the `PopoverTrigger` com
   )}
 >
   {({ toggle }) => (
+    <Button color="positive" onClick={() => toggle(undefined)}>
+      Show Options
+    </Button>
+  )}
+</PopoverTrigger>
+```
+
+---
+
+## Passing data to popover
+
+Use TypeScript generics to pass data when opening the popover:
+
+```js
+interface Item {
+  id: string;
+  name: string;
+}
+
+<PopoverTrigger<Item>
+  PopoverComponent={({ close, id, name }) => (
+    <Popover close={close}>
+      <Column padding="medium" gap="small">
+        <P>Edit: {name}</P>
+        <Button color="positive" onClick={() => {
+          saveItem(id);
+          close();
+        }}>
+          Save
+        </Button>
+      </Column>
+    </Popover>
+  )}
+>
+  {({ toggle }) => (
     <Button
-      style={{ position: "relative" }}
-      label="Popover trigger"
-      color="positive"
-      onClick={() => {
-        toggle(undefined);
-      }}
+      color="primary"
+      onClick={() => toggle({ id: "123", name: "My Item" })}
+    >
+      Edit Item
+    </Button>
+  )}
+</PopoverTrigger>
+```
+
+---
+
+## Behavior
+
+- **Toggle on click**: Clicking the trigger opens/closes the popover
+- **Focus management**: Focus moves into the popover when opened
+- **Focus trap**: Tab cycles through focusable elements within the popover
+- **Escape to close**: Pressing Escape closes the popover
+- **Outside click**: Clicking outside closes the popover
+- **Focus restoration**: Focus returns to the trigger when closed
+
+---
+
+## Common patterns
+
+### Dropdown menu
+
+```js
+<PopoverTrigger
+  PopoverComponent={({ close }) => (
+    <Popover close={close}>
+      <List bare ariaLabel="Menu">
+        <ListButtonItem bare headline="Profile" onClick={() => close()} />
+        <ListButtonItem bare headline="Settings" onClick={() => close()} />
+        <ListButtonItem bare headline="Logout" onClick={() => close()} color="negative" />
+      </List>
+    </Popover>
+  )}
+>
+  {({ toggle }) => (
+    <IconButton
+      bare
+      icon="fa-ellipsis-v"
+      size="medium"
+      color="secondary"
+      onClick={() => toggle(undefined)}
     />
   )}
 </PopoverTrigger>
 ```
+
+### Action confirmation
+
+```js
+<PopoverTrigger
+  PopoverComponent={({ close }) => (
+    <Popover close={close}>
+      <Column padding="medium" gap="medium">
+        <P>Are you sure you want to delete?</P>
+        <Row gap="small" justify="end">
+          <Button bare color="primary" onClick={close}>Cancel</Button>
+          <Button color="negative" onClick={() => {
+            deleteItem();
+            close();
+          }}>Delete</Button>
+        </Row>
+      </Column>
+    </Popover>
+  )}
+>
+  {({ toggle }) => (
+    <Button color="negative" onClick={() => toggle(undefined)}>
+      Delete
+    </Button>
+  )}
+</PopoverTrigger>
+```
+
+---
+
+## Accessibility
+
+- Uses `<dialog>` element with `.show()` for proper popover behavior
+- Focus is trapped within the popover
+- Escape key closes the popover
+- Focus returns to the trigger when closed
+- Tab navigation cycles through focusable elements
+
+---
+
+## Popover vs Dialog vs Tooltip
+
+| Popover | Dialog | Tooltip |
+|---------|--------|---------|
+| Positioned near trigger | Centered on screen | Positioned near trigger |
+| Light interactions | Complex workflows | Text only |
+| Partial page blocking | Full page blocking | No blocking |
+| Menus, quick actions | Forms, confirmations | Hints, labels |

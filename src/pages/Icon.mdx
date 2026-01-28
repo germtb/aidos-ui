@@ -4,60 +4,168 @@ import { Column } from "../Column";
 
 # Icon
 
-The `Icon` component uses [iconify](https://github.com/iconify/iconify) under the hood so it makes thousands of different icons available.
+The `Icon` component displays vector icons using [Iconify](https://iconify.design/) under the hood, giving you access to 200,000+ icons from 150+ icon sets including Font Awesome, Material Design, and more.
+
+---
+
+## Props
+
+| Prop | Type | Required | Description |
+|------|------|----------|-------------|
+| `icon` | `IconType` | Yes | The icon identifier (e.g., `"fa-check"`, `"fa-github"`) |
+| `size` | `Size` | Yes | Icon size: `"xsmall"` (8px), `"small"` (12px), `"medium"` (18px), `"large"` (24px), `"xlarge"` (32px), `"xxlarge"` (48px), `"xxxlarge"` (64px) |
+| `color` | `TextColor` | Yes | Icon color: `"primary"`, `"secondary"`, `"highlight"`, `"negative"`, `"subtle"`, `"light"` |
+| `ariaLabel` | `string` | No | Accessible label for screen readers |
+
+---
+
+## Sizes
+
+Icons come in seven predefined sizes to maintain consistency across your application.
 
 <Column gap="medium">
-  <Row justify="space-around">
-    <Icon icon="fa-reddit-alien" color="primary" size="small" />
-    <Icon icon="fa-reddit-square" color="secondary" size="small" />
-    <Icon icon="fa-refresh" color="highlight" size="small" />
-    <Icon icon="fa-registered" color="negative" size="small" />
-    <Icon icon="fa-remove" color="subtle" size="small" />
-    <Icon icon="fa-renren" color="light" size="small" />
-  </Row>
-  <Row justify="space-around">
-    <Icon icon="fa-reddit-alien" color="primary" size="medium" />
-    <Icon icon="fa-reddit-square" color="secondary" size="medium" />
-    <Icon icon="fa-refresh" color="highlight" size="medium" />
-    <Icon icon="fa-registered" color="negative" size="medium" />
-    <Icon icon="fa-remove" color="subtle" size="medium" />
-    <Icon icon="fa-renren" color="light" size="medium" />
-  </Row>
-  <Row justify="space-around">
-    <Icon icon="fa-reddit-alien" color="primary" size="large" />
-    <Icon icon="fa-reddit-square" color="secondary" size="large" />
-    <Icon icon="fa-refresh" color="highlight" size="large" />
-    <Icon icon="fa-registered" color="negative" size="large" />
-    <Icon icon="fa-remove" color="subtle" size="large" />
-    <Icon icon="fa-renren" color="light" size="large" />
+  <Row justify="space-around" align="center">
+    <Icon icon="fa-star" color="primary" size="xsmall" />
+    <Icon icon="fa-star" color="primary" size="small" />
+    <Icon icon="fa-star" color="primary" size="medium" />
+    <Icon icon="fa-star" color="primary" size="large" />
+    <Icon icon="fa-star" color="primary" size="xlarge" />
+    <Icon icon="fa-star" color="primary" size="xxlarge" />
+    <Icon icon="fa-star" color="primary" size="xxxlarge" />
   </Row>
 </Column>
 
 ```js
+<Icon icon="fa-star" color="primary" size="xsmall" />   // 8px
+<Icon icon="fa-star" color="primary" size="small" />    // 12px
+<Icon icon="fa-star" color="primary" size="medium" />   // 18px
+<Icon icon="fa-star" color="primary" size="large" />    // 24px
+<Icon icon="fa-star" color="primary" size="xlarge" />   // 32px
+<Icon icon="fa-star" color="primary" size="xxlarge" />  // 48px
+<Icon icon="fa-star" color="primary" size="xxxlarge" /> // 64px
+```
+
+---
+
+## Colors
+
+Icons inherit semantic colors from the theme system, ensuring they adapt correctly to light and dark modes.
+
 <Column gap="medium">
   <Row justify="space-around">
-    <Icon icon="fa-reddit-alien" color="primary" size="small" />
-    <Icon icon="fa-reddit-square" color="secondary" size="small" />
-    <Icon icon="fa-refresh" color="highlight" size="small" />
-    <Icon icon="fa-registered" color="negative" size="small" />
-    <Icon icon="fa-remove" color="subtle" size="small" />
-    <Icon icon="fa-renren" color="light" size="small" />
-  </Row>
-  <Row justify="space-around">
-    <Icon icon="fa-reddit-alien" color="primary" size="medium" />
-    <Icon icon="fa-reddit-square" color="secondary" size="medium" />
-    <Icon icon="fa-refresh" color="highlight" size="medium" />
-    <Icon icon="fa-registered" color="negative" size="medium" />
-    <Icon icon="fa-remove" color="subtle" size="medium" />
-    <Icon icon="fa-renren" color="light" size="medium" />
-  </Row>
-  <Row justify="space-around">
-    <Icon icon="fa-reddit-alien" color="primary" size="large" />
-    <Icon icon="fa-reddit-square" color="secondary" size="large" />
-    <Icon icon="fa-refresh" color="highlight" size="large" />
-    <Icon icon="fa-registered" color="negative" size="large" />
-    <Icon icon="fa-remove" color="subtle" size="large" />
-    <Icon icon="fa-renren" color="light" size="large" />
+    <Icon icon="fa-heart" color="primary" size="large" />
+    <Icon icon="fa-heart" color="secondary" size="large" />
+    <Icon icon="fa-heart" color="highlight" size="large" />
+    <Icon icon="fa-heart" color="negative" size="large" />
+    <Icon icon="fa-heart" color="subtle" size="large" />
+    <Icon icon="fa-heart" color="light" size="large" />
   </Row>
 </Column>
+
+```js
+<Icon icon="fa-heart" color="primary" size="large" />   // Main content color
+<Icon icon="fa-heart" color="secondary" size="large" /> // Secondary content
+<Icon icon="fa-heart" color="highlight" size="large" /> // Accent/brand color
+<Icon icon="fa-heart" color="negative" size="large" />  // Error/destructive
+<Icon icon="fa-heart" color="subtle" size="large" />    // Muted/disabled
+<Icon icon="fa-heart" color="light" size="large" />     // Light/inverted
 ```
+
+---
+
+## Icon examples
+
+A selection of commonly used icons:
+
+<Column gap="medium">
+  <Row justify="space-around">
+    <Icon icon="fa-check" color="primary" size="medium" />
+    <Icon icon="fa-close" color="negative" size="medium" />
+    <Icon icon="fa-search" color="secondary" size="medium" />
+    <Icon icon="fa-user" color="primary" size="medium" />
+    <Icon icon="fa-cog" color="secondary" size="medium" />
+    <Icon icon="fa-bell" color="highlight" size="medium" />
+  </Row>
+  <Row justify="space-around">
+    <Icon icon="fa-github" color="primary" size="medium" />
+    <Icon icon="fa-twitter" color="primary" size="medium" />
+    <Icon icon="fa-linkedin" color="primary" size="medium" />
+    <Icon icon="fa-envelope" color="primary" size="medium" />
+    <Icon icon="fa-phone" color="primary" size="medium" />
+    <Icon icon="fa-globe" color="primary" size="medium" />
+  </Row>
+</Column>
+
+```js
+// Action icons
+<Icon icon="fa-check" color="primary" size="medium" />
+<Icon icon="fa-close" color="negative" size="medium" />
+<Icon icon="fa-search" color="secondary" size="medium" />
+
+// Social icons
+<Icon icon="fa-github" color="primary" size="medium" />
+<Icon icon="fa-twitter" color="primary" size="medium" />
+```
+
+---
+
+## Accessibility
+
+Always provide an `ariaLabel` when the icon conveys meaning that isn't available through surrounding text.
+
+```js
+// Decorative icon (no label needed if text explains it)
+<Button>
+  <Icon icon="fa-download" color="light" size="small" />
+  Download
+</Button>
+
+// Meaningful icon (needs label for screen readers)
+<Icon
+  icon="fa-warning"
+  color="negative"
+  size="medium"
+  ariaLabel="Warning"
+/>
+```
+
+---
+
+## Preloading icons
+
+By default, Iconify loads icons asynchronously from a CDN. To prevent flickering on initial render, you can preload icons by bundling them with your application.
+
+**Option 1: Preload an entire icon set**
+
+```bash
+npm install @iconify-json/fa
+```
+
+```js
+import { addCollection } from "@iconify/react";
+import faIcons from "@iconify-json/fa/icons.json";
+
+// Call once at app initialization (e.g., in _app.tsx)
+addCollection(faIcons);
+```
+
+**Option 2: Preload individual icons**
+
+```bash
+npm install @iconify-icons/fa
+```
+
+```js
+import { addIcon } from "@iconify/react";
+import faCheck from "@iconify-icons/fa/check";
+import faClose from "@iconify-icons/fa/close";
+
+addIcon("fa:check", faCheck);
+addIcon("fa:close", faClose);
+```
+
+---
+
+## Finding icons
+
+Browse available icons at [Iconify Icon Sets](https://icon-sets.iconify.design/). The component uses Font Awesome 4 icons by default (prefixed with `fa-`), but you can use any Iconify-supported icon set.

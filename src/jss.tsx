@@ -210,7 +210,7 @@ export function JSSProvider({
   children,
 }: {
   themes: { dark: Theme; light: Theme };
-  children: JSX.Element;
+  children: React.JSX.Element;
 }) {
   const stylesRef = useRef<string[] | null>(null);
 
@@ -534,10 +534,10 @@ const backgroundStyles = {
     backgroundColor: cssVar("--highlight"),
   },
   light: {
-    backgroundColor: "white",
+    backgroundColor: cssVar("--light-text"),
   },
   dark: {
-    backgroundColor: "black",
+    backgroundColor: cssVar("--primary-text"),
   },
   warning: {
     backgroundColor: cssVar("--warning"),

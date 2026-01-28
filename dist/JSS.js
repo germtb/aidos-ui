@@ -360,10 +360,10 @@ const backgroundStyles = {
         backgroundColor: cssVar("--highlight"),
     },
     light: {
-        backgroundColor: "white",
+        backgroundColor: cssVar("--light-text"),
     },
     dark: {
-        backgroundColor: "black",
+        backgroundColor: cssVar("--primary-text"),
     },
     warning: {
         backgroundColor: cssVar("--warning"),

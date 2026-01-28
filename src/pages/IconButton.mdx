@@ -1,144 +1,155 @@
 import { IconButton } from "../IconButton";
 import { Row } from "../Row";
+import { Column } from "../Column";
 
 # IconButton
 
-This component is similar to the `Button` component but is styled simply as a circle containing an icon.
+A circular button containing only an icon. Use IconButton for compact actions where space is limited or when the icon alone clearly communicates the action's purpose.
+
+---
+
+## Props
+
+| Prop | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `icon` | `IconType` | Yes | - | The icon to display |
+| `size` | `Size` | Yes | - | Button size: `"xsmall"` (20px), `"small"` (24px), `"medium"` (32px), `"large"` (40px), `"xlarge"` (48px) |
+| `color` | `InteractableColor` | Yes | - | `"positive"`, `"secondary"`, `"negative"`, `"dark"`, `"light"` |
+| `onClick` | `function` | Yes | - | Click handler |
+| `bare` | `boolean` | No | `false` | Removes background for a lighter appearance |
+| `border` | `boolean` | No | `false` | Adds a border |
+| `disabled` | `boolean` | No | `false` | Disables interaction |
+| `aria-label` | `string` | No | - | Accessible label (recommended) |
 
 ---
 
 ## Basic variants
 
-The basic `IconButton` is useful to create compound components in which it is harder to fit a button with a text description. Choosing the right icon will be helpful for the users, and in some cases a tooltip may be necessary to explain the intent.
+IconButtons come in different colors to indicate their purpose. Always pair with a clear, recognizable icon.
 
 <Row gap="large" align="center" padding="large" justify="center">
-  <IconButton
-    size="medium"
-    icon="fa-check"
-    color="positive"
-    onClick={() => {}}
-  />
-  <IconButton
-    size="medium"
-    icon="fa-check"
-    color="secondary"
-    onClick={() => {}}
-  />
-  <IconButton
-    size="medium"
-    icon="fa-check"
-    color="negative"
-    onClick={() => {}}
-  />
-  <IconButton
-    size="medium"
-    icon="fa-check"
-    color="positive"
-    disabled
-    onClick={() => {}}
-  />
+  <IconButton size="medium" icon="fa-check" color="positive" onClick={() => {}} />
+  <IconButton size="medium" icon="fa-pencil" color="secondary" onClick={() => {}} />
+  <IconButton size="medium" icon="fa-trash" color="negative" onClick={() => {}} />
+  <IconButton size="medium" icon="fa-check" color="positive" disabled onClick={() => {}} />
 </Row>
 
 ```js
-<Row gap="large" align="center" padding="large" justify="center">
-  <IconButton
-    size="medium"
-    icon="fa-check"
-    color="positive"
-    onClick={() => {}}
-  />
-  <IconButton
-    size="medium"
-    icon="fa-check"
-    color="secondary"
-    onClick={() => {}}
-  />
-  <IconButton
-    size="medium"
-    icon="fa-check"
-    color="negative"
-    onClick={() => {}}
-  />
-  <IconButton
-    size="medium"
-    icon="fa-check"
-    color="positive"
-    disabled
-    onClick={() => {}}
-  />
-</Row>
+<IconButton
+  icon="fa-check"
+  size="medium"
+  color="positive"
+  aria-label="Confirm"
+  onClick={() => {}}
+/>
+
+<IconButton
+  icon="fa-pencil"
+  size="medium"
+  color="secondary"
+  aria-label="Edit"
+  onClick={() => {}}
+/>
+
+<IconButton
+  icon="fa-trash"
+  size="medium"
+  color="negative"
+  aria-label="Delete"
+  onClick={() => {}}
+/>
 ```
 
 ---
 
-## Bare variants
+## Bare variant
 
-The bare `IconButton` is even more subtle than the bare `Button` so it can be used to make the interface feel ligther.
+The `bare` variant removes the background, creating a subtle button that works well in toolbars or alongside other content.
 
-<Row gap="large" align="center" justify="center">
-  <IconButton
-    size="medium"
-    bare
-    icon="fa-check"
-    color="positive"
-    onClick={() => {}}
-  />
-  <IconButton
-    size="medium"
-    bare
-    icon="fa-check"
-    color="secondary"
-    onClick={() => {}}
-  />
-  <IconButton
-    size="medium"
-    bare
-    icon="fa-check"
-    color="negative"
-    onClick={() => {}}
-  />
-  <IconButton
-    size="medium"
-    bare
-    icon="fa-check"
-    color="positive"
-    disabled
-    onClick={() => {}}
-  />
+<Row gap="large" align="center" padding="large" justify="center">
+  <IconButton bare size="medium" icon="fa-check" color="positive" onClick={() => {}} />
+  <IconButton bare size="medium" icon="fa-pencil" color="secondary" onClick={() => {}} />
+  <IconButton bare size="medium" icon="fa-trash" color="negative" onClick={() => {}} />
+  <IconButton bare size="medium" icon="fa-check" color="positive" disabled onClick={() => {}} />
 </Row>
 
 ```js
-<Row gap="large" align="center" justify="center">
-  <IconButton
-    size="medium"
-    bare
-    icon="fa-check"
-    color="positive"
-    onClick={() => {}}
-  />
-  <IconButton
-    size="medium"
-    bare
-    icon="fa-check"
-    color="secondary"
-    onClick={() => {}}
-  />
-  <IconButton
-    size="medium"
-    bare
-    icon="fa-check"
-    color="negative"
-    onClick={() => {}}
-  />
-  <IconButton
-    size="medium"
-    bare
-    icon="fa-check"
-    color="positive"
-    disabled
-    onClick={() => {}}
-  />
-</Row>
+<IconButton
+  bare
+  icon="fa-close"
+  size="medium"
+  color="secondary"
+  aria-label="Close"
+  onClick={() => {}}
+/>
 ```
 
 ---
+
+## Sizes
+
+IconButtons scale proportionally, maintaining their circular shape at all sizes.
+
+<Row gap="large" align="center" padding="large" justify="center">
+  <IconButton size="xsmall" icon="fa-star" color="positive" onClick={() => {}} />
+  <IconButton size="small" icon="fa-star" color="positive" onClick={() => {}} />
+  <IconButton size="medium" icon="fa-star" color="positive" onClick={() => {}} />
+  <IconButton size="large" icon="fa-star" color="positive" onClick={() => {}} />
+  <IconButton size="xlarge" icon="fa-star" color="positive" onClick={() => {}} />
+</Row>
+
+```js
+<IconButton size="xsmall" icon="fa-star" color="positive" onClick={() => {}} /> // 20px
+<IconButton size="small" icon="fa-star" color="positive" onClick={() => {}} />  // 24px
+<IconButton size="medium" icon="fa-star" color="positive" onClick={() => {}} /> // 32px
+<IconButton size="large" icon="fa-star" color="positive" onClick={() => {}} />  // 40px
+<IconButton size="xlarge" icon="fa-star" color="positive" onClick={() => {}} /> // 48px
+```
+
+---
+
+## Common use cases
+
+<Row gap="large" align="center" padding="large" justify="center">
+  <IconButton bare size="medium" icon="fa-heart" color="negative" aria-label="Like" onClick={() => {}} />
+  <IconButton bare size="medium" icon="fa-bookmark" color="secondary" aria-label="Save" onClick={() => {}} />
+  <IconButton bare size="medium" icon="fa-share" color="secondary" aria-label="Share" onClick={() => {}} />
+  <IconButton bare size="medium" icon="fa-ellipsis-h" color="secondary" aria-label="More options" onClick={() => {}} />
+</Row>
+
+```js
+// Social actions
+<IconButton bare icon="fa-heart" size="medium" color="negative" aria-label="Like" onClick={() => {}} />
+<IconButton bare icon="fa-bookmark" size="medium" color="secondary" aria-label="Save" onClick={() => {}} />
+<IconButton bare icon="fa-share" size="medium" color="secondary" aria-label="Share" onClick={() => {}} />
+
+// Menu trigger
+<IconButton bare icon="fa-ellipsis-h" size="medium" color="secondary" aria-label="More options" onClick={() => {}} />
+```
+
+---
+
+## Accessibility
+
+Since IconButtons have no visible text, always provide an `aria-label` to describe the action for screen reader users.
+
+```js
+// Good - has accessible label
+<IconButton
+  icon="fa-trash"
+  size="medium"
+  color="negative"
+  aria-label="Delete item"
+  onClick={() => {}}
+/>
+
+// Bad - no accessible label
+<IconButton
+  icon="fa-trash"
+  size="medium"
+  color="negative"
+  onClick={() => {}}
+/>
+```
+
+Consider using a `Tooltip` component alongside IconButton to provide visual hints for all users.

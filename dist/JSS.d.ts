@@ -1,5 +1,5 @@
-/// <reference types="react" />
 import CSS from "csstype";
+import React from "react";
 export type Styles = CSS.Properties<string | number | CSS.Properties<string | number>>;
 export type JSS = Styles | null | false | undefined | {
     [key: string]: Styles;
@@ -10,7 +10,7 @@ export declare function JSSProvider({ themes, children, }: {
         dark: Theme;
         light: Theme;
     };
-    children: JSX.Element;
+    children: React.JSX.Element;
 }): import("react/jsx-runtime").JSX.Element;
 export declare function JSServerStyles(): import("react/jsx-runtime").JSX.Element;
 export type Size = "xsmall" | "small" | "medium" | "large" | "xlarge" | "xxlarge" | "xxxlarge";
@@ -80,10 +80,10 @@ export declare const getBackground: (color: Color) => JSS;
 export declare const MOBILE = 750;
 export declare const TABLET = 1000;
 export declare const LAPTOP = 1200;
-export declare const MOBILE_MEDIA: string;
-export declare const TABLET_MEDIA: string;
-export declare const LAPTOP_MEDIA: string;
-export declare const DESKTOP_MEDIA: string;
+export declare const MOBILE_MEDIA = "@media (min-width: 0px) and (max-width: 750px)";
+export declare const TABLET_MEDIA = "@media (min-width: 750px) and (max-width: 1000px)";
+export declare const LAPTOP_MEDIA = "@media (min-width: 1000px) and (max-width: 1200px)";
+export declare const DESKTOP_MEDIA = "@media (min-width: 1200px)";
 export declare function mobile(jss: JSS): {
     [key: string]: JSS;
 };

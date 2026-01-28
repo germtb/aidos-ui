@@ -1,30 +1,258 @@
 # useNavigation
 
-The `useNavigation` hook is easy to use but complicated under the hood, so I expect there will be situations in which it will break, especially if the HTML markup is not perfectly correct. The gist of it is that it enables keyboard navigation by manipulating the `tabInde` property for all the elements under a certain element (the root). To the 'active' element we assign the `tabIndex` 0, while every other elements gets assigned `tabIndex` -1. This means that the whole area will be a single tab stop. Then, when we detect the arrow down or right we push change the active element by changing the `tabInde` and calling `element.focus()`.
+A React hook that enables keyboard navigation within a container element. Implements the [WAI-ARIA grid pattern](https://www.w3.org/WAI/ARIA/apg/patterns/grid/examples/layout-grids/) for accessible keyboard navigation.
 
-This is following the [grid layout pattern](https://www.w3.org/WAI/ARIA/apg/patterns/grid/examples/layout-grids/).
+---
+
+## Signature
+
+```ts
+function useNavigation(options?: {
+  autofocus?: boolean;
+  rowLength?: number;
+  enabled?: boolean;
+}): (root: HTMLElement) => void
+```
+
+---
+
+## Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `autofocus` | `boolean` | `false` | Automatically focus the first item on mount |
+| `rowLength` | `number` | `1` | Number of items per row (for grid layouts) |
+| `enabled` | `boolean` | `true` | Enable/disable navigation |
+
+---
+
+## Basic usage
 
 ```js
-export function List() {
+import { useNavigation } from "aidos-ui";
+
+function NavigableList() {
   const rootRef = useNavigation();
 
   return (
-    <ul aria-label={ariaLabel} ref={rootRef}>
-      <li>
-        <button>Button 1</button>
-      </li>
-      <li>
-        <button>Button 2</button>
-      </li>
-      <li>
-        <button>Button 3</button>
-      </li>
-      <li>
-        <button>Button 4</button>
-      </li>
+    <ul ref={rootRef} aria-label="Options">
+      <li><button>Option 1</button></li>
+      <li><button>Option 2</button></li>
+      <li><button>Option 3</button></li>
     </ul>
   );
 }
 ```
 
 ---
+
+## How it works
+
+The hook manages `tabIndex` on focusable elements within the container:
+
+1. The "active" element gets `tabIndex="0"`
+2. All other elements get `tabIndex="-1"`
+3. This makes the entire area a single Tab stop
+4. Arrow keys move focus between elements
+
+**Keyboard controls:**
+- **Arrow Down / Arrow Right**: Move to next item
+- **Arrow Up / Arrow Left**: Move to previous item
+- Navigation wraps around at the ends
+
+---
+
+## List navigation
+
+import { List } from "../List";
+import { ListButtonItem } from "../ListButtonItem";
+
+<List ariaLabel="example" navigation={true}>
+  <ListButtonItem color="secondary" headline="Headline 1" onClick={() => {}} />
+  <ListButtonItem color="secondary" headline="Headline 2" onClick={() => {}} />
+  <ListButtonItem
+    withDivider={false}
+    color="secondary"
+    headline="Headline 3"
+    onClick={() => {}}
+  />
+</List>
+
+```js
+<List ariaLabel="example" navigation={true}>
+  <ListButtonItem headline="Headline 1" onClick={() => {}} />
+  <ListButtonItem headline="Headline 2" onClick={() => {}} />
+  <ListButtonItem headline="Headline 3" onClick={() => {}} />
+</List>
+```
+
+---
+
+## Disabled navigation
+
+<List ariaLabel="example" navigation={false}>
+  <ListButtonItem color="secondary" headline="Headline 1" onClick={() => {}} />
+  <ListButtonItem color="secondary" headline="Headline 2" onClick={() => {}} />
+  <ListButtonItem
+    withDivider={false}
+    color="secondary"
+    headline="Headline 3"
+    onClick={() => {}}
+  />
+</List>
+
+```js
+<List ariaLabel="example" navigation={false}>
+  <ListButtonItem headline="Headline 1" onClick={() => {}} />
+  <ListButtonItem headline="Headline 2" onClick={() => {}} />
+  <ListButtonItem headline="Headline 3" onClick={() => {}} />
+</List>
+```
+
+---
+
+## Grid navigation
+
+For grid layouts, set `rowLength` to enable proper up/down navigation:
+
+```js
+function IconGrid() {
+  const rootRef = useNavigation({ rowLength: 4 });
+
+  return (
+    <div
+      ref={rootRef}
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(4, 1fr)",
+      }}
+    >
+      {icons.map((icon) => (
+        <button key={icon.name} onClick={() => selectIcon(icon)}>
+          <Icon icon={icon.name} />
+        </button>
+      ))}
+    </div>
+  );
+}
+```
+
+With `rowLength: 4`:
+- Arrow Left/Right moves horizontally
+- Arrow Up/Down moves vertically (jumps 4 items)
+
+---
+
+## Autofocus
+
+Focus the first item automatically when the component mounts:
+
+```js
+function DropdownMenu({ items }) {
+  const rootRef = useNavigation({ autofocus: true });
+
+  return (
+    <ul ref={rootRef} role="menu">
+      {items.map((item) => (
+        <li key={item.id} role="menuitem">
+          <button onClick={item.action}>{item.label}</button>
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+---
+
+## Conditional navigation
+
+Enable or disable navigation dynamically:
+
+```js
+function EditableList({ isEditing }) {
+  const rootRef = useNavigation({
+    enabled: !isEditing,  // Disable during edit mode
+  });
+
+  return (
+    <ul ref={rootRef}>
+      {items.map((item) => (
+        <li key={item.id}>
+          {isEditing ? (
+            <TextInput value={item.name} />
+          ) : (
+            <button>{item.name}</button>
+          )}
+        </li>
+      ))}
+    </ul>
+  );
+}
+```
+
+---
+
+## Dynamic lists
+
+The hook uses a MutationObserver to handle items being added or removed:
+
+```js
+function DynamicList() {
+  const [items, setItems] = useState(initialItems);
+  const rootRef = useNavigation();
+
+  const addItem = () => {
+    setItems([...items, { id: Date.now(), name: "New Item" }]);
+  };
+
+  return (
+    <div>
+      <button onClick={addItem}>Add Item</button>
+      <ul ref={rootRef}>
+        {items.map((item) => (
+          <li key={item.id}>
+            <button>{item.name}</button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+```
+
+---
+
+## Implementation notes
+
+- Uses `queryFocusables()` to find focusable elements (buttons, links, inputs, etc.)
+- Manages focus state via `tabIndex` manipulation
+- Handles wrap-around navigation at list boundaries
+- Observes DOM mutations to handle dynamic content
+- Built on `useRefEffect` for cleanup management
+
+---
+
+## Accessibility
+
+This hook helps implement accessible keyboard navigation:
+
+- Makes complex widgets keyboard-accessible
+- Follows WAI-ARIA grid pattern recommendations
+- Reduces Tab stops for better keyboard efficiency
+- Works with screen readers
+
+For best results, combine with proper ARIA attributes:
+
+```js
+<ul
+  ref={rootRef}
+  role="listbox"
+  aria-label="Select an option"
+>
+  <li role="option" aria-selected={selected === 1}>
+    <button>Option 1</button>
+  </li>
+  {/* ... */}
+</ul>
+```

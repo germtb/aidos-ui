@@ -1,4 +1,3 @@
-/// <reference types="react" />
 import { JSS } from "./jss";
 export interface SelectProps extends React.HTMLAttributes<HTMLSelectElement> {
     value: string;

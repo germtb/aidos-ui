@@ -1,77 +1,211 @@
 import { Column } from "../Column";
 import { Row } from "../Row";
 import { Badge } from "../Badge";
+import { BaseView } from "../BaseView";
+import { Span } from "../Text";
 import { cssVar } from "../jss";
 
 # FlexLayout
 
-Because flex is so common there are a `Row` and a `Column` components, with a lot of utility that mean it is very easy to create complex layouts without having to create extra styles.
+`Row` and `Column` are the primary layout components, providing a simple API for flexbox layouts without writing custom styles.
 
-- justify: like the `justify-content` flex property.
-- gap: like the `gap` property, it accepts any `Size`.
-- align: like the `align-items` flex property.
-- padding: like the `padding` property, it accepts any `Padding`.
+---
 
-<Column gap="medium">
-  <Row
-    jss={{ border: `1px solid ${cssVar("--highlight")}` }}
-    justify="space-around"
-    align="center"
-  >
-    <Badge />
-    <Badge />
-    <Badge />
-  </Row>
-  <Row
-    jss={{ border: `1px solid ${cssVar("--highlight")}` }}
-    justify="space-evenly"
-    align="center"
-  >
-    <Badge />
-    <Badge />
-    <Badge />
-  </Row>
-  <Row
-    jss={{ border: `1px solid ${cssVar("--highlight")}` }}
-    justify="space-between"
-    align="center"
-  >
-    <Badge />
-    <Badge />
-    <Badge />
-  </Row>
+## Row
+
+Arranges children horizontally (flex-direction: row).
+
+<Row gap="medium" padding="medium" jss={{ border: `1px solid ${cssVar("--divider")}`, borderRadius: 8 }}>
+  <Badge />
+  <Badge />
+  <Badge />
+</Row>
+
+```js
+<Row gap="medium" padding="medium">
+  <Badge />
+  <Badge />
+  <Badge />
+</Row>
+```
+
+---
+
+## Column
+
+Arranges children vertically (flex-direction: column).
+
+<Column gap="medium" padding="medium" jss={{ border: `1px solid ${cssVar("--divider")}`, borderRadius: 8 }}>
+  <Badge />
+  <Badge />
+  <Badge />
 </Column>
 
 ```js
-<Column gap="medium">
-  <Row
-    jss={{ border: `1px solid ${cssVar("--highlight")}` }}
-    justify="space-around"
-    align="center"
-  >
-    <Badge />
-    <Badge />
-    <Badge />
-  </Row>
-  <Row
-    jss={{ border: `1px solid ${cssVar("--highlight")}` }}
-    justify="space-evenly"
-    align="center"
-  >
-    <Badge />
-    <Badge />
-    <Badge />
-  </Row>
-  <Row
-    jss={{ border: `1px solid ${cssVar("--highlight")}` }}
-    justify="space-between"
-    align="center"
-  >
-    <Badge />
-    <Badge />
-    <Badge />
-  </Row>
+<Column gap="medium" padding="medium">
+  <Badge />
+  <Badge />
+  <Badge />
 </Column>
 ```
 
 ---
+
+## Props
+
+Both `Row` and `Column` accept the same props:
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `gap` | `Gap` | - | Space between children: `"none"`, `"xsmall"`, `"small"`, `"medium"`, `"large"`, `"xlarge"` |
+| `padding` | `Padding` | - | Internal padding (same values as gap) |
+| `justify` | `Justify` | - | Main axis alignment: `"start"`, `"end"`, `"center"`, `"space-between"`, `"space-around"`, `"space-evenly"` |
+| `align` | `Align` | - | Cross axis alignment: `"start"`, `"end"`, `"center"`, `"stretch"`, `"baseline"` |
+| `grow` | `boolean` | `false` | Allow element to grow (flex-grow: 1) |
+| `shrink` | `boolean` | `false` | Allow element to shrink (flex-shrink: 1) |
+| `wrap` | `boolean` | `false` | Allow items to wrap |
+
+---
+
+## Justify content
+
+Control how items are distributed along the main axis:
+
+<Column gap="medium">
+  <Row justify="start" padding="small" jss={{ border: `1px solid ${cssVar("--highlight")}` }}>
+    <Badge /><Badge /><Badge />
+  </Row>
+  <Row justify="center" padding="small" jss={{ border: `1px solid ${cssVar("--highlight")}` }}>
+    <Badge /><Badge /><Badge />
+  </Row>
+  <Row justify="end" padding="small" jss={{ border: `1px solid ${cssVar("--highlight")}` }}>
+    <Badge /><Badge /><Badge />
+  </Row>
+  <Row justify="space-between" padding="small" jss={{ border: `1px solid ${cssVar("--highlight")}` }}>
+    <Badge /><Badge /><Badge />
+  </Row>
+  <Row justify="space-around" padding="small" jss={{ border: `1px solid ${cssVar("--highlight")}` }}>
+    <Badge /><Badge /><Badge />
+  </Row>
+  <Row justify="space-evenly" padding="small" jss={{ border: `1px solid ${cssVar("--highlight")}` }}>
+    <Badge /><Badge /><Badge />
+  </Row>
+</Column>
+
+```js
+<Row justify="start">...</Row>
+<Row justify="center">...</Row>
+<Row justify="end">...</Row>
+<Row justify="space-between">...</Row>
+<Row justify="space-around">...</Row>
+<Row justify="space-evenly">...</Row>
+```
+
+---
+
+## Align items
+
+Control how items are aligned on the cross axis:
+
+<Row gap="medium">
+  <Row align="start" padding="small" jss={{ border: `1px solid ${cssVar("--highlight")}`, height: 80 }}>
+    <Badge />
+  </Row>
+  <Row align="center" padding="small" jss={{ border: `1px solid ${cssVar("--highlight")}`, height: 80 }}>
+    <Badge />
+  </Row>
+  <Row align="end" padding="small" jss={{ border: `1px solid ${cssVar("--highlight")}`, height: 80 }}>
+    <Badge />
+  </Row>
+  <Row align="stretch" padding="small" jss={{ border: `1px solid ${cssVar("--highlight")}`, height: 80 }}>
+    <BaseView jss={{ backgroundColor: cssVar("--highlight"), width: 16 }} />
+  </Row>
+</Row>
+
+```js
+<Row align="start">...</Row>
+<Row align="center">...</Row>
+<Row align="end">...</Row>
+<Row align="stretch">...</Row>
+```
+
+---
+
+## Gap sizes
+
+<Column gap="medium">
+  <Row gap="none" jss={{ border: `1px solid ${cssVar("--divider")}` }}>
+    <Badge /><Badge /><Badge />
+  </Row>
+  <Row gap="small" jss={{ border: `1px solid ${cssVar("--divider")}` }}>
+    <Badge /><Badge /><Badge />
+  </Row>
+  <Row gap="medium" jss={{ border: `1px solid ${cssVar("--divider")}` }}>
+    <Badge /><Badge /><Badge />
+  </Row>
+  <Row gap="large" jss={{ border: `1px solid ${cssVar("--divider")}` }}>
+    <Badge /><Badge /><Badge />
+  </Row>
+  <Row gap="xlarge" jss={{ border: `1px solid ${cssVar("--divider")}` }}>
+    <Badge /><Badge /><Badge />
+  </Row>
+</Column>
+
+```js
+<Row gap="none">...</Row>    // 0px
+<Row gap="xsmall">...</Row>  // 4px
+<Row gap="small">...</Row>   // 8px
+<Row gap="medium">...</Row>  // 12px
+<Row gap="large">...</Row>   // 16px
+<Row gap="xlarge">...</Row>  // 24px
+```
+
+---
+
+## Grow and shrink
+
+Control how items expand or contract:
+
+<Row gap="medium" jss={{ border: `1px solid ${cssVar("--divider")}` }}>
+  <BaseView padding="medium" jss={{ backgroundColor: cssVar("--highlight") }}>
+    <Span color="light">Fixed</Span>
+  </BaseView>
+  <BaseView grow padding="medium" jss={{ backgroundColor: cssVar("--secondary-background") }}>
+    <Span>Grows to fill space</Span>
+  </BaseView>
+  <BaseView padding="medium" jss={{ backgroundColor: cssVar("--highlight") }}>
+    <Span color="light">Fixed</Span>
+  </BaseView>
+</Row>
+
+```js
+<Row>
+  <BaseView>Fixed width</BaseView>
+  <BaseView grow>Fills remaining space</BaseView>
+  <BaseView>Fixed width</BaseView>
+</Row>
+```
+
+---
+
+## Nesting layouts
+
+Combine Row and Column for complex layouts:
+
+```js
+<Column gap="medium" padding="medium">
+  <Row justify="space-between" align="center">
+    <Span>Title</Span>
+    <Button color="primary" onClick={() => {}}>Action</Button>
+  </Row>
+  <Row gap="medium">
+    <Column grow gap="small">
+      <Span>Main content</Span>
+      <P>Description text here...</P>
+    </Column>
+    <Column gap="small">
+      <Span>Sidebar</Span>
+    </Column>
+  </Row>
+</Column>
+```

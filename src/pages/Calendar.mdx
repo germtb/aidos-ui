@@ -1,11 +1,97 @@
 import { Calendar } from "../Calendar";
 import { Box } from "../Box";
+import { Row } from "../Row";
+import { Column } from "../Column";
 import { Badge } from "../Badge";
 import { Span, H3 } from "../Text";
+import { cssVar } from "../jss";
 
 # Calendar
 
-The calendar component is can be used to represent months, and is customisable through render callbacks for the header and cell elemtns
+A flexible calendar grid component for displaying months. Fully customizable through render callbacks for both header cells (weekday names) and day cells.
+
+---
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `date` | `Date` | Required | The month to display (uses year and month from this date) |
+| `header` | `(props) => JSX.Element` | Required | Render function for weekday header cells |
+| `cell` | `(props) => JSX.Element` | Required | Render function for day cells |
+| `jss` | `JSS` | - | Custom styles for the calendar grid |
+
+### Header render props
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `weekday` | `string` | Localized weekday abbreviation (Mon, Tue, etc.) |
+
+### Cell render props
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `date` | `Date` | The date for this cell |
+| `today` | `boolean` | Whether this date is today |
+| `outOfMonth` | `boolean` | Whether this date is outside the current month |
+| `top` | `boolean` | Whether this cell is in the top row |
+| `bottom` | `boolean` | Whether this cell is in the bottom row |
+| `left` | `boolean` | Whether this cell is in the leftmost column |
+| `right` | `boolean` | Whether this cell is in the rightmost column |
+
+---
+
+## Basic usage
+
+<Calendar
+  date={new Date()}
+  header={({ weekday }) => (
+    <Box padding="small" jss={{ textAlign: "center" }}>
+      <Span bold color="secondary" size="small">{weekday}</Span>
+    </Box>
+  )}
+  cell={({ today, date, outOfMonth }) => (
+    <Box padding="small" relative={true} jss={{ opacity: outOfMonth ? 0.3 : 1, textAlign: "center" }}>
+      {today && (
+        <Badge
+          size="xlarge"
+          color="highlight"
+          jss={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            zIndex: 0,
+          }}
+        />
+      )}
+      <Span jss={{ position: "relative", zIndex: 1 }} color={today ? "light" : "primary"}>
+        {date.getDate()}
+      </Span>
+    </Box>
+  )}
+/>
+
+```js
+<Calendar
+  date={new Date()}
+  header={({ weekday }) => (
+    <Box padding="small" jss={{ textAlign: "center" }}>
+      <Span bold color="secondary" size="small">{weekday}</Span>
+    </Box>
+  )}
+  cell={({ today, date, outOfMonth }) => (
+    <Box padding="small" jss={{ opacity: outOfMonth ? 0.3 : 1 }}>
+      {today && <Badge color="highlight" />}
+      <Span>{date.getDate()}</Span>
+    </Box>
+  )}
+/>
+```
+
+---
+
+## With today indicator
 
 <Calendar
   date={new Date()}
@@ -36,7 +122,7 @@ The calendar component is can be used to represent months, and is customisable t
   date={new Date()}
   header={({ weekday }) => (
     <Box>
-      <H2>{weekday}</H2>
+      <H3>{weekday}</H3>
     </Box>
   )}
   cell={({ today, date, outOfMonth }) => (
@@ -58,3 +144,111 @@ The calendar component is can be used to represent months, and is customisable t
 ```
 
 ---
+
+## Using position props
+
+The cell render props include position information for styling borders and corners:
+
+```js
+<Calendar
+  date={new Date()}
+  header={({ weekday }) => <Span>{weekday}</Span>}
+  cell={({ date, outOfMonth, top, bottom, left, right }) => (
+    <Box
+      jss={{
+        opacity: outOfMonth ? 0.3 : 1,
+        borderTop: top ? "1px solid var(--divider)" : "none",
+        borderBottom: bottom ? "1px solid var(--divider)" : "none",
+        borderLeft: left ? "1px solid var(--divider)" : "none",
+        borderRight: right ? "1px solid var(--divider)" : "none",
+        borderTopLeftRadius: top && left ? 8 : 0,
+        borderTopRightRadius: top && right ? 8 : 0,
+        borderBottomLeftRadius: bottom && left ? 8 : 0,
+        borderBottomRightRadius: bottom && right ? 8 : 0,
+      }}
+    >
+      <Span>{date.getDate()}</Span>
+    </Box>
+  )}
+/>
+```
+
+---
+
+## Interactive calendar
+
+Create a date picker by adding click handlers:
+
+```js
+function DatePicker() {
+  const [selected, setSelected] = useState(null);
+  const [month, setMonth] = useState(new Date());
+
+  return (
+    <Column gap="medium">
+      <Row justify="space-between" align="center">
+        <IconButton
+          icon="fa-chevron-left"
+          onClick={() => setMonth(new Date(month.getFullYear(), month.getMonth() - 1))}
+        />
+        <Span bold>
+          {month.toLocaleDateString("en-US", { month: "long", year: "numeric" })}
+        </Span>
+        <IconButton
+          icon="fa-chevron-right"
+          onClick={() => setMonth(new Date(month.getFullYear(), month.getMonth() + 1))}
+        />
+      </Row>
+      <Calendar
+        date={month}
+        header={({ weekday }) => <Span size="small">{weekday}</Span>}
+        cell={({ date, outOfMonth, today }) => {
+          const isSelected = selected?.toDateString() === date.toDateString();
+          return (
+            <BaseButton
+              bare
+              onClick={() => !outOfMonth && setSelected(date)}
+              jss={{
+                opacity: outOfMonth ? 0.3 : 1,
+                backgroundColor: isSelected ? "var(--highlight)" : "transparent",
+                borderRadius: "50%",
+              }}
+            >
+              <Span color={isSelected ? "light" : "primary"}>
+                {date.getDate()}
+              </Span>
+            </BaseButton>
+          );
+        }}
+      />
+    </Column>
+  );
+}
+```
+
+---
+
+## Grid layout
+
+The Calendar uses CSS Grid with 7 columns (Mon-Sun). The header row and day cells flow naturally into the grid:
+
+```js
+// Custom grid styling
+<Calendar
+  date={new Date()}
+  jss={{
+    gap: 4,
+    padding: 16,
+    backgroundColor: "var(--secondary-background)",
+    borderRadius: 12,
+  }}
+  header={...}
+  cell={...}
+/>
+```
+
+---
+
+## Localization
+
+Weekday names are automatically localized using `Intl.DateTimeFormat` with UK English locale (week starts Monday). The calendar always displays Monday through Sunday.

@@ -1,3 +1,4 @@
+import React from "react";
 import { ReactNode } from "react";
 export declare function createStorage<State>({ initialState, name, }: {
     initialState: State;
@@ -5,7 +6,7 @@ export declare function createStorage<State>({ initialState, name, }: {
 }): {
     Storage: ({ children }: {
         children: ReactNode;
-    }) => JSX.Element;
+    }) => React.JSX.Element;
     useStorage: <T>(selector: (state: State) => T) => T;
     useMutation: () => (mutator: (state: State) => State) => void;
     usePersist: () => () => Promise<void>;

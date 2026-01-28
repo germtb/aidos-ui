@@ -1,12 +1,40 @@
 import { ProgressCircle } from "../ProgressCircle";
 import { Row } from "../Row";
+import { Column } from "../Column";
+import { Span } from "../Text";
 import { cssVar } from "../jss";
 
 # ProgressCircle
 
-The `ProgressCircle` component can be used to represent percentual progress in a circular way:
+A circular progress indicator for displaying completion percentage. Uses SVG for crisp rendering at any size.
 
-<Row gap="medium" align="center">
+---
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `progress` | `number` | Required | Progress value from 0 to 1 |
+| `outerRadius` | `number` | Required | Radius of the circle in pixels |
+| `stroke` | `number` | `4` | Width of the progress stroke |
+
+---
+
+## Basic usage
+
+<Row gap="medium" align="center" padding="medium">
+  <ProgressCircle progress={0.75} outerRadius={24} />
+</Row>
+
+```js
+<ProgressCircle progress={0.75} outerRadius={24} />
+```
+
+---
+
+## Progress states
+
+<Row gap="medium" align="center" padding="medium">
   <ProgressCircle progress={0.1} outerRadius={12} />
   <ProgressCircle progress={0.2} outerRadius={12} />
   <ProgressCircle progress={0.3} outerRadius={12} />
@@ -20,16 +48,171 @@ The `ProgressCircle` component can be used to represent percentual progress in a
 </Row>
 
 ```js
-<Row gap="medium" align="center">
-  <ProgressCircle progress={0.1} outerRadius={12} />
-  <ProgressCircle progress={0.2} outerRadius={12} />
-  <ProgressCircle progress={0.3} outerRadius={12} />
-  <ProgressCircle progress={0.4} outerRadius={12} />
-  <ProgressCircle progress={0.5} outerRadius={12} />
-  <ProgressCircle progress={0.6} outerRadius={12} />
-  <ProgressCircle progress={0.7} outerRadius={12} />
-  <ProgressCircle progress={0.8} outerRadius={12} />
-  <ProgressCircle progress={0.9} outerRadius={12} />
-  <ProgressCircle progress={1} outerRadius={12} />
+<ProgressCircle progress={0.1} outerRadius={12} />
+<ProgressCircle progress={0.2} outerRadius={12} />
+<ProgressCircle progress={0.3} outerRadius={12} />
+// ... and so on
+<ProgressCircle progress={1} outerRadius={12} />
+```
+
+---
+
+## Sizes
+
+Adjust the `outerRadius` to change the circle size:
+
+<Row gap="large" align="center" padding="medium">
+  <Column align="center" gap="small">
+    <ProgressCircle progress={0.66} outerRadius={8} />
+    <Span size="small" color="secondary">8px</Span>
+  </Column>
+  <Column align="center" gap="small">
+    <ProgressCircle progress={0.66} outerRadius={12} />
+    <Span size="small" color="secondary">12px</Span>
+  </Column>
+  <Column align="center" gap="small">
+    <ProgressCircle progress={0.66} outerRadius={20} />
+    <Span size="small" color="secondary">20px</Span>
+  </Column>
+  <Column align="center" gap="small">
+    <ProgressCircle progress={0.66} outerRadius={32} />
+    <Span size="small" color="secondary">32px</Span>
+  </Column>
+  <Column align="center" gap="small">
+    <ProgressCircle progress={0.66} outerRadius={48} />
+    <Span size="small" color="secondary">48px</Span>
+  </Column>
+</Row>
+
+```js
+<ProgressCircle progress={0.66} outerRadius={8} />   // Small
+<ProgressCircle progress={0.66} outerRadius={12} />  // Default
+<ProgressCircle progress={0.66} outerRadius={20} />  // Medium
+<ProgressCircle progress={0.66} outerRadius={32} />  // Large
+<ProgressCircle progress={0.66} outerRadius={48} />  // Extra large
+```
+
+---
+
+## Stroke width
+
+Adjust the `stroke` prop to change the line thickness:
+
+<Row gap="large" align="center" padding="medium">
+  <Column align="center" gap="small">
+    <ProgressCircle progress={0.66} outerRadius={24} stroke={2} />
+    <Span size="small" color="secondary">2px stroke</Span>
+  </Column>
+  <Column align="center" gap="small">
+    <ProgressCircle progress={0.66} outerRadius={24} stroke={4} />
+    <Span size="small" color="secondary">4px stroke</Span>
+  </Column>
+  <Column align="center" gap="small">
+    <ProgressCircle progress={0.66} outerRadius={24} stroke={6} />
+    <Span size="small" color="secondary">6px stroke</Span>
+  </Column>
+  <Column align="center" gap="small">
+    <ProgressCircle progress={0.66} outerRadius={24} stroke={8} />
+    <Span size="small" color="secondary">8px stroke</Span>
+  </Column>
+</Row>
+
+```js
+<ProgressCircle progress={0.66} outerRadius={24} stroke={2} />
+<ProgressCircle progress={0.66} outerRadius={24} stroke={4} />  // Default
+<ProgressCircle progress={0.66} outerRadius={24} stroke={6} />
+<ProgressCircle progress={0.66} outerRadius={24} stroke={8} />
+```
+
+---
+
+## With label
+
+Combine with text to show the percentage:
+
+```js
+function CircularProgress({ value }) {
+  return (
+    <Row align="center" gap="small">
+      <ProgressCircle progress={value} outerRadius={16} />
+      <Span>{Math.round(value * 100)}%</Span>
+    </Row>
+  );
+}
+```
+
+---
+
+## Inline with text
+
+Use small circles inline with text:
+
+```js
+<Row align="center" gap="small">
+  <Span>Task completion:</Span>
+  <ProgressCircle progress={0.8} outerRadius={8} stroke={2} />
+  <Span color="secondary">80%</Span>
 </Row>
 ```
+
+---
+
+## Skill indicator
+
+```js
+function SkillBadge({ name, level }) {
+  return (
+    <Row align="center" gap="medium" padding="small">
+      <ProgressCircle progress={level / 100} outerRadius={16} />
+      <Column gap="none">
+        <Span bold>{name}</Span>
+        <Span size="small" color="secondary">{level}%</Span>
+      </Column>
+    </Row>
+  );
+}
+
+// Usage
+<SkillBadge name="React" level={90} />
+<SkillBadge name="TypeScript" level={85} />
+<SkillBadge name="Node.js" level={70} />
+```
+
+---
+
+## Animated loading
+
+```js
+function LoadingCircle() {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress((p) => (p >= 1 ? 0 : p + 0.05));
+    }, 100);
+    return () => clearInterval(interval);
+  }, []);
+
+  return <ProgressCircle progress={progress} outerRadius={20} />;
+}
+```
+
+---
+
+## Styling
+
+The ProgressCircle uses these CSS variables:
+- `--secondary-background`: Circle background color
+- `--highlight`: Progress stroke color
+
+The SVG is rotated -90 degrees so progress starts from the top.
+
+---
+
+## Use cases
+
+- **Compact progress indicators**: Where horizontal space is limited
+- **Skill/proficiency displays**: Show expertise levels
+- **Loading states**: Determinate circular spinners
+- **Dashboard metrics**: Compact data visualization
+- **Achievement badges**: Show completion status

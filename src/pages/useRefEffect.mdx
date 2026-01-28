@@ -1,42 +1,192 @@
 # useRefEffect
 
-This effect is useful when you want to run an effect for a component once only (`useEffect` does not reliably do this). This implies that this component cannot have dependencies in the way other hooks do. Other hooks in this library are implemented using this.
+A React hook that reliably runs an effect once when an element is mounted. Unlike `useEffect`, this hook guarantees single execution and proper cleanup, making it ideal for setting up event listeners and DOM manipulations.
+
+---
+
+## Signature
+
+```ts
+function useRefEffect<T>(
+  callback: (root: T) => (() => void) | void
+): (root: T) => void
+```
+
+---
+
+## Parameters
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `callback` | `(root: T) => (() => void) \| void` | Function called when the element mounts. Can return a cleanup function. |
+
+---
+
+## Returns
+
+A ref callback function that should be passed to the element's `ref` prop.
+
+---
+
+## Why use this?
+
+React's `useEffect` with an empty dependency array doesn't reliably run only once due to:
+- Strict Mode double-invocation in development
+- Concurrent rendering behaviors
+- Fast refresh during development
+
+`useRefEffect` solves this by using a ref callback pattern that guarantees:
+- The effect runs exactly once when the element mounts
+- Cleanup runs exactly once when the element unmounts
+- No dependency array needed
+
+---
+
+## Basic usage
 
 ```js
-import { useRefEffect } from "./useRefEffect";
+import { useRefEffect } from "aidos-ui";
 
-export type KeyboardShortcut<T> = {
-  key: string;
-  metaKey?: boolean;
-  ctrlKey?: boolean;
-  action: (root: T) => void;
-  onlyWhenFocused?: boolean;
-};
+function ResizeObserverComponent() {
+  const ref = useRefEffect((element) => {
+    const observer = new ResizeObserver((entries) => {
+      console.log("Size changed:", entries[0].contentRect);
+    });
 
+    observer.observe(element);
+
+    // Return cleanup function
+    return () => observer.disconnect();
+  });
+
+  return <div ref={ref}>Resize me!</div>;
+}
+```
+
+---
+
+## Event listeners
+
+Perfect for attaching event listeners to elements:
+
+```js
+function DraggableElement() {
+  const ref = useRefEffect((element) => {
+    let isDragging = false;
+    let startX = 0;
+    let startY = 0;
+
+    const onMouseDown = (e) => {
+      isDragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+    };
+
+    const onMouseMove = (e) => {
+      if (!isDragging) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      element.style.transform = `translate(${dx}px, ${dy}px)`;
+    };
+
+    const onMouseUp = () => {
+      isDragging = false;
+    };
+
+    element.addEventListener("mousedown", onMouseDown);
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseup", onMouseUp);
+
+    return () => {
+      element.removeEventListener("mousedown", onMouseDown);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+    };
+  });
+
+  return <div ref={ref}>Drag me</div>;
+}
+```
+
+---
+
+## DOM measurements
+
+Use for operations that need the actual DOM element:
+
+```js
+function MeasuredElement() {
+  const [dimensions, setDimensions] = useState(null);
+
+  const ref = useRefEffect((element) => {
+    const rect = element.getBoundingClientRect();
+    setDimensions({
+      width: rect.width,
+      height: rect.height,
+    });
+  });
+
+  return (
+    <div ref={ref}>
+      {dimensions && (
+        <span>
+          {dimensions.width}x{dimensions.height}
+        </span>
+      )}
+    </div>
+  );
+}
+```
+
+---
+
+## Third-party library integration
+
+Initialize libraries that need a DOM element:
+
+```js
+function ChartComponent({ data }) {
+  const ref = useRefEffect((element) => {
+    const chart = new SomeChartLibrary(element, {
+      data,
+      width: 400,
+      height: 300,
+    });
+
+    return () => chart.destroy();
+  });
+
+  return <div ref={ref} />;
+}
+```
+
+---
+
+## Without cleanup
+
+If no cleanup is needed, simply don't return anything:
+
+```js
+const ref = useRefEffect((element) => {
+  element.scrollIntoView({ behavior: "smooth" });
+  // No cleanup needed
+});
+```
+
+---
+
+## Building other hooks
+
+`useRefEffect` is the foundation for other hooks in this library:
+
+```js
+// useKeyboard is built on useRefEffect
 export function useKeyboard<T extends HTMLElement>(
   shortcuts: Array<KeyboardShortcut<T>>
 ) {
   return useRefEffect<T>((root: T) => {
     const onKeyDown = (e: KeyboardEvent) => {
-      for (const {
-        metaKey,
-        key,
-        action,
-        ctrlKey,
-        onlyWhenFocused,
-      } of shortcuts) {
-        if (metaKey && e.metaKey !== true) {
-          continue;
-        } else if (ctrlKey && e.ctrlKey !== true) {
-          continue;
-        } else if (onlyWhenFocused && document.activeElement !== root) {
-          continue;
-        }
-
-        if (e.key.toLowerCase() === key.toLowerCase()) {
-          action(root);
-        }
-      }
+      // Handle shortcuts...
     };
 
     window.addEventListener("keydown", onKeyDown);
@@ -47,3 +197,55 @@ export function useKeyboard<T extends HTMLElement>(
   });
 }
 ```
+
+---
+
+## TypeScript usage
+
+The hook is generic and preserves element types:
+
+```ts
+// Typed as HTMLInputElement
+const inputRef = useRefEffect<HTMLInputElement>((input) => {
+  input.focus();
+  input.select();
+});
+
+// Typed as HTMLCanvasElement
+const canvasRef = useRefEffect<HTMLCanvasElement>((canvas) => {
+  const ctx = canvas.getContext("2d");
+  // ctx is properly typed
+});
+```
+
+---
+
+## Comparison with useEffect
+
+```js
+// ❌ useEffect - may run multiple times in dev/strict mode
+useEffect(() => {
+  const element = ref.current;
+  if (!element) return;
+
+  element.addEventListener("click", handler);
+  return () => element.removeEventListener("click", handler);
+}, []);
+
+// ✅ useRefEffect - runs exactly once
+const ref = useRefEffect((element) => {
+  element.addEventListener("click", handler);
+  return () => element.removeEventListener("click", handler);
+});
+```
+
+---
+
+## How it works
+
+The hook uses a ref callback combined with a cleanup ref:
+
+1. When the element mounts, the callback receives the element
+2. The callback's return value (cleanup function) is stored
+3. When the element unmounts (ref receives `null`), cleanup runs
+4. The callback is memoized with `useCallback` to prevent re-runs

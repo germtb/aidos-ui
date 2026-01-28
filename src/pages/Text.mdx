@@ -1,133 +1,154 @@
 import { Column } from "../Column";
-import { Text, Span, P, H1, H2, H3, Li } from "../Text";
+import { Row } from "../Row";
+import { Text, Span, P, H1, H2, H3, Li, Label } from "../Text";
 
 # Text
 
-The `Text` component has mant props and is central to many of the other components, that make use of it to ensure consistent styles accross the desgin system.
+The `Text` component is the foundation for all text rendering in the design system. It provides consistent typography with semantic color and size options.
 
 ---
 
-## Semantic API
+## Props
 
-In general the `Text` component is too flexible for general use, since it has many props that can lead to jarring styling. Instead, there is a higher level API that replicates HTML semantics with consitent stylin. These are really thin wrappers around `Text` that can be custimased to the same level; and one can still use `Text` whenever semantics are not important and there is need for very specific styling.
+| Prop | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `children` | `ReactNode` | Yes | - | Text content |
+| `color` | `TextColor` | No | `"primary"` | `"primary"`, `"secondary"`, `"highlight"`, `"negative"`, `"subtle"`, `"light"`, `"inherit"` |
+| `size` | `Size` | No | `"medium"` | `"xsmall"`, `"small"`, `"medium"`, `"large"`, `"xlarge"`, `"xxlarge"`, `"xxxlarge"` |
+| `bold` | `boolean` | No | `false` | Bold font weight |
+| `ellipsis` | `boolean` | No | varies | Truncate text with ellipsis when overflow |
+| `align` | `"center"` \| `"none"` | No | `"none"` | Text alignment |
+| `type` | `TextType` | No | `"span"` | HTML element: `"span"`, `"p"`, `"h1"`, `"h2"`, `"h3"`, `"h4"`, `"li"`, `"label"` |
+| `grow` | `boolean` | No | `false` | Allow text to grow in flex container |
+
+---
+
+## Semantic components
+
+For most use cases, prefer the semantic wrapper components over the base `Text` component. They provide sensible defaults and render the appropriate HTML elements.
 
 <Column gap="medium">
-  <Span>Span</Span>
-  <P>P</P>
-  <H1 tag="h2">H1</H1>
-  <H2>H2</H2>
-  <H3>H3</H3>
-  <Li>Li</Li>
+  <H1 tag="h2">H1 - Page titles</H1>
+  <H2 tag="h3">H2 - Section headings</H2>
+  <H3 tag="h4">H3 - Subsection headings</H3>
+  <P>P - Paragraph text for body content</P>
+  <Span>Span - Inline text (truncates by default)</Span>
+  <Li>Li - List items</Li>
+  <Label>Label - Form labels</Label>
 </Column>
-
-<br />
-\* If you inspect the DOM you will see that in the previous example I override the
-HTML tag for the component `H1` because having more than one H1 is discouraged for
-accessibility.
 
 ```js
-<Column gap="medium">
-  <Span>Span</Span>
-  <P>P</P>
-  <H1>H1</H1>
-  <H2>H2</H2>
-  <H3>H3</H3>
-  <Li>Li</Li>
-</Column>
+import { H1, H2, H3, P, Span, Li, Label } from "aidos-ui";
+
+<H1>Page Title</H1>           // xxlarge, renders <h1>
+<H2>Section Heading</H2>      // xlarge, renders <h2>
+<H3>Subsection</H3>           // large, renders <h3>
+<P>Body text paragraph</P>    // medium, renders <p>
+<Span>Inline text</Span>      // medium, renders <span>, ellipsis enabled
+<Li>List item</Li>            // medium, renders <li>
+<Label>Form label</Label>     // medium, renders <label>
 ```
 
 ---
 
-## Size
+## Sizes
+
+Text sizes map to CSS custom properties, ensuring consistency with the theme system.
 
 <Column gap="medium">
-  <Text size="xsmall">{"xsmall"}</Text>
-  <Text size="small">{"small"}</Text>
-  <Text size="medium">{"medium"}</Text>
-  <Text size="large">{"large"}</Text>
-  <Text size="xlarge">{"xlarge"}</Text>
+  <Text size="xsmall">xsmall - Fine print, captions</Text>
+  <Text size="small">small - Secondary text, labels</Text>
+  <Text size="medium">medium - Body text (default)</Text>
+  <Text size="large">large - Emphasized text, H3</Text>
+  <Text size="xlarge">xlarge - Subheadings, H2</Text>
+  <Text size="xxlarge">xxlarge - Page titles, H1</Text>
+  <Text size="xxxlarge">xxxlarge - Hero text</Text>
 </Column>
 
 ```js
-<Column gap="medium">
-  <Text size="xsmall">xsmall</Text>
-  <Text size="small">small</Text>
-  <Text size="medium">medium</Text>
-  <Text size="large">large</Text>
-  <Text size="xlarge">xlarge</Text>
-</Column>
+<Text size="xsmall">Fine print</Text>
+<Text size="small">Secondary text</Text>
+<Text size="medium">Body text</Text>
+<Text size="large">Emphasized</Text>
+<Text size="xlarge">Subheading</Text>
+<Text size="xxlarge">Title</Text>
+<Text size="xxxlarge">Hero</Text>
 ```
 
 ---
 
-## Color
+## Colors
+
+Semantic colors ensure text adapts correctly to light and dark themes.
 
 <Column gap="medium">
-  <Text color="primary">{"primary"}</Text>
-  <Text color="secondary">{"secondary"}</Text>
-  <Text color="highlight">{"highlight"}</Text>
-  <Text color="negative">{"negative"}</Text>
-  <Text color="subtle">{"subtle"}</Text>
-  <Text color="light">{"light"}</Text>
-  <Text color="inherit">{"inherit"}</Text>
+  <Text color="primary">primary - Main content text</Text>
+  <Text color="secondary">secondary - Supporting text</Text>
+  <Text color="highlight">highlight - Links, accents, brand color</Text>
+  <Text color="negative">negative - Errors, warnings, destructive</Text>
+  <Text color="subtle">subtle - Disabled, placeholder text</Text>
+  <Text color="light">light - Text on dark backgrounds</Text>
+  <Text color="inherit">inherit - Inherits parent color</Text>
 </Column>
 
 ```js
-<Column gap="medium">
-  <Text color="primary">{"primary"}</Text>
-  <Text color="secondary">{"secondary"}</Text>
-  <Text color="highlight">{"highlight"}</Text>
-  <Text color="negative">{"negative"}</Text>
-  <Text color="subtle">{"subtle"}</Text>
-  <Text color="light">{"light"}</Text>
-  <Text color="inherit">{"inherit"}</Text>
-</Column>
+<Text color="primary">Main content</Text>
+<Text color="secondary">Supporting info</Text>
+<Text color="highlight">Accent text</Text>
+<Text color="negative">Error message</Text>
+<Text color="subtle">Disabled text</Text>
 ```
 
 ---
 
-## Bold
+## Bold text
 
-<Column gap="medium">
-  <Text bold>{"bold"}</Text>
-  <Text>{"not bold"}</Text>
-</Column>
+<Row gap="large">
+  <Text bold>Bold text for emphasis</Text>
+  <Text>Regular weight text</Text>
+</Row>
 
 ```js
-<Column gap="medium">
-  <Text bold>{"bold"}</Text>
-  <Text>{"not bold"}</Text>
-</Column>
+<Text bold>Important information</Text>
+<Text>Regular text</Text>
 ```
 
 ---
 
-## Ellipsis
+## Ellipsis truncation
 
-By default ellipsis is enabled in the `Span` element, but can be configured with the `ellipsis` prop.
+By default, `Span` and `Label` components truncate text with ellipsis. Other components wrap by default.
 
----
-
-### Span
-
-<Column>
+<Column gap="medium" jss={{ maxWidth: 300 }}>
   <Span>
-    {
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-    }
+    This span text will truncate with ellipsis when it overflows the container width
   </Span>
-</Column>
-
----
-
-### P
-
-<Column>
   <P>
-    {
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-    }
+    This paragraph text will wrap to multiple lines when it exceeds the container width instead of truncating
   </P>
 </Column>
 
+```js
+// Truncates by default
+<Span>Long text that will be truncated...</Span>
+
+// Force truncation on any text component
+<P ellipsis>This paragraph will truncate</P>
+
+// Disable truncation on span
+<Span ellipsis={false}>This span will wrap</Span>
+```
+
 ---
+
+## Custom HTML element
+
+Override the rendered HTML element while keeping the same styling using the `type` prop.
+
+```js
+// Render H1 styling but use h2 element (for accessibility)
+<H1 type="h2">Visually large, semantically h2</H1>
+
+// Render span styling as a label
+<Span type="label" htmlFor="email">Email address</Span>
+```

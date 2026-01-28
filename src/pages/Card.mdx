@@ -1,71 +1,147 @@
 import { Card } from "../Card";
 import { Button } from "../Button";
 import { TextInput } from "../TextInput";
-import { TextArea } from "../TextArea";
-import { H2, P } from "../Text";
+import { Column } from "../Column";
+import { Row } from "../Row";
+import { H2, H3, P, Span } from "../Text";
+import { Icon } from "../Icon";
 
 # Card
 
-Cards can be used to make give cohesion to some UI elements, grouping them visually in a distinct way.
+A container component that groups related content with a distinct visual treatment. Cards provide elevation, background, and rounded corners to create visual hierarchy.
+
+---
+
+## Props
+
+Card extends all FlexLayout props:
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `padding` | `Padding` | `"large"` | Internal padding |
+| `gap` | `Gap` | `"large"` | Space between children |
+| `direction` | `"row"` \| `"column"` | `"column"` | Flex direction |
+| `align` | `Align` | - | Cross-axis alignment |
+| `justify` | `Justify` | - | Main-axis alignment |
+| `grow` | `boolean` | - | Allow card to grow |
+
+---
+
+## Basic card
 
 <Card>
-  <H2>Contact Us</H2>
-  <P>If you have any questions or inquiries, please feel free to contact us.</P>
-  <TextInput
-    name="email"
-    placeholder="Email"
-    value={null}
-    padding={"medium"}
-    type="email"
-    onValueChange={() => {}}
-  />
-  <TextArea
-    jss={{
-      resize: "vertical",
-    }}
-    name="message"
-    placeholder="Type your query here..."
-    value={null}
-    type="text"
-    onValueChange={() => {}}
-  />
-  <Button
-    jss={{ animation: "all 1s ease-out" }}
-    onClick={() => {}}
-    type="submit"
-    label="Subscribe"
-    color="positive"
-  />
+  <H3>Card title</H3>
+  <P>Cards group related content together with visual distinction from the surrounding interface.</P>
 </Card>
 
 ```js
 <Card>
-  <H2>Contact Us</H2>
-  <P>If you have any questions or inquiries, please feel free to contact us.</P>
+  <H3>Card title</H3>
+  <P>Card content goes here...</P>
+</Card>
+```
+
+---
+
+## Contact form example
+
+<Card>
+  <H3>Contact Us</H3>
+  <P>Send us a message and we'll get back to you soon.</P>
   <TextInput
-    name="email"
-    placeholder="Email"
-    value={null}
-    padding={"medium"}
+    placeholder="Your email"
+    value=""
     type="email"
     onValueChange={() => {}}
   />
-  <TextArea
-    jss={{
-      resize: "vertical",
-    }}
-    name="message"
-    placeholder="Type your query here..."
-    value={null}
-    type="text"
+  <TextInput
+    placeholder="Your message"
+    value=""
     onValueChange={() => {}}
   />
-  <Button
-    jss={{ animation: "all 1s ease-out" }}
-    onClick={() => {}}
-    type="submit"
-    label="Subscribe"
-    color="positive"
+  <Button color="positive" onClick={() => {}}>
+    Send Message
+  </Button>
+</Card>
+
+```js
+<Card>
+  <H3>Contact Us</H3>
+  <P>Send us a message and we'll get back to you soon.</P>
+  <TextInput
+    placeholder="Your email"
+    value={email}
+    type="email"
+    onValueChange={setEmail}
   />
+  <TextInput
+    placeholder="Your message"
+    value={message}
+    onValueChange={setMessage}
+  />
+  <Button color="positive" onClick={handleSubmit}>
+    Send Message
+  </Button>
 </Card>
 ```
+
+---
+
+## Custom padding and gap
+
+<Row gap="medium">
+  <Card padding="small" gap="small">
+    <Span>Small padding</Span>
+    <Span color="secondary">Compact layout</Span>
+  </Card>
+  <Card padding="xlarge" gap="medium">
+    <Span>Large padding</Span>
+    <Span color="secondary">Spacious layout</Span>
+  </Card>
+</Row>
+
+```js
+<Card padding="small" gap="small">
+  <Span>Compact card</Span>
+</Card>
+
+<Card padding="xlarge" gap="large">
+  <Span>Spacious card</Span>
+</Card>
+```
+
+---
+
+## Horizontal card
+
+Use `direction="row"` for horizontal layouts:
+
+<Card direction="row" align="center" gap="medium">
+  <Icon icon="fa-user" color="highlight" size="xlarge" />
+  <Column gap="none">
+    <Span bold>John Doe</Span>
+    <Span color="secondary" size="small">Software Engineer</Span>
+  </Column>
+</Card>
+
+```js
+<Card direction="row" align="center" gap="medium">
+  <Icon icon="fa-user" color="highlight" size="xlarge" />
+  <Column gap="none">
+    <Span bold>John Doe</Span>
+    <Span color="secondary" size="small">Software Engineer</Span>
+  </Column>
+</Card>
+```
+
+---
+
+## Use cases
+
+Cards are useful for:
+
+- **Forms** - Group related inputs together
+- **Profiles** - Display user or item information
+- **Summaries** - Highlight key metrics or stats
+- **Actions** - Group related actions with context
+- **Content sections** - Separate distinct content areas

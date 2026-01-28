@@ -1,46 +1,135 @@
 import { RangeInput } from "../RangeInput";
 import { Column } from "../Column";
+import { Row } from "../Row";
 import { Icon } from "../Icon";
+import { Span } from "../Text";
 
 # RangeInput
 
-The `RangeInput` item is a thin wrapper over the HTML `<input type="range">` element with some options for adding addOn and customise the label for it.
+A styled wrapper around the HTML `<input type="range">` element with support for labels, icons, and customization options.
 
-<Column>
-  <RangeInput value={12.5} onValueChange={() => {}} />
-  <RangeInput value={25} onValueChange={() => {}} label="Right" />
-  <RangeInput
-    value={37.5}
-    onValueChange={() => {}}
-    label="Left"
-    labelPosition="start"
-  />
+---
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `number` | Required | Current slider value |
+| `onValueChange` | `(value: number) => void` | Required | Called when the value changes |
+| `min` | `number` | `0` | Minimum value |
+| `max` | `number` | `100` | Maximum value |
+| `step` | `number` | `1` | Step increment |
+| `label` | `ReactNode` | - | Label text displayed alongside the slider |
+| `labelPosition` | `"start" \| "end"` | `"end"` | Position of the label |
+| `labelSize` | `Size` | - | Label text size |
+| `labelColor` | `TextColor` | - | Label text color |
+| `labelBold` | `boolean` | - | Whether the label is bold |
+| `addOn` | `JSX.Element` | - | Icon or element to display |
+| `addOnPosition` | `"start" \| "end"` | `"start"` | Position of the add-on |
+| `gap` | `Gap` | `"medium"` | Space between elements |
+| `padding` | `Padding` | `"none"` | Container padding |
+| `disabled` | `boolean` | - | Disables the input |
+
+---
+
+## Basic usage
+
+<Column gap="medium">
+  <RangeInput value={50} onValueChange={() => {}} />
+</Column>
+
+```js
+const [value, setValue] = useState(50);
+
+<RangeInput value={value} onValueChange={setValue} />
+```
+
+---
+
+## With label
+
+Labels can be positioned at the start or end of the slider:
+
+<Column gap="medium">
+  <RangeInput value={75} onValueChange={() => {}} label="75%" />
+  <RangeInput value={25} onValueChange={() => {}} label="25%" labelPosition="start" />
+</Column>
+
+```js
+// Label at end (default)
+<RangeInput value={value} onValueChange={setValue} label={`${value}%`} />
+
+// Label at start
+<RangeInput
+  value={value}
+  onValueChange={setValue}
+  label={`${value}%`}
+  labelPosition="start"
+/>
+```
+
+---
+
+## With icon add-on
+
+Add icons to provide context for what the slider controls:
+
+<Column gap="medium">
   <RangeInput
     addOn={<Icon icon="fa-volume-up" color="primary" size="medium" />}
     value={50}
     onValueChange={() => {}}
-    label="Right"
+    label="50%"
   />
   <RangeInput
-    addOn={<Icon icon="fa-volume-up" color="primary" size="medium" />}
+    addOn={<Icon icon="fa-sun" color="warning" size="medium" />}
     addOnPosition="end"
-    value={62.5}
+    value={80}
     onValueChange={() => {}}
-    label="Left"
+    label="Brightness"
     labelPosition="start"
   />
+</Column>
+
+```js
+// Icon at start (default)
+<RangeInput
+  addOn={<Icon icon="fa-volume-up" color="primary" size="medium" />}
+  value={volume}
+  onValueChange={setVolume}
+  label={`${volume}%`}
+/>
+
+// Icon at end
+<RangeInput
+  addOn={<Icon icon="fa-sun" color="warning" size="medium" />}
+  addOnPosition="end"
+  value={brightness}
+  onValueChange={setBrightness}
+  label="Brightness"
+  labelPosition="start"
+/>
+```
+
+---
+
+## Label styling
+
+Customize the label appearance:
+
+<Column gap="medium">
   <RangeInput
     addOn={<Icon icon="fa-volume-up" color="primary" size="medium" />}
     value={75}
     onValueChange={() => {}}
-    label="Right"
+    label="75%"
     labelSize="large"
   />
   <RangeInput
     addOn={<Icon icon="fa-volume-up" color="primary" size="medium" />}
-    value={87.5}
+    value={90}
     onValueChange={() => {}}
-    label="Right"
+    label="90%"
     labelSize="large"
     labelColor="highlight"
   />
@@ -48,7 +137,7 @@ The `RangeInput` item is a thin wrapper over the HTML `<input type="range">` ele
     addOn={<Icon icon="fa-volume-up" color="primary" size="medium" />}
     value={100}
     onValueChange={() => {}}
-    label="Right"
+    label="MAX"
     labelSize="large"
     labelColor="highlight"
     labelBold
@@ -56,54 +145,93 @@ The `RangeInput` item is a thin wrapper over the HTML `<input type="range">` ele
 </Column>
 
 ```js
-<Column>
-  <RangeInput value={12.5} onValueChange={() => {}} />
-  <RangeInput value={25} onValueChange={() => {}} label="Right" />
-  <RangeInput
-    value={37.5}
-    onValueChange={() => {}}
-    label="Left"
-    labelPosition="start"
-  />
-  <RangeInput
-    addOn={<Icon icon="fa-volume-up" color="primary" size="medium" />}
-    value={50}
-    onValueChange={() => {}}
-    label="Right"
-  />
-  <RangeInput
-    addOn={<Icon icon="fa-volume-up" color="primary" size="medium" />}
-    addOnPosition="end"
-    value={62.5}
-    onValueChange={() => {}}
-    label="Left"
-    labelPosition="start"
-  />
-  <RangeInput
-    addOn={<Icon icon="fa-volume-up" color="primary" size="medium" />}
-    value={75}
-    onValueChange={() => {}}
-    label="Right"
-    labelSize="large"
-  />
-  <RangeInput
-    addOn={<Icon icon="fa-volume-up" color="primary" size="medium" />}
-    value={87.5}
-    onValueChange={() => {}}
-    label="Right"
-    labelSize="large"
-    labelColor="highlight"
-  />
-  <RangeInput
-    addOn={<Icon icon="fa-volume-up" color="primary" size="medium" />}
-    value={100}
-    onValueChange={() => {}}
-    label="Right"
-    labelSize="large"
-    labelColor="highlight"
-    labelBold
-  />
-</Column>
+<RangeInput
+  value={value}
+  onValueChange={setValue}
+  label={`${value}%`}
+  labelSize="large"
+  labelColor="highlight"
+  labelBold
+/>
 ```
 
 ---
+
+## Custom range
+
+Set min, max, and step values:
+
+```js
+// Temperature slider (0-100 in steps of 5)
+<RangeInput
+  value={temperature}
+  onValueChange={setTemperature}
+  min={0}
+  max={100}
+  step={5}
+  label={`${temperature}°C`}
+/>
+
+// Decimal values (0-1 in steps of 0.1)
+<RangeInput
+  value={opacity}
+  onValueChange={setOpacity}
+  min={0}
+  max={1}
+  step={0.1}
+  label={opacity.toFixed(1)}
+/>
+```
+
+---
+
+## Volume control example
+
+<Row gap="medium" align="center" padding="medium">
+  <RangeInput
+    addOn={<Icon icon="fa-volume-up" color="primary" size="medium" />}
+    value={65}
+    onValueChange={() => {}}
+    label="65%"
+    labelBold
+  />
+</Row>
+
+```js
+function VolumeControl() {
+  const [volume, setVolume] = useState(50);
+
+  const icon = volume === 0
+    ? "fa-volume-off"
+    : volume < 50
+    ? "fa-volume-down"
+    : "fa-volume-up";
+
+  return (
+    <RangeInput
+      addOn={<Icon icon={icon} color="primary" size="medium" />}
+      value={volume}
+      onValueChange={setVolume}
+      label={`${volume}%`}
+      labelBold
+    />
+  );
+}
+```
+
+---
+
+## Accessibility
+
+- The underlying `<input type="range">` is fully accessible
+- Labels are properly associated with the input via `htmlFor`
+- Focus states are visually indicated
+- Use `aria-label` or visible labels to describe the slider's purpose
+
+```js
+<RangeInput
+  aria-label="Volume"
+  value={volume}
+  onValueChange={setVolume}
+/>
+```

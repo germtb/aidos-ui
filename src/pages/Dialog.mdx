@@ -1,15 +1,47 @@
 import { DialogTrigger } from "../examples/ExampleDialog.tsx";
+import { Button } from "../Button";
 
 # Dialog
 
-The `Dialog` component can be used to show a modal window on top of the main UI. When visible, it will trap focus and clicks to the underlying UI, which is the required behaviour for acceessibility.
+A modal dialog component that overlays the main UI. Dialogs trap focus and prevent interaction with the underlying content, following accessibility best practices.
+
+---
+
+## Props
+
+### Dialog component
+
+| Prop | Type | Required | Description |
+|------|------|----------|-------------|
+| `label` | `string` | Yes | Dialog title displayed in the header |
+| `children` | `ReactNode` | Yes | Dialog content |
+| `close` | `() => void` | Yes | Function to close the dialog |
+
+### useDialog hook
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `DialogComponent` | `(props: { close: () => void } & Input) => JSX.Element` | Component to render inside the dialog |
+| `options.closeOnOutsideClick` | `boolean` | Whether clicking outside closes the dialog |
+
+Returns:
+- `open(input?: Input)` - Function to open the dialog with optional input data
+- `close()` - Function to close the dialog programmatically
+
+---
+
+## Basic usage
+
+Click the button to open a dialog:
 
 <DialogTrigger />
 
 ```js
-function ExampleDialog({ close }) {
+import { Dialog, useDialog } from "aidos-ui";
+
+function MyDialog({ close }) {
   return (
-    <Dialog close={close} label="Example">
+    <Dialog close={close} label="Settings">
       <Row padding="medium" align="center" justify="space-between">
         <Span>Dark mode</Span>
         <DarkModeToggle />
@@ -18,15 +50,148 @@ function ExampleDialog({ close }) {
   );
 }
 
-export function DialogTrigger() {
-  const { open } = useDialog<void>(
-    ({ close }) => <ExampleDialog close={close} />,
+function App() {
+  const { open } = useDialog(
+    ({ close }) => <MyDialog close={close} />,
     { closeOnOutsideClick: true }
   );
 
-  return <Button label="Show dialog" color={"positive"} onClick={() => open()} />;
+  return (
+    <Button color="positive" onClick={() => open()}>
+      Open Settings
+    </Button>
+  );
 }
-
 ```
 
 ---
+
+## Passing data to dialog
+
+Use TypeScript generics to pass data when opening the dialog:
+
+```js
+interface UserData {
+  name: string;
+  email: string;
+}
+
+function EditUserDialog({ close, name, email }: { close: () => void } & UserData) {
+  return (
+    <Dialog close={close} label="Edit User">
+      <Column padding="medium" gap="medium">
+        <TextInput value={name} onValueChange={() => {}} />
+        <TextInput value={email} onValueChange={() => {}} />
+        <Button color="positive" onClick={close}>
+          Save
+        </Button>
+      </Column>
+    </Dialog>
+  );
+}
+
+function App() {
+  const { open } = useDialog<UserData>(
+    ({ close, name, email }) => (
+      <EditUserDialog close={close} name={name} email={email} />
+    ),
+    { closeOnOutsideClick: false }
+  );
+
+  return (
+    <Button
+      color="primary"
+      onClick={() => open({ name: "John", email: "john@example.com" })}
+    >
+      Edit User
+    </Button>
+  );
+}
+```
+
+---
+
+## Dialog options
+
+### Close on outside click
+
+Control whether clicking the backdrop closes the dialog:
+
+```js
+// Dialog closes when clicking outside
+const { open } = useDialog(
+  ({ close }) => <MyDialog close={close} />,
+  { closeOnOutsideClick: true }
+);
+
+// Dialog stays open until explicitly closed
+const { open } = useDialog(
+  ({ close }) => <MyDialog close={close} />,
+  { closeOnOutsideClick: false }
+);
+```
+
+---
+
+## Closing the dialog
+
+Dialogs can be closed in several ways:
+
+1. **Close button** - Built into the Dialog header
+2. **Escape key** - Native dialog behavior
+3. **Outside click** - When `closeOnOutsideClick: true`
+4. **Programmatically** - Using the `close` function
+
+```js
+function ConfirmDialog({ close, onConfirm }) {
+  return (
+    <Dialog close={close} label="Confirm">
+      <Column padding="medium" gap="medium">
+        <P>Are you sure you want to proceed?</P>
+        <Row gap="medium" justify="end">
+          <Button bare color="primary" onClick={close}>
+            Cancel
+          </Button>
+          <Button
+            color="positive"
+            onClick={() => {
+              onConfirm();
+              close();
+            }}
+          >
+            Confirm
+          </Button>
+        </Row>
+      </Column>
+    </Dialog>
+  );
+}
+```
+
+---
+
+## Setup
+
+The `DialogProvider` must wrap your app to enable dialogs. This is typically included in the `Providers` component:
+
+```js
+import { Providers } from "aidos-ui";
+
+function App() {
+  return (
+    <Providers>
+      {/* Your app content */}
+    </Providers>
+  );
+}
+```
+
+---
+
+## Accessibility
+
+- Uses native `<dialog>` element with `showModal()` for proper modal behavior
+- Focus is trapped within the dialog
+- Escape key closes the dialog
+- Focus returns to the triggering element when closed
+- Backdrop prevents interaction with underlying content

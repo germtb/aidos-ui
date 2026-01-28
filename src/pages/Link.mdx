@@ -1,89 +1,160 @@
 import { Link } from "../Link";
 import { Row } from "../Row";
+import { Column } from "../Column";
 
 # Link
 
-The `Link` component looks the same as the `Button` component and the only difference is that the underlying HTML is an anchor tag.
+The `Link` component provides styled navigation that looks like a button but renders as a semantic `<a>` anchor element. Use it for navigation actions where you want button-like styling.
 
 ---
 
-## Link variants
+## Props
 
-The basic `Link` comes in three main variants, each of them with a specific intent in mind. It also support a "disabled" variant, for cases where the button is not actionable.
+| Prop | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `children` | `ReactNode` | Yes | - | Link text content |
+| `href` | `string` | Yes | - | Navigation destination URL |
+| `color` | `InteractableColor` | Yes | - | `"positive"`, `"primary"`, `"negative"`, `"dark"`, `"light"` |
+| `bare` | `boolean` | No | `false` | Removes background for a lighter appearance |
+| `border` | `boolean` | No | `false` | Adds a border matching the text color |
+| `disabled` | `boolean` | No | `false` | Disables interaction |
+| `underline` | `boolean` | No | `false` | Adds text underline decoration |
+| `icon` | `IconType` | No | - | Icon to display alongside text |
+| `iconPosition` | `"left"` \| `"right"` | No | `"left"` | Icon placement relative to text |
+| `iconSize` | `Size` | No | `"medium"` | Icon size |
+| `size` | `Size` | No | `"medium"` | Text size |
+| `padding` | `Padding` | No | `"medium"` | Internal padding |
+| `inline` | `boolean` | No | `true` | Display as inline-flex (true) or flex (false) |
+| `bold` | `boolean` | No | `false` | Bold text |
+| `target` | `string` | No | - | Link target (e.g., `"_blank"` for new tab) |
 
-- Positive: actions that are going to create something or strongly agree
-- Primary: actions that are less central to the user experience
-- Negative: actions that are going to delete data or remove something
-- Dark: primary actions in a dark theme
-- Light: primary actions in a light theme
-- Disabled: actions that are not available
+---
+
+## Color variants
+
+Links share the same color system as buttons, providing visual consistency across your application.
 
 <Row gap="large" align="center" padding="large" justify="center">
-  <Link label="Positive" color="positive" href="/" />
-  <Link label="Primary" color="primary" href="/" />
-  <Link label="Negative" color="negative" href="/" />
-  <Link label="Disabled" color="positive" disabled href="/" />
-  <Link label="Dark" color="dark" href="/" />
-  <Link label="Light" color="light" href="/" />
+  <Link color="positive" href="/">Positive</Link>
+  <Link color="primary" href="/">Primary</Link>
+  <Link color="negative" href="/">Negative</Link>
+  <Link color="dark" href="/">Dark</Link>
+  <Link color="light" href="/">Light</Link>
 </Row>
 
 ```js
-<Row gap="large" align="center" padding="large" justify="center">
-  <Link label="Positive" color="positive" href="/" />
-  <Link label="Primary" color="primary" href="/" />
-  <Link label="Negative" color="negative" href="/" />
-  <Link label="Disabled" color="positive" disabled href="/" />
-  <Link label="Dark" color="dark" href="/" />
-  <Link label="Light" color="light" href="/" />
-</Row>
+<Link color="positive" href="/signup">Sign up</Link>
+<Link color="primary" href="/learn-more">Learn more</Link>
+<Link color="negative" href="/delete">Delete account</Link>
 ```
 
 ---
 
-## Bare link
+## Bare variant
 
-The bare `Link` variants fulfill the same function than the basic counterparts but have a lighter style that can be more easily integrated in complex components.
+The `bare` prop creates a lighter appearance without a background, ideal for inline links or secondary navigation.
 
 <Row gap="large" align="center" padding="large" justify="center">
-  <Link bare label="Positive" color="positive" href="/" />
-  <Link bare label="Primary" color="primary" href="/" />
-  <Link bare label="Negative" color="negative" href="/" />
-  <Link bare label="Disabled" color="positive" disabled href="/" />
-  <Link bare label="Dark" color="dark" href="/" />
-  <Link bare label="Light" color="light" href="/" />
+  <Link bare color="positive" href="/">Positive</Link>
+  <Link bare color="primary" href="/">Primary</Link>
+  <Link bare color="negative" href="/">Negative</Link>
 </Row>
 
 ```js
-<Row gap="large" align="center" padding="large" justify="center">
-  <Link bare label="Positive" color="positive" href="/" />
-  <Link bare label="Primary" color="primary" href="/" />
-  <Link bare label="Negative" color="negative" href="/" />
-  <Link bare label="Disabled" color="positive" disabled href="/" />
-</Row>
-```
-
-## Border
-
-The `Link` can have a border which will match the current text color
-
-<Row gap="large" align="center" padding="large" justify="center">
-  <Link border bare label="Positive" color="positive" href="/" />
-  <Link border bare label="Primary" color="primary" href="/" />
-  <Link border bare label="Negative" color="negative" href="/" />
-  <Link border bare label="Disabled" color="positive" disabled href="/" />
-  <Link border bare label="Dark" color="dark" href="/" />
-  <Link border bare label="Light" color="light" href="/" />
-</Row>
-
-```js
-<Row gap="large" align="center" padding="large" justify="center">
-  <Link border bare label="Positive" color="positive" href="/" />
-  <Link border bare label="Primary" color="primary" href="/" />
-  <Link border bare label="Negative" color="negative" href="/" />
-  <Link border bare label="Disabled" color="positive" disabled href="/" />
-  <Link border bare label="Dark" color="dark" href="/" />
-  <Link border bare label="Light" color="light" href="/" />
-</Row>
+<Link bare color="positive" href="/docs">Documentation</Link>
+<Link bare color="primary" href="/about">About us</Link>
 ```
 
 ---
+
+## With border
+
+Combine `bare` and `border` for outlined link styles.
+
+<Row gap="large" align="center" padding="large" justify="center">
+  <Link border bare color="positive" href="/">Positive</Link>
+  <Link border bare color="primary" href="/">Primary</Link>
+  <Link border bare color="negative" href="/">Negative</Link>
+</Row>
+
+```js
+<Link border bare color="positive" href="/signup">
+  Get started
+</Link>
+```
+
+---
+
+## With underline
+
+The `underline` prop adds a text decoration, useful for traditional link styling within paragraphs.
+
+<Row gap="large" align="center" padding="large" justify="center">
+  <Link bare underline color="positive" href="/">Learn more</Link>
+  <Link bare underline color="primary" href="/">Read docs</Link>
+</Row>
+
+```js
+<Link bare underline color="positive" href="/docs">
+  Learn more
+</Link>
+```
+
+---
+
+## With icon
+
+Add icons to reinforce the link's purpose or indicate external navigation.
+
+<Row gap="large" align="center" padding="large" justify="center">
+  <Link color="positive" icon="fa-external-link" iconPosition="right" href="/" target="_blank">External</Link>
+  <Link color="primary" icon="fa-download" href="/">Download</Link>
+  <Link bare color="primary" icon="fa-arrow-left" href="/">Back</Link>
+</Row>
+
+```js
+<Link
+  color="positive"
+  icon="fa-external-link"
+  iconPosition="right"
+  href="https://example.com"
+  target="_blank"
+>
+  External link
+</Link>
+
+<Link color="primary" icon="fa-download" href="/file.pdf">
+  Download PDF
+</Link>
+```
+
+---
+
+## Disabled state
+
+Disabled links prevent navigation and display a muted appearance.
+
+<Row gap="large" align="center" padding="large" justify="center">
+  <Link color="positive" disabled href="/">Disabled</Link>
+  <Link bare color="positive" disabled href="/">Disabled bare</Link>
+</Row>
+
+```js
+<Link color="positive" disabled href="/premium">
+  Premium only
+</Link>
+```
+
+---
+
+## Link vs Button
+
+Use `Link` when:
+- The action navigates to a new page or URL
+- You want the browser's native link behaviors (right-click, cmd+click)
+- SEO matters for the destination
+
+Use `Button` when:
+- The action triggers an in-page operation
+- No navigation occurs
+- Form submissions

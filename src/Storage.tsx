@@ -36,7 +36,7 @@ export function createStorage<State>({
 
   const state = { current: initialState };
 
-  function Storage({ children }: { children: ReactNode }): JSX.Element {
+  function Storage({ children }: { children: ReactNode }): React.JSX.Element {
     const emitterRef = useRef(createEmitter<State>());
 
     const subscribe = useCallback((callback: Callback<State>) => {

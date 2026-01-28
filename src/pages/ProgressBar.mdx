@@ -1,20 +1,200 @@
 import { ProgressBar } from "../ProgressBar";
 import { Column } from "../Column";
+import { Row } from "../Row";
+import { Span } from "../Text";
+import { cssVar } from "../jss";
 
 # ProgressBar
 
-The `ProgressBar` component can be used to represent percentual progress in a linear way:
+A linear progress indicator for displaying completion percentage. Supports multiple colors and sizes.
+
+---
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `progress` | `number` | Required | Progress value from 0 to 1 (values > 1 are capped at 1) |
+| `color` | `Color` | Required | Bar fill color: `"highlight"`, `"negative"`, `"warning"`, etc. |
+| `size` | `Size` | Required | Bar height: `"xsmall"` (4px), `"small"` (8px), `"medium"` (12px), `"large"` (16px), `"xlarge"` (20px) |
+| `jss` | `JSS` | - | Custom styles for the container |
+
+---
+
+## Basic usage
 
 <Column gap="medium">
-  <ProgressBar color="highlight" progress={0.66} size="large" />
-  <ProgressBar color="negative" progress={0.66} size="medium" />
-  <ProgressBar color="warning" progress={0.66} size="small" />
+  <ProgressBar color="highlight" progress={0.66} size="medium" />
 </Column>
 
 ```js
+<ProgressBar color="highlight" progress={0.66} size="medium" />
+```
+
+---
+
+## Sizes
+
+<Column gap="medium">
+  <Row gap="medium" align="center">
+    <Span size="small" color="secondary" jss={{ width: 60 }}>xsmall</Span>
+    <ProgressBar color="highlight" progress={0.5} size="xsmall" jss={{ flexGrow: 1 }} />
+  </Row>
+  <Row gap="medium" align="center">
+    <Span size="small" color="secondary" jss={{ width: 60 }}>small</Span>
+    <ProgressBar color="highlight" progress={0.5} size="small" jss={{ flexGrow: 1 }} />
+  </Row>
+  <Row gap="medium" align="center">
+    <Span size="small" color="secondary" jss={{ width: 60 }}>medium</Span>
+    <ProgressBar color="highlight" progress={0.5} size="medium" jss={{ flexGrow: 1 }} />
+  </Row>
+  <Row gap="medium" align="center">
+    <Span size="small" color="secondary" jss={{ width: 60 }}>large</Span>
+    <ProgressBar color="highlight" progress={0.5} size="large" jss={{ flexGrow: 1 }} />
+  </Row>
+  <Row gap="medium" align="center">
+    <Span size="small" color="secondary" jss={{ width: 60 }}>xlarge</Span>
+    <ProgressBar color="highlight" progress={0.5} size="xlarge" jss={{ flexGrow: 1 }} />
+  </Row>
+</Column>
+
+```js
+<ProgressBar color="highlight" progress={0.5} size="xsmall" />  // 4px
+<ProgressBar color="highlight" progress={0.5} size="small" />   // 8px
+<ProgressBar color="highlight" progress={0.5} size="medium" />  // 12px
+<ProgressBar color="highlight" progress={0.5} size="large" />   // 16px
+<ProgressBar color="highlight" progress={0.5} size="xlarge" />  // 20px
+```
+
+---
+
+## Colors
+
 <Column gap="medium">
   <ProgressBar color="highlight" progress={0.66} size="large" />
-  <ProgressBar color="negative" progress={0.66} size="medium" />
-  <ProgressBar color="warning" progress={0.66} size="small" />
+  <ProgressBar color="negative" progress={0.66} size="large" />
+  <ProgressBar color="warning" progress={0.66} size="large" />
+  <ProgressBar color="positive" progress={0.66} size="large" />
 </Column>
+
+```js
+<ProgressBar color="highlight" progress={0.66} size="large" />  // Accent color
+<ProgressBar color="negative" progress={0.66} size="large" />   // Error/danger
+<ProgressBar color="warning" progress={0.66} size="large" />    // Warning
+<ProgressBar color="positive" progress={0.66} size="large" />   // Success
 ```
+
+---
+
+## Progress states
+
+<Column gap="medium">
+  <Row gap="medium" align="center">
+    <ProgressBar color="highlight" progress={0} size="medium" jss={{ flexGrow: 1 }} />
+    <Span size="small" color="secondary">0%</Span>
+  </Row>
+  <Row gap="medium" align="center">
+    <ProgressBar color="highlight" progress={0.25} size="medium" jss={{ flexGrow: 1 }} />
+    <Span size="small" color="secondary">25%</Span>
+  </Row>
+  <Row gap="medium" align="center">
+    <ProgressBar color="highlight" progress={0.5} size="medium" jss={{ flexGrow: 1 }} />
+    <Span size="small" color="secondary">50%</Span>
+  </Row>
+  <Row gap="medium" align="center">
+    <ProgressBar color="highlight" progress={0.75} size="medium" jss={{ flexGrow: 1 }} />
+    <Span size="small" color="secondary">75%</Span>
+  </Row>
+  <Row gap="medium" align="center">
+    <ProgressBar color="positive" progress={1} size="medium" jss={{ flexGrow: 1 }} />
+    <Span size="small" color="secondary">100%</Span>
+  </Row>
+</Column>
+
+```js
+<ProgressBar color="highlight" progress={0} size="medium" />     // Empty
+<ProgressBar color="highlight" progress={0.5} size="medium" />   // Half
+<ProgressBar color="positive" progress={1} size="medium" />      // Complete
+```
+
+---
+
+## With percentage label
+
+```js
+function UploadProgress({ progress }) {
+  const percentage = Math.round(progress * 100);
+
+  return (
+    <Column gap="small">
+      <Row justify="space-between">
+        <Span>Uploading...</Span>
+        <Span color="secondary">{percentage}%</Span>
+      </Row>
+      <ProgressBar
+        color={progress === 1 ? "positive" : "highlight"}
+        progress={progress}
+        size="medium"
+      />
+    </Column>
+  );
+}
+```
+
+---
+
+## Dynamic color based on value
+
+```js
+function StorageIndicator({ used, total }) {
+  const progress = used / total;
+
+  // Change color based on usage
+  const color = progress > 0.9
+    ? "negative"
+    : progress > 0.7
+    ? "warning"
+    : "highlight";
+
+  return (
+    <Column gap="small">
+      <Row justify="space-between">
+        <Span>Storage</Span>
+        <Span color="secondary">{Math.round(progress * 100)}% used</Span>
+      </Row>
+      <ProgressBar color={color} progress={progress} size="small" />
+    </Column>
+  );
+}
+```
+
+---
+
+## Animated progress
+
+The progress bar uses CSS transform for smooth animations:
+
+```js
+function AnimatedProgress() {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress((p) => (p >= 1 ? 0 : p + 0.1));
+    }, 500);
+    return () => clearInterval(interval);
+  }, []);
+
+  return <ProgressBar color="highlight" progress={progress} size="medium" />;
+}
+```
+
+---
+
+## Use cases
+
+- **File uploads**: Show upload completion
+- **Storage usage**: Display disk/quota usage
+- **Form completion**: Indicate steps completed
+- **Loading states**: Show determinate loading progress
+- **Skill levels**: Display proficiency ratings

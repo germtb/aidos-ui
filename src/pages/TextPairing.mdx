@@ -1,155 +1,204 @@
 import { TextPairing } from "../TextPairing";
 import { Column } from "../Column";
-import { ListDivider } from "../ListDivider";
+import { Row } from "../Row";
 import { Icon } from "../Icon";
 import { cssVar } from "../jss";
 
 # TextPairing
 
-The `TextPairing` is a seemingly simple component that can be used to represent multiple visual ideas. Many of the other components use it to create more complex elements.
+A versatile component for displaying a headline with optional body text and add-ons. TextPairing is the building block for list items, cards, and other compound components.
 
-In its simplest form a `TextPairing` is formed of two text elements (headline and body) laid out vertically. However it accepts multiple props to enable much more complex representations.
+---
 
-<Column
-  jss={{ [" > *"]: { borderBottom: `1px solid ${cssVar("--divider")}` } }}
->
-  <TextPairing headline="Headline" body="Body" />
-  <TextPairing headline="Headline" headlineBold body="Body" />
+## Props
+
+| Prop | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `headline` | `ReactNode` | Yes | - | Primary text content |
+| `body` | `ReactNode` | No | - | Secondary text below headline |
+| `headlineColor` | `TextColor` | No | `"primary"` | Headline text color |
+| `headlineSize` | `Size` | No | `"medium"` | Headline text size |
+| `headlineBold` | `boolean` | No | `false` | Bold headline text |
+| `headlineAddOn` | `ReactNode` | No | - | Element displayed after headline |
+| `bodyColor` | `TextColor` | No | `"secondary"` | Body text color |
+| `bodySize` | `Size` | No | `"medium"` | Body text size |
+| `addOn` | `ReactNode` | No | - | Element displayed beside the text content |
+| `addOnPosition` | `"start"` \| `"end"` | No | `"start"` | Add-on placement |
+| `gap` | `Gap` | No | `"small"` | Space between add-on and text |
+| `padding` | `Padding` | No | - | Internal padding |
+| `align` | `Align` | No | `"stretch"` | Vertical alignment |
+| `grow` | `boolean` | No | `false` | Allow component to grow |
+| `shrink` | `boolean` | No | `false` | Allow component to shrink |
+
+---
+
+## Basic usage
+
+At its simplest, TextPairing displays a headline and body text vertically stacked.
+
+<Column gap="large">
+  <TextPairing headline="Headline" body="Body text goes here" />
+  <TextPairing headline="Bold headline" headlineBold body="With supporting body text" />
+</Column>
+
+```js
+<TextPairing headline="Headline" body="Body text" />
+
+<TextPairing
+  headline="Bold headline"
+  headlineBold
+  body="With supporting body text"
+/>
+```
+
+---
+
+## Customizing text styles
+
+Control the size and color of both headline and body independently.
+
+<Column gap="large">
   <TextPairing
-    headline="Headline"
-    headlineBold
+    headline="Large headline"
     headlineSize="large"
-    body="Body"
-  />
-  <TextPairing
-    headline="Headline"
     headlineBold
-    headlineSize="large"
-    body="Body"
-    bodyColor="subtle"
-  />
-  <TextPairing
-    headline="Headline"
-    headlineBold
-    headlineSize="large"
-    body="Body"
-    bodyColor="subtle"
+    body="Smaller subtle body"
     bodySize="small"
+    bodyColor="subtle"
   />
   <TextPairing
-    headline="Headline"
-    headlineBold
-    headlineSize="large"
-    body="Body"
-    bodyColor="subtle"
-    bodySize="small"
-    addOn={<Icon icon="fa-bicycle" color="primary" size="xxlarge" />}
-  />
-  <TextPairing
-    headline="Headline"
-    headlineBold
-    headlineSize="large"
-    body="Body"
-    bodyColor="subtle"
-    bodySize="small"
-    addOn={<Icon icon="fa-bicycle" color="primary" size="xxlarge" />}
-    gap="medium"
-  />
-  <TextPairing
-    headline="Headline"
-    headlineBold
-    headlineSize="large"
-    body="Body"
-    bodyColor="subtle"
-    bodySize="small"
-    addOn={<Icon icon="fa-bicycle" color="primary" size="xxlarge" />}
-    gap="medium"
-    addOnPosition="end"
-  />
-  <TextPairing
-    headline="Headline"
-    headlineBold
-    headlineSize="large"
-    body="Body"
-    bodyColor="subtle"
-    bodySize="small"
-    addOn={<Icon icon="fa-bicycle" color="primary" size="xxlarge" />}
-    headlineAddOn={<Icon icon="fa-plus" color="primary" size="small" />}
-    gap="medium"
-    addOnPosition="end"
+    headline="Highlight headline"
+    headlineColor="highlight"
+    body="Secondary body text"
+    bodyColor="secondary"
   />
 </Column>
 
 ```js
-<Column
-  jss={{ [" > *"]: { borderBottom: `1px solid ${cssVar("--divider")}` } }}
->
-  <TextPairing headline="Headline" body="Body" />
-  <TextPairing headline="Headline" headlineBold body="Body" />
-  <TextPairing
-    headline="Headline"
-    headlineBold
-    headlineSize="large"
-    body="Body"
-  />
-  <TextPairing
-    headline="Headline"
-    headlineBold
-    headlineSize="large"
-    body="Body"
-    bodyColor="subtle"
-  />
-  <TextPairing
-    headline="Headline"
-    headlineBold
-    headlineSize="large"
-    body="Body"
-    bodyColor="subtle"
-    bodySize="small"
-  />
-  <TextPairing
-    headline="Headline"
-    headlineBold
-    headlineSize="large"
-    body="Body"
-    bodyColor="subtle"
-    bodySize="small"
-    addOn={<Icon icon="fa-bicycle" color="primary" size="xxlarge" />}
-  />
-  <TextPairing
-    headline="Headline"
-    headlineBold
-    headlineSize="large"
-    body="Body"
-    bodyColor="subtle"
-    bodySize="small"
-    addOn={<Icon icon="fa-bicycle" color="primary" size="xxlarge" />}
-    gap="medium"
-  />
-  <TextPairing
-    headline="Headline"
-    headlineBold
-    headlineSize="large"
-    body="Body"
-    bodyColor="subtle"
-    bodySize="small"
-    addOn={<Icon icon="fa-bicycle" color="primary" size="xxlarge" />}
-    gap="medium"
-    addOnPosition="end"
-  />
-  <TextPairing
-    headline="Headline"
-    headlineBold
-    headlineSize="large"
-    body="Body"
-    bodyColor="subtle"
-    bodySize="small"
-    addOn={<Icon icon="fa-bicycle" color="primary" size="xxlarge" />}
-    headlineAddOn={<Icon icon="fa-plus" color="primary" size="small" />}
-    gap="medium"
-    addOnPosition="end"
-  />
-</Column>
+<TextPairing
+  headline="Large headline"
+  headlineSize="large"
+  headlineBold
+  body="Smaller subtle body"
+  bodySize="small"
+  bodyColor="subtle"
+/>
+
+<TextPairing
+  headline="Highlight headline"
+  headlineColor="highlight"
+  body="Secondary body text"
+/>
 ```
 
 ---
+
+## With add-on
+
+Add icons, avatars, or other elements alongside the text content. Control placement with `addOnPosition`.
+
+<Column gap="large">
+  <TextPairing
+    headline="Notification"
+    body="You have a new message"
+    addOn={<Icon icon="fa-bell" color="highlight" size="large" />}
+    gap="medium"
+  />
+  <TextPairing
+    headline="Settings"
+    body="Configure your preferences"
+    addOn={<Icon icon="fa-cog" color="secondary" size="large" />}
+    addOnPosition="end"
+    gap="medium"
+  />
+</Column>
+
+```js
+// Add-on at start (default)
+<TextPairing
+  headline="Notification"
+  body="You have a new message"
+  addOn={<Icon icon="fa-bell" color="highlight" size="large" />}
+  gap="medium"
+/>
+
+// Add-on at end
+<TextPairing
+  headline="Settings"
+  body="Configure your preferences"
+  addOn={<Icon icon="fa-cog" color="secondary" size="large" />}
+  addOnPosition="end"
+  gap="medium"
+/>
+```
+
+---
+
+## With headline add-on
+
+Place small elements directly after the headline text, such as badges or status indicators.
+
+<Column gap="large">
+  <TextPairing
+    headline="New feature"
+    headlineBold
+    headlineAddOn={<Icon icon="fa-star" color="highlight" size="small" />}
+    body="Check out what's new"
+  />
+</Column>
+
+```js
+<TextPairing
+  headline="New feature"
+  headlineBold
+  headlineAddOn={<Icon icon="fa-star" color="highlight" size="small" />}
+  body="Check out what's new"
+/>
+```
+
+---
+
+## Complete example
+
+Combining all options for a rich list item appearance.
+
+<Column gap="medium">
+  <TextPairing
+    headline="John Doe"
+    headlineBold
+    headlineSize="large"
+    headlineAddOn={<Icon icon="fa-check-circle" color="highlight" size="small" />}
+    body="Senior Software Engineer"
+    bodyColor="subtle"
+    bodySize="small"
+    addOn={<Icon icon="fa-user" color="primary" size="xlarge" />}
+    gap="medium"
+    padding="medium"
+  />
+</Column>
+
+```js
+<TextPairing
+  headline="John Doe"
+  headlineBold
+  headlineSize="large"
+  headlineAddOn={<Icon icon="fa-check-circle" color="highlight" size="small" />}
+  body="Senior Software Engineer"
+  bodyColor="subtle"
+  bodySize="small"
+  addOn={<Icon icon="fa-user" color="primary" size="xlarge" />}
+  gap="medium"
+  padding="medium"
+/>
+```
+
+---
+
+## Use cases
+
+TextPairing is commonly used within:
+
+- **List items** - Display title and description with icons
+- **Cards** - Header sections with titles and subtitles
+- **Navigation** - Menu items with labels and descriptions
+- **Settings** - Option labels with explanatory text

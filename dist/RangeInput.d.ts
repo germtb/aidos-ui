@@ -8,7 +8,7 @@ export interface RangeInputProps extends BaseInputProps {
     onChange?: undefined;
     padding?: Padding;
     gap?: Gap;
-    addOn?: JSX.Element;
+    addOn?: React.JSX.Element;
     addOnPosition?: "start" | "end";
 }
 export declare const RangeInput: React.ForwardRefExoticComponent<RangeInputProps & React.RefAttributes<HTMLInputElement>>;

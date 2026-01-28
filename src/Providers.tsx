@@ -9,7 +9,7 @@ export function Providers({
   children,
   themes,
 }: {
-  children: JSX.Element;
+  children: React.JSX.Element;
   themes: { light: Theme; dark: Theme };
 }) {
   const [darkModeEnabled, setDarkModeEnabled] = useCookie("dark-mode", {

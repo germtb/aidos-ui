@@ -2,10 +2,55 @@ import { List } from "../List";
 import { Icon } from "../Icon";
 import { ListItem } from "../ListItem";
 import { ListHeaderItem } from "../ListHeaderItem";
+import { Column } from "../Column";
+import { Span } from "../Text";
 
-# List headers
+# ListHeaderItem
 
-`ListHeaders` have a variety of styles and support both regular and bare styling. They can be used to give contextual information about what a list contains or to visually separate a subgroup of elements.
+A specialized list item for section headers. Use to organize and visually separate groups within a list.
+
+---
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `headline` | `string` | Required | Header text |
+| `body` | `string` | - | Optional secondary text |
+| `highlight` | `boolean` | `false` | Use accent background color |
+| `addOn` | `ReactNode` | - | Icon or element to display |
+| `addOnPosition` | `Position` | - | Position of the add-on |
+| `withDivider` | `boolean` | - | Show divider below header |
+
+---
+
+## Basic usage
+
+<List ariaLabel="example">
+  <ListHeaderItem headline="Section A" />
+  <ListItem headline="Item 1" body="Description" />
+  <ListItem headline="Item 2" body="Description" />
+  <ListHeaderItem headline="Section B" />
+  <ListItem headline="Item 3" body="Description" />
+  <ListItem withDivider={false} headline="Item 4" body="Description" />
+</List>
+
+```js
+<List ariaLabel="example">
+  <ListHeaderItem headline="Section A" />
+  <ListItem headline="Item 1" body="Description" />
+  <ListItem headline="Item 2" body="Description" />
+  <ListHeaderItem headline="Section B" />
+  <ListItem headline="Item 3" body="Description" />
+  <ListItem headline="Item 4" body="Description" />
+</List>
+```
+
+---
+
+## Styles
+
+### Standard headers
 
 <List ariaLabel="example">
   <ListHeaderItem headline="Header" />
@@ -26,28 +71,31 @@ import { ListHeaderItem } from "../ListHeaderItem";
 </List>
 
 ```js
-<List ariaLabel="example">
-  <ListHeaderItem headline="Header" />
-  <ListItem headline="Headline 1" body="Body 1" />
-  <ListHeaderItem
-    headline="Header"
-    addOn={<Icon icon="fa-chain-broken" size="medium" color="primary" />}
-  />
-  <ListItem headline="Headline 2" body="Body 2" />
-  <ListHeaderItem highlight headline="Header" />
-  <ListItem headline="Headline 3" body="Body 3" />
-  <ListHeaderItem
-    highlight
-    headline="Header"
-    addOn={<Icon icon="fa-chain-broken" size="medium" color="light" />}
-  />
-  <ListItem withDivider={false} headline="Headline 4" body="Body 3" />
-</List>
+// Plain header
+<ListHeaderItem headline="Header" />
+
+// With icon
+<ListHeaderItem
+  headline="Header"
+  addOn={<Icon icon="fa-chain-broken" size="medium" color="primary" />}
+/>
+
+// Highlighted (accent background)
+<ListHeaderItem highlight headline="Header" />
+
+// Highlighted with icon
+<ListHeaderItem
+  highlight
+  headline="Header"
+  addOn={<Icon icon="fa-chain-broken" size="medium" color="light" />}
+/>
 ```
 
 ---
 
 ## Bare list headers
+
+In bare lists, headers have no background:
 
 <List bare ariaLabel="example">
   <ListHeaderItem headline="Header" />
@@ -70,21 +118,103 @@ import { ListHeaderItem } from "../ListHeaderItem";
 ```js
 <List bare ariaLabel="example">
   <ListHeaderItem headline="Header" />
-  <ListItem headline="Headline 1" body="Body 1" />
-  <ListHeaderItem
-    headline="Header"
-    addOn={<Icon icon="fa-chain-broken" size="medium" color="primary" />}
-  />
-  <ListItem headline="Headline 2" body="Body 2" />
+  <ListItem headline="Item" body="Description" />
+
+  {/* Highlighted in bare mode uses highlight text color instead */}
   <ListHeaderItem highlight headline="Header" />
-  <ListItem headline="Headline 3" body="Body 3" />
-  <ListHeaderItem
-    highlight
-    headline="Header"
-    addOn={<Icon icon="fa-chain-broken" size="medium" color="light" />}
-  />
-  <ListItem withDivider={false} headline="Headline 4" body="Body 3" />
+  <ListItem headline="Item" body="Description" />
 </List>
 ```
 
 ---
+
+## With icons
+
+Add context with icons:
+
+```js
+// Category header
+<ListHeaderItem
+  headline="Documents"
+  addOn={<Icon icon="fa-folder" size="medium" color="primary" />}
+/>
+
+// Status header
+<ListHeaderItem
+  headline="Pending"
+  addOn={<Icon icon="fa-clock-o" size="medium" color="warning" />}
+/>
+
+// Alert header (highlighted)
+<ListHeaderItem
+  highlight
+  headline="Urgent"
+  addOn={<Icon icon="fa-exclamation" size="medium" color="light" />}
+/>
+```
+
+---
+
+## Common patterns
+
+### Grouped settings
+
+```js
+<List ariaLabel="Settings">
+  <ListHeaderItem headline="Account" />
+  <ListButtonItem headline="Profile" onClick={() => {}} />
+  <ListButtonItem headline="Password" onClick={() => {}} />
+
+  <ListHeaderItem headline="Preferences" />
+  <ListButtonItem headline="Theme" onClick={() => {}} />
+  <ListButtonItem headline="Language" onClick={() => {}} />
+
+  <ListHeaderItem headline="Danger Zone" highlight />
+  <ListButtonItem headline="Delete Account" color="negative" onClick={() => {}} />
+</List>
+```
+
+### Alphabetical grouping
+
+```js
+<List ariaLabel="Contacts">
+  <ListHeaderItem headline="A" />
+  <ListItem headline="Alice Anderson" />
+  <ListItem headline="Andrew Adams" />
+
+  <ListHeaderItem headline="B" />
+  <ListItem headline="Bob Brown" />
+  <ListItem headline="Betty Baker" />
+</List>
+```
+
+### Category browser
+
+```js
+<List ariaLabel="Categories">
+  <ListHeaderItem
+    headline="Popular"
+    addOn={<Icon icon="fa-fire" color="warning" />}
+  />
+  <ListButtonItem headline="Technology" onClick={() => {}} />
+  <ListButtonItem headline="Design" onClick={() => {}} />
+
+  <ListHeaderItem
+    headline="Recent"
+    addOn={<Icon icon="fa-clock-o" color="secondary" />}
+  />
+  <ListButtonItem headline="Science" onClick={() => {}} />
+  <ListButtonItem headline="Art" onClick={() => {}} />
+</List>
+```
+
+---
+
+## Styling behavior
+
+| Context | Standard Header | Highlighted Header |
+|---------|----------------|-------------------|
+| Regular list | Gray background | Accent background |
+| Bare list | No background | Accent text color |
+
+The component automatically adapts based on the parent list's `bare` prop.

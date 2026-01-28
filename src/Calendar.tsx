@@ -23,7 +23,7 @@ export const Calendar = React.forwardRef(
       jss,
     }: {
       date: Date;
-      header: (props: { weekday: string }) => JSX.Element;
+      header: (props: { weekday: string }) => React.JSX.Element;
       jss?: JSS;
       cell: (props: {
         today?: boolean;
@@ -33,7 +33,7 @@ export const Calendar = React.forwardRef(
         left: boolean;
         right: boolean;
         bottom: boolean;
-      }) => JSX.Element;
+      }) => React.JSX.Element;
     },
     ref?: React.Ref<HTMLElement>
   ) => {

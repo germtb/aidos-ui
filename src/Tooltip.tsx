@@ -23,11 +23,11 @@ interface TooltipProps {
   jss?: JSS;
   className?: undefined;
   tag?: keyof HTMLElementTagNameMap;
-  children: JSX.Element;
+  children: React.JSX.Element;
 }
 
 export function Tooltip({ content, jss, tag, children }: TooltipProps) {
-  const [tooltip, setTooltip] = useState<JSX.Element>(null);
+  const [tooltip, setTooltip] = useState<React.JSX.Element>(null);
   const dialogRef = useRef(null);
   const focusTrapRoot = useRefEffect((root: HTMLDialogElement) => {
     dialogRef.current = root;

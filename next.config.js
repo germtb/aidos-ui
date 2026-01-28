@@ -5,7 +5,7 @@ import mdx from "@next/mdx";
 const withMDX = mdx({
   extension: /\.mdx?$/,
   options: {
-    remarkPlugins: [],
+    remarkPlugins: ["remark-gfm"],
     rehypePlugins: [],
     providerImportSource: "@mdx-js/react",
   },
@@ -15,6 +15,7 @@ const withMDX = mdx({
 const nextConfig = {
   pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
   reactStrictMode: true,
+  turbopack: {},
 };
 
 // Merge MDX config with Next.js config

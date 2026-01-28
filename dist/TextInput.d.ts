@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { BaseInputProps } from "./BaseInput";
-import { Gap, JSS, Padding } from "./jss";
+import { Gap, JSS, Padding, Size } from "./jss";
 export interface TextInputProps extends BaseInputProps {
     onValueChange?: (value: string) => void;
     jssRoot?: JSS;
@@ -10,5 +10,6 @@ export interface TextInputProps extends BaseInputProps {
     onChange?: undefined;
     padding?: Padding;
     bare?: boolean;
+    size?: Size;
 }
 export declare const TextInput: React.ForwardRefExoticComponent<TextInputProps & React.RefAttributes<HTMLInputElement>>;

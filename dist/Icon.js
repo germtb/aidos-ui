@@ -1,5 +1,5 @@
 import { jsx as _jsx } from "react/jsx-runtime";
-import { useEffect } from "react";
+import { Icon as IconifyIcon } from "@iconify/react";
 import { BaseView } from "./BaseView";
 import { getTextColor } from "./jss";
 const jsss = {
@@ -41,26 +41,7 @@ const jsss = {
         width: 64,
     },
 };
-let initialized = false;
-const initializeIcons = () => {
-    if (initialized) {
-        return;
-    }
-    const hasIconify = document.getElementById("iconify");
-    if (hasIconify) {
-        initialized = true;
-        return;
-    }
-    const script = document.createElement("script");
-    script.src = "https://code.iconify.design/3/3.1.1/iconify.min.js";
-    script.id = "iconify";
-    document.head.appendChild(script);
-    initialized = true;
-};
 export function IconProvider({ children }) {
-    useEffect(() => {
-        initializeIcons();
-    }, []);
     return children;
 }
 export function Icon({ icon, size, color, ariaLabel, }) {
@@ -74,6 +55,6 @@ export function Icon({ icon, size, color, ariaLabel, }) {
             size === "xxlarge" && jsss.xxlarge,
             size === "xxxlarge" && jsss.xxxlarge,
             getTextColor(color),
-        ], children: _jsx("span", { className: "iconify", "data-icon": icon }) }, icon));
+        ], children: _jsx(IconifyIcon, { icon: icon, width: "100%", height: "100%" }) }));
 }
 //# sourceMappingURL=Icon.js.map
