@@ -62,9 +62,7 @@ export function createStorage({ initialState, name = "aidos-storage", }) {
         useEffect(() => {
             return subscribe((newState) => {
                 const newLocalState = selector(newState);
-                if (newLocalState != localState) {
-                    setLocalState(selector(newState));
-                }
+                setLocalState((prev) => (newLocalState != prev ? newLocalState : prev));
             });
         }, []);
         return localState;

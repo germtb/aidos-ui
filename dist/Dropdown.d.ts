@@ -1,5 +1,5 @@
 import { Gap, JSS, Padding, Size } from "./jss";
-export declare function Dropdown<T extends string | number>({ id, label, options, selection, setSelection, jss, jssButton, optionLabel, padding, size, gap, }: {
+export declare function Dropdown<T extends string | number>({ id: propId, label, options, selection, setSelection, jss, jssButton, optionLabel, padding, size, gap, }: {
     id?: string;
     label: string;
     options: Set<T>;

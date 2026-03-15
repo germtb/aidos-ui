@@ -1,10 +1,10 @@
 /**
  * Injects a real HTML comment node (<!-- ComponentName -->) into the DOM.
- * Uses a hidden anchor span as a placement reference, then inserts
- * the comment immediately before it.
  *
- * No-op on the server. Dev-only — the JSX dev runtime wraps component renders with this.
+ * Renders nothing (null). Uses the React fiber tree to locate the sibling
+ * component's first DOM node, then inserts a comment before it.
+ * Client-only — no SSR output, no hydration mismatch.
  */
 export declare function JSSComment({ name }: {
     name: string;
-}): import("react/jsx-runtime").JSX.Element;
+}): any;

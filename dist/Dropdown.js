@@ -1,7 +1,6 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { BaseView } from "./BaseView";
-import { guid } from "./guid";
 import { Button } from "./Button";
 import { Column } from "./Column";
 import { useNavigation } from "./useNavigation";
@@ -28,7 +27,9 @@ const jsss = {
         zIndex: 1,
     },
 };
-export function Dropdown({ id = guid(), label, options, selection, setSelection, jss, jssButton, optionLabel, padding, size, gap = "medium", }) {
+export function Dropdown({ id: propId, label, options, selection, setSelection, jss, jssButton, optionLabel, padding, size, gap = "medium", }) {
+    const hookId = useId();
+    const id = propId ?? hookId;
     const triggerRef = useRef(null);
     const [expanded, setExpanded] = useState(false);
     const dropdownRef = useNavigation({ autofocus: true });

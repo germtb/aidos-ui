@@ -24,21 +24,9 @@ function getWrapped(type) {
     wrapCache.set(type, wrapped);
     return wrapped;
 }
-// Skip framework internals and our own components
-const SKIP_NAMES = new Set([
-    "JSSComment",
-    "JSSBoundary",
-    // Next.js internals
-    "Document",
-    "Html",
-    "Head",
-    "Main",
-    "NextScript",
-    "App",
-    "InnerLayoutRouter",
-    "OuterLayoutRouter",
-]);
-function isComponent(type) {
+// Skip our own wrapper components by name
+const SKIP_NAMES = new Set(["JSSComment", "JSSBoundary"]);
+function isUserComponent(type, source) {
     if (typeof type !== "function")
         return false;
     const name = type.displayName || type.name;
@@ -46,13 +34,13 @@ function isComponent(type) {
         return false;
     if (SKIP_NAMES.has(name))
         return false;
-    // Skip if it comes from node_modules (framework code)
-    if (type.__module && type.__module.includes("node_modules"))
+    // Use the source fileName from the JSX transform to skip node_modules
+    if (source?.fileName?.includes("node_modules"))
         return false;
     return true;
 }
 export function jsxDEV(type, props, key, isStaticChildren, source, self) {
-    if (isComponent(type)) {
+    if (isUserComponent(type, source)) {
         return _jsxDEV(getWrapped(type), props, key, isStaticChildren, source, self);
     }
     return _jsxDEV(type, props, key, isStaticChildren, source, self);
