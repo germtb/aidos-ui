@@ -75,7 +75,7 @@ const aliases: {
   },
 };
 
-const rawHashMap = new Map<string, string>();
+const rawHashMap = new Map<string, { selector: string; key: string }>();
 
 function createStyleNode(content: string) {
   if (isServer()) {
@@ -111,6 +111,9 @@ const pixelStyles = new Set([
   "left",
   "right",
   "outline-offset",
+  "gap",
+  "row-gap",
+  "column-gap",
 ]);
 
 const toPixelValue = (key: string, value): string => {
@@ -141,20 +144,25 @@ const flattenJSS = (jss: JSS): Styles => {
   if (!jss) {
     return {};
   } else if (Array.isArray(jss)) {
-    // @ts-ignore
-    return jss.reduce((acc: Styles, jss: JSS) => {
-      return { ...acc, ...flattenJSS(jss) };
-    }, {});
+    const result: Styles = {};
+    for (const item of jss) {
+      Object.assign(result, flattenJSS(item));
+    }
+    return result;
   } else {
     return jss;
   }
 };
 
-export const toClassnames = (jss: JSS): string => {
+export const toClassnames = (jss: JSS, componentName?: string): string => {
   jss = flattenJSS(jss);
 
   const stylesStack = Object.entries(jss);
-  const classNames = [];
+  const classNames: string[] = [];
+
+  if (componentName) {
+    classNames.push(componentName);
+  }
 
   while (stylesStack.length) {
     const [key, value] = stylesStack.pop();
@@ -164,17 +172,22 @@ export const toClassnames = (jss: JSS): string => {
       continue;
     }
 
-    const rawHash = hash(key + JSON.stringify(value)).toString(32);
-    const cachedSelector = rawHashMap.get(rawHash);
+    const inputKey = key + JSON.stringify(value);
+    const rawHash = hash(inputKey).toString(32);
+    const cached = rawHashMap.get(rawHash);
 
-    if (cachedSelector != null) {
-      classNames.push(cachedSelector);
+    if (cached != null) {
+      if (cached.key !== inputKey) {
+        console.warn(
+          `[jss] Hash collision detected: "${inputKey}" collides with "${cached.key}"`
+        );
+      }
+      classNames.push(cached.selector);
       continue;
     }
 
-    // const selector = numberToBase(rawHashMap.size);
     const selector = `x${rawHash}`;
-    rawHashMap.set(rawHash, selector);
+    rawHashMap.set(rawHash, { selector, key: inputKey });
     classNames.push(selector);
 
     if (typeof value === "number" || typeof value === "string") {

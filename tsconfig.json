@@ -11,6 +11,12 @@
     "sourceMap": true,
     "outDir": "dist/",
     "jsx": "react-jsx",
+    "jsxImportSource": "aidos-ui-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "aidos-ui-jsx/jsx-dev-runtime": ["./src/jsx-dev-runtime"],
+      "aidos-ui-jsx/jsx-runtime": ["./src/jsx-runtime"]
+    },
     "moduleResolution": "node",
     "esModuleInterop": true,
     "declaration": true,

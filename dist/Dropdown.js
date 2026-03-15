@@ -24,7 +24,7 @@ const jsss = {
         left: 0,
         right: 0,
         borderRadius: "var(--border-radius-m)",
-        boxShadow: "0px 1px 2px var(--divider)",
+        boxShadow: "var(--shadow-sm)",
         zIndex: 1,
     },
 };

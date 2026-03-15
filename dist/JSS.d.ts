@@ -4,7 +4,7 @@ export type Styles = CSS.Properties<string | number | CSS.Properties<string | nu
 export type JSS = Styles | null | false | undefined | {
     [key: string]: Styles;
 } | Array<JSS>;
-export declare const toClassnames: (jss: JSS) => string;
+export declare const toClassnames: (jss: JSS, componentName?: string) => string;
 export declare function JSSProvider({ themes, children, }: {
     themes: {
         dark: Theme;

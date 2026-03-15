@@ -32,6 +32,7 @@ export const BaseButton = React.forwardRef(
   ) => {
     return (
       <button
+        type="button"
         {...otherProps}
         aria-disabled={disabled ? true : undefined}
         ref={ref}

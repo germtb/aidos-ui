@@ -19,7 +19,7 @@ export function Card({
         {
           backgroundColor: cssVar("--overlay-background"),
           borderRadius: cssVar("--border-radius-l"),
-          boxShadow: `1px 1px 4px 1px ${cssVar("--divider")}`,
+          boxShadow: cssVar("--shadow-sm"),
         },
         jss,
       ]}

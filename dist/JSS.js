@@ -87,6 +87,9 @@ const pixelStyles = new Set([
     "left",
     "right",
     "outline-offset",
+    "gap",
+    "row-gap",
+    "column-gap",
 ]);
 const toPixelValue = (key, value) => {
     const sValue = value.toString();
@@ -111,34 +114,41 @@ const flattenJSS = (jss) => {
         return {};
     }
     else if (Array.isArray(jss)) {
-        // @ts-ignore
-        return jss.reduce((acc, jss) => {
-            return { ...acc, ...flattenJSS(jss) };
-        }, {});
+        const result = {};
+        for (const item of jss) {
+            Object.assign(result, flattenJSS(item));
+        }
+        return result;
     }
     else {
         return jss;
     }
 };
-export const toClassnames = (jss) => {
+export const toClassnames = (jss, componentName) => {
     jss = flattenJSS(jss);
     const stylesStack = Object.entries(jss);
     const classNames = [];
+    if (componentName) {
+        classNames.push(componentName);
+    }
     while (stylesStack.length) {
         const [key, value] = stylesStack.pop();
         if (aliases[key]) {
             stylesStack.push(...aliases[key](value));
             continue;
         }
-        const rawHash = hash(key + JSON.stringify(value)).toString(32);
-        const cachedSelector = rawHashMap.get(rawHash);
-        if (cachedSelector != null) {
-            classNames.push(cachedSelector);
+        const inputKey = key + JSON.stringify(value);
+        const rawHash = hash(inputKey).toString(32);
+        const cached = rawHashMap.get(rawHash);
+        if (cached != null) {
+            if (cached.key !== inputKey) {
+                console.warn(`[jss] Hash collision detected: "${inputKey}" collides with "${cached.key}"`);
+            }
+            classNames.push(cached.selector);
             continue;
         }
-        // const selector = numberToBase(rawHashMap.size);
         const selector = `x${rawHash}`;
-        rawHashMap.set(rawHash, selector);
+        rawHashMap.set(rawHash, { selector, key: inputKey });
         classNames.push(selector);
         if (typeof value === "number" || typeof value === "string") {
             const [cssProp, cssValue] = getCSS(key, value);

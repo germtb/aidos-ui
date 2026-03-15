@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useId, useRef, useState } from "react";
 
 import { BaseView } from "./BaseView";
-import { guid } from "./guid";
 import { Button } from "./Button";
 import { Column } from "./Column";
 import { useNavigation } from "./useNavigation";
@@ -25,12 +24,12 @@ const jsss: { [key: string]: JSS } = {
     left: 0,
     right: 0,
     borderRadius: "var(--border-radius-m)",
-    boxShadow: "0px 1px 2px var(--divider)",
+    boxShadow: "var(--shadow-sm)",
     zIndex: 1,
   },
 };
 export function Dropdown<T extends string | number>({
-  id = guid(),
+  id: propId,
   label,
   options,
   selection,
@@ -54,6 +53,8 @@ export function Dropdown<T extends string | number>({
   gap?: Gap;
   size?: Size;
 }) {
+  const hookId = useId();
+  const id = propId ?? hookId;
   const triggerRef = useRef(null);
   const [expanded, setExpanded] = useState(false);
   const dropdownRef = useNavigation({ autofocus: true });
