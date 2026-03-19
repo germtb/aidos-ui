@@ -7,7 +7,7 @@ import { useNavigation } from "./useNavigation";
 import { useRefEffect } from "./useRefEffect";
 import { Gap, JSS, Padding, Size, getBackground } from "./jss";
 
-const jsss: { [key: string]: JSS } = {
+const styles: { [key: string]: JSS } = {
   root: {
     position: "relative",
     display: "flex",
@@ -76,7 +76,7 @@ export function Dropdown<T extends string | number>({
   }, [expanded]);
 
   return (
-    <BaseView ref={rootRef} jss={[jsss.root, jss]}>
+    <BaseView ref={rootRef} jss={[styles.root, jss]}>
       <Button
         size={size}
         padding={padding}
@@ -87,7 +87,7 @@ export function Dropdown<T extends string | number>({
         role="combobox"
         justify="space-between"
         tabIndex={0}
-        jss={[jsss.button, jssButton]}
+        jss={[styles.button, jssButton]}
         color="positive"
         icon="fa-chevron-down"
         iconPosition="right"
@@ -101,7 +101,7 @@ export function Dropdown<T extends string | number>({
       {expanded && (
         <Column
           gap={gap}
-          jss={[jsss.dropdown, getBackground("secondary-background")]}
+          jss={[styles.dropdown, getBackground("secondary-background")]}
           id={id}
           role="listbox"
           aria-label={label}

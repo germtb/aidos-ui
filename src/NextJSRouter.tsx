@@ -7,7 +7,7 @@ import { BaseView } from "./BaseView";
 import { useRouterState } from "./NextJSRouterState";
 import { JSS } from "./jss";
 
-const jsss: { [key: string]: JSS } = {
+const styles: { [key: string]: JSS } = {
   root: {
     display: "flex",
     flexDirection: "column",
@@ -36,25 +36,23 @@ export function Router() {
   } = useRouterState();
 
   return (
-    <BaseView jss={jsss.root}>
+    <BaseView jss={styles.root}>
       {navigationStack.map(({ route, routeProps }, index, list) => {
         const isTopOfStack = index === list.length - 1;
 
         return (
-          <StackContextProvider
+          <Column
             key={route.title(routeProps)}
-            isTopOfStack={isTopOfStack}
+            jss={[styles.route, !isTopOfStack && styles.hidden]}
+            aria-hidden={!isTopOfStack}
           >
-            <Column
-              jss={[jsss.route, !isTopOfStack && jsss.hidden]}
-              aria-hidden={!isTopOfStack}
-            >
+            <StackContextProvider isTopOfStack={isTopOfStack}>
               <ListDivider />
               <Suspense fallback={null}>
                 <route.root {...routeProps} />
               </Suspense>
-            </Column>
-          </StackContextProvider>
+            </StackContextProvider>
+          </Column>
         );
       })}
     </BaseView>

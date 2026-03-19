@@ -1,7 +1,7 @@
 import React from "react";
 import { JSS, toClassnames } from "./jss";
 
-const jsss: { [key: string]: JSS } = {
+const styles: { [key: string]: JSS } = {
   relative: {
     position: "relative",
   },
@@ -44,9 +44,9 @@ export const BaseView = React.forwardRef(
         ref={ref}
         className={toClassnames([
           jss,
-          grow && jsss.grow,
-          shrink && jsss.shrink,
-          relative && jsss.relative,
+          grow && styles.grow,
+          shrink && styles.shrink,
+          relative && styles.relative,
         ])}
         {...otherProps}
       >

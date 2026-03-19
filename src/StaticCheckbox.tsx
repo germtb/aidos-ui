@@ -10,7 +10,7 @@ type StaticCheckboxProps = {
   icon?: IconType;
 };
 
-const jsss: { [key: string]: JSS } = {
+const styles: { [key: string]: JSS } = {
   border: {
     position: "absolute",
     top: "var(--spacing-xs)",
@@ -61,9 +61,9 @@ export function StaticCheckbox({
         width: sizes[size],
       }}
     >
-      <BaseView jss={[jsss.border, checked && jsss.borderChecked]} />
+      <BaseView jss={[styles.border, checked && styles.borderChecked]} />
       {checked && (
-        <BaseView jss={jsss.icon}>
+        <BaseView jss={styles.icon}>
           <Icon size={size} color="light" icon={icon} />
         </BaseView>
       )}

@@ -8,7 +8,7 @@ import { Row } from "./Row";
 import { IconButton } from "./IconButton";
 import { toClassnames } from "./jss";
 
-const jsss = {
+const styles = {
   dialog: {
     border: "1px solid var(--divider)",
     borderRadius: "var(--border-radius-l)",
@@ -50,8 +50,8 @@ export const Dialog = ({
   close: () => void;
 }) => {
   return (
-    <BaseView jss={jsss.root}>
-      <Column jss={jsss.header}>
+    <BaseView jss={styles.root}>
+      <Column jss={styles.header}>
         <Row padding="medium" justify="space-between" align="center">
           <Text size="medium" color="secondary">
             {label}
@@ -67,7 +67,7 @@ export const Dialog = ({
         </Row>
         <ListDivider />
       </Column>
-      <BaseView jss={jsss.content}>{children}</BaseView>
+      <BaseView jss={styles.content}>{children}</BaseView>
     </BaseView>
   );
 };
@@ -113,7 +113,7 @@ export function useDialog<Input>(
           dialogRef.current = ref;
           ref && ref.showModal();
         }}
-        className={toClassnames(jsss.dialog)}
+        className={toClassnames(styles.dialog)}
         onClose={() => {
           closeRef.current();
         }}

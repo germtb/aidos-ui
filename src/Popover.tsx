@@ -5,7 +5,7 @@ import { BaseView } from "./BaseView";
 import { useRefEffect } from "./useRefEffect";
 import { JSS, toClassnames } from "./jss";
 
-const jsss: { [key: string]: JSS } = {
+const styles: { [key: string]: JSS } = {
   popover: {
     padding: 0,
     zIndex: 1,
@@ -129,7 +129,7 @@ export function PopoverTrigger<Input>({
         ref={(ref: null | HTMLDialogElement) => {
           dialogRef.current = ref;
         }}
-        className={toClassnames([jsss.popover, jssDialog])}
+        className={toClassnames([styles.popover, jssDialog])}
         onClose={() => {
           setPopover(null);
         }}

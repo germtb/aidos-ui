@@ -12,7 +12,7 @@ export interface DateInputProps extends BaseInputProps {
   icon?: IconType;
   addOn?: ReactNode;
   onChange?: undefined;
-  jsss?: JSS;
+  jss?: JSS;
 }
 
 export const DateInput = React.forwardRef(

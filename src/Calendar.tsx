@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { cloneElement, useMemo } from "react";
 import { BaseView } from "./BaseView";
 import { JSS } from "./jss";
 
@@ -78,18 +78,17 @@ export const Calendar = React.forwardRef(
             index + 1 - offset
           );
 
-          return (
-            <React.Fragment key={dayDate.toISOString()}>
-              {cell({
-                date: dayDate,
-                today: false,
-                top: true,
-                left: index % 7 === 0,
-                outOfMonth: true,
-                right: false,
-                bottom: false,
-              })}
-            </React.Fragment>
+          return cloneElement(
+            cell({
+              date: dayDate,
+              today: false,
+              top: true,
+              left: index % 7 === 0,
+              outOfMonth: true,
+              right: false,
+              bottom: false,
+            }),
+            { key: dayDate.toISOString() }
           );
         })}
 
@@ -101,22 +100,21 @@ export const Calendar = React.forwardRef(
             12 // If we do not add this the ISO string would be from the day before at midnight
           );
 
-          return (
-            <React.Fragment key={dayDate.toISOString()}>
-              {cell({
-                date: dayDate,
-                top: index + offset < 7,
-                left: (index + offset) % 7 === 0,
-                right:
-                  (index + offset) % 7 === 7 - 1 || index === daysInMonth - 1,
-                bottom: index > daysInMonth - 7 - 1,
-                outOfMonth: false,
-                today:
-                  dayDate.getDate() == new Date().getDate() &&
-                  dayDate.getMonth() == new Date().getMonth() &&
-                  dayDate.getFullYear() == new Date().getFullYear(),
-              })}
-            </React.Fragment>
+          return cloneElement(
+            cell({
+              date: dayDate,
+              top: index + offset < 7,
+              left: (index + offset) % 7 === 0,
+              right:
+                (index + offset) % 7 === 7 - 1 || index === daysInMonth - 1,
+              bottom: index > daysInMonth - 7 - 1,
+              outOfMonth: false,
+              today:
+                dayDate.getDate() == new Date().getDate() &&
+                dayDate.getMonth() == new Date().getMonth() &&
+                dayDate.getFullYear() == new Date().getFullYear(),
+            }),
+            { key: dayDate.toISOString() }
           );
         })}
       </BaseView>
