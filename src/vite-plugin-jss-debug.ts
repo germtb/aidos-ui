@@ -17,12 +17,14 @@ export default function jssDebug() {
   return [
     {
       name: "jss-debug-jsx",
-      config() {
+      config(_config: unknown, { command }: { command: string }) {
         return {
-          esbuild: {
-            jsx: "automatic",
-            jsxDev: true,
-            jsxImportSource: "aidos-ui",
+          oxc: {
+            jsx: {
+              runtime: "automatic",
+              development: command === "serve",
+              importSource: "aidos-ui",
+            },
           },
         };
       },

@@ -13,11 +13,15 @@
  */
 export default function jssDebug(): ({
     name: string;
-    config(): {
-        esbuild: {
-            jsx: string;
-            jsxDev: boolean;
-            jsxImportSource: string;
+    config(_config: unknown, { command }: {
+        command: string;
+    }): {
+        oxc: {
+            jsx: {
+                runtime: string;
+                development: boolean;
+                importSource: string;
+            };
         };
     };
     enforce?: undefined;
