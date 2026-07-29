@@ -4,7 +4,7 @@ import { BaseView } from "./BaseView";
 import { useRefEffect } from "./useRefEffect";
 import { Text } from "./Text";
 import { cssVar, toClassnames } from "./jss";
-const jsss = {
+const styles = {
     tooltip: {
         top: "-100%",
         transform: "translateY(50%)",
@@ -49,7 +49,7 @@ export function Tooltip({ content, jss, tag, children }) {
             setTooltip(_jsx("dialog", { ref: (ref) => {
                     dialogRef.current = ref;
                     focusTrapRoot(ref);
-                }, className: toClassnames(jsss.tooltip), onClose: () => {
+                }, className: toClassnames(styles.tooltip), onClose: () => {
                     setTooltip(null);
                 }, onClick: (e) => {
                     e.preventDefault();

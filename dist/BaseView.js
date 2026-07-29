@@ -1,7 +1,7 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import React from "react";
 import { toClassnames } from "./jss";
-const jsss = {
+const styles = {
     relative: {
         position: "relative",
     },
@@ -18,9 +18,9 @@ export const BaseView = React.forwardRef(({ jss, children, tag, grow, shrink, re
     // @ts-ignore
     _jsx(Tag, { ref: ref, className: toClassnames([
             jss,
-            grow && jsss.grow,
-            shrink && jsss.shrink,
-            relative && jsss.relative,
+            grow && styles.grow,
+            shrink && styles.shrink,
+            relative && styles.relative,
         ]), ...otherProps, children: children }));
 });
 //# sourceMappingURL=BaseView.js.map

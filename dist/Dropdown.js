@@ -6,7 +6,7 @@ import { Column } from "./Column";
 import { useNavigation } from "./useNavigation";
 import { useRefEffect } from "./useRefEffect";
 import { getBackground } from "./jss";
-const jsss = {
+const styles = {
     root: {
         position: "relative",
         display: "flex",
@@ -47,9 +47,9 @@ export function Dropdown({ id: propId, label, options, selection, setSelection, 
             triggerRef.current && triggerRef.current.focus();
         }
     }, [expanded]);
-    return (_jsxs(BaseView, { ref: rootRef, jss: [jsss.root, jss], children: [_jsx(Button, { size: size, padding: padding, "aria-expanded": expanded ? "true" : "false", "aria-controls": id, "aria-haspopup": "true", "aria-label": label, role: "combobox", justify: "space-between", tabIndex: 0, jss: [jsss.button, jssButton], color: "positive", icon: "fa-chevron-down", iconPosition: "right", onClick: () => {
+    return (_jsxs(BaseView, { ref: rootRef, jss: [styles.root, jss], children: [_jsx(Button, { size: size, padding: padding, "aria-expanded": expanded ? "true" : "false", "aria-controls": id, "aria-haspopup": "true", "aria-label": label, role: "combobox", justify: "space-between", tabIndex: 0, jss: [styles.button, jssButton], color: "positive", icon: "fa-chevron-down", iconPosition: "right", onClick: () => {
                     setExpanded((x) => !x);
-                }, ref: triggerRef, children: optionLabel(selection) }), expanded && (_jsx(Column, { gap: gap, jss: [jsss.dropdown, getBackground("secondary-background")], id: id, role: "listbox", "aria-label": label, tabIndex: -1, ref: dropdownRef, onBlur: (e) => {
+                }, ref: triggerRef, children: optionLabel(selection) }), expanded && (_jsx(Column, { gap: gap, jss: [styles.dropdown, getBackground("secondary-background")], id: id, role: "listbox", "aria-label": label, tabIndex: -1, ref: dropdownRef, onBlur: (e) => {
                     if (!e.currentTarget.contains(e.relatedTarget)) {
                         setExpanded(false);
                     }

@@ -7,7 +7,7 @@ import { Column } from "./Column";
 import { Row } from "./Row";
 import { IconButton } from "./IconButton";
 import { toClassnames } from "./jss";
-const jsss = {
+const styles = {
     dialog: {
         border: "1px solid var(--divider)",
         borderRadius: "var(--border-radius-l)",
@@ -39,7 +39,7 @@ const jsss = {
     },
 };
 export const Dialog = ({ label, children, close, }) => {
-    return (_jsxs(BaseView, { jss: jsss.root, children: [_jsxs(Column, { jss: jsss.header, children: [_jsxs(Row, { padding: "medium", justify: "space-between", align: "center", children: [_jsx(Text, { size: "medium", color: "secondary", children: label }), _jsx(IconButton, { autoFocus: true, bare: true, icon: "fa-close", size: "medium", onClick: close, color: "primary" })] }), _jsx(ListDivider, {})] }), _jsx(BaseView, { jss: jsss.content, children: children })] }));
+    return (_jsxs(BaseView, { jss: styles.root, children: [_jsxs(Column, { jss: styles.header, children: [_jsxs(Row, { padding: "medium", justify: "space-between", align: "center", children: [_jsx(Text, { size: "medium", color: "secondary", children: label }), _jsx(IconButton, { autoFocus: true, bare: true, icon: "fa-close", size: "medium", onClick: close, color: "primary" })] }), _jsx(ListDivider, {})] }), _jsx(BaseView, { jss: styles.content, children: children })] }));
 };
 const DialogContext = React.createContext({
     setDialog: () => { },
@@ -66,7 +66,7 @@ export function useDialog(DialogComponent, options) {
         setDialog(_jsx("dialog", { ref: (ref) => {
                 dialogRef.current = ref;
                 ref && ref.showModal();
-            }, className: toClassnames(jsss.dialog), onClose: () => {
+            }, className: toClassnames(styles.dialog), onClose: () => {
                 closeRef.current();
             }, onClick: (e) => {
                 if (dialogRef.current == null) {

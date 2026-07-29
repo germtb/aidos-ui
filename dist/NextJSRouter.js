@@ -5,7 +5,7 @@ import { Column } from "./Column";
 import { ListDivider } from "./ListDivider";
 import { BaseView } from "./BaseView";
 import { useRouterState } from "./NextJSRouterState";
-const jsss = {
+const styles = {
     root: {
         display: "flex",
         flexDirection: "column",
@@ -29,9 +29,9 @@ const jsss = {
 };
 export function Router() {
     const { context: { navigationStack }, } = useRouterState();
-    return (_jsx(BaseView, { jss: jsss.root, children: navigationStack.map(({ route, routeProps }, index, list) => {
+    return (_jsx(BaseView, { jss: styles.root, children: navigationStack.map(({ route, routeProps }, index, list) => {
             const isTopOfStack = index === list.length - 1;
-            return (_jsx(StackContextProvider, { isTopOfStack: isTopOfStack, children: _jsxs(Column, { jss: [jsss.route, !isTopOfStack && jsss.hidden], "aria-hidden": !isTopOfStack, children: [_jsx(ListDivider, {}), _jsx(Suspense, { fallback: null, children: _jsx(route.root, { ...routeProps }) })] }) }, route.title(routeProps)));
+            return (_jsx(Column, { jss: [styles.route, !isTopOfStack && styles.hidden], "aria-hidden": !isTopOfStack, children: _jsxs(StackContextProvider, { isTopOfStack: isTopOfStack, children: [_jsx(ListDivider, {}), _jsx(Suspense, { fallback: null, children: _jsx(route.root, { ...routeProps }) })] }) }, route.title(routeProps)));
         }) }));
 }
 //# sourceMappingURL=NextJSRouter.js.map

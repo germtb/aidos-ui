@@ -1,5 +1,5 @@
-import { Fragment as _Fragment, jsxs as _jsxs, jsx as _jsx } from "react/jsx-runtime";
-import React, { useMemo } from "react";
+import { Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
+import React, { cloneElement, useMemo } from "react";
 import { BaseView } from "./BaseView";
 const dateFormatter = Intl.DateTimeFormat("en-UK", {
     weekday: "short",
@@ -29,29 +29,29 @@ export const Calendar = React.forwardRef(({ date, cell, header, jss, }, ref) => 
             jss,
         ], children: [headers, Array.from(Array(offset).keys()).map((index) => {
                 const dayDate = new Date(date.getFullYear(), date.getMonth(), index + 1 - offset);
-                return (_jsx(React.Fragment, { children: cell({
-                        date: dayDate,
-                        today: false,
-                        top: true,
-                        left: index % 7 === 0,
-                        outOfMonth: true,
-                        right: false,
-                        bottom: false,
-                    }) }, dayDate.toISOString()));
+                return cloneElement(cell({
+                    date: dayDate,
+                    today: false,
+                    top: true,
+                    left: index % 7 === 0,
+                    outOfMonth: true,
+                    right: false,
+                    bottom: false,
+                }), { key: dayDate.toISOString() });
             }), Array.from(Array(daysInMonth).keys()).map((index) => {
                 const dayDate = new Date(date.getFullYear(), date.getMonth(), index + 1, 12 // If we do not add this the ISO string would be from the day before at midnight
                 );
-                return (_jsx(React.Fragment, { children: cell({
-                        date: dayDate,
-                        top: index + offset < 7,
-                        left: (index + offset) % 7 === 0,
-                        right: (index + offset) % 7 === 7 - 1 || index === daysInMonth - 1,
-                        bottom: index > daysInMonth - 7 - 1,
-                        outOfMonth: false,
-                        today: dayDate.getDate() == new Date().getDate() &&
-                            dayDate.getMonth() == new Date().getMonth() &&
-                            dayDate.getFullYear() == new Date().getFullYear(),
-                    }) }, dayDate.toISOString()));
+                return cloneElement(cell({
+                    date: dayDate,
+                    top: index + offset < 7,
+                    left: (index + offset) % 7 === 0,
+                    right: (index + offset) % 7 === 7 - 1 || index === daysInMonth - 1,
+                    bottom: index > daysInMonth - 7 - 1,
+                    outOfMonth: false,
+                    today: dayDate.getDate() == new Date().getDate() &&
+                        dayDate.getMonth() == new Date().getMonth() &&
+                        dayDate.getFullYear() == new Date().getFullYear(),
+                }), { key: dayDate.toISOString() });
             })] }));
 });
 //# sourceMappingURL=Calendar.js.map

@@ -4,7 +4,7 @@ import { BaseInput } from "./BaseInput";
 import { Box } from "./Box";
 import { Icon } from "./Icon";
 import { Row } from "./Row";
-const jsss = {
+const styles = {
     root: {
         backgroundColor: "var(--primary-background)",
     },
@@ -26,6 +26,6 @@ const jsss = {
     },
 };
 export const DatetimeInput = React.forwardRef(({ date, onDateChange, jss, icon, addOn, ...inputProps }, ref) => {
-    return (_jsxs(Row, { jss: jsss.root, children: [icon && (_jsx(Box, { padding: "medium", children: _jsx(Icon, { size: "medium", color: "secondary", icon: icon }) })), _jsx(BaseInput, { ...inputProps, type: "datetime-local", ref: ref, value: date.toISOString().substring(0, 16), onChange: (e) => onDateChange(new Date(e.target.value)), jss: [jsss.input, jss] }), addOn] }));
+    return (_jsxs(Row, { jss: styles.root, children: [icon && (_jsx(Box, { padding: "medium", children: _jsx(Icon, { size: "medium", color: "secondary", icon: icon }) })), _jsx(BaseInput, { ...inputProps, type: "datetime-local", ref: ref, value: date.toISOString().substring(0, 16), onChange: (e) => onDateChange(new Date(e.target.value)), jss: [styles.input, jss] }), addOn] }));
 });
 //# sourceMappingURL=DatetimeInput.js.map

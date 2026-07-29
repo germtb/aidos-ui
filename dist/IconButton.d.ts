@@ -5,5 +5,7 @@ import { Size } from "./jss";
 export interface IconButtonProps extends BaseButtonProps {
     icon: IconType;
     size: Size;
+    label?: string;
+    labelSize?: Size;
 }
 export declare const IconButton: React.ForwardRefExoticComponent<IconButtonProps & React.RefAttributes<HTMLButtonElement>>;

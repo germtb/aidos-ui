@@ -1,6 +1,6 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { BaseView } from "./BaseView";
-const jsss = {
+const styles = {
     root: {
         height: "var(--spacing-xl)",
         backgroundColor: "var(--secondary-background)",
@@ -8,6 +8,6 @@ const jsss = {
     },
 };
 export function ListSpacer() {
-    return _jsx(BaseView, { jss: jsss.root });
+    return _jsx(BaseView, { jss: styles.root });
 }
 //# sourceMappingURL=ListSpacer.js.map

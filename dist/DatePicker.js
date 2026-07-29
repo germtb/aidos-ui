@@ -2,7 +2,7 @@ import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-run
 import { useRef } from "react";
 import { Text } from "./Text";
 import { toClassnames } from "./jss";
-const jsss = {
+const styles = {
     dateInput: {
         border: "1px solid var(--divider)",
         backgroundColor: "var(--primary-background)",
@@ -19,7 +19,7 @@ export function DatePicker({ id, label, color = "primary", date, onDateChange, }
     const day = initialDate.current.getDate();
     const min = new Date(year - 1, month, day).toISOString().substring(0, 10);
     const max = new Date(year + 1, month, day).toISOString().substring(0, 10);
-    return (_jsxs(_Fragment, { children: [_jsx("label", { htmlFor: id, children: _jsx(Text, { size: "small", color: color, children: label }) }), _jsx("input", { min: min, max: max, className: toClassnames(jsss.dateInput), type: "date", id: id, value: date.toISOString().substring(0, 10), onChange: (event) => {
+    return (_jsxs(_Fragment, { children: [_jsx("label", { htmlFor: id, children: _jsx(Text, { size: "small", color: color, children: label }) }), _jsx("input", { min: min, max: max, className: toClassnames(styles.dateInput), type: "date", id: id, value: date.toISOString().substring(0, 10), onChange: (event) => {
                     let parsedDate;
                     try {
                         parsedDate = new Date(event.target.value);

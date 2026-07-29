@@ -2,7 +2,7 @@ import { jsx as _jsx } from "react/jsx-runtime";
 import { Icon as IconifyIcon } from "@iconify/react";
 import { BaseView } from "./BaseView";
 import { getTextColor } from "./jss";
-const jsss = {
+const styles = {
     root: {
         display: "flex",
         justifyContent: "center",
@@ -46,14 +46,14 @@ export function IconProvider({ children }) {
 }
 export function Icon({ icon, size, color, ariaLabel, }) {
     return (_jsx(BaseView, { "aria-label": ariaLabel, jss: [
-            jsss.root,
-            size === "xsmall" && jsss.xsmall,
-            size === "small" && jsss.small,
-            size === "medium" && jsss.medium,
-            size === "large" && jsss.large,
-            size === "xlarge" && jsss.xlarge,
-            size === "xxlarge" && jsss.xxlarge,
-            size === "xxxlarge" && jsss.xxxlarge,
+            styles.root,
+            size === "xsmall" && styles.xsmall,
+            size === "small" && styles.small,
+            size === "medium" && styles.medium,
+            size === "large" && styles.large,
+            size === "xlarge" && styles.xlarge,
+            size === "xxlarge" && styles.xxlarge,
+            size === "xxxlarge" && styles.xxxlarge,
             getTextColor(color),
         ], children: _jsx(IconifyIcon, { icon: icon, width: "100%", height: "100%" }) }));
 }

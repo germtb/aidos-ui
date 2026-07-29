@@ -1,5 +1,5 @@
 import { cssVar, getPadding } from "./jss";
-const jsss = {
+const styles = {
     root: {
         cursor: "pointer",
         display: "inline-flex",
@@ -71,18 +71,18 @@ const jsss = {
 };
 export function getInteractableJSS({ color, bare, disabled, animateInteraction, padding, border, }) {
     return [
-        jsss.root,
-        color === "dark" && jsss.dark,
-        color === "light" && jsss.light,
-        color === "positive" && jsss.positive,
-        color === "primary" && jsss.primary,
-        color === "negative" && jsss.negative,
+        styles.root,
+        color === "dark" && styles.dark,
+        color === "light" && styles.light,
+        color === "positive" && styles.positive,
+        color === "primary" && styles.primary,
+        color === "negative" && styles.negative,
         border && {
             border: `1px solid ${getCSSColor(color, disabled, bare)}`,
         },
-        bare && jsss.bare,
-        disabled && jsss.disabled,
-        !bare && jsss.opacityHover,
+        bare && styles.bare,
+        disabled && styles.disabled,
+        !bare && styles.opacityHover,
         animateInteraction &&
             !disabled && {
             position: "relative",

@@ -1,7 +1,7 @@
 import { jsx as _jsx } from "react/jsx-runtime";
 import { BaseView } from "./BaseView";
 import { getBackground } from "./jss";
-const jsss = {
+const styles = {
     root: {
         width: "100%",
         display: "flex",
@@ -30,12 +30,12 @@ const sizes = {
 };
 export function ProgressBar({ color, progress, size, jss, }) {
     return (_jsx(BaseView, { jss: [
-            jsss.root,
+            styles.root,
             {
                 height: sizes[size],
             },
             jss,
-        ], children: _jsx(BaseView, { jss: [jsss.fill, getBackground(color)], style: {
+        ], children: _jsx(BaseView, { jss: [styles.fill, getBackground(color)], style: {
                 transform: `scaleX(${progress > 1 ? 1 : progress})`,
             } }) }));
 }
