@@ -5,6 +5,7 @@
 // (or wherever this file is importable from)
 
 export { Fragment } from "react/jsx-dev-runtime";
+export type { JSX } from "react/jsx-dev-runtime";
 import { jsxDEV as _jsxDEV, Fragment } from "react/jsx-dev-runtime";
 import { JSSComment } from "./JSSComment";
 

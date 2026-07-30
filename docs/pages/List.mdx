@@ -1,0 +1,262 @@
+import { List } from "../../src/List";
+import { ListItem } from "../../src/ListItem";
+import { ListButtonItem } from "../../src/ListButtonItem";
+import { ListLinkItem } from "../../src/ListLinkItem";
+import { ListDivider } from "../../src/ListDivider";
+import { Icon } from "../../src/Icon";
+import { Sublist } from "../../src/Sublist";
+import { Row } from "../../src/Row";
+
+# List
+
+A container for displaying items in a vertical list. Lists support multiple item types, keyboard navigation, and can be styled with different visual treatments.
+
+---
+
+## Props
+
+### List
+
+| Prop | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `ariaLabel` | `string` | Yes | - | Accessible label for the list |
+| `bare` | `boolean` | No | `false` | Minimal styling without background/borders |
+| `carded` | `boolean` | No | `true` | Rounded corners with full border |
+| `navigation` | `boolean` | No | `true` | Enable arrow key navigation |
+| `autofocus` | `boolean` | No | `false` | Focus first item on mount |
+
+### List item components
+
+- **`ListItem`** - Static, non-interactive item
+- **`ListButtonItem`** - Clickable button item
+- **`ListLinkItem`** - Navigation link item
+- **`ListDivider`** - Visual separator
+- **`ListHeaderItem`** - Section header
+- **`Sublist`** - Collapsible group of items
+
+All item components accept `TextPairing` props (`headline`, `body`, `addOn`, etc.).
+
+---
+
+## Basic list
+
+The default list has a bordered card appearance with rounded corners.
+
+<List ariaLabel="Settings">
+  <ListItem
+    headline="Notifications"
+    body="Manage your notification preferences"
+    addOn={<Icon color="primary" icon="fa-bell" size="medium" />}
+  />
+  <ListButtonItem
+    color="secondary"
+    headline="Account"
+    body="Update your profile information"
+    addOn={<Icon color="primary" icon="fa-user" size="medium" />}
+    onClick={() => {}}
+  />
+  <ListLinkItem
+    href="/"
+    color="secondary"
+    headline="Help Center"
+    addOn={<Icon color="primary" icon="fa-question-circle" size="medium" />}
+    withDivider={false}
+  />
+</List>
+
+```js
+<List ariaLabel="Settings">
+  <ListItem
+    headline="Notifications"
+    body="Manage your notification preferences"
+    addOn={<Icon color="primary" icon="fa-bell" size="medium" />}
+  />
+  <ListButtonItem
+    color="secondary"
+    headline="Account"
+    onClick={() => {}}
+  />
+  <ListLinkItem
+    href="/help"
+    color="secondary"
+    headline="Help Center"
+    withDivider={false}
+  />
+</List>
+```
+
+---
+
+## Edge-to-edge list
+
+Set `carded={false}` to remove rounded corners, useful for full-width layouts.
+
+<List carded={false} ariaLabel="Menu">
+  <ListButtonItem color="secondary" headline="Profile" onClick={() => {}} />
+  <ListButtonItem color="secondary" headline="Settings" onClick={() => {}} />
+  <ListButtonItem color="secondary" headline="Logout" onClick={() => {}} withDivider={false} />
+</List>
+
+```js
+<List carded={false} ariaLabel="Menu">
+  <ListButtonItem color="secondary" headline="Profile" onClick={() => {}} />
+  <ListButtonItem color="secondary" headline="Settings" onClick={() => {}} />
+  <ListButtonItem color="secondary" headline="Logout" onClick={() => {}} withDivider={false} />
+</List>
+```
+
+---
+
+## Bare list
+
+The `bare` variant removes background and borders for a minimal appearance.
+
+<List bare ariaLabel="Navigation">
+  <ListButtonItem bare color="secondary" headline="Home" addOn={<Icon color="primary" icon="fa-home" size="medium" />} onClick={() => {}} />
+  <ListButtonItem bare color="secondary" headline="Projects" addOn={<Icon color="primary" icon="fa-folder" size="medium" />} onClick={() => {}} />
+  <ListLinkItem bare href="/" color="secondary" headline="Settings" selected addOn={<Icon color="highlight" icon="fa-cog" size="medium" />} withDivider={false} />
+</List>
+
+```js
+<List bare ariaLabel="Navigation">
+  <ListButtonItem
+    bare
+    color="secondary"
+    headline="Home"
+    addOn={<Icon color="primary" icon="fa-home" size="medium" />}
+    onClick={() => {}}
+  />
+  <ListLinkItem
+    bare
+    href="/settings"
+    color="secondary"
+    headline="Settings"
+    selected
+    withDivider={false}
+  />
+</List>
+```
+
+---
+
+## Item colors
+
+ListButtonItem and ListLinkItem support semantic colors:
+
+<List ariaLabel="Actions">
+  <ListButtonItem color="positive" headline="Create new" addOn={<Icon color="highlight" icon="fa-plus" size="medium" />} onClick={() => {}} />
+  <ListButtonItem color="secondary" headline="Edit item" addOn={<Icon color="primary" icon="fa-pencil" size="medium" />} onClick={() => {}} />
+  <ListButtonItem color="negative" headline="Delete item" addOn={<Icon color="negative" icon="fa-trash" size="medium" />} onClick={() => {}} withDivider={false} />
+</List>
+
+```js
+<ListButtonItem color="positive" headline="Create" onClick={() => {}} />
+<ListButtonItem color="secondary" headline="Edit" onClick={() => {}} />
+<ListButtonItem color="negative" headline="Delete" onClick={() => {}} />
+```
+
+---
+
+## Selected state
+
+Link items support a `selected` prop to indicate the current selection:
+
+<List bare ariaLabel="Pages">
+  <ListLinkItem bare href="/" color="secondary" headline="Dashboard" />
+  <ListLinkItem bare href="/" color="secondary" headline="Analytics" selected />
+  <ListLinkItem bare href="/" color="secondary" headline="Reports" withDivider={false} />
+</List>
+
+```js
+<ListLinkItem
+  bare
+  href="/analytics"
+  headline="Analytics"
+  selected={currentPage === "analytics"}
+/>
+```
+
+---
+
+## Sublist
+
+Group related items with collapsible sections:
+
+<List bare ariaLabel="Documentation">
+  <Sublist label="Getting Started">
+    <ListItem headline="Installation" />
+    <ListItem headline="Quick Start" />
+    <ListItem headline="Configuration" />
+  </Sublist>
+  <Sublist label="Components">
+    <ListItem headline="Button" />
+    <ListItem headline="Input" />
+    <ListItem headline="List" />
+  </Sublist>
+</List>
+
+```js
+<List bare ariaLabel="Documentation">
+  <Sublist label="Getting Started">
+    <ListItem headline="Installation" />
+    <ListItem headline="Quick Start" />
+  </Sublist>
+  <Sublist label="Components">
+    <ListItem headline="Button" />
+    <ListItem headline="Input" />
+  </Sublist>
+</List>
+```
+
+---
+
+## Keyboard navigation
+
+Lists support arrow key navigation by default (following [WAI-ARIA grid pattern](https://www.w3.org/WAI/ARIA/apg/patterns/grid/)):
+
+- **Arrow Up/Down** - Move between items
+- **Enter/Space** - Activate the focused item
+- **Home/End** - Jump to first/last item
+
+<List ariaLabel="Keyboard demo" navigation={true}>
+  <ListButtonItem color="secondary" headline="First item (use arrow keys)" onClick={() => {}} />
+  <ListButtonItem color="secondary" headline="Second item" onClick={() => {}} />
+  <ListButtonItem color="secondary" headline="Third item" onClick={() => {}} withDivider={false} />
+</List>
+
+Disable navigation with `navigation={false}` if items have their own focus management.
+
+```js
+// Keyboard navigation enabled (default)
+<List ariaLabel="Menu" navigation={true}>
+  ...
+</List>
+
+// Keyboard navigation disabled
+<List ariaLabel="Form fields" navigation={false}>
+  ...
+</List>
+```
+
+---
+
+## Dividers
+
+List items include dividers by default. Remove with `withDivider={false}`:
+
+```js
+<List ariaLabel="Items">
+  <ListItem headline="With divider" />
+  <ListItem headline="With divider" />
+  <ListItem headline="No divider" withDivider={false} />
+</List>
+```
+
+---
+
+## Accessibility
+
+- Uses `role="grid"` with `aria-label` for screen readers
+- Keyboard navigation follows WAI-ARIA grid pattern
+- Focus management with arrow keys, Home, and End
+- Proper focus indicators on keyboard navigation

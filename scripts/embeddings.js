@@ -9,8 +9,8 @@ import remarkMdx from "remark-mdx";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const __rootdir = path.join(__dirname, "..");
-const __pages = path.join(__rootdir, "src", "pages");
-const __target = path.join(__rootdir, "src", "docs");
+const __pages = path.join(__rootdir, "docs", "pages");
+const __target = path.join(__rootdir, "docs", "components");
 
 const generateEmbeddings = await pipeline(
   "feature-extraction",

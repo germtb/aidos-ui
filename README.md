@@ -1,6 +1,6 @@
 # Aidos UI
 
-An opinionated React component library. Zero dependencies. Dark mode. Keyboard navigation.
+An opinionated React component library with dark mode, keyboard navigation, and Iconify-powered icons.
 
 [Documentation](https://aidos-ui.vercel.app)
 
@@ -13,7 +13,7 @@ npm install aidos-ui
 ## Setup
 
 ```tsx
-import { Providers, lightTheme, darkTheme } from 'aidos-ui/dist';
+import { Providers, lightTheme, darkTheme } from 'aidos-ui';
 
 function App() {
   return (
@@ -27,7 +27,7 @@ function App() {
 For Next.js SSR, add `JSServerStyles` to your `_document.tsx`:
 
 ```tsx
-import { JSServerStyles } from 'aidos-ui/dist';
+import { JSServerStyles } from 'aidos-ui';
 
 <Head>
   <JSServerStyles />
