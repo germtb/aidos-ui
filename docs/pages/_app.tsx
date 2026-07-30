@@ -44,7 +44,12 @@ let transformersPromise: Promise<typeof import("@xenova/transformers")> | null =
   null;
 const getTransformers = () => {
   if (!transformersPromise) {
-    transformersPromise = import("@xenova/transformers");
+    transformersPromise = import(
+      "@xenova/transformers/dist/transformers.min.js"
+    ).then((transformers) => {
+      transformers.env.allowLocalModels = false;
+      return transformers;
+    });
   }
   return transformersPromise;
 };

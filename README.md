@@ -52,6 +52,26 @@ import { JSServerStyles } from 'aidos-ui';
 
 **Other**: `Tabs`, `Calendar`, `DatePicker`, `Icon`, `DarkMode`
 
+## Icons
+
+Aidos uses [Iconify](https://iconify.design/) for icons. By default, missing icons are loaded asynchronously from Iconify's CDN. This keeps Aidos small, but requires network access and may cause icons to appear shortly after the initial render.
+
+For offline support and immediate rendering, install and register an icon set in your application:
+
+```bash
+npm install @iconify/react @iconify-json/fa
+```
+
+```tsx
+import { addCollection } from '@iconify/react';
+import faIcons from '@iconify-json/fa/icons.json';
+
+// Call once during application initialization.
+addCollection(faIcons);
+```
+
+Registering the collection bundles the icons with your application, so they no longer depend on Iconify's CDN. Other sets are available from the [Iconify icon sets directory](https://icon-sets.iconify.design/).
+
 ## Styling
 
 Components accept a `jss` prop for inline styles with automatic class generation:
