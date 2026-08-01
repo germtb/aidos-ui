@@ -23,35 +23,24 @@ export interface BaseViewProps extends React.HTMLAttributes<HTMLElement> {
   tag?: keyof HTMLElementTagNameMap;
 }
 
-export const BaseView = React.forwardRef(
-  (
-    {
-      jss,
-      children,
-      tag,
-      grow,
-      shrink,
-      relative,
-      ...otherProps
-    }: BaseViewProps,
-    ref?: React.Ref<HTMLElement>
-  ) => {
-    const Tag: string = tag ?? "div";
+export const BaseView = React.forwardRef(function BaseView(
+  { jss, children, tag, grow, shrink, relative, ...otherProps }: BaseViewProps,
+  ref?: React.Ref<HTMLElement>,
+) {
+  const Tag: React.ElementType = tag ?? "div";
 
-    return (
-      // @ts-ignore
-      <Tag
-        ref={ref}
-        className={toClassnames([
-          jss,
-          grow && styles.grow,
-          shrink && styles.shrink,
-          relative && styles.relative,
-        ])}
-        {...otherProps}
-      >
-        {children}
-      </Tag>
-    );
-  }
-);
+  return React.createElement(
+    Tag,
+    {
+      ...otherProps,
+      ref,
+      className: toClassnames([
+        jss,
+        grow && styles.grow,
+        shrink && styles.shrink,
+        relative && styles.relative,
+      ]),
+    },
+    children,
+  );
+});

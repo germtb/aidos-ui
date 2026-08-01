@@ -3,7 +3,6 @@ import React, {
   useState,
   ReactNode,
   useMemo,
-  useRef,
   useEffect,
 } from "react";
 import { createEmitter, Subscribe } from "./Emitter";
@@ -24,15 +23,15 @@ type Props = {
 };
 
 export function StackContextProvider({ children, isTopOfStack }: Props) {
-  const emitterRef = useRef(createEmitter<boolean>());
+  const [emitter] = useState(() => createEmitter<boolean>());
 
   useEffect(() => {
-    emitterRef.current.emit(isTopOfStack);
-  }, [isTopOfStack]);
+    emitter.emit(isTopOfStack);
+  }, [emitter, isTopOfStack]);
 
   const value = useMemo(
-    () => ({ subscribe: emitterRef.current.subscribe }),
-    []
+    () => ({ subscribe: emitter.subscribe }),
+    [emitter],
   );
 
   return (

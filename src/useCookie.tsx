@@ -61,24 +61,34 @@ export function useCookie<T, L>(
 
     const hasPersistedCookie = hasCookie(key);
 
-    if (hasPersistedCookie) {
-      const persistedCookie = getCookie(key, deserialize);
-      setCookie(persistedCookie);
-    } else {
+    const nextCookie = hasPersistedCookie
+      ? getCookie(key, deserialize)
+      : initialValue;
+
+    if (!hasPersistedCookie) {
       document.cookie = `${key}=${serialize(
         initialValue
       )}; max-age=${maxAge};path=/;`;
-      setCookie(initialValue);
     }
     initializationRef.current = true;
-  }, []);
+
+    let cancelled = false;
+    queueMicrotask(() => {
+      if (!cancelled) {
+        setCookie(nextCookie);
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [deserialize, initialValue, key, maxAge, serialize]);
 
   return [
     cookie,
     useCallback((t: T | ((prevValue: T | L) => T)) => {
       if (typeof t === "function") {
-        // @ts-ignore
-        const callback: (prevValue: T | L) => T = t;
+        const callback = t as (prevValue: T | L) => T;
         setCookie((oldCookie) => {
           const newValue = callback(oldCookie);
           document.cookie = `${key}=${serialize(
@@ -90,6 +100,6 @@ export function useCookie<T, L>(
         setCookie(t);
         document.cookie = `${key}=${serialize(t)}; max-age=${maxAge};path=/;`;
       }
-    }, []),
+    }, [key, maxAge, serialize]),
   ];
 }

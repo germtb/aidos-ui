@@ -1,0 +1,62 @@
+import { Card } from "../../src/Card";
+import { NavigationSplitView } from "../../src/NavigationSplitView";
+import { Column } from "../../src/Column";
+import { TabBar } from "../../src/TabBar";
+import { TextPairing } from "../../src/TextPairing";
+
+# NavigationSplitView
+
+A responsive two-pane application shell with navigation and content. On compact screens the navigation can replace the content area and an optional compact header and TabBar are shown.
+
+---
+
+## Props
+
+| Prop                         | Type        | Default   | Description                                         |
+| ---------------------------- | ----------- | --------- | --------------------------------------------------- |
+| `navigation`                 | `ReactNode` | Required  | Sidebar or master list                              |
+| `children`                   | `ReactNode` | Required  | Main content                                        |
+| `compactHeader`              | `ReactNode` | -         | Header shown on mobile and tablet                   |
+| `compactNavigation`          | `ReactNode` | -         | Bottom navigation shown on mobile and tablet        |
+| `navigationVisibleInCompact` | `boolean`   | `false`   | Show the sidebar instead of content in compact mode |
+| `navigationWidth`            | `string`    | `"320px"` | Width of the sidebar                                |
+| `navigationInset`            | `string`    | `"12px"`  | Desktop spacing and sticky navigation inset         |
+
+---
+
+## Structure
+
+```tsx
+<NavigationSplitView
+  navigation={<Card material="aurora">{sidebar}</Card>}
+  compactHeader={toolbar}
+  compactNavigation={<TabBar tabs={compactTabs} />}
+  navigationVisibleInCompact={sidebarOpen}
+>
+  {content}
+</NavigationSplitView>
+```
+
+The split view uses document scrolling, keeps desktop navigation sticky, and owns responsive geometry. Navigation selection, sidebar state and rendered content remain controlled by the application.
+
+---
+
+## Surface roles
+
+<Column gap="large">
+  <Card material="aurora">
+    <TextPairing
+      headline="Navigation"
+      body="Atmospheric material is reserved for navigation and application chrome."
+      headlineBold
+    />
+  </Card>
+
+  <Card variant="floating">
+    <TextPairing
+      headline="Floating content"
+      body="External elevation is reserved for surfaces that sit above normal content."
+      headlineBold
+    />
+  </Card>
+</Column>

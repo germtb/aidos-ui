@@ -19,9 +19,8 @@ export default function Document() {
         <NextScript />
         <style>{`
           #__next {
-            height: 100%;
+            min-height: 100%;
             width: 100%;
-            overflow-y: auto;
           }
         `}</style>
       </body>

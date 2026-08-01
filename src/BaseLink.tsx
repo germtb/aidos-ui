@@ -21,55 +21,53 @@ export const BaseLinkComponentOverrideContext = React.createContext((props) => (
   <a {...props} />
 ));
 
-export const BaseLink = React.forwardRef(
-  (
-    {
-      onClick,
-      children,
-      jss,
-      color,
-      bare = false,
-      disabled,
-      animateInteraction = true,
-      padding,
-      href,
-      border,
-      role = "link",
-      ...otherProps
-    }: BaseLinkProps,
-    ref?: React.Ref<HTMLAnchorElement>,
-  ) => {
-    const Link = useContext(BaseLinkComponentOverrideContext);
+export const BaseLink = React.forwardRef(function BaseLink(
+  {
+    onClick,
+    children,
+    jss,
+    color,
+    bare = false,
+    disabled,
+    animateInteraction = true,
+    padding,
+    href,
+    border,
+    role = "link",
+    ...otherProps
+  }: BaseLinkProps,
+  ref?: React.Ref<HTMLAnchorElement>,
+) {
+  const Link = useContext(BaseLinkComponentOverrideContext);
 
-    return (
-      <Link
-        {...otherProps}
-        aria-disabled={disabled ? true : undefined}
-        href={href}
-        role={role}
-        ref={ref}
-        onClick={(event) => {
-          if (disabled) {
-            return;
-          }
+  return (
+    <Link
+      {...otherProps}
+      aria-disabled={disabled ? true : undefined}
+      href={href}
+      role={role}
+      ref={ref}
+      onClick={(event) => {
+        if (disabled) {
+          return;
+        }
 
-          onClick && onClick(event);
-        }}
-        className={toClassnames([
-          ...getInteractableJSS({
-            color,
-            border,
-            bare,
-            disabled,
-            animateInteraction,
-            padding,
-          }),
-          disabled && { pointerEvents: "none" },
-          jss,
-        ])}
-      >
-        {children}
-      </Link>
-    );
-  },
-);
+        onClick?.(event);
+      }}
+      className={toClassnames([
+        ...getInteractableJSS({
+          color,
+          border,
+          bare,
+          disabled,
+          animateInteraction,
+          padding,
+        }),
+        disabled && { pointerEvents: "none" },
+        jss,
+      ])}
+    >
+      {children}
+    </Link>
+  );
+});

@@ -41,32 +41,30 @@ const styles = {
   },
 };
 
-export const DatetimeInput = React.forwardRef(
-  (
-    { date, onDateChange, jss, icon, addOn, ...inputProps }: DatetimeInputProps,
-    ref?: React.Ref<HTMLInputElement>
-  ) => {
-    return (
-      <Row jss={styles.root}>
-        {icon && (
-          <Box padding="medium">
-            <Icon size="medium" color="secondary" icon={icon} />
-          </Box>
-        )}
-        <BaseInput
-          {...inputProps}
-          type="datetime-local"
-          ref={ref}
-          value={formatDatetimeInputValue(date)}
-          onChange={(e) => {
-            if (e.target.value) {
-              onDateChange(parseDatetimeInputValue(e.target.value));
-            }
-          }}
-          jss={[styles.input, jss]}
-        />
-        {addOn}
-      </Row>
-    );
-  }
-);
+export const DatetimeInput = React.forwardRef(function DatetimeInput(
+  { date, onDateChange, jss, icon, addOn, ...inputProps }: DatetimeInputProps,
+  ref?: React.Ref<HTMLInputElement>,
+) {
+  return (
+    <Row jss={styles.root}>
+      {icon && (
+        <Box padding="medium">
+          <Icon size="medium" color="secondary" icon={icon} />
+        </Box>
+      )}
+      <BaseInput
+        {...inputProps}
+        type="datetime-local"
+        ref={ref}
+        value={formatDatetimeInputValue(date)}
+        onChange={(e) => {
+          if (e.target.value) {
+            onDateChange(parseDatetimeInputValue(e.target.value));
+          }
+        }}
+        jss={[styles.input, jss]}
+      />
+      {addOn}
+    </Row>
+  );
+});

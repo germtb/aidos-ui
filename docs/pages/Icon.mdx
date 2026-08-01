@@ -4,18 +4,18 @@ import { Column } from "../../src/Column";
 
 # Icon
 
-The `Icon` component displays vector icons using [Iconify](https://iconify.design/) under the hood, giving you access to 200,000+ icons from 150+ icon sets including Font Awesome, Material Design, and more.
+The `Icon` component renders the Lucide icon set with Aidos sizing and semantic colors. `IconType` is generated from Lucide, so every supported name is available through TypeScript autocomplete.
 
 ---
 
 ## Props
 
-| Prop | Type | Required | Description |
-|------|------|----------|-------------|
-| `icon` | `IconType` | Yes | The icon identifier (e.g., `"fa-check"`, `"fa-github"`) |
-| `size` | `Size` | Yes | Icon size: `"xsmall"` (8px), `"small"` (12px), `"medium"` (18px), `"large"` (24px), `"xlarge"` (32px), `"xxlarge"` (48px), `"xxxlarge"` (64px) |
-| `color` | `TextColor` | Yes | Icon color: `"primary"`, `"secondary"`, `"highlight"`, `"negative"`, `"subtle"`, `"light"` |
-| `ariaLabel` | `string` | No | Accessible label for screen readers |
+| Prop        | Type        | Required | Description                                                                                                                                    |
+| ----------- | ----------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `icon`      | `IconType`  | Yes      | The icon identifier (e.g., `"check"`, `"github"`)                                                                                              |
+| `size`      | `Size`      | Yes      | Icon size: `"xsmall"` (8px), `"small"` (12px), `"medium"` (18px), `"large"` (24px), `"xlarge"` (32px), `"xxlarge"` (48px), `"xxxlarge"` (64px) |
+| `color`     | `TextColor` | Yes      | Icon color: `"primary"`, `"secondary"`, `"highlight"`, `"negative"`, `"subtle"`, `"light"`                                                     |
+| `ariaLabel` | `string`    | No       | Accessible label for screen readers                                                                                                            |
 
 ---
 
@@ -25,24 +25,24 @@ Icons come in seven predefined sizes to maintain consistency across your applica
 
 <Column gap="medium">
   <Row justify="space-around" align="center">
-    <Icon icon="fa-star" color="primary" size="xsmall" />
-    <Icon icon="fa-star" color="primary" size="small" />
-    <Icon icon="fa-star" color="primary" size="medium" />
-    <Icon icon="fa-star" color="primary" size="large" />
-    <Icon icon="fa-star" color="primary" size="xlarge" />
-    <Icon icon="fa-star" color="primary" size="xxlarge" />
-    <Icon icon="fa-star" color="primary" size="xxxlarge" />
+    <Icon icon="star" color="primary" size="xsmall" />
+    <Icon icon="star" color="primary" size="small" />
+    <Icon icon="star" color="primary" size="medium" />
+    <Icon icon="star" color="primary" size="large" />
+    <Icon icon="star" color="primary" size="xlarge" />
+    <Icon icon="star" color="primary" size="xxlarge" />
+    <Icon icon="star" color="primary" size="xxxlarge" />
   </Row>
 </Column>
 
 ```js
-<Icon icon="fa-star" color="primary" size="xsmall" />   // 8px
-<Icon icon="fa-star" color="primary" size="small" />    // 12px
-<Icon icon="fa-star" color="primary" size="medium" />   // 18px
-<Icon icon="fa-star" color="primary" size="large" />    // 24px
-<Icon icon="fa-star" color="primary" size="xlarge" />   // 32px
-<Icon icon="fa-star" color="primary" size="xxlarge" />  // 48px
-<Icon icon="fa-star" color="primary" size="xxxlarge" /> // 64px
+<Icon icon="star" color="primary" size="xsmall" />   // 8px
+<Icon icon="star" color="primary" size="small" />    // 12px
+<Icon icon="star" color="primary" size="medium" />   // 18px
+<Icon icon="star" color="primary" size="large" />    // 24px
+<Icon icon="star" color="primary" size="xlarge" />   // 32px
+<Icon icon="star" color="primary" size="xxlarge" />  // 48px
+<Icon icon="star" color="primary" size="xxxlarge" /> // 64px
 ```
 
 ---
@@ -53,22 +53,22 @@ Icons inherit semantic colors from the theme system, ensuring they adapt correct
 
 <Column gap="medium">
   <Row justify="space-around">
-    <Icon icon="fa-heart" color="primary" size="large" />
-    <Icon icon="fa-heart" color="secondary" size="large" />
-    <Icon icon="fa-heart" color="highlight" size="large" />
-    <Icon icon="fa-heart" color="negative" size="large" />
-    <Icon icon="fa-heart" color="subtle" size="large" />
-    <Icon icon="fa-heart" color="light" size="large" />
+    <Icon icon="heart" color="primary" size="large" />
+    <Icon icon="heart" color="secondary" size="large" />
+    <Icon icon="heart" color="highlight" size="large" />
+    <Icon icon="heart" color="negative" size="large" />
+    <Icon icon="heart" color="subtle" size="large" />
+    <Icon icon="heart" color="light" size="large" />
   </Row>
 </Column>
 
 ```js
-<Icon icon="fa-heart" color="primary" size="large" />   // Main content color
-<Icon icon="fa-heart" color="secondary" size="large" /> // Secondary content
-<Icon icon="fa-heart" color="highlight" size="large" /> // Accent/brand color
-<Icon icon="fa-heart" color="negative" size="large" />  // Error/destructive
-<Icon icon="fa-heart" color="subtle" size="large" />    // Muted/disabled
-<Icon icon="fa-heart" color="light" size="large" />     // Light/inverted
+<Icon icon="heart" color="primary" size="large" />   // Main content color
+<Icon icon="heart" color="secondary" size="large" /> // Secondary content
+<Icon icon="heart" color="highlight" size="large" /> // Accent/brand color
+<Icon icon="heart" color="negative" size="large" />  // Error/destructive
+<Icon icon="heart" color="subtle" size="large" />    // Muted/disabled
+<Icon icon="heart" color="light" size="large" />     // Light/inverted
 ```
 
 ---
@@ -79,32 +79,32 @@ A selection of commonly used icons:
 
 <Column gap="medium">
   <Row justify="space-around">
-    <Icon icon="fa-check" color="primary" size="medium" />
-    <Icon icon="fa-close" color="negative" size="medium" />
-    <Icon icon="fa-search" color="secondary" size="medium" />
-    <Icon icon="fa-user" color="primary" size="medium" />
-    <Icon icon="fa-cog" color="secondary" size="medium" />
-    <Icon icon="fa-bell" color="highlight" size="medium" />
+    <Icon icon="check" color="primary" size="medium" />
+    <Icon icon="x" color="negative" size="medium" />
+    <Icon icon="search" color="secondary" size="medium" />
+    <Icon icon="user" color="primary" size="medium" />
+    <Icon icon="settings" color="secondary" size="medium" />
+    <Icon icon="bell" color="highlight" size="medium" />
   </Row>
   <Row justify="space-around">
-    <Icon icon="fa-github" color="primary" size="medium" />
-    <Icon icon="fa-twitter" color="primary" size="medium" />
-    <Icon icon="fa-linkedin" color="primary" size="medium" />
-    <Icon icon="fa-envelope" color="primary" size="medium" />
-    <Icon icon="fa-phone" color="primary" size="medium" />
-    <Icon icon="fa-globe" color="primary" size="medium" />
+    <Icon icon="github" color="primary" size="medium" />
+    <Icon icon="twitter" color="primary" size="medium" />
+    <Icon icon="linkedin" color="primary" size="medium" />
+    <Icon icon="mail" color="primary" size="medium" />
+    <Icon icon="phone" color="primary" size="medium" />
+    <Icon icon="globe" color="primary" size="medium" />
   </Row>
 </Column>
 
 ```js
 // Action icons
-<Icon icon="fa-check" color="primary" size="medium" />
-<Icon icon="fa-close" color="negative" size="medium" />
-<Icon icon="fa-search" color="secondary" size="medium" />
+<Icon icon="check" color="primary" size="medium" />
+<Icon icon="x" color="negative" size="medium" />
+<Icon icon="search" color="secondary" size="medium" />
 
 // Social icons
-<Icon icon="fa-github" color="primary" size="medium" />
-<Icon icon="fa-twitter" color="primary" size="medium" />
+<Icon icon="github" color="primary" size="medium" />
+<Icon icon="twitter" color="primary" size="medium" />
 ```
 
 ---
@@ -116,13 +116,13 @@ Always provide an `ariaLabel` when the icon conveys meaning that isn't available
 ```js
 // Decorative icon (no label needed if text explains it)
 <Button>
-  <Icon icon="fa-download" color="light" size="small" />
+  <Icon icon="download" color="light" size="small" />
   Download
 </Button>
 
 // Meaningful icon (needs label for screen readers)
 <Icon
-  icon="fa-warning"
+  icon="triangle-alert"
   color="negative"
   size="medium"
   ariaLabel="Warning"
@@ -138,34 +138,34 @@ By default, Iconify loads icons asynchronously from a CDN. To prevent flickering
 **Option 1: Preload an entire icon set**
 
 ```bash
-npm install @iconify-json/fa
+npm install @iconify-json/lucide
 ```
 
 ```js
 import { addCollection } from "@iconify/react";
-import faIcons from "@iconify-json/fa/icons.json";
+import lucideIcons from "@iconify-json/lucide/icons.json";
 
 // Call once at app initialization (e.g., in _app.tsx)
-addCollection(faIcons);
+addCollection(lucideIcons);
 ```
 
 **Option 2: Preload individual icons**
 
 ```bash
-npm install @iconify-icons/fa
+npm install @iconify-icons/lucide
 ```
 
 ```js
 import { addIcon } from "@iconify/react";
-import faCheck from "@iconify-icons/fa/check";
-import faClose from "@iconify-icons/fa/close";
+import lucideCheck from "@iconify-icons/lucide/check";
+import lucideClose from "@iconify-icons/lucide/x";
 
-addIcon("fa:check", faCheck);
-addIcon("fa:close", faClose);
+addIcon("lucide:check", lucideCheck);
+addIcon("lucide:x", lucideClose);
 ```
 
 ---
 
 ## Finding icons
 
-Browse available icons at [Iconify Icon Sets](https://icon-sets.iconify.design/). The component uses Font Awesome 4 icons by default (prefixed with `fa-`), but you can use any Iconify-supported icon set.
+Browse the [Lucide icon directory](https://lucide.dev/icons/) and pass its kebab-case name directly, such as `search`, `circle-alert`, or `panel-left`. Aidos intentionally does not support alternate icon sets, provider overrides, or arbitrary Iconify names.

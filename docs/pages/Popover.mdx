@@ -8,7 +8,7 @@ import { Column } from "../../src/Column";
 
 # Popover
 
-A floating panel that appears next to a trigger element. Unlike tooltips, popovers can contain interactive content like menus, forms, or action lists.
+A floating card that appears next to a trigger element. Popovers use the same elevated surface treatment as floating cards and can contain interactive content such as menus, forms, or action lists.
 
 ---
 
@@ -16,22 +16,22 @@ A floating panel that appears next to a trigger element. Unlike tooltips, popove
 
 ### PopoverTrigger
 
-| Prop | Type | Required | Description |
-|------|------|----------|-------------|
-| `PopoverComponent` | `(props: { close: () => void } & Input) => JSX.Element` | Yes | Component to render in the popover |
-| `children` | `(props: { toggle: (input: Input) => void }) => JSX.Element` | Yes | Render function for the trigger element |
-| `jss` | `JSS` | No | Custom styles for the wrapper |
-| `jssDialog` | `JSS` | No | Custom styles for the popover dialog |
-| `grow` | `boolean` | No | Allow wrapper to grow |
-| `shrink` | `boolean` | No | Allow wrapper to shrink |
-| `tag` | `keyof HTMLElementTagNameMap` | No | HTML tag for the wrapper |
+| Prop               | Type                                                         | Required | Description                             |
+| ------------------ | ------------------------------------------------------------ | -------- | --------------------------------------- |
+| `PopoverComponent` | `(props: { close: () => void } & Input) => JSX.Element`      | Yes      | Component to render in the popover      |
+| `children`         | `(props: { toggle: (input: Input) => void }) => JSX.Element` | Yes      | Render function for the trigger element |
+| `jss`              | `JSS`                                                        | No       | Custom styles for the wrapper           |
+| `jssDialog`        | `JSS`                                                        | No       | Custom styles for the popover dialog    |
+| `grow`             | `boolean`                                                    | No       | Allow wrapper to grow                   |
+| `shrink`           | `boolean`                                                    | No       | Allow wrapper to shrink                 |
+| `tag`              | `keyof HTMLElementTagNameMap`                                | No       | HTML tag for the wrapper                |
 
 ### Popover
 
-| Prop | Type | Required | Description |
-|------|------|----------|-------------|
-| `children` | `ReactNode` | Yes | Popover content |
-| `close` | `() => void` | Yes | Function to close the popover |
+| Prop       | Type         | Required | Description                   |
+| ---------- | ------------ | -------- | ----------------------------- |
+| `children` | `ReactNode`  | Yes      | Popover content               |
+| `close`    | `() => void` | Yes      | Function to close the popover |
 
 ---
 
@@ -43,16 +43,28 @@ Use `PopoverTrigger` to create a button that opens a popover with interactive op
   <PopoverTrigger
     PopoverComponent={({ close }) => (
       <Popover close={close}>
-        <List bare ariaLabel="Options">
-          <ListButtonItem bare headline="Edit" onClick={() => close()} color="secondary" />
-          <ListButtonItem bare headline="Duplicate" onClick={() => close()} color="secondary" />
-          <ListButtonItem bare headline="Delete" onClick={() => close()} color="negative" withDivider={false} />
+        <List ariaLabel="Options">
+          <ListButtonItem
+            headline="Edit"
+            onClick={() => close()}
+            color="secondary"
+          />
+          <ListButtonItem
+            headline="Duplicate"
+            onClick={() => close()}
+            color="secondary"
+          />
+          <ListButtonItem
+            headline="Delete"
+            onClick={() => close()}
+            color="negative"
+          />
         </List>
       </Popover>
     )}
   >
     {({ toggle }) => (
-      <Button color="positive" onClick={() => toggle(undefined)}>
+      <Button color="primary" onClick={() => toggle(undefined)}>
         Show Options
       </Button>
     )}
@@ -63,32 +75,28 @@ Use `PopoverTrigger` to create a button that opens a popover with interactive op
 <PopoverTrigger
   PopoverComponent={({ close }) => (
     <Popover close={close}>
-      <List bare ariaLabel="Options">
+      <List ariaLabel="Options">
         <ListButtonItem
-          bare
           headline="Edit"
           onClick={() => close()}
           color="secondary"
         />
         <ListButtonItem
-          bare
           headline="Duplicate"
           onClick={() => close()}
           color="secondary"
         />
         <ListButtonItem
-          bare
           headline="Delete"
           onClick={() => close()}
           color="negative"
-          withDivider={false}
         />
       </List>
     </Popover>
   )}
 >
   {({ toggle }) => (
-    <Button color="positive" onClick={() => toggle(undefined)}>
+    <Button color="primary" onClick={() => toggle(undefined)}>
       Show Options
     </Button>
   )}
@@ -112,7 +120,7 @@ interface Item {
     <Popover close={close}>
       <Column padding="medium" gap="small">
         <P>Edit: {name}</P>
-        <Button color="positive" onClick={() => {
+        <Button color="primary" onClick={() => {
           saveItem(id);
           close();
         }}>
@@ -124,7 +132,7 @@ interface Item {
 >
   {({ toggle }) => (
     <Button
-      color="primary"
+      color="secondary"
       onClick={() => toggle({ id: "123", name: "My Item" })}
     >
       Edit Item
@@ -154,10 +162,14 @@ interface Item {
 <PopoverTrigger
   PopoverComponent={({ close }) => (
     <Popover close={close}>
-      <List bare ariaLabel="Menu">
-        <ListButtonItem bare headline="Profile" onClick={() => close()} />
-        <ListButtonItem bare headline="Settings" onClick={() => close()} />
-        <ListButtonItem bare headline="Logout" onClick={() => close()} color="negative" />
+      <List ariaLabel="Menu">
+        <ListButtonItem headline="Profile" onClick={() => close()} />
+        <ListButtonItem headline="Settings" onClick={() => close()} />
+        <ListButtonItem
+          headline="Logout"
+          onClick={() => close()}
+          color="negative"
+        />
       </List>
     </Popover>
   )}
@@ -165,8 +177,7 @@ interface Item {
   {({ toggle }) => (
     <IconButton
       bare
-      icon="fa-ellipsis-v"
-      size="medium"
+      icon="more-vertical"
       color="secondary"
       onClick={() => toggle(undefined)}
     />
@@ -183,11 +194,18 @@ interface Item {
       <Column padding="medium" gap="medium">
         <P>Are you sure you want to delete?</P>
         <Row gap="small" justify="end">
-          <Button bare color="primary" onClick={close}>Cancel</Button>
-          <Button color="negative" onClick={() => {
-            deleteItem();
-            close();
-          }}>Delete</Button>
+          <Button bare color="secondary" onClick={close}>
+            Cancel
+          </Button>
+          <Button
+            color="negative"
+            onClick={() => {
+              deleteItem();
+              close();
+            }}
+          >
+            Delete
+          </Button>
         </Row>
       </Column>
     </Popover>
@@ -215,9 +233,9 @@ interface Item {
 
 ## Popover vs Dialog vs Tooltip
 
-| Popover | Dialog | Tooltip |
-|---------|--------|---------|
-| Positioned near trigger | Centered on screen | Positioned near trigger |
-| Light interactions | Complex workflows | Text only |
-| Partial page blocking | Full page blocking | No blocking |
-| Menus, quick actions | Forms, confirmations | Hints, labels |
+| Popover                 | Dialog               | Tooltip                 |
+| ----------------------- | -------------------- | ----------------------- |
+| Positioned near trigger | Centered on screen   | Positioned near trigger |
+| Light interactions      | Complex workflows    | Text only               |
+| Partial page blocking   | Full page blocking   | No blocking             |
+| Menus, quick actions    | Forms, confirmations | Hints, labels           |

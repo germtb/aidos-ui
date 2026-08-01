@@ -28,7 +28,7 @@ export function SubmitIconInput({ icon, ...otherProps }: SubmitIconInputProps) {
             },
             height: 32,
             width: 32,
-            borderRadius: 16,
+            borderRadius: "50%",
           }}
         >
           <Icon icon={icon} size="medium" color="primary" />

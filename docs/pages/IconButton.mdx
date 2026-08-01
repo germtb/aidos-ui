@@ -1,25 +1,24 @@
 import { IconButton } from "../../src/IconButton";
 import { Row } from "../../src/Row";
-import { Column } from "../../src/Column";
 
 # IconButton
 
 A circular button containing only an icon. Use IconButton for compact actions where space is limited or when the icon alone clearly communicates the action's purpose.
 
+IconButton uses the same fixed 34px control geometry and interaction treatment as Button and Link. Use `jss` only for exceptional layout overrides.
+
 ---
 
 ## Props
 
-| Prop | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `icon` | `IconType` | Yes | - | The icon to display |
-| `size` | `Size` | Yes | - | Button size: `"xsmall"` (20px), `"small"` (24px), `"medium"` (32px), `"large"` (40px), `"xlarge"` (48px) |
-| `color` | `InteractableColor` | Yes | - | `"positive"`, `"secondary"`, `"negative"`, `"dark"`, `"light"` |
-| `onClick` | `function` | Yes | - | Click handler |
-| `bare` | `boolean` | No | `false` | Removes background for a lighter appearance |
-| `border` | `boolean` | No | `false` | Adds a border |
-| `disabled` | `boolean` | No | `false` | Disables interaction |
-| `aria-label` | `string` | No | - | Accessible label (recommended) |
+| Prop         | Type                | Required | Default | Description                                                  |
+| ------------ | ------------------- | -------- | ------- | ------------------------------------------------------------ |
+| `icon`       | `IconType`          | Yes      | -       | The icon to display                                          |
+| `color`      | `InteractableColor` | Yes      | -       | `"primary"`, `"secondary"`, `"negative"`, `"inverse"` |
+| `onClick`    | `function`          | Yes      | -       | Click handler                                                |
+| `bare`       | `boolean`           | No       | `false` | Removes background and elevation                             |
+| `disabled`   | `boolean`           | No       | `false` | Disables interaction                                         |
+| `aria-label` | `string`            | No       | -       | Accessible label (recommended)                               |
 
 ---
 
@@ -28,32 +27,29 @@ A circular button containing only an icon. Use IconButton for compact actions wh
 IconButtons come in different colors to indicate their purpose. Always pair with a clear, recognizable icon.
 
 <Row gap="large" align="center" padding="large" justify="center">
-  <IconButton size="medium" icon="fa-check" color="positive" onClick={() => {}} />
-  <IconButton size="medium" icon="fa-pencil" color="secondary" onClick={() => {}} />
-  <IconButton size="medium" icon="fa-trash" color="negative" onClick={() => {}} />
-  <IconButton size="medium" icon="fa-check" color="positive" disabled onClick={() => {}} />
+  <IconButton icon="check" color="primary" onClick={() => {}} />
+  <IconButton icon="pencil" color="secondary" onClick={() => {}} />
+  <IconButton icon="trash-2" color="negative" onClick={() => {}} />
+  <IconButton icon="check" color="primary" disabled onClick={() => {}} />
 </Row>
 
 ```js
 <IconButton
-  icon="fa-check"
-  size="medium"
-  color="positive"
+  icon="check"
+  color="primary"
   aria-label="Confirm"
   onClick={() => {}}
 />
 
 <IconButton
-  icon="fa-pencil"
-  size="medium"
+  icon="pencil"
   color="secondary"
   aria-label="Edit"
   onClick={() => {}}
 />
 
 <IconButton
-  icon="fa-trash"
-  size="medium"
+  icon="trash-2"
   color="negative"
   aria-label="Delete"
   onClick={() => {}}
@@ -64,67 +60,66 @@ IconButtons come in different colors to indicate their purpose. Always pair with
 
 ## Bare variant
 
-The `bare` variant removes the background, creating a subtle button that works well in toolbars or alongside other content.
+The `bare` variant removes the background and elevation entirely, leaving only the icon.
 
 <Row gap="large" align="center" padding="large" justify="center">
-  <IconButton bare size="medium" icon="fa-check" color="positive" onClick={() => {}} />
-  <IconButton bare size="medium" icon="fa-pencil" color="secondary" onClick={() => {}} />
-  <IconButton bare size="medium" icon="fa-trash" color="negative" onClick={() => {}} />
-  <IconButton bare size="medium" icon="fa-check" color="positive" disabled onClick={() => {}} />
+  <IconButton bare icon="check" color="primary" onClick={() => {}} />
+  <IconButton bare icon="pencil" color="secondary" onClick={() => {}} />
+  <IconButton bare icon="trash-2" color="negative" onClick={() => {}} />
+  <IconButton bare icon="check" color="primary" disabled onClick={() => {}} />
 </Row>
 
 ```js
 <IconButton
   bare
-  icon="fa-close"
-  size="medium"
+  icon="x"
   color="secondary"
   aria-label="Close"
   onClick={() => {}}
 />
 ```
 
----
-
-## Sizes
-
-IconButtons scale proportionally, maintaining their circular shape at all sizes.
-
-<Row gap="large" align="center" padding="large" justify="center">
-  <IconButton size="xsmall" icon="fa-star" color="positive" onClick={() => {}} />
-  <IconButton size="small" icon="fa-star" color="positive" onClick={() => {}} />
-  <IconButton size="medium" icon="fa-star" color="positive" onClick={() => {}} />
-  <IconButton size="large" icon="fa-star" color="positive" onClick={() => {}} />
-  <IconButton size="xlarge" icon="fa-star" color="positive" onClick={() => {}} />
-</Row>
-
-```js
-<IconButton size="xsmall" icon="fa-star" color="positive" onClick={() => {}} /> // 20px
-<IconButton size="small" icon="fa-star" color="positive" onClick={() => {}} />  // 24px
-<IconButton size="medium" icon="fa-star" color="positive" onClick={() => {}} /> // 32px
-<IconButton size="large" icon="fa-star" color="positive" onClick={() => {}} />  // 40px
-<IconButton size="xlarge" icon="fa-star" color="positive" onClick={() => {}} /> // 48px
-```
-
----
-
 ## Common use cases
 
 <Row gap="large" align="center" padding="large" justify="center">
-  <IconButton bare size="medium" icon="fa-heart" color="negative" aria-label="Like" onClick={() => {}} />
-  <IconButton bare size="medium" icon="fa-bookmark" color="secondary" aria-label="Save" onClick={() => {}} />
-  <IconButton bare size="medium" icon="fa-share" color="secondary" aria-label="Share" onClick={() => {}} />
-  <IconButton bare size="medium" icon="fa-ellipsis-h" color="secondary" aria-label="More options" onClick={() => {}} />
+  <IconButton
+    bare
+    icon="heart"
+    color="negative"
+    aria-label="Like"
+    onClick={() => {}}
+  />
+  <IconButton
+    bare
+    icon="bookmark"
+    color="secondary"
+    aria-label="Save"
+    onClick={() => {}}
+  />
+  <IconButton
+    bare
+    icon="share-2"
+    color="secondary"
+    aria-label="Share"
+    onClick={() => {}}
+  />
+  <IconButton
+    bare
+    icon="ellipsis"
+    color="secondary"
+    aria-label="More options"
+    onClick={() => {}}
+  />
 </Row>
 
 ```js
 // Social actions
-<IconButton bare icon="fa-heart" size="medium" color="negative" aria-label="Like" onClick={() => {}} />
-<IconButton bare icon="fa-bookmark" size="medium" color="secondary" aria-label="Save" onClick={() => {}} />
-<IconButton bare icon="fa-share" size="medium" color="secondary" aria-label="Share" onClick={() => {}} />
+<IconButton bare icon="heart" color="negative" aria-label="Like" onClick={() => {}} />
+<IconButton bare icon="bookmark" color="secondary" aria-label="Save" onClick={() => {}} />
+<IconButton bare icon="share-2" color="secondary" aria-label="Share" onClick={() => {}} />
 
 // Menu trigger
-<IconButton bare icon="fa-ellipsis-h" size="medium" color="secondary" aria-label="More options" onClick={() => {}} />
+<IconButton bare icon="ellipsis" color="secondary" aria-label="More options" onClick={() => {}} />
 ```
 
 ---
@@ -136,8 +131,7 @@ Since IconButtons have no visible text, always provide an `aria-label` to descri
 ```js
 // Good - has accessible label
 <IconButton
-  icon="fa-trash"
-  size="medium"
+  icon="trash-2"
   color="negative"
   aria-label="Delete item"
   onClick={() => {}}
@@ -145,8 +139,7 @@ Since IconButtons have no visible text, always provide an `aria-label` to descri
 
 // Bad - no accessible label
 <IconButton
-  icon="fa-trash"
-  size="medium"
+  icon="trash-2"
   color="negative"
   onClick={() => {}}
 />

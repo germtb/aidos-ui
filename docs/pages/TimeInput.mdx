@@ -1,178 +1,73 @@
 import { Column } from "../../src/Column";
-import { Row } from "../../src/Row";
 import { TimeInput } from "../../src/TimeInput";
-import { Icon } from "../../src/Icon";
-import { Span } from "../../src/Text";
+import { ExampleTimeInput, EmptyTimeInput } from "../examples/ExampleTimeInput";
 
 # TimeInput
 
-A styled time picker component that wraps the native HTML `<input type="time">` element. Returns hours and minutes as a Date object.
+A 24-hour segmented time field that matches `DateInput`. Direct numeric entry uses the same replacement, focus, validation, disabled, and empty-value behavior.
 
 ---
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `time` | `Date` | Required | Current time value |
-| `onTimeChange` | `(date: Date) => void` | Required | Called when time changes |
-| `bare` | `boolean` | `false` | Remove border and background styling |
-| `disabled` | `boolean` | - | Disables the input |
-| `addOn` | `ReactNode` | - | Icon or element to display |
-| `addOnPosition` | `"start" \| "end"` | `"start"` | Position of the add-on |
-| `gap` | `Gap` | `"none"` | Space between elements |
-| `padding` | `Padding` | `"small"` | Container padding |
+| Prop           | Type                           | Required | Default  | Description                                             |
+| -------------- | ------------------------------ | -------- | -------- | ------------------------------------------------------- |
+| `time`         | `Date \| null`                 | Yes      | -        | Controlled time value; `null` represents an empty field |
+| `onTimeChange` | `(time: Date \| null) => void` | Yes      | -        | Called after valid entry or clearing the field          |
+| `label`        | `string`                       | No       | -        | Visible and accessible field label                      |
+| `aria-label`   | `string`                       | No       | `"Time"` | Accessible label when no visible label is used          |
+| `name`         | `string`                       | No       | -        | Submits a 24-hour `HH:MM` value through a hidden input  |
+| `disabled`     | `boolean`                      | No       | `false`  | Disables time entry                                     |
+| `readOnly`     | `boolean`                      | No       | `false`  | Prevents changes while retaining the displayed value    |
+| `required`     | `boolean`                      | No       | `false`  | Marks both time segments as required                    |
+| `aria-invalid` | `boolean`                      | No       | `false`  | Applies the shared invalid-field treatment              |
+| `jss`          | `JSS`                          | No       | -        | Styles the field wrapper                                |
+
+Provide either `label` or `aria-label` so the grouped time segments have an accessible name.
 
 ---
 
 ## Basic usage
 
-<Column gap="medium" jss={{ maxWidth: 150 }}>
-  <TimeInput time={new Date()} onTimeChange={() => {}} />
-</Column>
+<ExampleTimeInput />
 
-```js
-const [time, setTime] = useState(new Date());
+```tsx
+const [time, setTime] = useState<Date | null>(new Date());
 
-<TimeInput time={time} onTimeChange={setTime} />
+<TimeInput label="Start time" time={time} onTimeChange={setTime} />;
+```
+
+Focus selects a complete segment, so normal typing replaces the existing hour or minute. Completing the hour advances focus to the minute.
+
+---
+
+## Empty value
+
+<EmptyTimeInput />
+
+```tsx
+const [time, setTime] = useState<Date | null>(null);
+
+<TimeInput aria-label="End time" time={time} onTimeChange={setTime} />;
 ```
 
 ---
 
-## With icon
+## Validation and states
 
-Add a clock icon for visual context:
-
-<Column gap="medium" jss={{ maxWidth: 200 }}>
+<Column gap="medium" jss={{ maxWidth: 360 }}>
   <TimeInput
-    addOn={<Icon icon="fa-clock-o" color="primary" size="medium" />}
-    time={new Date()}
+    aria-label="Invalid time"
+    aria-invalid
+    time={null}
     onTimeChange={() => {}}
   />
   <TimeInput
-    addOn={<Icon icon="fa-clock-o" color="primary" size="medium" />}
-    addOnPosition="end"
-    time={new Date()}
-    onTimeChange={() => {}}
-  />
-</Column>
-
-```js
-// Icon at start (default)
-<TimeInput
-  addOn={<Icon icon="fa-clock-o" color="primary" size="medium" />}
-  time={time}
-  onTimeChange={setTime}
-/>
-
-// Icon at end
-<TimeInput
-  addOn={<Icon icon="fa-clock-o" color="primary" size="medium" />}
-  addOnPosition="end"
-  time={time}
-  onTimeChange={setTime}
-/>
-```
-
----
-
-## Bare variant
-
-The bare variant removes the border and background, useful for inline editing:
-
-<Column gap="medium" jss={{ maxWidth: 200 }}>
-  <TimeInput bare time={new Date()} onTimeChange={() => {}} />
-  <TimeInput
-    bare
-    addOn={<Icon icon="fa-clock-o" color="primary" size="medium" />}
-    time={new Date()}
+    aria-label="Disabled time"
+    disabled
+    time={new Date(2026, 7, 1, 14, 30)}
     onTimeChange={() => {}}
   />
 </Column>
 
-```js
-<TimeInput bare time={time} onTimeChange={setTime} />
-
-<TimeInput
-  bare
-  addOn={<Icon icon="fa-clock-o" color="primary" size="medium" />}
-  time={time}
-  onTimeChange={setTime}
-/>
-```
-
----
-
-## Disabled state
-
-<Column gap="medium" jss={{ maxWidth: 200 }}>
-  <TimeInput disabled time={new Date()} onTimeChange={() => {}} />
-  <TimeInput bare disabled time={new Date()} onTimeChange={() => {}} />
-</Column>
-
-```js
-<TimeInput disabled time={time} onTimeChange={setTime} />
-<TimeInput bare disabled time={time} onTimeChange={setTime} />
-```
-
----
-
-## Working with Date objects
-
-The component works with JavaScript Date objects. Only the hours and minutes are used:
-
-```js
-function ScheduleForm() {
-  const [startTime, setStartTime] = useState(new Date());
-  const [endTime, setEndTime] = useState(new Date());
-
-  // Get just the time portion
-  const formatTime = (date) => {
-    return date.toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
-
-  return (
-    <Column gap="medium">
-      <Row gap="medium" align="center">
-        <Span>From:</Span>
-        <TimeInput time={startTime} onTimeChange={setStartTime} />
-      </Row>
-      <Row gap="medium" align="center">
-        <Span>To:</Span>
-        <TimeInput time={endTime} onTimeChange={setEndTime} />
-      </Row>
-      <Span color="secondary">
-        Selected: {formatTime(startTime)} - {formatTime(endTime)}
-      </Span>
-    </Column>
-  );
-}
-```
-
----
-
-## Setting initial time
-
-```js
-// Current time
-const [time, setTime] = useState(new Date());
-
-// Specific time (e.g., 9:30 AM)
-const [time, setTime] = useState(() => {
-  const date = new Date();
-  date.setHours(9, 30, 0, 0);
-  return date;
-});
-```
-
----
-
-## Accessibility
-
-- Uses native `<input type="time">` for full browser accessibility support
-- Focus states are visually indicated
-- Works with keyboard navigation
-- Screen readers announce the input purpose
+Completed values outside `00:00` through `23:59` receive the invalid-field treatment and are not committed.

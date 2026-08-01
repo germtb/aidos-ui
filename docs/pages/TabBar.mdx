@@ -1,0 +1,131 @@
+import { TabBar } from "../../src/TabBar";
+import { Row } from "../../src/Row";
+import { cssVar } from "../../src/jss";
+
+# TabBar
+
+A page-navigation bar with icons and labels. It uses the same `Tab` configuration as `Tabs`, renders links or buttons, and can be horizontal on compact screens or vertical on desktop.
+
+---
+
+## Props
+
+| Prop            | Type                           | Default                | Description                                             |
+| --------------- | ------------------------------ | ---------------------- | ------------------------------------------------------- |
+| `tabs`          | `Tab[]`                        | Required               | Navigation destinations or actions                      |
+| `variant`       | `"default" \| "floating"`      | `"default"`            | Surface and elevation treatment                         |
+| `direction`     | `FlexDirection`                | `"row"`                | Layout direction inherited from `FlexLayout`            |
+| `fixed`         | `boolean`                      | `false`                | Fix the bar to the bottom or left edge of the viewport  |
+| `iconSize`      | `Size`                         | `"large"`              | Icon size                                               |
+| `labelSize`     | `Size`                         | `"small"`              | Label size                                              |
+| `tabPadding`    | `Padding`                      | `"medium"`             | Padding inside each tab                                 |
+| `jssTab`        | `JSS \| (data) => JSS`         | -                      | Styles for each tab, optionally based on selected state |
+| `labelRenderer` | `(label: string) => ReactNode` | -                      | Custom label renderer                                   |
+| `aria-label`    | `string`                       | `"Primary navigation"` | Accessible navigation label                             |
+
+### Tab object
+
+| Property   | Type         | Default  | Description                                                 |
+| ---------- | ------------ | -------- | ----------------------------------------------------------- |
+| `label`    | `string`     | Required | Display text                                                |
+| `icon`     | `IconType`   | -        | Icon displayed above the label                              |
+| `href`     | `string`     | -        | Destination URL; renders the tab as a link                  |
+| `onClick`  | `() => void` | -        | Action; renders the tab as a button when there is no `href` |
+| `selected` | `boolean`    | `false`  | Marks the current destination                               |
+
+---
+
+## Horizontal
+
+<TabBar
+  tabs={[
+    { label: "Home", icon: "house", href: "/TabBar", selected: true },
+    { label: "Search", icon: "search", href: "/TabBar" },
+    { label: "Profile", icon: "user", href: "/TabBar" },
+    { label: "Settings", icon: "settings", href: "/TabBar" },
+  ]}
+/>
+
+```tsx
+<TabBar
+  tabs={[
+    { label: "Home", icon: "house", href: "/", selected: true },
+    { label: "Search", icon: "search", href: "/search" },
+    { label: "Profile", icon: "user", href: "/profile" },
+    { label: "Settings", icon: "settings", href: "/settings" },
+  ]}
+/>
+```
+
+Use `fixed` to anchor a horizontal TabBar to the bottom of the viewport. On devices with a home indicator, the bar automatically includes `safe-area-inset-bottom`.
+
+---
+
+## Vertical
+
+<Row jss={{ height: 320, backgroundColor: cssVar("--primary-background") }}>
+  <TabBar
+    direction="column"
+    tabs={[
+      { label: "Home", icon: "house", href: "/TabBar", selected: true },
+      { label: "Search", icon: "search", href: "/TabBar" },
+      { label: "Profile", icon: "user", href: "/TabBar" },
+      { label: "Settings", icon: "settings", href: "/TabBar" },
+    ]}
+  />
+</Row>
+
+```tsx
+<TabBar
+  direction="column"
+  tabs={[
+    { label: "Home", icon: "house", href: "/", selected: true },
+    { label: "Search", icon: "search", href: "/search" },
+    { label: "Settings", icon: "settings", href: "/settings" },
+  ]}
+/>
+```
+
+When `fixed` and vertical, the TabBar is anchored to the left edge of the viewport.
+
+---
+
+## Button-driven navigation
+
+Tabs without `href` render as buttons, which is useful when navigation state is managed by the application.
+
+```tsx
+<TabBar
+  tabs={[
+    {
+      label: "Library",
+      icon: "folder",
+      selected: page === "library",
+      onClick: () => setPage("library"),
+    },
+    {
+      label: "Settings",
+      icon: "settings",
+      selected: page === "settings",
+      onClick: () => setPage("settings"),
+    },
+  ]}
+/>
+```
+
+---
+
+## Custom tab styles
+
+```tsx
+<TabBar
+  jssTab={({ selected }) => ({
+    backgroundColor: selected ? cssVar("--light-highlight") : "transparent",
+  })}
+  tabs={tabs}
+/>
+```
+
+## Accessibility
+
+`TabBar` renders a `<nav>` landmark. The selected destination receives `aria-current="page"`. Because it navigates between pages or application destinations, it intentionally does not use ARIA `tablist` semantics.

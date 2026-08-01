@@ -31,7 +31,7 @@ export function RootView({
       const focusables = queryFocusables(element);
       const firstFocusable = focusables[0];
       firstMountRef.current = false;
-      firstFocusable && firstFocusable.focus();
+      firstFocusable?.focus();
     },
     [isTopOfStack, focusOnlyOnFirstMount]
   );

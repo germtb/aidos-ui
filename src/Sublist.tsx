@@ -34,7 +34,7 @@ export function Sublist({
           <Row gap="medium" align="center">
             {secondaryAddOn}
             <Box
-              padding="medium"
+              padding="none"
               jss={[
                 {
                   transition: "transform 0.15s ease-in",
@@ -44,16 +44,12 @@ export function Sublist({
                 },
               ]}
             >
-              <Icon
-                color="primary"
-                size="medium"
-                icon="fa-solid:chevron-right"
-              />
+              <Icon color="primary" size="medium" icon="chevron-right" />
             </Box>
           </Row>
         }
         addOnPosition="end"
-        color="primary"
+        color="secondary"
       />
       {collapsed ? null : children}
     </>

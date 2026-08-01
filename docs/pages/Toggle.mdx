@@ -1,0 +1,111 @@
+import { ToggleDemo } from "../examples/ToggleDemo";
+import { Toggle } from "../../src/Toggle";
+import { Row } from "../../src/Row";
+
+# Toggle
+
+An icon button for a binary action state. Toggle changes both its icon and emphasis while preserving one stable accessible label.
+
+---
+
+## Props
+
+| Prop            | Type                       | Required | Description                           |
+| --------------- | -------------------------- | -------- | ------------------------------------- |
+| `label`         | `string`                   | Yes      | Stable accessible name for the action |
+| `value`         | `boolean`                  | Yes      | Whether the toggle is on              |
+| `onValueChange` | `(value: boolean) => void` | Yes      | Called with the next state            |
+| `onIcon`        | `IconType`                 | Yes      | Icon displayed when on                |
+| `offIcon`       | `IconType`                 | Yes      | Icon displayed when off               |
+| `bare`          | `boolean`                  | No       | Removes the button surface            |
+| `disabled`      | `boolean`                  | No       | Disables interaction                  |
+| `jss`           | `JSS`                      | No       | Exceptional style overrides           |
+
+---
+
+## Basic usage
+
+<ToggleDemo />
+
+```tsx
+const [notifications, setNotifications] = useState(false);
+
+<Toggle
+  label="Notifications"
+  value={notifications}
+  onValueChange={setNotifications}
+  onIcon="bell-ring"
+  offIcon="bell-off"
+/>;
+```
+
+---
+
+## States
+
+<Row gap="medium" align="center">
+  <Toggle
+    label="Sound"
+    value={false}
+    onValueChange={() => {}}
+    onIcon="volume-2"
+    offIcon="volume-x"
+  />
+  <Toggle
+    label="Sound"
+    value
+    onValueChange={() => {}}
+    onIcon="volume-2"
+    offIcon="volume-x"
+  />
+  <Toggle
+    label="Sound"
+    value={false}
+    onValueChange={() => {}}
+    onIcon="volume-2"
+    offIcon="volume-x"
+    disabled
+  />
+</Row>
+
+---
+
+## Bare treatment
+
+Use `bare` when the toggle sits in application chrome or another surface that already communicates its boundary. Bare toggles remain accent-neutral in both states; the icon and `aria-pressed` communicate the state without introducing a blue action color.
+
+<Row gap="medium" align="center">
+  <Toggle
+    bare
+    label="Bare sound off"
+    value={false}
+    onValueChange={() => {}}
+    onIcon="volume-2"
+    offIcon="volume-x"
+  />
+  <Toggle
+    bare
+    label="Bare sound on"
+    value
+    onValueChange={() => {}}
+    onIcon="volume-2"
+    offIcon="volume-x"
+  />
+</Row>
+
+```tsx
+<Toggle
+  bare
+  label="Dark mode"
+  value={darkMode}
+  onValueChange={setDarkMode}
+  onIcon="sun"
+  offIcon="moon"
+/>
+```
+
+---
+
+## Accessibility
+
+Toggle renders a native button with `aria-pressed`. Keep `label` stable between states; assistive technology announces the pressed state separately.

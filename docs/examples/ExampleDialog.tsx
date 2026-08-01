@@ -23,7 +23,7 @@ export function DialogTrigger() {
   );
 
   return (
-    <Button color="positive" onClick={() => open()}>
+    <Button color="primary" onClick={() => open()}>
       Show dialog
     </Button>
   );

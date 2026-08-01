@@ -3,7 +3,6 @@ import { spawnSync } from "child_process";
 async function run() {
   const commands = [
     ["npm", ["run", "build:lib"]],
-    ["npm", ["run", "embeddings"]],
     ["git", ["add", "--all"]],
     ["git", ["commit", "-m", "build:lib"]],
     ["npm", ["version", "patch"]],

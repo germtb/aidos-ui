@@ -1,18 +1,14 @@
 import { JSS, Padding, TextColor, cssVar, getPadding } from "./jss";
 
 export type InteractableColor =
-  | "positive"
-  | "primary"
-  | "negative"
-  | "dark"
-  | "light";
+  "primary" | "secondary" | "negative" | "inverse";
 
 const styles = {
   root: {
     cursor: "pointer",
     display: "inline-flex",
     alignItems: "center",
-    transition: "opacity 0.1s ease-in",
+    transition: "filter 120ms ease, box-shadow 120ms ease",
     outlineColor: cssVar("--outline"),
     "[aria-disabled=true]": {
       color: cssVar("--secondary-text"),
@@ -21,28 +17,16 @@ const styles = {
     ":focus-visible": {
       outlineWidth: "2px",
       outlineStyle: "solid",
-      outlineOffset: -2,
-    },
-  },
-  dark: {
-    backgroundColor: "black",
-    "[aria-disabled=true]": {
-      backgroundColor: cssVar("--background-button-disabled"),
-    },
-  },
-  light: {
-    backgroundColor: "white",
-    "[aria-disabled=true]": {
-      backgroundColor: cssVar("--background-button-disabled"),
-    },
-  },
-  positive: {
-    backgroundColor: cssVar("--background-button-positive"),
-    "[aria-disabled=true]": {
-      backgroundColor: cssVar("--background-button-disabled"),
+      outlineOffset: 2,
     },
   },
   primary: {
+    backgroundColor: cssVar("--background-button-primary"),
+    "[aria-disabled=true]": {
+      backgroundColor: cssVar("--background-button-disabled"),
+    },
+  },
+  secondary: {
     backgroundColor: cssVar("--background-button-secondary"),
     "[aria-disabled=true]": {
       backgroundColor: cssVar("--background-button-disabled"),
@@ -50,6 +34,12 @@ const styles = {
   },
   negative: {
     backgroundColor: cssVar("--background-button-negative"),
+    "[aria-disabled=true]": {
+      backgroundColor: cssVar("--background-button-disabled"),
+    },
+  },
+  inverse: {
+    backgroundColor: cssVar("--background-button-inverse"),
     "[aria-disabled=true]": {
       backgroundColor: cssVar("--background-button-disabled"),
     },
@@ -69,10 +59,12 @@ const styles = {
   },
   opacityHover: {
     ":hover": {
-      opacity: 0.8,
+      opacity: 1,
+      filter: "brightness(0.96)",
     },
     "[aria-disabled=true]:hover": {
       opacity: 1,
+      filter: "none",
     },
   },
   colorHover: {},
@@ -95,22 +87,22 @@ export function getInteractableJSS({
 }): Array<JSS> {
   return [
     styles.root,
-    color === "dark" && styles.dark,
-    color === "light" && styles.light,
-    color === "positive" && styles.positive,
     color === "primary" && styles.primary,
+    color === "secondary" && styles.secondary,
     color === "negative" && styles.negative,
+    color === "inverse" && styles.inverse,
     border && {
       border: `1px solid ${getCSSColor(color, disabled, bare)}`,
     },
     bare && styles.bare,
     disabled && styles.disabled,
-    !bare && styles.opacityHover,
+    !bare && !disabled && { boxShadow: cssVar("--shadow-sm") },
+    styles.opacityHover,
     animateInteraction &&
       !disabled && {
         position: "relative",
         ":active": {
-          opacity: 0.95,
+          opacity: 1,
           top: 1,
         },
         "[aria-disabled=true]:active": {
@@ -125,61 +117,55 @@ export function getInteractableJSS({
 export const getGlyphColor = (
   color: InteractableColor,
   disabled: boolean | undefined,
-  bare: boolean | undefined
+  bare: boolean | undefined,
 ): TextColor => {
   if (disabled) {
     return "subtle";
   }
 
   switch (color) {
-    case "positive":
+    case "primary":
       return bare ? "highlight" : "light";
+    case "secondary":
+      return bare ? "primary" : "secondary";
     case "negative":
       return bare ? "negative" : "light";
-    case "primary":
-      return bare ? "primary" : "secondary";
-    case "dark":
-      return bare ? "primary" : "light";
-    case "light":
-      return bare ? "light" : "primary";
+    case "inverse":
+      return bare ? "primary" : "inverse";
   }
 };
 
 export const getCSSColor = (
   color: InteractableColor,
   disabled: boolean | undefined,
-  bare: boolean | undefined
+  bare: boolean | undefined,
 ): string => {
   if (disabled) {
     return cssVar("--subtle-text");
   }
 
   switch (color) {
-    case "positive":
+    case "primary":
       return bare ? cssVar("--highlight") : cssVar("--light-text");
+    case "secondary":
+      return bare ? cssVar("--primary-text") : cssVar("--secondary-text");
     case "negative":
       return bare ? cssVar("--negative-text") : cssVar("--light-text");
-    case "primary":
-      return bare ? cssVar("--primary-text") : cssVar("--secondary-text");
-    case "dark":
-      return bare ? cssVar("--primary-text") : cssVar("--light-text");
-    case "light":
-      return bare ? cssVar("--light-text") : cssVar("--primary-text");
+    case "inverse":
+      return bare ? cssVar("--primary-text") : cssVar("--inverse-text");
   }
 };
 
 export const getInteractableListItemJSS = ({
-  bare,
   selected,
 }: {
-  bare: boolean;
-  selected: boolean;
+  selected: boolean | undefined;
 }) => {
   return [
     {
       overflow: "hidden",
       flexGrow: 1,
-      borderRadius: bare ? cssVar("--border-radius-m") : null,
+      borderRadius: cssVar("--border-radius-m"),
       textDecoration: "none",
       ":hover": {
         backgroundColor: cssVar("--hovered-background"),
@@ -195,15 +181,12 @@ export const getInteractableListItemJSS = ({
       },
     },
     selected && {
-      backgroundColor: bare
-        ? cssVar("--light-highlight")
-        : cssVar("--selected-background"),
-      boxShadow: bare ? "" : "inset 1px 1px 2px -1px #0000004a",
+      backgroundColor: cssVar("--light-highlight"),
       ":hover": {
-        backgroundColor: cssVar("--hovered-background"),
+        backgroundColor: cssVar("--light-highlight-hovered"),
       },
       ":active:hover": {
-        backgroundColor: cssVar("--pressed-background"),
+        backgroundColor: cssVar("--light-highlight-pressed"),
       },
     },
   ];

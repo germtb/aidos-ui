@@ -27,12 +27,18 @@ export const pages: Array<Page> = [
   {
     type: "section",
     label: "CSS",
-    content: [{ type: "link", page: "css-in-js", name: "jss" }],
+    content: [
+      { type: "link", page: "css-in-js", name: "jss" },
+      { type: "link", page: "VisualSystem", name: "Visual system" },
+    ],
   },
   {
     type: "section",
     label: "Layout",
-    content: [{ type: "link", page: "FlexLayout" }],
+    content: [
+      { type: "link", page: "FlexLayout" },
+      { type: "link", page: "NavigationSplitView" },
+    ],
   },
   {
     type: "section",
@@ -48,9 +54,13 @@ export const pages: Array<Page> = [
     label: "Actions",
     content: [
       { type: "link", page: "Button" },
+      { type: "link", page: "ButtonGroup" },
       { type: "link", page: "Link" },
       { type: "link", page: "IconButton" },
+      { type: "link", page: "Select" },
+      { type: "link", page: "Toggle" },
       { type: "link", page: "Tabs" },
+      { type: "link", page: "TabBar" },
     ],
   },
   {
@@ -58,10 +68,16 @@ export const pages: Array<Page> = [
     label: "Inputs",
     content: [
       { type: "link", page: "TextInput" },
+      { type: "link", page: "DateInput" },
       { type: "link", page: "RangeInput" },
       { type: "link", page: "TimeInput" },
       { type: "link", page: "Checkbox" },
     ],
+  },
+  {
+    type: "section",
+    label: "Data display",
+    content: [{ type: "link", page: "Table" }],
   },
   {
     type: "section",

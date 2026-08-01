@@ -1,11 +1,13 @@
 import React from "react";
 import { BaseInput, BaseInputProps } from "./BaseInput";
-import {} from "./BaseView";
 import { Size, toClassnames } from "./jss";
 import { StaticCheckbox, sizes } from "./StaticCheckbox";
 
-// @ts-ignore
-interface CheckboxProps extends BaseInputProps {
+interface CheckboxProps
+  extends Omit<
+    BaseInputProps,
+    "checked" | "onClick" | "value" | "onChange" | "size"
+  > {
   checked: boolean;
   onClick: () => void;
   size: Size;
@@ -42,7 +44,7 @@ export function Checkbox({
         {...inputProps}
         type="checkbox"
         role="checkbox"
-        aria-checked={`${checked}`}
+        aria-checked={checked}
         tabIndex={0}
         checked={checked}
         onChange={onClick}

@@ -3,24 +3,15 @@ import {
   JSS,
   Size,
   TextColor,
-  cssVar,
   getTextColor,
   toClassnames,
 } from "./jss";
+import { getTypography } from "./typography";
 
-const fontSize = {
-  xsmall: cssVar("--font-xsmall"),
-  small: cssVar("--font-small"),
-  medium: cssVar("--font-medium"),
-  large: cssVar("--font-large"),
-  xlarge: cssVar("--font-xlarge"),
-  xxlarge: cssVar("--font-xxlarge"),
-  xxxlarge: cssVar("--font-xxxlarge"),
-};
-
-export type Display = "inline" | "block";
-
-export interface TextProps {
+export interface TextProps extends Omit<
+  React.HTMLAttributes<HTMLElement>,
+  "children" | "className" | "color"
+> {
   children: ReactNode;
   color?: TextColor;
   size?: Size;
@@ -30,8 +21,8 @@ export interface TextProps {
   type?: TextType;
   grow?: boolean;
   jss?: JSS;
-  id?: string;
   htmlFor?: string;
+  className?: never;
 }
 
 export type TextType =
@@ -54,17 +45,21 @@ export function Text({
   grow,
   type: Type = "span",
   jss,
-  id,
   htmlFor,
+  ...elementProps
 }: TextProps) {
   if (ellipsis === "default") {
     ellipsis = Type === "span" || Type === "label";
   }
 
+  const isHeading =
+    Type === "h1" || Type === "h2" || Type === "h3" || Type === "h4";
+
   const className = toClassnames([
     getTextColor(color),
-    { fontSize: fontSize[size], padding: 0, margin: 0 },
-    bold && { fontWeight: "bold" },
+    { ...getTypography(size), padding: 0, margin: 0 },
+    isHeading && { fontWeight: "inherit" },
+    bold && { fontWeight: 600 },
     align === "center" && { textAlign: "center" },
     ellipsis && {
       overflow: "hidden",
@@ -76,7 +71,7 @@ export function Text({
   ]);
 
   return (
-    <Type id={id} className={className} htmlFor={htmlFor}>
+    <Type {...elementProps} className={className} htmlFor={htmlFor}>
       {children}
     </Type>
   );
@@ -103,6 +98,10 @@ export function H2({ size = "xlarge", type = "h2", ...rest }: TextProps) {
 }
 
 export function H3({ size = "large", type = "h3", ...rest }: TextProps) {
+  return <Text size={size} type={type} {...rest} />;
+}
+
+export function H4({ size = "medium", type = "h4", ...rest }: TextProps) {
   return <Text size={size} type={type} {...rest} />;
 }
 

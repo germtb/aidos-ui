@@ -1,4 +1,4 @@
-import { useRef, useCallback, useEffect } from "react";
+import { useCallback } from "react";
 
 import { queryFocusables, focusElement, normalizeElements } from "./aria";
 import { useRefEffect } from "./useRefEffect";
@@ -7,6 +7,7 @@ export function useNavigation({
   autofocus = false,
   rowLength = 1,
   enabled = true,
+  initialIndex = 0,
 } = {}) {
   return useRefEffect(
     useCallback(
@@ -15,7 +16,10 @@ export function useNavigation({
           return;
         }
 
-        let index = 0;
+        let index = Math.max(
+          0,
+          Math.min(initialIndex, queryFocusables(root).length - 1),
+        );
 
         const elements = queryFocusables(root);
 
@@ -90,7 +94,7 @@ export function useNavigation({
           observer.disconnect();
         };
       },
-      [autofocus, enabled, rowLength],
+      [autofocus, enabled, initialIndex, rowLength],
     ),
   );
 }

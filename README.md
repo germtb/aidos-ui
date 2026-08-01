@@ -13,7 +13,7 @@ npm install aidos-ui
 ## Setup
 
 ```tsx
-import { Providers, lightTheme, darkTheme } from 'aidos-ui';
+import { Providers, lightTheme, darkTheme } from "aidos-ui";
 
 function App() {
   return (
@@ -27,11 +27,11 @@ function App() {
 For Next.js SSR, add `JSServerStyles` to your `_document.tsx`:
 
 ```tsx
-import { JSServerStyles } from 'aidos-ui';
+import { JSServerStyles } from "aidos-ui";
 
 <Head>
   <JSServerStyles />
-</Head>
+</Head>;
 ```
 
 ## Components
@@ -50,7 +50,7 @@ import { JSServerStyles } from 'aidos-ui';
 
 **Feedback**: `ProgressBar`, `ProgressCircle`, `Badge`
 
-**Other**: `Tabs`, `Calendar`, `DatePicker`, `Icon`, `DarkMode`
+**Other**: `Tabs`, `Calendar`, `DateInput`, `Icon`, `DarkMode`
 
 ## Icons
 
@@ -63,8 +63,8 @@ npm install @iconify/react @iconify-json/fa
 ```
 
 ```tsx
-import { addCollection } from '@iconify/react';
-import faIcons from '@iconify-json/fa/icons.json';
+import { addCollection } from "@iconify/react";
+import faIcons from "@iconify-json/fa/icons.json";
 
 // Call once during application initialization.
 addCollection(faIcons);
@@ -77,7 +77,7 @@ Registering the collection bundles the icons with your application, so they no l
 Components accept a `jss` prop for inline styles with automatic class generation:
 
 ```tsx
-<Row jss={{ backgroundColor: 'red', padding: 16 }} gap="medium">
+<Row jss={{ backgroundColor: "red", padding: 16 }} gap="medium">
   <Button color="positive">Save</Button>
 </Row>
 ```

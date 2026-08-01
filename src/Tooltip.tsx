@@ -7,8 +7,13 @@ import { JSS, cssVar, toClassnames } from "./jss";
 
 const styles: { [key: string]: JSS } = {
   tooltip: {
-    top: "-100%",
-    transform: "translateY(50%)",
+    top: "auto",
+    right: "auto",
+    bottom: `calc(100% + ${cssVar("--spacing-s")})`,
+    left: "50%",
+    margin: 0,
+    translate: "-50% 0",
+    transformOrigin: "bottom center",
     backgroundColor: cssVar("--primary-background"),
     padding: `${cssVar("--spacing-s")} ${cssVar("--spacing-m")}`,
     borderRadius: cssVar("--border-radius-m"),
@@ -51,8 +56,9 @@ export function Tooltip({ content, jss, tag, children }: TooltipProps) {
 
       const activeElement = document.activeElement;
       root.show();
-      // @ts-ignore
-      activeElement.focus();
+      if (activeElement instanceof HTMLElement) {
+        activeElement.focus();
+      }
 
       return () => {
         window.removeEventListener("keydown", keydown);

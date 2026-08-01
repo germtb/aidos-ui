@@ -1,4 +1,4 @@
-import React, { useContext, useMemo, useRef, useState } from "react";
+import React, { useCallback, useContext, useMemo, useRef, useState } from "react";
 
 import { BaseView } from "./BaseView";
 import { Text } from "./Text";
@@ -59,10 +59,9 @@ export const Dialog = ({
           <IconButton
             autoFocus={true}
             bare={true}
-            icon="fa-close"
-            size="medium"
+            icon="x"
             onClick={close}
-            color="primary"
+            color="secondary"
           />
         </Row>
         <ListDivider />
@@ -72,12 +71,16 @@ export const Dialog = ({
   );
 };
 
-const DialogContext = React.createContext<{ setDialog: React.Dispatch<any> }>({
+type DialogElement = React.JSX.Element | null;
+
+const DialogContext = React.createContext<{
+  setDialog: React.Dispatch<React.SetStateAction<DialogElement>>;
+}>({
   setDialog: () => {},
 });
 
-export function DialogProvider({ children }) {
-  const [dialog, setDialog] = useState<React.JSX.Element>(null);
+export function DialogProvider({ children }: { children: React.ReactNode }) {
+  const [dialog, setDialog] = useState<DialogElement>(null);
   const value = useMemo(() => ({ setDialog }), []);
 
   return (
@@ -90,32 +93,34 @@ export function DialogProvider({ children }) {
 
 export function useDialog<Input>(
   DialogComponent: (props: { close: () => void } & Input) => React.JSX.Element,
-  options: { closeOnOutsideClick: boolean }
+  options: { closeOnOutsideClick: boolean },
 ) {
   const { setDialog } = useContext(DialogContext);
   const dialogRef = useRef<null | HTMLDialogElement>(null);
-  const activeElementRef = useRef(null);
-  const closeRef = useRef(null);
+  const activeElementRef = useRef<HTMLElement | null>(null);
 
-  closeRef.current = () => {
-    dialogRef.current && dialogRef.current.close();
-    activeElementRef.current && activeElementRef.current.focus();
+  const close = useCallback(() => {
+    dialogRef.current?.close();
+    activeElementRef.current?.focus();
     dialogRef.current = null;
     activeElementRef.current = null;
     setDialog(null);
-  };
+  }, [setDialog]);
 
   const open = (input: Input) => {
-    activeElementRef.current = document.activeElement;
+    activeElementRef.current =
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
     setDialog(
       <dialog
         ref={(ref: null | HTMLDialogElement) => {
           dialogRef.current = ref;
-          ref && ref.showModal();
+          ref?.showModal();
         }}
         className={toClassnames(styles.dialog)}
         onClose={() => {
-          closeRef.current();
+          close();
         }}
         onClick={(e) => {
           if (dialogRef.current == null) {
@@ -138,13 +143,13 @@ export function useDialog<Input>(
           }
         }}
       >
-        <DialogComponent {...input} close={() => closeRef.current()} />
-      </dialog>
+        <DialogComponent {...input} close={close} />
+      </dialog>,
     );
   };
 
   return {
     open,
-    close: () => closeRef.current(),
+    close,
   };
 }

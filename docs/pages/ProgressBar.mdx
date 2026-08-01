@@ -2,33 +2,34 @@ import { ProgressBar } from "../../src/ProgressBar";
 import { Column } from "../../src/Column";
 import { Row } from "../../src/Row";
 import { Span } from "../../src/Text";
-import { cssVar } from "../../src/jss";
 
 # ProgressBar
 
-A linear progress indicator for displaying completion percentage. Supports multiple colors and sizes.
+A quiet linear indicator for showing the completion of an ongoing process. Its tonal track sits within the surrounding surface while the fill carries emphasis.
 
 ---
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `progress` | `number` | Required | Progress value from 0 to 1 (values > 1 are capped at 1) |
-| `color` | `Color` | Required | Bar fill color: `"highlight"`, `"negative"`, `"warning"`, etc. |
-| `size` | `Size` | Required | Bar height: `"xsmall"` (4px), `"small"` (8px), `"medium"` (12px), `"large"` (16px), `"xlarge"` (20px) |
-| `jss` | `JSS` | - | Custom styles for the container |
+| Prop              | Type                  | Default       | Description                                     |
+| ----------------- | --------------------- | ------------- | ----------------------------------------------- |
+| `progress`        | `number`              | Required      | Progress from 0 to 1; values are safely clamped |
+| `color`           | `Color`               | `"highlight"` | Semantic fill color                             |
+| `size`            | `"small" \| "medium"` | `"medium"`    | Track height: 4px or 8px                        |
+| `aria-label`      | `string`              | `"Progress"`  | Accessible name when no visible label exists    |
+| `aria-labelledby` | `string`              | -             | ID of a visible label                           |
+| `jss`             | `JSS`                 | -             | Custom styles for the track                     |
 
 ---
 
 ## Basic usage
 
 <Column gap="medium">
-  <ProgressBar color="highlight" progress={0.66} size="medium" />
+  <ProgressBar progress={0.66} aria-label="Upload progress" />
 </Column>
 
 ```js
-<ProgressBar color="highlight" progress={0.66} size="medium" />
+<ProgressBar progress={0.66} aria-label="Upload progress" />
 ```
 
 ---
@@ -37,33 +38,22 @@ A linear progress indicator for displaying completion percentage. Supports multi
 
 <Column gap="medium">
   <Row gap="medium" align="center">
-    <Span size="small" color="secondary" jss={{ width: 60 }}>xsmall</Span>
-    <ProgressBar color="highlight" progress={0.5} size="xsmall" jss={{ flexGrow: 1 }} />
+    <Span size="small" color="secondary" jss={{ width: 60 }}>
+      small
+    </Span>
+    <ProgressBar progress={0.5} size="small" jss={{ flexGrow: 1 }} />
   </Row>
   <Row gap="medium" align="center">
-    <Span size="small" color="secondary" jss={{ width: 60 }}>small</Span>
-    <ProgressBar color="highlight" progress={0.5} size="small" jss={{ flexGrow: 1 }} />
-  </Row>
-  <Row gap="medium" align="center">
-    <Span size="small" color="secondary" jss={{ width: 60 }}>medium</Span>
-    <ProgressBar color="highlight" progress={0.5} size="medium" jss={{ flexGrow: 1 }} />
-  </Row>
-  <Row gap="medium" align="center">
-    <Span size="small" color="secondary" jss={{ width: 60 }}>large</Span>
-    <ProgressBar color="highlight" progress={0.5} size="large" jss={{ flexGrow: 1 }} />
-  </Row>
-  <Row gap="medium" align="center">
-    <Span size="small" color="secondary" jss={{ width: 60 }}>xlarge</Span>
-    <ProgressBar color="highlight" progress={0.5} size="xlarge" jss={{ flexGrow: 1 }} />
+    <Span size="small" color="secondary" jss={{ width: 60 }}>
+      medium
+    </Span>
+    <ProgressBar progress={0.5} size="medium" jss={{ flexGrow: 1 }} />
   </Row>
 </Column>
 
 ```js
-<ProgressBar color="highlight" progress={0.5} size="xsmall" />  // 4px
-<ProgressBar color="highlight" progress={0.5} size="small" />   // 8px
-<ProgressBar color="highlight" progress={0.5} size="medium" />  // 12px
-<ProgressBar color="highlight" progress={0.5} size="large" />   // 16px
-<ProgressBar color="highlight" progress={0.5} size="xlarge" />  // 20px
+<ProgressBar progress={0.5} size="small" />   // 4px
+<ProgressBar progress={0.5} size="medium" />  // 8px, default
 ```
 
 ---
@@ -71,17 +61,15 @@ A linear progress indicator for displaying completion percentage. Supports multi
 ## Colors
 
 <Column gap="medium">
-  <ProgressBar color="highlight" progress={0.66} size="large" />
-  <ProgressBar color="negative" progress={0.66} size="large" />
-  <ProgressBar color="warning" progress={0.66} size="large" />
-  <ProgressBar color="positive" progress={0.66} size="large" />
+  <ProgressBar color="highlight" progress={0.66} />
+  <ProgressBar color="negative" progress={0.66} />
+  <ProgressBar color="warning" progress={0.66} />
 </Column>
 
 ```js
-<ProgressBar color="highlight" progress={0.66} size="large" />  // Accent color
-<ProgressBar color="negative" progress={0.66} size="large" />   // Error/danger
-<ProgressBar color="warning" progress={0.66} size="large" />    // Warning
-<ProgressBar color="positive" progress={0.66} size="large" />   // Success
+<ProgressBar color="highlight" progress={0.66} />  // Accent color
+<ProgressBar color="negative" progress={0.66} />   // Error/danger
+<ProgressBar color="warning" progress={0.66} />    // Warning
 ```
 
 ---
@@ -90,36 +78,54 @@ A linear progress indicator for displaying completion percentage. Supports multi
 
 <Column gap="medium">
   <Row gap="medium" align="center">
-    <ProgressBar color="highlight" progress={0} size="medium" jss={{ flexGrow: 1 }} />
-    <Span size="small" color="secondary">0%</Span>
+    <ProgressBar progress={0} jss={{ flexGrow: 1 }} />
+    <Span size="small" color="secondary">
+      0%
+    </Span>
   </Row>
   <Row gap="medium" align="center">
-    <ProgressBar color="highlight" progress={0.25} size="medium" jss={{ flexGrow: 1 }} />
-    <Span size="small" color="secondary">25%</Span>
+    <ProgressBar progress={0.25} jss={{ flexGrow: 1 }} />
+    <Span size="small" color="secondary">
+      25%
+    </Span>
   </Row>
   <Row gap="medium" align="center">
-    <ProgressBar color="highlight" progress={0.5} size="medium" jss={{ flexGrow: 1 }} />
-    <Span size="small" color="secondary">50%</Span>
+    <ProgressBar progress={0.5} jss={{ flexGrow: 1 }} />
+    <Span size="small" color="secondary">
+      50%
+    </Span>
   </Row>
   <Row gap="medium" align="center">
-    <ProgressBar color="highlight" progress={0.75} size="medium" jss={{ flexGrow: 1 }} />
-    <Span size="small" color="secondary">75%</Span>
+    <ProgressBar progress={0.75} jss={{ flexGrow: 1 }} />
+    <Span size="small" color="secondary">
+      75%
+    </Span>
   </Row>
   <Row gap="medium" align="center">
-    <ProgressBar color="positive" progress={1} size="medium" jss={{ flexGrow: 1 }} />
-    <Span size="small" color="secondary">100%</Span>
+    <ProgressBar progress={1} jss={{ flexGrow: 1 }} />
+    <Span size="small" color="secondary">
+      100%
+    </Span>
   </Row>
 </Column>
 
 ```js
-<ProgressBar color="highlight" progress={0} size="medium" />     // Empty
-<ProgressBar color="highlight" progress={0.5} size="medium" />   // Half
-<ProgressBar color="positive" progress={1} size="medium" />      // Complete
+<ProgressBar progress={0} />                  // Empty
+<ProgressBar progress={0.5} />                // Half
+<ProgressBar progress={1} />   // Complete
 ```
 
 ---
 
 ## With percentage label
+
+<Column gap="small">
+  <Row justify="space-between">
+    <Span id="upload-progress-label">Uploading assets</Span>
+    <Span color="secondary">72%</Span>
+  </Row>
+  <ProgressBar progress={0.72} aria-labelledby="upload-progress-label" />
+</Column>
 
 ```js
 function UploadProgress({ progress }) {
@@ -128,13 +134,12 @@ function UploadProgress({ progress }) {
   return (
     <Column gap="small">
       <Row justify="space-between">
-        <Span>Uploading...</Span>
+        <Span id="upload-progress-label">Uploading assets</Span>
         <Span color="secondary">{percentage}%</Span>
       </Row>
       <ProgressBar
-        color={progress === 1 ? "positive" : "highlight"}
         progress={progress}
-        size="medium"
+        aria-labelledby="upload-progress-label"
       />
     </Column>
   );
@@ -150,11 +155,8 @@ function StorageIndicator({ used, total }) {
   const progress = used / total;
 
   // Change color based on usage
-  const color = progress > 0.9
-    ? "negative"
-    : progress > 0.7
-    ? "warning"
-    : "highlight";
+  const color =
+    progress > 0.9 ? "negative" : progress > 0.7 ? "warning" : "highlight";
 
   return (
     <Column gap="small">
@@ -170,24 +172,15 @@ function StorageIndicator({ used, total }) {
 
 ---
 
-## Animated progress
+## Behavior
 
-The progress bar uses CSS transform for smooth animations:
+- Values are clamped between 0 and 1, including values received during asynchronous updates.
+- Changes animate smoothly without changing layout.
+- Motion is removed when the user prefers reduced motion.
+- Progress fills from the leading edge, including in right-to-left layouts.
+- Keep progress moving forward. A bar that rewinds can make the process feel unreliable.
 
-```js
-function AnimatedProgress() {
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress((p) => (p >= 1 ? 0 : p + 0.1));
-    }, 500);
-    return () => clearInterval(interval);
-  }, []);
-
-  return <ProgressBar color="highlight" progress={progress} size="medium" />;
-}
-```
+ProgressBar renders the `progressbar` role and percentage-based ARIA values. Connect a visible description with `aria-labelledby`; use `aria-label` when there is no visible label.
 
 ---
 
@@ -197,4 +190,3 @@ function AnimatedProgress() {
 - **Storage usage**: Display disk/quota usage
 - **Form completion**: Indicate steps completed
 - **Loading states**: Show determinate loading progress
-- **Skill levels**: Display proficiency ratings

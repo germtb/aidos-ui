@@ -20,12 +20,14 @@ export enum RouteTransition {
 }
 
 type Context = {
-  navigationStack: Array<StackNode<any>>;
+  navigationStack: Array<StackNode>;
 };
 
-type StackNode<Props> = {
-  route: Route<Props, any>;
-  routeProps: Props;
+type RouteProps = Record<string, unknown>;
+
+type StackNode = {
+  route: Route<RouteProps, RouteState>;
+  routeProps: RouteProps;
 };
 
 type Route<Props, State extends RouteState> = {
@@ -46,8 +48,13 @@ const DesignBookRoute: Route<{}, RouteState.DesignBook> = {
   root: DesignBook,
 };
 
+const designBookStackNode: StackNode = {
+  route: DesignBookRoute as unknown as Route<RouteProps, RouteState>,
+  routeProps: {},
+};
+
 const INITIAL_CONTEXT: Context = {
-  navigationStack: [{ route: DesignBookRoute, routeProps: {} }],
+  navigationStack: [designBookStackNode],
 };
 
 const pop: Reducer<RouteState, Context> = ({ state, context }) => {
@@ -80,28 +87,8 @@ const pushFactory =
         navigationStack: [
           ...context.navigationStack,
           {
-            route,
-            routeProps: data,
-          },
-        ],
-      },
-    };
-  };
-
-const replaceFactory =
-  <Props, State extends RouteState>(
-    route: Route<Props, State>
-  ): Reducer<RouteState, Context> =>
-  ({ context, data }) => {
-    return {
-      state: route.state,
-      context: {
-        ...context,
-        navigationStack: [
-          ...context.navigationStack.slice(0, -1),
-          {
-            route,
-            routeProps: data,
+            route: route as unknown as Route<RouteProps, RouteState>,
+            routeProps: data as RouteProps,
           },
         ],
       },

@@ -1,0 +1,83 @@
+import { Column } from "../../src/Column";
+import { DateInput } from "../../src/DateInput";
+import { ExampleDateInput, EmptyDateInput } from "../examples/ExampleDateInput";
+
+# DateInput
+
+A locale-aware date field with direct numeric entry and an accessible calendar popover. It shares its surface, focus, validation, and disabled treatment with `TextInput`.
+
+---
+
+## Props
+
+| Prop           | Type                           | Required | Default   | Description                                                         |
+| -------------- | ------------------------------ | -------- | --------- | ------------------------------------------------------------------- |
+| `date`         | `Date \| null`                 | Yes      | -         | Controlled date value; `null` represents an empty field             |
+| `onDateChange` | `(date: Date \| null) => void` | Yes      | -         | Called after valid entry, calendar selection, or clearing the field |
+| `label`        | `string`                       | No       | -         | Visible and accessible field label                                  |
+| `aria-label`   | `string`                       | No       | `"Date"`  | Accessible label when no visible label is used                      |
+| `locale`       | `string`                       | No       | `"en-GB"` | Controls segment order, separators, month names, and week layout    |
+| `min`          | `Date`                         | No       | -         | Earliest selectable date                                            |
+| `max`          | `Date`                         | No       | -         | Latest selectable date                                              |
+| `name`         | `string`                       | No       | -         | Submits an ISO-style `YYYY-MM-DD` value through a hidden input      |
+| `disabled`     | `boolean`                      | No       | `false`   | Disables entry and calendar selection                               |
+| `readOnly`     | `boolean`                      | No       | `false`   | Prevents changes while retaining the displayed value                |
+| `required`     | `boolean`                      | No       | `false`   | Marks each date segment as required                                 |
+| `aria-invalid` | `boolean`                      | No       | `false`   | Applies the shared invalid-field treatment                          |
+| `jss`          | `JSS`                          | No       | -         | Styles the field wrapper                                            |
+
+Provide either `label` or `aria-label` so the grouped date segments have an accessible name.
+
+---
+
+## Basic usage
+
+<ExampleDateInput />
+
+```tsx
+const [date, setDate] = useState<Date | null>(new Date());
+
+<DateInput label="Start date" date={date} onDateChange={setDate} />;
+```
+
+Users can type each numeric segment or open the calendar. Focusing a segment selects its complete value, so typing replaces it naturally. Segment order and calendar labels follow the active locale.
+
+---
+
+## Empty value
+
+<EmptyDateInput />
+
+```tsx
+const [date, setDate] = useState<Date | null>(null);
+
+<DateInput aria-label="Due date" date={date} onDateChange={setDate} />;
+```
+
+---
+
+## Constraints and states
+
+<Column gap="medium" jss={{ maxWidth: 360 }}>
+  <DateInput
+    label="Booking date"
+    date={new Date(2026, 7, 1)}
+    min={new Date(2026, 7, 1)}
+    max={new Date(2026, 7, 31)}
+    onDateChange={() => {}}
+  />
+  <DateInput
+    aria-label="Invalid date"
+    aria-invalid
+    date={null}
+    onDateChange={() => {}}
+  />
+  <DateInput
+    aria-label="Disabled date"
+    disabled
+    date={new Date(2026, 7, 1)}
+    onDateChange={() => {}}
+  />
+</Column>
+
+The calendar supports arrow-key navigation, `Home`, `End`, `Page Up`, `Page Down`, `Shift + Page Up`, and `Shift + Page Down`. `Escape` closes the popover and restores focus to the calendar button.

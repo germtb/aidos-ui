@@ -1,42 +1,30 @@
 import { List } from "../../src/List";
 import { Icon } from "../../src/Icon";
 import { ListItem } from "../../src/ListItem";
+import { ListButtonItem } from "../../src/ListButtonItem";
 import { ListHeaderItem } from "../../src/ListHeaderItem";
-import { Column } from "../../src/Column";
-import { Span } from "../../src/Text";
 
 # ListHeaderItem
 
-A specialized list item for section headers. Use to organize and visually separate groups within a list.
+A section label for organizing groups within a list. Headers use the same unframed treatment as the rest of the list.
 
 ---
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `headline` | `string` | Required | Header text |
-| `body` | `string` | - | Optional secondary text |
-| `highlight` | `boolean` | `false` | Use accent background color |
-| `addOn` | `ReactNode` | - | Icon or element to display |
-| `addOnPosition` | `Position` | - | Position of the add-on |
-| `withDivider` | `boolean` | - | Show divider below header |
+| Prop            | Type        | Default  | Description                |
+| --------------- | ----------- | -------- | -------------------------- |
+| `headline`      | `string`    | Required | Header text                |
+| `body`          | `string`    | -        | Optional secondary text    |
+| `highlight`     | `boolean`   | `false`  | Use the accent text color  |
+| `addOn`         | `ReactNode` | -        | Icon or element to display |
+| `addOnPosition` | `Position`  | -        | Position of the add-on     |
 
 ---
 
 ## Basic usage
 
-<List ariaLabel="example">
-  <ListHeaderItem headline="Section A" />
-  <ListItem headline="Item 1" body="Description" />
-  <ListItem headline="Item 2" body="Description" />
-  <ListHeaderItem headline="Section B" />
-  <ListItem headline="Item 3" body="Description" />
-  <ListItem withDivider={false} headline="Item 4" body="Description" />
-</List>
-
-```js
-<List ariaLabel="example">
+<List ariaLabel="Example sections">
   <ListHeaderItem headline="Section A" />
   <ListItem headline="Item 1" body="Description" />
   <ListItem headline="Item 2" body="Description" />
@@ -44,112 +32,48 @@ A specialized list item for section headers. Use to organize and visually separa
   <ListItem headline="Item 3" body="Description" />
   <ListItem headline="Item 4" body="Description" />
 </List>
+
+```js
+<List ariaLabel="Example sections">
+  <ListHeaderItem headline="Section A" />
+  <ListItem headline="Item 1" body="Description" />
+  <ListItem headline="Item 2" body="Description" />
+
+  <ListHeaderItem headline="Section B" />
+  <ListItem headline="Item 3" body="Description" />
+</List>
 ```
 
 ---
 
-## Styles
+## Highlighted headers
 
-### Standard headers
+Use `highlight` to draw attention with the accent text color. The header remains unframed and does not add a background.
 
-<List ariaLabel="example">
-  <ListHeaderItem headline="Header" />
-  <ListItem headline="Headline 1" body="Body 1" />
+<List ariaLabel="Header treatments">
   <ListHeaderItem
-    headline="Header"
-    addOn={<Icon icon="fa-chain-broken" size="medium" color="primary" />}
+    headline="Documents"
+    addOn={<Icon icon="folder" size="medium" color="primary" />}
   />
-  <ListItem headline="Headline 2" body="Body 2" />
-  <ListHeaderItem highlight headline="Header" />
-  <ListItem headline="Headline 3" body="Body 3" />
+  <ListItem headline="Project brief" body="Updated today" />
   <ListHeaderItem
     highlight
-    headline="Header"
-    addOn={<Icon icon="fa-chain-broken" size="medium" color="light" />}
+    headline="Needs attention"
+    addOn={<Icon icon="circle-alert" size="medium" color="highlight" />}
   />
-  <ListItem withDivider={false} headline="Headline 4" body="Body 3" />
+  <ListItem headline="Overdue review" body="Due yesterday" />
 </List>
 
 ```js
-// Plain header
-<ListHeaderItem headline="Header" />
-
-// With icon
-<ListHeaderItem
-  headline="Header"
-  addOn={<Icon icon="fa-chain-broken" size="medium" color="primary" />}
-/>
-
-// Highlighted (accent background)
-<ListHeaderItem highlight headline="Header" />
-
-// Highlighted with icon
-<ListHeaderItem
-  highlight
-  headline="Header"
-  addOn={<Icon icon="fa-chain-broken" size="medium" color="light" />}
-/>
-```
-
----
-
-## Bare list headers
-
-In bare lists, headers have no background:
-
-<List bare ariaLabel="example">
-  <ListHeaderItem headline="Header" />
-  <ListItem headline="Headline 1" body="Body 1" />
-  <ListHeaderItem
-    headline="Header"
-    addOn={<Icon icon="fa-chain-broken" size="medium" color="primary" />}
-  />
-  <ListItem headline="Headline 2" body="Body 2" />
-  <ListHeaderItem highlight headline="Header" />
-  <ListItem headline="Headline 3" body="Body 3" />
-  <ListHeaderItem
-    highlight
-    headline="Header"
-    addOn={<Icon icon="fa-chain-broken" size="medium" color="highlight" />}
-  />
-  <ListItem withDivider={false} headline="Headline 4" body="Body 3" />
-</List>
-
-```js
-<List bare ariaLabel="example">
-  <ListHeaderItem headline="Header" />
-  <ListItem headline="Item" body="Description" />
-
-  {/* Highlighted in bare mode uses highlight text color instead */}
-  <ListHeaderItem highlight headline="Header" />
-  <ListItem headline="Item" body="Description" />
-</List>
-```
-
----
-
-## With icons
-
-Add context with icons:
-
-```js
-// Category header
 <ListHeaderItem
   headline="Documents"
-  addOn={<Icon icon="fa-folder" size="medium" color="primary" />}
+  addOn={<Icon icon="folder" size="medium" color="primary" />}
 />
 
-// Status header
-<ListHeaderItem
-  headline="Pending"
-  addOn={<Icon icon="fa-clock-o" size="medium" color="warning" />}
-/>
-
-// Alert header (highlighted)
 <ListHeaderItem
   highlight
-  headline="Urgent"
-  addOn={<Icon icon="fa-exclamation" size="medium" color="light" />}
+  headline="Needs attention"
+  addOn={<Icon icon="circle-alert" size="medium" color="highlight" />}
 />
 ```
 
@@ -169,8 +93,12 @@ Add context with icons:
   <ListButtonItem headline="Theme" onClick={() => {}} />
   <ListButtonItem headline="Language" onClick={() => {}} />
 
-  <ListHeaderItem headline="Danger Zone" highlight />
-  <ListButtonItem headline="Delete Account" color="negative" onClick={() => {}} />
+  <ListHeaderItem headline="Danger zone" highlight />
+  <ListButtonItem
+    headline="Delete account"
+    color="negative"
+    onClick={() => {}}
+  />
 </List>
 ```
 
@@ -187,34 +115,3 @@ Add context with icons:
   <ListItem headline="Betty Baker" />
 </List>
 ```
-
-### Category browser
-
-```js
-<List ariaLabel="Categories">
-  <ListHeaderItem
-    headline="Popular"
-    addOn={<Icon icon="fa-fire" color="warning" />}
-  />
-  <ListButtonItem headline="Technology" onClick={() => {}} />
-  <ListButtonItem headline="Design" onClick={() => {}} />
-
-  <ListHeaderItem
-    headline="Recent"
-    addOn={<Icon icon="fa-clock-o" color="secondary" />}
-  />
-  <ListButtonItem headline="Science" onClick={() => {}} />
-  <ListButtonItem headline="Art" onClick={() => {}} />
-</List>
-```
-
----
-
-## Styling behavior
-
-| Context | Standard Header | Highlighted Header |
-|---------|----------------|-------------------|
-| Regular list | Gray background | Accent background |
-| Bare list | No background | Accent text color |
-
-The component automatically adapts based on the parent list's `bare` prop.

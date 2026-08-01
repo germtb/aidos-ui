@@ -11,6 +11,7 @@ function useNavigation(options?: {
   autofocus?: boolean;
   rowLength?: number;
   enabled?: boolean;
+  initialIndex?: number;
 }): (root: HTMLElement) => void
 ```
 
@@ -23,6 +24,7 @@ function useNavigation(options?: {
 | `autofocus` | `boolean` | `false` | Automatically focus the first item on mount |
 | `rowLength` | `number` | `1` | Number of items per row (for grid layouts) |
 | `enabled` | `boolean` | `true` | Enable/disable navigation |
+| `initialIndex` | `number` | `0` | Item that receives initial focus |
 
 ---
 
@@ -71,7 +73,6 @@ import { ListButtonItem } from "../../src/ListButtonItem";
   <ListButtonItem color="secondary" headline="Headline 1" onClick={() => {}} />
   <ListButtonItem color="secondary" headline="Headline 2" onClick={() => {}} />
   <ListButtonItem
-    withDivider={false}
     color="secondary"
     headline="Headline 3"
     onClick={() => {}}
@@ -94,7 +95,6 @@ import { ListButtonItem } from "../../src/ListButtonItem";
   <ListButtonItem color="secondary" headline="Headline 1" onClick={() => {}} />
   <ListButtonItem color="secondary" headline="Headline 2" onClick={() => {}} />
   <ListButtonItem
-    withDivider={false}
     color="secondary"
     headline="Headline 3"
     onClick={() => {}}

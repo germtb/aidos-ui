@@ -1,24 +1,20 @@
 import React from "react";
 
 import { BaseListItem, BaseListItemProps } from "./BaseListItem";
-import { cssVar } from "./jss";
-import { useListContext } from "./List";
 
-// @ts-ignore
-interface ListItemProps extends BaseListItemProps {
+interface ListItemProps extends Omit<BaseListItemProps, "children"> {
   headline: string;
   body?: string;
   children?: void;
 }
 
-export const ListItem = React.forwardRef(
-  (props: ListItemProps, ref?: React.Ref<HTMLLIElement>) => {
-    const { bare } = useListContext();
-
-    return (
-      <BaseListItem withDivider={!bare} {...props} jss={props.jss} ref={ref}>
-        {({ content }) => content}
-      </BaseListItem>
-    );
-  }
-);
+export const ListItem = React.forwardRef(function ListItem(
+  props: ListItemProps,
+  ref?: React.Ref<HTMLLIElement>,
+) {
+  return (
+    <BaseListItem {...props} jss={props.jss} ref={ref}>
+      {({ content }) => content}
+    </BaseListItem>
+  );
+});

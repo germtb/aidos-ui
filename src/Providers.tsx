@@ -1,7 +1,6 @@
-import React, { ReactElement, useEffect } from "react";
+import React from "react";
 import { DarkModeProvider } from "./DarkMode";
 import { DialogProvider } from "./Dialog";
-import { IconProvider } from "./Icon";
 import { useCookie } from "./useCookie";
 import { JSSProvider, Theme } from "./jss";
 
@@ -18,16 +17,14 @@ export function Providers({
   });
   const toggleDarkMode = React.useCallback(
     () => setDarkModeEnabled((x) => !x),
-    []
+    [setDarkModeEnabled],
   );
 
   return (
     <JSSProvider themes={themes}>
-      <IconProvider>
-        <DarkModeProvider enabled={darkModeEnabled} toggle={toggleDarkMode}>
-          <DialogProvider>{children}</DialogProvider>
-        </DarkModeProvider>
-      </IconProvider>
+      <DarkModeProvider enabled={darkModeEnabled} toggle={toggleDarkMode}>
+        <DialogProvider>{children}</DialogProvider>
+      </DarkModeProvider>
     </JSSProvider>
   );
 }

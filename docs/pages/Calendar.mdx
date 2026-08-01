@@ -14,30 +14,30 @@ A flexible calendar grid component for displaying months. Fully customizable thr
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `date` | `Date` | Required | The month to display (uses year and month from this date) |
-| `header` | `(props) => JSX.Element` | Required | Render function for weekday header cells |
-| `cell` | `(props) => JSX.Element` | Required | Render function for day cells |
-| `jss` | `JSS` | - | Custom styles for the calendar grid |
+| Prop     | Type                     | Default  | Description                                               |
+| -------- | ------------------------ | -------- | --------------------------------------------------------- |
+| `date`   | `Date`                   | Required | The month to display (uses year and month from this date) |
+| `header` | `(props) => JSX.Element` | Required | Render function for weekday header cells                  |
+| `cell`   | `(props) => JSX.Element` | Required | Render function for day cells                             |
+| `jss`    | `JSS`                    | -        | Custom styles for the calendar grid                       |
 
 ### Header render props
 
-| Property | Type | Description |
-|----------|------|-------------|
+| Property  | Type     | Description                                     |
+| --------- | -------- | ----------------------------------------------- |
 | `weekday` | `string` | Localized weekday abbreviation (Mon, Tue, etc.) |
 
 ### Cell render props
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `date` | `Date` | The date for this cell |
-| `today` | `boolean` | Whether this date is today |
+| Property     | Type      | Description                                    |
+| ------------ | --------- | ---------------------------------------------- |
+| `date`       | `Date`    | The date for this cell                         |
+| `today`      | `boolean` | Whether this date is today                     |
 | `outOfMonth` | `boolean` | Whether this date is outside the current month |
-| `top` | `boolean` | Whether this cell is in the top row |
-| `bottom` | `boolean` | Whether this cell is in the bottom row |
-| `left` | `boolean` | Whether this cell is in the leftmost column |
-| `right` | `boolean` | Whether this cell is in the rightmost column |
+| `top`        | `boolean` | Whether this cell is in the top row            |
+| `bottom`     | `boolean` | Whether this cell is in the bottom row         |
+| `left`       | `boolean` | Whether this cell is in the leftmost column    |
+| `right`      | `boolean` | Whether this cell is in the rightmost column   |
 
 ---
 
@@ -47,11 +47,17 @@ A flexible calendar grid component for displaying months. Fully customizable thr
   date={new Date()}
   header={({ weekday }) => (
     <Box padding="small" jss={{ textAlign: "center" }}>
-      <Span bold color="secondary" size="small">{weekday}</Span>
+      <Span bold color="secondary" size="small">
+        {weekday}
+      </Span>
     </Box>
   )}
   cell={({ today, date, outOfMonth }) => (
-    <Box padding="small" relative={true} jss={{ opacity: outOfMonth ? 0.3 : 1, textAlign: "center" }}>
+    <Box
+      padding="small"
+      relative={true}
+      jss={{ opacity: outOfMonth ? 0.3 : 1, textAlign: "center" }}
+    >
       {today && (
         <Badge
           size="xlarge"
@@ -65,7 +71,10 @@ A flexible calendar grid component for displaying months. Fully customizable thr
           }}
         />
       )}
-      <Span jss={{ position: "relative", zIndex: 1 }} color={today ? "light" : "primary"}>
+      <Span
+        jss={{ position: "relative", zIndex: 1 }}
+        color={today ? "light" : "primary"}
+      >
         {date.getDate()}
       </Span>
     </Box>
@@ -77,7 +86,9 @@ A flexible calendar grid component for displaying months. Fully customizable thr
   date={new Date()}
   header={({ weekday }) => (
     <Box padding="small" jss={{ textAlign: "center" }}>
-      <Span bold color="secondary" size="small">{weekday}</Span>
+      <Span bold color="secondary" size="small">
+        {weekday}
+      </Span>
     </Box>
   )}
   cell={({ today, date, outOfMonth }) => (
@@ -175,56 +186,9 @@ The cell render props include position information for styling borders and corne
 
 ---
 
-## Interactive calendar
+## Date selection
 
-Create a date picker by adding click handlers:
-
-```js
-function DatePicker() {
-  const [selected, setSelected] = useState(null);
-  const [month, setMonth] = useState(new Date());
-
-  return (
-    <Column gap="medium">
-      <Row justify="space-between" align="center">
-        <IconButton
-          icon="fa-chevron-left"
-          onClick={() => setMonth(new Date(month.getFullYear(), month.getMonth() - 1))}
-        />
-        <Span bold>
-          {month.toLocaleDateString("en-US", { month: "long", year: "numeric" })}
-        </Span>
-        <IconButton
-          icon="fa-chevron-right"
-          onClick={() => setMonth(new Date(month.getFullYear(), month.getMonth() + 1))}
-        />
-      </Row>
-      <Calendar
-        date={month}
-        header={({ weekday }) => <Span size="small">{weekday}</Span>}
-        cell={({ date, outOfMonth, today }) => {
-          const isSelected = selected?.toDateString() === date.toDateString();
-          return (
-            <BaseButton
-              bare
-              onClick={() => !outOfMonth && setSelected(date)}
-              jss={{
-                opacity: outOfMonth ? 0.3 : 1,
-                backgroundColor: isSelected ? "var(--highlight)" : "transparent",
-                borderRadius: "50%",
-              }}
-            >
-              <Span color={isSelected ? "light" : "primary"}>
-                {date.getDate()}
-              </Span>
-            </BaseButton>
-          );
-        }}
-      />
-    </Column>
-  );
-}
-```
+`Calendar` remains a low-level rendering primitive for schedules and custom month views. Use `DateInput` for form entry and date selection; it adds locale-aware segments, constraints, a calendar popover, keyboard navigation, and focus management.
 
 ---
 

@@ -1,28 +1,70 @@
 import { MDXProvider } from "@mdx-js/react";
+import type { MDXComponents } from "mdx/types";
 import React from "react";
 import { PropsWithChildren } from "react";
-import { H1, H2, H3, Li, P, Span } from "../../src/Text";
+import { H1, H2, H3, H4, Li, P, Span } from "../../src/Text";
 import { BaseLink } from "../../src/BaseLink";
 import { BaseView } from "../../src/BaseView";
 import { ListDivider } from "../../src/ListDivider";
+import { Table as CoreTable } from "../../src/Table";
 import { cssVar } from "../../src/jss";
-import { Roboto } from "next/font/google";
+import { GeistMono } from "geist/font/mono";
 
-const monospace = Roboto({ weight: "400", subsets: ["latin"] });
+const TableContext = React.createContext(false);
 
-const components: any = {
+function InlineCode({ children }) {
+  const inTable = React.useContext(TableContext);
+
+  return (
+    <span
+      className={GeistMono.className}
+      style={
+        inTable
+          ? {
+              color: cssVar("--primary-text"),
+              fontSize: "0.92em",
+              whiteSpace: "nowrap",
+            }
+          : {
+              color: cssVar("--primary-text"),
+              backgroundColor: cssVar("--secondary-background"),
+              borderRadius: cssVar("--border-radius-m"),
+              padding: cssVar("--spacing-xs"),
+              border: `1px solid ${cssVar("--divider")}`,
+              display: "inline-block",
+            }
+      }
+    >
+      {children}
+    </span>
+  );
+}
+
+function MDXTable(props) {
+  return (
+    <TableContext.Provider value={true}>
+      <CoreTable jss={{ marginBottom: cssVar("--spacing-xl") }} {...props} />
+    </TableContext.Provider>
+  );
+}
+
+const components: MDXComponents = {
   h1: (props) => (
-    <H1 jss={{ marginBottom: cssVar("--spacing-xl") }} {...props} />
+    <H1 bold jss={{ marginBottom: cssVar("--spacing-xl") }} {...props} />
   ),
   h2: (props) => (
     <H2
+      bold
       id={labelToID(props.children)}
       jss={{ marginBottom: cssVar("--spacing-l") }}
       {...props}
     />
   ),
   h3: (props) => {
-    return <H3 id={labelToID(props.children)} {...props} />;
+    return <H3 bold id={labelToID(props.children)} {...props} />;
+  },
+  h4: (props) => {
+    return <H4 bold id={labelToID(props.children)} {...props} />;
   },
   p: (props) => <P jss={{ marginBottom: cssVar("--spacing-m") }} {...props} />,
   span: (props) => <Span {...props} />,
@@ -33,7 +75,7 @@ const components: any = {
     return (
       <BaseLink
         bare
-        color="positive"
+        color="primary"
         jss={{
           display: "inline-block",
           paddingBottom: cssVar("--spacing-s"),
@@ -68,61 +110,8 @@ const components: any = {
       </pre>
     );
   },
-  code: ({ children }) => (
-    <span
-      className={monospace.className}
-      style={{
-        color: cssVar("--primary-text"),
-        backgroundColor: cssVar("--secondary-background"),
-        borderRadius: cssVar("--border-radius-m"),
-        padding: cssVar("--spacing-xs"),
-        border: `1px solid ${cssVar("--divider")}`,
-        display: "inline-block",
-      }}
-    >
-      {children}
-    </span>
-  ),
-  table: (props) => (
-    <table
-      style={{
-        width: "100%",
-        borderCollapse: "collapse",
-        marginBottom: cssVar("--spacing-l"),
-        fontSize: 14,
-      }}
-      {...props}
-    />
-  ),
-  thead: (props) => (
-    <thead
-      style={{
-        borderBottom: `2px solid ${cssVar("--divider")}`,
-      }}
-      {...props}
-    />
-  ),
-  th: (props) => (
-    <th
-      style={{
-        textAlign: "left",
-        padding: cssVar("--spacing-s"),
-        color: cssVar("--primary-text"),
-        fontWeight: "bold",
-      }}
-      {...props}
-    />
-  ),
-  td: (props) => (
-    <td
-      style={{
-        padding: cssVar("--spacing-s"),
-        borderBottom: `1px solid ${cssVar("--divider")}`,
-        color: cssVar("--secondary-text"),
-      }}
-      {...props}
-    />
-  ),
+  code: InlineCode,
+  table: MDXTable,
 };
 
 export function labelToID(string: string): string {
@@ -132,6 +121,6 @@ export function labelToID(string: string): string {
     .replace(/\?/g, "");
 }
 
-export function DocsMDXProvider({ children }: PropsWithChildren<{}>) {
+export function DocsMDXProvider({ children }: PropsWithChildren) {
   return <MDXProvider components={components}>{children}</MDXProvider>;
 }

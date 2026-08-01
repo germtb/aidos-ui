@@ -1,0 +1,65 @@
+import { SelectDemo } from "../examples/SelectDemo";
+import { Select } from "../../src/Select";
+
+# Select
+
+An opinionated selection control that combines a button with a floating list of choices. Use Select when one value must be chosen from a short, predefined set.
+
+---
+
+## Props
+
+| Prop            | Type                    | Required | Description                                     |
+| --------------- | ----------------------- | -------- | ----------------------------------------------- |
+| `label`         | `string`                | Yes      | Accessible name for the control and option list |
+| `options`       | `SelectOption<Value>[]` | Yes      | Available `{ value, label }` choices            |
+| `value`         | `string \| number`      | Yes      | Currently selected value                        |
+| `onValueChange` | `(value) => void`       | Yes      | Called after an option is chosen                |
+| `disabled`      | `boolean`               | No       | Disables the trigger                            |
+| `jss`           | `JSS`                   | No       | Styles the control wrapper                      |
+| `jssButton`     | `JSS`                   | No       | Styles the trigger button                       |
+
+---
+
+## Basic usage
+
+The button always displays the selected label. Opening it reveals an elevated Popover with the current option marked by a check.
+
+<SelectDemo />
+
+```tsx
+const options = [
+  { value: "daily", label: "Daily" },
+  { value: "weekly", label: "Weekly" },
+  { value: "monthly", label: "Monthly" },
+] as const;
+
+const [frequency, setFrequency] = useState("weekly");
+
+<Select
+  label="Report frequency"
+  options={options}
+  value={frequency}
+  onValueChange={setFrequency}
+/>;
+```
+
+---
+
+## Disabled
+
+<Select
+  label="Report frequency"
+  options={[{ value: "weekly", label: "Weekly" }]}
+  value="weekly"
+  onValueChange={() => {}}
+  disabled
+/>
+
+---
+
+## Accessibility
+
+- The trigger exposes its expanded state and identifies the popup as a listbox.
+- Options use `role="option"` and expose the current selection.
+- Arrow keys move through options, Escape closes the Popover, and focus returns to the trigger.

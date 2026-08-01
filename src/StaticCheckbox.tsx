@@ -49,7 +49,7 @@ export const sizes = {
 export function StaticCheckbox({
   checked,
   size,
-  icon = "fa-check",
+  icon = "check",
 }: StaticCheckboxProps) {
   return (
     <BaseView

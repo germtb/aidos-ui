@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { Subscribe, createEmitter, Callback } from "./Emitter";
 
-export type Reducer<State, Context> = <Data extends any>({
+export type Reducer<State, Context> = <Data>({
   state,
   context,
   data,
@@ -17,34 +17,40 @@ export type Reducer<State, Context> = <Data extends any>({
   data: Data;
 }) => { state: State; context: Context };
 
-type StateMachineConfig<State, Transition, Context> = {
-  states: {
-    [state: string]: {
-      // @ts-ignore
-      on: { [transition: Transition]: Reducer<State, Context> };
-    };
-  };
+type StateMachineConfig<
+  State extends PropertyKey,
+  Transition extends PropertyKey,
+  Context,
+> = {
+  states: Record<
+    State,
+    { on: Partial<Record<Transition, Reducer<State, Context>>> }
+  >;
   context: Context;
   state: State;
 };
 
-type Send = <Transition, Data>(transition: Transition, data: Data) => void;
+type Send<Transition> = <Data>(transition: Transition, data: Data) => void;
 
-type StateMachineContextType<State, Context> = {
+type StateMachineContextType<State, Transition, Context> = {
   subscribe: Subscribe<{ state: State; context: Context }>;
-  send: Send;
+  send: Send<Transition>;
 };
 
-export function stateMachineContextFactory<State, Transition, Context>(
+export function stateMachineContextFactory<
+  State extends PropertyKey,
+  Transition extends PropertyKey,
+  Context,
+>(
   stateMachineConfig: StateMachineConfig<State, Transition, Context>
 ) {
   const StateMachineContext = React.createContext<
-    StateMachineContextType<State, Context>
+    StateMachineContextType<State, Transition, Context>
   >({
     subscribe: () => {
       throw new Error("Not implemented");
     },
-    send: (_) => {
+    send: () => {
       throw new Error("Not implemented");
     },
   });
@@ -72,11 +78,10 @@ export function stateMachineContextFactory<State, Transition, Context>(
     }, []);
 
     const send = useCallback(
-      <Transition, Data extends any>(transition: Transition, data: Data) => {
+      <Data,>(transition: Transition, data: Data) => {
         const state = stateMachineRef.current.state;
-        // @ts-ignore I don't know how to fix this
         const transitions = stateMachineConfig.states[state].on;
-        const reducer: Reducer<State, Context> = transitions[transition];
+        const reducer = transitions[transition];
 
         if (!reducer) {
           // No transition available in the current state, so no update needed

@@ -6,24 +6,34 @@
 
 export { Fragment } from "react/jsx-dev-runtime";
 export type { JSX } from "react/jsx-dev-runtime";
-import { jsxDEV as _jsxDEV, Fragment } from "react/jsx-dev-runtime";
+import {
+  jsxDEV as _jsxDEV,
+  Fragment,
+  type JSXSource,
+} from "react/jsx-dev-runtime";
+import type { ComponentType, ElementType, Key } from "react";
 import { JSSComment } from "./JSSComment";
 
-const wrapCache = new WeakMap<Function, Function>();
+type DebugComponent = ComponentType & {
+  displayName?: string;
+  readonly name: string;
+};
 
-function getWrapped(type: Function): Function {
+const wrapCache = new WeakMap<DebugComponent, DebugComponent>();
+
+function getWrapped(type: DebugComponent): DebugComponent {
   let wrapped = wrapCache.get(type);
   if (wrapped) return wrapped;
 
-  const name = (type as any).displayName || type.name;
+  const name = type.displayName || type.name;
 
-  wrapped = function JSSBoundary(props: any) {
+  wrapped = function JSSBoundary(props: unknown) {
     return _jsxDEV(
       Fragment,
       {
         children: [
           _jsxDEV(JSSComment, { name }, undefined, false, undefined, undefined),
-          _jsxDEV(type as any, props, undefined, false, undefined, undefined),
+          _jsxDEV(type as ElementType, props, undefined, false, undefined, undefined),
         ],
       },
       undefined,
@@ -33,7 +43,7 @@ function getWrapped(type: Function): Function {
     );
   };
 
-  (wrapped as any).displayName = name;
+  wrapped.displayName = name;
   wrapCache.set(type, wrapped);
 
   return wrapped;
@@ -42,9 +52,13 @@ function getWrapped(type: Function): Function {
 // Skip our own wrapper components by name
 const SKIP_NAMES = new Set(["JSSComment", "JSSBoundary"]);
 
-function isUserComponent(type: any, source: any): boolean {
+function isUserComponent(
+  type: unknown,
+  source: JSXSource | undefined,
+): type is DebugComponent {
   if (typeof type !== "function") return false;
-  const name = type.displayName || type.name;
+  const component = type as DebugComponent;
+  const name = component.displayName || component.name;
   if (!name || !/^[A-Z]/.test(name)) return false;
   if (SKIP_NAMES.has(name)) return false;
   // Use the source fileName from the JSX transform to skip node_modules
@@ -53,16 +67,16 @@ function isUserComponent(type: any, source: any): boolean {
 }
 
 export function jsxDEV(
-  type: any,
-  props: any,
-  key: any,
+  type: ElementType,
+  props: unknown,
+  key: Key | undefined,
   isStaticChildren: boolean,
-  source: any,
-  self: any
+  source?: JSXSource,
+  self?: unknown,
 ) {
   if (isUserComponent(type, source)) {
     return _jsxDEV(
-      getWrapped(type) as any,
+      getWrapped(type),
       props,
       key,
       isStaticChildren,

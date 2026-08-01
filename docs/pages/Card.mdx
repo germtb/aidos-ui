@@ -16,14 +16,16 @@ A container component that groups related content with a distinct visual treatme
 
 Card extends all FlexLayout props:
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `padding` | `Padding` | `"large"` | Internal padding |
-| `gap` | `Gap` | `"large"` | Space between children |
-| `direction` | `"row"` \| `"column"` | `"column"` | Flex direction |
-| `align` | `Align` | - | Cross-axis alignment |
-| `justify` | `Justify` | - | Main-axis alignment |
-| `grow` | `boolean` | - | Allow card to grow |
+| Prop        | Type                                 | Default     | Description                           |
+| ----------- | ------------------------------------ | ----------- | ------------------------------------- |
+| `variant`   | `"default" \| "tonal" \| "floating"` | `"default"` | Structure and elevation treatment     |
+| `material`  | `Material`                           | -           | Optional atmospheric surface material |
+| `padding`   | `Padding`                            | `"large"`   | Internal padding                      |
+| `gap`       | `Gap`                                | `"large"`   | Space between children                |
+| `direction` | `"row"` \| `"column"`                | `"column"`  | Flex direction                        |
+| `align`     | `Align`                              | -           | Cross-axis alignment                  |
+| `justify`   | `Justify`                            | -           | Main-axis alignment                   |
+| `grow`      | `boolean`                            | -           | Allow card to grow                    |
 
 ---
 
@@ -31,7 +33,7 @@ Card extends all FlexLayout props:
 
 <Card>
   <H3>Card title</H3>
-  <P>Cards group related content together with visual distinction from the surrounding interface.</P>
+  <P children="Cards group related content together with visual distinction from the surrounding interface." />
 </Card>
 
 ```js
@@ -39,6 +41,44 @@ Card extends all FlexLayout props:
   <H3>Card title</H3>
   <P>Card content goes here...</P>
 </Card>
+```
+
+---
+
+## Material
+
+Material controls the card's surface appearance independently from its elevation variant. `Material` is a shared JSS type, so surface components can use the same named treatments consistently.
+
+<Row gap="large" align="stretch" jss={{ flexWrap: "wrap" }}>
+  <Card material="aurora" jss={{ flex: "1 1 400px" }}>
+    <H3>Aurora</H3>
+    <P>Diffuse blue-green light.</P>
+  </Card>
+  <Card material="dawn" jss={{ flex: "1 1 400px" }}>
+    <H3>Dawn</H3>
+    <P>Pale sky with peach and gold.</P>
+  </Card>
+  <Card material="mist" jss={{ flex: "1 1 400px" }}>
+    <H3>Mist</H3>
+    <P>Neutral, milky diffusion.</P>
+  </Card>
+  <Card material="twilight" jss={{ flex: "1 1 400px" }}>
+    <H3>Twilight</H3>
+    <P>Indigo with fading violet warmth.</P>
+  </Card>
+</Row>
+
+```js
+<Card material="aurora">
+  <H3>Aurora</H3>
+  <P>Atmospheric surface content</P>
+</Card>
+```
+
+Use `variant` when the distinction is elevation rather than material:
+
+```js
+<Card variant="floating">Floating content</Card>
 ```
 
 ---
@@ -54,12 +94,8 @@ Card extends all FlexLayout props:
     type="email"
     onValueChange={() => {}}
   />
-  <TextInput
-    placeholder="Your message"
-    value=""
-    onValueChange={() => {}}
-  />
-  <Button color="positive" onClick={() => {}}>
+  <TextInput placeholder="Your message" value="" onValueChange={() => {}} />
+  <Button color="primary" onClick={() => {}}>
     Send Message
   </Button>
 </Card>
@@ -79,7 +115,7 @@ Card extends all FlexLayout props:
     value={message}
     onValueChange={setMessage}
   />
-  <Button color="positive" onClick={handleSubmit}>
+  <Button color="primary" onClick={handleSubmit}>
     Send Message
   </Button>
 </Card>
@@ -89,25 +125,29 @@ Card extends all FlexLayout props:
 
 ## Custom padding and gap
 
-<Row gap="medium">
+<Row gap="medium" align="flex-start">
   <Card padding="small" gap="small">
-    <Span>Small padding</Span>
-    <Span color="secondary">Compact layout</Span>
+    <Span>Card title</Span>
+    <Span color="secondary">Supporting text</Span>
   </Card>
-  <Card padding="xlarge" gap="medium">
-    <Span>Large padding</Span>
-    <Span color="secondary">Spacious layout</Span>
+  <Card padding="xlarge" gap="large">
+    <Span>Card title</Span>
+    <Span color="secondary">Supporting text</Span>
   </Card>
 </Row>
 
 ```js
-<Card padding="small" gap="small">
-  <Span>Compact card</Span>
-</Card>
+<Row gap="medium" align="flex-start">
+  <Card padding="small" gap="small">
+    <Span>Card title</Span>
+    <Span color="secondary">Supporting text</Span>
+  </Card>
 
-<Card padding="xlarge" gap="large">
-  <Span>Spacious card</Span>
-</Card>
+  <Card padding="xlarge" gap="large">
+    <Span>Card title</Span>
+    <Span color="secondary">Supporting text</Span>
+  </Card>
+</Row>
 ```
 
 ---
@@ -117,19 +157,21 @@ Card extends all FlexLayout props:
 Use `direction="row"` for horizontal layouts:
 
 <Card direction="row" align="center" gap="medium">
-  <Icon icon="fa-user" color="highlight" size="xlarge" />
+  <Icon icon="user" color="highlight" size="xlarge" />
   <Column gap="none">
     <Span bold>John Doe</Span>
-    <Span color="secondary" size="small">Software Engineer</Span>
+    <Span color="secondary" size="small" children="Software Engineer" />
   </Column>
 </Card>
 
 ```js
 <Card direction="row" align="center" gap="medium">
-  <Icon icon="fa-user" color="highlight" size="xlarge" />
+  <Icon icon="user" color="highlight" size="xlarge" />
   <Column gap="none">
     <Span bold>John Doe</Span>
-    <Span color="secondary" size="small">Software Engineer</Span>
+    <Span color="secondary" size="small">
+      Software Engineer
+    </Span>
   </Column>
 </Card>
 ```

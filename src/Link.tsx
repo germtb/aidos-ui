@@ -7,104 +7,100 @@ import { Row } from "./Row";
 import { Icon } from "./Icon";
 import { FlexLayoutProps } from "./FlexLayout";
 import { InteractableColor, getGlyphColor, getCSSColor } from "./Interactable";
-import { Size, Align, Gap, Justify, cssVar } from "./jss";
+import { Align, Gap, Justify, cssVar } from "./jss";
 
-export interface LinkProps extends BaseLinkProps {
+export interface LinkProps extends Omit<BaseLinkProps, "border" | "padding"> {
   children?: ReactNode;
   color: InteractableColor;
-  size?: Size;
   icon?: IconType;
   underline?: boolean;
-  iconSize?: Size;
   iconPosition?: "left" | "right";
   rowProps?: FlexLayoutProps;
   align?: Align;
   gap?: Gap;
   justify?: Justify;
-  bold?: boolean;
   inline?: boolean;
 }
 
-export const Link = React.forwardRef(
-  (
-    {
-      children,
-      color,
-      bare,
-      disabled,
-      icon,
-      underline,
-      iconSize = "medium",
-      iconPosition = "left",
-      align = "center",
-      gap = "small",
-      justify = "center",
-      jss,
-      size = "medium",
-      padding = "medium",
-      inline = true,
-      bold,
-      ...otherProps
-    }: LinkProps,
-    ref?: React.Ref<HTMLAnchorElement>
-  ) => {
-    return (
-      <BaseLink
-        {...otherProps}
-        bare={bare}
-        ref={ref}
-        color={color}
-        disabled={disabled}
-        padding={padding}
-        jss={[
-          {
-            borderRadius: cssVar("--border-radius-m"),
-            justifyContent: "center",
-            userSelect: "none",
-            display: inline ? "inline-flex" : "flex",
-            textDecoration: "none",
-          },
-          underline && {
-            textDecorationLine: "underline",
-            textDecorationThickness: "2px",
-            textUnderlineOffset: "2px",
-            textDecorationColor: getCSSColor(color, disabled, bare),
-          },
-          jss,
-        ]}
+export const Link = React.forwardRef(function Link(
+  {
+    children,
+    color,
+    bare,
+    disabled,
+    icon,
+    underline,
+    iconPosition = "left",
+    align = "center",
+    gap = "medium",
+    justify = "center",
+    jss,
+    inline = true,
+    ...otherProps
+  }: LinkProps,
+  ref?: React.Ref<HTMLAnchorElement>,
+) {
+  return (
+    <BaseLink
+      {...otherProps}
+      bare={bare}
+      ref={ref}
+      color={color}
+      disabled={disabled}
+      padding="none"
+      jss={[
+        {
+          height: 34,
+          padding: "0 14px",
+          borderRadius: cssVar("--border-radius-l"),
+          justifyContent: "center",
+          userSelect: "none",
+          display: inline ? "inline-flex" : "flex",
+          textDecoration: "none",
+        },
+        underline && {
+          textDecorationLine: "underline",
+          textDecorationThickness: "2px",
+          textUnderlineOffset: "2px",
+          textDecorationColor: getCSSColor(color, disabled, bare),
+        },
+        jss,
+      ]}
+    >
+      <Row
+        jss={{
+          display: inline ? "inline-flex" : "flex",
+        }}
+        grow={true}
+        align={align}
+        gap={gap}
+        justify={justify}
       >
-        <Row
-          jss={{
-            display: inline ? "inline-flex" : "flex",
-          }}
-          grow={true}
-          align={align}
-          gap={gap}
-          justify={justify}
-        >
-          {icon && iconPosition === "left" && (
-            <Icon
-              icon={icon}
-              size={iconSize}
-              color={getGlyphColor(color, disabled, bare)}
-            />
-          )}
-          <Text
-            bold={bold}
-            size={size}
+        {icon && iconPosition === "left" && (
+          <Icon
+            icon={icon}
+            size="medium"
             color={getGlyphColor(color, disabled, bare)}
-          >
-            {children}
-          </Text>
-          {icon && iconPosition === "right" && (
-            <Icon
-              icon={icon}
-              size={iconSize}
-              color={getGlyphColor(color, disabled, bare)}
-            />
-          )}
-        </Row>
-      </BaseLink>
-    );
-  }
-);
+          />
+        )}
+        <Text
+          size="medium"
+          color={getGlyphColor(color, disabled, bare)}
+          jss={{
+            fontWeight: 600,
+            letterSpacing: "-0.01em",
+          }}
+        >
+          {children}
+        </Text>
+        {icon && iconPosition === "right" && (
+          <Icon
+            icon={icon}
+            size="medium"
+            color={getGlyphColor(color, disabled, bare)}
+          />
+        )}
+      </Row>
+    </BaseLink>
+  );
+});

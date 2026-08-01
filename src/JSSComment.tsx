@@ -1,5 +1,19 @@
 import React, { useEffect, useRef } from "react";
 
+type ReactFiber = {
+  sibling?: ReactFiber | null;
+  child?: ReactFiber | null;
+  stateNode?: unknown;
+};
+
+type ReactInternals = {
+  ReactCurrentOwner?: { current?: ReactFiber | null };
+};
+
+type ReactWithInternals = typeof React & {
+  __SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED?: ReactInternals;
+};
+
 /**
  * Injects a real HTML comment node (<!-- ComponentName -->) into the DOM.
  *
@@ -8,11 +22,11 @@ import React, { useEffect, useRef } from "react";
  * Client-only — no SSR output, no hydration mismatch.
  */
 export function JSSComment({ name }: { name: string }) {
-  const fiberRef = useRef<any>(null);
+  const fiberRef = useRef<ReactFiber | null>(null);
 
   // Capture our fiber during render
   try {
-    const internals = (React as any)
+    const internals = (React as ReactWithInternals)
       .__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
     fiberRef.current = internals?.ReactCurrentOwner?.current;
   } catch {}
@@ -40,7 +54,7 @@ export function JSSComment({ name }: { name: string }) {
   return null;
 }
 
-function findFirstDOMNode(fiber: any): Node | null {
+function findFirstDOMNode(fiber: ReactFiber): Node | null {
   let current = fiber;
   while (current) {
     if (current.stateNode instanceof Node) {

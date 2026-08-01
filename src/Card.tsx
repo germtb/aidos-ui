@@ -1,13 +1,36 @@
 import { FlexLayout, FlexLayoutProps } from "./FlexLayout";
-import { cssVar } from "./jss";
+import { JSS, Material, cssVar, getMaterial } from "./jss";
 
-export interface CardProps extends FlexLayoutProps {}
+export type CardVariant = "default" | "tonal" | "floating";
+
+export interface CardProps extends FlexLayoutProps {
+  variant?: CardVariant;
+  material?: Material;
+}
+
+const variantStyles: { [variant in CardVariant]: JSS } = {
+  default: {
+    backgroundColor: cssVar("--overlay-background"),
+    boxShadow: cssVar("--shadow-sm"),
+  },
+  tonal: {
+    backgroundColor: cssVar("--secondary-background"),
+    border: `1px solid ${cssVar("--divider")}`,
+  },
+  floating: {
+    backgroundColor: cssVar("--overlay-background"),
+    borderRadius: cssVar("--border-radius-xl"),
+    boxShadow: cssVar("--shadow-lg"),
+  },
+};
 
 export function Card({
   children,
   jss,
   padding = "large",
   gap = "large",
+  variant = "default",
+  material,
   ...otherProps
 }: CardProps) {
   return (
@@ -17,10 +40,10 @@ export function Card({
       gap={gap}
       jss={[
         {
-          backgroundColor: cssVar("--overlay-background"),
           borderRadius: cssVar("--border-radius-l"),
-          boxShadow: cssVar("--shadow-sm"),
         },
+        variantStyles[variant],
+        material && getMaterial(material),
         jss,
       ]}
     >

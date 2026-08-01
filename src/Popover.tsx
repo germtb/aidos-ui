@@ -1,34 +1,62 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { queryFocusables } from "./aria";
 
 import { BaseView } from "./BaseView";
+import { Card } from "./Card";
 import { useRefEffect } from "./useRefEffect";
-import { JSS, toClassnames } from "./jss";
+import { JSS, cssVar, toClassnames } from "./jss";
 
 const styles: { [key: string]: JSS } = {
   popover: {
     padding: 0,
-    zIndex: 1,
-    backgroundColor: "var(--primary-background)",
-    borderRadius: "var(--border-radius-l)",
-    border: "1px solid var(--divider)",
-    overflow: "hidden",
-    boxShadow: "var(--shadow-lg)",
+    zIndex: 1000,
+    top: `calc(100% + ${cssVar("--spacing-xs")})`,
+    right: "auto",
+    left: 0,
+    margin: 0,
+    border: 0,
+    overflow: "visible",
+    background: "transparent",
     animation: "popoverFadeIn 0.15s ease-out",
+  },
+  card: {
+    minWidth: 220,
+    maxWidth: "calc(100vw - 32px)",
+    overflow: "hidden",
   },
 };
 
-export function Popover({ children, close }) {
-  const activeElementRef = useRef(null);
+export function Popover({
+  children,
+  close,
+}: {
+  children: React.ReactNode;
+  close: () => void;
+}) {
+  const activeElementRef = useRef<HTMLElement | null>(null);
 
   const focusTrapRoot = useRefEffect(
     useCallback(
       (root: HTMLElement) => {
-        activeElementRef.current = document.activeElement;
-        const [element] = queryFocusables(root);
-        element ? element.focus() : root.focus();
+        activeElementRef.current =
+          document.activeElement instanceof HTMLElement
+            ? document.activeElement
+            : null;
+        const selectedElement = root.querySelector<HTMLElement>(
+          '[aria-selected="true"]',
+        );
+        const autofocusElement = root.querySelector<HTMLElement>(
+          '[data-autofocus="true"]',
+        );
+        const [firstElement] = queryFocusables(root);
+        const element = selectedElement ?? autofocusElement ?? firstElement;
+        if (element) {
+          element.focus();
+        } else {
+          root.focus();
+        }
 
-        const keydown = (e) => {
+        const keydown = (e: KeyboardEvent) => {
           if (e.key === "Escape") {
             close();
           } else if (e.key === "Tab") {
@@ -48,7 +76,11 @@ export function Popover({ children, close }) {
             if (focusables.length === 0) {
               e.stopPropagation();
               e.preventDefault();
-            } else if (focusedIndex === focusables.length - 1) {
+            } else if (e.shiftKey && focusedIndex === 0) {
+              focusables[focusables.length - 1].focus();
+              e.stopPropagation();
+              e.preventDefault();
+            } else if (!e.shiftKey && focusedIndex === focusables.length - 1) {
               // Cycle back to the first element
               focusables[0].focus();
               e.stopPropagation();
@@ -71,7 +103,7 @@ export function Popover({ children, close }) {
 
         return () => {
           window.clearTimeout(timeout);
-          activeElementRef.current && activeElementRef.current.focus();
+          activeElementRef.current?.focus();
           window.removeEventListener("keydown", keydown);
           window.removeEventListener("click", click);
         };
@@ -80,22 +112,33 @@ export function Popover({ children, close }) {
     ),
   );
 
-  return <BaseView ref={focusTrapRoot}>{children}</BaseView>;
+  return (
+    <Card variant="floating" padding="small" gap="none" jss={styles.card}>
+      <BaseView ref={focusTrapRoot} jss={{ width: "100%" }}>
+        {children}
+      </BaseView>
+    </Card>
+  );
 }
 
 interface PopoverTriggerProps<Input> {
   PopoverComponent: (props: { close: () => void } & Input) => React.JSX.Element;
+  ariaLabel?: string;
   jss?: JSS;
   jssDialog?: JSS;
   className?: undefined;
   grow?: boolean;
   shrink?: boolean;
   tag?: keyof HTMLElementTagNameMap;
-  children: (props: { toggle: (input: Input) => void }) => React.JSX.Element;
+  children: (props: {
+    toggle: (input: Input) => void;
+    expanded: boolean;
+  }) => React.JSX.Element;
 }
 
 export function PopoverTrigger<Input>({
   PopoverComponent,
+  ariaLabel,
   jss,
   jssDialog,
   grow,
@@ -106,19 +149,26 @@ export function PopoverTrigger<Input>({
   const [popover, setPopover] = useState<React.JSX.Element>(null);
   const dialogRef = useRef<null | HTMLDialogElement>(null);
 
+  useEffect(() => {
+    if (popover == null) {
+      dialogRef.current?.close();
+    } else {
+      dialogRef.current?.show();
+    }
+  }, [popover]);
+
   const toggle = (input: Input) => {
     if (popover == null) {
-      dialogRef && dialogRef.current.show();
       setPopover(
         <PopoverComponent
           {...input}
           close={() => {
-            dialogRef && dialogRef.current.close();
+            setPopover(null);
           }}
         />,
       );
     } else {
-      dialogRef && dialogRef.current.close();
+      setPopover(null);
     }
   };
 
@@ -130,8 +180,9 @@ export function PopoverTrigger<Input>({
       relative={true}
       jss={[jss, { position: "relative", display: "inline-block" }]}
     >
-      {children({ toggle })}
+      {children({ toggle, expanded: popover != null })}
       <dialog
+        aria-label={ariaLabel}
         ref={(ref: null | HTMLDialogElement) => {
           dialogRef.current = ref;
         }}

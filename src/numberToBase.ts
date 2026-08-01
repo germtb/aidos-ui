@@ -29,13 +29,13 @@ const LETTERS_26 = [
 
 export function numberToBase(
   number: number,
-  base: Array<string> = LETTERS_26
+  base: Array<string> = LETTERS_26,
 ): string {
   if (number <= -1) {
     return "";
   }
 
-  let result = [];
+  const result = [];
 
   // To make numbers 1 indexed
   number += 1;

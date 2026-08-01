@@ -1,0 +1,122 @@
+import { Table } from "../../src/Table";
+
+# Table
+
+A semantic table presented on the same elevated surface as Card. Table provides one restrained treatment for compact, readable structured data.
+
+---
+
+## Props
+
+| Prop       | Type                                 | Default     | Description                              |
+| ---------- | ------------------------------------ | ----------- | ---------------------------------------- |
+| `children` | `ReactNode`                          | -           | Native table sections and rows           |
+| `variant`  | `"default" \| "tonal" \| "floating"` | `"default"` | Card structure and elevation treatment   |
+| `material` | `Material`                           | -           | Optional shared surface material         |
+| `padding`  | `Padding`                            | `"none"`    | Padding around the table inside the Card |
+| `gap`      | `Gap`                                | `"none"`    | Card gap, available for composition      |
+| `jss`      | `JSS`                                | -           | Styles the Card surface                  |
+| `jssTable` | `JSS`                                | -           | Styles the inner `<table>` element       |
+
+Table also accepts native HTML table attributes.
+
+---
+
+## Basic usage
+
+<Table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Role</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Ada Lovelace</td>
+      <td>Engineer</td>
+      <td>Active</td>
+    </tr>
+    <tr>
+      <td>Grace Hopper</td>
+      <td>Researcher</td>
+      <td>Active</td>
+    </tr>
+    <tr>
+      <td>Alan Turing</td>
+      <td>Mathematician</td>
+      <td>Archived</td>
+    </tr>
+  </tbody>
+</Table>
+
+```tsx
+<Table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Role</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Ada Lovelace</td>
+      <td>Engineer</td>
+      <td>Active</td>
+    </tr>
+  </tbody>
+</Table>
+```
+
+---
+
+## Surface
+
+Table exposes Card's surface props directly. This keeps the default treatment opinionated while allowing the table to participate in the same material and elevation system as other regions.
+
+<Table material="aurora" variant="tonal">
+  <thead>
+    <tr>
+      <th>Region</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Sidebar</td>
+      <td>Primary navigation</td>
+    </tr>
+    <tr>
+      <td>Inspector</td>
+      <td>Contextual controls</td>
+    </tr>
+  </tbody>
+</Table>
+
+```tsx
+<Table material="aurora" variant="tonal">
+  <thead>
+    <tr>
+      <th>Region</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Sidebar</td>
+      <td>Primary navigation</td>
+    </tr>
+  </tbody>
+</Table>
+```
+
+---
+
+## Behavior
+
+- The Card surface owns background, radius, and elevation.
+- Rows receive one subtle separator and a quiet hover state.
+- Wide tables scroll horizontally instead of compressing their content.
+- Semantic table markup remains unchanged for assistive technology.

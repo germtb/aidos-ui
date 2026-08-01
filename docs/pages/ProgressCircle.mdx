@@ -2,217 +2,126 @@ import { ProgressCircle } from "../../src/ProgressCircle";
 import { Row } from "../../src/Row";
 import { Column } from "../../src/Column";
 import { Span } from "../../src/Text";
-import { cssVar } from "../../src/jss";
 
 # ProgressCircle
 
-A circular progress indicator for displaying completion percentage. Uses SVG for crisp rendering at any size.
+A compact determinate progress indicator for places where a horizontal track does not fit. It uses the same tonal track, semantic fill, sizing, motion, and accessibility model as ProgressBar.
 
 ---
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `progress` | `number` | Required | Progress value from 0 to 1 |
-| `outerRadius` | `number` | Required | Radius of the circle in pixels |
-| `stroke` | `number` | `4` | Width of the progress stroke |
+| Prop              | Type                  | Default       | Description                                     |
+| ----------------- | --------------------- | ------------- | ----------------------------------------------- |
+| `progress`        | `number`              | Required      | Progress from 0 to 1; values are safely clamped |
+| `color`           | `Color`               | `"highlight"` | Semantic progress color                         |
+| `size`            | `"small" \| "medium"` | `"medium"`    | Indicator diameter: 16px or 32px                |
+| `aria-label`      | `string`              | `"Progress"`  | Accessible name when no visible label exists    |
+| `aria-labelledby` | `string`              | -             | ID of a visible label                           |
+| `jss`             | `JSS`                 | -             | Custom styles for the SVG                       |
 
 ---
 
 ## Basic usage
 
-<Row gap="medium" align="center" padding="medium">
-  <ProgressCircle progress={0.75} outerRadius={24} />
-</Row>
+<ProgressCircle progress={0.75} aria-label="Upload progress" />
 
-```js
-<ProgressCircle progress={0.75} outerRadius={24} />
+```tsx
+<ProgressCircle progress={0.75} aria-label="Upload progress" />
 ```
 
 ---
 
 ## Progress states
 
-<Row gap="medium" align="center" padding="medium">
-  <ProgressCircle progress={0.1} outerRadius={12} />
-  <ProgressCircle progress={0.2} outerRadius={12} />
-  <ProgressCircle progress={0.3} outerRadius={12} />
-  <ProgressCircle progress={0.4} outerRadius={12} />
-  <ProgressCircle progress={0.5} outerRadius={12} />
-  <ProgressCircle progress={0.6} outerRadius={12} />
-  <ProgressCircle progress={0.7} outerRadius={12} />
-  <ProgressCircle progress={0.8} outerRadius={12} />
-  <ProgressCircle progress={0.9} outerRadius={12} />
-  <ProgressCircle progress={1} outerRadius={12} />
+<Row gap="large" align="center">
+  <ProgressCircle progress={0} />
+  <ProgressCircle progress={0.25} />
+  <ProgressCircle progress={0.5} />
+  <ProgressCircle progress={0.75} />
+  <ProgressCircle progress={1} />
 </Row>
 
-```js
-<ProgressCircle progress={0.1} outerRadius={12} />
-<ProgressCircle progress={0.2} outerRadius={12} />
-<ProgressCircle progress={0.3} outerRadius={12} />
-// ... and so on
-<ProgressCircle progress={1} outerRadius={12} />
+```tsx
+<ProgressCircle progress={0} />
+<ProgressCircle progress={0.5} />
+<ProgressCircle progress={1} />
 ```
 
 ---
 
 ## Sizes
 
-Adjust the `outerRadius` to change the circle size:
-
-<Row gap="large" align="center" padding="medium">
+<Row gap="large" align="flex-end">
   <Column align="center" gap="small">
-    <ProgressCircle progress={0.66} outerRadius={8} />
-    <Span size="small" color="secondary">8px</Span>
+    <ProgressCircle progress={0.66} size="small" />
+    <Span size="small" color="secondary">
+      small · 16px
+    </Span>
   </Column>
   <Column align="center" gap="small">
-    <ProgressCircle progress={0.66} outerRadius={12} />
-    <Span size="small" color="secondary">12px</Span>
-  </Column>
-  <Column align="center" gap="small">
-    <ProgressCircle progress={0.66} outerRadius={20} />
-    <Span size="small" color="secondary">20px</Span>
-  </Column>
-  <Column align="center" gap="small">
-    <ProgressCircle progress={0.66} outerRadius={32} />
-    <Span size="small" color="secondary">32px</Span>
-  </Column>
-  <Column align="center" gap="small">
-    <ProgressCircle progress={0.66} outerRadius={48} />
-    <Span size="small" color="secondary">48px</Span>
+    <ProgressCircle progress={0.66} size="medium" />
+    <Span size="small" color="secondary">
+      medium · 32px
+    </Span>
   </Column>
 </Row>
 
-```js
-<ProgressCircle progress={0.66} outerRadius={8} />   // Small
-<ProgressCircle progress={0.66} outerRadius={12} />  // Default
-<ProgressCircle progress={0.66} outerRadius={20} />  // Medium
-<ProgressCircle progress={0.66} outerRadius={32} />  // Large
-<ProgressCircle progress={0.66} outerRadius={48} />  // Extra large
+```tsx
+<ProgressCircle progress={0.66} size="small" />  // 16px
+<ProgressCircle progress={0.66} size="medium" /> // 32px, default
 ```
 
 ---
 
-## Stroke width
+## Semantic colors
 
-Adjust the `stroke` prop to change the line thickness:
+Use color only when the process itself has a warning or error state.
 
-<Row gap="large" align="center" padding="medium">
-  <Column align="center" gap="small">
-    <ProgressCircle progress={0.66} outerRadius={24} stroke={2} />
-    <Span size="small" color="secondary">2px stroke</Span>
-  </Column>
-  <Column align="center" gap="small">
-    <ProgressCircle progress={0.66} outerRadius={24} stroke={4} />
-    <Span size="small" color="secondary">4px stroke</Span>
-  </Column>
-  <Column align="center" gap="small">
-    <ProgressCircle progress={0.66} outerRadius={24} stroke={6} />
-    <Span size="small" color="secondary">6px stroke</Span>
-  </Column>
-  <Column align="center" gap="small">
-    <ProgressCircle progress={0.66} outerRadius={24} stroke={8} />
-    <Span size="small" color="secondary">8px stroke</Span>
-  </Column>
+<Row gap="large" align="center">
+  <ProgressCircle progress={0.66} />
+  <ProgressCircle progress={0.66} color="warning" />
+  <ProgressCircle progress={0.66} color="negative" />
 </Row>
 
-```js
-<ProgressCircle progress={0.66} outerRadius={24} stroke={2} />
-<ProgressCircle progress={0.66} outerRadius={24} stroke={4} />  // Default
-<ProgressCircle progress={0.66} outerRadius={24} stroke={6} />
-<ProgressCircle progress={0.66} outerRadius={24} stroke={8} />
+```tsx
+<ProgressCircle progress={0.66} />
+<ProgressCircle progress={0.66} color="warning" />
+<ProgressCircle progress={0.66} color="negative" />
 ```
 
 ---
 
-## With label
+## With a visible label
 
-Combine with text to show the percentage:
-
-```js
-function CircularProgress({ value }) {
-  return (
-    <Row align="center" gap="small">
-      <ProgressCircle progress={value} outerRadius={16} />
-      <Span>{Math.round(value * 100)}%</Span>
-    </Row>
-  );
-}
-```
-
----
-
-## Inline with text
-
-Use small circles inline with text:
-
-```js
 <Row align="center" gap="small">
-  <Span>Task completion:</Span>
-  <ProgressCircle progress={0.8} outerRadius={8} stroke={2} />
-  <Span color="secondary">80%</Span>
+  <ProgressCircle
+    progress={0.8}
+    size="small"
+    aria-labelledby="sync-progress-label"
+  />
+  <Span id="sync-progress-label">Syncing · 80%</Span>
+</Row>
+
+```tsx
+<Row align="center" gap="small">
+  <ProgressCircle
+    progress={0.8}
+    size="small"
+    aria-labelledby="sync-progress-label"
+  />
+  <Span id="sync-progress-label">Syncing · 80%</Span>
 </Row>
 ```
 
 ---
 
-## Skill indicator
+## Behavior
 
-```js
-function SkillBadge({ name, level }) {
-  return (
-    <Row align="center" gap="medium" padding="small">
-      <ProgressCircle progress={level / 100} outerRadius={16} />
-      <Column gap="none">
-        <Span bold>{name}</Span>
-        <Span size="small" color="secondary">{level}%</Span>
-      </Column>
-    </Row>
-  );
-}
+- The center remains transparent so the indicator sits naturally on any surface.
+- Progress starts at the top and advances clockwise.
+- Values animate without changing layout and respect reduced-motion preferences.
+- Values outside the supported range are safely clamped.
+- Keep progress moving forward. Use an activity indicator when the amount of work is unknown.
 
-// Usage
-<SkillBadge name="React" level={90} />
-<SkillBadge name="TypeScript" level={85} />
-<SkillBadge name="Node.js" level={70} />
-```
-
----
-
-## Animated loading
-
-```js
-function LoadingCircle() {
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress((p) => (p >= 1 ? 0 : p + 0.05));
-    }, 100);
-    return () => clearInterval(interval);
-  }, []);
-
-  return <ProgressCircle progress={progress} outerRadius={20} />;
-}
-```
-
----
-
-## Styling
-
-The ProgressCircle uses these CSS variables:
-- `--secondary-background`: Circle background color
-- `--highlight`: Progress stroke color
-
-The SVG is rotated -90 degrees so progress starts from the top.
-
----
-
-## Use cases
-
-- **Compact progress indicators**: Where horizontal space is limited
-- **Skill/proficiency displays**: Show expertise levels
-- **Loading states**: Determinate circular spinners
-- **Dashboard metrics**: Compact data visualization
-- **Achievement badges**: Show completion status
+ProgressCircle renders the `progressbar` role and percentage-based ARIA values. Connect a visible description with `aria-labelledby`; use `aria-label` when there is no visible label.

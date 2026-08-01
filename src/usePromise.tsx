@@ -1,18 +1,37 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export function usePromise<T>(
   promiseFactory: () => Promise<T>,
-  inputs: Array<any>,
+  inputs: ReadonlyArray<unknown>,
   initialValue: T
-): [T | null, any] {
+): [T | null, unknown] {
   const [value, setValue] = useState(initialValue);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<unknown>(null);
+  const previousInputs = useRef<ReadonlyArray<unknown> | null>(null);
 
   useEffect(() => {
+    if (
+      previousInputs.current != null &&
+      previousInputs.current.length === inputs.length &&
+      previousInputs.current.every((input, index) => input === inputs[index])
+    ) {
+      return;
+    }
+
+    previousInputs.current = inputs;
+    let cancelled = false;
     promiseFactory()
-      .then((value) => setValue(value))
-      .catch((error) => setError(error));
-  }, inputs);
+      .then((value) => {
+        if (!cancelled) setValue(value);
+      })
+      .catch((error: unknown) => {
+        if (!cancelled) setError(error);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  });
 
   return [value, error];
 }

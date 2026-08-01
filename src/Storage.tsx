@@ -11,6 +11,11 @@ import { Callback, createEmitter } from "./Emitter";
 
 const VERSION = 1;
 
+type StoredBlob = {
+  blob: Blob;
+  key: number;
+};
+
 export function createStorage<State>({
   initialState,
   name = "aidos-storage",
@@ -65,14 +70,10 @@ export function createStorage<State>({
 
         const fr = new FileReader();
 
-        fr.onload = (event) => {
-          const text = event.target.result.toString();
+        fr.onload = () => {
+          const text = fr.result.toString();
           state.current = JSON.parse(text);
           emitterRef.current.emit(state.current);
-        };
-
-        fr.onerror = (error) => {
-          // reject(error);
         };
 
         fr.readAsText(blob);
@@ -101,7 +102,7 @@ export function createStorage<State>({
         const newLocalState = selector(newState);
         setLocalState((prev) => (newLocalState != prev ? newLocalState : prev));
       });
-    }, []);
+    }, [selector, subscribe]);
 
     return localState;
   }
@@ -123,19 +124,16 @@ export function createStorage<State>({
       reject(event);
     };
 
-    request.onupgradeneeded = (event) => {
-      // @ts-ignore
-      const db: IDBDatabase = event.target.result;
+    request.onupgradeneeded = () => {
+      const db = request.result;
       const table = db.createObjectStore("blobs", {
         keyPath: "key",
       });
       table.createIndex("key", "key", { unique: true });
     };
 
-    request.onsuccess = (event) => {
-      // @ts-ignore
-      const db: IDBDatabase = event.target.result;
-      resolve(db);
+    request.onsuccess = () => {
+      resolve(request.result);
     };
   });
 
@@ -144,16 +142,15 @@ export function createStorage<State>({
     return new Promise((resolve, reject) => {
       const transaction = db.transaction(["blobs"]);
       const objectStore = transaction.objectStore("blobs");
-      const get: IDBRequest<Blob> = objectStore.get(1);
+      const get: IDBRequest<StoredBlob | undefined> = objectStore.get(1);
 
       transaction.onerror = (event) => {
         db.close();
         reject(event);
       };
 
-      get.onsuccess = (event) => {
-        // @ts-ignore
-        const result: DBStorage = event.target.result;
+      get.onsuccess = () => {
+        const result = get.result;
 
         if (result && result.blob) {
           resolve(result.blob);

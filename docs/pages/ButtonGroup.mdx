@@ -1,0 +1,81 @@
+import { ButtonGroupDemo } from "../examples/ButtonGroupDemo";
+import { ButtonGroup } from "../../src/ButtonGroup";
+
+# ButtonGroup
+
+A compact radio group presented as adjacent buttons. Use ButtonGroup when people must choose one option from a small set and the alternatives should remain visible.
+
+---
+
+## Props
+
+| Prop            | Type                         | Required | Description                                 |
+| --------------- | ---------------------------- | -------- | ------------------------------------------- |
+| `label`         | `string`                     | Yes      | Accessible name for the radio group         |
+| `options`       | `ButtonGroupOption<Value>[]` | Yes      | Available `{ value, label, icon? }` options |
+| `value`         | `string \| number`           | Yes      | Currently selected value                    |
+| `onValueChange` | `(value) => void`            | Yes      | Called when the selection changes           |
+| `disabled`      | `boolean`                    | No       | Disables every button                       |
+| `jss`           | `JSS`                        | No       | Exceptional group-level style overrides     |
+
+---
+
+## Basic usage
+
+<ButtonGroupDemo />
+
+```tsx
+const options = [
+  { value: "list", label: "List", icon: "list" },
+  { value: "grid", label: "Grid", icon: "grid-2x2" },
+  { value: "columns", label: "Columns", icon: "columns-3" },
+] as const;
+
+const [view, setView] = useState("list");
+
+<ButtonGroup
+  label="View"
+  options={options}
+  value={view}
+  onValueChange={setView}
+/>;
+```
+
+---
+
+## Text options
+
+Icons are optional. Keep the set short enough that every choice remains immediately readable.
+
+<ButtonGroup
+  label="Density"
+  options={[
+    { value: "compact", label: "Compact" },
+    { value: "comfortable", label: "Comfortable" },
+  ]}
+  value="comfortable"
+  onValueChange={() => {}}
+/>
+
+---
+
+## Disabled
+
+<ButtonGroup
+  label="View"
+  options={[
+    { value: "list", label: "List", icon: "list" },
+    { value: "grid", label: "Grid", icon: "grid-2x2" },
+  ]}
+  value="list"
+  onValueChange={() => {}}
+  disabled
+/>
+
+---
+
+## Accessibility
+
+- The container uses `role="radiogroup"` and each option uses `role="radio"`.
+- `aria-checked` exposes the selected option.
+- Arrow keys move and select; Tab enters and leaves the group as one control.

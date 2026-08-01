@@ -35,8 +35,7 @@ export function OnVisible({
       intersectionObserver.unobserve(element);
       intersectionObserverRef.current = null;
     };
-    // eslint-disable-next-line
-  }, []);
+  }, [onVisible]);
 
   return children(refCallback);
 }

@@ -1,7 +1,13 @@
 import type { AppProps } from "next/app";
 import Link from "next/link";
 import Head from "next/head";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   TABLET,
   cssVar,
@@ -15,7 +21,6 @@ import {
 } from "../../src/jss";
 import { Providers } from "../../src/Providers";
 import { BaseView } from "../../src/BaseView";
-import { ListDivider } from "../../src/ListDivider";
 import { List } from "../../src/List";
 import { ListLinkItem } from "../../src/ListLinkItem";
 import { Row } from "../../src/Row";
@@ -26,36 +31,41 @@ import { TextInput } from "../../src/TextInput";
 import { DarkModeToggle } from "../../src/DarkMode";
 import { useKeyboard } from "../../src/useKeyboard";
 import { Sublist } from "../../src/Sublist";
+import { NavigationSplitView } from "../../src/NavigationSplitView";
+import { Card } from "../../src/Card";
 
 import "./prism.css";
 import { IconButton } from "../../src/IconButton";
-import { Column } from "../../src/Column";
 import { Icon } from "../../src/Icon";
 import { BaseLinkComponentOverrideContext } from "../../src/BaseLink";
-import { DocsMDXProvider, labelToID } from "../components/mdx";
-import type { FeatureExtractionPipeline } from "@xenova/transformers";
+import { DocsMDXProvider } from "../components/mdx";
 import { pages, type PageLink } from "../components/pages";
 
-import { Inter } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { addCollection } from "@iconify/react";
+import lucideIcons from "@iconify-json/lucide/icons.json";
 
-const inter = Inter({ subsets: ["latin"] });
+addCollection(lucideIcons);
 
-let transformersPromise: Promise<typeof import("@xenova/transformers")> | null =
-  null;
-const getTransformers = () => {
-  if (!transformersPromise) {
-    transformersPromise = import(
-      "@xenova/transformers/dist/transformers.min.js"
-    ).then((transformers) => {
-      transformers.env.allowLocalModels = false;
-      return transformers;
-    });
-  }
-  return transformersPromise;
-};
+const normalizeSearchText = (value: string) =>
+  value.toLocaleLowerCase().replace(/[^a-z0-9]+/g, "");
 
-const searchIndex = import("../components/searchIndex").then(
-  (module) => module.index
+const searchablePages: Array<{ page: PageLink; text: string }> = pages.flatMap(
+  (element) => {
+    if (element.type === "link") {
+      return [
+        {
+          page: element,
+          text: normalizeSearchText(`${element.name ?? ""} ${element.page}`),
+        },
+      ];
+    }
+
+    return element.content.map((page) => ({
+      page,
+      text: normalizeSearchText(`${page.name ?? ""} ${page.page}`),
+    }));
+  },
 );
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -63,9 +73,31 @@ export default function App({ Component, pageProps }: AppProps) {
   const [pathname, setPathname] = useState(router.pathname);
   const [showList, setShowList] = useState(false);
   const [query, setQuery] = useState("");
-  const [queriedPages, setQueriedPages] = useState<Array<PageLink>>([]);
-  const queriedPagesRef = useRef<Array<PageLink>>([]);
-  const queryIndexRef = useRef<number | undefined>(undefined);
+  const normalizedQuery = normalizeSearchText(query);
+  const isQuerying = normalizedQuery.length > 0;
+  const queriedPages = useMemo(
+    () =>
+      isQuerying
+        ? searchablePages
+            .filter((entry) => entry.text.includes(normalizedQuery))
+            .map((entry) => entry.page)
+        : [],
+    [isQuerying, normalizedQuery],
+  );
+  const [queryIndex, setQueryIndex] = useState<number | undefined>(undefined);
+  const queriedPagesRef = useRef(queriedPages);
+  const queryIndexRef = useRef(queryIndex);
+
+  const updateQuery = (value: string) => {
+    const querying = normalizeSearchText(value).length > 0;
+    setQuery(value);
+    setQueryIndex(querying ? 0 : undefined);
+
+    if (window.innerWidth <= TABLET) {
+      setShowList(querying);
+    }
+  };
+
   const queryInputRef = useKeyboard<HTMLInputElement>([
     {
       key: "K",
@@ -92,7 +124,10 @@ export default function App({ Component, pageProps }: AppProps) {
       onlyWhenFocused: true,
       action: () => {
         setQueryIndex((current) =>
-          Math.min((current ?? 0) + 1, queriedPagesRef.current.length - 1)
+          Math.min(
+            (current ?? 0) + 1,
+            Math.max(queriedPagesRef.current.length - 1, 0),
+          ),
         );
       },
     },
@@ -102,7 +137,10 @@ export default function App({ Component, pageProps }: AppProps) {
       ctrlKey: true,
       action: () => {
         setQueryIndex((current) =>
-          Math.min((current ?? 0) + 1, queriedPagesRef.current.length - 1)
+          Math.min(
+            (current ?? 0) + 1,
+            Math.max(queriedPagesRef.current.length - 1, 0),
+          ),
         );
       },
     },
@@ -118,7 +156,7 @@ export default function App({ Component, pageProps }: AppProps) {
           const element = queriedPagesRef.current[queryIndexRef.current];
           if (element.type === "link") {
             window.open(`/${element.page}`, "_self");
-            setQuery("");
+            updateQuery("");
           }
         }
       },
@@ -127,110 +165,18 @@ export default function App({ Component, pageProps }: AppProps) {
       key: "Escape",
       onlyWhenFocused: true,
       action: () => {
-        setQuery("");
+        updateQuery("");
       },
     },
   ]);
-  const [queryIndex, setQueryIndex] = useState<number | undefined>(undefined);
-
-  const sanetisedQuery = query
-    .replace(/[^a-zA-Z]+/g, "")
-    .trim()
-    .toLowerCase();
-
-  const isQuerying = sanetisedQuery.length > 0;
 
   useEffect(() => {
-    if (isQuerying) {
-      setQueryIndex(0);
-      if (window.innerWidth <= TABLET) {
-        setShowList(true);
-      }
-    } else {
-      setQueryIndex(undefined);
-      if (window.innerWidth <= TABLET) {
-        setShowList(false);
-      }
-    }
-  }, [isQuerying]);
+    queriedPagesRef.current = queriedPages;
+  }, [queriedPages]);
 
   useEffect(() => {
     queryIndexRef.current = queryIndex;
   }, [queryIndex]);
-
-  const stateRef = useRef<string | null>(null);
-
-  useEffect(() => {
-    if (sanetisedQuery.length === 0) {
-      return;
-    }
-
-    const effectId = self.crypto.randomUUID();
-    stateRef.current = effectId;
-
-    const isInvalid = () => effectId !== stateRef.current;
-
-    async function run() {
-      const data = await searchIndex;
-
-      if (isInvalid()) {
-        return;
-      }
-
-      const generateEmbeddings = await loadModel();
-
-      if (isInvalid()) {
-        return;
-      }
-
-      const { dot } = await getTransformers();
-
-      const queryEmbeddings = await generateEmbeddings(query, {
-        normalize: true,
-        pooling: "mean",
-      }).then((embedding) => embedding.data);
-
-      if (isInvalid()) {
-        return;
-      }
-
-      let seen = new Set();
-
-      queriedPagesRef.current = data.index
-        .map((element) => {
-          return {
-            ...element,
-            dot: dot(Array.from(queryEmbeddings), element.embedding),
-          };
-        })
-        .filter((element) => element.dot > 0.2)
-        .sort((a, b) => b.dot - a.dot)
-        .slice(0, 5)
-        .filter((result) => {
-          if (seen.has(result.filename)) {
-            return false;
-          } else {
-            seen.add(result.filename);
-            return true;
-          }
-        })
-        .map((result) => {
-          const heading =
-            result.headingDepth > 1 && result.heading.length > 0
-              ? labelToID(result.heading)
-              : null;
-          const page = result.filename === "index" ? "" : result.filename;
-          return {
-            type: "link",
-            name: result.filename,
-            page: heading ? `${page}#${heading}` : page,
-          };
-        });
-      setQueriedPages(queriedPagesRef.current.slice());
-    }
-
-    run();
-  }, [sanetisedQuery]);
 
   useEffect(() => {
     highlightAll();
@@ -246,226 +192,191 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <BaseLinkComponentOverrideContext.Provider value={link}>
-        {/* @ts-ignore */}
-        <style jsx global>{`
+        <style>{`
           html {
-            font-family: ${inter.style.fontFamily};
+            font-family: ${GeistSans.style.fontFamily};
+          }
+
+          #__next {
+            min-height: 100dvh;
           }
         `}</style>
 
         <Providers themes={{ light: lightTheme, dark: darkTheme }}>
           <DocsMDXProvider>
-            <BaseView
-              jss={[
-                {
-                  height: "100%",
-                  overflow: "hidden",
-                  display: "grid",
-                },
-                mobile({
-                  gridTemplateColumns: "1fr",
-                  gridTemplateRows: "auto 1fr",
-                  gridTemplateAreas: `
-                  "header"
-                  "content"
-                `,
-                }),
-                tablet({
-                  gridTemplateColumns: "1fr",
-                  gridTemplateRows: "auto 1fr",
-                  gridTemplateAreas: `
-                  "header"
-                  "content"
-                `,
-                }),
-                laptop({
-                  gridTemplateColumns: "350px 1fr",
-                  gridTemplateRows: "auto 1fr",
-                  gridTemplateAreas: `
-                  "header content"
-                  "list   content"
-                `,
-                }),
-                desktop({
-                  gridTemplateColumns: "400px 1fr",
-                  gridTemplateRows: "auto 1fr",
-                  gridTemplateAreas: `
-                  "header content"
-                  "list   content"
-                `,
-                }),
-              ]}
-            >
-              <Row
-                jss={{
-                  gridArea: "header",
-                  borderBottom: `1px solid ${cssVar("--divider")}`,
-                }}
-                gap="medium"
-                padding="medium"
-                align="center"
-                justify="space-between"
-              >
-                <TextInput
-                  jssRoot={{ flexGrow: 1 }}
-                  ref={queryInputRef}
-                  role="combobox"
-                  aria-haspopup="grid"
-                  aria-expanded={isQuerying ? "true" : "false"}
-                  aria-controls=""
-                  placeholder="Semantic search (⌘K)"
-                  value={query}
-                  onValueChange={(value) => {
-                    setQuery(value);
-                  }}
-                  addOn={
-                    <Icon icon="fa-search" size="medium" color="secondary" />
-                  }
-                />
-                <Row gap="medium" align="center">
-                  <DarkModeToggle />
-                  <IconLink
-                    aria-label="github"
-                    target="_blank"
-                    href="https://github.com/germtb/aidos-ui"
-                    icon="fa-github"
-                    size="medium"
-                    color="primary"
-                    bare
-                  />
+            <NavigationSplitView
+              navigationWidth="320px"
+              navigationVisibleInCompact={showList}
+              compactHeader={
+                <Row
+                  gap="medium"
+                  padding="medium"
+                  align="center"
+                  justify="space-between"
+                >
                   <IconButton
                     aria-label={showList ? "Hide list" : "Open list"}
-                    jss={[
-                      laptop({ display: "none" }),
-                      desktop({ display: "none" }),
-                    ]}
-                    icon={showList ? "fa-close" : "fa-bars"}
-                    color="primary"
+                    icon={showList ? "x" : "menu"}
+                    color="secondary"
                     onClick={() => setShowList((x) => !x)}
-                    size="medium"
                     bare
                   />
+                  <Row gap="medium" align="center">
+                    <DarkModeToggle />
+                    <IconLink
+                      aria-label="github"
+                      target="_blank"
+                      href="https://github.com/germtb/aidos-ui"
+                      icon="github"
+                      color="secondary"
+                      bare
+                    />
+                  </Row>
                 </Row>
-              </Row>
-              <ListDivider />
-              <Column
-                jss={[
-                  {
-                    gridArea: "list",
-                    zIndex: 1,
-                    padding: cssVar("--spacing-m"),
-                    overflow: "hidden",
-                    backgroundColor: cssVar("--primary-background"),
-                  },
-                  mobile({
-                    position: "absolute",
-                    display: showList ? "flex" : "none",
-                    left: 0,
-                    right: 0,
-                    top: 59,
-                    bottom: 0,
-                  }),
-                  tablet({
-                    position: "absolute",
-                    display: showList ? "flex" : "none",
-                    left: 0,
-                    right: 0,
-                    top: 59,
-                    bottom: 0,
-                  }),
-                ]}
-              >
-                <List
-                  bare
-                  id="main-list"
-                  navigation={true}
-                  jss={[{ overflow: "scroll" }]}
-                  ariaLabel={"API"}
+              }
+              navigation={
+                <Card
+                  material="aurora"
+                  padding="none"
+                  gap="none"
+                  jss={{ height: "100%", minHeight: 0, overflow: "hidden" }}
                 >
-                  {(isQuerying ? queriedPages : pages).map((element, index) => {
-                    if (element.type === "link") {
-                      const page = element.page;
-                      const name = element.name;
+                  <Row
+                    gap="large"
+                    padding="large"
+                    align="center"
+                    justify="space-between"
+                  >
+                    <TextInput
+                      jssRoot={{ flexGrow: 1 }}
+                      ref={queryInputRef}
+                      role="combobox"
+                      aria-haspopup="grid"
+                      aria-expanded={isQuerying ? "true" : "false"}
+                      aria-controls="main-list"
+                      placeholder="Search docs (⌘K)"
+                      value={query}
+                      onValueChange={(value) => {
+                        updateQuery(value);
+                      }}
+                      addOn={
+                        <Icon icon="search" size="medium" color="secondary" />
+                      }
+                    />
+                    <Row
+                      gap="medium"
+                      align="center"
+                      jss={[
+                        mobile({ display: "none" }),
+                        tablet({ display: "none" }),
+                        laptop({ display: "flex" }),
+                        desktop({ display: "flex" }),
+                      ]}
+                    >
+                      <DarkModeToggle />
+                      <IconLink
+                        aria-label="github"
+                        target="_blank"
+                        href="https://github.com/germtb/aidos-ui"
+                        icon="github"
+                        color="secondary"
+                        bare
+                      />
+                    </Row>
+                  </Row>
+                  <List
+                    id="main-list"
+                    navigation={true}
+                    jss={[
+                      {
+                        minHeight: 0,
+                        overflowY: "auto",
+                        paddingTop: 0,
+                        paddingRight: cssVar("--spacing-m"),
+                        paddingBottom: cssVar("--spacing-xl"),
+                        paddingLeft: cssVar("--spacing-m"),
+                      },
+                    ]}
+                    ariaLabel={"API"}
+                  >
+                    {(isQuerying ? queriedPages : pages).map(
+                      (element, index) => {
+                        if (element.type === "link") {
+                          const page = element.page;
+                          const name = element.name;
 
-                      return (
-                        <ListLinkItem
-                          key={isQuerying ? `${index}-${page}` : page}
-                          onClick={() => {
-                            setPathname(`/${page}`);
-                            setQuery("");
-                            setShowList(false);
-                          }}
-                          selected={
-                            isQuerying
-                              ? index === queryIndex
-                              : pathname === `/${page}`
-                          }
-                          href={`/${page}`}
-                          headline={name ?? page}
-                          headlineSize={element.headlineSize}
-                          headlineBold={element.headlineBold}
-                        />
-                      );
-                    } else if (element.type === "section") {
-                      return (
-                        <Sublist
-                          key={`section-${element.label}`}
-                          label={element.label}
-                          labelBold
-                        >
-                          {element.content.map((element) => {
-                            const page = element.page;
-                            return (
-                              <ListLinkItem
-                                key={page}
-                                onClick={() => {
-                                  setPathname(`/${page}`);
-                                  setShowList(false);
-                                }}
-                                selected={pathname === `/${page}`}
-                                href={`/${page}`}
-                                headline={element.name ?? page}
-                                headlineSize={element.headlineSize}
-                                headlineBold={element.headlineBold}
-                              />
-                            );
-                          })}
-                        </Sublist>
-                      );
-                    } else {
-                      const _: never = element;
-                    }
-                  })}
-                </List>
-              </Column>
+                          return (
+                            <ListLinkItem
+                              key={isQuerying ? `${index}-${page}` : page}
+                              onClick={() => {
+                                setPathname(`/${page}`);
+                                updateQuery("");
+                                setShowList(false);
+                              }}
+                              selected={
+                                isQuerying
+                                  ? index === queryIndex
+                                  : pathname === `/${page}`
+                              }
+                              href={`/${page}`}
+                              headline={name ?? page}
+                              headlineSize={element.headlineSize}
+                              headlineBold={element.headlineBold}
+                            />
+                          );
+                        } else if (element.type === "section") {
+                          return (
+                            <Sublist
+                              key={`section-${element.label}`}
+                              label={element.label}
+                              labelBold
+                            >
+                              {element.content.map((element) => {
+                                const page = element.page;
+                                return (
+                                  <ListLinkItem
+                                    key={page}
+                                    onClick={() => {
+                                      setPathname(`/${page}`);
+                                      setShowList(false);
+                                    }}
+                                    selected={pathname === `/${page}`}
+                                    href={`/${page}`}
+                                    headline={element.name ?? page}
+                                    headlineSize={element.headlineSize}
+                                    headlineBold={element.headlineBold}
+                                  />
+                                );
+                              })}
+                            </Sublist>
+                          );
+                        }
+                      },
+                    )}
+                  </List>
+                </Card>
+              }
+            >
               <BaseView
                 jss={[
                   {
-                    borderLeft: `1px solid ${cssVar("--divider")}`,
-                    gridArea: "content",
-                    overflow: "scroll",
+                    overflow: "visible",
+                    overflowX: "clip",
+                    width: "100%",
+                    maxWidth: "100%",
+                    minWidth: 0,
                   },
                   getPadding(["large", "xlarge"]),
+                  laptop({ padding: "32px 40px" }),
+                  desktop({ padding: "32px 48px" }),
                 ]}
               >
                 <Component {...pageProps} />
               </BaseView>
-            </BaseView>
+            </NavigationSplitView>
           </DocsMDXProvider>
         </Providers>
       </BaseLinkComponentOverrideContext.Provider>
     </>
   );
 }
-
-let modelPromise: Promise<FeatureExtractionPipeline> | null = null;
-
-const loadModel: () => Promise<FeatureExtractionPipeline> = async () => {
-  const { pipeline } = await getTransformers();
-  if (modelPromise == null) {
-    modelPromise = pipeline("feature-extraction", "Xenova/all-MiniLM-L6-v2");
-  }
-  const generateEmbeddings = await modelPromise;
-
-  return generateEmbeddings;
-};

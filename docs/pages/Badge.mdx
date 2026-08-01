@@ -12,10 +12,10 @@ A small circular indicator used to draw attention to specific UI elements. Commo
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `size` | `Size` | `"medium"` | Badge size: `"xsmall"` (4px), `"small"` (6px), `"medium"` (12px), `"large"` (18px), `"xlarge"` (24px) |
-| `color` | `Color` | `"highlight"` | Background color from theme |
+| Prop    | Type    | Default       | Description                                                                                           |
+| ------- | ------- | ------------- | ----------------------------------------------------------------------------------------------------- |
+| `size`  | `Size`  | `"medium"`    | Badge size: `"xsmall"` (4px), `"small"` (6px), `"medium"` (12px), `"large"` (18px), `"xlarge"` (24px) |
+| `color` | `Color` | `"highlight"` | Background color from theme                                                                           |
 
 ---
 
@@ -24,23 +24,33 @@ A small circular indicator used to draw attention to specific UI elements. Commo
 <Row gap="large" align="center" justify="center" padding="medium">
   <Column align="center" gap="small">
     <Badge size="xsmall" />
-    <Span size="small" color="secondary">xsmall</Span>
+    <Span size="small" color="secondary">
+      xsmall
+    </Span>
   </Column>
   <Column align="center" gap="small">
     <Badge size="small" />
-    <Span size="small" color="secondary">small</Span>
+    <Span size="small" color="secondary">
+      small
+    </Span>
   </Column>
   <Column align="center" gap="small">
     <Badge size="medium" />
-    <Span size="small" color="secondary">medium</Span>
+    <Span size="small" color="secondary">
+      medium
+    </Span>
   </Column>
   <Column align="center" gap="small">
     <Badge size="large" />
-    <Span size="small" color="secondary">large</Span>
+    <Span size="small" color="secondary">
+      large
+    </Span>
   </Column>
   <Column align="center" gap="small">
     <Badge size="xlarge" />
-    <Span size="small" color="secondary">xlarge</Span>
+    <Span size="small" color="secondary">
+      xlarge
+    </Span>
   </Column>
 </Row>
 
@@ -59,19 +69,27 @@ A small circular indicator used to draw attention to specific UI elements. Commo
 <Row gap="large" align="center" justify="center" padding="medium">
   <Column align="center" gap="small">
     <Badge color="highlight" />
-    <Span size="small" color="secondary">highlight</Span>
+    <Span size="small" color="secondary">
+      highlight
+    </Span>
   </Column>
   <Column align="center" gap="small">
     <Badge color="negative" />
-    <Span size="small" color="secondary">negative</Span>
+    <Span size="small" color="secondary">
+      negative
+    </Span>
   </Column>
   <Column align="center" gap="small">
     <Badge color="warning" />
-    <Span size="small" color="secondary">warning</Span>
+    <Span size="small" color="secondary">
+      warning
+    </Span>
   </Column>
   <Column align="center" gap="small">
     <Badge color="divider" />
-    <Span size="small" color="secondary">divider</Span>
+    <Span size="small" color="secondary">
+      divider
+    </Span>
   </Column>
 </Row>
 
@@ -90,15 +108,19 @@ A small circular indicator used to draw attention to specific UI elements. Commo
 
 <Row gap="medium" align="center" padding="medium">
   <Row jss={{ position: "relative" }}>
-    <IconButton bare icon="fa-bell" size="large" color="secondary" onClick={() => {}} />
-    <Badge size="small" color="negative" jss={{ position: "absolute", top: 0, right: 0 }} />
+    <IconButton bare icon="bell" color="secondary" onClick={() => {}} />
+    <Badge
+      size="small"
+      color="negative"
+      jss={{ position: "absolute", top: 0, right: 0 }}
+    />
   </Row>
   <Span color="secondary">Unread notifications</Span>
 </Row>
 
 ```js
 <Row jss={{ position: "relative" }}>
-  <IconButton bare icon="fa-bell" size="large" color="secondary" onClick={() => {}} />
+  <IconButton bare icon="bell" color="secondary" onClick={() => {}} />
   <Badge
     size="small"
     color="negative"

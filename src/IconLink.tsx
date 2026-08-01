@@ -2,60 +2,44 @@ import React from "react";
 import { Icon } from "./Icon";
 import { IconType } from "./IconType";
 import { getGlyphColor } from "./Interactable";
-import { Size } from "./jss";
 import { BaseLink, BaseLinkProps } from "./BaseLink";
 
-const sizes: { [size in Size]: number } = {
-  xsmall: 20,
-  small: 24,
-  medium: 32,
-  large: 40,
-  xlarge: 48,
-  xxlarge: 56,
-  xxxlarge: 64,
-};
-
-export interface IconLinkProps extends BaseLinkProps {
+export interface IconLinkProps extends Omit<
+  BaseLinkProps,
+  "border" | "padding"
+> {
   icon: IconType;
-  size: Size;
 }
 
-export const IconLink = React.forwardRef(
-  (
-    { icon, size, color, bare, disabled, jss, ...otherProps }: IconLinkProps,
-    ref?: React.Ref<HTMLAnchorElement>,
-  ) => {
-    return (
-      <BaseLink
-        {...otherProps}
-        bare={bare}
-        jss={[
-          {
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: sizes[size],
-            width: sizes[size],
-            borderRadius: sizes[size] / 2,
-            textDecoration: "none",
-          },
-          !disabled && {
-            ":active": {
-              transform: "scale(0.92)",
-            },
-          },
-          jss,
-        ]}
-        color={color}
-        ref={ref}
-        disabled={disabled}
-      >
-        <Icon
-          size={size}
-          icon={icon}
-          color={getGlyphColor(color, disabled, bare)}
-        />
-      </BaseLink>
-    );
-  },
-);
+export const IconLink = React.forwardRef(function IconLink(
+  { icon, color, bare, disabled, jss, ...otherProps }: IconLinkProps,
+  ref?: React.Ref<HTMLAnchorElement>,
+) {
+  return (
+    <BaseLink
+      {...otherProps}
+      bare={bare}
+      jss={[
+        {
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: 34,
+          width: 34,
+          borderRadius: 17,
+          textDecoration: "none",
+        },
+        jss,
+      ]}
+      color={color}
+      ref={ref}
+      disabled={disabled}
+    >
+      <Icon
+        size="medium"
+        icon={icon}
+        color={getGlyphColor(color, disabled, bare)}
+      />
+    </BaseLink>
+  );
+});

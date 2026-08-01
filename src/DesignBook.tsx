@@ -42,7 +42,7 @@ function ExampleDialog({ close }) {
 export function DesignBook() {
   const dialog = useDialog<void>(
     ({ close }) => <ExampleDialog close={close} />,
-    { closeOnOutsideClick: true }
+    { closeOnOutsideClick: true },
   );
 
   const [checkbox1, setCheckbox1] = useState(true);
@@ -59,12 +59,12 @@ export function DesignBook() {
         <Sublist label="Button" initialState={{ collapsed: false }}>
           <Row gap="medium">
             <Button
-              color="positive"
+              color="primary"
               onClick={() => {
                 dialog.open();
               }}
             >
-              Positive button
+              Primary button
             </Button>
           </Row>
 
@@ -80,12 +80,12 @@ export function DesignBook() {
                           <Icon
                             size="medium"
                             color="primary"
-                            icon="fa-address-book"
+                            icon="contact-round"
                           />
                         }
                         headline="Option 1"
                         onClick={() => {}}
-                        color={"positive"}
+                        color={"primary"}
                       ></ListButtonItem>
                       <ListButtonItem
                         gap="medium"
@@ -93,13 +93,12 @@ export function DesignBook() {
                           <Icon
                             size="medium"
                             color="primary"
-                            icon="fa-adjust"
+                            icon="sliders-horizontal"
                           />
                         }
                         headline="Option 2"
                         onClick={() => {}}
-                        withDivider={false}
-                        color={"positive"}
+                        color={"primary"}
                       ></ListButtonItem>
                     </List>
                   </Popover>
@@ -109,7 +108,7 @@ export function DesignBook() {
               {({ toggle }) => (
                 <Button
                   style={{ position: "relative" }}
-                  color="primary"
+                  color="secondary"
                   onClick={() => {
                     toggle(undefined);
                   }}
@@ -132,12 +131,12 @@ export function DesignBook() {
                           <Icon
                             size="medium"
                             color="primary"
-                            icon="fa-address-book"
+                            icon="contact-round"
                           />
                         }
                         headline="Option 1"
                         onClick={() => {}}
-                        color={"positive"}
+                        color={"primary"}
                       ></ListButtonItem>
                       <ListButtonItem
                         gap="medium"
@@ -145,13 +144,12 @@ export function DesignBook() {
                           <Icon
                             size="medium"
                             color="primary"
-                            icon="fa-adjust"
+                            icon="sliders-horizontal"
                           />
                         }
                         headline="Option 2"
                         onClick={() => {}}
-                        withDivider={false}
-                        color={"positive"}
+                        color={"primary"}
                       ></ListButtonItem>
                     </List>
                   </Popover>
@@ -173,20 +171,20 @@ export function DesignBook() {
 
           <Row gap="medium">
             <Tooltip content="Tooltip here">
-              <Button color="positive" onClick={() => {}} disabled={true}>
+              <Button color="primary" onClick={() => {}} disabled={true}>
                 Disabled button
               </Button>
             </Tooltip>
           </Row>
 
           <Row gap="medium">
-            <Button bare={true} color="positive" onClick={() => {}}>
-              Bare positive button
+            <Button bare={true} color="primary" onClick={() => {}}>
+              Bare primary button
             </Button>
           </Row>
 
           <Row gap="medium">
-            <Button bare={true} color="primary" onClick={() => {}}>
+            <Button bare={true} color="secondary" onClick={() => {}}>
               Bare secondary button
             </Button>
           </Row>
@@ -200,7 +198,7 @@ export function DesignBook() {
           <Row gap="medium">
             <Button
               bare={true}
-              color="positive"
+              color="primary"
               onClick={() => {}}
               disabled={true}
             >
@@ -211,33 +209,33 @@ export function DesignBook() {
 
         <Sublist label="Link" initialState={{ collapsed: false }}>
           <Row gap="medium">
-            <Link color="positive" href="/">
-              Positive link
+            <Link color="primary" href="/">
+              Primary link
             </Link>
           </Row>
 
           <Row gap="medium">
-            <Link color="primary" href="/">
+            <Link color="secondary" href="/">
               Secondary link
             </Link>
           </Row>
 
           <Row gap="medium">
             <Tooltip content="Tooltip here">
-              <Link color="positive" href="/" disabled={true}>
+              <Link color="primary" href="/" disabled={true}>
                 Disabled link
               </Link>
             </Tooltip>
           </Row>
 
           <Row gap="medium">
-            <Link bare={true} color="positive" href="/">
-              Bare positive link
+            <Link bare={true} color="primary" href="/">
+              Bare primary link
             </Link>
           </Row>
 
           <Row gap="medium">
-            <Link bare={true} color="primary" href="/">
+            <Link bare={true} color="secondary" href="/">
               Bare secondary link
             </Link>
           </Row>
@@ -249,7 +247,7 @@ export function DesignBook() {
           </Row>
 
           <Row gap="medium">
-            <Link bare={true} color="positive" href="/" disabled={true}>
+            <Link bare={true} color="primary" href="/" disabled={true}>
               Bare disabled Link
             </Link>
           </Row>
@@ -258,83 +256,47 @@ export function DesignBook() {
         <ListSpacer />
         <Sublist label="Icon button" initialState={{ collapsed: false }}>
           <Row padding="medium" gap="medium">
+            <IconButton icon="check" color="primary" onClick={() => {}} />
+            <IconButton icon="check" color="primary" onClick={() => {}} />
+            <IconButton icon="check" color="primary" onClick={() => {}} />
             <IconButton
-              size="large"
-              icon="fa-check"
-              color="positive"
-              onClick={() => {}}
-            />
-            <IconButton
-              size="medium"
-              icon="fa-check"
-              color="positive"
-              onClick={() => {}}
-            />
-            <IconButton
-              size="small"
-              icon="fa-check"
-              color="positive"
-              onClick={() => {}}
-            />
-            <IconButton
-              size="large"
-              icon="fa-check"
-              color="positive"
+              icon="check"
+              color="primary"
               onClick={() => {}}
               bare={true}
             />
             <IconButton
-              size="medium"
-              icon="fa-check"
-              color="positive"
+              icon="check"
+              color="primary"
               onClick={() => {}}
               bare={true}
             />
             <IconButton
-              size="small"
-              icon="fa-check"
-              color="positive"
+              icon="check"
+              color="primary"
               onClick={() => {}}
               bare={true}
             />
           </Row>
 
           <Row padding="medium" gap="medium">
+            <IconButton icon="x" color="negative" onClick={() => {}} />
+            <IconButton icon="x" color="negative" onClick={() => {}} />
+            <IconButton icon="x" color="negative" onClick={() => {}} />
             <IconButton
-              size="large"
-              icon="fa-remove"
-              color="negative"
-              onClick={() => {}}
-            />
-            <IconButton
-              size="medium"
-              icon="fa-remove"
-              color="negative"
-              onClick={() => {}}
-            />
-            <IconButton
-              size="small"
-              icon="fa-remove"
-              color="negative"
-              onClick={() => {}}
-            />
-            <IconButton
-              size="large"
-              icon="fa-remove"
+              icon="x"
               color="negative"
               onClick={() => {}}
               bare={true}
             />
             <IconButton
-              size="medium"
-              icon="fa-remove"
+              icon="x"
               color="negative"
               onClick={() => {}}
               bare={true}
             />
             <IconButton
-              size="small"
-              icon="fa-remove"
+              icon="x"
               color="negative"
               onClick={() => {}}
               bare={true}
@@ -342,42 +304,24 @@ export function DesignBook() {
           </Row>
 
           <Row padding="medium" gap="medium">
+            <IconButton icon="info" color="secondary" onClick={() => {}} />
+            <IconButton icon="info" color="secondary" onClick={() => {}} />
+            <IconButton icon="info" color="secondary" onClick={() => {}} />
             <IconButton
-              size="large"
-              icon="fa-info"
-              color="primary"
-              onClick={() => {}}
-            />
-            <IconButton
-              size="medium"
-              icon="fa-info"
-              color="primary"
-              onClick={() => {}}
-            />
-            <IconButton
-              size="small"
-              icon="fa-info"
-              color="primary"
-              onClick={() => {}}
-            />
-            <IconButton
-              size="large"
-              icon="fa-info"
-              color="primary"
+              icon="info"
+              color="secondary"
               onClick={() => {}}
               bare={true}
             />
             <IconButton
-              size="medium"
-              icon="fa-info"
-              color="primary"
+              icon="info"
+              color="secondary"
               onClick={() => {}}
               bare={true}
             />
             <IconButton
-              size="small"
-              icon="fa-info"
-              color="primary"
+              icon="info"
+              color="secondary"
               onClick={() => {}}
               bare={true}
             />
@@ -386,46 +330,40 @@ export function DesignBook() {
           <Row padding="medium" gap="medium">
             <IconButton
               disabled={true}
-              size="large"
-              icon="fa-check"
-              color="positive"
+              icon="check"
+              color="primary"
               onClick={() => {}}
             />
             <IconButton
               disabled={true}
-              size="medium"
-              icon="fa-check"
-              color="positive"
+              icon="check"
+              color="primary"
               onClick={() => {}}
             />
             <IconButton
               disabled={true}
-              size="small"
-              icon="fa-check"
-              color="positive"
+              icon="check"
+              color="primary"
               onClick={() => {}}
             />
             <IconButton
               disabled={true}
-              size="large"
-              icon="fa-check"
-              color="positive"
+              icon="check"
+              color="primary"
               onClick={() => {}}
               bare={true}
             />
             <IconButton
               disabled={true}
-              size="medium"
-              icon="fa-check"
-              color="positive"
+              icon="check"
+              color="primary"
               onClick={() => {}}
               bare={true}
             />
             <IconButton
               disabled={true}
-              size="small"
-              icon="fa-check"
-              color="positive"
+              icon="check"
+              color="primary"
               onClick={() => {}}
               bare={true}
             />
@@ -441,38 +379,38 @@ export function DesignBook() {
           <ListButtonItem
             onClick={() => {}}
             headline="Headline"
-            color={"positive"}
+            color={"primary"}
           />
           <ListButtonItem
             selected={true}
             onClick={() => {}}
             headline="Selected"
-            color={"positive"}
+            color={"primary"}
           />
           <ListButtonItem
             onClick={() => {}}
             headline="Headline"
             body="Body"
-            color={"positive"}
+            color={"primary"}
           />
           <ListButtonItem
             onClick={() => {}}
             headline="Disabled"
             body="Body"
             disabled={true}
-            color={"positive"}
+            color={"primary"}
           />
           <ListButtonItem
             gap="medium"
             addOn={
               <Box padding="medium">
-                <Icon size="medium" color="primary" icon="fa-address-book" />
+                <Icon size="medium" color="primary" icon="contact-round" />
               </Box>
             }
             headline="Really long body"
             body="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
             onClick={() => {}}
-            color={"positive"}
+            color={"primary"}
           ></ListButtonItem>
         </Sublist>
         <Sublist label="Text" initialState={{ collapsed: false }}>
@@ -551,27 +489,27 @@ export function DesignBook() {
         <ListSpacer />
         <Sublist initialState={{ collapsed: false }} label="Icon">
           <Row padding="medium" gap="medium">
-            <Icon size="large" color="primary" icon="fa-check" />
-            <Icon size="medium" color="primary" icon="fa-check" />
-            <Icon size="small" color="primary" icon="fa-check" />
+            <Icon size="large" color="primary" icon="check" />
+            <Icon size="medium" color="primary" icon="check" />
+            <Icon size="small" color="primary" icon="check" />
           </Row>
 
           <Row padding="medium" gap="medium">
-            <Icon size="large" color="secondary" icon="fa-check" />
-            <Icon size="medium" color="secondary" icon="fa-check" />
-            <Icon size="small" color="secondary" icon="fa-check" />
+            <Icon size="large" color="secondary" icon="check" />
+            <Icon size="medium" color="secondary" icon="check" />
+            <Icon size="small" color="secondary" icon="check" />
           </Row>
 
           <Row padding="medium" gap="medium">
-            <Icon size="large" color="subtle" icon="fa-check" />
-            <Icon size="medium" color="subtle" icon="fa-check" />
-            <Icon size="small" color="subtle" icon="fa-check" />
+            <Icon size="large" color="subtle" icon="check" />
+            <Icon size="medium" color="subtle" icon="check" />
+            <Icon size="small" color="subtle" icon="check" />
           </Row>
 
           <Row padding="medium" gap="medium">
-            <Icon size="large" color="light" icon="fa-check" />
-            <Icon size="medium" color="light" icon="fa-check" />
-            <Icon size="small" color="light" icon="fa-check" />
+            <Icon size="large" color="light" icon="check" />
+            <Icon size="medium" color="light" icon="check" />
+            <Icon size="small" color="light" icon="check" />
           </Row>
         </Sublist>
         <ListSpacer />
@@ -588,7 +526,7 @@ export function DesignBook() {
             <TextPairing
               headline="Headline"
               body="Body"
-              addOn={<Icon size="large" color="primary" icon="fa-user" />}
+              addOn={<Icon size="large" color="primary" icon="user" />}
             />
           </Row>
         </Sublist>

@@ -57,7 +57,7 @@ function App() {
   );
 
   return (
-    <Button color="positive" onClick={() => open()}>
+    <Button color="primary" onClick={() => open()}>
       Open Settings
     </Button>
   );
@@ -82,7 +82,7 @@ function EditUserDialog({ close, name, email }: { close: () => void } & UserData
       <Column padding="medium" gap="medium">
         <TextInput value={name} onValueChange={() => {}} />
         <TextInput value={email} onValueChange={() => {}} />
-        <Button color="positive" onClick={close}>
+        <Button color="primary" onClick={close}>
           Save
         </Button>
       </Column>
@@ -100,7 +100,7 @@ function App() {
 
   return (
     <Button
-      color="primary"
+      color="secondary"
       onClick={() => open({ name: "John", email: "john@example.com" })}
     >
       Edit User
@@ -149,11 +149,11 @@ function ConfirmDialog({ close, onConfirm }) {
       <Column padding="medium" gap="medium">
         <P>Are you sure you want to proceed?</P>
         <Row gap="medium" justify="end">
-          <Button bare color="primary" onClick={close}>
+          <Button bare color="secondary" onClick={close}>
             Cancel
           </Button>
           <Button
-            color="positive"
+            color="primary"
             onClick={() => {
               onConfirm();
               close();

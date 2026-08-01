@@ -44,10 +44,6 @@ const styles = {
   },
 };
 
-export function IconProvider({ children }: { children: React.JSX.Element }) {
-  return children;
-}
-
 export function Icon({
   icon,
   size,
@@ -74,7 +70,7 @@ export function Icon({
         getTextColor(color),
       ]}
     >
-      <IconifyIcon icon={icon} width="100%" height="100%" />
+      <IconifyIcon icon={`lucide:${icon}`} width="100%" height="100%" />
     </BaseView>
   );
 }

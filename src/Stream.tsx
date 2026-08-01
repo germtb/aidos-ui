@@ -1,21 +1,28 @@
 import { startTransition, useEffect, useRef, useState } from "react";
 
-export const useStream = ({
+export function useStream<Frame>({
   render,
   bufferStart,
   bufferEnd,
   index,
   debounce = 100,
-}) => {
-  const cache = useRef({
-    [index]: render(index),
-  });
-  const [frame, setFrame] = useState(cache.current[index]);
-  const timeout = useRef(null);
+}: {
+  render: (index: number) => Frame;
+  bufferStart: number;
+  bufferEnd: number;
+  index: number;
+  debounce?: number;
+}) {
+  const [initialFrame] = useState(() => render(index));
+  const cache = useRef<Record<number, Frame>>({ [index]: initialFrame });
+  const [frame, setFrame] = useState(initialFrame);
+  const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    clearTimeout(timeout.current);
-    const subscriptions = [];
+    if (timeout.current != null) {
+      clearTimeout(timeout.current);
+    }
+    const subscriptions: number[] = [];
 
     timeout.current = setTimeout(() => {
       for (let i = index - bufferStart; i < index + bufferEnd; i++) {
@@ -28,7 +35,7 @@ export const useStream = ({
                 setFrame(cache.current[index]);
               }
             }
-          })
+          }),
         );
       }
 
@@ -38,13 +45,16 @@ export const useStream = ({
     }, debounce);
 
     return () => {
+      if (timeout.current != null) {
+        clearTimeout(timeout.current);
+      }
       subscriptions.forEach((handle) => {
         cancelIdleCallback(handle);
       });
     };
-  }, [index]);
+  }, [bufferEnd, bufferStart, debounce, index, render]);
 
   return {
     frame,
   };
-};
+}

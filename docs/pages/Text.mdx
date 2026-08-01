@@ -1,10 +1,10 @@
 import { Column } from "../../src/Column";
 import { Row } from "../../src/Row";
-import { Text, Span, P, H1, H2, H3, Li, Label } from "../../src/Text";
+import { Text, Span, P, H1, H2, H3, H4, Li, Label } from "../../src/Text";
 
 # Text
 
-The `Text` component is the foundation for all text rendering in the design system. It provides consistent typography with semantic color and size options.
+The `Text` component is the foundation for all text rendering in the design system. It provides consistent typography with semantic color and size options. Aidos is designed and documented with Geist Sans, while library components inherit the host application's font family.
 
 ---
 
@@ -15,7 +15,7 @@ The `Text` component is the foundation for all text rendering in the design syst
 | `children` | `ReactNode` | Yes | - | Text content |
 | `color` | `TextColor` | No | `"primary"` | `"primary"`, `"secondary"`, `"highlight"`, `"negative"`, `"subtle"`, `"light"`, `"inherit"` |
 | `size` | `Size` | No | `"medium"` | `"xsmall"`, `"small"`, `"medium"`, `"large"`, `"xlarge"`, `"xxlarge"`, `"xxxlarge"` |
-| `bold` | `boolean` | No | `false` | Bold font weight |
+| `bold` | `boolean` | No | `false` | Semibold emphasis |
 | `ellipsis` | `boolean` | No | varies | Truncate text with ellipsis when overflow |
 | `align` | `"center"` \| `"none"` | No | `"none"` | Text alignment |
 | `type` | `TextType` | No | `"span"` | HTML element: `"span"`, `"p"`, `"h1"`, `"h2"`, `"h3"`, `"h4"`, `"li"`, `"label"` |
@@ -25,12 +25,13 @@ The `Text` component is the foundation for all text rendering in the design syst
 
 ## Semantic components
 
-For most use cases, prefer the semantic wrapper components over the base `Text` component. They provide sensible defaults and render the appropriate HTML elements.
+For most use cases, prefer the semantic wrapper components over the base `Text` component. They provide sensible size defaults and render the appropriate HTML elements. Heading weight remains explicit rather than being inferred from document rank.
 
 <Column gap="medium">
-  <H1 tag="h2">H1 - Page titles</H1>
-  <H2 tag="h3">H2 - Section headings</H2>
-  <H3 tag="h4">H3 - Subsection headings</H3>
+  <H1>H1 - Page titles</H1>
+  <H2>H2 - Section headings</H2>
+  <H3>H3 - Subsection headings</H3>
+  <H4>H4 - Component headings</H4>
   <P>P - Paragraph text for body content</P>
   <Span>Span - Inline text (truncates by default)</Span>
   <Li>Li - List items</Li>
@@ -38,26 +39,44 @@ For most use cases, prefer the semantic wrapper components over the base `Text` 
 </Column>
 
 ```js
-import { H1, H2, H3, P, Span, Li, Label } from "aidos-ui";
+import { H1, H2, H3, H4, P, Span, Li, Label } from "aidos-ui";
 
 <H1>Page Title</H1>           // xxlarge, renders <h1>
 <H2>Section Heading</H2>      // xlarge, renders <h2>
 <H3>Subsection</H3>           // large, renders <h3>
+<H4>Component title</H4>      // medium, renders <h4>
 <P>Body text paragraph</P>    // medium, renders <p>
 <Span>Inline text</Span>      // medium, renders <span>, ellipsis enabled
 <Li>List item</Li>            // medium, renders <li>
 <Label>Form label</Label>     // medium, renders <label>
 ```
 
+Use `bold` when the visual treatment should also be heading-like:
+
+```js
+<H1 bold>Visually emphasized page title</H1>
+<H2 bold>Visually emphasized section title</H2>
+```
+
 ---
 
 ## Sizes
 
-Text sizes map to CSS custom properties, ensuring consistency with the theme system.
+Each size defines both font size and proportional line height. Font sizes map to CSS custom properties. Heading level and weight remain separate: `H1` through `H4` choose a semantic element and default size, while `bold` or `jss` controls emphasis.
+
+| Size | Default metrics | Intended use |
+|------|-----------------|--------------|
+| `xsmall` | 10 / 14 | Dense, nonessential metadata only |
+| `small` | 12 / 16 | Captions, labels and secondary text |
+| `medium` | 14 / 20 | Component and compact body text |
+| `large` | 18 / 24 | Subsection headings |
+| `xlarge` | 22 / 28 | Section headings |
+| `xxlarge` | 28 / 34 | Page headings |
+| `xxxlarge` | 36 / 42 | Display text and metrics |
 
 <Column gap="medium">
-  <Text size="xsmall">xsmall - Fine print, captions</Text>
-  <Text size="small">small - Secondary text, labels</Text>
+  <Text size="xsmall">xsmall - Dense, nonessential metadata</Text>
+  <Text size="small">small - Captions, secondary text, labels</Text>
   <Text size="medium">medium - Body text (default)</Text>
   <Text size="large">large - Emphasized text, H3</Text>
   <Text size="xlarge">xlarge - Subheadings, H2</Text>
@@ -120,12 +139,8 @@ Semantic colors ensure text adapts correctly to light and dark themes.
 By default, `Span` and `Label` components truncate text with ellipsis. Other components wrap by default.
 
 <Column gap="medium" jss={{ maxWidth: 300 }}>
-  <Span>
-    This span text will truncate with ellipsis when it overflows the container width
-  </Span>
-  <P>
-    This paragraph text will wrap to multiple lines when it exceeds the container width instead of truncating
-  </P>
+  <Span>{"This span text will truncate with ellipsis when it overflows the container width"}</Span>
+  <P>{"This paragraph text will wrap to multiple lines when it exceeds the container width instead of truncating"}</P>
 </Column>
 
 ```js

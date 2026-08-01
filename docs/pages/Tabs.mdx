@@ -19,7 +19,9 @@ A horizontal tab navigation component with full keyboard support and ARIA compli
 |------|------|---------|-------------|
 | `aria-controls` | `string` | Required | ID of the content panel this tab controls |
 | `tabs` | `Tab[]` | Required | Array of tab configurations |
+| `variant` | `"underline" \| "segmented"` | `"underline"` | Visual selection treatment |
 | `labelSize` | `Size` | `"large"` | Text size for tab labels |
+| `iconSize` | `Size` | `"medium"` | Size of tab icons |
 | `tabPadding` | `Padding` | `"medium"` | Padding inside each tab |
 | `gap` | `Gap` | `"none"` | Space between tabs |
 | `jssTab` | `JSS \| (data) => JSS` | - | Custom styles for tabs (can be conditional on selected state) |
@@ -30,6 +32,7 @@ A horizontal tab navigation component with full keyboard support and ARIA compli
 | Property | Type | Default | Description |
 |----------|------|---------|-------------|
 | `label` | `string` | Required | Tab display text |
+| `icon` | `IconType` | - | Icon displayed with the label |
 | `href` | `string` | - | Link URL (renders as link if provided) |
 | `onClick` | `() => void` | - | Click handler (renders as button if no href) |
 | `selected` | `boolean` | `false` | Whether this tab is currently selected |
@@ -193,7 +196,7 @@ Use `labelRenderer` to customize how tab labels are displayed:
   aria-controls="panel"
   labelRenderer={(label) => (
     <>
-      <Icon icon="fa-star" size="small" />
+      <Icon icon="star" size="small" />
       {label}
     </>
   )}

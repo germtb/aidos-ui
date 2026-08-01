@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 
-import { Text, TextType } from "./Text";
+import { Text } from "./Text";
 import { Row } from "./Row";
 import { BaseView } from "./BaseView";
 import { Column } from "./Column";
@@ -23,6 +23,7 @@ export interface TextPairingProps {
   headlineAddOn?: ReactNode;
   bodyColor?: TextColor;
   bodySize?: Size;
+  bodyEllipsis?: boolean;
   addOn?: ReactNode;
   addOnPosition?: Position;
   gap?: Gap;
@@ -42,6 +43,7 @@ export function TextPairing({
   headlineAddOn,
   bodyColor = "secondary",
   bodySize = "medium",
+  bodyEllipsis = true,
   addOn,
   addOnPosition = "start",
   gap = "small",
@@ -84,7 +86,7 @@ export function TextPairing({
             textAlign: "start",
           }}
         >
-          <Text ellipsis={true} color={bodyColor} size={bodySize}>
+          <Text ellipsis={bodyEllipsis} color={bodyColor} size={bodySize}>
             {body}
           </Text>
         </Row>
