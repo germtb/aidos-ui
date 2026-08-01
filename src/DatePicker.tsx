@@ -1,6 +1,10 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import { Text } from "./Text";
 import { TextColor, toClassnames } from "./jss";
+import {
+  formatDateInputValue,
+  parseDateInputValue,
+} from "./dateInputValue";
 
 const styles = {
   dateInput: {
@@ -30,12 +34,16 @@ export function DatePicker({
   date,
   onDateChange,
 }: DatePickerProps) {
-  const initialDate = useRef(date);
-  const year = initialDate.current.getFullYear();
-  const month = initialDate.current.getMonth();
-  const day = initialDate.current.getDate();
-  const min = new Date(year - 1, month, day).toISOString().substring(0, 10);
-  const max = new Date(year + 1, month, day).toISOString().substring(0, 10);
+  const [{ min, max }] = useState(() => {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+
+    return {
+      min: formatDateInputValue(new Date(year - 1, month, day)),
+      max: formatDateInputValue(new Date(year + 1, month, day)),
+    };
+  });
 
   return (
     <>
@@ -50,15 +58,10 @@ export function DatePicker({
         className={toClassnames(styles.dateInput)}
         type="date"
         id={id}
-        value={date.toISOString().substring(0, 10)}
+        value={formatDateInputValue(date)}
         onChange={(event) => {
-          let parsedDate;
-          try {
-            parsedDate = new Date(event.target.value);
-          } finally {
-            if (parsedDate != null) {
-              onDateChange(parsedDate);
-            }
+          if (event.target.value) {
+            onDateChange(parseDateInputValue(event.target.value));
           }
         }}
       ></input>

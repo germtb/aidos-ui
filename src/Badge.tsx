@@ -3,12 +3,14 @@ import React from "react";
 import { BaseView } from "./BaseView";
 import { Color, JSS, Size, getBackground } from "./jss";
 
-const sizes = {
+const sizes: { [size in Size]: number } = {
   xsmall: 4,
   small: 6,
   medium: 12,
   large: 18,
   xlarge: 24,
+  xxlarge: 32,
+  xxxlarge: 40,
 };
 
 export function Badge({

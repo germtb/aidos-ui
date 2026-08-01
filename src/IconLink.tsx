@@ -5,12 +5,14 @@ import { getGlyphColor } from "./Interactable";
 import { Size } from "./jss";
 import { BaseLink, BaseLinkProps } from "./BaseLink";
 
-const sizes = {
+const sizes: { [size in Size]: number } = {
   xsmall: 20,
   small: 24,
   medium: 32,
   large: 40,
   xlarge: 48,
+  xxlarge: 56,
+  xxxlarge: 64,
 };
 
 export interface IconLinkProps extends BaseLinkProps {
@@ -21,7 +23,7 @@ export interface IconLinkProps extends BaseLinkProps {
 export const IconLink = React.forwardRef(
   (
     { icon, size, color, bare, disabled, jss, ...otherProps }: IconLinkProps,
-    ref?: React.Ref<HTMLAnchorElement>
+    ref?: React.Ref<HTMLAnchorElement>,
   ) => {
     return (
       <BaseLink
@@ -55,5 +57,5 @@ export const IconLink = React.forwardRef(
         />
       </BaseLink>
     );
-  }
+  },
 );

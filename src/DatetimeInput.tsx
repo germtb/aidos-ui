@@ -5,6 +5,10 @@ import { Icon } from "./Icon";
 import { IconType } from "./IconType";
 import { Row } from "./Row";
 import { JSS } from "./jss";
+import {
+  formatDatetimeInputValue,
+  parseDatetimeInputValue,
+} from "./dateInputValue";
 
 export interface DatetimeInputProps extends BaseInputProps {
   onDateChange: (date: Date) => void;
@@ -53,8 +57,12 @@ export const DatetimeInput = React.forwardRef(
           {...inputProps}
           type="datetime-local"
           ref={ref}
-          value={date.toISOString().substring(0, 16)}
-          onChange={(e) => onDateChange(new Date(e.target.value))}
+          value={formatDatetimeInputValue(date)}
+          onChange={(e) => {
+            if (e.target.value) {
+              onDateChange(parseDatetimeInputValue(e.target.value));
+            }
+          }}
           jss={[styles.input, jss]}
         />
         {addOn}

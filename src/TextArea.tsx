@@ -1,14 +1,14 @@
 import React from "react";
 import { JSS, Padding, cssVar, getPadding, toClassnames } from "./jss";
 
-export interface TextAreaProps
-  extends React.InputHTMLAttributes<HTMLTextAreaElement> {
+export interface TextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   jss?: JSS;
   onValueChange?: (value: string) => void;
   value?: string;
   className?: undefined;
   size?: undefined;
   padding?: Padding;
+  onChange?: undefined;
 }
 
 export const TextArea = React.forwardRef(
@@ -17,11 +17,10 @@ export const TextArea = React.forwardRef(
       jss,
       onValueChange,
       value,
-      onChange,
       padding = "medium",
       ...otherProps
     }: TextAreaProps,
-    ref?: React.Ref<HTMLTextAreaElement>
+    ref?: React.Ref<HTMLTextAreaElement>,
   ) => {
     return (
       <textarea
@@ -54,5 +53,5 @@ export const TextArea = React.forwardRef(
         }
       />
     );
-  }
+  },
 );

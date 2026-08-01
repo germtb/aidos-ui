@@ -2,8 +2,7 @@ import React, { useContext } from "react";
 import { InteractableColor, getInteractableJSS } from "./Interactable";
 import { JSS, Padding, toClassnames } from "./jss";
 
-export interface BaseLinkProps
-  extends React.LinkHTMLAttributes<HTMLAnchorElement> {
+export interface BaseLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
   target?: string;
   jss?: JSS;
@@ -38,7 +37,7 @@ export const BaseLink = React.forwardRef(
       role = "link",
       ...otherProps
     }: BaseLinkProps,
-    ref?: React.Ref<HTMLAnchorElement>
+    ref?: React.Ref<HTMLAnchorElement>,
   ) => {
     const Link = useContext(BaseLinkComponentOverrideContext);
 
@@ -49,17 +48,13 @@ export const BaseLink = React.forwardRef(
         href={href}
         role={role}
         ref={ref}
-        onClick={
-          onClick
-            ? (event) => {
-                if (disabled) {
-                  return;
-                }
+        onClick={(event) => {
+          if (disabled) {
+            return;
+          }
 
-                onClick(event);
-              }
-            : undefined
-        }
+          onClick && onClick(event);
+        }}
         className={toClassnames([
           ...getInteractableJSS({
             color,
@@ -76,5 +71,5 @@ export const BaseLink = React.forwardRef(
         {children}
       </Link>
     );
-  }
+  },
 );

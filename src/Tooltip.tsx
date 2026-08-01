@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 
 import { BaseView } from "./BaseView";
 import { useRefEffect } from "./useRefEffect";
@@ -30,39 +30,42 @@ interface TooltipProps {
 export function Tooltip({ content, jss, tag, children }: TooltipProps) {
   const [tooltip, setTooltip] = useState<React.JSX.Element>(null);
   const dialogRef = useRef(null);
-  const focusTrapRoot = useRefEffect((root: HTMLDialogElement) => {
-    dialogRef.current = root;
+  const focusTrapRoot = useRefEffect(
+    useCallback((root: HTMLDialogElement) => {
+      dialogRef.current = root;
 
-    const keydown = (e) => {
-      if (e.key === "Escape") {
+      const keydown = (e) => {
+        if (e.key === "Escape") {
+          dialogRef.current?.close();
+        } else if (e.key === "Tab") {
+          dialogRef.current?.close();
+        }
+      };
+
+      const click = () => {
         dialogRef.current?.close();
-      } else if (e.key === "Tab") {
-        dialogRef.current?.close();
-      }
-    };
+      };
 
-    const click = () => {
-      dialogRef.current?.close();
-    };
+      window.addEventListener("keydown", keydown);
+      window.addEventListener("click", click);
 
-    window.addEventListener("keydown", keydown);
-    window.addEventListener("click", click);
+      const activeElement = document.activeElement;
+      root.show();
+      // @ts-ignore
+      activeElement.focus();
 
-    const activeElement = document.activeElement;
-    root.show();
-    // @ts-ignore
-    activeElement.focus();
-
-    return () => {
-      window.removeEventListener("keydown", keydown);
-      window.removeEventListener("click", click);
-    };
-  });
+      return () => {
+        window.removeEventListener("keydown", keydown);
+        window.removeEventListener("click", click);
+      };
+    }, []),
+  );
 
   const toggle = () => {
     if (tooltip == null) {
       setTooltip(
         <dialog
+          role="tooltip"
           ref={(ref: null | HTMLDialogElement) => {
             dialogRef.current = ref;
             focusTrapRoot(ref);
@@ -79,7 +82,7 @@ export function Tooltip({ content, jss, tag, children }: TooltipProps) {
           <Text size="medium" color="secondary">
             {content}
           </Text>
-        </dialog>
+        </dialog>,
       );
     } else {
       setTooltip(null);

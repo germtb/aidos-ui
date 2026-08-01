@@ -2,7 +2,7 @@ import React, { cloneElement, useMemo } from "react";
 import { BaseView } from "./BaseView";
 import { JSS } from "./jss";
 
-const dateFormatter = Intl.DateTimeFormat("en-UK", {
+const dateFormatter = Intl.DateTimeFormat("en-GB", {
   weekday: "short",
 });
 
@@ -35,7 +35,7 @@ export const Calendar = React.forwardRef(
         bottom: boolean;
       }) => React.JSX.Element;
     },
-    ref?: React.Ref<HTMLElement>
+    ref?: React.Ref<HTMLElement>,
   ) => {
     const year = date.getFullYear();
     const month = date.getMonth();
@@ -75,7 +75,7 @@ export const Calendar = React.forwardRef(
           const dayDate = new Date(
             date.getFullYear(),
             date.getMonth(),
-            index + 1 - offset
+            index + 1 - offset,
           );
 
           return cloneElement(
@@ -88,7 +88,7 @@ export const Calendar = React.forwardRef(
               right: false,
               bottom: false,
             }),
-            { key: dayDate.toISOString() }
+            { key: dayDate.toISOString() },
           );
         })}
 
@@ -97,7 +97,7 @@ export const Calendar = React.forwardRef(
             date.getFullYear(),
             date.getMonth(),
             index + 1,
-            12 // If we do not add this the ISO string would be from the day before at midnight
+            12, // If we do not add this the ISO string would be from the day before at midnight
           );
 
           return cloneElement(
@@ -114,10 +114,10 @@ export const Calendar = React.forwardRef(
                 dayDate.getMonth() == new Date().getMonth() &&
                 dayDate.getFullYear() == new Date().getFullYear(),
             }),
-            { key: dayDate.toISOString() }
+            { key: dayDate.toISOString() },
           );
         })}
       </BaseView>
     );
-  }
+  },
 );

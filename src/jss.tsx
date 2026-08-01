@@ -12,12 +12,7 @@ export type Styles = CSS.Properties<
 >;
 
 export type JSS =
-  | Styles
-  | null
-  | false
-  | undefined
-  | { [key: string]: Styles }
-  | Array<JSS>;
+  Styles | null | false | undefined | { [key: string]: Styles } | Array<JSS>;
 
 const aliases: {
   [alias: string]: (value: StylesValueType) => [string, StylesValueType][];
@@ -179,7 +174,7 @@ export const toClassnames = (jss: JSS, componentName?: string): string => {
     if (cached != null) {
       if (cached.key !== inputKey) {
         console.warn(
-          `[jss] Hash collision detected: "${inputKey}" collides with "${cached.key}"`
+          `[jss] Hash collision detected: "${inputKey}" collides with "${cached.key}"`,
         );
       }
       classNames.push(cached.selector);
@@ -258,13 +253,7 @@ export function JSServerStyles() {
 }
 
 export type Size =
-  | "xsmall"
-  | "small"
-  | "medium"
-  | "large"
-  | "xlarge"
-  | "xxlarge"
-  | "xxxlarge";
+  "xsmall" | "small" | "medium" | "large" | "xlarge" | "xxlarge" | "xxxlarge";
 
 export type Spacing = "none" | Size;
 
@@ -279,12 +268,7 @@ export type Direction = "horizontal" | "vertical";
 export type Position = "start" | "end";
 
 export type Justify =
-  | "none"
-  | "center"
-  | "flex-start"
-  | "space-between"
-  | "flex-end"
-  | "stretch";
+  "none" | "center" | "flex-start" | "space-between" | "flex-end" | "stretch";
 
 export type Align = "none" | "center" | "stretch" | "flex-start" | "flex-end";
 
@@ -475,9 +459,12 @@ export const lightTheme: Theme = {
   ["--border-radius-l"]: "8px",
   ["--nav-bar-height"]: "50px",
   /* Shadows */
-  ["--shadow-sm"]: "0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1)",
-  ["--shadow-md"]: "0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05)",
-  ["--shadow-lg"]: "0 10px 25px rgba(0, 0, 0, 0.15), 0 4px 10px rgba(0, 0, 0, 0.1)",
+  ["--shadow-sm"]:
+    "0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1)",
+  ["--shadow-md"]:
+    "0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.05)",
+  ["--shadow-lg"]:
+    "0 10px 25px rgba(0, 0, 0, 0.15), 0 4px 10px rgba(0, 0, 0, 0.1)",
   /* Transitions */
   ["--transition-fast"]: "0.15s ease",
   ["--transition-normal"]: "0.2s ease",
@@ -532,8 +519,10 @@ export const darkTheme: Theme = {
   ["--nav-bar-height"]: "50px",
   /* Shadows - stronger for dark mode to be visible */
   ["--shadow-sm"]: "0 1px 2px rgba(0, 0, 0, 0.2), 0 1px 3px rgba(0, 0, 0, 0.3)",
-  ["--shadow-md"]: "0 4px 6px rgba(0, 0, 0, 0.25), 0 2px 4px rgba(0, 0, 0, 0.2)",
-  ["--shadow-lg"]: "0 10px 25px rgba(0, 0, 0, 0.35), 0 4px 10px rgba(0, 0, 0, 0.25)",
+  ["--shadow-md"]:
+    "0 4px 6px rgba(0, 0, 0, 0.25), 0 2px 4px rgba(0, 0, 0, 0.2)",
+  ["--shadow-lg"]:
+    "0 10px 25px rgba(0, 0, 0, 0.35), 0 4px 10px rgba(0, 0, 0, 0.25)",
   /* Transitions */
   ["--transition-fast"]: "0.15s ease",
   ["--transition-normal"]: "0.2s ease",

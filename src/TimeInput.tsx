@@ -2,6 +2,13 @@ import React, { ReactNode } from "react";
 import { BaseInput, BaseInputProps } from "./BaseInput";
 import { Row } from "./Row";
 import { Gap, Padding, cssVar } from "./jss";
+import { formatTimeInputValue } from "./dateInputValue";
+
+export const timeFormatter = Intl.DateTimeFormat("en-GB", {
+  hour: "2-digit",
+  minute: "2-digit",
+  hourCycle: "h23",
+});
 
 export interface TimeInputProps extends BaseInputProps {
   onTimeChange: (date: Date) => void;
@@ -13,11 +20,6 @@ export interface TimeInputProps extends BaseInputProps {
   onChange?: undefined;
   bare?: boolean;
 }
-
-export const timeFormatter = Intl.DateTimeFormat("en-UK", {
-  hour: "2-digit",
-  minute: "2-digit",
-});
 
 function TimeInputInternal(
   {
@@ -65,7 +67,7 @@ function TimeInputInternal(
         {...inputProps}
         type="time"
         ref={ref}
-        value={timeFormatter.format(date)}
+        value={formatTimeInputValue(date)}
         onChange={(e) => {
           const value = e.target.value;
           const [hour, minute] = value.split(":");

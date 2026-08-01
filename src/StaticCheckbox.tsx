@@ -42,6 +42,8 @@ export const sizes = {
   medium: 32,
   large: 40,
   xlarge: 48,
+  xxlarge: 56,
+  xxxlarge: 64,
 };
 
 export function StaticCheckbox({

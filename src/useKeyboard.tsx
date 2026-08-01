@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { useRefEffect } from "./useRefEffect";
 
 export type KeyboardShortcut<T> = {
@@ -9,35 +10,40 @@ export type KeyboardShortcut<T> = {
 };
 
 export function useKeyboard<T extends HTMLElement>(
-  shortcuts: Array<KeyboardShortcut<T>>
+  shortcuts: Array<KeyboardShortcut<T>>,
 ) {
-  return useRefEffect<T>((root: T) => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      for (const {
-        metaKey,
-        key,
-        action,
-        ctrlKey,
-        onlyWhenFocused,
-      } of shortcuts) {
-        if (metaKey && e.metaKey !== true) {
-          continue;
-        } else if (ctrlKey && e.ctrlKey !== true) {
-          continue;
-        } else if (onlyWhenFocused && document.activeElement !== root) {
-          continue;
-        }
+  return useRefEffect<T>(
+    useCallback(
+      (root: T) => {
+        const onKeyDown = (e: KeyboardEvent) => {
+          for (const {
+            metaKey,
+            key,
+            action,
+            ctrlKey,
+            onlyWhenFocused,
+          } of shortcuts) {
+            if (metaKey && e.metaKey !== true) {
+              continue;
+            } else if (ctrlKey && e.ctrlKey !== true) {
+              continue;
+            } else if (onlyWhenFocused && document.activeElement !== root) {
+              continue;
+            }
 
-        if (e.key.toLowerCase() === key.toLowerCase()) {
-          action(root);
-        }
-      }
-    };
+            if (e.key.toLowerCase() === key.toLowerCase()) {
+              action(root);
+            }
+          }
+        };
 
-    window.addEventListener("keydown", onKeyDown);
+        window.addEventListener("keydown", onKeyDown);
 
-    return () => {
-      window.removeEventListener("keydown", onKeyDown);
-    };
-  });
+        return () => {
+          window.removeEventListener("keydown", onKeyDown);
+        };
+      },
+      [shortcuts],
+    ),
+  );
 }

@@ -23,12 +23,14 @@ const styles: { [key: string]: JSS } = {
   },
 };
 
-const sizes = {
+const sizes: { [size in Size]: number } = {
   xsmall: 4,
   small: 8,
   medium: 12,
   large: 16,
   xlarge: 20,
+  xxlarge: 28,
+  xxxlarge: 36,
 };
 
 export function ProgressBar({

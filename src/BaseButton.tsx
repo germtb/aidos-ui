@@ -12,6 +12,7 @@ export interface BaseButtonProps
   className?: undefined;
   animateInteraction?: boolean;
   padding?: Padding;
+  type?: "submit" | "reset" | "button";
 }
 
 export const BaseButton = React.forwardRef(
@@ -26,13 +27,14 @@ export const BaseButton = React.forwardRef(
       disabled,
       animateInteraction = true,
       padding,
+      type = "button",
       ...otherProps
     }: BaseButtonProps,
     ref?: React.Ref<HTMLButtonElement>
   ) => {
     return (
       <button
-        type="button"
+        type={type}
         {...otherProps}
         aria-disabled={disabled ? true : undefined}
         ref={ref}

@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useRef, useState } from "react";
+import React, { useCallback, useEffect, useId, useRef, useState } from "react";
 
 import { BaseView } from "./BaseView";
 import { Button } from "./Button";
@@ -58,16 +58,18 @@ export function Dropdown<T extends string | number>({
   const triggerRef = useRef(null);
   const [expanded, setExpanded] = useState(false);
   const dropdownRef = useNavigation({ autofocus: true });
-  const rootRef = useRefEffect<HTMLElement>((root) => {
-    const onKeyDown = (e) => {
-      if (e.code === "Escape") {
-        setExpanded(false);
-      }
-    };
+  const rootRef = useRefEffect<HTMLElement>(
+    useCallback((root) => {
+      const onKeyDown = (e) => {
+        if (e.code === "Escape") {
+          setExpanded(false);
+        }
+      };
 
-    root.addEventListener("keydown", onKeyDown);
-    return () => root.removeEventListener("keydown", onKeyDown);
-  });
+      root.addEventListener("keydown", onKeyDown);
+      return () => root.removeEventListener("keydown", onKeyDown);
+    }, []),
+  );
 
   useEffect(() => {
     if (!expanded) {
