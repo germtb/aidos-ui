@@ -77,7 +77,10 @@ export const pages: Array<Page> = [
   {
     type: "section",
     label: "Data display",
-    content: [{ type: "link", page: "Table" }],
+    content: [
+      { type: "link", page: "Avatar" },
+      { type: "link", page: "Table" },
+    ],
   },
   {
     type: "section",

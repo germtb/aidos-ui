@@ -1,0 +1,134 @@
+import { Avatar } from "../../src/Avatar";
+import { Badge } from "../../src/Badge";
+import { BaseButton } from "../../src/BaseButton";
+import { BaseLink } from "../../src/BaseLink";
+import { Column } from "../../src/Column";
+import { Row } from "../../src/Row";
+import { Span } from "../../src/Text";
+
+# Avatar
+
+Avatar represents a person or entity with an image or a stable, name-derived fallback. When an image is missing or fails to load, Avatar displays the first meaningful character of the name on a deterministic gradient.
+
+---
+
+## Props
+
+| Prop    | Type                             | Default    | Description                                       |
+| ------- | -------------------------------- | ---------- | ------------------------------------------------- |
+| `name`  | `string`                         | Required   | Identity used for the label, initial and gradient |
+| `src`   | `string`                         | -          | Optional image URL                                |
+| `size`  | `"small" \| "medium" \| "large"` | `"medium"` | Avatar size                                       |
+| `badge` | `ReactNode`                      | -          | Element positioned at the bottom-right            |
+| `jss`   | `JSS`                            | -          | Exceptional root styles                           |
+
+---
+
+## Generated identity
+
+The gradient is derived from the normalized name rather than generated randomly at render time. The same identity therefore keeps the same treatment across sessions, themes and server rendering.
+
+<Row gap="large" align="center">
+  <Avatar name="Gerard Moreno" />
+  <Avatar name="Ada Lovelace" />
+  <Avatar name="Linus Torvalds" />
+  <Avatar name="Aidos UI" />
+</Row>
+
+```tsx
+<Avatar name="Gerard Moreno" />
+<Avatar name="Ada Lovelace" />
+```
+
+## Image fallback
+
+Avatar displays the generated identity while an image is unavailable and returns to it automatically if the image fails to load.
+
+<Row gap="large" align="center">
+  <Avatar name="Gerard Moreno" src="/avatar-example.jpg" />
+  <Avatar name="Unavailable image" src="/missing-avatar.jpg" />
+  <Avatar name="" />
+</Row>
+
+```tsx
+<Avatar name={user.name} src={user.avatarUrl} />
+```
+
+## Sizes
+
+<Row gap="large" align="center">
+  <Avatar name="Small" size="small" />
+  <Avatar name="Medium" size="medium" />
+  <Avatar name="Large" size="large" />
+</Row>
+
+```tsx
+<Avatar name="Gerard Moreno" size="small" />
+<Avatar name="Gerard Moreno" size="medium" />
+<Avatar name="Gerard Moreno" size="large" />
+```
+
+## Badges
+
+Avatar owns badge placement while the existing Badge component owns its visual meaning. Badge placement is intentionally fixed rather than configurable.
+
+<Row gap="large" align="center">
+  <Avatar name="Online" badge={<Badge size="small" color="highlight" />} />
+  <Avatar name="Away" badge={<Badge size="small" color="warning" />} />
+  <Avatar name="Attention" badge={<Badge size="small" color="negative" />} />
+</Row>
+
+```tsx
+<Avatar
+  name={user.name}
+  src={user.avatarUrl}
+  badge={<Badge size="small" color="highlight" />}
+/>
+```
+
+Do not rely on badge color alone to communicate status. Include the status in adjacent text or in the accessible label of the surrounding control.
+
+## Composition
+
+Avatar is visual rather than interactive. Wrap it in BaseButton or BaseLink to provide the appropriate semantics without adding interaction variants to Avatar itself.
+
+<Column gap="large" align="flex-start">
+  <Row gap="medium" align="center">
+    <BaseButton
+      bare
+      color="secondary"
+      aria-label="Open Gerard's account"
+      onClick={() => {}}
+      jss={{ padding: 0, borderRadius: "50%" }}
+    >
+      <Avatar name="Gerard Moreno" />
+    </BaseButton>
+    <Span>Button</Span>
+  </Row>
+  <Row gap="medium" align="center">
+    <BaseLink
+      bare
+      color="secondary"
+      href="/Avatar"
+      aria-label="View Gerard's profile"
+      jss={{ padding: 0, borderRadius: "50%" }}
+    >
+      <Avatar name="Gerard Moreno" />
+    </BaseLink>
+    <Span>Link</Span>
+  </Row>
+</Column>
+
+```tsx
+<BaseButton
+  bare
+  color="secondary"
+  aria-label="Open Gerard's account"
+  onClick={openAccount}
+  jss={{ padding: 0, borderRadius: "50%" }}
+>
+  <Avatar name="Gerard Moreno" src={avatarUrl} />
+</BaseButton>
+```
+
+The same BaseButton can be rendered by PopoverTrigger when the avatar opens a menu. PopoverTrigger continues to own expanded state and overlay behavior.
