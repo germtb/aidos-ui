@@ -167,6 +167,9 @@ export const getInteractableListItemJSS = ({
       flexGrow: 1,
       borderRadius: cssVar("--border-radius-m"),
       textDecoration: "none",
+      ":focus-visible": {
+        outlineOffset: -2,
+      },
       ":hover": {
         backgroundColor: cssVar("--hovered-background"),
       },
