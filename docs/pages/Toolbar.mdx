@@ -1,0 +1,50 @@
+import { Avatar, Button, IconButton, Toolbar } from "../../src";
+
+# Toolbar
+
+A title and action composition for application headers, card headers, and
+section controls. Toolbar owns title wrapping, action grouping, and responsive
+shrink behavior.
+
+---
+
+## Props
+
+| Prop           | Type        | Default    | Description                  |
+| -------------- | ----------- | ---------- | ---------------------------- |
+| `headline`     | `ReactNode` | Required   | Primary title                |
+| `body`         | `ReactNode` | -          | Supporting title text        |
+| `leading`      | `ReactNode` | -          | Leading identity or icon     |
+| `actions`      | `ReactNode` | -          | One or more trailing actions |
+| `headlineSize` | `Size`      | `"xlarge"` | Title size                   |
+| `headlineBold` | `boolean`   | `true`     | Emphasize the title          |
+| `bodyEllipsis` | `boolean`   | `false`    | Truncate supporting text     |
+
+<Toolbar
+  headline="Atlas workspace"
+  body="Product planning · 8 collaborators"
+  leading={<Avatar name="Atlas workspace" size="large" />}
+  actions={
+    <>
+      <IconButton
+        aria-label="Share workspace"
+        icon="share-2"
+        color="secondary"
+        bare
+        onClick={() => {}}
+      />
+      <Button color="primary" icon="plus" onClick={() => {}}>
+        New task
+      </Button>
+    </>
+  }
+/>
+
+```tsx
+<Toolbar
+  headline="Atlas workspace"
+  body="Product planning · 8 collaborators"
+  leading={<Avatar name="Atlas workspace" />}
+  actions={<Button color="primary">New task</Button>}
+/>
+```

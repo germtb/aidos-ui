@@ -12,33 +12,40 @@ A versatile component for displaying a headline with optional body text and add-
 
 ## Props
 
-| Prop | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `headline` | `ReactNode` | Yes | - | Primary text content |
-| `body` | `ReactNode` | No | - | Secondary text below headline |
-| `headlineColor` | `TextColor` | No | `"primary"` | Headline text color |
-| `headlineSize` | `Size` | No | `"medium"` | Headline text size |
-| `headlineBold` | `boolean` | No | `false` | Bold headline text |
-| `headlineAddOn` | `ReactNode` | No | - | Element displayed after headline |
-| `bodyColor` | `TextColor` | No | `"secondary"` | Body text color |
-| `bodySize` | `Size` | No | `"medium"` | Body text size |
-| `addOn` | `ReactNode` | No | - | Element displayed beside the text content |
-| `addOnPosition` | `"start"` \| `"end"` | No | `"start"` | Add-on placement |
-| `gap` | `Gap` | No | `"small"` | Space between add-on and text |
-| `padding` | `Padding` | No | - | Internal padding |
-| `align` | `Align` | No | `"stretch"` | Vertical alignment |
-| `grow` | `boolean` | No | `false` | Allow component to grow |
-| `shrink` | `boolean` | No | `false` | Allow component to shrink |
+| Prop            | Type                 | Required | Default       | Description                               |
+| --------------- | -------------------- | -------- | ------------- | ----------------------------------------- |
+| `headline`      | `ReactNode`          | Yes      | -             | Primary text content                      |
+| `body`          | `ReactNode`          | No       | -             | Secondary text below headline             |
+| `headlineColor` | `TextColor`          | No       | `"primary"`   | Headline text color                       |
+| `headlineSize`  | `Size`               | No       | `"medium"`    | Headline text size                        |
+| `headlineBold`  | `boolean`            | No       | `false`       | Bold headline text                        |
+| `headlineAddOn` | `ReactNode`          | No       | -             | Element displayed after headline          |
+| `bodyColor`     | `TextColor`          | No       | `"secondary"` | Body text color                           |
+| `bodySize`      | `Size`               | No       | `"medium"`    | Body text size                            |
+| `bodyEllipsis`  | `boolean`            | No       | `false`       | Truncate the body to one line             |
+| `addOn`         | `ReactNode`          | No       | -             | Element displayed beside the text content |
+| `addOnPosition` | `"start"` \| `"end"` | No       | `"start"`     | Add-on placement                          |
+| `gap`           | `Gap`                | No       | `"medium"`    | Space between add-on and text             |
+| `padding`       | `Padding`            | No       | -             | Internal padding                          |
+| `align`         | `Align`              | No       | `"stretch"`   | Vertical alignment                        |
+| `grow`          | `boolean`            | No       | `false`       | Allow component to grow                   |
+| `shrink`        | `boolean`            | No       | `false`       | Allow component to shrink                 |
 
 ---
 
 ## Basic usage
 
 At its simplest, TextPairing displays a headline and body text vertically stacked.
+Body text wraps by default. Dense compounds such as ListItem opt into
+single-line truncation explicitly.
 
 <Column gap="large">
   <TextPairing headline="Headline" body="Body text goes here" />
-  <TextPairing headline="Bold headline" headlineBold body="With supporting body text" />
+  <TextPairing
+    headline="Bold headline"
+    headlineBold
+    body="With supporting body text"
+  />
 </Column>
 
 ```js

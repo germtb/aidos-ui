@@ -7,6 +7,7 @@ import { Icon } from "./Icon";
 import { FlexLayout, FlexLayoutProps } from "./FlexLayout";
 import type { Tab } from "./Tabs";
 import { Text } from "./Text";
+import { useNavigation } from "./useNavigation";
 import { JSS, Padding, Size, TextColor, cssVar, getMaterial } from "./jss";
 
 export type TabBarVariant = "default" | "floating";
@@ -32,7 +33,6 @@ const styles: { [key: string]: JSS } = {
     {
       borderRadius: cssVar("--border-radius-xl"),
       boxShadow: cssVar("--shadow-md"),
-      overflow: "hidden",
     },
   ],
   horizontal: {
@@ -72,15 +72,16 @@ const styles: { [key: string]: JSS } = {
     justifyContent: "center",
     textDecoration: "none",
     userSelect: "none",
+    ":focus-visible": {
+      outlineOffset: -2,
+    },
   },
   horizontalItem: {
     flex: 1,
     minWidth: 0,
   },
-  floatingItem: {
-    ":focus-visible": {
-      outlineOffset: -2,
-    },
+  defaultItem: {
+    borderRadius: 0,
   },
   floatingHorizontalItem: {
     minWidth: "auto",
@@ -106,6 +107,10 @@ export function TabBar({
   ...otherProps
 }: TabBarProps) {
   const horizontal = direction === "row";
+  const selectedIndex = tabs.findIndex((tab) => tab.selected === true);
+  const root = useNavigation({
+    initialIndex: selectedIndex === -1 ? 0 : selectedIndex,
+  });
 
   return (
     <BaseView
@@ -122,6 +127,7 @@ export function TabBar({
       ]}
     >
       <FlexLayout
+        ref={root}
         {...otherProps}
         direction={direction}
         align={align}
@@ -134,7 +140,7 @@ export function TabBar({
           const tabJSS: JSS = [
             styles.item,
             horizontal ? styles.horizontalItem : styles.verticalItem,
-            variant === "floating" && styles.floatingItem,
+            variant === "default" && styles.defaultItem,
             variant === "floating" &&
               horizontal &&
               styles.floatingHorizontalItem,

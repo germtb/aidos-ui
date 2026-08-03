@@ -1,4 +1,5 @@
 import { Avatar } from "../../src/Avatar";
+import { AvatarStack } from "../../src/AvatarStack";
 import { Badge } from "../../src/Badge";
 import { BaseButton } from "../../src/BaseButton";
 import { BaseLink } from "../../src/BaseLink";
@@ -70,7 +71,9 @@ Avatar displays the generated identity while an image is unavailable and returns
 
 ## Badges
 
-Avatar owns badge placement while the existing Badge component owns its visual meaning. Badge placement is intentionally fixed rather than configurable.
+Avatar owns badge placement on the circular edge while the existing Badge
+component owns its visual meaning. Badge placement is intentionally fixed
+rather than configurable.
 
 <Row gap="large" align="center">
   <Avatar name="Online" badge={<Badge size="small" color="highlight" />} />
@@ -87,6 +90,26 @@ Avatar owns badge placement while the existing Badge component owns its visual m
 ```
 
 Do not rely on badge color alone to communicate status. Include the status in adjacent text or in the accessible label of the surrounding control.
+
+## Stacks
+
+Use AvatarStack for overlapping groups rather than applying negative margins to
+individual avatars. The default overlap works across Avatar sizes and can be
+adjusted for denser compositions.
+
+<AvatarStack>
+  <Avatar name="Maya Chen" />
+  <Avatar name="Noah Williams" />
+  <Avatar name="Iris Okafor" />
+</AvatarStack>
+
+```tsx
+<AvatarStack>
+  <Avatar name="Maya Chen" />
+  <Avatar name="Noah Williams" />
+  <Avatar name="Iris Okafor" />
+</AvatarStack>
+```
 
 ## Composition
 

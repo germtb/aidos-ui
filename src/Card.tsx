@@ -1,7 +1,7 @@
 import { FlexLayout, FlexLayoutProps } from "./FlexLayout";
 import { JSS, Material, cssVar, getMaterial } from "./jss";
 
-export type CardVariant = "default" | "tonal" | "floating";
+export type CardVariant = "default" | "tonal" | "floating" | "flat";
 
 export interface CardProps extends FlexLayoutProps {
   variant?: CardVariant;
@@ -21,6 +21,11 @@ const variantStyles: { [variant in CardVariant]: JSS } = {
     backgroundColor: cssVar("--overlay-background"),
     borderRadius: cssVar("--border-radius-xl"),
     boxShadow: cssVar("--shadow-lg"),
+  },
+  flat: {
+    backgroundColor: cssVar("--overlay-background"),
+    borderRadius: 0,
+    boxShadow: "none",
   },
 };
 

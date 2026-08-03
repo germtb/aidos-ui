@@ -8,8 +8,10 @@ import {
 } from "./Interactable";
 import { BaseLink } from "./BaseLink";
 
-interface ListLinkItemProps
-  extends Omit<BaseListItemProps, "children" | "onClick"> {
+export interface ListLinkItemProps extends Omit<
+  BaseListItemProps,
+  "children" | "onClick"
+> {
   color?: InteractableColor;
   children?: void;
   onClick?: () => void;

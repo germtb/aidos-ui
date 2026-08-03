@@ -7,8 +7,10 @@ import {
   Align,
   Padding,
   FlexDirection,
+  Surface,
   getPadding,
   getSpacing,
+  getSurface,
 } from "./jss";
 
 export interface FlexLayoutProps extends BaseViewProps {
@@ -17,6 +19,8 @@ export interface FlexLayoutProps extends BaseViewProps {
   align?: Align;
   padding?: Padding;
   direction?: FlexDirection;
+  surface?: Surface;
+  basis?: string | number;
 }
 
 export const FlexLayout = React.forwardRef(function FlexLayout(
@@ -27,6 +31,8 @@ export const FlexLayout = React.forwardRef(function FlexLayout(
     align = "none",
     padding = "none",
     direction = "column",
+    surface,
+    basis,
     ...otherProps
   }: FlexLayoutProps,
   ref?: React.Ref<HTMLElement>,
@@ -41,8 +47,13 @@ export const FlexLayout = React.forwardRef(function FlexLayout(
           gap: getSpacing(gap),
           justifyContent: justify,
           alignItems: align,
+          minWidth: 0,
+          ...(basis != null
+            ? { flexBasis: typeof basis === "number" ? `${basis}px` : basis }
+            : {}),
         },
         getPadding(padding),
+        surface && getSurface(surface),
         jss,
       ]}
       {...otherProps}

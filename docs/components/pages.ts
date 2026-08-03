@@ -25,12 +25,13 @@ export const pages: Array<Page> = [
     headlineBold: true,
   },
   {
+    type: "link",
+    page: "Philosophy",
+  },
+  {
     type: "section",
     label: "CSS",
-    content: [
-      { type: "link", page: "css-in-js", name: "jss" },
-      { type: "link", page: "VisualSystem", name: "Visual system" },
-    ],
+    content: [{ type: "link", page: "css-in-js", name: "jss" }],
   },
   {
     type: "section",
@@ -38,6 +39,7 @@ export const pages: Array<Page> = [
     content: [
       { type: "link", page: "FlexLayout" },
       { type: "link", page: "NavigationSplitView" },
+      { type: "link", page: "Toolbar" },
     ],
   },
   {

@@ -263,6 +263,8 @@ export type Margin = Spacing | [Spacing, Spacing];
 
 export type Material = "aurora" | "dawn" | "mist" | "twilight";
 
+export type Surface = "primary" | "secondary" | "overlay";
+
 export type Direction = "horizontal" | "vertical";
 
 export type Position = "start" | "end";
@@ -290,6 +292,7 @@ export type TextColor =
   | "primary"
   | "secondary"
   | "highlight"
+  | "warning"
   | "negative"
   | "subtle"
   | "light"
@@ -323,6 +326,17 @@ export function getMaterial(material: Material): Styles {
         backdropFilter: "blur(20px) saturate(115%)",
       };
   }
+}
+
+export function getSurface(surface: Surface): Styles {
+  return {
+    backgroundColor:
+      surface === "primary"
+        ? cssVar("--primary-background")
+        : surface === "secondary"
+          ? cssVar("--secondary-background")
+          : cssVar("--overlay-background"),
+  };
 }
 
 const sizes: { [size in Size]: string } = {
@@ -466,7 +480,7 @@ export const lightTheme: Theme = {
   ["--material-twilight"]:
     "radial-gradient(115% 95% at 0% 10%, rgba(103, 91, 214, 0.1), transparent 60%), radial-gradient(110% 90% at 100% 100%, rgba(196, 105, 151, 0.07), transparent 62%), linear-gradient(145deg, rgba(243, 242, 249, 0.97), rgba(229, 231, 241, 0.93))",
   /* Effects */
-  ["--warning"]: "rgb(255, 204, 0)",
+  ["--warning"]: "rgb(166, 107, 0)",
   ["--highlight"]: "rgb(0, 122, 255)",
   ["--outline"]: "rgb(103, 176, 255)",
   ["--light-highlight"]: "rgb(220, 232, 245)",
@@ -712,9 +726,9 @@ export const MOBILE = 750;
 export const TABLET = 1000;
 export const LAPTOP = 1200;
 
-export const MOBILE_MEDIA = `@media (min-width: 0px) and (max-width: ${MOBILE}px)`;
-export const TABLET_MEDIA = `@media (min-width: ${MOBILE}px) and (max-width: ${TABLET}px)`;
-export const LAPTOP_MEDIA = `@media (min-width: ${TABLET}px) and (max-width: ${LAPTOP}px)`;
+export const MOBILE_MEDIA = `@media (min-width: 0px) and (max-width: ${MOBILE - 1}px)`;
+export const TABLET_MEDIA = `@media (min-width: ${MOBILE}px) and (max-width: ${TABLET - 1}px)`;
+export const LAPTOP_MEDIA = `@media (min-width: ${TABLET}px) and (max-width: ${LAPTOP - 1}px)`;
 export const DESKTOP_MEDIA = `@media (min-width: ${LAPTOP}px)`;
 
 export function mobile(jss: JSS): { [key: string]: JSS } {
@@ -750,6 +764,9 @@ const textColorStyles = {
   },
   highlight: {
     color: cssVar("--highlight-text"),
+  },
+  warning: {
+    color: cssVar("--warning"),
   },
   negative: {
     color: cssVar("--negative-text"),

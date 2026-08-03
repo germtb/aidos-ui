@@ -1,58 +1,127 @@
+import { CompleteInterface } from "../components/landing/CompleteInterface";
+import { ControlsShowcase } from "../components/landing/ControlsShowcase";
+import { DesktopInterface } from "../components/landing/DesktopInterface";
+import { MaterialsShowcase } from "../components/landing/MaterialsShowcase";
+import { MobileInterface } from "../components/landing/MobileInterface";
+import { Card, Column, H2, Link, P, Row } from "../../src";
+
 # Aidos UI
 
-This is a React design system library with many utilities and zero dependencies. It was built with the aim to be simple, lightweight and beautiful.
+This is a React design system library with many utilities and zero dependencies.
+It was built with the aim to be simple, lightweight, and beautiful. The
+components below are the real library, composed into the kinds of screens
+applications actually need.
 
-- [Why](/#why)
-- [Who is this for](/#who-is-this-for)
-- [Design philosophy](/#design-philosophy)
-- [Installation](/#installation)
-- [How to use](/#how-to-use)
-
-## Why?
-
-Over the years I have always have many side projects, and many of them needed a UI. I disliked every available library because they had so much code to support many cases I did not care about. Back in 2019 I thought, maybe I could make my own design system, with just enough javascript to do things exactly how I wanted them to be, and so I did. Since then it has changed quite a bit and it is now something I am more or less proud of. It has everything I have ever needed and it is done in the way I find simplest and least convoluted. This is all ultimately very subjective, and that is fine, because the first design decision of this library was that it would be extremely opinionated. With that said, although this library does not lend it self to modification, it does tend to be fairly easy to extend and compose with it. I am now making this documentation with the vague weak conviction that someone out there may benefit from it. I still dislike other design libraries not because they are not capable but becuse they are too general purpose. I wanted this library to be not-general purpose, but if this happens to fit your needs, it should be the lightest and simplest option available. This will not try to solve all your problems but it will solve a few problems really well.
+<Card material="aurora" variant="floating" padding="xlarge" gap="xlarge">
+  <Column gap="medium">
+    <H2
+      size="xxlarge"
+      bold
+      children="A small system with a strong point of view"
+    />
+    <P
+      size="large"
+      color="secondary"
+      children="Accessible controls, composable layout primitives, atmospheric surfaces, and no runtime styling dependency."
+    />
+  </Column>
+  <Row gap="medium" align="center" wrap>
+    <Link color="primary" href="#a-complete-interface" icon="sparkles">
+      Explore the components
+    </Link>
+    <Link color="secondary" href="/Philosophy" icon="book-open" bare>
+      Read the philosophy
+    </Link>
+  </Row>
+</Card>
 
 ---
 
-## Who is this for?
+## A complete interface
 
-I initially only planned to use this myself so its features and design have so far reflected the things I have been working on. However I keep extending this library, and I think that with more users it may be possible to add more ideas and usecases so that this becomes a really complete system.
+Primitives stay useful on their own, but they are designed to become more than
+the sum of their parts. This workspace combines surfaces, navigation, identity,
+progress, inputs, and actions without application-specific CSS.
+
+<CompleteInterface />
 
 ---
 
-## Design philosophy
+## Controls that compose
 
-1. <b>Opinionated</b>
+Inputs and actions share spacing, focus, typography, and interaction behavior,
+so small forms feel coherent without a layer of application-specific CSS.
 
-First and foremost, this library is extremely opinionated. This is so because I believe HTML is too low level and error prone, CSS defaults are not beautiful enough, and the web in general too big a toolkit to make simple things work in the way you expect. So, for the sake of simplicity, this library imposes opinions at every step. These opinions will not fit everyone's needs, and that is a sacrifice that can be made for the sake of simplicity.
+<ControlsShowcase />
 
-3. <b>Modular</b>
+---
 
-There is no limit to the number of features and components that can be added, as long as every piece remains modular, or at most, composed out of its simpler parts. This is important to keep bundle sizes under control and also to keep the API sane. Modular components imply abstractions that do not depend on each other. This helps keep overall complexity low, so that it is simpler to extend the system.
+## Atmosphere with restraint
 
-3. <b>Accessible</b>
+Materials add character without changing component structure. They adapt to
+both themes and can be reserved for navigation, focal cards, and application
+chrome.
 
-By design every component should be accessible, paying attention to keyboard navigation, focusable elements, adding helpful aria properties and following wcag specificaitons as faithfully as possible.
+<MaterialsShowcase />
 
-4. <b>Dependency free</b>
+---
 
-As few dependencies as possible, to keep things light and under control. The only dependency right now is [iconify](https://github.com/iconify/iconify) because I am not able to re-create all icons myself.
+## Mobile
+
+The compact interface combines an application header, content hierarchy,
+status, actions, and the real keyboard-navigable TabBar.
+
+<MobileInterface />
+
+---
+
+## Desktop
+
+The same hierarchy becomes a persistent master-detail workspace.
+NavigationSplitView owns the responsive geometry while the sidebar, toolbar,
+content, and context panel remain ordinary composable surfaces.
+
+<DesktopInterface />
+
+Explore the responsive shell and its API on the
+[NavigationSplitView documentation](/NavigationSplitView).
 
 ---
 
 ## Installation
 
-This library can be installed through npm
+This library can be installed through npm:
 
 ```bash
 npm install --save aidos-ui
 ```
 
----
-
 ## How to use
 
-- The `Providers` component somewhere in the application.
-- If the application is running in nextjs, the `JSServerStyles` component has to be used in the \_document `<Head />`, this enables jss to work also server side.
+Add the `Providers` component somewhere near your application root:
 
----
+```tsx
+import { Providers, darkTheme, lightTheme } from "aidos-ui";
+
+<Providers themes={{ light: lightTheme, dark: darkTheme }}>
+  <App />
+</Providers>;
+```
+
+If the application is running in Next.js, add `JSServerStyles` to the
+document `<Head />` so JSS also works during server rendering:
+
+```tsx
+import { JSServerStyles } from "aidos-ui";
+
+<Head>
+  <JSServerStyles />
+</Head>;
+```
+
+Then start with a component or copy one of the compositions above. The library
+is intentionally opinionated, but every primitive is designed to extend cleanly.
+
+<Link color="primary" href="/Card" icon="arrow-right" iconPosition="right">
+  Start with surfaces
+</Link>

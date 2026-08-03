@@ -53,6 +53,7 @@ export function Tabs({
       role="tablist"
       jss={[
         variant === "segmented" && {
+          isolation: "isolate",
           backgroundColor: cssVar("--hovered-background"),
           borderRadius: cssVar("--border-radius-l"),
           maxWidth: "100%",
@@ -117,11 +118,14 @@ export function Tabs({
                 },
                 variant === "segmented" && {
                   position: "relative",
+                  zIndex: selected ? 1 : 0,
                   borderRadius: cssVar("--border-radius-m"),
                   backgroundColor: selected
                     ? cssVar("--overlay-background")
                     : "transparent",
-                  boxShadow: selected ? cssVar("--shadow-sm") : "none",
+                  boxShadow: selected
+                    ? `0 0 0 1px ${cssVar("--divider")}, 0 0 4px color-mix(in srgb, ${cssVar("--primary-text")} 10%, transparent)`
+                    : "none",
                   transition: `background-color ${cssVar("--transition-fast")}, box-shadow ${cssVar("--transition-fast")}`,
                   ":hover": {
                     backgroundColor: selected

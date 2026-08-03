@@ -15,11 +15,12 @@ An unframed container for displaying related items vertically. Lists provide one
 
 ### List
 
-| Prop         | Type      | Required | Default | Description                   |
-| ------------ | --------- | -------- | ------- | ----------------------------- |
-| `ariaLabel`  | `string`  | Yes      | -       | Accessible label for the list |
-| `navigation` | `boolean` | No       | `true`  | Enable arrow key navigation   |
-| `autofocus`  | `boolean` | No       | `false` | Focus the first item on mount |
+| Prop         | Type      | Required | Default   | Description                   |
+| ------------ | --------- | -------- | --------- | ----------------------------- |
+| `ariaLabel`  | `string`  | Yes      | -         | Accessible label for the list |
+| `navigation` | `boolean` | No       | `true`    | Enable arrow key navigation   |
+| `autofocus`  | `boolean` | No       | `false`   | Focus the first item on mount |
+| `gap`        | `Gap`     | No       | `"small"` | Vertical space between items  |
 
 ### List item components
 
@@ -30,6 +31,13 @@ An unframed container for displaying related items vertically. Lists provide one
 - **`Sublist`** - Collapsible group of items
 
 All item components accept `TextPairing` props such as `headline`, `body`, and `addOn`.
+Static `ListItem` rows have no padding by default, so they align naturally
+inside cards and other padded containers. Interactive items retain medium
+padding for their full hit area.
+Static `ListItem` bodies wrap by default, while interactive navigation items
+use medium supporting text and wrap by default. Interactive navigation items
+retain compact, single-line truncation. `outerAddOn` provides a consistently
+aligned trailing status or action slot.
 
 ---
 

@@ -7,14 +7,6 @@ import { Row } from "../../src/Row";
 import { TabBar } from "../../src/TabBar";
 import { Tabs } from "../../src/Tabs";
 import { TextPairing } from "../../src/TextPairing";
-import { desktop, laptop, mobile, tablet } from "../../src/jss";
-
-export const responsiveDirection = [
-  mobile({ flexDirection: "column", alignItems: "stretch" }),
-  tablet({ flexDirection: "column", alignItems: "stretch" }),
-  laptop({ flexDirection: "row", alignItems: "stretch" }),
-  desktop({ flexDirection: "row", alignItems: "stretch" }),
-];
 
 # Visual system laboratory
 
@@ -26,18 +18,11 @@ This page dogfoods Aidos's surface, navigation, input, and control foundations. 
 
 The default card remains the baseline. Tonal cards separate content through color, floating cards use external elevation, and the aurora material adds an atmospheric blue-green surface treatment.
 
-<Row gap="large" align="stretch" jss={responsiveDirection}>
-  <Card
-    grow
-    variant="default"
-    padding="xlarge"
-    gap="xlarge"
-    jss={{ minWidth: 0 }}
-  >
+<Row gap="large" align="stretch" wrap>
+  <Card grow basis={320} variant="default" padding="xlarge" gap="xlarge">
     <TextPairing
       headline="Default"
       body="Current Aidos card treatment"
-      bodyEllipsis={false}
       headlineBold
     />
     <Button
@@ -47,17 +32,10 @@ The default card remains the baseline. Tonal cards separate content through colo
       onClick={() => {}}
     />
   </Card>
-  <Card
-    grow
-    variant="tonal"
-    padding="xlarge"
-    gap="xlarge"
-    jss={{ minWidth: 0 }}
-  >
+  <Card grow basis={320} variant="tonal" padding="xlarge" gap="xlarge">
     <TextPairing
       headline="Tonal"
       body="Separation without elevation"
-      bodyEllipsis={false}
       headlineBold
     />
     <Button
@@ -67,17 +45,10 @@ The default card remains the baseline. Tonal cards separate content through colo
       onClick={() => {}}
     />
   </Card>
-  <Card
-    grow
-    variant="floating"
-    padding="xlarge"
-    gap="xlarge"
-    jss={{ minWidth: 0 }}
-  >
+  <Card grow basis={320} variant="floating" padding="xlarge" gap="xlarge">
     <TextPairing
       headline="Floating"
       body="External ambient elevation"
-      bodyEllipsis={false}
       headlineBold
     />
     <Button
@@ -95,36 +66,28 @@ The default card remains the baseline. Tonal cards separate content through colo
 
 Materials describe how a surface looks rather than where it belongs. Each treatment adapts to light and dark themes and can be combined independently with a Card elevation variant.
 
-<Row gap="large" align="stretch" jss={{ flexWrap: "wrap" }}>
-  <Card material="aurora" jss={{ flex: "1 1 400px", minWidth: 0 }}>
+<Row gap="large" align="stretch" wrap>
+  <Card grow basis={400} material="aurora">
     <TextPairing
       headline="Aurora"
       body="Diffuse blue-green light"
-      bodyEllipsis={false}
       headlineBold
     />
   </Card>
-  <Card material="dawn" jss={{ flex: "1 1 400px", minWidth: 0 }}>
+  <Card grow basis={400} material="dawn">
     <TextPairing
       headline="Dawn"
       body="Pale sky, peach, and restrained gold"
-      bodyEllipsis={false}
       headlineBold
     />
   </Card>
-  <Card material="mist" jss={{ flex: "1 1 400px", minWidth: 0 }}>
-    <TextPairing
-      headline="Mist"
-      body="Neutral, milky diffusion"
-      bodyEllipsis={false}
-      headlineBold
-    />
+  <Card grow basis={400} material="mist">
+    <TextPairing headline="Mist" body="Neutral, milky diffusion" headlineBold />
   </Card>
-  <Card material="twilight" jss={{ flex: "1 1 400px", minWidth: 0 }}>
+  <Card grow basis={400} material="twilight">
     <TextPairing
       headline="Twilight"
       body="Deep indigo with fading violet warmth"
-      bodyEllipsis={false}
       headlineBold
     />
   </Card>

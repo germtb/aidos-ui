@@ -41,12 +41,25 @@ function getInitial(name: string): string | null {
   return Array.from(character.toLocaleUpperCase())[0] ?? null;
 }
 
+const avatarPalettes = [
+  ["#eed1cf", "#d6aaa9"],
+  ["#efd5bd", "#d8ae8c"],
+  ["#e6d9b9", "#c8b887"],
+  ["#ceddc5", "#a8c09d"],
+  ["#c6ded8", "#97bdb4"],
+  ["#c9dbea", "#9ebbd2"],
+  ["#d0d2ea", "#a7abd1"],
+  ["#ddcde9", "#baa1cf"],
+  ["#e6ccdc", "#c4a0b6"],
+] as const;
+
+const avatarTextColor = "rgb(42, 45, 52)";
+
 function getGradient(name: string): string {
   const seed = hash(normalizeName(name).toLocaleLowerCase());
-  const firstHue = seed % 360;
-  const secondHue = (firstHue + 35 + (seed % 55)) % 360;
+  const palette = avatarPalettes[seed % avatarPalettes.length];
 
-  return `radial-gradient(circle at 24% 18%, hsl(${secondHue} 68% 58%), transparent 54%), linear-gradient(145deg, hsl(${firstHue} 62% 48%), hsl(${secondHue} 58% 38%))`;
+  return `radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.45), transparent 52%), linear-gradient(145deg, ${palette[0]}, ${palette[1]})`;
 }
 
 export const Avatar = React.forwardRef(function Avatar(
@@ -88,19 +101,24 @@ export const Avatar = React.forwardRef(function Avatar(
           overflow: "hidden",
           borderRadius: "50%",
           background: getGradient(name),
-          color: cssVar("--light-text"),
+          color: avatarTextColor,
           userSelect: "none",
         }}
       >
         {initial == null ? (
-          <Icon icon="user" size={textSizes[size]} color="light" />
+          <Icon
+            icon="user"
+            size={textSizes[size]}
+            color="light"
+            jss={{ color: avatarTextColor }}
+          />
         ) : (
           <Span
             size={textSizes[size]}
             color="light"
             bold
             aria-hidden="true"
-            jss={{ lineHeight: 1, textShadow: "0 1px 2px rgba(0, 0, 0, 0.2)" }}
+            jss={{ color: avatarTextColor, lineHeight: 1 }}
           >
             {initial}
           </Span>
@@ -133,12 +151,13 @@ export const Avatar = React.forwardRef(function Avatar(
           aria-hidden="true"
           jss={{
             position: "absolute",
-            right: 0,
-            bottom: 0,
+            right: "14.65%",
+            bottom: "14.65%",
             display: "flex",
             borderRadius: "50%",
             boxShadow: `0 0 0 2px ${cssVar("--overlay-background")}`,
             pointerEvents: "none",
+            transform: "translate(50%, 50%)",
           }}
         >
           {badge}

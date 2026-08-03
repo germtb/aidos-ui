@@ -64,6 +64,22 @@ Both `Row` and `Column` accept the same props:
 | `grow` | `boolean` | `false` | Allow element to grow (flex-grow: 1) |
 | `shrink` | `boolean` | `false` | Allow element to shrink (flex-shrink: 1) |
 | `wrap` | `boolean` | `false` | Allow items to wrap |
+| `basis` | `string \| number` | - | Initial flex basis before growing or shrinking |
+| `surface` | `"primary" \| "secondary" \| "overlay"` | - | Apply a semantic theme surface |
+
+Flex layouts use `min-width: 0` by default, so growing children can shrink and
+wrap inside constrained rows without application-specific fixes.
+
+```tsx
+<Row wrap gap="large">
+  <Card grow basis={320}>First</Card>
+  <Card grow basis={320}>Second</Card>
+</Row>
+
+<Column surface="primary" padding="large">
+  Content
+</Column>
+```
 
 ---
 

@@ -2,7 +2,7 @@ import React from "react";
 import { Icon as IconifyIcon } from "@iconify/react";
 import { BaseView } from "./BaseView";
 import { IconType } from "./IconType";
-import { Size, TextColor, getTextColor } from "./jss";
+import { JSS, Size, TextColor, getTextColor } from "./jss";
 
 const styles = {
   root: {
@@ -44,17 +44,15 @@ const styles = {
   },
 };
 
-export function Icon({
-  icon,
-  size,
-  color,
-  ariaLabel,
-}: {
+export interface IconProps {
   ariaLabel?: string;
   icon: IconType;
   size: Size;
   color: TextColor;
-}) {
+  jss?: JSS;
+}
+
+export function Icon({ icon, size, color, ariaLabel, jss }: IconProps) {
   return (
     <BaseView
       aria-label={ariaLabel}
@@ -68,6 +66,7 @@ export function Icon({
         size === "xxlarge" && styles.xxlarge,
         size === "xxxlarge" && styles.xxxlarge,
         getTextColor(color),
+        jss,
       ]}
     >
       <IconifyIcon icon={`lucide:${icon}`} width="100%" height="100%" />

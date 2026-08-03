@@ -2,7 +2,7 @@ import React from "react";
 import { BaseList, BaseListProps } from "./BaseList";
 import { useNavigation } from "./useNavigation";
 
-interface ListProps extends BaseListProps {
+export interface ListProps extends BaseListProps {
   ariaLabel: string;
   autofocus?: boolean;
   role?: undefined;
@@ -12,6 +12,7 @@ interface ListProps extends BaseListProps {
 export function List({
   ariaLabel,
   jss,
+  gap = "small",
   autofocus = false,
   navigation = true,
   ...otherProps
@@ -24,6 +25,7 @@ export function List({
       aria-label={ariaLabel}
       ref={rootRef}
       jss={[{ overflow: "hidden" }, jss]}
+      gap={gap}
       {...otherProps}
     />
   );

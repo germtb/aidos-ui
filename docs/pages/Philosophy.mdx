@@ -1,0 +1,73 @@
+# Philosophy
+
+Aidos began as a personal answer to a recurring problem: small applications
+needed thoughtful UI, while general-purpose systems carried more flexibility
+and complexity than those applications needed.
+
+- [Why Aidos exists](#why-aidos-exists)
+- [Who it is for](#who-it-is-for)
+- [Design principles](#design-principles)
+
+---
+
+## Why Aidos exists
+
+Over the years I have built many side projects, and many of them needed a UI.
+Most available libraries supported a broad range of cases I did not need. In
+2019 I decided to build a design system with just enough JavaScript to make
+interfaces work exactly how I wanted them to.
+
+Since then Aidos has changed considerably. It contains the pieces I repeatedly
+need, expressed in the simplest form I have found. That is subjective by
+design: the first decision behind the library was that it would be
+opinionated.
+
+Aidos does not try to be a general-purpose answer to every interface. It aims
+to solve a smaller set of problems especially well, with components that are
+easy to compose and extend when the system fits the application.
+
+---
+
+## Who it is for
+
+Aidos is for people who value strong defaults, compact APIs, accessible
+interaction, and a coherent visual language more than unlimited
+customizability. It works particularly well for focused products, internal
+tools, and side projects that should feel considered without carrying a large
+design-system layer.
+
+---
+
+## Design principles
+
+### Opinionated
+
+HTML is low-level, browser defaults are rarely enough, and the web platform is
+too large a toolkit for every application to rebuild the same foundations.
+Aidos imposes opinions so common interface work stays simple. Those opinions
+will not fit every product, and that tradeoff is intentional.
+
+### Modular
+
+Features can grow as long as each piece remains modular or is composed from
+smaller primitives. Independent abstractions keep APIs understandable, bundle
+sizes controlled, and the system straightforward to extend.
+
+### Accessible
+
+Components are designed with keyboard navigation, visible focus, useful ARIA
+semantics, and WCAG guidance in mind. Accessibility is part of component
+behavior rather than an application-level afterthought.
+
+### Dependency-light
+
+The dependency surface stays deliberately small so behavior and package weight
+remain under control. Iconify supplies the icon catalog; the styling and
+component foundations remain part of Aidos itself.
+
+---
+
+## Continue exploring
+
+Return to the [component showcase](/), or begin with the [Card](/Card),
+[Button](/Button), and [TextInput](/TextInput) APIs.

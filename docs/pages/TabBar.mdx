@@ -126,6 +126,11 @@ Tabs without `href` render as buttons, which is useful when navigation state is 
 />
 ```
 
+## Keyboard navigation
+
+The TabBar is a single Tab stop. Arrow keys move focus between destinations and
+wrap at either end. Enter or Space activates the focused link or button.
+
 ## Accessibility
 
 `TabBar` renders a `<nav>` landmark. The selected destination receives `aria-current="page"`. Because it navigates between pages or application destinations, it intentionally does not use ARIA `tablist` semantics.

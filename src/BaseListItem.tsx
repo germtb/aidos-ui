@@ -3,10 +3,12 @@ import React, { ReactNode } from "react";
 import { Row, RowProps } from "./Row";
 import { JSS, Size, Position, Spacing, TextColor } from "./jss";
 import { TextPairing } from "./TextPairing";
-import { BaseView } from "./BaseView";
+import { BaseListAddOn } from "./BaseListAddOn";
 
-export interface BaseListItemProps
-  extends Omit<RowProps, "children" | "jss" | "role"> {
+export interface BaseListItemProps extends Omit<
+  RowProps,
+  "children" | "jss" | "role"
+> {
   children: (elements: { content: React.JSX.Element }) => ReactNode;
   jss?: JSS;
   headline: string;
@@ -17,6 +19,7 @@ export interface BaseListItemProps
   body?: string;
   bodySize?: Size;
   bodyColor?: TextColor;
+  bodyEllipsis?: boolean;
   addOn?: ReactNode;
   addOnPosition?: Position;
   outerAddOn?: ReactNode;
@@ -37,6 +40,7 @@ export const BaseListItem = React.forwardRef(function BaseListItem(
     body,
     bodySize = "small",
     bodyColor = "secondary",
+    bodyEllipsis = true,
     addOn,
     addOnPosition,
     outerAddOn,
@@ -65,6 +69,7 @@ export const BaseListItem = React.forwardRef(function BaseListItem(
       body={body}
       bodySize={bodySize}
       bodyColor={disabled ? "subtle" : bodyColor}
+      bodyEllipsis={bodyEllipsis}
       grow={true}
       shrink={false}
     />
@@ -81,7 +86,9 @@ export const BaseListItem = React.forwardRef(function BaseListItem(
       >
         {children({ content })}
       </Row>
-      {outerAddOn && <BaseView role="gridcell">{outerAddOn}</BaseView>}
+      {outerAddOn && (
+        <BaseListAddOn role="gridcell">{outerAddOn}</BaseListAddOn>
+      )}
     </Row>
   );
 });

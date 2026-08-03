@@ -43,10 +43,10 @@ export function TextPairing({
   headlineAddOn,
   bodyColor = "secondary",
   bodySize = "medium",
-  bodyEllipsis = true,
+  bodyEllipsis = false,
   addOn,
   addOnPosition = "start",
-  gap = "small",
+  gap = "medium",
   align = "stretch",
   grow,
   shrink,
@@ -69,14 +69,18 @@ export function TextPairing({
     >
       <Row
         align="center"
+        gap="small"
         jss={{
           textAlign: "start",
+          minWidth: 0,
         }}
       >
         <Text bold={headlineBold} color={headlineColor} size={headlineSize}>
           {headline}
         </Text>
-        {headlineAddOn && <BaseView>{headlineAddOn}</BaseView>}
+        {headlineAddOn && (
+          <BaseView jss={{ flexShrink: 0 }}>{headlineAddOn}</BaseView>
+        )}
       </Row>
       {body && (
         <Row

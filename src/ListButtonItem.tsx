@@ -8,8 +8,10 @@ import {
 } from "./Interactable";
 import { BaseButton } from "./BaseButton";
 
-interface ListButtonItemProps
-  extends Omit<BaseListItemProps, "children" | "onClick"> {
+export interface ListButtonItemProps extends Omit<
+  BaseListItemProps,
+  "children" | "onClick"
+> {
   color?: InteractableColor;
   onClick: () => void;
   headline: string;
