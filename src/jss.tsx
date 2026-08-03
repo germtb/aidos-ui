@@ -449,14 +449,14 @@ export type Theme = {
 export const lightTheme: Theme = {
   /* Background */
   ["--overlay-background"]: "rgb(255, 255, 255)",
-  ["--primary-background"]: "rgb(248, 248, 250)",
-  ["--secondary-background"]: "rgb(242, 242, 245)",
-  ["--divider"]: "rgb(218, 218, 222)",
+  ["--primary-background"]: "rgb(247, 248, 251)",
+  ["--secondary-background"]: "rgb(240, 242, 246)",
+  ["--divider"]: "rgb(216, 219, 226)",
   ["--strong-divider"]: "rgb(100, 100, 100)",
-  ["--pressed-background"]: "rgb(226, 226, 230)",
-  ["--hovered-background"]: "rgb(238, 238, 241)",
-  ["--selected-background"]: "rgb(232, 232, 236)",
-  ["--nav-bar"]: "rgb(244, 244, 246)",
+  ["--pressed-background"]: "rgb(224, 227, 234)",
+  ["--hovered-background"]: "rgb(235, 238, 244)",
+  ["--selected-background"]: "rgb(228, 232, 240)",
+  ["--nav-bar"]: "rgb(242, 244, 248)",
   ["--material-aurora"]:
     "radial-gradient(120% 90% at 0% 10%, rgba(66, 184, 131, 0.04), transparent 58%), radial-gradient(110% 100% at 100% 90%, rgba(70, 132, 255, 0.055), transparent 62%), linear-gradient(145deg, rgba(248, 249, 252, 0.96), rgba(236, 240, 245, 0.92))",
   ["--material-dawn"]:
@@ -520,15 +520,15 @@ export const lightTheme: Theme = {
 
 export const darkTheme: Theme = {
   /* Background */
-  ["--overlay-background"]: "rgb(35, 36, 37)",
-  ["--primary-background"]: "rgb(42, 43, 46)",
-  ["--secondary-background"]: "rgb(65, 66, 67)",
-  ["--divider"]: "rgb(70, 72, 73)",
+  ["--overlay-background"]: "rgb(42, 45, 52)",
+  ["--primary-background"]: "rgb(34, 36, 42)",
+  ["--secondary-background"]: "rgb(47, 50, 58)",
+  ["--divider"]: "rgb(61, 65, 75)",
   ["--strong-divider"]: "rgb(100, 100, 100)",
-  ["--pressed-background"]: "rgb(90, 92, 93)",
-  ["--hovered-background"]: "rgb(50, 53, 54)",
-  ["--selected-background"]: "rgb(65, 68, 69)",
-  ["--nav-bar"]: "rgb(34, 35, 36)",
+  ["--pressed-background"]: "rgb(70, 75, 86)",
+  ["--hovered-background"]: "rgb(48, 52, 61)",
+  ["--selected-background"]: "rgb(56, 61, 72)",
+  ["--nav-bar"]: "rgb(29, 31, 37)",
   ["--material-aurora"]:
     "radial-gradient(120% 90% at 0% 10%, rgba(45, 160, 112, 0.065), transparent 58%), radial-gradient(110% 100% at 100% 90%, rgba(66, 126, 245, 0.08), transparent 62%), linear-gradient(145deg, rgba(39, 41, 43, 0.96), rgba(27, 30, 33, 0.94))",
   ["--material-dawn"]:

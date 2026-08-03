@@ -45,7 +45,7 @@ export function RootView({
         flexShrink: 1,
         flexBasis: "0%",
         overflow: "auto",
-        backgroundColor: cssVar("--secondary-background"),
+        backgroundColor: cssVar("--primary-background"),
         minHeight: "600px",
       }}
     >
