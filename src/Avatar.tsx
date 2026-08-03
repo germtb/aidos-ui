@@ -42,15 +42,15 @@ function getInitial(name: string): string | null {
 }
 
 const avatarPalettes = [
-  ["#eed1cf", "#d6aaa9"],
-  ["#efd5bd", "#d8ae8c"],
-  ["#e6d9b9", "#c8b887"],
-  ["#ceddc5", "#a8c09d"],
-  ["#c6ded8", "#97bdb4"],
-  ["#c9dbea", "#9ebbd2"],
-  ["#d0d2ea", "#a7abd1"],
-  ["#ddcde9", "#baa1cf"],
-  ["#e6ccdc", "#c4a0b6"],
+  ["#eed1cf", "#baa1cf"],
+  ["#efd5bd", "#9ebbd2"],
+  ["#e6d9b9", "#c4a0b6"],
+  ["#ceddc5", "#a7abd1"],
+  ["#c6ded8", "#d6aaa9"],
+  ["#c9dbea", "#d8ae8c"],
+  ["#d0d2ea", "#a8c09d"],
+  ["#ddcde9", "#c8b887"],
+  ["#e6ccdc", "#97bdb4"],
 ] as const;
 
 const avatarTextColor = "rgb(42, 45, 52)";
@@ -59,7 +59,7 @@ function getGradient(name: string): string {
   const seed = hash(normalizeName(name).toLocaleLowerCase());
   const palette = avatarPalettes[seed % avatarPalettes.length];
 
-  return `radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.45), transparent 52%), linear-gradient(145deg, ${palette[0]}, ${palette[1]})`;
+  return `radial-gradient(circle at 24% 20%, ${palette[0]} 0%, transparent 68%), radial-gradient(circle at 82% 80%, ${palette[1]} 0%, transparent 72%), linear-gradient(145deg, #e5e1e6, #c9c5ce)`;
 }
 
 export const Avatar = React.forwardRef(function Avatar(
