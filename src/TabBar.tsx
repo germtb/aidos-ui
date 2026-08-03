@@ -77,6 +77,14 @@ const styles: { [key: string]: JSS } = {
     flex: 1,
     minWidth: 0,
   },
+  floatingItem: {
+    ":focus-visible": {
+      outlineOffset: -2,
+    },
+  },
+  floatingHorizontalItem: {
+    minWidth: "auto",
+  },
   verticalItem: {
     width: "100%",
   },
@@ -126,6 +134,10 @@ export function TabBar({
           const tabJSS: JSS = [
             styles.item,
             horizontal ? styles.horizontalItem : styles.verticalItem,
+            variant === "floating" && styles.floatingItem,
+            variant === "floating" &&
+              horizontal &&
+              styles.floatingHorizontalItem,
             selected && {
               backgroundColor: cssVar("--light-highlight"),
             },
