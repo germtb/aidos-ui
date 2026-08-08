@@ -1,6 +1,6 @@
 {
   "name": "aidos-ui",
-  "version": "5.0.8",
+  "version": "5.0.9",
   "description": "An opinionated React component library with built-in theming and CSS-in-JS",
   "keywords": [
     "react",
