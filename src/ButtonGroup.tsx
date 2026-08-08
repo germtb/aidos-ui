@@ -64,10 +64,10 @@ export function ButtonGroup<Value extends ButtonGroupValue>({
             jss={[
               {
                 flexGrow: 1,
-                borderTopLeftRadius: first ? cssVar("--border-radius-m") : 0,
-                borderBottomLeftRadius: first ? cssVar("--border-radius-m") : 0,
-                borderTopRightRadius: last ? cssVar("--border-radius-m") : 0,
-                borderBottomRightRadius: last ? cssVar("--border-radius-m") : 0,
+                borderTopLeftRadius: first ? cssVar("--border-radius-l") : 0,
+                borderBottomLeftRadius: first ? cssVar("--border-radius-l") : 0,
+                borderTopRightRadius: last ? cssVar("--border-radius-l") : 0,
+                borderBottomRightRadius: last ? cssVar("--border-radius-l") : 0,
                 boxShadow: "none",
                 transition: `background-color ${cssVar("--transition-fast")}, box-shadow ${cssVar("--transition-fast")}`,
               },
