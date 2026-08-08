@@ -63,6 +63,7 @@ export function ButtonGroup<Value extends ButtonGroupValue>({
             icon={option.icon}
             jss={[
               {
+                flexGrow: 1,
                 borderTopLeftRadius: first ? cssVar("--border-radius-m") : 0,
                 borderBottomLeftRadius: first ? cssVar("--border-radius-m") : 0,
                 borderTopRightRadius: last ? cssVar("--border-radius-m") : 0,
