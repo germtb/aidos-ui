@@ -56,17 +56,17 @@ export function ControlsShowcase() {
           <ListItem
             headline="Keyboard navigation"
             headlineColor="secondary"
-            outerAddOn={<Badge size="medium" color="highlight" />}
+            addOn={<Badge size="medium" color="highlight" />}
           />
           <ListItem
             headline="Light and dark themes"
             headlineColor="secondary"
-            outerAddOn={<Badge size="medium" color="highlight" />}
+            addOn={<Badge size="medium" color="highlight" />}
           />
           <ListItem
             headline="Responsive primitives"
             headlineColor="secondary"
-            outerAddOn={<Badge size="medium" color="highlight" />}
+            addOn={<Badge size="medium" color="highlight" />}
           />
         </List>
         <Link color="primary" href="/Button" icon="component" bare>

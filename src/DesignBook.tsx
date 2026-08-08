@@ -76,26 +76,14 @@ export function DesignBook() {
                     <List navigation={false} ariaLabel="Popover ">
                       <ListButtonItem
                         gap="medium"
-                        addOn={
-                          <Icon
-                            size="medium"
-                            color="primary"
-                            icon="contact-round"
-                          />
-                        }
+                        icon="contact-round"
                         headline="Option 1"
                         onClick={() => {}}
                         color={"primary"}
                       ></ListButtonItem>
                       <ListButtonItem
                         gap="medium"
-                        addOn={
-                          <Icon
-                            size="medium"
-                            color="primary"
-                            icon="sliders-horizontal"
-                          />
-                        }
+                        icon="sliders-horizontal"
                         headline="Option 2"
                         onClick={() => {}}
                         color={"primary"}
@@ -127,26 +115,14 @@ export function DesignBook() {
                     <List ariaLabel="Popover ">
                       <ListButtonItem
                         gap="medium"
-                        addOn={
-                          <Icon
-                            size="medium"
-                            color="primary"
-                            icon="contact-round"
-                          />
-                        }
+                        icon="contact-round"
                         headline="Option 1"
                         onClick={() => {}}
                         color={"primary"}
                       ></ListButtonItem>
                       <ListButtonItem
                         gap="medium"
-                        addOn={
-                          <Icon
-                            size="medium"
-                            color="primary"
-                            icon="sliders-horizontal"
-                          />
-                        }
+                        icon="sliders-horizontal"
                         headline="Option 2"
                         onClick={() => {}}
                         color={"primary"}
@@ -402,11 +378,7 @@ export function DesignBook() {
           />
           <ListButtonItem
             gap="medium"
-            addOn={
-              <Box padding="medium">
-                <Icon size="medium" color="primary" icon="contact-round" />
-              </Box>
-            }
+            icon="contact-round"
             headline="Really long body"
             body="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
             onClick={() => {}}

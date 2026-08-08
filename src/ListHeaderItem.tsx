@@ -1,19 +1,24 @@
 import React, { ReactNode } from "react";
 import { BaseListItem } from "./BaseListItem";
-import { Position } from "./jss";
+import { IconType } from "./IconType";
+import { Position, Size } from "./jss";
 
 export function ListHeaderItem({
   highlight,
   headline,
   body,
+  icon,
+  iconPosition,
+  iconSize,
   addOn,
-  addOnPosition,
 }: {
   highlight?: boolean;
   headline: string;
   body?: string;
+  icon?: IconType;
+  iconPosition?: Position;
+  iconSize?: Size;
   addOn?: ReactNode;
-  addOnPosition?: Position;
 }) {
   return (
     <BaseListItem
@@ -21,8 +26,10 @@ export function ListHeaderItem({
       headlineColor={highlight ? "highlight" : "primary"}
       headlineBold={true}
       body={body}
+      icon={icon}
+      iconPosition={iconPosition}
+      iconSize={iconSize}
       addOn={addOn}
-      addOnPosition={addOnPosition}
     >
       {({ content }) => content}
     </BaseListItem>

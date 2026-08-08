@@ -158,39 +158,84 @@ export const getCSSColor = (
 
 export const getInteractableListItemJSS = ({
   selected,
+  disabled = false,
+  primarySelector,
 }: {
   selected: boolean | undefined;
+  disabled?: boolean;
+  primarySelector?: string;
 }) => {
-  return [
-    {
-      overflow: "hidden",
-      flexGrow: 1,
-      borderRadius: cssVar("--border-radius-m"),
-      textDecoration: "none",
-      ":focus-visible": {
-        outlineOffset: -2,
-      },
-      ":hover": {
-        backgroundColor: cssVar("--hovered-background"),
-      },
-      ":active:hover": {
-        backgroundColor: cssVar("--pressed-background"),
-      },
-      "[aria-disabled=true]": {
-        backgroundColor: cssVar("--primary-background"),
-      },
-      "[aria-disabled=true]:active:hover": {
-        backgroundColor: cssVar("--primary-background"),
-      },
-    },
-    selected && {
+  const stateSelector = (state: string) =>
+    primarySelector ? `:has(${primarySelector}${state})` : state;
+  const hoverSelector = stateSelector(":hover");
+  const pressedSelector = stateSelector(":active:hover");
+  const focusSelector = stateSelector(":focus-visible");
+
+  let stateJSS: JSS;
+  if (disabled) {
+    stateJSS = {
+      backgroundColor: cssVar("--primary-background"),
+    };
+  } else if (selected) {
+    stateJSS = {
       backgroundColor: cssVar("--light-highlight"),
-      ":hover": {
+      [hoverSelector]: {
         backgroundColor: cssVar("--light-highlight-hovered"),
       },
-      ":active:hover": {
+      [pressedSelector]: {
         backgroundColor: cssVar("--light-highlight-pressed"),
       },
+    };
+  } else {
+    stateJSS = {
+      [hoverSelector]: {
+        backgroundColor: cssVar("--hovered-background"),
+      },
+      [pressedSelector]: {
+        backgroundColor: cssVar("--pressed-background"),
+      },
+    };
+  }
+
+  return [
+    {
+      ...(!primarySelector && {
+        overflow: "hidden",
+        flexGrow: 1,
+        textDecoration: "none",
+      }),
+      borderRadius: cssVar("--border-radius-m"),
+      outlineColor: cssVar("--outline"),
+      [focusSelector]: primarySelector
+        ? {
+            outlineWidth: "2px",
+            outlineStyle: "solid",
+            outlineOffset: -2,
+          }
+        : {
+            outlineOffset: -2,
+          },
+      ...(!primarySelector && {
+        "[aria-disabled=true]": {
+          backgroundColor: cssVar("--primary-background"),
+        },
+        "[aria-disabled=true]:active:hover": {
+          backgroundColor: cssVar("--primary-background"),
+        },
+      }),
     },
+    stateJSS,
   ];
+};
+
+export const interactableListItemContentJSS: JSS = {
+  overflow: "hidden",
+  flexGrow: 1,
+  textDecoration: "none",
+  ":focus-visible": {
+    outline: "none",
+  },
+  ":hover": {
+    filter: "none",
+  },
 };

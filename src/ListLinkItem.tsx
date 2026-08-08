@@ -5,6 +5,7 @@ import {
   InteractableColor,
   getGlyphColor,
   getInteractableListItemJSS,
+  interactableListItemContentJSS,
 } from "./Interactable";
 import { BaseLink } from "./BaseLink";
 
@@ -48,7 +49,14 @@ export const ListLinkItem = React.forwardRef(function ListLinkItem(
       bodyColor={getGlyphColor(color, disabled, true)}
       selected={selected}
       {...otherProps}
-      jss={jss}
+      jss={[
+        getInteractableListItemJSS({
+          selected,
+          disabled,
+          primarySelector: "[data-list-primary=true]",
+        }),
+        jss,
+      ]}
     >
       {({ content }) => (
         <BaseLink
@@ -61,7 +69,8 @@ export const ListLinkItem = React.forwardRef(function ListLinkItem(
           color={color}
           href={href}
           ref={ref}
-          jss={getInteractableListItemJSS({ selected })}
+          data-list-primary={true}
+          jss={interactableListItemContentJSS}
           onClick={onClick}
         >
           {content}

@@ -1,9 +1,11 @@
 import React, { ReactNode } from "react";
 
-import { Row, RowProps } from "./Row";
-import { JSS, Size, Position, Spacing, TextColor } from "./jss";
-import { TextPairing } from "./TextPairing";
 import { BaseListAddOn } from "./BaseListAddOn";
+import { Icon } from "./Icon";
+import { IconType } from "./IconType";
+import { Row, RowProps } from "./Row";
+import { JSS, Position, Size, Spacing, TextColor, getTextColor } from "./jss";
+import { TextPairing } from "./TextPairing";
 
 export interface BaseListItemProps extends Omit<
   RowProps,
@@ -20,9 +22,10 @@ export interface BaseListItemProps extends Omit<
   bodySize?: Size;
   bodyColor?: TextColor;
   bodyEllipsis?: boolean;
+  icon?: IconType;
+  iconPosition?: Position;
+  iconSize?: Size;
   addOn?: ReactNode;
-  addOnPosition?: Position;
-  outerAddOn?: ReactNode;
   disabled?: boolean;
   role?: undefined;
   gap?: Spacing;
@@ -41,9 +44,10 @@ export const BaseListItem = React.forwardRef(function BaseListItem(
     bodySize = "small",
     bodyColor = "secondary",
     bodyEllipsis = true,
+    icon,
+    iconPosition = "start",
+    iconSize = "medium",
     addOn,
-    addOnPosition,
-    outerAddOn,
     disabled = false,
     padding = "medium",
     gap = "medium",
@@ -53,18 +57,25 @@ export const BaseListItem = React.forwardRef(function BaseListItem(
   }: BaseListItemProps,
   ref?: React.Ref<HTMLElement>,
 ) {
+  const contentColor = disabled
+    ? "subtle"
+    : selected
+      ? "highlight"
+      : headlineColor;
   const content = (
     <TextPairing
       headlineBold={headlineBold}
       padding={padding}
       gap={gap}
-      addOn={addOn}
-      addOnPosition={addOnPosition}
+      addOn={
+        icon ? (
+          <Icon icon={icon} size={iconSize} color={contentColor} />
+        ) : undefined
+      }
+      addOnPosition={iconPosition}
       headline={headline}
       headlineSize={headlineSize}
-      headlineColor={
-        disabled ? "subtle" : selected ? "highlight" : headlineColor
-      }
+      headlineColor={contentColor}
       headlineAddOn={headlineAddOn}
       body={body}
       bodySize={bodySize}
@@ -76,7 +87,14 @@ export const BaseListItem = React.forwardRef(function BaseListItem(
   );
 
   return (
-    <Row {...otherProps} ref={ref} relative tag="li" role="row" jss={jss}>
+    <Row
+      {...otherProps}
+      ref={ref}
+      relative
+      tag="li"
+      role="row"
+      jss={[getTextColor(contentColor), jss]}
+    >
       <Row
         grow
         role="gridcell"
@@ -86,9 +104,7 @@ export const BaseListItem = React.forwardRef(function BaseListItem(
       >
         {children({ content })}
       </Row>
-      {outerAddOn && (
-        <BaseListAddOn role="gridcell">{outerAddOn}</BaseListAddOn>
-      )}
+      {addOn && <BaseListAddOn role="gridcell">{addOn}</BaseListAddOn>}
     </Row>
   );
 });

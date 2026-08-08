@@ -1,9 +1,11 @@
 import { List } from "../../src/List";
 import { ListItem } from "../../src/ListItem";
 import { ListButtonItem } from "../../src/ListButtonItem";
-import { ListLinkItem } from "../../src/ListLinkItem";
 import { Icon } from "../../src/Icon";
+import { ListLinkItem } from "../../src/ListLinkItem";
+import { Row } from "../../src/Row";
 import { Sublist } from "../../src/Sublist";
+import { Span } from "../../src/Text";
 
 # List
 
@@ -24,20 +26,23 @@ An unframed container for displaying related items vertically. Lists provide one
 
 ### List item components
 
+| Prop           | Type        | Default    | Description                                           |
+| -------------- | ----------- | ---------- | ----------------------------------------------------- |
+| `headline`     | `string`    | Required   | Primary text                                          |
+| `body`         | `string`    | -          | Optional supporting text                              |
+| `icon`         | `IconType`  | -          | Context-colored icon inside the primary content       |
+| `iconPosition` | `Position`  | `"start"`  | Position of the icon                                  |
+| `iconSize`     | `Size`      | `"medium"` | Size of the icon                                      |
+| `addOn`        | `ReactNode` | -          | Trailing status or action outside the primary content |
+
 - **`ListItem`** - Static, non-interactive item
 - **`ListButtonItem`** - Clickable button item
 - **`ListLinkItem`** - Navigation link item
 - **`ListHeaderItem`** - Section header
 - **`Sublist`** - Collapsible group of items
 
-All item components accept `TextPairing` props such as `headline`, `body`, and `addOn`.
-Static `ListItem` rows have no padding by default, so they align naturally
-inside cards and other padded containers. Interactive items retain medium
-padding for their full hit area.
-Static `ListItem` bodies wrap by default, while interactive navigation items
-use medium supporting text and wrap by default. Interactive navigation items
-retain compact, single-line truncation. `outerAddOn` provides a consistently
-aligned trailing status or action slot.
+All item components accept text props such as `headline` and `body`, plus an optional `icon`. Icons are part of the primary item content and inherit its semantic color. `addOn` provides a trailing status or action slot outside interactive buttons.
+Static and interactive items share the same padding, typography, icon spacing, and truncation defaults so mixed lists remain aligned.
 
 ---
 
@@ -49,20 +54,20 @@ Lists have no surrounding background or border. Interactive items receive a roun
   <ListItem
     headline="Notifications"
     body="Manage your notification preferences"
-    addOn={<Icon color="primary" icon="bell" size="medium" />}
+    icon="bell"
   />
   <ListButtonItem
     color="secondary"
     headline="Account"
     body="Update your profile information"
-    addOn={<Icon color="primary" icon="user" size="medium" />}
+    icon="user"
     onClick={() => {}}
   />
   <ListLinkItem
     href="/"
     color="secondary"
     headline="Help Center"
-    addOn={<Icon color="primary" icon="circle-question-mark" size="medium" />}
+    icon="circle-question-mark"
   />
 </List>
 
@@ -71,10 +76,21 @@ Lists have no surrounding background or border. Interactive items receive a roun
   <ListItem
     headline="Notifications"
     body="Manage your notification preferences"
-    addOn={<Icon color="primary" icon="bell" size="medium" />}
+    icon="bell"
   />
-  <ListButtonItem color="secondary" headline="Account" onClick={() => {}} />
-  <ListLinkItem href="/help" color="secondary" headline="Help Center" />
+  <ListButtonItem
+    color="secondary"
+    headline="Account"
+    body="Update your profile information"
+    icon="user"
+    onClick={() => {}}
+  />
+  <ListLinkItem
+    href="/help"
+    color="secondary"
+    headline="Help Center"
+    icon="circle-question-mark"
+  />
 </List>
 ```
 
@@ -88,27 +104,90 @@ Lists have no surrounding background or border. Interactive items receive a roun
   <ListButtonItem
     color="primary"
     headline="Create new"
-    addOn={<Icon color="highlight" icon="plus" size="medium" />}
+    icon="plus"
     onClick={() => {}}
   />
   <ListButtonItem
     color="secondary"
     headline="Edit item"
-    addOn={<Icon color="primary" icon="pencil" size="medium" />}
+    icon="pencil"
     onClick={() => {}}
   />
   <ListButtonItem
     color="negative"
     headline="Delete item"
-    addOn={<Icon color="negative" icon="trash-2" size="medium" />}
+    icon="trash-2"
     onClick={() => {}}
   />
 </List>
 
 ```js
-<ListButtonItem color="primary" headline="Create" onClick={() => {}} />
-<ListButtonItem color="secondary" headline="Edit" onClick={() => {}} />
-<ListButtonItem color="negative" headline="Delete" onClick={() => {}} />
+<ListButtonItem
+  color="primary"
+  headline="Create"
+  icon="plus"
+  onClick={() => {}}
+/>
+<ListButtonItem
+  color="secondary"
+  headline="Edit"
+  icon="pencil"
+  onClick={() => {}}
+/>
+<ListButtonItem
+  color="negative"
+  headline="Delete"
+  icon="trash-2"
+  onClick={() => {}}
+/>
+```
+
+---
+
+## Contextual add-on color
+
+Custom add-on content can use `color="inherit"` to follow the item’s disabled, selected, or semantic foreground color.
+
+<List ariaLabel="Hiring">
+  <ListButtonItem
+    color="secondary"
+    headline="Miner"
+    icon="hard-hat"
+    addOn={
+      <Row gap="xsmall" align="center">
+        <Span color="inherit">120</Span>
+        <Icon color="inherit" icon="coins" size="small" />
+      </Row>
+    }
+    onClick={() => {}}
+  />
+  <ListButtonItem
+    color="secondary"
+    headline="Miner (disabled)"
+    icon="hard-hat"
+    disabled
+    addOn={
+      <Row gap="xsmall" align="center">
+        <Span color="inherit">120</Span>
+        <Icon color="inherit" icon="coins" size="small" />
+      </Row>
+    }
+    onClick={() => {}}
+  />
+</List>
+
+```jsx
+<ListButtonItem
+  headline="Miner"
+  icon="hard-hat"
+  addOn={
+    <Row gap="xsmall" align="center">
+      <Span color="inherit">120</Span>
+      <Icon color="inherit" icon="coins" size="small" />
+    </Row>
+  }
+  onClick={() => {}}
+/>
 ```
 
 ---

@@ -97,13 +97,12 @@ export function MobileInterface() {
         <Card gap="medium">
           <List ariaLabel="Upcoming survey" navigation={false}>
             <ListItem
-              addOn={
-                <Icon icon="calendar-days" size="large" color="secondary" />
-              }
+              icon="calendar-days"
+              iconSize="large"
               headline="Coastal survey"
               body="Today at 14:30 · North trail"
               headlineBold
-              outerAddOn={
+              addOn={
                 <IconButton
                   aria-label="Open survey"
                   icon="chevron-right"

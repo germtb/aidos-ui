@@ -1,5 +1,6 @@
 import React from "react";
 import { BaseView, BaseViewProps } from "./BaseView";
+import { cssVar } from "./jss";
 
 export interface BaseListAddOnProps extends BaseViewProps {}
 
@@ -13,9 +14,10 @@ export const BaseListAddOn = React.forwardRef(function BaseListAddOn(
       jss={[
         {
           display: "flex",
-          width: 34,
+          minWidth: 34,
           height: 34,
-          flex: "0 0 34px",
+          flexShrink: 0,
+          marginInlineEnd: cssVar("--spacing-m"),
           alignItems: "center",
           justifyContent: "center",
         },

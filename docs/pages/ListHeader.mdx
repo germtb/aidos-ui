@@ -1,5 +1,4 @@
 import { List } from "../../src/List";
-import { Icon } from "../../src/Icon";
 import { ListItem } from "../../src/ListItem";
 import { ListButtonItem } from "../../src/ListButtonItem";
 import { ListHeaderItem } from "../../src/ListHeaderItem";
@@ -12,13 +11,15 @@ A section label for organizing groups within a list. Headers use the same unfram
 
 ## Props
 
-| Prop            | Type        | Default  | Description                |
-| --------------- | ----------- | -------- | -------------------------- |
-| `headline`      | `string`    | Required | Header text                |
-| `body`          | `string`    | -        | Optional secondary text    |
-| `highlight`     | `boolean`   | `false`  | Use the accent text color  |
-| `addOn`         | `ReactNode` | -        | Icon or element to display |
-| `addOnPosition` | `Position`  | -        | Position of the add-on     |
+| Prop           | Type        | Default    | Description                  |
+| -------------- | ----------- | ---------- | ---------------------------- |
+| `headline`     | `string`    | Required   | Header text                  |
+| `body`         | `string`    | -          | Optional secondary text      |
+| `highlight`    | `boolean`   | `false`    | Use the accent text color    |
+| `icon`         | `IconType`  | -          | Context-colored content icon |
+| `iconPosition` | `Position`  | `"start"`  | Position of the icon         |
+| `iconSize`     | `Size`      | `"medium"` | Size of the icon             |
+| `addOn`        | `ReactNode` | -          | Trailing status or action    |
 
 ---
 
@@ -51,29 +52,22 @@ A section label for organizing groups within a list. Headers use the same unfram
 Use `highlight` to draw attention with the accent text color. The header remains unframed and does not add a background.
 
 <List ariaLabel="Header treatments">
-  <ListHeaderItem
-    headline="Documents"
-    addOn={<Icon icon="folder" size="medium" color="primary" />}
-  />
+  <ListHeaderItem headline="Documents" icon="folder" />
   <ListItem headline="Project brief" body="Updated today" />
-  <ListHeaderItem
-    highlight
-    headline="Needs attention"
-    addOn={<Icon icon="circle-alert" size="medium" color="highlight" />}
-  />
+  <ListHeaderItem highlight headline="Needs attention" icon="circle-alert" />
   <ListItem headline="Overdue review" body="Due yesterday" />
 </List>
 
 ```js
 <ListHeaderItem
   headline="Documents"
-  addOn={<Icon icon="folder" size="medium" color="primary" />}
+  icon="folder"
 />
 
 <ListHeaderItem
   highlight
   headline="Needs attention"
-  addOn={<Icon icon="circle-alert" size="medium" color="highlight" />}
+  icon="circle-alert"
 />
 ```
 

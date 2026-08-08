@@ -44,11 +44,10 @@ export function Sublist({
                 },
               ]}
             >
-              <Icon color="primary" size="medium" icon="chevron-right" />
+              <Icon color="inherit" size="medium" icon="chevron-right" />
             </Box>
           </Row>
         }
-        addOnPosition="end"
         color="secondary"
       />
       {collapsed ? null : children}

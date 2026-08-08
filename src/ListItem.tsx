@@ -9,23 +9,11 @@ export interface ListItemProps extends Omit<BaseListItemProps, "children"> {
 }
 
 export const ListItem = React.forwardRef(function ListItem(
-  {
-    bodyEllipsis = false,
-    bodySize = "medium",
-    padding = "none",
-    ...props
-  }: ListItemProps,
+  props: ListItemProps,
   ref?: React.Ref<HTMLLIElement>,
 ) {
   return (
-    <BaseListItem
-      {...props}
-      bodyEllipsis={bodyEllipsis}
-      bodySize={bodySize}
-      padding={padding}
-      jss={props.jss}
-      ref={ref}
-    >
+    <BaseListItem {...props} ref={ref}>
       {({ content }) => content}
     </BaseListItem>
   );

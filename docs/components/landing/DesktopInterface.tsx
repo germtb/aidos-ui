@@ -86,32 +86,26 @@ export function DesktopInterface() {
               <ListLinkItem
                 href="#desktop-overview"
                 headline="Overview"
-                addOn={
-                  <Icon
-                    icon="layout-dashboard"
-                    size="medium"
-                    color="highlight"
-                  />
-                }
+                icon="layout-dashboard"
                 selected
               />
               <ListLinkItem
                 href="#desktop-overview"
                 headline="Projects"
                 body="8 active"
-                addOn={<Icon icon="folder" size="medium" color="secondary" />}
+                icon="folder"
               />
               <ListLinkItem
                 href="#desktop-overview"
                 headline="Field reports"
                 body="3 need review"
-                addOn={<Icon icon="map" size="medium" color="secondary" />}
+                icon="map"
               />
               <ListLinkItem
                 href="#desktop-overview"
                 headline="Team"
                 body="8 collaborators"
-                addOn={<Icon icon="users" size="medium" color="secondary" />}
+                icon="users"
               />
             </List>
 
@@ -213,20 +207,20 @@ export function DesktopInterface() {
               gap="large"
             >
               <ListItem
-                addOn={
-                  <Icon icon="circle-alert" size="large" color="warning" />
-                }
+                icon="circle-alert"
+                iconSize="large"
                 headline="Validate package output"
                 body="Waiting for a second review"
                 headlineBold
-                outerAddOn={<Badge size="medium" color="warning" />}
+                addOn={<Badge size="medium" color="warning" />}
               />
               <ListItem
-                addOn={<Icon icon="clock" size="large" color="secondary" />}
+                icon="clock"
+                iconSize="large"
                 headline="Finalize field notes"
                 body="Due today at 16:00"
                 headlineBold
-                outerAddOn={
+                addOn={
                   <IconButton
                     aria-label="Open field notes"
                     icon="chevron-right"

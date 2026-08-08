@@ -5,6 +5,7 @@ import {
   InteractableColor,
   getGlyphColor,
   getInteractableListItemJSS,
+  interactableListItemContentJSS,
 } from "./Interactable";
 import { BaseButton } from "./BaseButton";
 
@@ -44,7 +45,14 @@ export const ListButtonItem = React.forwardRef(function ListButtonItem(
       selected={selected}
       aria-selected={selected}
       {...otherProps}
-      jss={jss}
+      jss={[
+        getInteractableListItemJSS({
+          selected,
+          disabled,
+          primarySelector: "[data-list-primary=true]",
+        }),
+        jss,
+      ]}
     >
       {({ content }) => (
         <BaseButton
@@ -52,9 +60,10 @@ export const ListButtonItem = React.forwardRef(function ListButtonItem(
           disabled={disabled}
           animateInteraction={false}
           bare={true}
-          color="secondary"
+          color={color}
           ref={ref}
-          jss={getInteractableListItemJSS({ selected })}
+          data-list-primary={true}
+          jss={interactableListItemContentJSS}
           onClick={onClick}
         >
           {content}
