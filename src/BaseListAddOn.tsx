@@ -17,6 +17,7 @@ export const BaseListAddOn = React.forwardRef(function BaseListAddOn(
           minWidth: 34,
           height: 34,
           flexShrink: 0,
+          alignSelf: "center",
           marginInlineEnd: cssVar("--spacing-m"),
           alignItems: "center",
           justifyContent: "center",

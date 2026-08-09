@@ -231,6 +231,7 @@ export const getInteractableListItemJSS = ({
 export const interactableListItemContentJSS: JSS = {
   overflow: "hidden",
   flexGrow: 1,
+  color: "inherit",
   textDecoration: "none",
   ":focus-visible": {
     outline: "none",

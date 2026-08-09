@@ -152,6 +152,7 @@ Custom add-on content can use `color="inherit"` to follow the item’s disabled,
   <ListButtonItem
     color="secondary"
     headline="Miner"
+    body="Ready to join the crew"
     icon="hard-hat"
     addOn={
       <Row gap="xsmall" align="center">
@@ -164,6 +165,7 @@ Custom add-on content can use `color="inherit"` to follow the item’s disabled,
   <ListButtonItem
     color="secondary"
     headline="Miner (disabled)"
+    body="Crew is currently full"
     icon="hard-hat"
     disabled
     addOn={
@@ -179,6 +181,7 @@ Custom add-on content can use `color="inherit"` to follow the item’s disabled,
 ```jsx
 <ListButtonItem
   headline="Miner"
+  body="Ready to join the crew"
   icon="hard-hat"
   addOn={
     <Row gap="xsmall" align="center">
@@ -208,6 +211,38 @@ Interactive items support a `selected` prop. Link items also expose the state th
   headline="Analytics"
   selected={currentPage === "analytics"}
 />
+```
+
+### Selected body color
+
+<List ariaLabel="Selection colors">
+  <ListButtonItem
+    headline="Unselected item"
+    body="This body uses the default item color"
+    onClick={() => {}}
+  />
+  <ListButtonItem
+    headline="Selected item"
+    body="This body uses the selected highlight color"
+    selected
+    onClick={() => {}}
+  />
+</List>
+
+```jsx
+<List ariaLabel="Selection colors">
+  <ListButtonItem
+    headline="Unselected item"
+    body="This body uses the default item color"
+    onClick={() => {}}
+  />
+  <ListButtonItem
+    headline="Selected item"
+    body="This body uses the selected highlight color"
+    selected
+    onClick={() => {}}
+  />
+</List>
 ```
 
 ---

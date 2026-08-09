@@ -11,7 +11,7 @@ import { BaseLink } from "./BaseLink";
 
 export interface ListLinkItemProps extends Omit<
   BaseListItemProps,
-  "children" | "onClick"
+  "children" | "onClick" | "headlineColor" | "bodyColor"
 > {
   color?: InteractableColor;
   children?: void;
@@ -39,16 +39,18 @@ export const ListLinkItem = React.forwardRef(function ListLinkItem(
   }: ListLinkItemProps,
   ref?: React.Ref<HTMLAnchorElement>,
 ) {
+  const glyphColor = getGlyphColor(color, disabled, true);
+
   return (
     <BaseListItem
       disabled={disabled}
       aria-selected={selected}
       padding="none"
       gap={gap}
-      headlineColor={getGlyphColor(color, disabled, true)}
-      bodyColor={getGlyphColor(color, disabled, true)}
       selected={selected}
       {...otherProps}
+      headlineColor={glyphColor}
+      bodyColor={glyphColor}
       jss={[
         getInteractableListItemJSS({
           selected,

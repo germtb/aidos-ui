@@ -11,7 +11,7 @@ import { BaseButton } from "./BaseButton";
 
 export interface ListButtonItemProps extends Omit<
   BaseListItemProps,
-  "children" | "onClick"
+  "children" | "onClick" | "headlineColor" | "bodyColor"
 > {
   color?: InteractableColor;
   onClick: () => void;
@@ -35,16 +35,18 @@ export const ListButtonItem = React.forwardRef(function ListButtonItem(
   }: ListButtonItemProps,
   ref?: React.Ref<HTMLButtonElement>,
 ) {
+  const glyphColor = getGlyphColor(color, disabled, true);
+
   return (
     <BaseListItem
       disabled={disabled}
       padding="none"
       gap={gap}
-      headlineColor={getGlyphColor(color, disabled, true)}
-      bodyColor={getGlyphColor(color, disabled, true)}
       selected={selected}
       aria-selected={selected}
       {...otherProps}
+      headlineColor={glyphColor}
+      bodyColor={glyphColor}
       jss={[
         getInteractableListItemJSS({
           selected,
