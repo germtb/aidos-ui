@@ -25,6 +25,7 @@ export interface BaseListItemProps extends Omit<
   icon?: IconType;
   iconPosition?: Position;
   iconSize?: Size;
+  iconJss?: JSS;
   addOn?: ReactNode;
   disabled?: boolean;
   role?: undefined;
@@ -47,6 +48,7 @@ export const BaseListItem = React.forwardRef(function BaseListItem(
     icon,
     iconPosition = "start",
     iconSize = "medium",
+    iconJss,
     addOn,
     disabled = false,
     padding = "medium",
@@ -69,7 +71,12 @@ export const BaseListItem = React.forwardRef(function BaseListItem(
       gap={gap}
       addOn={
         icon ? (
-          <Icon icon={icon} size={iconSize} color={contentColor} />
+          <Icon
+            icon={icon}
+            size={iconSize}
+            color={contentColor}
+            jss={iconJss}
+          />
         ) : undefined
       }
       addOnPosition={iconPosition}

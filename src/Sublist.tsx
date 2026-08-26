@@ -1,8 +1,5 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { ListButtonItem } from "./ListButtonItem";
-import { Icon } from "./Icon";
-import { Box } from "./Box";
-import { Row } from "./Row";
 import { JSS } from "./jss";
 
 export function Sublist({
@@ -11,7 +8,6 @@ export function Sublist({
   labelBold,
   initialState = { collapsed: false },
   jss,
-  secondaryAddOn,
 }: {
   children: React.ReactNode;
   label: string;
@@ -20,7 +16,6 @@ export function Sublist({
     collapsed: boolean;
   };
   jss?: JSS;
-  secondaryAddOn?: ReactNode;
 }) {
   const [collapsed, setCollapsed] = React.useState(initialState.collapsed);
   return (
@@ -30,24 +25,12 @@ export function Sublist({
         headlineBold={labelBold}
         onClick={() => setCollapsed((x) => !x)}
         jss={jss}
-        addOn={
-          <Row gap="medium" align="center">
-            {secondaryAddOn}
-            <Box
-              padding="none"
-              jss={[
-                {
-                  transition: "transform 0.15s ease-in",
-                },
-                !collapsed && {
-                  transform: "rotateZ(90deg)",
-                },
-              ]}
-            >
-              <Icon color="inherit" size="medium" icon="chevron-right" />
-            </Box>
-          </Row>
-        }
+        icon="chevron-right"
+        iconPosition="end"
+        iconJss={{
+          transition: "transform 0.15s ease-in",
+          ...(!collapsed && { transform: "rotateZ(90deg)" }),
+        }}
         color="secondary"
       />
       {collapsed ? null : children}
