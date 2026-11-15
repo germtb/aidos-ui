@@ -1,129 +1,146 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useId,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
+import { createPortal } from "react-dom";
 import { queryFocusables } from "./aria";
-
 import { BaseView } from "./BaseView";
 import { Card } from "./Card";
 import { useRefEffect } from "./useRefEffect";
-import { JSS, cssVar, toClassnames } from "./jss";
-
-const styles: { [key: string]: JSS } = {
-  popover: {
-    padding: 0,
-    zIndex: 1000,
-    top: `calc(100% + ${cssVar("--spacing-xs")})`,
-    right: "auto",
-    left: 0,
-    margin: 0,
-    border: 0,
-    overflow: "visible",
-    background: "transparent",
-    animation: "popoverFadeIn 0.15s ease-out",
-  },
-  card: {
-    minWidth: 220,
-    maxWidth: "calc(100vw - 32px)",
-    overflow: "hidden",
-  },
-};
+import {
+  useFloatingPosition,
+  type Placement,
+  type OverlayAlign,
+} from "./useFloatingPosition";
+import { JSS, toClassnames } from "./jss";
 
 export function Popover({
   children,
   close,
+  initialFocus,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   close: () => void;
+  initialFocus?: React.RefObject<HTMLElement | null>;
 }) {
-  const activeElementRef = useRef<HTMLElement | null>(null);
-
-  const focusTrapRoot = useRefEffect(
-    useCallback(
-      (root: HTMLElement) => {
-        activeElementRef.current =
-          document.activeElement instanceof HTMLElement
-            ? document.activeElement
-            : null;
-        const selectedElement = root.querySelector<HTMLElement>(
-          '[aria-selected="true"]',
+  const previous = useRef<HTMLElement>(null);
+  const closeRef = useRef(close);
+  closeRef.current = close;
+  const initial = useRef(initialFocus);
+  initial.current = initialFocus;
+  const mount = useRefEffect(
+    useCallback((root: HTMLElement) => {
+      previous.current =
+        document.activeElement instanceof HTMLElement
+          ? document.activeElement
+          : null;
+      let mounted = true;
+      // The parent floating surface opens after child refs attach.
+      queueMicrotask(() => {
+        if (!mounted || !root.getClientRects().length) return;
+        const items = queryFocusables(root);
+        const selected = root.querySelector(
+          '[aria-selected="true"], [aria-checked="true"]',
         );
-        const autofocusElement = root.querySelector<HTMLElement>(
-          '[data-autofocus="true"]',
-        );
-        const [firstElement] = queryFocusables(root);
-        const element = selectedElement ?? autofocusElement ?? firstElement;
-        if (element) {
-          element.focus();
-        } else {
-          root.focus();
-        }
-
-        const keydown = (e: KeyboardEvent) => {
-          if (e.key === "Escape") {
-            close();
-          } else if (e.key === "Tab") {
-            const focusables = queryFocusables(root).filter(
-              (element) => element.tabIndex !== -1,
-            );
-
-            if (focusables.length === 0) {
-              e.stopPropagation();
-              e.preventDefault();
-            }
-
-            const focusedIndex = focusables.findIndex(
-              (x) => x === document.activeElement,
-            );
-
-            if (focusables.length === 0) {
-              e.stopPropagation();
-              e.preventDefault();
-            } else if (e.shiftKey && focusedIndex === 0) {
-              focusables[focusables.length - 1].focus();
-              e.stopPropagation();
-              e.preventDefault();
-            } else if (!e.shiftKey && focusedIndex === focusables.length - 1) {
-              // Cycle back to the first element
-              focusables[0].focus();
-              e.stopPropagation();
-              e.preventDefault();
-            } else {
-              // Just do the usual thing
-            }
-          }
-        };
-
-        const click = () => {
-          close();
-        };
-
-        // This is needed so that the trigger click is not captured immediatly, which would close the popover as it opens
-        const timeout = window.setTimeout(() => {
-          window.addEventListener("keydown", keydown);
-          window.addEventListener("click", click);
-        }, 0);
-
-        return () => {
-          window.clearTimeout(timeout);
-          activeElementRef.current?.focus();
-          window.removeEventListener("keydown", keydown);
-          window.removeEventListener("click", click);
-        };
-      },
-      [close],
-    ),
+        (
+          initial.current?.current ??
+          items.find((item) =>
+            item.matches('[autofocus], [data-autofocus="true"]'),
+          ) ??
+          items.find((item) => item === selected || selected?.contains(item)) ??
+          items[0] ??
+          root
+        ).focus({ preventScroll: true });
+      });
+      const outside = (event: PointerEvent) => {
+        if (
+          !root.contains(event.target as Node) &&
+          !previous.current?.contains(event.target as Node)
+        )
+          closeRef.current();
+      };
+      const native = root.closest("[popover]");
+      if (!native) document.addEventListener("pointerdown", outside);
+      return () => {
+        mounted = false;
+        if (!native) document.removeEventListener("pointerdown", outside);
+        if (
+          root.contains(document.activeElement) &&
+          previous.current?.isConnected
+        )
+          previous.current.focus({ preventScroll: true });
+      };
+    }, []),
   );
-
   return (
-    <Card variant="floating" padding="small" gap="none" jss={styles.card}>
-      <BaseView ref={focusTrapRoot} jss={{ width: "100%" }}>
-        {children}
-      </BaseView>
+    <Card
+      ref={mount}
+      data-aidos-popover
+      tabIndex={-1}
+      variant="floating"
+      padding="small"
+      gap="none"
+      jss={{
+        minWidth: "min(220px, calc(100vw - 24px))",
+        maxWidth: "100%",
+        borderRadius: "calc(var(--border-radius-s) + var(--spacing-s))",
+        ":focus-visible": { outline: "none" },
+      }}
+      onKeyDown={(event) => {
+        if (event.defaultPrevented || event.nativeEvent.isComposing) return;
+        if (event.key === "Escape") {
+          event.stopPropagation();
+          // Native dismissal closes only the topmost surface, including nested hints.
+          if (
+            !event.currentTarget.closest<HTMLElement>("[popover]")?.showPopover
+          ) {
+            event.preventDefault();
+            close();
+          }
+        } else if (event.key === "Tab") {
+          const items = queryFocusables(event.currentTarget).filter(
+            (item) => item.tabIndex >= 0,
+          );
+          const index = items.indexOf(document.activeElement as HTMLElement);
+          if (
+            items.length &&
+            (event.shiftKey
+              ? index > 0
+              : index >= 0 && index < items.length - 1)
+          )
+            return;
+          const outside = queryFocusables(document.body).filter(
+            (item) => item.tabIndex >= 0 && !event.currentTarget.contains(item),
+          );
+          const next =
+            outside[
+              outside.indexOf(previous.current) + (event.shiftKey ? -1 : 1)
+            ];
+          if (next) {
+            event.preventDefault();
+            next.focus();
+          }
+          close();
+        }
+      }}
+    >
+      {children}
     </Card>
   );
 }
 
-interface PopoverTriggerProps<Input> {
-  PopoverComponent: (props: { close: () => void } & Input) => React.JSX.Element;
+export interface PopoverTriggerProps<Input = object> {
+  PopoverComponent?: (
+    props: { close: () => void } & Input,
+  ) => React.JSX.Element;
+  content?: ReactNode | ((props: { close: () => void }) => ReactNode);
   ariaLabel?: string;
+  placement?: Placement;
+  align?: OverlayAlign;
+  role?: "dialog" | "presentation";
   jss?: JSS;
   jssDialog?: JSS;
   className?: undefined;
@@ -131,14 +148,19 @@ interface PopoverTriggerProps<Input> {
   shrink?: boolean;
   tag?: keyof HTMLElementTagNameMap;
   children: (props: {
-    toggle: (input: Input) => void;
+    toggle: (input?: Input) => void;
     expanded: boolean;
+    id: string;
   }) => React.JSX.Element;
 }
 
-export function PopoverTrigger<Input>({
+export function PopoverTrigger<Input = object>({
   PopoverComponent,
+  content,
   ariaLabel,
+  placement = "bottom",
+  align = "start",
+  role = "dialog",
   jss,
   jssDialog,
   grow,
@@ -146,57 +168,79 @@ export function PopoverTrigger<Input>({
   tag,
   children,
 }: PopoverTriggerProps<Input>) {
-  const [popover, setPopover] = useState<React.JSX.Element>(null);
-  const dialogRef = useRef<null | HTMLDialogElement>(null);
-
-  useEffect(() => {
-    if (popover == null) {
-      dialogRef.current?.close();
-    } else {
-      dialogRef.current?.show();
-    }
-  }, [popover]);
-
-  const toggle = (input: Input) => {
-    if (popover == null) {
-      setPopover(
-        <PopoverComponent
-          {...input}
-          close={() => {
-            setPopover(null);
-          }}
-        />,
-      );
-    } else {
-      setPopover(null);
-    }
+  const [open, setOpen] = useState<{ element?: ReactNode }>(null);
+  const anchor = useRef<HTMLElement>(null);
+  const surface = useRef<HTMLElement>(null);
+  const pointerOpen = useRef(false);
+  const id = useId();
+  const close = useCallback(() => setOpen(null), []);
+  const position = useFloatingPosition(anchor, placement, align, close);
+  const toggle = (input?: Input) => {
+    if (open || pointerOpen.current) close();
+    else
+      setOpen({
+        element: PopoverComponent ? (
+          <PopoverComponent {...input} close={close} />
+        ) : null,
+      });
+    pointerOpen.current = false;
   };
-
   return (
     <BaseView
+      ref={anchor}
       grow={grow}
       shrink={shrink}
       tag={tag}
-      relative={true}
-      jss={[jss, { position: "relative", display: "inline-block" }]}
+      jss={[{ display: "inline-block", minWidth: 0 }, jss]}
+      onPointerDown={(event) => {
+        if (!surface.current?.contains(event.target as Node))
+          pointerOpen.current = Boolean(open);
+      }}
     >
-      {children({ toggle, expanded: popover != null })}
-      <dialog
-        aria-label={ariaLabel}
-        ref={(ref: null | HTMLDialogElement) => {
-          dialogRef.current = ref;
-        }}
-        className={toClassnames([styles.popover, jssDialog])}
-        onClose={() => {
-          setPopover(null);
-        }}
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-        }}
-      >
-        {popover}
-      </dialog>
+      {children({ toggle, expanded: open != null, id })}
+      {open &&
+        createPortal(
+          <div
+            id={id}
+            role={role}
+            aria-label={ariaLabel}
+            popover="auto"
+            ref={(element) => {
+              surface.current = element;
+              position(element);
+            }}
+            className={toClassnames([
+              {
+                position: "fixed",
+                inset: "auto",
+                padding: 0,
+                margin: 0,
+                border: "1px solid var(--divider)",
+                boxShadow: "var(--shadow-md)",
+                zIndex: 1000,
+                width: "max-content",
+                maxWidth: "var(--aidos-overlay-width, calc(100vw - 24px))",
+                maxHeight: "var(--aidos-overlay-height, calc(100dvh - 24px))",
+                overflow: "auto",
+                background: "var(--overlay-background)",
+                color: "var(--primary-text)",
+                borderRadius:
+                  "calc(var(--border-radius-s) + var(--spacing-s) + 1px)",
+                " [data-aidos-popover]": { boxShadow: "none" },
+              },
+              jssDialog,
+            ])}
+          >
+            {content != null ? (
+              <Popover close={close}>
+                {typeof content === "function" ? content({ close }) : content}
+              </Popover>
+            ) : (
+              open.element
+            )}
+          </div>,
+          anchor.current.closest("dialog[open], [popover]") ?? document.body,
+        )}
     </BaseView>
   );
 }

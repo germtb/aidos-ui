@@ -1,118 +1,119 @@
-import React, { useCallback, useRef, useState } from "react";
-
+import React, { useId, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { BaseView } from "./BaseView";
-import { useRefEffect } from "./useRefEffect";
 import { Text } from "./Text";
 import { JSS, cssVar, toClassnames } from "./jss";
+import {
+  useFloatingPosition,
+  type Placement,
+  type OverlayAlign,
+} from "./useFloatingPosition";
 
-const styles: { [key: string]: JSS } = {
-  tooltip: {
-    top: "auto",
-    right: "auto",
-    bottom: `calc(100% + ${cssVar("--spacing-s")})`,
-    left: "50%",
-    margin: 0,
-    translate: "-50% 0",
-    transformOrigin: "bottom center",
-    backgroundColor: cssVar("--primary-background"),
-    padding: `${cssVar("--spacing-s")} ${cssVar("--spacing-m")}`,
-    borderRadius: cssVar("--border-radius-m"),
-    border: `1px solid ${cssVar("--divider")}`,
-    boxShadow: cssVar("--shadow-md"),
-    overflow: "hidden",
-    animation: "popoverFadeIn 0.15s ease-out",
-  },
-};
-
-interface TooltipProps {
+export interface TooltipProps {
   content: string;
   jss?: JSS;
   className?: undefined;
   tag?: keyof HTMLElementTagNameMap;
+  placement?: Placement;
+  align?: OverlayAlign;
   children: React.JSX.Element;
 }
 
-export function Tooltip({ content, jss, tag, children }: TooltipProps) {
-  const [tooltip, setTooltip] = useState<React.JSX.Element>(null);
-  const dialogRef = useRef(null);
-  const focusTrapRoot = useRefEffect(
-    useCallback((root: HTMLDialogElement) => {
-      dialogRef.current = root;
-
-      const keydown = (e) => {
-        if (e.key === "Escape") {
-          dialogRef.current?.close();
-        } else if (e.key === "Tab") {
-          dialogRef.current?.close();
-        }
-      };
-
-      const click = () => {
-        dialogRef.current?.close();
-      };
-
-      window.addEventListener("keydown", keydown);
-      window.addEventListener("click", click);
-
-      const activeElement = document.activeElement;
-      root.show();
-      if (activeElement instanceof HTMLElement) {
-        activeElement.focus();
-      }
-
-      return () => {
-        window.removeEventListener("keydown", keydown);
-        window.removeEventListener("click", click);
-      };
-    }, []),
+export function Tooltip({
+  content,
+  jss,
+  tag,
+  children,
+  placement = "top",
+  align = "center",
+}: TooltipProps) {
+  const id = useId();
+  const [open, setOpen] = useState(false);
+  const anchor = useRef<HTMLElement>(null);
+  const surface = useRef<HTMLElement>(null);
+  const timeout = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const position = useFloatingPosition(anchor, placement, align, () =>
+    setOpen(false),
   );
-
-  const toggle = () => {
-    if (tooltip == null) {
-      setTooltip(
-        <dialog
-          role="tooltip"
-          ref={(ref: null | HTMLDialogElement) => {
-            dialogRef.current = ref;
-            focusTrapRoot(ref);
-          }}
-          className={toClassnames(styles.tooltip)}
-          onClose={() => {
-            setTooltip(null);
-          }}
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-          }}
-        >
-          <Text size="medium" color="secondary">
-            {content}
-          </Text>
-        </dialog>,
-      );
-    } else {
-      setTooltip(null);
-    }
+  const show = () => {
+    clearTimeout(timeout.current);
+    setOpen(true);
   };
-
+  const leave = () => {
+    clearTimeout(timeout.current);
+    timeout.current = setTimeout(() => {
+      if (
+        !anchor.current?.contains(document.activeElement) &&
+        !surface.current?.matches(":hover")
+      )
+        setOpen(false);
+    }, 120);
+  };
   return (
     <BaseView
+      ref={(element) => {
+        anchor.current = element;
+        if (!element) clearTimeout(timeout.current);
+      }}
       tag={tag}
-      relative={true}
-      jss={[{ display: "inline-block" }, jss]}
-      onMouseEnter={() => {
-        if (tooltip == null) {
-          toggle();
-        }
+      jss={[{ display: "inline-block", minWidth: 0 }, jss]}
+      onFocus={show}
+      onKeyDown={(event) => {
+        if (event.key === "Tab") setOpen(false);
       }}
-      onMouseLeave={() => {
-        if (tooltip != null) {
-          toggle();
-        }
+      onBlur={(event) => {
+        if (
+          !event.currentTarget.contains(event.relatedTarget) &&
+          !event.currentTarget.matches(":hover") &&
+          !surface.current?.matches(":hover")
+        )
+          setOpen(false);
       }}
+      onMouseEnter={show}
+      onMouseLeave={leave}
     >
-      {children}
-      {tooltip}
+      {React.cloneElement(children, {
+        "aria-describedby":
+          [children.props["aria-describedby"], open && id]
+            .filter(Boolean)
+            .join(" ") || undefined,
+      })}
+      {open &&
+        createPortal(
+          <div
+            id={id}
+            role="tooltip"
+            popover="hint"
+            ref={(element) => {
+              surface.current = element;
+              position(element);
+            }}
+            onMouseEnter={show}
+            onMouseLeave={leave}
+            className={toClassnames({
+              position: "fixed",
+              inset: "auto",
+              margin: 0,
+              zIndex: 1000,
+              width: "max-content",
+              maxWidth:
+                "min(320px, var(--aidos-overlay-width, calc(100vw - 24px)))",
+              maxHeight: "var(--aidos-overlay-height, calc(100dvh - 24px))",
+              padding: `${cssVar("--spacing-s")} ${cssVar("--spacing-m")}`,
+              border: `1px solid ${cssVar("--divider")}`,
+              borderRadius: cssVar("--border-radius-m"),
+              background: cssVar("--overlay-background"),
+              color: cssVar("--primary-text"),
+              boxShadow: cssVar("--shadow-md"),
+              overflow: "auto",
+            })}
+          >
+            <Text size="small" color="secondary" ellipsis={false}>
+              {content}
+            </Text>
+          </div>,
+          anchor.current.closest("dialog[open], [popover]") ?? document.body,
+        )}
     </BaseView>
   );
 }

@@ -1,0 +1,21 @@
+import { ProseDemo } from "../examples/DesktopDemo";
+
+# Prose
+
+Consistent headings, lists, quotations, inline code, code blocks, and tables. Presentation only: no parser, sanitizer, syntax highlighter, or link policy.
+
+<ProseDemo />
+
+```tsx
+<Prose>
+  <h2>Notes</h2>
+  <p>
+    Use <code>Composer</code> for message entry.
+  </p>
+  <pre>
+    <code>{source}</code>
+  </pre>
+</Prose>
+```
+
+Supply trusted React content or sanitized renderer output. Code blocks and tables scroll horizontally rather than widening the page. Native links retain browser focus feedback.

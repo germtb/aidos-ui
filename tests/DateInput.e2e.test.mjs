@@ -48,6 +48,7 @@ test("date input supports calendar navigation and restores focus", async () => {
   await page.goto(`${origin}/DateInput`);
 
   const field = page.getByRole("group", { name: "Start date" });
+  await field.getByRole("textbox", { name: "day" }).waitFor();
   const segmentLabels = await field
     .locator("input:not([type=hidden])")
     .evaluateAll((inputs) =>

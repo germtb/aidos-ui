@@ -19,7 +19,7 @@ All components accept a `jss` prop that works like inline styles but with additi
 <BaseView jss={{ backgroundColor: "red", padding: 12 }} />
 ```
 
-Internally, each property becomes an atomic CSS class with a deterministic hash, enabling server-side rendering and hydration:
+Internally, styles become hashed CSS classes, enabling server-side rendering and hydration. Spacing declarations share a class so physical and logical overrides keep their order:
 
 ```html
 <style>
@@ -70,8 +70,8 @@ Use string keys for pseudo-classes and pseudo-elements:
 // Hover state
 jss({ ":hover": { backgroundColor: "blue" } });
 
-// Focus state
-jss({ ":focus": { outline: "2px solid blue" } });
+// Keyboard focus
+jss({ ":focus-visible": { outline: `2px solid ${cssVar("--outline")}` } });
 
 // First child
 jss({ ":first-child": { marginTop: 0 } });
@@ -157,6 +157,42 @@ import { cssVar } from "aidos-ui";
 
 ---
 
+## Focus
+
+`--outline` is the focus-ring color, separate from the `--highlight` accent. It has dedicated, muted blue values in each theme. Override it through `Providers` or `JSSProvider`:
+
+```tsx
+const themes = {
+  light: { ...lightTheme, "--outline": "#4678af" },
+  dark: { ...darkTheme, "--outline": "#7daadc" },
+};
+
+<JSSProvider themes={themes}>{children}</JSSProvider>;
+```
+
+Buttons and links use `:focus-visible`. Text fields use an integrated indicator even after pointer focus. Composite inputs show a frame indicator only for their input, not for action buttons inside the frame. Invalid fields keep an error-colored indicator.
+
+There is no global custom outline or global outline reset. Unstyled native elements retain browser defaults. Remove an inner outline only when an enclosing input surface supplies a visible replacement; never rely on a shadow alone in forced colors.
+
+[Try the focus laboratory](/Desktop#focus).
+
+### CSS spacing
+
+`padding` and `margin` accept standard one-, two-, three-, and four-value CSS shorthands, including nested `calc()` and `var()` expressions. Shorthand, longhand, and logical overrides follow `jss` array order, independently of component render order.
+
+```tsx
+<Box jss={[
+  { padding: "4px 12px 8px 20px" },
+  { paddingRight: 16, margin: "calc(4px + 8px) auto" },
+]} />
+
+<Box jss={[{ padding: 0 }, { paddingInline: 16, paddingBlock: 8 }]} />
+```
+
+Numeric logical dimensions receive pixels, like physical dimensions. Unitless properties such as `lineHeight`, `opacity`, and `flexGrow` remain unitless.
+
+---
+
 ## Materials
 
 Materials are named, reusable surface treatments. The shared `Material` type keeps the vocabulary consistent across components, while `getMaterial()` lets custom surface components use the same treatment.
@@ -188,6 +224,7 @@ Prefer a component's `material` prop when it exposes one. Use `getMaterial()` wh
 | `--material-twilight`    | Indigo and violet material surface  |
 | `--divider`              | Border/divider color                |
 | `--highlight`            | Accent/brand color                  |
+| `--outline`              | Focus-ring color                    |
 | `--warning`              | Warning indicator                   |
 
 ### Text colors
@@ -227,13 +264,13 @@ Prefer a component's `material` prop when it exposes one. Use `getMaterial()` wh
 
 | Variable         | Size |
 | ---------------- | ---- |
-| `--spacing-xs`   | 4px  |
-| `--spacing-s`    | 8px  |
-| `--spacing-m`    | 12px |
-| `--spacing-l`    | 16px |
-| `--spacing-xl`   | 24px |
-| `--spacing-xxl`  | 32px |
-| `--spacing-xxxl` | 48px |
+| `--spacing-xs`   | 2px  |
+| `--spacing-s`    | 4px  |
+| `--spacing-m`    | 8px  |
+| `--spacing-l`    | 12px |
+| `--spacing-xl`   | 16px |
+| `--spacing-xxl`  | 24px |
+| `--spacing-xxxl` | 32px |
 
 ### Border radius
 

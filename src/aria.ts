@@ -1,72 +1,59 @@
 type Focusable = HTMLElement;
 
-export function queryFocusables(root: HTMLElement): Focusable[] {
-  const focusables: Focusable[] = Array.from(
-    root.querySelectorAll(
-      "button,input,textarea,a,[tabindex='0'],[tabindex='-1']"
-    )
+export function queryFocusables(root: ParentNode): Focusable[] {
+  // aria-disabled actions remain discoverable through keyboard navigation.
+  return Array.from(
+    root.querySelectorAll<HTMLElement>(
+      'button, input, textarea, select, a[href], [tabindex], [contenteditable="true"]',
+    ),
+  ).filter(
+    (element) =>
+      !element.matches(':disabled, input[type="hidden"]') &&
+      !element.closest("[inert], [hidden]") &&
+      element.getClientRects().length > 0 &&
+      getComputedStyle(element).visibility !== "hidden",
   );
-
-  return focusables.filter((element: Focusable) => !element["disabled"]);
 }
 
 export function queryGrid(root: HTMLElement): HTMLElement[][] {
-  const rows: HTMLLIElement[] = Array.from(
-    root.querySelectorAll('li[role="row"]')
-  );
-
-  const rowsWithColumns = rows
-    .map((row) => Array.from(queryFocusables(row)))
+  return Array.from(root.querySelectorAll('li[role="row"]'))
+    .map(queryFocusables)
     .filter((row) => row.length > 0);
-
-  return rowsWithColumns;
 }
 
-export const normalizeGrid = (
+export function normalizeGrid(
   rows: HTMLElement[][],
   rowIndex: number,
-  columnIndex: number
-): void => {
-  for (const row of rows) {
-    for (const column of row) {
-      column.tabIndex = -1;
-    }
-  }
-
+  columnIndex: number,
+): void {
   const row = rows[rowIndex];
-  const column = row[columnIndex] ?? row[row.length - 1];
-  column.tabIndex = 0;
-};
+  if (!row) return;
+  normalizeElements(
+    rows.flat(),
+    rows.flat().indexOf(row[columnIndex] ?? row[row.length - 1]),
+  );
+}
 
-export const focusGridElement = (
+export function focusGridElement(
   rows: HTMLElement[][],
   rowIndex: number,
-  columnIndex: number
-): void => {
+  columnIndex: number,
+): void {
   normalizeGrid(rows, rowIndex, columnIndex);
   const row = rows[rowIndex];
-  const column = row[columnIndex] ?? row[row.length - 1];
-  column.focus();
-  column.scrollIntoView(false);
-};
+  (row?.[columnIndex] ?? row?.[row.length - 1])?.focus();
+}
 
-export const normalizeElements = (
-  focusables: HTMLElement[],
-  index: number
-): void => {
-  for (const element of focusables) {
-    element.tabIndex = -1;
-  }
-  const element = focusables[index] ?? focusables[focusables.length - 1];
-  element.tabIndex = 0;
-};
+export function normalizeElements(
+  elements: HTMLElement[],
+  index: number,
+): void {
+  const selected = elements[Math.max(0, Math.min(index, elements.length - 1))];
+  for (const element of elements)
+    element.tabIndex = element === selected ? 0 : -1;
+}
 
-export const focusElement = (
-  focusables: HTMLElement[],
-  index: number
-): void => {
-  normalizeElements(focusables, index);
-  const element = focusables[index] ?? focusables[focusables.length - 1];
-  element.focus();
-  // element.scrollIntoView(false);
-};
+export function focusElement(elements: HTMLElement[], index: number): void {
+  normalizeElements(elements, index);
+  elements.find((element) => element.tabIndex === 0)?.focus();
+}

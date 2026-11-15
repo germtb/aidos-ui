@@ -38,6 +38,7 @@ export const BaseButton = React.forwardRef(function BaseButton(
       ref={ref}
       onClick={(event) => {
         if (disabled) {
+          event.preventDefault();
           return;
         }
 

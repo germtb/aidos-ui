@@ -1,3 +1,4 @@
+import { ControlSizesDemo } from "../examples/DesktopDemo";
 import { Button } from "../../src/Button";
 import { Row } from "../../src/Row";
 
@@ -11,15 +12,15 @@ Button geometry, label weight, icon size, gap, and padding are fixed by the desi
 
 ## Props
 
-| Prop           | Type                  | Required | Default  | Description                                                  |
-| -------------- | --------------------- | -------- | -------- | ------------------------------------------------------------ |
-| `children`     | `string`              | Yes      | -        | Button text label                                            |
+| Prop           | Type                  | Required | Default  | Description                                           |
+| -------------- | --------------------- | -------- | -------- | ----------------------------------------------------- |
+| `children`     | `string`              | Yes      | -        | Button text label                                     |
 | `color`        | `InteractableColor`   | Yes      | -        | `"primary"`, `"secondary"`, `"negative"`, `"inverse"` |
-| `onClick`      | `function`            | Yes      | -        | Click handler                                                |
-| `bare`         | `boolean`             | No       | `false`  | Removes background and elevation                             |
-| `disabled`     | `boolean`             | No       | `false`  | Disables interaction                                         |
-| `icon`         | `IconType`            | No       | -        | Icon to display alongside text                               |
-| `iconPosition` | `"left"` \| `"right"` | No       | `"left"` | Icon placement relative to text                              |
+| `onClick`      | `function`            | Yes      | -        | Click handler                                         |
+| `bare`         | `boolean`             | No       | `false`  | Removes background and elevation                      |
+| `disabled`     | `boolean`             | No       | `false`  | Disables interaction                                  |
+| `icon`         | `IconType`            | No       | -        | Icon to display alongside text                        |
+| `iconPosition` | `"left"` \| `"right"` | No       | `"left"` | Icon placement relative to text                       |
 
 ---
 
@@ -148,3 +149,9 @@ Disabled buttons prevent interaction and display a muted appearance. The compone
 - Disabled state is communicated via `aria-disabled` attribute
 - Focus states are clearly visible with outline styling
 - Click handlers are ignored when disabled, preventing accidental actions
+
+## Control sizes
+
+`size="xsmall" | "small" | "medium" | "large"` coordinates height, text, and icon dimensions. `leading` and `trailing` accept custom content; labels shrink and truncate. Existing `icon` and `iconPosition` remain supported. Disabled buttons remain focusable and announce `aria-disabled`; activation and form submission are blocked.
+
+<ControlSizesDemo />

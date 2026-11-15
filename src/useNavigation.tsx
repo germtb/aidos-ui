@@ -1,5 +1,4 @@
 import { useCallback } from "react";
-
 import { queryFocusables, focusElement, normalizeElements } from "./aria";
 import { useRefEffect } from "./useRefEffect";
 
@@ -8,93 +7,92 @@ export function useNavigation({
   rowLength = 1,
   enabled = true,
   initialIndex = 0,
+  orientation = "both",
+}: {
+  autofocus?: boolean;
+  rowLength?: number;
+  enabled?: boolean;
+  initialIndex?: number;
+  orientation?: "horizontal" | "vertical" | "both";
 } = {}) {
   return useRefEffect(
     useCallback(
       (root: HTMLElement) => {
-        if (!enabled) {
-          return;
-        }
-
-        let index = Math.max(
-          0,
-          Math.min(initialIndex, queryFocusables(root).length - 1),
-        );
-
-        const elements = queryFocusables(root);
-
-        if (elements.length === 0) {
-          return;
-        }
-
-        if (elements.length !== 0 && autofocus) {
-          focusElement(elements, index);
-        } else {
-          normalizeElements(elements, index);
-        }
-
-        const onKeyDown = (e: KeyboardEvent) => {
+        if (!enabled) return;
+        let current: HTMLElement;
+        const normalize = () => {
           const elements = queryFocusables(root);
-
-          if (elements.length === 0) {
-            return;
-          }
-
-          let newIndex: number = -1;
-
-          if (e.code === "ArrowUp") {
-            if (index - rowLength < 0) {
-              newIndex =
-                elements.length - (elements.length % rowLength) + index;
-            } else {
-              newIndex = index - rowLength;
-            }
-          } else if (e.code === "ArrowLeft") {
-            if (index <= 0) {
-              newIndex = elements.length - 1;
-            } else {
-              newIndex = index - 1;
-            }
-          } else if (e.code === "ArrowRight") {
-            if (index >= elements.length - 1) {
-              newIndex = 0;
-            } else {
-              newIndex = index + 1;
-            }
-          } else if (e.code === "ArrowDown") {
-            if (index + rowLength > elements.length - 1) {
-              newIndex = (index + rowLength) % rowLength;
-            } else {
-              newIndex = index + rowLength;
-            }
-          }
-
-          if (newIndex !== -1 && index !== newIndex) {
-            index = newIndex;
-            focusElement(elements, index);
-            e.preventDefault();
-            e.stopPropagation();
-          }
+          const activeIndex = elements.indexOf(
+            document.activeElement as HTMLElement,
+          );
+          const previousIndex = elements.indexOf(current);
+          const index =
+            activeIndex >= 0
+              ? activeIndex
+              : previousIndex >= 0
+                ? previousIndex
+                : initialIndex;
+          normalizeElements(elements, index);
+          current = elements.find((element) => element.tabIndex === 0);
         };
-
-        root.addEventListener("keydown", onKeyDown);
-
-        const observer = new MutationObserver((mutationList) => {
-          if (mutationList.filter((m) => m.type === "childList").length > 0) {
-            const elements = queryFocusables(root);
-            if (elements.length > 0) {
-              normalizeElements(elements, index);
-            }
-          }
+        normalize();
+        if (autofocus) current?.focus();
+        const focusin = () => normalize();
+        const keydown = (event: KeyboardEvent) => {
+          if (
+            event.defaultPrevented ||
+            event.isComposing ||
+            event.altKey ||
+            event.metaKey ||
+            event.ctrlKey
+          )
+            return;
+          const target = event.target as HTMLElement;
+          if (
+            target.matches('input, textarea, select, [contenteditable="true"]')
+          )
+            return;
+          const elements = queryFocusables(root);
+          if (!elements.length) return;
+          const index = Math.max(
+            0,
+            elements.indexOf(document.activeElement as HTMLElement),
+          );
+          let next: number;
+          if (event.key === "Home") next = 0;
+          else if (event.key === "End") next = elements.length - 1;
+          else if (orientation !== "horizontal" && event.key === "ArrowDown")
+            next = index + rowLength;
+          else if (orientation !== "horizontal" && event.key === "ArrowUp")
+            next = index - rowLength;
+          else if (orientation !== "vertical" && event.key === "ArrowRight")
+            next = index + 1;
+          else if (orientation !== "vertical" && event.key === "ArrowLeft")
+            next = index - 1;
+          else return;
+          event.preventDefault();
+          event.stopPropagation();
+          focusElement(
+            elements,
+            ((next % elements.length) + elements.length) % elements.length,
+          );
+        };
+        root.addEventListener("focusin", focusin);
+        root.addEventListener("keydown", keydown);
+        const observer = new MutationObserver(normalize);
+        observer.observe(root, {
+          childList: true,
+          subtree: true,
+          attributes: true,
+          attributeFilter: ["disabled", "aria-disabled", "hidden", "inert"],
         });
-        observer.observe(root, { childList: true });
-
         return () => {
-          root.removeEventListener("keydown", onKeyDown);
           observer.disconnect();
+          root.removeEventListener("focusin", focusin);
+          root.removeEventListener("keydown", keydown);
         };
       },
-      [autofocus, enabled, initialIndex, rowLength],
+      [autofocus, rowLength, enabled, initialIndex, orientation],
     ),
   );
 }

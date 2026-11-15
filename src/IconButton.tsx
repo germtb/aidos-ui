@@ -1,3 +1,4 @@
+import { controlSizes, type ControlSize } from "./controlSize";
 import React from "react";
 import { BaseButton, BaseButtonProps } from "./BaseButton";
 import { Icon } from "./Icon";
@@ -10,13 +11,24 @@ export interface IconButtonProps extends Omit<
   "border" | "padding"
 > {
   icon: IconType;
+  size?: ControlSize;
   label?: string;
 }
 
 export const IconButton = React.forwardRef(function IconButton(
-  { icon, color, bare, disabled, jss, label, ...buttonProps }: IconButtonProps,
+  {
+    icon,
+    color,
+    bare,
+    disabled,
+    size = "medium",
+    jss,
+    label,
+    ...buttonProps
+  }: IconButtonProps,
   ref?: React.Ref<HTMLButtonElement>,
 ) {
+  const metrics = controlSizes[size];
   return (
     <BaseButton
       {...buttonProps}
@@ -27,9 +39,12 @@ export const IconButton = React.forwardRef(function IconButton(
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: 34,
-          width: 34,
-          borderRadius: 17,
+          height: metrics.height,
+          width: metrics.height,
+          minWidth: metrics.height,
+          flexShrink: 0,
+          padding: 0,
+          borderRadius: metrics.height / 2,
         },
         jss,
       ]}
@@ -39,6 +54,7 @@ export const IconButton = React.forwardRef(function IconButton(
     >
       <Icon
         size="medium"
+        jss={{ width: metrics.icon, height: metrics.icon }}
         icon={icon}
         color={getGlyphColor(color, disabled, bare)}
       />

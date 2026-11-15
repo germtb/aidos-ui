@@ -29,7 +29,13 @@ export const ListLinkItem = React.forwardRef(function ListLinkItem(
     onClick,
     href,
     disabled = false,
-    padding = "medium",
+    size = "medium",
+    padding = size === "medium" || size === "large" ? "medium" : "small",
+    jssPrimary,
+    "aria-expanded": ariaExpanded,
+    "aria-controls": ariaControls,
+    "aria-haspopup": ariaHasPopup,
+    "aria-label": ariaLabel,
     jss,
     gap,
     selected,
@@ -43,6 +49,7 @@ export const ListLinkItem = React.forwardRef(function ListLinkItem(
 
   return (
     <BaseListItem
+      size={size}
       disabled={disabled}
       aria-selected={selected}
       padding="none"
@@ -72,7 +79,17 @@ export const ListLinkItem = React.forwardRef(function ListLinkItem(
           href={href}
           ref={ref}
           data-list-primary={true}
-          jss={interactableListItemContentJSS}
+          aria-expanded={ariaExpanded}
+          aria-controls={ariaControls}
+          aria-haspopup={ariaHasPopup}
+          aria-label={ariaLabel}
+          jss={[
+            interactableListItemContentJSS,
+            {
+              minHeight: { xsmall: 28, small: 32, medium: 36, large: 44 }[size],
+            },
+            jssPrimary,
+          ]}
           onClick={onClick}
         >
           {content}

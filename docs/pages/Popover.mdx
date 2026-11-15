@@ -1,241 +1,65 @@
-import { Popover, PopoverTrigger } from "../../src/Popover";
-import { Icon } from "../../src/Icon";
-import { Button } from "../../src/Button";
-import { List } from "../../src/List";
-import { ListButtonItem } from "../../src/ListButtonItem";
-import { Row } from "../../src/Row";
-import { Column } from "../../src/Column";
+import { MenuDemo, DialogDemo } from "../examples/DesktopDemo";
 
 # Popover
 
-A floating card that appears next to a trigger element. Popovers use the same elevated surface treatment as floating cards and can contain interactive content such as menus, forms, or action lists.
+An anchored, non-modal floating surface. Native popovers escape clipping and provide light dismissal; Aidos supplies positioning and focus behavior.
 
----
+<MenuDemo />
 
-## Props
+## Usage
 
-### PopoverTrigger
-
-| Prop               | Type                                                         | Required | Description                             |
-| ------------------ | ------------------------------------------------------------ | -------- | --------------------------------------- |
-| `PopoverComponent` | `(props: { close: () => void } & Input) => JSX.Element`      | Yes      | Component to render in the popover      |
-| `children`         | `(props: { toggle: (input: Input) => void }) => JSX.Element` | Yes      | Render function for the trigger element |
-| `jss`              | `JSS`                                                        | No       | Custom styles for the wrapper           |
-| `jssDialog`        | `JSS`                                                        | No       | Custom styles for the popover dialog    |
-| `grow`             | `boolean`                                                    | No       | Allow wrapper to grow                   |
-| `shrink`           | `boolean`                                                    | No       | Allow wrapper to shrink                 |
-| `tag`              | `keyof HTMLElementTagNameMap`                                | No       | HTML tag for the wrapper                |
-
-### Popover
-
-| Prop       | Type         | Required | Description                   |
-| ---------- | ------------ | -------- | ----------------------------- |
-| `children` | `ReactNode`  | Yes      | Popover content               |
-| `close`    | `() => void` | Yes      | Function to close the popover |
-
----
-
-## Basic usage
-
-Use `PopoverTrigger` to create a button that opens a popover with interactive options:
-
-<Row padding="large">
-  <PopoverTrigger
-    PopoverComponent={({ close }) => (
-      <Popover close={close}>
-        <List ariaLabel="Options">
-          <ListButtonItem
-            headline="Edit"
-            onClick={() => close()}
-            color="secondary"
-          />
-          <ListButtonItem
-            headline="Duplicate"
-            onClick={() => close()}
-            color="secondary"
-          />
-          <ListButtonItem
-            headline="Delete"
-            onClick={() => close()}
-            color="negative"
-          />
-        </List>
-      </Popover>
-    )}
-  >
-    {({ toggle }) => (
-      <Button color="primary" onClick={() => toggle(undefined)}>
-        Show Options
-      </Button>
-    )}
-  </PopoverTrigger>
-</Row>
-
-```js
+```tsx
 <PopoverTrigger
-  PopoverComponent={({ close }) => (
-    <Popover close={close}>
-      <List ariaLabel="Options">
-        <ListButtonItem
-          headline="Edit"
-          onClick={() => close()}
-          color="secondary"
-        />
-        <ListButtonItem
-          headline="Duplicate"
-          onClick={() => close()}
-          color="secondary"
-        />
-        <ListButtonItem
-          headline="Delete"
-          onClick={() => close()}
-          color="negative"
-        />
-      </List>
-    </Popover>
+  ariaLabel="Quick settings"
+  placement="top"
+  align="end"
+  content={({ close }) => (
+    <Column padding="small" gap="medium">
+      <TextInput aria-label="Name" />
+      <Button color="primary" onClick={close}>
+        Save
+      </Button>
+    </Column>
   )}
 >
-  {({ toggle }) => (
-    <Button color="primary" onClick={() => toggle(undefined)}>
-      Show Options
-    </Button>
-  )}
-</PopoverTrigger>
-```
-
----
-
-## Passing data to popover
-
-Use TypeScript generics to pass data when opening the popover:
-
-```js
-interface Item {
-  id: string;
-  name: string;
-}
-
-<PopoverTrigger<Item>
-  PopoverComponent={({ close, id, name }) => (
-    <Popover close={close}>
-      <Column padding="medium" gap="small">
-        <P>Edit: {name}</P>
-        <Button color="primary" onClick={() => {
-          saveItem(id);
-          close();
-        }}>
-          Save
-        </Button>
-      </Column>
-    </Popover>
-  )}
->
-  {({ toggle }) => (
+  {({ toggle, expanded, id }) => (
     <Button
       color="secondary"
-      onClick={() => toggle({ id: "123", name: "My Item" })}
+      aria-haspopup="dialog"
+      aria-expanded={expanded}
+      aria-controls={id}
+      onClick={() => toggle()}
     >
-      Edit Item
+      Settings
     </Button>
   )}
 </PopoverTrigger>
 ```
 
----
+| Prop               | Default  | Purpose                                                                                    |
+| ------------------ | -------- | ------------------------------------------------------------------------------------------ |
+| `content`          | —        | React content or `({ close }) => content`; floating card and focus management are included |
+| `placement`        | `bottom` | `top`, `bottom`, `left`, or `right`; flips when needed                                     |
+| `align`            | `start`  | `start`, `center`, or `end`                                                                |
+| `ariaLabel`        | —        | Name for dialog content                                                                    |
+| `role`             | `dialog` | Use `presentation` when content supplies its own menu/listbox semantics                    |
+| `children`         | —        | Trigger render function receiving `toggle`, `expanded`, and popup `id`                     |
+| `jss`, `jssDialog` | —        | Trigger wrapper and floating surface styles                                                |
 
-## Behavior
+The viewport constrains width and height; long content scrolls. Popovers inside modal dialogs stay usable in the top layer.
 
-- **Toggle on click**: Clicking the trigger opens/closes the popover
-- **Focus management**: Focus moves into the popover when opened
-- **Focus trap**: Tab cycles through focusable elements within the popover
-- **Escape to close**: Pressing Escape closes the popover
-- **Outside click**: Clicking outside closes the popover
-- **Focus restoration**: Focus returns to the trigger when closed
+## Focus and dismissal
 
----
+- Explicit autofocus, then selected content, then the first focusable control receives focus. Disabled actions remain discoverable.
+- Escape closes the current popover. Tab leaves at its boundaries; this is not a modal focus trap.
+- Outside clicks dismiss without stealing focus from the clicked control.
+- Closing while focus is inside restores the trigger if it still exists.
+- Prefer [Menu](/Menu) for actions and choices, [SearchList](/SearchPalette) for searchable selection.
 
-## Common patterns
+<DialogDemo />
 
-### Dropdown menu
+## Existing component API
 
-```js
-<PopoverTrigger
-  PopoverComponent={({ close }) => (
-    <Popover close={close}>
-      <List ariaLabel="Menu">
-        <ListButtonItem headline="Profile" onClick={() => close()} />
-        <ListButtonItem headline="Settings" onClick={() => close()} />
-        <ListButtonItem
-          headline="Logout"
-          onClick={() => close()}
-          color="negative"
-        />
-      </List>
-    </Popover>
-  )}
->
-  {({ toggle }) => (
-    <IconButton
-      bare
-      icon="more-vertical"
-      color="secondary"
-      onClick={() => toggle(undefined)}
-    />
-  )}
-</PopoverTrigger>
-```
+`PopoverComponent` remains supported for callers passing typed input to `toggle(input)`. That component should wrap its content in `<Popover close={close}>`. New callers can use `content` directly; do not wrap that content in another `Popover`.
 
-### Action confirmation
-
-```js
-<PopoverTrigger
-  PopoverComponent={({ close }) => (
-    <Popover close={close}>
-      <Column padding="medium" gap="medium">
-        <P>Are you sure you want to delete?</P>
-        <Row gap="small" justify="end">
-          <Button bare color="secondary" onClick={close}>
-            Cancel
-          </Button>
-          <Button
-            color="negative"
-            onClick={() => {
-              deleteItem();
-              close();
-            }}
-          >
-            Delete
-          </Button>
-        </Row>
-      </Column>
-    </Popover>
-  )}
->
-  {({ toggle }) => (
-    <Button color="negative" onClick={() => toggle(undefined)}>
-      Delete
-    </Button>
-  )}
-</PopoverTrigger>
-```
-
----
-
-## Accessibility
-
-- Uses `<dialog>` element with `.show()` for proper popover behavior
-- Focus is trapped within the popover
-- Escape key closes the popover
-- Focus returns to the trigger when closed
-- Tab navigation cycles through focusable elements
-
----
-
-## Popover vs Dialog vs Tooltip
-
-| Popover                 | Dialog               | Tooltip                 |
-| ----------------------- | -------------------- | ----------------------- |
-| Positioned near trigger | Centered on screen   | Positioned near trigger |
-| Light interactions      | Complex workflows    | Text only               |
-| Partial page blocking   | Full page blocking   | No blocking             |
-| Menus, quick actions    | Forms, confirmations | Hints, labels           |
+Use [Modal](/Dialog) for blocking workflows and [Tooltip](/Tooltip) for non-interactive hints.

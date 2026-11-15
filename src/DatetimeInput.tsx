@@ -28,7 +28,10 @@ const styles = {
     flexGrow: 1,
     backgroundColor: "var(--primary-background)",
     color: "var(--primary-text)",
-    outline: "none",
+    ":focus-visible": {
+      outline: "2px solid var(--outline)",
+      outlineOffset: -2,
+    },
     border: "none",
     fontSize: 20,
     lineHeight: 24 / 20,

@@ -27,7 +27,13 @@ export const ListButtonItem = React.forwardRef(function ListButtonItem(
     onClick,
     color = "secondary",
     disabled = false,
-    padding = "medium",
+    size = "medium",
+    padding = size === "medium" || size === "large" ? "medium" : "small",
+    jssPrimary,
+    "aria-expanded": ariaExpanded,
+    "aria-controls": ariaControls,
+    "aria-haspopup": ariaHasPopup,
+    "aria-label": ariaLabel,
     jss,
     gap,
     selected,
@@ -39,6 +45,7 @@ export const ListButtonItem = React.forwardRef(function ListButtonItem(
 
   return (
     <BaseListItem
+      size={size}
       disabled={disabled}
       padding="none"
       gap={gap}
@@ -65,7 +72,17 @@ export const ListButtonItem = React.forwardRef(function ListButtonItem(
           color={color}
           ref={ref}
           data-list-primary={true}
-          jss={interactableListItemContentJSS}
+          aria-expanded={ariaExpanded}
+          aria-controls={ariaControls}
+          aria-haspopup={ariaHasPopup}
+          aria-label={ariaLabel}
+          jss={[
+            interactableListItemContentJSS,
+            {
+              minHeight: { xsmall: 28, small: 32, medium: 36, large: 44 }[size],
+            },
+            jssPrimary,
+          ]}
           onClick={onClick}
         >
           {content}

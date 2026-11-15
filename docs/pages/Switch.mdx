@@ -1,0 +1,13 @@
+import { SwitchDemo } from "../examples/DesktopDemo";
+
+# Switch
+
+A persistent on/off setting with switch semantics and a minimum 24px hit target. Use [Toggle](/Toggle) for an icon toggle button.
+
+<SwitchDemo />
+
+```tsx
+<Switch label="Notifications" checked={enabled} onCheckedChange={setEnabled} />
+```
+
+`label` supplies the accessible name. `checked` is controlled. Disabled switches remain focusable and announce `aria-disabled`, but cannot toggle. Forced colors and reduced motion are supported.

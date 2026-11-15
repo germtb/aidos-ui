@@ -1,4 +1,11 @@
-import { JSS, Padding, TextColor, cssVar, getPadding } from "./jss";
+import {
+  JSS,
+  Padding,
+  TextColor,
+  cssVar,
+  getPadding,
+  getTextColor,
+} from "./jss";
 
 export type InteractableColor =
   "primary" | "secondary" | "negative" | "inverse";
@@ -15,8 +22,7 @@ const styles = {
       backgroundColor: cssVar("--background-button-secondary"),
     },
     ":focus-visible": {
-      outlineWidth: "2px",
-      outlineStyle: "solid",
+      outline: `2px solid ${cssVar("--outline")}`,
       outlineOffset: 2,
     },
   },
@@ -87,6 +93,7 @@ export function getInteractableJSS({
 }): Array<JSS> {
   return [
     styles.root,
+    getTextColor(getGlyphColor(color, disabled, bare)),
     color === "primary" && styles.primary,
     color === "secondary" && styles.secondary,
     color === "negative" && styles.negative,

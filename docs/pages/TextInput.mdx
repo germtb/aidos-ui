@@ -18,9 +18,9 @@ A restrained, rounded text field with support for icons and add-ons. Built on th
 | `placeholder`   | `string`                  | No       | -          | Placeholder text                                       |
 | `addOn`         | `ReactNode`               | No       | -          | Element displayed inside the input (typically an icon) |
 | `addOnPosition` | `"start"` \| `"end"`      | No       | `"start"`  | Add-on placement                                       |
-| `size`          | `Size`                    | No       | `"medium"` | Font size (matches Button sizing)                      |
-| `padding`       | `Padding`                 | No       | `"medium"` | Internal padding                                       |
-| `gap`           | `Gap`                     | No       | `"small"`  | Space between add-on and input                         |
+| `size`          | `Size`                    | No       | `"medium"` | Typography and height (matches Button sizing)          |
+| `padding`       | `Padding`                 | No       | By size    | Internal padding                                       |
+| `gap`           | `Gap`                     | No       | By size    | Add-on gap: 4px for small sizes, otherwise 8px         |
 | `disabled`      | `boolean`                 | No       | `false`    | Disables the input                                     |
 | `type`          | `string`                  | No       | `"text"`   | HTML input type                                        |
 | `jss`           | `JSS`                     | No       | -          | Custom styles for the input element                    |
@@ -204,3 +204,7 @@ function Form() {
   onValueChange={setEmail}
 />
 ```
+
+## Compact controls and focus
+
+`size` coordinates field height and typography with buttons. Action add-ons have their own keyboard indicator; the containing field does not get a second ring. [Try the size and focus laboratory](/Desktop).

@@ -1,0 +1,32 @@
+import { SearchDemo } from "../examples/DesktopDemo";
+
+# SearchPalette and SearchList
+
+The same accessible search/listbox interaction, embedded or in a modal. No fuzzy-search or command-runtime dependency.
+
+<SearchDemo />
+
+```tsx
+<SearchPalette
+  label="Commands"
+  open={open}
+  onClose={() => setOpen(false)}
+  options={[
+    { value: "new", label: "New document", icon: "file-plus" },
+    { value: "settings", label: "Settings", keywords: "theme preferences" },
+  ]}
+  onSelect={runCommand}
+/>
+```
+
+| Prop                              | Purpose                                                                                          |
+| --------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `options`                         | Stable string values, labels, optional description/icon/trailing content/keywords/disabled state |
+| `onSelect`                        | Selected value; palette callbacks run after closing and restoring focus                          |
+| `query`, `onQueryChange`          | Optional controlled query                                                                        |
+| `filter`                          | Defaults to case-insensitive text matching; set `false` for already-filtered server results      |
+| `loading`                         | Announces loading state                                                                          |
+| `footer`                          | Optional explanatory or shortcut content                                                         |
+| `open`, `onClose`, `onAfterClose` | Modal lifecycle (`SearchPalette` only)                                                           |
+
+Focus stays in the input using `aria-activedescendant`. Arrow keys or Ctrl+J/K navigate; Ctrl+Home/End jump; Enter selects. IME composition never selects. Disabled options remain reachable and announced, but cannot be selected. The application owns ranking, fetching, and executing commands.

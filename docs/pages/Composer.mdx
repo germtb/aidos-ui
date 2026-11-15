@@ -1,0 +1,38 @@
+import { ComposerDemo } from "../examples/DesktopDemo";
+
+# Composer
+
+A controlled, auto-growing text field with an integrated footer and send action. The application owns the draft, submission, errors, and queueing policy.
+
+<ComposerDemo />
+
+```tsx
+const [draft, setDraft] = useState("");
+
+<Composer
+  aria-label="Message"
+  value={draft}
+  onValueChange={setDraft}
+  onSubmit={() => send(draft)}
+  footer={
+    <Button size="small" bare color="secondary" onClick={openSettings}>
+      Settings
+    </Button>
+  }
+/>;
+```
+
+| Prop                     | Purpose                                                                            |
+| ------------------------ | ---------------------------------------------------------------------------------- |
+| `value`, `onValueChange` | Controlled draft; never cleared implicitly                                         |
+| `onSubmit`               | Called by Send or unmodified Enter; ignored for IME composition                    |
+| `footer`                 | Compact controls below the text                                                    |
+| `action`                 | Optional replacement for the default send button                                   |
+| `submitDisabled`         | Disable submission while leaving the draft editable                                |
+| `submitLabel`            | Accessible send label; defaults to “Send message”                                  |
+| `embedded`               | Transparent surface for inline review or another container; retains focus feedback |
+| `jssRoot`, `jss`         | Surface and textarea customization                                                 |
+
+Also accepts textarea attributes. Shift+Enter inserts a newline. Empty/whitespace drafts cannot submit. The field uses a 1px neutral surface outline; footer controls receive their own keyboard indicators. Invalid input retains a red outline.
+
+The default type is 14px/20px; growth is bounded at 180px. These defaults need no app-specific CSS. `TextArea` uses native `field-sizing`; use current browsers.

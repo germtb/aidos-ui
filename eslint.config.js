@@ -25,5 +25,10 @@ export default defineConfig([
       "react-hooks/set-state-in-effect": "error",
     },
   },
+  {
+    files: ["src/**/*.{ts,tsx}"],
+    // Library components cannot depend on Next.js's Image component.
+    rules: { "@next/next/no-img-element": "off" },
+  },
   globalIgnores(["dist/**", "docs/.next/**"]),
 ]);

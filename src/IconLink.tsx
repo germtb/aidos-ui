@@ -1,3 +1,4 @@
+import { controlSizes, type ControlSize } from "./controlSize";
 import React from "react";
 import { Icon } from "./Icon";
 import { IconType } from "./IconType";
@@ -9,12 +10,22 @@ export interface IconLinkProps extends Omit<
   "border" | "padding"
 > {
   icon: IconType;
+  size?: ControlSize;
 }
 
 export const IconLink = React.forwardRef(function IconLink(
-  { icon, color, bare, disabled, jss, ...otherProps }: IconLinkProps,
+  {
+    icon,
+    color,
+    bare,
+    disabled,
+    size = "medium",
+    jss,
+    ...otherProps
+  }: IconLinkProps,
   ref?: React.Ref<HTMLAnchorElement>,
 ) {
+  const metrics = controlSizes[size];
   return (
     <BaseLink
       {...otherProps}
@@ -24,9 +35,12 @@ export const IconLink = React.forwardRef(function IconLink(
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: 34,
-          width: 34,
-          borderRadius: 17,
+          height: metrics.height,
+          width: metrics.height,
+          minWidth: metrics.height,
+          flexShrink: 0,
+          padding: 0,
+          borderRadius: metrics.height / 2,
           textDecoration: "none",
         },
         jss,
@@ -37,6 +51,7 @@ export const IconLink = React.forwardRef(function IconLink(
     >
       <Icon
         size="medium"
+        jss={{ width: metrics.icon, height: metrics.icon }}
         icon={icon}
         color={getGlyphColor(color, disabled, bare)}
       />

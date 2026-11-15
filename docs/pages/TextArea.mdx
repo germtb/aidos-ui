@@ -1,0 +1,32 @@
+import { TextArea } from "../../src/TextArea";
+import { Column } from "../../src/Column";
+
+# TextArea
+
+Uses the same typography and integrated focus treatment as other text fields. Default: medium text, three rows.
+
+<Column gap="medium">
+  <TextArea aria-label="Notes" placeholder="Ordinary multiline field" />
+  <TextArea
+    autoGrow
+    aria-label="Growing notes"
+    placeholder="Type several lines to grow…"
+  />
+  <TextArea
+    aria-invalid="true"
+    aria-label="Invalid notes"
+    defaultValue="Invalid input retains an error-colored indicator."
+  />
+</Column>
+
+```tsx
+<TextArea value={notes} onValueChange={setNotes} autoGrow aria-label="Notes" />
+```
+
+- `size`: theme typography; defaults to `medium`.
+- `autoGrow`: native content sizing, one initial row, maximum height 180px.
+- `rows`: minimum line count when growing; normal native row count otherwise.
+- `padding`, `jss`: spacing and height constraints.
+- Native `disabled`, `readOnly`, `aria-invalid`, and textarea attributes are forwarded.
+
+Without browser support for `field-sizing`, native row sizing and manual resizing remain available. Use [Composer](/Composer) for send behavior and footer controls.

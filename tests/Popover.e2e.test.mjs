@@ -49,20 +49,25 @@ test("popover can be reopened after it closes", async () => {
   const page = await browser.newPage();
   await page.goto(`${origin}/Popover`);
 
-  const trigger = page.getByRole("button", { name: "Show Options" }).first();
-  const dialog = page.locator("dialog").filter({
-    has: page.getByRole("button", { name: "Edit" }),
+  const trigger = page
+    .getByRole("button", { name: "Document actions" })
+    .first();
+  const dialog = page.locator("[popover]").filter({
+    has: page.getByRole("menuitem", { name: "Edit" }),
   });
 
   await trigger.click();
   await dialog.waitFor({ state: "visible" });
 
-  await page.getByRole("button", { name: "Edit" }).first().click();
+  await page.getByRole("menuitem", { name: "Edit" }).first().click();
   await dialog.waitFor({ state: "hidden" });
 
   await trigger.click();
   await dialog.waitFor({ state: "visible" });
-  assert.equal(await dialog.getAttribute("open"), "");
+  assert.equal(
+    await dialog.evaluate((element) => element.matches(":popover-open")),
+    true,
+  );
 
   await page.close();
 });

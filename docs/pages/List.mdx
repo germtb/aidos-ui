@@ -1,3 +1,4 @@
+import { DisclosureDemo } from "../examples/DesktopDemo";
 import { List } from "../../src/List";
 import { ListItem } from "../../src/ListItem";
 import { ListButtonItem } from "../../src/ListButtonItem";
@@ -311,3 +312,9 @@ Disable list-managed navigation when the contents manage focus themselves:
 - Keyboard navigation follows the WAI-ARIA grid pattern
 - Focus management supports arrow keys, Home, and End
 - Interactive items expose selected and disabled states
+
+## Compact rows and contextual actions
+
+`size` sets row density; `indent` supplies logical indentation. Use `jssPrimary` and `jssAddOn` instead of styling internal descendants. `ContextualActions` reveal on hover or focus and stay available on touch devices. Arrow navigation follows actual focus, including disabled actions. Hidden or inert content is skipped.
+
+<DisclosureDemo />

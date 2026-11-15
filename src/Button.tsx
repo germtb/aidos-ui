@@ -1,3 +1,4 @@
+import { controlSizes, type ControlSize } from "./controlSize";
 import React from "react";
 
 import { BaseButton, BaseButtonProps } from "./BaseButton";
@@ -13,8 +14,11 @@ export interface ButtonProps extends Omit<
   BaseButtonProps,
   "border" | "padding"
 > {
-  children: string;
+  children: React.ReactNode;
   color: InteractableColor;
+  size?: ControlSize;
+  leading?: React.ReactNode;
+  trailing?: React.ReactNode;
   icon?: IconType;
   iconPosition?: "left" | "right";
   rowProps?: FlexLayoutProps;
@@ -31,6 +35,10 @@ export const Button = React.forwardRef(function Button(
     disabled,
     icon,
     iconPosition = "left",
+    size = "medium",
+    leading,
+    trailing,
+    rowProps,
     align = "center",
     gap = "medium",
     justify = "center",
@@ -39,6 +47,8 @@ export const Button = React.forwardRef(function Button(
   }: ButtonProps,
   ref?: React.Ref<HTMLButtonElement>,
 ) {
+  const metrics = controlSizes[size];
+  const glyph = getGlyphColor(color, disabled, bare);
   return (
     <BaseButton
       {...otherProps}
@@ -49,8 +59,10 @@ export const Button = React.forwardRef(function Button(
       padding="none"
       jss={[
         {
-          height: 34,
-          padding: "0 14px",
+          height: metrics.height,
+          minWidth: 0,
+          maxWidth: "100%",
+          padding: `0 ${metrics.padding}px`,
           borderRadius: cssVar("--border-radius-l"),
           justifyContent: "center",
           userSelect: "none",
@@ -58,18 +70,29 @@ export const Button = React.forwardRef(function Button(
         jss,
       ]}
     >
-      <Row grow={true} align={align} gap={gap} justify={justify}>
+      <Row
+        {...rowProps}
+        direction="row"
+        grow={true}
+        align={align}
+        gap={gap}
+        justify={justify}
+        jss={[{ minWidth: 0 }, rowProps?.jss]}
+      >
+        {leading}
         {icon && iconPosition === "left" && (
           <Icon
             icon={icon}
             size="medium"
-            color={getGlyphColor(color, disabled, bare)}
+            jss={{ width: metrics.icon, height: metrics.icon, flexShrink: 0 }}
+            color={glyph}
           />
         )}
         <Text
-          size="medium"
-          color={getGlyphColor(color, disabled, bare)}
+          size={metrics.text}
+          color={glyph}
           jss={{
+            minWidth: 0,
             fontWeight: 600,
             letterSpacing: "-0.01em",
           }}
@@ -80,9 +103,11 @@ export const Button = React.forwardRef(function Button(
           <Icon
             icon={icon}
             size="medium"
-            color={getGlyphColor(color, disabled, bare)}
+            jss={{ width: metrics.icon, height: metrics.icon, flexShrink: 0 }}
+            color={glyph}
           />
         )}
+        {trailing}
       </Row>
     </BaseButton>
   );

@@ -1,0 +1,31 @@
+import { DisclosureDemo, ProseDemo } from "../examples/DesktopDemo";
+
+# Contextual actions
+
+Reveal actions on hover or keyboard focus, without losing their layout space. Touch devices always show them.
+
+<DisclosureDemo />
+
+```tsx
+<ListButtonItem
+  headline="Document"
+  size="small"
+  onClick={openDocument}
+  addOn={
+    <ContextualActions>
+      <IconButton
+        size="xsmall"
+        bare
+        color="secondary"
+        icon="ellipsis"
+        aria-label="Document actions"
+        onClick={openActions}
+      />
+    </ContextualActions>
+  }
+/>
+```
+
+List rows are action scopes automatically. Wrap other content in `ActionScope`; place `ContextualActions` inside it. Expanded action popovers remain visible. Use 24px `xsmall` or 28px `small` icon buttons rather than private descendant selectors.
+
+<ProseDemo />

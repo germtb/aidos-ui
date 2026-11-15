@@ -25,22 +25,23 @@ export const InputFrame = React.forwardRef(function InputFrame(
           ":hover": {
             borderColor: cssVar("--strong-divider"),
           },
-          ":has(:focus-visible)": {
+          ":has(:is(input, textarea, select):focus-visible)": {
             borderColor: cssVar("--outline"),
             outline: `2px solid ${cssVar("--outline")}`,
-            outlineOffset: 1,
+            outlineOffset: -2,
           },
-          ":has(:disabled)": {
+          ":has(:is(input, textarea, select):disabled)": {
             backgroundColor: cssVar("--secondary-background"),
             borderColor: cssVar("--divider"),
           },
-          ":has([aria-invalid=true])": {
+          ":has(:is(input, textarea, select)[aria-invalid=true])": {
             borderColor: cssVar("--negative-text"),
           },
-          ":has([aria-invalid=true]:focus-visible)": {
-            outline: `2px solid ${cssVar("--negative-text")}`,
-            outlineColor: cssVar("--negative-text"),
-          },
+          ":has(:is(input, textarea, select)[aria-invalid=true]:focus-visible)":
+            {
+              outline: `2px solid ${cssVar("--negative-text")}`,
+              outlineColor: cssVar("--negative-text"),
+            },
         },
         jss,
       ]}

@@ -1,27 +1,29 @@
+import React, { useId, useRef, type ReactNode } from "react";
 import { BaseLink } from "./BaseLink";
-import { Row, RowProps } from "./Row";
+import { Row, type RowProps } from "./Row";
 import { JSS, Padding, Size, cssVar, getPadding } from "./jss";
-import { useNavigation } from "./useNavigation";
 import { Text } from "./Text";
-import { ReactNode } from "react";
 import { BaseButton } from "./BaseButton";
+import { IconButton } from "./IconButton";
 import { Icon } from "./Icon";
 import type { IconType } from "./IconType";
 
-export type TabsVariant = "underline" | "segmented";
-
+export type TabsVariant = "underline" | "segmented" | "document";
 export type Tab = {
+  id?: string;
   label: string;
   icon?: IconType;
   href?: string;
   onClick?: () => void;
+  onClose?: () => void;
+  panelId?: string;
   selected?: boolean;
   addOn?: ReactNode;
   addOnPosition?: "start" | "end";
 };
 
 export interface TabsProps extends RowProps {
-  ["aria-controls"]: string;
+  "aria-controls": string;
   tabs: Array<Tab>;
   variant?: TabsVariant;
   labelSize?: Size;
@@ -32,110 +34,198 @@ export interface TabsProps extends RowProps {
   labelRenderer?: (label: string) => ReactNode;
 }
 
-export function Tabs({
-  tabs,
-  variant = "underline",
-  gap = "none",
-  padding = "none",
-  tabPadding = "medium",
-  labelSize = "large",
-  iconSize = "medium",
-  jss,
-  jssTab,
-  labelRenderer,
-  ["aria-controls"]: ariaControls,
-  ...otherProps
-}: TabsProps) {
-  const root = useNavigation();
-
+export const Tabs = React.forwardRef(function Tabs(
+  {
+    tabs,
+    variant = "underline",
+    gap = "none",
+    padding = "none",
+    tabPadding = variant === "document" ? ["small", "medium"] : "medium",
+    labelSize = variant === "document" ? "small" : "large",
+    iconSize = "medium",
+    jss,
+    jssTab,
+    labelRenderer,
+    "aria-controls": ariaControls,
+    onKeyDown,
+    bare = true,
+    ...props
+  }: TabsProps,
+  ref?: React.Ref<HTMLElement>,
+) {
+  const root = useRef<HTMLElement>(null);
+  const lastSelected = useRef<string>(undefined);
+  const instance = useId();
+  const selectedIndex = Math.max(
+    0,
+    tabs.findIndex((tab) => tab.selected),
+  );
+  const selectedId = tabs[selectedIndex]?.id ?? tabs[selectedIndex]?.label;
+  const closeTab = (index: number) => {
+    const tab = tabs[index];
+    const next = tabs[index + 1] ?? tabs[index - 1];
+    const target = index === selectedIndex ? next : tabs[selectedIndex];
+    const targetIndex = tabs.indexOf(target);
+    root.current
+      ?.querySelectorAll<HTMLElement>('[role="tab"]')
+      [targetIndex]?.focus();
+    if (index === selectedIndex) next?.onClick?.();
+    tab.onClose?.();
+  };
   return (
     <Row
+      {...props}
       role="tablist"
+      ref={(element) => {
+        root.current = element;
+        if (typeof ref === "function") ref(element);
+        else if (ref) ref.current = element;
+        if (element && selectedId !== lastSelected.current) {
+          const tab = element.querySelector('[aria-selected="true"]');
+          if (tab && variant === "document") {
+            const box = tab.getBoundingClientRect();
+            const viewport = element.getBoundingClientRect();
+            if (box.left < viewport.left)
+              element.scrollLeft -= viewport.left - box.left;
+            else if (box.right > viewport.right)
+              element.scrollLeft += box.right - viewport.right;
+          }
+          lastSelected.current = selectedId;
+        }
+      }}
+      gap={gap}
+      padding={padding}
       jss={[
+        { minWidth: 0, maxWidth: "100%" },
         variant === "segmented" && {
-          isolation: "isolate",
-          backgroundColor: cssVar("--hovered-background"),
+          background: cssVar("--hovered-background"),
           borderRadius: cssVar("--border-radius-l"),
-          maxWidth: "100%",
           padding: cssVar("--spacing-xs"),
           width: "fit-content",
         },
+        variant === "document" && {
+          overflowX: "auto",
+          overscrollBehavior: "contain",
+          scrollbarWidth: "thin",
+          alignItems: "center",
+          gap: 3,
+          padding: 3,
+        },
         jss,
       ]}
-      gap={gap}
-      padding={padding}
-      ref={root}
-      {...otherProps}
+      onKeyDown={(event) => {
+        onKeyDown?.(event);
+        if (
+          event.defaultPrevented ||
+          event.nativeEvent.isComposing ||
+          event.altKey ||
+          event.metaKey ||
+          event.ctrlKey
+        )
+          return;
+        const elements = Array.from(
+          event.currentTarget.querySelectorAll<HTMLElement>('[role="tab"]'),
+        );
+        const index = elements.indexOf(event.target as HTMLElement);
+        if (index < 0) return;
+        if (event.key === "Delete" && tabs[index].onClose) {
+          event.preventDefault();
+          closeTab(index);
+          return;
+        }
+        const next =
+          event.key === "Home"
+            ? 0
+            : event.key === "End"
+              ? tabs.length - 1
+              : event.key === "ArrowRight"
+                ? (index + 1) % tabs.length
+                : event.key === "ArrowLeft"
+                  ? (index - 1 + tabs.length) % tabs.length
+                  : -1;
+        if (next < 0) return;
+        event.preventDefault();
+        event.stopPropagation();
+        elements[next]?.focus();
+        tabs[next]?.onClick?.();
+      }}
     >
-      {tabs.map(
-        ({
+      {tabs.map((tab, index) => {
+        const {
+          id,
           label,
           icon,
           href,
           onClick,
-          selected,
+          onClose,
+          panelId,
           addOn,
           addOnPosition = "start",
-        }) => {
-          const BaseComponent = href != null ? BaseLink : BaseButton;
-
-          return (
+        } = tab;
+        const selected = index === selectedIndex;
+        const BaseComponent = href != null ? BaseLink : BaseButton;
+        return (
+          <Row
+            key={id ?? label}
+            data-aidos-action-scope
+            align="center"
+            gap="none"
+            jss={[
+              { minWidth: 0 },
+              variant === "document" && {
+                height: 30,
+                minWidth: 110,
+                maxWidth: 220,
+                flexShrink: 0,
+                borderRadius: 6,
+                background: selected
+                  ? cssVar("--light-highlight")
+                  : "transparent",
+                ":hover": {
+                  background: selected
+                    ? cssVar("--light-highlight")
+                    : cssVar("--hovered-background"),
+                },
+              },
+            ]}
+          >
             <BaseComponent
-              aria-controls={ariaControls}
+              id={id ?? `${instance}-${index}`}
+              aria-controls={panelId ?? ariaControls}
               role="tab"
-              aria-selected={selected ? "true" : undefined}
-              key={label}
-              bare
+              aria-selected={selected}
+              tabIndex={selected ? 0 : -1}
+              bare={bare}
               color={selected ? "primary" : "secondary"}
               href={href}
               onClick={onClick}
               animateInteraction={false}
               jss={[
                 {
+                  minWidth: 0,
+                  flex: 1,
                   alignItems: "center",
                   gap: cssVar("--spacing-s"),
                   textDecoration: "none",
+                  ":focus-visible": { outlineOffset: -2 },
                 },
                 variant === "underline" && {
-                  borderBottom: selected
-                    ? `3px solid ${cssVar("--highlight")}`
-                    : `3px solid transparent`,
-                  ":active span": {
-                    transform: "scale(0.97)",
-                  },
-                  ":first-child": {
-                    borderTopLeftRadius: cssVar("--border-radius-m"),
-                  },
-                  ":last-child": {
-                    borderTopRightRadius: cssVar("--border-radius-m"),
-                  },
-                  ":hover": {
-                    backgroundColor: cssVar("--hovered-background"),
-                  },
-                  ":active:hover": {
-                    backgroundColor: cssVar("--pressed-background"),
-                  },
+                  borderBottom: `3px solid ${selected ? cssVar("--highlight") : "transparent"}`,
+                  borderRadius:
+                    "var(--border-radius-s) var(--border-radius-s) 0 0",
+                  ":hover": { background: cssVar("--hovered-background") },
                 },
                 variant === "segmented" && {
-                  position: "relative",
-                  zIndex: selected ? 1 : 0,
                   borderRadius: cssVar("--border-radius-m"),
-                  backgroundColor: selected
+                  background: selected
                     ? cssVar("--overlay-background")
                     : "transparent",
-                  boxShadow: selected
-                    ? `0 0 0 1px ${cssVar("--divider")}, 0 0 4px color-mix(in srgb, ${cssVar("--primary-text")} 10%, transparent)`
-                    : "none",
-                  transition: `background-color ${cssVar("--transition-fast")}, box-shadow ${cssVar("--transition-fast")}`,
-                  ":hover": {
-                    backgroundColor: selected
-                      ? cssVar("--overlay-background")
-                      : cssVar("--hovered-background"),
-                  },
-                  ":active:hover": {
-                    top: 1,
-                    backgroundColor: cssVar("--pressed-background"),
-                  },
+                  boxShadow: selected ? cssVar("--shadow-sm") : "none",
+                },
+                variant === "document" && {
+                  height: "100%",
+                  borderRadius: 6,
+                  background: "transparent",
                 },
                 getPadding(tabPadding),
                 typeof jssTab === "function" ? jssTab({ selected }) : jssTab,
@@ -147,16 +237,40 @@ export function Tabs({
                   icon={icon}
                   size={iconSize}
                   color={selected ? "primary" : "secondary"}
+                  jss={{ flexShrink: 0 }}
                 />
               )}
-              <Text size={labelSize} color={selected ? "primary" : "secondary"}>
+              <Text
+                size={labelSize}
+                color={selected ? "primary" : "secondary"}
+                jss={{ minWidth: 0 }}
+              >
                 {labelRenderer ? labelRenderer(label) : label}
               </Text>
               {addOnPosition === "end" && addOn}
             </BaseComponent>
-          );
-        },
-      )}
+            {onClose && (
+              <IconButton
+                data-aidos-actions
+                aria-label={`Close ${label}`}
+                tabIndex={selected ? 0 : -1}
+                bare
+                color="secondary"
+                icon="x"
+                size="xsmall"
+                onClick={() => closeTab(index)}
+                jss={{
+                  borderRadius: 5,
+                  marginInlineEnd: 3,
+                  opacity: selected ? 1 : 0,
+                  ":focus-visible": { opacity: 1, outlineOffset: -2 },
+                  "@media (hover: none)": { opacity: 1 },
+                }}
+              />
+            )}
+          </Row>
+        );
+      })}
     </Row>
   );
-}
+});

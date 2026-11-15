@@ -1,3 +1,4 @@
+import { ControlSizesDemo } from "../examples/DesktopDemo";
 import { IconButton } from "../../src/IconButton";
 import { Row } from "../../src/Row";
 
@@ -11,14 +12,14 @@ IconButton uses the same fixed 34px control geometry and interaction treatment a
 
 ## Props
 
-| Prop         | Type                | Required | Default | Description                                                  |
-| ------------ | ------------------- | -------- | ------- | ------------------------------------------------------------ |
-| `icon`       | `IconType`          | Yes      | -       | The icon to display                                          |
+| Prop         | Type                | Required | Default | Description                                           |
+| ------------ | ------------------- | -------- | ------- | ----------------------------------------------------- |
+| `icon`       | `IconType`          | Yes      | -       | The icon to display                                   |
 | `color`      | `InteractableColor` | Yes      | -       | `"primary"`, `"secondary"`, `"negative"`, `"inverse"` |
-| `onClick`    | `function`          | Yes      | -       | Click handler                                                |
-| `bare`       | `boolean`           | No       | `false` | Removes background and elevation                             |
-| `disabled`   | `boolean`           | No       | `false` | Disables interaction                                         |
-| `aria-label` | `string`            | No       | -       | Accessible label (recommended)                               |
+| `onClick`    | `function`          | Yes      | -       | Click handler                                         |
+| `bare`       | `boolean`           | No       | `false` | Removes background and elevation                      |
+| `disabled`   | `boolean`           | No       | `false` | Disables interaction                                  |
+| `aria-label` | `string`            | No       | -       | Accessible label (recommended)                        |
 
 ---
 
@@ -146,3 +147,9 @@ Since IconButtons have no visible text, always provide an `aria-label` to descri
 ```
 
 Consider using a `Tooltip` component alongside IconButton to provide visual hints for all users.
+
+## Compact actions
+
+`size` supplies 24px, 28px, 34px, or 40px targets with matching glyphs. No descendant selectors are necessary. Always provide an accessible label.
+
+<ControlSizesDemo />

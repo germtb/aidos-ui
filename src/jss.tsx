@@ -4,8 +4,6 @@ import React, { useState } from "react";
 import { hash } from "./hash";
 import { isServer } from "./isServer";
 
-type StylesValueType = string | number | CSS.Properties<string | number>;
-
 export type Styles = CSS.Properties<
   string | number | CSS.Properties<string | number>
 >;
@@ -13,61 +11,36 @@ export type Styles = CSS.Properties<
 export type JSS =
   Styles | null | false | undefined | { [key: string]: Styles } | Array<JSS>;
 
-const aliases: {
-  [alias: string]: (value: StylesValueType) => [string, StylesValueType][];
-} = {
-  margin: (value: string) => {
-    if (value == null) {
-      return [];
-    }
-
-    const matches =
-      typeof value === "string"
-        ? Array.from(value.matchAll(/(.+) (.+)$/g))[0]
-        : null;
-    if (matches) {
-      return [
-        ["margin-top", matches[1]],
-        ["margin-bottom", matches[1]],
-        ["margin-left", matches[2]],
-        ["margin-right", matches[2]],
-      ];
-    } else {
-      return [
-        ["margin-top", value],
-        ["margin-bottom", value],
-        ["margin-left", value],
-        ["margin-right", value],
-      ];
-    }
-  },
-  padding: (value: string) => {
-    if (value == null) {
-      return [];
-    }
-
-    const matches =
-      typeof value === "string"
-        ? Array.from(value.matchAll(/(.+) (.+)$/g))[0]
-        : null;
-
-    if (matches) {
-      return [
-        ["padding-top", matches[1]],
-        ["padding-bottom", matches[1]],
-        ["padding-left", matches[2]],
-        ["padding-right", matches[2]],
-      ];
-    } else {
-      return [
-        ["padding-top", value],
-        ["padding-bottom", value],
-        ["padding-left", value],
-        ["padding-right", value],
-      ];
-    }
-  },
-};
+// Split CSS shorthand values without splitting spaces inside calc(), var(), or quotes.
+function spacingEntries(
+  key: string,
+  value: string | number,
+): [string, string | number][] {
+  const values: string[] = [];
+  let token = "";
+  let depth = 0;
+  let quote = "";
+  for (const char of String(value)) {
+    if (quote) {
+      if (char === quote && !token.endsWith("\\")) quote = "";
+    } else if (char === '"' || char === "'") quote = char;
+    else if (char === "(") depth++;
+    else if (char === ")") depth--;
+    if (/\s/.test(char) && depth === 0 && !quote) {
+      if (token) values.push(token);
+      token = "";
+    } else token += char;
+  }
+  if (token) values.push(token);
+  if (values.length < 1 || values.length > 4) return [[key, value]];
+  const [top, right = top, bottom = top, left = right] = values;
+  return [
+    [`${key}Top`, top],
+    [`${key}Right`, right],
+    [`${key}Bottom`, bottom],
+    [`${key}Left`, left],
+  ];
+}
 
 const rawHashMap = new Map<string, { selector: string; key: string }>();
 
@@ -108,6 +81,40 @@ const pixelStyles = new Set([
   "gap",
   "row-gap",
   "column-gap",
+  "padding-inline",
+  "padding-block",
+  "padding-inline-start",
+  "padding-inline-end",
+  "padding-block-start",
+  "padding-block-end",
+  "margin-inline",
+  "margin-block",
+  "margin-inline-start",
+  "margin-inline-end",
+  "margin-block-start",
+  "margin-block-end",
+  "inline-size",
+  "block-size",
+  "min-inline-size",
+  "min-block-size",
+  "max-inline-size",
+  "max-block-size",
+  "inset",
+  "inset-inline",
+  "inset-block",
+  "inset-inline-start",
+  "inset-inline-end",
+  "inset-block-start",
+  "inset-block-end",
+  "border-width",
+  "border-top-width",
+  "border-right-width",
+  "border-bottom-width",
+  "border-left-width",
+  "outline-width",
+  "flex-basis",
+  "letter-spacing",
+  "text-indent",
 ]);
 
 const toPixelValue = (key: string, value): string => {
@@ -134,13 +141,14 @@ const flattenJSS = (jss: JSS): Styles => {
       const styles = flattenJSS(item);
       for (const [key, value] of Object.entries(styles)) {
         const current = result[key];
+        delete result[key];
         if (
           typeof current === "object" &&
           current != null &&
           typeof value === "object" &&
           value != null
         ) {
-          result[key] = { ...current, ...value };
+          result[key] = flattenJSS([current, value]);
         } else {
           result[key] = value;
         }
@@ -148,14 +156,33 @@ const flattenJSS = (jss: JSS): Styles => {
     }
     return result;
   } else {
-    return jss;
+    const result: Styles = {};
+    for (const [key, value] of Object.entries(jss)) {
+      if (value == null) continue;
+      const entries =
+        key === "padding" || key === "margin"
+          ? spacingEntries(key, value)
+          : [[key, typeof value === "object" ? flattenJSS(value) : value]];
+      for (const [property, entry] of entries) {
+        delete result[property];
+        result[property] = entry;
+      }
+    }
+    return result;
   }
 };
 
 export const toClassnames = (jss: JSS, componentName?: string): string => {
   jss = flattenJSS(jss);
 
-  const stylesStack = Object.entries(jss);
+  // Keep physical and logical spacing in one rule so render order cannot change precedence.
+  const spacing: Styles = {};
+  const stylesStack = Object.entries(jss).filter(([key, value]) => {
+    if (!/^(padding|margin)([A-Z-]|$)/.test(key)) return true;
+    spacing[key] = value;
+    return false;
+  });
+  if (Object.keys(spacing).length) stylesStack.push(["", spacing]);
   const classNames: string[] = [];
 
   if (componentName) {
@@ -164,11 +191,6 @@ export const toClassnames = (jss: JSS, componentName?: string): string => {
 
   while (stylesStack.length) {
     const [key, value] = stylesStack.pop();
-
-    if (aliases[key]) {
-      stylesStack.push(...aliases[key](value));
-      continue;
-    }
 
     const inputKey =
       (key.startsWith("@media") ? "specific:" : "") +
@@ -482,7 +504,7 @@ export const lightTheme: Theme = {
   /* Effects */
   ["--warning"]: "rgb(166, 107, 0)",
   ["--highlight"]: "rgb(0, 122, 255)",
-  ["--outline"]: "rgb(103, 176, 255)",
+  ["--outline"]: "rgb(112, 140, 170)",
   ["--light-highlight"]: "rgb(220, 232, 245)",
   ["--light-highlight-hovered"]: "rgb(209, 226, 244)",
   ["--light-highlight-pressed"]: "rgb(197, 218, 240)",
@@ -554,7 +576,7 @@ export const darkTheme: Theme = {
   /* Effects */
   ["--warning"]: "rgb(255, 204, 0)",
   ["--highlight"]: "rgb(50, 140, 220)",
-  ["--outline"]: "rgb(91, 170, 255)",
+  ["--outline"]: "rgb(125, 170, 220)",
   ["--light-highlight"]: "rgba(49, 57, 63)",
   ["--light-highlight-hovered"]: "rgb(54, 68, 80)",
   ["--light-highlight-pressed"]: "rgb(60, 78, 96)",
@@ -612,10 +634,6 @@ export const baseStyles = `
   -moz-osx-font-smoothing: grayscale;
 }
 
-*:focus {
-  outline-color: ${cssVar("--highlight")};
-}
-
 button,
 input,
 textarea,
@@ -633,6 +651,7 @@ html {
 }
 
 body {
+  color: ${cssVar("--primary-text")};
   margin: 0;
   min-height: 100%;
   width: 100%;
@@ -669,6 +688,17 @@ body {
     opacity: 1;
     transform: scale(1);
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @keyframes dialogFadeIn { from { opacity: 1; } to { opacity: 1; } }
+  @keyframes popoverFadeIn { from { opacity: 1; } to { opacity: 1; } }
+  @keyframes backdropFadeIn { from { opacity: 1; } to { opacity: 1; } }
+}
+
+[data-aidos-action-scope]:is(:hover, :focus-within) [data-aidos-actions] {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 `;

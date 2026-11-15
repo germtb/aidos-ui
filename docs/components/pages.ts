@@ -28,6 +28,8 @@ export const pages: Array<Page> = [
     type: "link",
     page: "Philosophy",
   },
+  { type: "link", page: "Desktop", name: "Desktop laboratory" },
+  { type: "link", page: "VisualSystem", name: "Visual system" },
   {
     type: "section",
     label: "CSS",
@@ -48,6 +50,7 @@ export const pages: Array<Page> = [
     content: [
       { type: "link", page: "Text" },
       { type: "link", page: "TextPairing" },
+      { type: "link", page: "Prose" },
       { type: "link", page: "Icon" },
     ],
   },
@@ -61,6 +64,7 @@ export const pages: Array<Page> = [
       { type: "link", page: "IconButton" },
       { type: "link", page: "Select" },
       { type: "link", page: "Toggle" },
+      { type: "link", page: "Switch" },
       { type: "link", page: "Tabs" },
       { type: "link", page: "TabBar" },
     ],
@@ -70,6 +74,8 @@ export const pages: Array<Page> = [
     label: "Inputs",
     content: [
       { type: "link", page: "TextInput" },
+      { type: "link", page: "TextArea" },
+      { type: "link", page: "Composer" },
       { type: "link", page: "DateInput" },
       { type: "link", page: "RangeInput" },
       { type: "link", page: "TimeInput" },
@@ -90,6 +96,8 @@ export const pages: Array<Page> = [
     content: [
       { type: "link", page: "List" },
       { type: "link", page: "ListHeader" },
+      { type: "link", page: "Disclosure" },
+      { type: "link", page: "ContextualActions" },
       { type: "link", page: "navigation", name: "List navigation" },
     ],
   },
@@ -99,6 +107,8 @@ export const pages: Array<Page> = [
     content: [
       { type: "link", page: "Dialog" },
       { type: "link", page: "Popover" },
+      { type: "link", page: "Menu" },
+      { type: "link", page: "SearchPalette" },
       { type: "link", page: "Tooltip" },
     ],
   },

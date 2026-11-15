@@ -28,10 +28,10 @@ function InlineCode({ children }) {
           : {
               color: cssVar("--primary-text"),
               backgroundColor: cssVar("--secondary-background"),
-              borderRadius: cssVar("--border-radius-m"),
-              padding: cssVar("--spacing-xs"),
+              borderRadius: cssVar("--border-radius-s"),
+              fontSize: "0.92em",
+              padding: "1px 4px",
               border: `1px solid ${cssVar("--divider")}`,
-              display: "inline-block",
             }
       }
     >
@@ -56,17 +56,46 @@ const components: MDXComponents = {
     <H2
       bold
       id={labelToID(props.children)}
-      jss={{ marginBottom: cssVar("--spacing-l") }}
+      jss={{
+        marginTop: cssVar("--spacing-xxxl"),
+        marginBottom: cssVar("--spacing-l"),
+      }}
       {...props}
     />
   ),
   h3: (props) => {
-    return <H3 bold id={labelToID(props.children)} {...props} />;
+    return (
+      <H3
+        bold
+        id={labelToID(props.children)}
+        jss={{
+          marginTop: cssVar("--spacing-xxl"),
+          marginBottom: cssVar("--spacing-m"),
+        }}
+        {...props}
+      />
+    );
   },
   h4: (props) => {
-    return <H4 bold id={labelToID(props.children)} {...props} />;
+    return (
+      <H4
+        bold
+        id={labelToID(props.children)}
+        jss={{
+          marginTop: cssVar("--spacing-xl"),
+          marginBottom: cssVar("--spacing-m"),
+        }}
+        {...props}
+      />
+    );
   },
-  p: (props) => <P jss={{ marginBottom: cssVar("--spacing-m") }} {...props} />,
+  p: (props) => <P jss={{ marginBottom: cssVar("--spacing-xl") }} {...props} />,
+  ul: (props) => (
+    <BaseView tag="ul" jss={{ paddingInlineStart: 24 }} {...props} />
+  ),
+  ol: (props) => (
+    <BaseView tag="ol" jss={{ paddingInlineStart: 24 }} {...props} />
+  ),
   span: (props) => <Span {...props} />,
   li: (props) => (
     <Li jss={{ marginBottom: cssVar("--spacing-s") }} {...props} />
@@ -77,9 +106,9 @@ const components: MDXComponents = {
         bare
         color="primary"
         jss={{
-          display: "inline-block",
-          paddingBottom: cssVar("--spacing-s"),
-          paddingTop: cssVar("--spacing-s"),
+          display: "inline",
+          padding: 0,
+          textUnderlineOffset: "2px",
         }}
         href={props.href}
       >

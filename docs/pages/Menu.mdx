@@ -1,0 +1,53 @@
+import { MenuDemo } from "../examples/DesktopDemo";
+
+# Menu
+
+Compact action and choice menus with their own semantics—not a grid pretending to be a menu.
+
+<MenuDemo />
+
+A thin neutral border and soft shadow separate menus from matching backgrounds. Edge corners stay concentric: the outer radius includes the item radius, padding, and border.
+
+```tsx
+<PopoverTrigger
+  placement="bottom"
+  role="presentation"
+  content={({ close }) => (
+    <Menu label="Actions" onClose={close}>
+      <MenuItem icon="pencil" onClick={edit}>
+        Edit
+      </MenuItem>
+      <MenuItem disabled onClick={archive}>
+        Archive
+      </MenuItem>
+      <MenuSeparator />
+      <MenuItem checked={details} onClick={() => setDetails(!details)}>
+        Show details
+      </MenuItem>
+      <MenuItem destructive icon="trash" onClick={remove}>
+        Delete
+      </MenuItem>
+    </Menu>
+  )}
+>
+  {({ toggle, expanded, id }) => (
+    <Button
+      color="secondary"
+      aria-haspopup="menu"
+      aria-expanded={expanded}
+      aria-controls={id}
+      onClick={() => toggle()}
+    >
+      Actions
+    </Button>
+  )}
+</PopoverTrigger>
+```
+
+- `Menu`: `label`, children, optional `onClose`, standard column props.
+- `MenuItem`: label children, `icon`, `trailing`, `description`, `disabled`, `destructive`, and `onClick`.
+- `checked` supplies checkbox semantics. Use `role="menuitemradio"` for mutually exclusive choices.
+- Selecting an item closes its enclosing menu. `event.preventDefault()` keeps it open, for example when opening a settings subpage.
+- Arrows, Home, and End include disabled items so their availability can be announced; disabled items cannot activate. Escape closes the popover; Tab leaves it rather than trapping focus.
+
+Keep form fields outside `Menu`; use a `Popover` or `SearchList` for mixed content.

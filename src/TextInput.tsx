@@ -1,3 +1,4 @@
+import { controlSizes } from "./controlSize";
 import React, { ReactNode } from "react";
 import { BaseInput, BaseInputProps } from "./BaseInput";
 import { Column } from "./Column";
@@ -23,21 +24,34 @@ export const TextInput = React.forwardRef(function TextInput(
     jssRoot,
     jss,
     addOn,
-    gap = "none",
+    gap,
     addOnPosition = "start",
-    padding = "medium",
+    padding,
     size = "medium",
     ...inputProps
   }: TextInputProps,
   ref?: React.Ref<HTMLInputElement>,
 ) {
+  const metrics = controlSizes[size];
+  const inputPadding =
+    padding != null
+      ? getPadding(padding)
+      : { padding: `0 ${metrics?.padding ?? 8}px` };
   return (
-    <InputFrame gap={gap} jss={jssRoot}>
+    <InputFrame
+      gap={gap ?? (size === "xsmall" || size === "small" ? "small" : "medium")}
+      jss={jssRoot}
+    >
       {addOnPosition === "start" && addOn && (
         <Column
           justify="center"
           align="center"
-          jss={[getPadding(padding), { paddingRight: 0 }]}
+          jss={[
+            padding != null
+              ? getPadding(padding)
+              : { paddingLeft: metrics?.padding ?? 8 },
+            { paddingRight: 0, flexShrink: 0 },
+          ]}
         >
           {addOn}
         </Column>
@@ -52,12 +66,13 @@ export const TextInput = React.forwardRef(function TextInput(
         jss={[
           {
             minWidth: 0,
+            minHeight: metrics ? metrics.height - 2 : undefined,
             flexGrow: 1,
             backgroundColor: "transparent",
             color: cssVar("--primary-text"),
             outline: "none",
             border: "none",
-            ...getTypography(size),
+            ...getTypography(metrics?.text ?? size),
             "::placeholder": {
               color: cssVar("--subtle-text"),
             },
@@ -69,7 +84,7 @@ export const TextInput = React.forwardRef(function TextInput(
               color: cssVar("--negative-text"),
             },
           },
-          getPadding(padding),
+          inputPadding,
           addOn && addOnPosition === "start" ? { paddingLeft: 0 } : null,
           addOn && addOnPosition === "end" ? { paddingRight: 0 } : null,
           jss,
@@ -79,7 +94,12 @@ export const TextInput = React.forwardRef(function TextInput(
         <Column
           justify="center"
           align="center"
-          jss={[getPadding(padding), { paddingLeft: 0 }]}
+          jss={[
+            padding != null
+              ? getPadding(padding)
+              : { paddingRight: metrics?.padding ?? 8 },
+            { paddingLeft: 0, flexShrink: 0 },
+          ]}
         >
           {addOn}
         </Column>

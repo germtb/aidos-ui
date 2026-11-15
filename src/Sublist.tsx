@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useId, useState } from "react";
 import { ListButtonItem } from "./ListButtonItem";
+import { Disclosure } from "./Disclosure";
+import { BaseList } from "./BaseList";
 import { JSS } from "./jss";
 
 export function Sublist({
@@ -7,33 +9,45 @@ export function Sublist({
   label,
   labelBold,
   initialState = { collapsed: false },
+  expanded: controlledExpanded,
+  onExpandedChange,
   jss,
 }: {
   children: React.ReactNode;
   label: string;
   labelBold?: boolean;
-  initialState?: {
-    collapsed: boolean;
-  };
+  initialState?: { collapsed: boolean };
+  expanded?: boolean;
+  onExpandedChange?: (expanded: boolean) => void;
   jss?: JSS;
 }) {
-  const [collapsed, setCollapsed] = React.useState(initialState.collapsed);
+  const [localExpanded, setExpanded] = useState(!initialState.collapsed);
+  const expanded = controlledExpanded ?? localExpanded;
+  const id = useId();
   return (
     <>
       <ListButtonItem
         headline={label}
         headlineBold={labelBold}
-        onClick={() => setCollapsed((x) => !x)}
+        aria-expanded={expanded}
+        aria-controls={id}
+        onClick={() => {
+          if (controlledExpanded === undefined) setExpanded(!expanded);
+          onExpandedChange?.(!expanded);
+        }}
         jss={jss}
         icon="chevron-right"
         iconPosition="end"
         iconJss={{
-          transition: "transform 0.15s ease-in",
-          ...(!collapsed && { transform: "rotateZ(90deg)" }),
+          transition: "transform 180ms ease",
+          transform: expanded ? "rotateZ(90deg)" : "none",
+          "@media (prefers-reduced-motion: reduce)": { transition: "none" },
         }}
         color="secondary"
       />
-      {collapsed ? null : children}
+      <Disclosure id={id} tag="li" role="rowgroup" expanded={expanded}>
+        <BaseList role="presentation">{children}</BaseList>
+      </Disclosure>
     </>
   );
 }

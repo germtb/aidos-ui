@@ -1,88 +1,187 @@
-import React, { useCallback, useContext, useMemo, useRef, useState } from "react";
-
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 import { BaseView } from "./BaseView";
 import { Text } from "./Text";
-import { ListDivider } from "./ListDivider";
 import { Column } from "./Column";
 import { Row } from "./Row";
 import { IconButton } from "./IconButton";
-import { toClassnames } from "./jss";
+import { toClassnames, type JSS } from "./jss";
+import { useRefEffect } from "./useRefEffect";
 
-const styles = {
-  dialog: {
-    border: "1px solid var(--divider)",
-    borderRadius: "var(--border-radius-l)",
-    padding: 0,
-    boxShadow: "var(--shadow-lg)",
-    animation: "dialogFadeIn 0.2s ease-out",
-    "::backdrop": {
-      backgroundColor: "rgba(0, 0, 0, 0.4)",
-      animation: "backdropFadeIn 0.2s ease-out",
-    },
-  },
-  root: {
-    display: "grid",
-    width: "calc(100vw - 48px)",
-    gridTemplateAreas: `
-        "header"
-        "content"
-    `,
-    "@media (min-width: 750px)": {
-      maxWidth: 750,
-    },
-    backgroundColor: "var(--secondary-background)",
-  },
-  header: {
-    gridArea: "header",
-  },
-  content: {
-    gridArea: "content",
-  },
-};
+const DialogTitleContext = createContext<string>(undefined);
 
-export const Dialog = ({
+export interface ModalProps {
+  open: boolean;
+  label?: string;
+  children: ReactNode;
+  onClose: () => void;
+  onAfterClose?: () => void;
+  closeOnOutsideClick?: boolean;
+  initialFocus?: React.RefObject<HTMLElement | null>;
+  jss?: JSS;
+}
+
+export function Modal({ open, ...props }: ModalProps) {
+  return open ? <ModalSurface {...props} /> : null;
+}
+
+function ModalSurface({
+  label,
+  children,
+  onClose,
+  onAfterClose,
+  closeOnOutsideClick = true,
+  initialFocus,
+  jss,
+}: Omit<ModalProps, "open">) {
+  const titleId = useId();
+  const afterClose = useRef(onAfterClose);
+  afterClose.current = onAfterClose;
+  const initial = useRef(initialFocus);
+  initial.current = initialFocus;
+  const mount = useRefEffect(
+    useCallback((element: HTMLDialogElement) => {
+      const previous = document.activeElement;
+      element.showModal();
+      initial.current?.current?.focus({ preventScroll: true });
+      return () => {
+        element.close();
+        queueMicrotask(() => {
+          // Ref replay must not run completion callbacks for a dialog that reopened.
+          if (element.isConnected && element.open) return;
+          if (
+            previous instanceof HTMLElement &&
+            previous.isConnected &&
+            (document.activeElement === document.body ||
+              element.contains(document.activeElement))
+          )
+            previous.focus({ preventScroll: true });
+          afterClose.current?.();
+        });
+      };
+    }, []),
+  );
+  return (
+    <dialog
+      ref={mount}
+      aria-label={label}
+      aria-labelledby={label ? undefined : titleId}
+      onCancel={(event) => {
+        event.preventDefault();
+        onClose();
+      }}
+      onClose={(event) => {
+        if (!event.currentTarget.open) onClose();
+      }}
+      onClick={(event) => {
+        if (!closeOnOutsideClick || event.target !== event.currentTarget)
+          return;
+        const box = event.currentTarget.getBoundingClientRect();
+        if (
+          event.clientX < box.left ||
+          event.clientX > box.right ||
+          event.clientY < box.top ||
+          event.clientY > box.bottom
+        )
+          onClose();
+      }}
+      className={toClassnames([
+        {
+          padding: 0,
+          border: "1px solid var(--divider)",
+          borderRadius: "var(--border-radius-xl)",
+          background: "var(--overlay-background)",
+          color: "var(--primary-text)",
+          maxWidth: "calc(100vw - 32px)",
+          maxHeight: "calc(100dvh - 32px)",
+          boxShadow: "var(--shadow-lg)",
+          overflow: "auto",
+          "::backdrop": { background: "rgba(0, 0, 0, 0.3)" },
+        },
+        jss,
+      ])}
+    >
+      <DialogTitleContext.Provider value={titleId}>
+        {children}
+      </DialogTitleContext.Provider>
+    </dialog>
+  );
+}
+
+export function Dialog({
   label,
   children,
   close,
+  header,
+  footer,
 }: {
   label: string;
-  children: React.JSX.Element;
+  children: ReactNode;
   close: () => void;
-}) => {
+  header?: ReactNode;
+  footer?: ReactNode;
+}) {
+  const titleId = useContext(DialogTitleContext);
   return (
-    <BaseView jss={styles.root}>
-      <Column jss={styles.header}>
-        <Row padding="medium" justify="space-between" align="center">
-          <Text size="medium" color="secondary">
+    <Column
+      gap="none"
+      jss={{
+        width: "min(640px, calc(100vw - 34px))",
+        maxHeight: "calc(100dvh - 34px)",
+      }}
+    >
+      {header === undefined ? (
+        <Row
+          padding="medium"
+          align="center"
+          justify="space-between"
+          jss={{ flexShrink: 0, borderBottom: "1px solid var(--divider)" }}
+        >
+          <Text id={titleId} type="h2" size="medium" bold>
             {label}
           </Text>
           <IconButton
-            autoFocus={true}
-            bare={true}
+            aria-label="Close dialog"
+            size="small"
+            bare
             icon="x"
             onClick={close}
             color="secondary"
           />
         </Row>
-        <ListDivider />
-      </Column>
-      <BaseView jss={styles.content}>{children}</BaseView>
-    </BaseView>
+      ) : (
+        header
+      )}
+      <BaseView jss={{ minHeight: 0, overflowY: "auto" }}>{children}</BaseView>
+      {footer && (
+        <Row
+          padding="large"
+          gap="small"
+          justify="flex-end"
+          jss={{ flexShrink: 0, borderTop: "1px solid var(--divider)" }}
+        >
+          {footer}
+        </Row>
+      )}
+    </Column>
   );
-};
+}
 
-type DialogElement = React.JSX.Element | null;
+const DialogContext = createContext<{
+  setDialog: React.Dispatch<React.SetStateAction<ReactNode>>;
+}>({ setDialog: () => {} });
 
-const DialogContext = React.createContext<{
-  setDialog: React.Dispatch<React.SetStateAction<DialogElement>>;
-}>({
-  setDialog: () => {},
-});
-
-export function DialogProvider({ children }: { children: React.ReactNode }) {
-  const [dialog, setDialog] = useState<DialogElement>(null);
+export function DialogProvider({ children }: { children: ReactNode }) {
+  const [dialog, setDialog] = useState<ReactNode>(null);
   const value = useMemo(() => ({ setDialog }), []);
-
   return (
     <DialogContext.Provider value={value}>
       {dialog}
@@ -93,63 +192,20 @@ export function DialogProvider({ children }: { children: React.ReactNode }) {
 
 export function useDialog<Input>(
   DialogComponent: (props: { close: () => void } & Input) => React.JSX.Element,
-  options: { closeOnOutsideClick: boolean },
+  options: { closeOnOutsideClick: boolean; label?: string },
 ) {
   const { setDialog } = useContext(DialogContext);
-  const dialogRef = useRef<null | HTMLDialogElement>(null);
-  const activeElementRef = useRef<HTMLElement | null>(null);
-
-  const close = useCallback(() => {
-    dialogRef.current?.close();
-    activeElementRef.current?.focus();
-    dialogRef.current = null;
-    activeElementRef.current = null;
-    setDialog(null);
-  }, [setDialog]);
-
-  const open = (input: Input) => {
-    activeElementRef.current =
-      document.activeElement instanceof HTMLElement
-        ? document.activeElement
-        : null;
+  const close = useCallback(() => setDialog(null), [setDialog]);
+  const open = (input: Input) =>
     setDialog(
-      <dialog
-        ref={(ref: null | HTMLDialogElement) => {
-          dialogRef.current = ref;
-          ref?.showModal();
-        }}
-        className={toClassnames(styles.dialog)}
-        onClose={() => {
-          close();
-        }}
-        onClick={(e) => {
-          if (dialogRef.current == null) {
-            return;
-          }
-
-          const dialogDimensions = dialogRef.current.getBoundingClientRect();
-
-          if (options.closeOnOutsideClick === false) {
-            return;
-          }
-
-          if (
-            e.clientX < dialogDimensions.left ||
-            e.clientX > dialogDimensions.right ||
-            e.clientY > dialogDimensions.bottom ||
-            e.clientY < dialogDimensions.top
-          ) {
-            dialogRef.current.close();
-          }
-        }}
+      <Modal
+        open
+        label={options.label}
+        onClose={close}
+        closeOnOutsideClick={options.closeOnOutsideClick}
       >
         <DialogComponent {...input} close={close} />
-      </dialog>,
+      </Modal>,
     );
-  };
-
-  return {
-    open,
-    close,
-  };
+  return { open, close };
 }

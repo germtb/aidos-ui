@@ -1,0 +1,108 @@
+import { Card } from "../../src/Card";
+import {
+  ControlSizesDemo,
+  FocusDemo,
+  ComposerDemo,
+  MenuDemo,
+  DialogDemo,
+  SearchDemo,
+  DocumentTabsDemo,
+  DisclosureDemo,
+  SwitchDemo,
+  ProseDemo,
+  SpacingDemo,
+} from "../examples/DesktopDemo";
+
+# Desktop component laboratory
+
+Real compositions built entirely from public Aidos components. Use the theme toggle in the navigation, then try keyboard navigation and a narrow window.
+
+## Focus
+
+- Tab moves one deliberate indicator between controls. Ordinary button clicks do not add a ring.
+- Text fields retain focus feedback after a click; their action buttons own their own rings.
+- Tooltips never move focus. Native controls retain browser focus defaults.
+
+<Card variant="tonal">
+  <FocusDemo />
+</Card>
+
+## Compact controls
+
+Four coherent control sizes. Even the smallest icon button has a 24px target. Labels truncate without private DOM selectors.
+
+<Card variant="tonal">
+  <ControlSizesDemo />
+</Card>
+
+## Composer
+
+An auto-growing field and footer share one surface. The field uses a quiet 1px neutral outline; footer actions own their individual indicators. Enter submits, Shift+Enter adds a line, and IME composition does not submit. Loading or clearing a draft must resize immediately.
+
+<Card variant="tonal">
+  <ComposerDemo />
+</Card>
+
+## Menus and placement
+
+Try Arrow keys, Home, End, Escape, and Tab. Disabled items remain reachable and announced, but cannot activate. Focus Edit to show its tooltip: Escape dismisses the hint before the menu. The second menu prefers above/end alignment but flips and stays within the viewport. Clicking the field while a menu is open must leave focus in the field.
+
+<Card variant="tonal">
+  <MenuDemo />
+</Card>
+
+## Dialogs
+
+The input receives initial focus. Try a menu inside the dialog: Escape closes the menu first, then the dialog. Closing the dialog returns focus to its trigger.
+
+<Card variant="tonal">
+  <DialogDemo />
+</Card>
+
+## Search palettes
+
+Search keeps focus in its input and announces the active option. Arrow keys or Ctrl+J/K navigate; Ctrl+Home/End jump; Enter selects. Disabled entries remain reachable and announced, but cannot be selected. The same search list works without a modal.
+
+<Card variant="tonal">
+  <SearchDemo />
+</Card>
+
+## Document tabs
+
+Arrow keys select tabs; Home/End jump. Delete or a separate close button closes a tab and focuses its neighbor. Long titles truncate and the tab strip scrolls horizontally without moving the page.
+
+<Card variant="tonal">
+  <DocumentTabsDemo />
+</Card>
+
+## Disclosure and contextual actions
+
+Collapse the project, including via the external button. Closing content becomes inert immediately and unmounts after its animation. Reduced-motion preferences remove the transition. Hover or focus a row to reveal its actions; touch devices show them continuously.
+
+<Card variant="tonal">
+  <DisclosureDemo />
+</Card>
+
+## Switches
+
+A switch is a persistent boolean setting, not an icon toggle. Space toggles it; disabled switches remain focusable but cannot toggle.
+
+<Card variant="tonal">
+  <SwitchDemo />
+</Card>
+
+## Prose and code
+
+Typography only—Aidos does not parse Markdown or sanitize HTML. Hover or keyboard-focus the action area to reveal its button.
+
+<Card variant="tonal">
+  <ProseDemo />
+</Card>
+
+## CSS spacing
+
+These examples exercise four-value shorthands, functions containing spaces, and numeric logical properties. Their padding must remain visible and correct regardless of rendering order.
+
+<Card variant="tonal">
+  <SpacingDemo />
+</Card>

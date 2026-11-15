@@ -248,9 +248,10 @@ export default function App({ Component, pageProps }: AppProps) {
                     justify="space-between"
                   >
                     <TextInput
-                      jssRoot={{ flexGrow: 1 }}
+                      jssRoot={{ flex: 1 }}
                       ref={queryInputRef}
                       role="combobox"
+                      aria-label="Search documentation"
                       aria-haspopup="grid"
                       aria-expanded={isQuerying ? "true" : "false"}
                       aria-controls="main-list"
@@ -267,6 +268,7 @@ export default function App({ Component, pageProps }: AppProps) {
                       gap="medium"
                       align="center"
                       jss={[
+                        { flexShrink: 0 },
                         mobile({ display: "none" }),
                         tablet({ display: "none" }),
                         laptop({ display: "flex" }),
@@ -358,8 +360,11 @@ export default function App({ Component, pageProps }: AppProps) {
               }
             >
               <BaseView
+                data-docs-content
                 jss={[
                   {
+                    " > :is(div, pre, ul, ol, table)": { marginBlock: 16 },
+                    " > :first-child": { marginTop: 0 },
                     overflow: "visible",
                     overflowX: "clip",
                     width: "100%",

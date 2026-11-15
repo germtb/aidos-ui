@@ -5,105 +5,57 @@ import { Tooltip } from "../../src/Tooltip";
 
 # Tooltip
 
-Displays contextual information when hovering over an element. Tooltips are for informational text only and should not contain interactive content.
+Supplementary text shown on hover or focus. A tooltip never receives or moves keyboard focus and is not a dialog.
 
----
-
-## Props
-
-| Prop       | Type                          | Required | Default | Description                                |
-| ---------- | ----------------------------- | -------- | ------- | ------------------------------------------ |
-| `content`  | `string`                      | Yes      | -       | Text to display in the tooltip             |
-| `children` | `ReactNode`                   | Yes      | -       | Element that triggers the tooltip on hover |
-| `tag`      | `keyof HTMLElementTagNameMap` | No       | -       | HTML tag for the wrapper element           |
-| `jss`      | `JSS`                         | No       | -       | Custom styles for the wrapper              |
-
----
-
-## Basic usage
-
-Wrap any element with `Tooltip` to show contextual information on hover:
-
-<Row gap="large" padding="xlarge">
+<Row gap="large" padding="xlarge" wrap>
   <Tooltip content="This confirms the action">
     <Button bare color="primary" onClick={() => {}}>
       Hover me
     </Button>
   </Tooltip>
-</Row>
-
-```js
-<Tooltip content="This confirms the action">
-  <Button bare color="primary" onClick={() => {}}>
-    Hover me
-  </Button>
-</Tooltip>
-```
-
----
-
-## With IconButton
-
-Tooltips are especially useful with icon-only buttons to explain their purpose:
-
-<Row gap="large" padding="xlarge">
-  <Tooltip content="Save document">
-    <IconButton bare icon="save" color="secondary" onClick={() => {}} />
+  <Tooltip content="Save document" placement="bottom" align="start">
+    <IconButton
+      bare
+      icon="save"
+      color="secondary"
+      aria-label="Save document"
+      onClick={() => {}}
+    />
   </Tooltip>
-  <Tooltip content="Print document">
-    <IconButton bare icon="printer" color="secondary" onClick={() => {}} />
-  </Tooltip>
-  <Tooltip content="Share with others">
-    <IconButton bare icon="share-2" color="secondary" onClick={() => {}} />
+  <Tooltip
+    content="A longer explanation stays inside the viewport without overriding internal selectors."
+    align="end"
+  >
+    <Button bare color="secondary" onClick={() => {}}>
+      End-aligned hint
+    </Button>
   </Tooltip>
 </Row>
 
-```js
-<Tooltip content="Save document">
-  <IconButton bare icon="save" color="secondary" onClick={() => {}} />
+```tsx
+<Tooltip content="Keyboard shortcut: Ctrl+S" placement="top" align="end">
+  <IconButton
+    icon="save"
+    color="secondary"
+    aria-label="Save document"
+    onClick={save}
+  />
 </Tooltip>
 ```
 
----
+| Prop         | Default  | Purpose                                                     |
+| ------------ | -------- | ----------------------------------------------------------- |
+| `content`    | —        | Supplementary text                                          |
+| `children`   | —        | A single element that forwards ARIA attributes              |
+| `placement`  | `top`    | Preferred `top`, `bottom`, `left`, or `right`; flips to fit |
+| `align`      | `center` | `start`, `center`, or `end`                                 |
+| `tag`, `jss` | —        | Trigger wrapper element and styling                         |
 
-## Behavior
+- Uses native hint popovers, not `dialog.show()`.
+- Describes the trigger through `aria-describedby`, preserving existing descriptions.
+- Remains visible while the trigger is focused or the pointer is over the trigger/tooltip.
+- A short pointer grace period permits moving into the tooltip.
+- Escape, Tab from the trigger, and outside clicks dismiss it. Escape leaves enclosing menus and dialogs open.
+- Portaled positioning avoids clipping and constrains long text to the viewport.
 
-- **Shows on hover**: Tooltip appears when mouse enters the wrapped element
-- **Hides on leave**: Tooltip disappears when mouse leaves
-- **Keyboard dismissal**: Pressing Escape or Tab closes the tooltip
-- **Click dismissal**: Clicking anywhere closes the tooltip
-
----
-
-## Accessibility considerations
-
-Tooltips should contain only supplementary information:
-
-- **Do**: Use for hints, descriptions, or labels
-- **Don't**: Put interactive elements (buttons, links) inside tooltips
-- **Don't**: Put essential information only in tooltips
-
-For interactive floating content, use `Popover` instead.
-
-```js
-// Good - informational tooltip
-<Tooltip content="Keyboard shortcut: Ctrl+S">
-  <Button color="secondary" onClick={save}>Save</Button>
-</Tooltip>
-
-// Bad - essential information hidden
-<Tooltip content="Click here to delete your account permanently">
-  <Button color="negative" onClick={delete}>Delete</Button>
-</Tooltip>
-```
-
----
-
-## Tooltip vs Popover
-
-| Use Tooltip               | Use Popover                  |
-| ------------------------- | ---------------------------- |
-| Simple text hints         | Interactive content          |
-| Non-essential information | Menus, forms, selections     |
-| Keyboard shortcuts        | Actions requiring user input |
-| Brief descriptions        | Multi-step interactions      |
+Provide an accessible name independently: tooltip text is a description, not an icon button’s only label. Do not hide essential instructions or interactive controls inside a tooltip; use [Popover](/Popover) instead.

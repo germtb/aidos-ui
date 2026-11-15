@@ -11,18 +11,18 @@ Link uses the same fixed geometry, label weight, icon size, gap, and padding as 
 
 ## Props
 
-| Prop           | Type                  | Required | Default  | Description                                                  |
-| -------------- | --------------------- | -------- | -------- | ------------------------------------------------------------ |
-| `children`     | `ReactNode`           | Yes      | -        | Link text content                                            |
-| `href`         | `string`              | Yes      | -        | Navigation destination URL                                   |
+| Prop           | Type                  | Required | Default  | Description                                           |
+| -------------- | --------------------- | -------- | -------- | ----------------------------------------------------- |
+| `children`     | `ReactNode`           | Yes      | -        | Link text content                                     |
+| `href`         | `string`              | Yes      | -        | Navigation destination URL                            |
 | `color`        | `InteractableColor`   | Yes      | -        | `"primary"`, `"secondary"`, `"negative"`, `"inverse"` |
-| `bare`         | `boolean`             | No       | `false`  | Removes background and elevation                             |
-| `disabled`     | `boolean`             | No       | `false`  | Disables interaction                                         |
-| `underline`    | `boolean`             | No       | `false`  | Adds text underline decoration                               |
-| `icon`         | `IconType`            | No       | -        | Icon to display alongside text                               |
-| `iconPosition` | `"left"` \| `"right"` | No       | `"left"` | Icon placement relative to text                              |
-| `inline`       | `boolean`             | No       | `true`   | Display as inline-flex (true) or flex (false)                |
-| `target`       | `string`              | No       | -        | Link target (e.g., `"_blank"` for new tab)                   |
+| `bare`         | `boolean`             | No       | `false`  | Removes background and elevation                      |
+| `disabled`     | `boolean`             | No       | `false`  | Disables interaction                                  |
+| `underline`    | `boolean`             | No       | `false`  | Adds text underline decoration                        |
+| `icon`         | `IconType`            | No       | -        | Icon to display alongside text                        |
+| `iconPosition` | `"left"` \| `"right"` | No       | `"left"` | Icon placement relative to text                       |
+| `inline`       | `boolean`             | No       | `true`   | Display as inline-flex (true) or flex (false)         |
+| `target`       | `string`              | No       | -        | Link target (e.g., `"_blank"` for new tab)            |
 
 ---
 
@@ -171,3 +171,7 @@ Use `Button` when:
 - The action triggers an in-page operation
 - No navigation occurs
 - Form submissions
+
+## Compact links
+
+`Link` and `IconLink` accept the same four control sizes as buttons. `Link` also supports `leading` and `trailing` content. Disabled links remain in the tab order and announce `aria-disabled`, but cannot activate.

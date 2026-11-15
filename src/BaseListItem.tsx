@@ -1,3 +1,4 @@
+import { type ControlSize } from "./controlSize";
 import React, { ReactNode } from "react";
 
 import { BaseListAddOn } from "./BaseListAddOn";
@@ -14,6 +15,10 @@ export interface BaseListItemProps extends Omit<
   children: (elements: { content: React.JSX.Element }) => ReactNode;
   jss?: JSS;
   headline: string;
+  size?: ControlSize;
+  indent?: number;
+  jssPrimary?: JSS;
+  jssAddOn?: JSS;
   headlineSize?: Size;
   headlineColor?: TextColor;
   headlineAddOn?: ReactNode;
@@ -38,7 +43,11 @@ export const BaseListItem = React.forwardRef(function BaseListItem(
     children,
     jss,
     headline,
-    headlineSize = "medium",
+    size = "medium",
+    indent,
+    jssPrimary,
+    jssAddOn,
+    headlineSize = size === "small" || size === "xsmall" ? "small" : "medium",
     headlineColor = "primary",
     headlineAddOn,
     body,
@@ -51,7 +60,7 @@ export const BaseListItem = React.forwardRef(function BaseListItem(
     iconJss,
     addOn,
     disabled = false,
-    padding = "medium",
+    padding = size === "medium" || size === "large" ? "medium" : "small",
     gap = "medium",
     selected,
     headlineBold,
@@ -90,6 +99,7 @@ export const BaseListItem = React.forwardRef(function BaseListItem(
       bodyEllipsis={bodyEllipsis}
       grow={true}
       shrink={false}
+      jss={jssPrimary}
     />
   );
 
@@ -98,9 +108,15 @@ export const BaseListItem = React.forwardRef(function BaseListItem(
       {...otherProps}
       ref={ref}
       relative
+      data-aidos-action-scope
       tag="li"
       role="row"
-      jss={[getTextColor(contentColor), jss]}
+      jss={[
+        getTextColor(contentColor),
+        { minHeight: { xsmall: 28, small: 32, medium: 36, large: 44 }[size] },
+        indent != null && { paddingInlineStart: indent },
+        jss,
+      ]}
     >
       <Row
         grow
@@ -111,7 +127,17 @@ export const BaseListItem = React.forwardRef(function BaseListItem(
       >
         {children({ content })}
       </Row>
-      {addOn && <BaseListAddOn role="gridcell">{addOn}</BaseListAddOn>}
+      {addOn && (
+        <BaseListAddOn
+          role="gridcell"
+          jss={[
+            { minWidth: 24, height: "auto", alignSelf: "stretch" },
+            jssAddOn,
+          ]}
+        >
+          {addOn}
+        </BaseListAddOn>
+      )}
     </Row>
   );
 });

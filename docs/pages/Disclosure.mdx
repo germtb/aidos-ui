@@ -1,0 +1,22 @@
+import { DisclosureDemo } from "../examples/DesktopDemo";
+
+# Disclosure and Sublist
+
+Controlled expansion with inert closing content, an exit transition, and reduced-motion support.
+
+<DisclosureDemo />
+
+```tsx
+<Sublist label="Project" expanded={expanded} onExpandedChange={setExpanded}>
+  <ListButtonItem size="small" indent={12} headline="README.md" onClick={openReadme} />
+</Sublist>
+
+<Disclosure expanded={expanded}>
+  <TextInput aria-label="Details" />
+</Disclosure>
+```
+
+- `Sublist` remains uncontrolled by default; `initialState.collapsed` is preserved.
+- `expanded` and `onExpandedChange` make expansion application-controlled.
+- `Disclosure` supplies only the content transition; the application supplies its trigger and `aria-expanded`/`aria-controls` relationship.
+- Closing content is immediately inert and hidden from assistive technology. It unmounts after the transition, or immediately when reduced motion is requested.

@@ -1,3 +1,4 @@
+import { controlSizes, type ControlSize } from "./controlSize";
 import React, { ReactNode } from "react";
 
 import { BaseLink, BaseLinkProps } from "./BaseLink";
@@ -12,6 +13,9 @@ import { Align, Gap, Justify, cssVar } from "./jss";
 export interface LinkProps extends Omit<BaseLinkProps, "border" | "padding"> {
   children?: ReactNode;
   color: InteractableColor;
+  size?: ControlSize;
+  leading?: React.ReactNode;
+  trailing?: React.ReactNode;
   icon?: IconType;
   underline?: boolean;
   iconPosition?: "left" | "right";
@@ -31,6 +35,10 @@ export const Link = React.forwardRef(function Link(
     icon,
     underline,
     iconPosition = "left",
+    size = "medium",
+    leading,
+    trailing,
+    rowProps,
     align = "center",
     gap = "medium",
     justify = "center",
@@ -40,6 +48,8 @@ export const Link = React.forwardRef(function Link(
   }: LinkProps,
   ref?: React.Ref<HTMLAnchorElement>,
 ) {
+  const metrics = controlSizes[size];
+  const glyph = getGlyphColor(color, disabled, bare);
   return (
     <BaseLink
       {...otherProps}
@@ -50,8 +60,10 @@ export const Link = React.forwardRef(function Link(
       padding="none"
       jss={[
         {
-          height: 34,
-          padding: "0 14px",
+          height: metrics.height,
+          minWidth: 0,
+          maxWidth: "100%",
+          padding: `0 ${metrics.padding}px`,
           borderRadius: cssVar("--border-radius-l"),
           justifyContent: "center",
           userSelect: "none",
@@ -68,25 +80,34 @@ export const Link = React.forwardRef(function Link(
       ]}
     >
       <Row
-        jss={{
-          display: inline ? "inline-flex" : "flex",
-        }}
+        {...rowProps}
+        direction="row"
+        jss={[
+          {
+            display: inline ? "inline-flex" : "flex",
+            minWidth: 0,
+          },
+          rowProps?.jss,
+        ]}
         grow={true}
         align={align}
         gap={gap}
         justify={justify}
       >
+        {leading}
         {icon && iconPosition === "left" && (
           <Icon
             icon={icon}
             size="medium"
-            color={getGlyphColor(color, disabled, bare)}
+            jss={{ width: metrics.icon, height: metrics.icon, flexShrink: 0 }}
+            color={glyph}
           />
         )}
         <Text
-          size="medium"
-          color={getGlyphColor(color, disabled, bare)}
+          size={metrics.text}
+          color={glyph}
           jss={{
+            minWidth: 0,
             fontWeight: 600,
             letterSpacing: "-0.01em",
           }}
@@ -97,9 +118,11 @@ export const Link = React.forwardRef(function Link(
           <Icon
             icon={icon}
             size="medium"
-            color={getGlyphColor(color, disabled, bare)}
+            jss={{ width: metrics.icon, height: metrics.icon, flexShrink: 0 }}
+            color={glyph}
           />
         )}
+        {trailing}
       </Row>
     </BaseLink>
   );

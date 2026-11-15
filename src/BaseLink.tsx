@@ -49,6 +49,7 @@ export const BaseLink = React.forwardRef(function BaseLink(
       ref={ref}
       onClick={(event) => {
         if (disabled) {
+          event.preventDefault();
           return;
         }
 
