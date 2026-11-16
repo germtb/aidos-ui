@@ -138,6 +138,7 @@ export const Composer = React.forwardRef(function Composer(
         </Row>
         {action ?? (
           <IconButton
+            bare
             icon="arrow-up"
             color="primary"
             size="small"
