@@ -12,6 +12,7 @@ import {
   TextInput,
   TextPairing,
 } from "../../../src";
+import { SelectDemo } from "../../examples/SelectDemo";
 
 const noop = () => {};
 
@@ -21,7 +22,7 @@ export function ControlsShowcase() {
       <Card grow basis={320} variant="tonal" padding="xlarge">
         <TextPairing
           headline="Find anything"
-          body="Inputs support add-ons, validation, and accessible focus treatment."
+          body="Text fields and dropdown pickers share clear interaction and focus states."
           headlineBold
         />
         <TextInput
@@ -36,6 +37,7 @@ export function ControlsShowcase() {
           onValueChange={noop}
           addOn={<Icon icon="mail" size="medium" color="secondary" />}
         />
+        <SelectDemo />
         <Row gap="medium" justify="flex-end" wrap>
           <Button color="secondary" bare onClick={noop}>
             Cancel

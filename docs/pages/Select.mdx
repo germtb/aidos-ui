@@ -1,29 +1,15 @@
 import { SelectDemo } from "../examples/SelectDemo";
 import { Select } from "../../src/Select";
 
-# Select
+# Select (dropdown picker)
 
 An opinionated selection control that combines a button with a floating list of choices. Use Select when one value must be chosen from a short, predefined set.
 
 ---
 
-## Props
-
-| Prop            | Type                    | Required | Description                                     |
-| --------------- | ----------------------- | -------- | ----------------------------------------------- |
-| `label`         | `string`                | Yes      | Accessible name for the control and option list |
-| `options`       | `SelectOption<Value>[]` | Yes      | Available `{ value, label }` choices            |
-| `value`         | `string \| number`      | Yes      | Currently selected value                        |
-| `onValueChange` | `(value) => void`       | Yes      | Called after an option is chosen                |
-| `disabled`      | `boolean`               | No       | Disables the trigger                            |
-| `jss`           | `JSS`                   | No       | Styles the control wrapper                      |
-| `jssButton`     | `JSS`                   | No       | Styles the trigger button                       |
-
----
-
 ## Basic usage
 
-The button always displays the selected label. Opening it reveals an elevated Popover with the current option marked by a check.
+The trigger uses the secondary button style: a neutral surface, subtle border, and strong text. Open it to choose an option; the current selection is marked with a check.
 
 <SelectDemo />
 
@@ -43,6 +29,20 @@ const [frequency, setFrequency] = useState("weekly");
   onValueChange={setFrequency}
 />;
 ```
+
+---
+
+## Props
+
+| Prop            | Type                    | Required | Description                                     |
+| --------------- | ----------------------- | -------- | ----------------------------------------------- |
+| `label`         | `string`                | Yes      | Accessible name for the control and option list |
+| `options`       | `SelectOption<Value>[]` | Yes      | Available `{ value, label }` choices            |
+| `value`         | `string \| number`      | Yes      | Currently selected value                        |
+| `onValueChange` | `(value) => void`       | Yes      | Called after an option is chosen                |
+| `disabled`      | `boolean`               | No       | Disables the trigger                            |
+| `jss`           | `JSS`                   | No       | Styles the control wrapper                      |
+| `jssButton`     | `JSS`                   | No       | Styles the trigger button                       |
 
 ---
 

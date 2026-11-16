@@ -62,7 +62,6 @@ export const pages: Array<Page> = [
       { type: "link", page: "ButtonGroup" },
       { type: "link", page: "Link" },
       { type: "link", page: "IconButton" },
-      { type: "link", page: "Select" },
       { type: "link", page: "Toggle" },
       { type: "link", page: "Switch" },
       { type: "link", page: "Tabs" },
@@ -73,6 +72,7 @@ export const pages: Array<Page> = [
     type: "section",
     label: "Inputs",
     content: [
+      { type: "link", page: "Select", name: "Select (dropdown)" },
       { type: "link", page: "TextInput" },
       { type: "link", page: "TextArea" },
       { type: "link", page: "Composer" },
