@@ -133,7 +133,11 @@ Always provide an `ariaLabel` when the icon conveys meaning that isn't available
 
 ## Preloading icons
 
-By default, Iconify loads icons asynchronously from a CDN. To prevent flickering on initial render, you can preload icons by bundling them with your application.
+By default, Iconify loads icons asynchronously from a CDN. Preload icons by bundling them with your application.
+
+- Client-only mounts render preloaded icons on the first commit, without waiting for effects.
+- SSR and initial hydration keep matching placeholders, even when server and browser caches differ.
+- Uncached icons still load asynchronously.
 
 **Option 1: Preload an entire icon set**
 

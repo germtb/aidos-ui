@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useSyncExternalStore } from "react";
 import { Icon as IconifyIcon } from "@iconify/react";
 import { BaseView } from "./BaseView";
 import { IconType } from "./IconType";
@@ -52,7 +52,15 @@ export interface IconProps {
   jss?: JSS;
 }
 
+const subscribe = () => () => {};
+
 export function Icon({ icon, size, color, ariaLabel, jss }: IconProps) {
+  // Keep hydration consistent even when only one side has preloaded icons.
+  const clientRender = useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false,
+  );
   return (
     <BaseView
       aria-label={ariaLabel}
@@ -69,7 +77,12 @@ export function Icon({ icon, size, color, ariaLabel, jss }: IconProps) {
         jss,
       ]}
     >
-      <IconifyIcon icon={`lucide:${icon}`} width="100%" height="100%" />
+      <IconifyIcon
+        icon={`lucide:${icon}`}
+        ssr={clientRender}
+        width="100%"
+        height="100%"
+      />
     </BaseView>
   );
 }
