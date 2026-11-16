@@ -1,4 +1,4 @@
-import { ControlSizesDemo } from "../examples/DesktopDemo";
+import { ButtonHierarchyDemo, ControlSizesDemo } from "../examples/DesktopDemo";
 import { Button } from "../../src/Button";
 import { Row } from "../../src/Row";
 
@@ -7,6 +7,12 @@ import { Row } from "../../src/Row";
 The `Button` component enables users to trigger actions with a single click. It supports multiple color variants for different semantic purposes and can include icons.
 
 Button geometry, label weight, icon size, gap, and padding are fixed by the design system. Use `jss` only for exceptional layout overrides.
+
+## Button hierarchy
+
+Primary uses the accent. Secondary keeps strong text on a quiet neutral surface with a thin border. Bare removes the surface; disabled controls are muted and do not react to hover.
+
+<ButtonHierarchyDemo />
 
 ---
 
@@ -29,7 +35,7 @@ Button geometry, label weight, icon size, gap, and padding are fixed by the desi
 Each color variant communicates a different intent to users:
 
 - **Primary**: Principal actions, using the blue accent
-- **Secondary**: Supporting or neutral actions, using gray
+- **Secondary**: Supporting actions, using strong text and a neutral outlined surface
 - **Negative**: Destructive actions like delete or remove
 - **Inverse**: High-emphasis monochrome actions that invert with the theme
 

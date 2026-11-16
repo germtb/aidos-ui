@@ -1,4 +1,4 @@
-import { MenuDemo } from "../examples/DesktopDemo";
+import { MenuDemo, MenuSubmenuDemo } from "../examples/DesktopDemo";
 
 # Menu
 
@@ -45,9 +45,57 @@ A thin neutral border and soft shadow separate menus from matching backgrounds. 
 ```
 
 - `Menu`: `label`, children, optional `onClose`, `autoFocus` for newly mounted submenus, standard column props.
-- `MenuItem`: label children, `icon`, `trailing`, `description`, `disabled`, `destructive`, and `onClick`.
+- `MenuItem`: label children, `icon`, `trailing`, `description`, `title`, `disabled`, `destructive`, and `onClick`.
+- Truncated labels reveal their full text on hover or focus. Long paths wrap beside the menu without moving focus.
+- `description` adds explanatory tooltip text. `title` overrides the hint; `title=""` suppresses it. Short labels without either stay quiet.
+- Expanded labels are not repeated as screen-reader descriptions; existing `aria-describedby` references are preserved.
 - `checked` supplies checkbox semantics. Use `role="menuitemradio"` for mutually exclusive choices.
 - Selecting an item closes its enclosing menu. `event.preventDefault()` keeps it open, for example when opening a settings subpage.
-- Arrows, Home, and End include disabled items so their availability can be announced; disabled items cannot activate. Escape closes the popover; Tab leaves it rather than trapping focus.
+- Arrows, Home, and End include disabled items so their availability can be announced; disabled items cannot activate. Escape dismisses an open tooltip first, then the popover; Tab leaves rather than trapping focus.
 
 Keep form fields outside `Menu`; use a `Popover` or `SearchList` for mixed content.
+
+## Drill-down submenus
+
+`MenuSubmenu` replaces the current page inside the same `Popover`. It supplies the forward chevron and back header; no page IDs, routing state, or extra provider are needed.
+
+<MenuSubmenuDemo />
+
+Inside your existing popover:
+
+```tsx
+<Menu label="Settings" onClose={close}>
+  <MenuSubmenu label="Reasoning" trailing={reasoning}>
+    <Menu label="Reasoning effort">
+      {["Low", "Medium", "High"].map((value) => (
+        <MenuItem
+          key={value}
+          role="menuitemradio"
+          checked={reasoning === value}
+          onClick={() => setReasoning(value)}
+        >
+          {value}
+        </MenuItem>
+      ))}
+    </Menu>
+  </MenuSubmenu>
+</Menu>
+```
+
+- `label` names the page; `icon`, `trailing` text, and `disabled` are optional.
+- Click, Enter, or Right opens the page and focuses its selected/first control. Back or Left returns focus to the originating row.
+- Escape dismisses inner hints/selectors first, then backs out one page, then closes the popover. Text fields retain their editing keys.
+- Parent pages stay mounted but hidden and inert, preserving search and scroll. Page width stays stable.
+- Child menus inherit the parent menu's `onClose`. Fields can be composed directly as page children without a menu role.
+
+For a choice that returns to its parent rather than closing the popover:
+
+```tsx
+<MenuSubmenu label="Provider" trailing={provider}>
+  {({ back }) => (
+    <Menu label="Providers" onClose={back}>
+      <MenuItem onClick={() => setProvider("Remote")}>Remote</MenuItem>
+    </Menu>
+  )}
+</MenuSubmenu>
+```

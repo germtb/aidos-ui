@@ -69,12 +69,13 @@ export function useFloatingPosition(
                 ? start + size - own
                 : start + (size - own) / 2;
           const available = Math.max(0, space[side] - gap - edge);
-          const boxHeight = vertical
-            ? Math.min(box.height, available)
-            : box.height;
-          const boxWidth = vertical
-            ? box.width
-            : Math.min(box.width, available);
+          element.style.setProperty(
+            vertical ? "--aidos-overlay-height" : "--aidos-overlay-width",
+            `${available}px`,
+          );
+          // Constraining width can wrap text and change its height.
+          const { width: boxWidth, height: boxHeight } =
+            element.getBoundingClientRect();
           const x = vertical
             ? cross(rect.left, rect.width, boxWidth)
             : side === "left"
@@ -87,16 +88,6 @@ export function useFloatingPosition(
             : cross(rect.top, rect.height, boxHeight);
           element.style.left = `${Math.max(left + edge, Math.min(x, left + width - boxWidth - edge))}px`;
           element.style.top = `${Math.max(top + edge, Math.min(y, top + height - boxHeight - edge))}px`;
-          if (vertical)
-            element.style.setProperty(
-              "--aidos-overlay-height",
-              `${available}px`,
-            );
-          else
-            element.style.setProperty(
-              "--aidos-overlay-width",
-              `${available}px`,
-            );
           element.dataset.placement = side;
         };
         update();

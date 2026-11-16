@@ -19,21 +19,40 @@ export interface TooltipProps {
   children: React.JSX.Element;
 }
 
-export function Tooltip({
+type Hint = { text: string; description?: string };
+
+export function Tooltip(props: TooltipProps) {
+  return <TooltipTrigger {...props} />;
+}
+
+// Shared internally with menu items, which resolve overflow on interaction.
+export function TooltipTrigger({
   content,
   jss,
   tag,
   children,
   placement = "top",
   align = "center",
-}: TooltipProps) {
+}: Omit<TooltipProps, "content"> & {
+  content: string | ((anchor: HTMLElement) => Hint);
+}) {
   const id = useId();
-  const [open, setOpen] = useState(false);
+  const [hint, setHint] = useState<Hint>(null);
+  const visible =
+    hint &&
+    (typeof content === "string"
+      ? { text: content, description: content }
+      : hint);
+  const descriptionId = visible?.description
+    ? visible.description === visible.text
+      ? id
+      : `${id}-description`
+    : undefined;
   const anchor = useRef<HTMLElement>(null);
   const surface = useRef<HTMLElement>(null);
   const timeout = useRef<ReturnType<typeof setTimeout>>(undefined);
   const position = useFloatingPosition(anchor, placement, align, () =>
-    setOpen(false),
+    setHint(null),
   );
   const mount = useCallback(
     (element: HTMLDivElement | null) => {
@@ -48,7 +67,11 @@ export function Tooltip({
   }, []);
   const show = () => {
     clearTimeout(timeout.current);
-    setOpen(true);
+    setHint(
+      typeof content === "string"
+        ? { text: content, description: content }
+        : content(anchor.current),
+    );
   };
   const leave = () => {
     clearTimeout(timeout.current);
@@ -57,7 +80,7 @@ export function Tooltip({
         !anchor.current?.contains(document.activeElement) &&
         !surface.current?.matches(":hover")
       )
-        setOpen(false);
+        setHint(null);
     }, 120);
   };
   return (
@@ -67,7 +90,7 @@ export function Tooltip({
       jss={[{ display: "inline-block", minWidth: 0 }, jss]}
       onFocus={show}
       onKeyDown={(event) => {
-        if (event.key === "Tab") setOpen(false);
+        if (event.key === "Tab") setHint(null);
       }}
       onBlur={(event) => {
         if (
@@ -75,18 +98,18 @@ export function Tooltip({
           !event.currentTarget.matches(":hover") &&
           !surface.current?.matches(":hover")
         )
-          setOpen(false);
+          setHint(null);
       }}
       onMouseEnter={show}
       onMouseLeave={leave}
     >
       {React.cloneElement(children, {
         "aria-describedby":
-          [children.props["aria-describedby"], open && id]
+          [children.props["aria-describedby"], visible?.text && descriptionId]
             .filter(Boolean)
             .join(" ") || undefined,
       })}
-      {open &&
+      {visible?.text &&
         createPortal(
           <div
             id={id}
@@ -111,11 +134,18 @@ export function Tooltip({
               color: cssVar("--primary-text"),
               boxShadow: cssVar("--shadow-md"),
               overflow: "auto",
+              overflowWrap: "anywhere",
+              whiteSpace: "pre-wrap",
             })}
           >
             <Text size="small" color="secondary" ellipsis={false}>
-              {content}
+              {visible.text}
             </Text>
+            {descriptionId && descriptionId !== id && (
+              <span id={descriptionId} hidden>
+                {visible.description}
+              </span>
+            )}
           </div>,
           anchor.current.closest("dialog[open], [popover]") ?? document.body,
         )}

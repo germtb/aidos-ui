@@ -15,6 +15,7 @@ import {
   ListButtonItem,
   Menu,
   MenuItem,
+  MenuSubmenu,
   MenuSeparator,
   Modal,
   PopoverTrigger,
@@ -31,7 +32,97 @@ import {
   TextInput,
   Tooltip,
   type ControlSize,
+  lightTheme,
+  darkTheme,
 } from "../../src";
+
+export function ButtonHierarchyDemo() {
+  const [action, setAction] = useState(
+    "Hover, press, or Tab through the controls. Disabled buttons remain focusable.",
+  );
+  return (
+    <Column gap="medium" data-button-hierarchy-demo>
+      <Row gap="large" wrap align="stretch">
+        {(
+          [
+            ["Light", lightTheme],
+            ["Dark", darkTheme],
+          ] as const
+        ).map(([name, theme]) => (
+          <Card
+            key={name}
+            role="group"
+            aria-label={`${name} button hierarchy`}
+            style={theme as React.CSSProperties}
+            gap="large"
+            padding="xlarge"
+            jss={{
+              flex: "1 1 300px",
+              minWidth: 0,
+              border: "1px solid var(--divider)",
+              boxShadow: "none",
+            }}
+          >
+            <Text bold>{name}</Text>
+            <Row gap="medium" wrap align="center">
+              <Button
+                color="primary"
+                onClick={() => setAction(`${name}: primary`)}
+              >
+                Primary
+              </Button>
+              <Button
+                color="secondary"
+                onClick={() => setAction(`${name}: secondary`)}
+              >
+                Secondary
+              </Button>
+              <Button
+                color="secondary"
+                bare
+                onClick={() => setAction(`${name}: bare`)}
+              >
+                Bare
+              </Button>
+              <Button
+                color="secondary"
+                disabled
+                onClick={() => setAction(`${name}: disabled`)}
+              >
+                Disabled
+              </Button>
+            </Row>
+            <Row gap="medium" wrap align="center">
+              <Button
+                color="secondary"
+                icon="copy"
+                onClick={() => setAction(`${name}: duplicate`)}
+              >
+                Duplicate
+              </Button>
+              <IconButton
+                color="secondary"
+                icon="settings"
+                aria-label={`${name} settings`}
+                onClick={() => setAction(`${name}: settings`)}
+              />
+              <IconButton
+                color="secondary"
+                bare
+                icon="ellipsis"
+                aria-label={`${name} more actions`}
+                onClick={() => setAction(`${name}: more actions`)}
+              />
+            </Row>
+          </Card>
+        ))}
+      </Row>
+      <Text role="status" size="small" color="secondary" ellipsis={false}>
+        {action}
+      </Text>
+    </Column>
+  );
+}
 
 export function ControlSizesDemo() {
   return (
@@ -279,12 +370,24 @@ export function MenuDemo() {
         <PopoverTrigger
           role="presentation"
           content={({ close }) => (
-            <Menu label="Document actions" onClose={close}>
-              <Tooltip content="Rename this document" placement="right">
-                <MenuItem icon="pencil" onClick={() => setAction("Edit")}>
-                  Edit
-                </MenuItem>
-              </Tooltip>
+            <Menu
+              label="Document actions"
+              onClose={close}
+              jss={{ width: 280, maxWidth: "100%" }}
+            >
+              <MenuItem
+                icon="pencil"
+                description="Rename this document"
+                onClick={() => setAction("Edit")}
+              >
+                Edit
+              </MenuItem>
+              <MenuItem
+                icon="folder"
+                onClick={() => setAction("Open project folder")}
+              >
+                /Users/gerard/workspaces/a-very-long-project-name/packages/desktop
+              </MenuItem>
               <MenuItem disabled onClick={() => setAction("Unavailable")}>
                 Unavailable action
               </MenuItem>
@@ -355,6 +458,90 @@ export function MenuDemo() {
         aria-label="Outside popover field"
         placeholder="Outside clicks keep focus here"
       />
+    </Column>
+  );
+}
+
+export function MenuSubmenuDemo() {
+  const [provider, setProvider] = useState("Local");
+  const [reasoning, setReasoning] = useState("High");
+  const [model, setModel] = useState("example-model");
+  return (
+    <Column gap="medium">
+      <PopoverTrigger
+        ariaLabel="Composer settings"
+        content={({ close }) => (
+          <Menu
+            label="Settings"
+            onClose={close}
+            jss={{ width: 300, maxWidth: "100%" }}
+          >
+            <MenuSubmenu label="Provider" icon="server" trailing={provider}>
+              {({ back }) => (
+                <Menu label="Providers" onClose={back}>
+                  {["Local", "Remote"].map((value) => (
+                    <MenuItem
+                      key={value}
+                      role="menuitemradio"
+                      checked={provider === value}
+                      onClick={() => setProvider(value)}
+                    >
+                      {value}
+                    </MenuItem>
+                  ))}
+                </Menu>
+              )}
+            </MenuSubmenu>
+            <MenuSubmenu label="Reasoning" icon="brain" trailing={reasoning}>
+              <Menu label="Reasoning effort">
+                {["Low", "Medium", "High"].map((value) => (
+                  <MenuItem
+                    key={value}
+                    role="menuitemradio"
+                    checked={reasoning === value}
+                    onClick={() => setReasoning(value)}
+                  >
+                    {value}
+                  </MenuItem>
+                ))}
+              </Menu>
+            </MenuSubmenu>
+            <MenuSubmenu label="Advanced" icon="settings">
+              <Menu label="Advanced settings">
+                <MenuSubmenu label="Custom model">
+                  <Column gap="medium" padding="medium">
+                    <TextInput
+                      label="Model ID"
+                      value={model}
+                      onValueChange={setModel}
+                    />
+                    <Button color="primary" onClick={close}>
+                      Done
+                    </Button>
+                  </Column>
+                </MenuSubmenu>
+                <MenuSubmenu label="Unavailable settings" disabled>
+                  <Text>This page cannot open.</Text>
+                </MenuSubmenu>
+              </Menu>
+            </MenuSubmenu>
+          </Menu>
+        )}
+      >
+        {({ toggle, expanded }) => (
+          <Button
+            color="secondary"
+            aria-haspopup="dialog"
+            aria-expanded={expanded}
+            onClick={() => toggle()}
+          >
+            Composer settings
+          </Button>
+        )}
+      </PopoverTrigger>
+      <Text size="small" color="secondary" ellipsis={false}>
+        {provider} · {reasoning} · {model}
+      </Text>
     </Column>
   );
 }

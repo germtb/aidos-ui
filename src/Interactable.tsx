@@ -15,11 +15,12 @@ const styles = {
     cursor: "pointer",
     display: "inline-flex",
     alignItems: "center",
-    transition: "filter 120ms ease, box-shadow 120ms ease",
+    transition:
+      "filter 120ms ease, box-shadow 120ms ease, background-color 120ms ease, border-color 120ms ease",
     outlineColor: cssVar("--outline"),
     "[aria-disabled=true]": {
-      color: cssVar("--secondary-text"),
-      backgroundColor: cssVar("--background-button-secondary"),
+      color: cssVar("--subtle-text"),
+      backgroundColor: cssVar("--background-button-disabled"),
     },
     ":focus-visible": {
       outline: `2px solid ${cssVar("--outline")}`,
@@ -37,6 +38,22 @@ const styles = {
     "[aria-disabled=true]": {
       backgroundColor: cssVar("--background-button-disabled"),
     },
+  },
+  secondarySurface: {
+    border:
+      "1px solid color-mix(in srgb, var(--primary-text) 18%, var(--background-button-secondary))",
+    ":hover:not([aria-disabled=true])": {
+      backgroundColor:
+        "color-mix(in srgb, var(--primary-text) 4%, var(--background-button-secondary))",
+      borderColor:
+        "color-mix(in srgb, var(--primary-text) 28%, var(--background-button-secondary))",
+      filter: "none",
+    },
+    ":active:hover:not([aria-disabled=true])": {
+      backgroundColor:
+        "color-mix(in srgb, var(--primary-text) 8%, var(--background-button-secondary))",
+    },
+    "[aria-disabled=true]": { borderColor: "transparent" },
   },
   negative: {
     backgroundColor: cssVar("--background-button-negative"),
@@ -98,12 +115,15 @@ export function getInteractableJSS({
     color === "secondary" && styles.secondary,
     color === "negative" && styles.negative,
     color === "inverse" && styles.inverse,
+    color === "secondary" && !bare && styles.secondarySurface,
     border && {
       border: `1px solid ${getCSSColor(color, disabled, bare)}`,
     },
     bare && styles.bare,
     disabled && styles.disabled,
-    !bare && !disabled && { boxShadow: cssVar("--shadow-sm") },
+    !bare &&
+      !disabled &&
+      color !== "secondary" && { boxShadow: cssVar("--shadow-sm") },
     styles.opacityHover,
     animateInteraction &&
       !disabled && {
@@ -134,7 +154,7 @@ export const getGlyphColor = (
     case "primary":
       return bare ? "highlight" : "light";
     case "secondary":
-      return bare ? "primary" : "secondary";
+      return "primary";
     case "negative":
       return bare ? "negative" : "light";
     case "inverse":
@@ -155,7 +175,7 @@ export const getCSSColor = (
     case "primary":
       return bare ? cssVar("--highlight") : cssVar("--light-text");
     case "secondary":
-      return bare ? cssVar("--primary-text") : cssVar("--secondary-text");
+      return cssVar("--primary-text");
     case "negative":
       return bare ? cssVar("--negative-text") : cssVar("--light-text");
     case "inverse":

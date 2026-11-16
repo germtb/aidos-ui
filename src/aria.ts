@@ -15,6 +15,22 @@ export function queryFocusables(root: ParentNode): Focusable[] {
   );
 }
 
+export function focusInitialElement(root: HTMLElement, initial?: HTMLElement) {
+  const items = queryFocusables(root);
+  const selected = root.querySelector(
+    '[aria-selected="true"], [aria-checked="true"]',
+  );
+  (
+    initial ??
+    items.find((item) =>
+      item.matches('[autofocus], [data-autofocus="true"]'),
+    ) ??
+    items.find((item) => item === selected || selected?.contains(item)) ??
+    items[0] ??
+    root
+  ).focus({ preventScroll: true });
+}
+
 export function queryGrid(root: HTMLElement): HTMLElement[][] {
   return Array.from(root.querySelectorAll('li[role="row"]'))
     .map(queryFocusables)

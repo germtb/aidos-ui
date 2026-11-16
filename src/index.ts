@@ -67,7 +67,7 @@ export * from "./TextInputWithState";
 export * from "./TextPairing";
 export * from "./TimeInput";
 export * from "./Toolbar";
-export * from "./Tooltip";
+export { Tooltip, type TooltipProps } from "./Tooltip";
 export * from "./Toggle";
 export * from "./useCookie";
 export * from "./useKeyboard";

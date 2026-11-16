@@ -1,3 +1,4 @@
+import React from "react";
 import { FlexLayout, FlexLayoutProps } from "./FlexLayout";
 import { JSS, Material, cssVar, getMaterial } from "./jss";
 
@@ -29,18 +30,22 @@ const variantStyles: { [variant in CardVariant]: JSS } = {
   },
 };
 
-export function Card({
-  children,
-  jss,
-  padding = "large",
-  gap = "large",
-  variant = "default",
-  material,
-  ...otherProps
-}: CardProps) {
+export const Card = React.forwardRef(function Card(
+  {
+    children,
+    jss,
+    padding = "large",
+    gap = "large",
+    variant = "default",
+    material,
+    ...otherProps
+  }: CardProps,
+  ref?: React.Ref<HTMLDivElement>,
+) {
   return (
     <FlexLayout
       {...otherProps}
+      ref={ref}
       padding={padding}
       gap={gap}
       jss={[
@@ -55,4 +60,4 @@ export function Card({
       {children}
     </FlexLayout>
   );
-}
+});

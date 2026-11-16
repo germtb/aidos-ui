@@ -7,6 +7,9 @@ import {
   Select,
   Menu,
   MenuItem,
+  MenuSubmenu,
+  Column,
+  TextInput,
   Modal,
   SearchList,
   Tabs,
@@ -17,6 +20,98 @@ import {
   lightTheme,
 } from "../../src";
 
+function SubmenuFixture() {
+  const [effort, setEffort] = useState("High");
+  const [provider, setProvider] = useState("One");
+  const [model, setModel] = useState("draft-model");
+  const [choice, setChoice] = useState("one");
+  return (
+    <PopoverTrigger
+      ariaLabel="Settings pages"
+      content={({ close }) => (
+        <Column gap="small" jss={{ width: 300, maxWidth: "100%" }}>
+          <TextInput aria-label="Settings filter" defaultValue="" />
+          <Menu label="Settings" onClose={close} jss={{ maxHeight: 140 }}>
+            <MenuSubmenu label="Unavailable" disabled>
+              <span>Must not open</span>
+            </MenuSubmenu>
+            {Array.from({ length: 5 }, (_, index) => (
+              <MenuItem key={index} onClick={() => {}}>
+                Action {index + 1}
+              </MenuItem>
+            ))}
+            <MenuSubmenu label="Reasoning" trailing={effort}>
+              <Menu label="Reasoning effort">
+                <MenuItem
+                  role="menuitemradio"
+                  checked={effort === "Low"}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    setEffort("Low");
+                  }}
+                >
+                  Low
+                </MenuItem>
+                <MenuItem
+                  role="menuitemradio"
+                  checked={effort === "High"}
+                  onClick={() => setEffort("High")}
+                >
+                  High
+                </MenuItem>
+              </Menu>
+            </MenuSubmenu>
+            <MenuSubmenu label="Provider" trailing={provider}>
+              {({ back }) => (
+                <Menu label="Provider choices" onClose={back}>
+                  <MenuItem onClick={() => setProvider("Two")}>Two</MenuItem>
+                </Menu>
+              )}
+            </MenuSubmenu>
+            <MenuSubmenu label="Advanced">
+              <Menu label="Advanced options">
+                <MenuSubmenu label="Custom model">
+                  <Column gap="small">
+                    <TextInput
+                      aria-label="Custom model ID"
+                      value={model}
+                      onValueChange={setModel}
+                    />
+                    <Select
+                      label="Model connection"
+                      value={choice}
+                      onValueChange={setChoice}
+                      options={[
+                        { value: "one", label: "One" },
+                        { value: "two", label: "Two" },
+                      ]}
+                    />
+                    <Button color="primary" onClick={close}>
+                      Done
+                    </Button>
+                  </Column>
+                </MenuSubmenu>
+                <MenuItem
+                  title="Advanced configuration help"
+                  onClick={() => {}}
+                >
+                  About
+                </MenuItem>
+              </Menu>
+            </MenuSubmenu>
+          </Menu>
+        </Column>
+      )}
+    >
+      {({ toggle }) => (
+        <Button color="secondary" onClick={() => toggle()}>
+          Open settings pages
+        </Button>
+      )}
+    </PopoverTrigger>
+  );
+}
+
 function Fixture() {
   const [count, setCount] = useState(0);
   const [selected, setSelected] = useState("Draft");
@@ -25,9 +120,71 @@ function Fixture() {
   const [draft, setDraft] = useState("");
   const [submitted, setSubmitted] = useState("");
   const [choice, setChoice] = useState("one");
+  const [folder, setFolder] = useState("");
   return (
     <JSSProvider themes={{ light: lightTheme, dark: darkTheme }}>
       <div style={{ padding: 32 }}>
+        <SubmenuFixture />
+        <div style={{ position: "fixed", bottom: 20, right: 20 }}>
+          <PopoverTrigger
+            ariaLabel="Folder picker"
+            placement="top"
+            align="end"
+            content={({ close }) => (
+              <Menu
+                label="Folders"
+                onClose={close}
+                jss={{ width: 220, maxHeight: 220 }}
+              >
+                <MenuItem onClick={() => setFolder("Recent")}>Recent</MenuItem>
+                <MenuItem
+                  onClick={() => setFolder("Long")}
+                  aria-describedby="folder-context"
+                >
+                  <strong>
+                    {"/workspaces/" + "long-directory-name-".repeat(12)}
+                  </strong>
+                </MenuItem>
+                <MenuItem disabled onClick={() => setFolder("Disabled")}>
+                  /workspaces/disabled-folder-with-a-long-name
+                </MenuItem>
+                <MenuItem
+                  description="Choose a folder on disk"
+                  onClick={() => {}}
+                >
+                  Browse
+                </MenuItem>
+                <MenuItem
+                  title="Custom workspace hint"
+                  description="Not the override"
+                  onClick={() => {}}
+                >
+                  Custom
+                </MenuItem>
+                <MenuItem title="" onClick={() => {}}>
+                  /workspaces/suppressed-folder-with-a-long-name
+                </MenuItem>
+                <MenuItem
+                  description="Not available offline"
+                  disabled
+                  onClick={() => setFolder("Offline")}
+                >
+                  /workspaces/offline-folder-with-a-long-name
+                </MenuItem>
+              </Menu>
+            )}
+          >
+            {({ toggle }) => (
+              <Button color="secondary" onClick={() => toggle()}>
+                Choose folder
+              </Button>
+            )}
+          </PopoverTrigger>
+        </div>
+        <span id="folder-context" hidden>
+          Recently used
+        </span>
+        <output aria-label="Chosen folder">{folder}</output>
         <input
           aria-label="Draft"
           defaultValue="Keep this draft"

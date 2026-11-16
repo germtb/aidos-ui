@@ -525,7 +525,7 @@ export const lightTheme: Theme = {
   ["--font-xxxlarge"]: "36px",
   /* Buttons */
   ["--background-button-primary"]: "rgb(0, 122, 255)",
-  ["--background-button-secondary"]: "rgb(218, 218, 223)",
+  ["--background-button-secondary"]: "rgb(255, 255, 255)",
   ["--background-button-negative"]: "rgb(255, 59, 48)",
   ["--background-button-inverse"]: "rgb(0, 0, 0)",
   ["--background-button-disabled"]: "rgb(218, 218, 223)",
@@ -597,7 +597,7 @@ export const darkTheme: Theme = {
   ["--font-xxxlarge"]: "36px",
   /* Buttons */
   ["--background-button-primary"]: "rgb(50, 140, 220)",
-  ["--background-button-secondary"]: "rgb(82, 83, 86)",
+  ["--background-button-secondary"]: "rgb(47, 50, 58)",
   ["--background-button-negative"]: "rgb(255, 59, 48)",
   ["--background-button-inverse"]: "rgb(255, 255, 255)",
   ["--background-button-disabled"]: "rgb(70, 72, 73)",
