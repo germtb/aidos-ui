@@ -304,6 +304,6 @@ The Tabs component follows WAI-ARIA tab patterns:
 
 ## Closable document tabs
 
-Use `variant="document"`, stable tab `id` values, and per-tab `onClose`. Close actions are siblings, never nested buttons. Arrow keys select tabs, Home/End jump, and Delete closes a closable tab. `panelId` can override the shared `aria-controls` for each tab.
+Use `variant="document"`, stable tab `id` values, and per-tab `onClose`. `title` overrides the label tooltip. Close actions are siblings, never nested buttons; the application owns removal and selection, so a cancelled close does not select another tab. Arrow keys select tabs, Home/End jump, and Delete closes a closable tab. `panelId` can override the shared `aria-controls` for each tab.
 
 <DocumentTabsDemo />

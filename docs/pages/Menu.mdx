@@ -44,7 +44,7 @@ A thin neutral border and soft shadow separate menus from matching backgrounds. 
 </PopoverTrigger>
 ```
 
-- `Menu`: `label`, children, optional `onClose`, standard column props.
+- `Menu`: `label`, children, optional `onClose`, `autoFocus` for newly mounted submenus, standard column props.
 - `MenuItem`: label children, `icon`, `trailing`, `description`, `disabled`, `destructive`, and `onClick`.
 - `checked` supplies checkbox semantics. Use `role="menuitemradio"` for mutually exclusive choices.
 - Selecting an item closes its enclosing menu. `event.preventDefault()` keeps it open, for example when opening a settings subpage.

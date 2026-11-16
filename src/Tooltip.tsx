@@ -1,4 +1,4 @@
-import React, { useId, useRef, useState } from "react";
+import React, { useCallback, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { BaseView } from "./BaseView";
 import { Text } from "./Text";
@@ -35,6 +35,17 @@ export function Tooltip({
   const position = useFloatingPosition(anchor, placement, align, () =>
     setOpen(false),
   );
+  const mount = useCallback(
+    (element: HTMLDivElement | null) => {
+      surface.current = element;
+      position(element);
+    },
+    [position],
+  );
+  const mountAnchor = useCallback((element: HTMLElement | null) => {
+    anchor.current = element;
+    if (!element) clearTimeout(timeout.current);
+  }, []);
   const show = () => {
     clearTimeout(timeout.current);
     setOpen(true);
@@ -51,10 +62,7 @@ export function Tooltip({
   };
   return (
     <BaseView
-      ref={(element) => {
-        anchor.current = element;
-        if (!element) clearTimeout(timeout.current);
-      }}
+      ref={mountAnchor}
       tag={tag}
       jss={[{ display: "inline-block", minWidth: 0 }, jss]}
       onFocus={show}
@@ -84,10 +92,7 @@ export function Tooltip({
             id={id}
             role="tooltip"
             popover="hint"
-            ref={(element) => {
-              surface.current = element;
-              position(element);
-            }}
+            ref={mount}
             onMouseEnter={show}
             onMouseLeave={leave}
             className={toClassnames({

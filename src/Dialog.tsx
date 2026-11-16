@@ -47,23 +47,25 @@ function ModalSurface({
   afterClose.current = onAfterClose;
   const initial = useRef(initialFocus);
   initial.current = initialFocus;
+  const previous = useRef<Element>(null);
   const mount = useRefEffect(
     useCallback((element: HTMLDialogElement) => {
-      const previous = document.activeElement;
+      if (!element.open) previous.current = document.activeElement;
       element.showModal();
       initial.current?.current?.focus({ preventScroll: true });
       return () => {
-        element.close();
         queueMicrotask(() => {
-          // Ref replay must not run completion callbacks for a dialog that reopened.
+          // Ref replay must not complete a dialog that remains mounted.
           if (element.isConnected && element.open) return;
+          // Restore the editor only after removing the dialog's focused input.
+          element.close();
           if (
-            previous instanceof HTMLElement &&
-            previous.isConnected &&
+            previous.current instanceof HTMLElement &&
+            previous.current.isConnected &&
             (document.activeElement === document.body ||
               element.contains(document.activeElement))
           )
-            previous.focus({ preventScroll: true });
+            previous.current.focus({ preventScroll: true });
           afterClose.current?.();
         });
       };

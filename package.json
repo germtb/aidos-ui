@@ -54,7 +54,8 @@
     "start": "next start docs",
     "lint": "eslint src docs --max-warnings=0",
     "check:package": "publint && attw --pack . --profile esm-only",
-    "test:popover": "node --test tests/Popover.e2e.test.mjs"
+    "test:popover": "node --test tests/Popover.e2e.test.mjs",
+    "test:overlays": "node --test tests/Overlays.e2e.test.mjs"
   },
   "type": "module",
   "author": "Gerard Moreno-Torres Bertran",

@@ -175,6 +175,13 @@ export function PopoverTrigger<Input = object>({
   const id = useId();
   const close = useCallback(() => setOpen(null), []);
   const position = useFloatingPosition(anchor, placement, align, close);
+  const mount = useCallback(
+    (element: HTMLDivElement | null) => {
+      surface.current = element;
+      position(element);
+    },
+    [position],
+  );
   const toggle = (input?: Input) => {
     if (open || pointerOpen.current) close();
     else
@@ -205,10 +212,7 @@ export function PopoverTrigger<Input = object>({
             role={role}
             aria-label={ariaLabel}
             popover="auto"
-            ref={(element) => {
-              surface.current = element;
-              position(element);
-            }}
+            ref={mount}
             className={toClassnames([
               {
                 position: "fixed",

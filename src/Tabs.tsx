@@ -12,6 +12,7 @@ export type TabsVariant = "underline" | "segmented" | "document";
 export type Tab = {
   id?: string;
   label: string;
+  title?: string;
   icon?: IconType;
   href?: string;
   onClick?: () => void;
@@ -69,7 +70,6 @@ export const Tabs = React.forwardRef(function Tabs(
     root.current
       ?.querySelectorAll<HTMLElement>('[role="tab"]')
       [targetIndex]?.focus();
-    if (index === selectedIndex) next?.onClick?.();
     tab.onClose?.();
   };
   return (
@@ -193,6 +193,7 @@ export const Tabs = React.forwardRef(function Tabs(
               id={id ?? `${instance}-${index}`}
               aria-controls={panelId ?? ariaControls}
               role="tab"
+              title={tab.title ?? label}
               aria-selected={selected}
               tabIndex={selected ? 0 : -1}
               bare={bare}

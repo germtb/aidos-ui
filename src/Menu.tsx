@@ -12,16 +12,21 @@ const MenuContext = createContext<() => void>(() => {});
 export interface MenuProps extends Omit<ColumnProps, "role"> {
   label: string;
   onClose?: () => void;
+  autoFocus?: boolean;
 }
 
 export function Menu({
   label,
   onClose = () => {},
+  autoFocus = false,
   children,
   jss,
   ...props
 }: MenuProps) {
-  const navigation = useNavigation({ orientation: "vertical" });
+  const navigation = useNavigation({
+    orientation: "vertical",
+    autofocus: autoFocus,
+  });
   return (
     <MenuContext.Provider value={onClose}>
       <Column
@@ -128,7 +133,13 @@ export function MenuItem({
       )}
       {checked != null && (
         <span aria-hidden style={{ width: 14, flexShrink: 0 }}>
-          {checked && <Icon icon="check" size="small" color="inherit" />}
+          {(checked || role === "menuitemcheckbox") && (
+            <Icon
+              icon={checked ? "check" : "square"}
+              size="small"
+              color="inherit"
+            />
+          )}
         </span>
       )}
     </BaseButton>

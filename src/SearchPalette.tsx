@@ -28,6 +28,11 @@ export interface SearchListProps<Value extends string = string> {
   placeholder?: string;
   loading?: boolean;
   footer?: ReactNode;
+  inputProps?: Pick<
+    React.ComponentPropsWithRef<typeof BaseInput>,
+    "ref" | "autoFocus" | "maxLength" | "aria-label"
+  >;
+  renderOption?: (option: SearchOption<Value>) => ReactNode;
 }
 
 export function SearchList<Value extends string>({
@@ -40,6 +45,8 @@ export function SearchList<Value extends string>({
   placeholder = "Search…",
   loading = false,
   footer,
+  inputProps,
+  renderOption,
 }: SearchListProps<Value>) {
   const id = useId();
   const [localQuery, setQuery] = useState("");
@@ -74,9 +81,10 @@ export function SearchList<Value extends string>({
       >
         <Icon icon="search" size="small" color="secondary" />
         <BaseInput
+          {...inputProps}
           data-autofocus="true"
           role="combobox"
-          aria-label={label}
+          aria-label={inputProps?.["aria-label"] ?? label}
           aria-controls={id}
           aria-expanded={true}
           aria-autocomplete="list"
@@ -178,23 +186,29 @@ export function SearchList<Value extends string>({
               },
             }}
           >
-            {option.icon && (
-              <Icon icon={option.icon} size="small" color="secondary" />
-            )}
-            <Column grow gap="xsmall" jss={{ minWidth: 0 }}>
-              <Text color={option.disabled ? "secondary" : "primary"}>
-                {option.label}
-              </Text>
-              {option.description && (
-                <Text size="small" color="secondary">
-                  {option.description}
-                </Text>
-              )}
-            </Column>
-            {option.trailing && (
-              <Text size="small" color="secondary" jss={{ flexShrink: 0 }}>
-                {option.trailing}
-              </Text>
+            {renderOption ? (
+              renderOption(option)
+            ) : (
+              <>
+                {option.icon && (
+                  <Icon icon={option.icon} size="small" color="secondary" />
+                )}
+                <Column grow gap="xsmall" jss={{ minWidth: 0 }}>
+                  <Text color={option.disabled ? "secondary" : "primary"}>
+                    {option.label}
+                  </Text>
+                  {option.description && (
+                    <Text size="small" color="secondary">
+                      {option.description}
+                    </Text>
+                  )}
+                </Column>
+                {option.trailing && (
+                  <Text size="small" color="secondary" jss={{ flexShrink: 0 }}>
+                    {option.trailing}
+                  </Text>
+                )}
+              </>
             )}
           </Row>
         ))}
