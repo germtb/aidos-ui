@@ -10,6 +10,7 @@ import {
   MenuSubmenu,
   Column,
   TextInput,
+  Span,
   Modal,
   SearchList,
   Tabs,
@@ -32,7 +33,7 @@ function SubmenuFixture() {
         <Column gap="small" jss={{ width: 300, maxWidth: "100%" }}>
           <TextInput aria-label="Settings filter" defaultValue="" />
           <Menu label="Settings" onClose={close} jss={{ maxHeight: 140 }}>
-            <MenuSubmenu label="Unavailable" disabled>
+            <MenuSubmenu label="Unavailable" trailing="Offline" disabled>
               <span>Must not open</span>
             </MenuSubmenu>
             {Array.from({ length: 5 }, (_, index) => (
@@ -73,7 +74,7 @@ function SubmenuFixture() {
                 <MenuSubmenu label="Custom model">
                   <Column gap="small">
                     <TextInput
-                      aria-label="Custom model ID"
+                      label="Custom model ID"
                       value={model}
                       onValueChange={setModel}
                     />
@@ -285,6 +286,13 @@ function Fixture() {
         <span role="status">{result}</span>
         <Composer
           aria-label="Message"
+          footer={
+            <Tooltip content="Model context used" jss={{ marginLeft: "auto" }}>
+              <Span size="xsmall" tabIndex={0} aria-label="37% context used">
+                37%
+              </Span>
+            </Tooltip>
+          }
           value={draft}
           onValueChange={setDraft}
           onSubmit={() => {

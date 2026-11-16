@@ -3,7 +3,7 @@ import React, { ReactNode } from "react";
 import { BaseInput, BaseInputProps } from "./BaseInput";
 import { Column } from "./Column";
 import { InputFrame } from "./InputFrame";
-import { Gap, JSS, Padding, Size, cssVar, getPadding } from "./jss";
+import { Gap, JSS, Padding, Size, cssVar, getPadding, getSpacing } from "./jss";
 import { getTypography } from "./typography";
 
 export interface TextInputProps extends Omit<BaseInputProps, "size"> {
@@ -28,6 +28,8 @@ export const TextInput = React.forwardRef(function TextInput(
     addOnPosition = "start",
     padding,
     size = "medium",
+    label,
+    labelPosition = "end",
     ...inputProps
   }: TextInputProps,
   ref?: React.Ref<HTMLInputElement>,
@@ -37,10 +39,20 @@ export const TextInput = React.forwardRef(function TextInput(
     padding != null
       ? getPadding(padding)
       : { padding: `0 ${metrics?.padding ?? 8}px` };
+  const labelPadding =
+    padding != null
+      ? getSpacing(Array.isArray(padding) ? padding[1] : padding)
+      : (metrics?.padding ?? 8);
   return (
     <InputFrame
       gap={gap ?? (size === "xsmall" || size === "small" ? "small" : "medium")}
-      jss={jssRoot}
+      jss={[
+        {
+          " > label:first-child": { paddingLeft: labelPadding },
+          " > label:last-child": { paddingRight: labelPadding },
+        },
+        jssRoot,
+      ]}
     >
       {addOnPosition === "start" && addOn && (
         <Column
@@ -59,6 +71,8 @@ export const TextInput = React.forwardRef(function TextInput(
       <BaseInput
         {...inputProps}
         ref={ref}
+        label={label}
+        labelPosition={labelPosition}
         value={value}
         onChange={
           onValueChange ? (e) => onValueChange(e.target.value) : undefined
@@ -85,8 +99,14 @@ export const TextInput = React.forwardRef(function TextInput(
             },
           },
           inputPadding,
-          addOn && addOnPosition === "start" ? { paddingLeft: 0 } : null,
-          addOn && addOnPosition === "end" ? { paddingRight: 0 } : null,
+          (addOn && addOnPosition === "start") ||
+          (label && labelPosition === "start")
+            ? { paddingLeft: 0 }
+            : null,
+          (addOn && addOnPosition === "end") ||
+          (label && labelPosition === "end")
+            ? { paddingRight: 0 }
+            : null,
           jss,
         ]}
       />

@@ -165,7 +165,11 @@ export function MenuItem({
           {children}
         </Span>
         {trailing && (
-          <Span size="small" color="secondary" jss={{ flexShrink: 0 }}>
+          <Span
+            size="small"
+            color={disabled ? "inherit" : "secondary"}
+            jss={{ flexShrink: 0 }}
+          >
             {trailing}
           </Span>
         )}

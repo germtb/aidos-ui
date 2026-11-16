@@ -87,7 +87,7 @@ export function TooltipTrigger({
     <BaseView
       ref={mountAnchor}
       tag={tag}
-      jss={[{ display: "inline-block", minWidth: 0 }, jss]}
+      jss={[{ display: "inline-flex", alignItems: "center", minWidth: 0 }, jss]}
       onFocus={show}
       onKeyDown={(event) => {
         if (event.key === "Tab") setHint(null);

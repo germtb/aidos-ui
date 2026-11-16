@@ -34,7 +34,7 @@ async function fixture() {
   const page = await browser.newPage({ viewport: { width: 760, height: 600 } });
   page.setDefaultTimeout(5000);
   await page.route("**/*", (route) => route.abort());
-  await page.setContent('<div id="root"></div>');
+  await page.setContent('<!doctype html><div id="root"></div>');
   await page.addScriptTag({ path: path.join(directory, "Overlays.global.js") });
   return page;
 }
@@ -150,6 +150,33 @@ test("Escape dismisses a nested selector without closing its modal", async () =>
     await modal
       .getByRole("button", { name: "Provider", exact: true })
       .evaluate((element) => document.activeElement === element),
+  );
+  await page.close();
+});
+
+test("tooltip-wrapped composer metadata stays centered with the action icon", async () => {
+  const page = await fixture();
+  const composer = page.locator("[data-aidos-composer]");
+  const metadata = composer.getByLabel("37% context used");
+  const action = composer.getByRole("button", { name: "Send message" });
+  for (const fontSize of [16, 24]) {
+    await composer.evaluate((element, size) => {
+      element.style.fontSize = `${size}px`;
+      element.style.lineHeight = "1.5";
+    }, fontSize);
+    const textBox = await metadata.boundingBox();
+    const iconBox = await action.locator(":scope > div").boundingBox();
+    assert.ok(
+      Math.abs(
+        textBox.y + textBox.height / 2 - iconBox.y - iconBox.height / 2,
+      ) < 1,
+      `Metadata and icon align with ${fontSize}px inherited text`,
+    );
+  }
+  await metadata.focus();
+  await page.getByRole("tooltip").waitFor();
+  assert.ok(
+    await metadata.evaluate((element) => element === document.activeElement),
   );
   await page.close();
 });
@@ -313,9 +340,26 @@ test("submenu navigation preserves parent state and width while keeping choices 
   });
   await input.fill("keep my search");
   const unavailable = page.getByRole("menuitem", {
-    name: "Unavailable",
+    name: "Unavailable Offline",
     exact: true,
   });
+  for (const dark of [false, true]) {
+    await page.evaluate(
+      (dark) => document.body.classList.toggle("dark-mode", dark),
+      dark,
+    );
+    assert.ok(
+      await unavailable.evaluate((element) => {
+        const color = getComputedStyle(element)
+          .getPropertyValue("--subtle-text")
+          .trim();
+        return [...element.querySelectorAll("*")].every(
+          (child) => getComputedStyle(child).color === color,
+        );
+      }),
+      `Disabled label, trailing text and chevron match in ${dark ? "dark" : "light"} mode`,
+    );
+  }
   await unavailable.focus();
   await page.keyboard.press("ArrowRight");
   await page.keyboard.press("Enter");
@@ -408,6 +452,16 @@ test("submenu forms keep editing keys and nested overlays dismiss before pages",
   await input.waitFor();
   assert.ok(await input.evaluate((el) => el === document.activeElement));
   assert.equal(await input.evaluate((el) => el.closest('[role="menu"]')), null);
+  assert.deepEqual(
+    await input.evaluate((element) => [
+      getComputedStyle(element).paddingRight,
+      getComputedStyle(element.labels[0]).paddingRight,
+    ]),
+    ["0px", "14px"],
+  );
+  await popover.getByRole("button", { name: "Done", exact: true }).focus();
+  await popover.locator("label", { hasText: "Custom model ID" }).click();
+  assert.ok(await input.evaluate((el) => el === document.activeElement));
   await input.fill("my-model");
   await input.press("ArrowLeft");
   assert.equal(await input.evaluate((el) => el.selectionStart), 7);

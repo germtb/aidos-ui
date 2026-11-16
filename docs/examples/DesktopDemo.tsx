@@ -284,13 +284,14 @@ export function ComposerDemo() {
             <Tooltip
               content="37% of the context window is used. This is not an account limit."
               align="end"
+              jss={{ marginLeft: "auto", flexShrink: 0 }}
             >
               <Span
                 tabIndex={0}
                 aria-label="37% context used"
                 color="secondary"
-                size="small"
-                jss={{ paddingInline: 4 }}
+                size="xsmall"
+                jss={{ paddingInline: 4, fontVariantNumeric: "tabular-nums" }}
               >
                 37%
               </Span>
