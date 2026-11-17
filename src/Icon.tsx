@@ -1,5 +1,5 @@
-import React, { useSyncExternalStore } from "react";
-import { Icon as IconifyIcon } from "@iconify/react";
+import React, { useCallback, useSyncExternalStore } from "react";
+import { getIcon, getServerIcon, subscribe } from "./icons/store";
 import { BaseView } from "./BaseView";
 import { IconType } from "./IconType";
 import { JSS, Size, TextColor, getTextColor } from "./jss";
@@ -52,14 +52,12 @@ export interface IconProps {
   jss?: JSS;
 }
 
-const subscribe = () => () => {};
-
 export function Icon({ icon, size, color, ariaLabel, jss }: IconProps) {
-  // Keep hydration consistent even when only one side has preloaded icons.
-  const clientRender = useSyncExternalStore(
-    subscribe,
-    () => true,
-    () => false,
+  // Only explicit preloads belong in SSR; lazy caches can differ across requests.
+  const data = useSyncExternalStore(
+    useCallback((listener) => subscribe(icon, listener), [icon]),
+    () => getIcon(icon),
+    () => getServerIcon(icon),
   );
   return (
     <BaseView
@@ -77,12 +75,19 @@ export function Icon({ icon, size, color, ariaLabel, jss }: IconProps) {
         jss,
       ]}
     >
-      <IconifyIcon
-        icon={`lucide:${icon}`}
-        ssr={clientRender}
-        width="100%"
-        height="100%"
-      />
+      {data ? (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="100%"
+          height="100%"
+          viewBox={`0 0 ${data.width ?? 24} ${data.height ?? 24}`}
+          aria-hidden="true"
+          focusable="false"
+          dangerouslySetInnerHTML={{ __html: data.body }}
+        />
+      ) : (
+        <span />
+      )}
     </BaseView>
   );
 }

@@ -1,6 +1,6 @@
 # Aidos UI
 
-An opinionated React component library with dark mode, keyboard navigation, and Iconify-powered icons.
+An opinionated React component library with dark mode, keyboard navigation, and self-contained Lucide icons.
 
 [Documentation](https://aidos-ui.vercel.app)
 
@@ -54,23 +54,25 @@ import { JSServerStyles } from "aidos-ui";
 
 ## Icons
 
-Aidos uses [Iconify](https://iconify.design/) for icons. By default, missing icons are loaded asynchronously from Iconify's CDN. This keeps Aidos small, but requires network access and may cause icons to appear shortly after the initial render.
+Icons load lazily from chunks bundled with your application. No icon CDN or additional runtime dependency is required.
 
-For offline support and immediate rendering, install and register an icon set in your application:
+Preload common icons before rendering; everything else stays lazy:
 
-```bash
-npm install @iconify/react @iconify-json/fa
+```ts
+import "aidos-ui/icons/search";
+import "aidos-ui/icons/check";
 ```
 
-```tsx
-import { addCollection } from "@iconify/react";
-import faIcons from "@iconify-json/fa/icons.json";
+Or preload the entire catalog:
 
-// Call once during application initialization.
-addCollection(faIcons);
+```ts
+import "aidos-ui/icons";
 ```
 
-Registering the collection bundles the icons with your application, so they no longer depend on Iconify's CDN. Other sets are available from the [Iconify icon sets directory](https://icon-sets.iconify.design/).
+- No registration call is needed. `<Icon>` props and icon names are unchanged.
+- Use identical preload imports in the server and browser entry points to keep preloaded icons visible through hydration. Lazy icons retain matching placeholders until hydration completes.
+- The full lazy catalog still ships with your build. Keep its chunks when deploying or packaging the application.
+- Replace Iconify `addIcon` / `addCollection` preloads with these imports; Iconify's cache no longer controls Aidos icons.
 
 ## Styling
 

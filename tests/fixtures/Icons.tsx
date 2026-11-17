@@ -1,44 +1,74 @@
 import React from "react";
-import { createRoot, hydrateRoot } from "react-dom/client";
+import { createRoot, hydrateRoot, type Root } from "react-dom/client";
 import { renderToString } from "react-dom/server";
-import { addIcon } from "@iconify/react";
-import { Icon } from "../../src/Icon";
+import {
+  DarkModeToggle,
+  Icon,
+  Providers,
+  darkTheme,
+  lightTheme,
+  type IconType,
+} from "aidos-ui";
 
-export const icon = {
-  width: 24,
-  height: 24,
-  body: '<path d="m9 12 2 2 4-4" />',
-};
+let root: Root;
 
-function Example() {
-  return (
+function Example({
+  names,
+  themed = false,
+}: {
+  names: IconType[];
+  themed?: boolean;
+}) {
+  const content = (
     <React.StrictMode>
       <div
         ref={(element) => {
-          if (element) fixture.commits.push(!!element.querySelector("svg"));
+          if (element)
+            fixture.commits.push(element.querySelectorAll("svg").length);
         }}
       >
-        <Icon icon="check" size="medium" color="primary" />
+        {names.map((icon, index) => (
+          <Icon
+            key={index}
+            icon={icon}
+            ariaLabel={icon}
+            size="medium"
+            color="primary"
+          />
+        ))}
+        {themed && <DarkModeToggle />}
       </div>
     </React.StrictMode>
+  );
+  return themed ? (
+    <Providers themes={{ light: lightTheme, dark: darkTheme }}>
+      {content}
+    </Providers>
+  ) : (
+    content
   );
 }
 
 export const fixture = {
-  commits: [] as boolean[],
+  commits: [] as number[],
   errors: [] as string[],
-  preload: () => addIcon("lucide:check", icon),
-  serverHTML: () => renderToString(<Example />),
-  mount(hydrate = false) {
+  preload: () => import("aidos-ui/icons"),
+  serverHTML: (themed = false, names: IconType[] = ["check"]) =>
+    renderToString(<Example names={names} themed={themed} />),
+  mount(hydrate = false, names: IconType[] = ["check"], themed = false) {
     const container = document.getElementById("root")!;
+    const element = <Example names={names} themed={themed} />;
     if (hydrate) {
-      hydrateRoot(container, <Example />, {
+      root = hydrateRoot(container, element, {
         onRecoverableError: (error) => fixture.errors.push(String(error)),
       });
     } else {
-      createRoot(container).render(<Example />);
+      root = createRoot(container);
+      root.render(element);
     }
   },
+  render: (names: IconType[]) => root.render(<Example names={names} />),
+  unmount: () => root.unmount(),
 };
 
 if (typeof window !== "undefined")

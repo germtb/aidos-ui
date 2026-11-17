@@ -131,42 +131,31 @@ Always provide an `ariaLabel` when the icon conveys meaning that isn't available
 
 ---
 
-## Preloading icons
+## Loading icons
 
-By default, Iconify loads icons asynchronously from a CDN. Preload icons by bundling them with your application.
+Icons load lazily from chunks bundled with your application, not from a CDN. Keep those chunks alongside the application build when deploying or packaging it.
 
-- Client-only mounts render preloaded icons on the first commit, without waiting for effects.
-- SSR and initial hydration keep matching placeholders, even when server and browser caches differ.
-- Uncached icons still load asynchronously.
+Preload common icons in your application entry point; less common icons can stay lazy:
 
-**Option 1: Preload an entire icon set**
-
-```bash
-npm install @iconify-json/lucide
+```ts
+import "aidos-ui/icons/search";
+import "aidos-ui/icons/check";
 ```
 
-```js
-import { addCollection } from "@iconify/react";
-import lucideIcons from "@iconify-json/lucide/icons.json";
+Or preload the entire catalog:
 
-// Call once at app initialization (e.g., in _app.tsx)
-addCollection(lucideIcons);
+```ts
+import "aidos-ui/icons";
 ```
 
-**Option 2: Preload individual icons**
+- No registration call or startup promise is needed.
+- Individual imports preload only the named icon (and its canonical parent for aliases), not its lazy bucket.
+- The full lazy catalog still ships with your application so unimported icons remain available.
+- Eager icons render immediately, including in server HTML. Use identical preload imports on the server and in the browser so hydration preserves those SVGs.
+- Lazy icons retain their sized placeholder during SSR and hydration, regardless of cache warmth, then appear when loaded.
+- Existing Lucide names and aliases remain supported.
 
-```bash
-npm install @iconify-icons/lucide
-```
-
-```js
-import { addIcon } from "@iconify/react";
-import lucideCheck from "@iconify-icons/lucide/check";
-import lucideClose from "@iconify-icons/lucide/x";
-
-addIcon("lucide:check", lucideCheck);
-addIcon("lucide:x", lucideClose);
-```
+Replace previous Iconify `addIcon` / `addCollection` preload code with the eager import. Iconify's cache no longer controls Aidos icons.
 
 ---
 

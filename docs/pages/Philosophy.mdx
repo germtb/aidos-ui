@@ -59,11 +59,10 @@ Components are designed with keyboard navigation, visible focus, useful ARIA
 semantics, and WCAG guidance in mind. Accessibility is part of component
 behavior rather than an application-level afterthought.
 
-### Dependency-light
+### No additional runtime dependencies
 
-The dependency surface stays deliberately small so behavior and package weight
-remain under control. Iconify supplies the icon catalog; the styling and
-component foundations remain part of Aidos itself.
+React and React DOM are peers. Styling, components, and icon rendering stay in
+Aidos; Lucide artwork is generated at build time and bundled with the application.
 
 ---
 

@@ -42,10 +42,7 @@ import { DocsMDXProvider } from "../components/mdx";
 import { pages, type PageLink } from "../components/pages";
 
 import { GeistSans } from "geist/font/sans";
-import { addCollection } from "@iconify/react";
-import lucideIcons from "@iconify-json/lucide/icons.json";
-
-addCollection(lucideIcons);
+import "../../src/icons";
 
 const normalizeSearchText = (value: string) =>
   value.toLocaleLowerCase().replace(/[^a-z0-9]+/g, "");

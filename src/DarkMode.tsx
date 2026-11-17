@@ -4,7 +4,6 @@ import React, {
   useEffect,
   useSyncExternalStore,
 } from "react";
-import { BaseView } from "./BaseView";
 import { isServer } from "./isServer";
 import { Toggle } from "./Toggle";
 
@@ -85,14 +84,11 @@ export function DarkModeToggle() {
     () => false,
   );
 
-  if (!isClient) {
-    return <BaseView jss={{ width: 34, height: 34 }} />;
-  }
-
   return (
     <Toggle
       label="Toggle dark mode"
-      value={darkMode.enabled}
+      // The server cannot read the browser's persisted preference.
+      value={isClient && darkMode.enabled}
       onValueChange={darkMode.toggle}
       onIcon="sun"
       offIcon="moon"

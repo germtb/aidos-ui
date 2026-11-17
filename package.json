@@ -20,9 +20,13 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "licenses"
   ],
-  "sideEffects": false,
+  "sideEffects": [
+    "./dist/icons/*.js",
+    "./src/icons/index.ts"
+  ],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -40,14 +44,21 @@
       "types": "./dist/vite-plugin-jss-debug.d.ts",
       "import": "./dist/vite-plugin-jss-debug.js"
     },
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./icons": {
+      "types": "./dist/icons/index.d.ts",
+      "import": "./dist/icons/index.js"
+    },
+    "./icons/*": {
+      "types": "./dist/icons/index.d.ts",
+      "import": "./dist/icons/*.js"
+    }
   },
   "scripts": {
-    "icons:types": "node ./scripts/generate-icon-types.mjs",
     "dev": "next dev docs",
     "publish:patch": "node ./scripts/publish.js --patch",
     "build": "next build docs --webpack",
-    "build:lib": "tsup",
+    "build:lib": "npm run icons:generate && tsup",
     "prepack": "npm run build:lib",
     "tsc": "tsc --noEmit && tsc --project docs/tsconfig.json --noEmit",
     "tsc:watch": "tsc --noEmit --watch",
@@ -55,7 +66,8 @@
     "lint": "eslint src docs --max-warnings=0",
     "check:package": "publint && attw --pack . --profile esm-only",
     "test:popover": "node --test tests/Popover.e2e.test.mjs",
-    "test:overlays": "node --test tests/Overlays.e2e.test.mjs"
+    "test:overlays": "node --test tests/Overlays.e2e.test.mjs",
+    "icons:generate": "node ./scripts/generate-icons.mjs"
   },
   "type": "module",
   "author": "Gerard Moreno-Torres Bertran",
@@ -106,9 +118,6 @@
     "tsup": "^8.5.1",
     "typescript": "^5.9.3",
     "unified": "^11.0.5"
-  },
-  "dependencies": {
-    "@iconify/react": "^6.0.2"
   },
   "peerDependencies": {
     "react": ">=18.2.0 <20",
