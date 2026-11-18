@@ -57,17 +57,16 @@ export const Composer = React.forwardRef(function Composer(
           boxShadow: cssVar("--shadow-sm"),
           ":hover": {
             borderColor:
-              "color-mix(in srgb, var(--strong-divider) 60%, var(--divider))",
+              "color-mix(in srgb, var(--composer-outline, var(--strong-divider)) 60%, var(--divider))",
           },
           ":has(:is(input, textarea, select):focus-visible)": {
-            borderColor: cssVar("--strong-divider"),
-            outline: `1px solid ${cssVar("--strong-divider")}`,
-            outlineOffset: -1,
+            borderColor: "var(--composer-outline, var(--strong-divider))",
+            outline: "none",
           },
           ":has(:is(input, textarea, select)[aria-invalid=true]:focus-visible)":
             {
               borderColor: cssVar("--negative-text"),
-              outlineWidth: 1,
+              outline: "none",
             },
         },
         embedded && {

@@ -33,6 +33,6 @@ const [draft, setDraft] = useState("");
 | `embedded`               | Transparent surface for inline review or another container; retains focus feedback |
 | `jssRoot`, `jss`         | Surface and textarea customization                                                 |
 
-Also accepts textarea attributes. Shift+Enter inserts a newline. Empty/whitespace drafts cannot submit. The field uses a 1px neutral surface outline; footer controls receive their own keyboard indicators. Invalid input retains a red outline.
+Also accepts textarea attributes. Shift+Enter inserts a newline. Empty/whitespace drafts cannot submit. The field uses a single 1px neutral border that darkens on focus; footer controls receive their own keyboard indicators. Invalid input retains a red border.
 
 The default type is 14px/20px; growth is bounded at 180px. These defaults need no app-specific CSS. `TextArea` uses native `field-sizing`; use current browsers.

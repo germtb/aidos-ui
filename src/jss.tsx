@@ -434,6 +434,7 @@ export type Theme = {
   ["--warning"]: string;
   ["--highlight"]: string;
   ["--outline"]: string;
+  ["--composer-outline"]?: string;
   ["--light-highlight"]: string;
   ["--light-highlight-hovered"]: string;
   ["--light-highlight-pressed"]: string;
@@ -505,6 +506,8 @@ export const lightTheme: Theme = {
   ["--warning"]: "rgb(166, 107, 0)",
   ["--highlight"]: "rgb(0, 122, 255)",
   ["--outline"]: "rgb(112, 140, 170)",
+  ["--composer-outline"]:
+    "color-mix(in srgb, var(--strong-divider) 60%, var(--divider))",
   ["--light-highlight"]: "rgb(220, 232, 245)",
   ["--light-highlight-hovered"]: "rgb(209, 226, 244)",
   ["--light-highlight-pressed"]: "rgb(197, 218, 240)",
@@ -577,6 +580,7 @@ export const darkTheme: Theme = {
   ["--warning"]: "rgb(255, 204, 0)",
   ["--highlight"]: "rgb(50, 140, 220)",
   ["--outline"]: "rgb(125, 170, 220)",
+  ["--composer-outline"]: "var(--strong-divider)",
   ["--light-highlight"]: "rgba(49, 57, 63)",
   ["--light-highlight-hovered"]: "rgb(54, 68, 80)",
   ["--light-highlight-pressed"]: "rgb(60, 78, 96)",
