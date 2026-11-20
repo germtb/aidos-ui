@@ -47,7 +47,7 @@ export const BaseListItem = React.forwardRef(function BaseListItem(
     indent,
     jssPrimary,
     jssAddOn,
-    headlineSize = size === "small" || size === "xsmall" ? "small" : "medium",
+    headlineSize = size === "xsmall" ? "small" : "medium",
     headlineColor = "primary",
     headlineAddOn,
     body,

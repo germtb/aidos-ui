@@ -14,6 +14,7 @@ export interface TableProps
 
 const styles: { [key: string]: JSS } = {
   root: {
+    outline: "none",
     overflowX: "auto",
     overflowY: "hidden",
     " thead": {
@@ -64,6 +65,7 @@ export function Table({
 }: TableProps) {
   return (
     <Card
+      tabIndex={-1}
       variant={variant}
       material={material}
       padding={padding}

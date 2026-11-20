@@ -16,6 +16,11 @@ import type { IconType } from "./IconType";
 import { InlineRename } from "./InlineRename";
 import { useRefEffect } from "./useRefEffect";
 import { useTabReorder } from "./useTabReorder";
+import {
+  segmentedGroupJSS,
+  segmentedItemJSS,
+  segmentedPadding,
+} from "./segmentedStyles";
 
 export type TabsVariant = "underline" | "segmented" | "document";
 export type Tab = {
@@ -54,11 +59,15 @@ export const Tabs = React.forwardRef(function Tabs(
     tabs: inputTabs,
     onReorder,
     variant = "underline",
-    gap = "none",
+    gap = variant === "segmented" ? "xsmall" : "none",
     padding = "none",
-    tabPadding = variant === "document" ? ["small", "medium"] : "medium",
-    labelSize = variant === "document" ? "small" : "large",
-    iconSize = "medium",
+    tabPadding = variant === "document"
+      ? ["small", "medium"]
+      : variant === "segmented"
+        ? segmentedPadding
+        : "medium",
+    labelSize = variant === "underline" ? "large" : "medium",
+    iconSize = variant === "document" ? "small" : "medium",
     jss,
     jssTab,
     labelRenderer,
@@ -170,12 +179,7 @@ export const Tabs = React.forwardRef(function Tabs(
         padding={padding}
         jss={[
           { minWidth: 0, maxWidth: "100%", position: "relative" },
-          variant === "segmented" && {
-            background: cssVar("--hovered-background"),
-            borderRadius: cssVar("--border-radius-l"),
-            padding: cssVar("--spacing-xs"),
-            width: "fit-content",
-          },
+          variant === "segmented" && segmentedGroupJSS,
           variant === "document" && {
             overflowX: "auto",
             overflowY: "hidden",
@@ -184,7 +188,10 @@ export const Tabs = React.forwardRef(function Tabs(
             "::-webkit-scrollbar": { display: "none" },
             alignItems: "center",
             gap: 3,
-            padding: 3,
+            padding: "3px 8px",
+            height: 39,
+            flexShrink: 0,
+            borderBottom: "1px solid var(--divider)",
           },
           jss,
         ]}
@@ -319,7 +326,13 @@ export const Tabs = React.forwardRef(function Tabs(
                 aria-selected={selected}
                 tabIndex={selected ? 0 : -1}
                 bare={bare}
-                color={selected ? "primary" : "secondary"}
+                color={
+                  variant === "segmented"
+                    ? "secondary"
+                    : selected
+                      ? "primary"
+                      : "secondary"
+                }
                 href={href}
                 onClick={onClick}
                 onDoubleClick={(event) => rename(tab, event.currentTarget)}
@@ -350,13 +363,7 @@ export const Tabs = React.forwardRef(function Tabs(
                       "var(--border-radius-s) var(--border-radius-s) 0 0",
                     ":hover": { background: cssVar("--hovered-background") },
                   },
-                  variant === "segmented" && {
-                    borderRadius: cssVar("--border-radius-m"),
-                    background: selected
-                      ? cssVar("--overlay-background")
-                      : "transparent",
-                    boxShadow: selected ? cssVar("--shadow-sm") : "none",
-                  },
+                  variant === "segmented" && segmentedItemJSS(selected),
                   variant === "document" && {
                     height: "100%",
                     borderRadius: 6,

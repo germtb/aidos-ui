@@ -72,6 +72,14 @@ const pixelStyles = new Set([
   "padding-left",
   "padding-right",
   "border-radius",
+  "border-top-left-radius",
+  "border-top-right-radius",
+  "border-bottom-left-radius",
+  "border-bottom-right-radius",
+  "border-start-start-radius",
+  "border-start-end-radius",
+  "border-end-start-radius",
+  "border-end-end-radius",
   "font-size",
   "top",
   "bottom",
@@ -175,14 +183,19 @@ const flattenJSS = (jss: JSS): Styles => {
 export const toClassnames = (jss: JSS, componentName?: string): string => {
   jss = flattenJSS(jss);
 
-  // Keep physical and logical spacing in one rule so render order cannot change precedence.
-  const spacing: Styles = {};
+  // Keep overlapping shorthands and longhands in one rule, independent of render order.
+  const layout: Styles = {};
   const stylesStack = Object.entries(jss).filter(([key, value]) => {
-    if (!/^(padding|margin)([A-Z-]|$)/.test(key)) return true;
-    spacing[key] = value;
+    if (
+      !/^((padding|margin|border|inset)([A-Z-]|$)|(top|right|bottom|left)$)/.test(
+        key,
+      )
+    )
+      return true;
+    layout[key] = value;
     return false;
   });
-  if (Object.keys(spacing).length) stylesStack.push(["", spacing]);
+  if (Object.keys(layout).length) stylesStack.push(["", layout]);
   const classNames: string[] = [];
 
   if (componentName) {
@@ -507,7 +520,7 @@ export const lightTheme: Theme = {
   /* Effects */
   ["--warning"]: "rgb(166, 107, 0)",
   ["--highlight"]: "rgb(0, 122, 255)",
-  ["--outline"]: "rgb(112, 140, 170)",
+  ["--outline"]: "rgb(100, 100, 100)",
   ["--composer-outline"]:
     "color-mix(in srgb, var(--strong-divider) 60%, var(--divider))",
   ["--light-highlight"]: "rgb(220, 232, 245)",
@@ -582,7 +595,7 @@ export const darkTheme: Theme = {
   /* Effects */
   ["--warning"]: "rgb(255, 204, 0)",
   ["--highlight"]: "rgb(50, 140, 220)",
-  ["--outline"]: "rgb(125, 170, 220)",
+  ["--outline"]: "rgb(170, 174, 183)",
   ["--composer-outline"]: "var(--strong-divider)",
   ["--light-highlight"]: "rgba(49, 57, 63)",
   ["--light-highlight-hovered"]: "rgb(54, 68, 80)",

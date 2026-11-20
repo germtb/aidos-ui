@@ -10,18 +10,18 @@ A page-navigation bar with icons and labels. It uses the same `Tab` configuratio
 
 ## Props
 
-| Prop            | Type                           | Default                | Description                                             |
-| --------------- | ------------------------------ | ---------------------- | ------------------------------------------------------- |
-| `tabs`          | `Tab[]`                        | Required               | Navigation destinations or actions                      |
-| `variant`       | `"default" \| "floating"`      | `"default"`            | Surface and elevation treatment                         |
-| `direction`     | `FlexDirection`                | `"row"`                | Layout direction inherited from `FlexLayout`            |
-| `fixed`         | `boolean`                      | `false`                | Fix the bar to the bottom or left edge of the viewport  |
-| `iconSize`      | `Size`                         | `"large"`              | Icon size                                               |
-| `labelSize`     | `Size`                         | `"small"`              | Label size                                              |
-| `tabPadding`    | `Padding`                      | `"medium"`             | Padding inside each tab                                 |
-| `jssTab`        | `JSS \| (data) => JSS`         | -                      | Styles for each tab, optionally based on selected state |
-| `labelRenderer` | `(label: string) => ReactNode` | -                      | Custom label renderer                                   |
-| `aria-label`    | `string`                       | `"Primary navigation"` | Accessible navigation label                             |
+| Prop            | Type                                | Default                | Description                                             |
+| --------------- | ----------------------------------- | ---------------------- | ------------------------------------------------------- |
+| `tabs`          | `Tab[]`                             | Required               | Navigation destinations or actions                      |
+| `variant`       | `"default" \| "floating" \| "rail"` | `"default"`            | Surface and elevation treatment                         |
+| `direction`     | `FlexDirection`                     | `"row"`                | Layout direction inherited from `FlexLayout`            |
+| `fixed`         | `boolean`                           | `false`                | Fix the bar to the bottom or left edge of the viewport  |
+| `iconSize`      | `Size`                              | `"large"`              | Icon size                                               |
+| `labelSize`     | `Size`                              | `"small"`              | Label size                                              |
+| `tabPadding`    | `Padding`                           | `"medium"`             | Padding inside each tab                                 |
+| `jssTab`        | `JSS \| (data) => JSS`              | -                      | Styles for each tab, optionally based on selected state |
+| `labelRenderer` | `(label: string) => ReactNode`      | -                      | Custom label renderer                                   |
+| `aria-label`    | `string`                            | `"Primary navigation"` | Accessible navigation label                             |
 
 ### Tab object
 
@@ -134,3 +134,19 @@ wrap at either end. Enter or Space activates the focused link or button.
 ## Accessibility
 
 `TabBar` renders a `<nav>` landmark. The selected destination receives `aria-current="page"`. Because it navigates between pages or application destinations, it intentionally does not use ARIA `tablist` semantics.
+
+## Rail
+
+`variant="rail"` is a 48px vertical navigation bar with 36px icon actions, neutral selection, accessible labels, and tooltips. Supply an icon for each destination. Arrow keys, Home, and End move focus; Enter or Space activates buttons.
+
+```tsx
+<TabBar
+  variant="rail"
+  tabs={[
+    { label: "Files", icon: "files", selected: true, onClick: showFiles },
+    { label: "Reviewed", icon: "circle-check", onClick: showReviewed },
+  ]}
+/>
+```
+
+Use it in the `rail` slot of [Workspace](/Workspace); the wider channel stays separate.

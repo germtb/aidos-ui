@@ -5,6 +5,7 @@ import { TextPairing } from "./TextPairing";
 import { Gap, Size, TextColor } from "./jss";
 
 export interface ToolbarProps extends Omit<RowProps, "children"> {
+  variant?: "default" | "pane";
   headline: ReactNode;
   body?: ReactNode;
   leading?: ReactNode;
@@ -20,26 +21,51 @@ export interface ToolbarProps extends Omit<RowProps, "children"> {
 
 export const Toolbar = React.forwardRef(function Toolbar(
   {
+    variant = "default",
     headline,
     body,
     leading,
     actions,
     actionsGap = "medium",
     headlineColor,
-    headlineSize = "xlarge",
-    headlineBold = true,
+    headlineSize = variant === "pane" ? "medium" : "xlarge",
+    headlineBold = variant !== "pane",
     bodyColor,
     bodySize,
     bodyEllipsis = false,
     gap = "large",
     align = "center",
     justify = "space-between",
+    padding,
+    jss,
     ...otherProps
   }: ToolbarProps,
   ref?: React.Ref<HTMLElement>,
 ) {
   return (
-    <Row ref={ref} gap={gap} align={align} justify={justify} {...otherProps}>
+    <Row
+      ref={ref}
+      gap={gap}
+      align={align}
+      justify={justify}
+      padding={padding}
+      {...otherProps}
+      jss={[
+        variant === "pane" && {
+          height: 48,
+          flexShrink: 0,
+          minWidth: 0,
+          backgroundColor: "var(--overlay-background)",
+        },
+        variant === "pane" &&
+          padding === undefined && {
+            paddingInlineStart:
+              "calc(20px + var(--aidos-header-leading-inset, 0px))",
+            paddingInlineEnd: 12,
+          },
+        jss,
+      ]}
+    >
       <TextPairing
         headline={headline}
         body={body}

@@ -7,10 +7,11 @@ import { Icon } from "./Icon";
 import { FlexLayout, FlexLayoutProps } from "./FlexLayout";
 import type { Tab } from "./Tabs";
 import { Text } from "./Text";
+import { Tooltip } from "./Tooltip";
 import { useNavigation } from "./useNavigation";
 import { JSS, Padding, Size, TextColor, cssVar, getMaterial } from "./jss";
 
-export type TabBarVariant = "default" | "floating";
+export type TabBarVariant = "default" | "floating" | "rail";
 
 export interface TabBarProps extends Omit<FlexLayoutProps, "children" | "tag"> {
   tabs: Tab[];
@@ -35,6 +36,9 @@ const styles: { [key: string]: JSS } = {
       boxShadow: cssVar("--shadow-md"),
     },
   ],
+  rail: { width: 48 },
+  railBar: { width: "100%", gap: 4, padding: "4px 6px" },
+  railItem: { width: 36, height: 36, padding: 0, borderRadius: 10 },
   horizontal: {
     width: "100%",
   },
@@ -94,9 +98,9 @@ const styles: { [key: string]: JSS } = {
 export function TabBar({
   tabs,
   variant = "default",
-  direction = "row",
+  direction = variant === "rail" ? "column" : "row",
   fixed = false,
-  iconSize = "large",
+  iconSize = variant === "rail" ? "medium" : "large",
   labelSize = "small",
   tabPadding = "medium",
   jssTab,
@@ -110,6 +114,7 @@ export function TabBar({
   const selectedIndex = tabs.findIndex((tab) => tab.selected === true);
   const root = useNavigation({
     initialIndex: selectedIndex === -1 ? 0 : selectedIndex,
+    orientation: horizontal ? "horizontal" : "vertical",
   });
 
   return (
@@ -131,12 +136,22 @@ export function TabBar({
         {...otherProps}
         direction={direction}
         align={align}
-        jss={horizontal ? styles.horizontalBar : styles.verticalBar}
+        jss={
+          variant === "rail"
+            ? styles.railBar
+            : horizontal
+              ? styles.horizontalBar
+              : styles.verticalBar
+        }
       >
         {tabs.map((tab) => {
           const { label, icon, href, onClick } = tab;
           const selected = tab.selected === true;
-          const color: TextColor = selected ? "highlight" : "secondary";
+          const color: TextColor = selected
+            ? variant === "rail"
+              ? "primary"
+              : "highlight"
+            : "secondary";
           const tabJSS: JSS = [
             styles.item,
             horizontal ? styles.horizontalItem : styles.verticalItem,
@@ -145,8 +160,13 @@ export function TabBar({
               horizontal &&
               styles.floatingHorizontalItem,
             selected && {
-              backgroundColor: cssVar("--light-highlight"),
+              backgroundColor: cssVar(
+                variant === "rail"
+                  ? "--hovered-background"
+                  : "--light-highlight",
+              ),
             },
+            variant === "rail" && styles.railItem,
             typeof jssTab === "function" ? jssTab({ selected }) : jssTab,
           ];
           const content = (
@@ -156,42 +176,51 @@ export function TabBar({
               justify="center"
               gap="small"
             >
+              {variant === "rail" && !icon && (
+                <Text color={color}>{label.slice(0, 1)}</Text>
+              )}
               {icon && <Icon icon={icon} size={iconSize} color={color} />}
-              <Text size={labelSize} color={color} ellipsis={true}>
-                {labelRenderer ? labelRenderer(label) : label}
-              </Text>
+              {variant !== "rail" && (
+                <Text size={labelSize} color={color} ellipsis={true}>
+                  {labelRenderer ? labelRenderer(label) : label}
+                </Text>
+              )}
             </FlexLayout>
           );
 
-          if (href != null) {
-            return (
+          const item =
+            href != null ? (
               <BaseLink
-                key={label}
                 href={href}
                 onClick={onClick}
+                aria-label={variant === "rail" ? label : undefined}
                 aria-current={selected ? "page" : undefined}
-                bare={true}
+                bare
                 color={selected ? "primary" : "secondary"}
                 padding={tabPadding}
                 jss={tabJSS}
               >
                 {content}
               </BaseLink>
+            ) : (
+              <BaseButton
+                onClick={() => onClick?.()}
+                aria-label={variant === "rail" ? label : undefined}
+                aria-current={selected ? "page" : undefined}
+                bare
+                color={selected ? "primary" : "secondary"}
+                padding={tabPadding}
+                jss={tabJSS}
+              >
+                {content}
+              </BaseButton>
             );
-          }
-
-          return (
-            <BaseButton
-              key={label}
-              onClick={() => onClick?.()}
-              aria-current={selected ? "page" : undefined}
-              bare={true}
-              color={selected ? "primary" : "secondary"}
-              padding={tabPadding}
-              jss={tabJSS}
-            >
-              {content}
-            </BaseButton>
+          return variant === "rail" ? (
+            <Tooltip key={label} content={label} placement="right">
+              {item}
+            </Tooltip>
+          ) : (
+            <React.Fragment key={label}>{item}</React.Fragment>
           );
         })}
       </FlexLayout>

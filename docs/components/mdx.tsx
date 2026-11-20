@@ -129,9 +129,9 @@ const components: MDXComponents = {
   pre: (props) => {
     return (
       <pre
-        style={{ borderRadius: cssVar("--border-radius-l") }}
+        style={{ borderRadius: cssVar("--border-radius-l"), outline: "none" }}
         className={props.children.props.className}
-        tabIndex={0}
+        tabIndex={-1}
       >
         <code className={props.children.props.className}>
           {props.children.props.children}

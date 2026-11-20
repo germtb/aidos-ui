@@ -48,3 +48,11 @@ shrink behavior.
   actions={<Button color="primary">New task</Button>}
 />
 ```
+
+## Pane header
+
+`variant="pane"` provides an opaque 48px application header, 14px regular title, and compact horizontal insets. It works with `Pane` and `AdaptiveSplitView` without extra header CSS. Explicit padding, typography props, and `jss` still override the defaults.
+
+```tsx
+<Toolbar variant="pane" headline="Navigation refresh" actions={panelToggle} />
+```

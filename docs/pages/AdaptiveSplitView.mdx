@@ -1,0 +1,50 @@
+# AdaptiveSplitView
+
+A main working area with an adaptive secondary pane. [Try the embedded workspace example](/Workspace#interactive-example).
+
+```tsx
+<AdaptiveSplitView panelTitle="Inspector" panel={inspector}>
+  {({ showPanel }) => <Editor onInspect={showPanel} />}
+</AdaptiveSplitView>
+```
+
+- Give the component a bounded height; it fills its parent.
+- At 880px of available width, the main area and 320px panel sit side by side.
+- Below that width, opening the panel replaces the main area without unmounting either.
+- On resize, an actively focused panel stays visible. Otherwise the main content takes priority.
+- Closing from the panel returns focus to its opener, or the built-in toggle if that opener is gone.
+- Reading panes stay out of the tab order; actionable controls keep their focus indicators.
+- Opening and closing use the same 180ms motion as workspace navigation; reduced motion disables it. Hidden controls become inert immediately.
+- The pane is not a modal. Escape closes it; other application controls remain reachable.
+- The header and panes share one working surface. File state, drafts, and domain logic stay in the application.
+
+## Header composition
+
+The default header contains the panel toggle. Supply a header only when adding application controls; reuse `panelToggle` for its labeling and focus behavior.
+
+```tsx
+<AdaptiveSplitView
+  panelTitle="Inspector"
+  panel={inspector}
+  header={({ panelToggle }) => (
+    <Toolbar variant="pane" headline="Workspace" actions={panelToggle} />
+  )}
+>
+  {content}
+</AdaptiveSplitView>
+```
+
+## Controlled visibility
+
+Without `open`, the panel starts beside the content on wide layouts and closed on narrow layouts. An explicit close is remembered until reopened.
+
+Pass `open` and `onOpenChange` to own visibility. In this mode, `open={true}` always shows the panel, including narrow takeover. `onOpenChange` reports requests from the toggle, close button, Escape, or `showPanel`.
+
+| Prop                   | Purpose                                                                    |
+| ---------------------- | -------------------------------------------------------------------------- |
+| `panelTitle`           | Visible heading and accessible panel name                                  |
+| `panel`                | Secondary content                                                          |
+| `children`             | Main content, or a render function receiving `showPanel` and `panelToggle` |
+| `header`               | Optional header render function receiving the same controls                |
+| `open`, `onOpenChange` | Optional controlled visibility                                             |
+| `jss`                  | Root layout overrides                                                      |

@@ -6,7 +6,7 @@ import { Span } from "../../src/Text";
 
 # Checkbox
 
-A styled checkbox input with custom visual appearance. Built on native HTML checkbox for full accessibility support.
+A compact rounded-square checkbox with a native input. The mark is smaller than its hit target; keyboard focus outlines the mark, not the surrounding row.
 
 ---
 
@@ -14,20 +14,20 @@ A styled checkbox input with custom visual appearance. Built on native HTML chec
 
 ### Checkbox
 
-| Prop | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `checked` | `boolean` | Yes | - | Whether the checkbox is checked |
-| `onClick` | `() => void` | Yes | - | Called when checkbox is toggled |
-| `size` | `Size` | Yes | - | `"small"` (16px), `"medium"` (20px), `"large"` (24px) |
+| Prop      | Type         | Required | Default | Description                                                                            |
+| --------- | ------------ | -------- | ------- | -------------------------------------------------------------------------------------- |
+| `checked` | `boolean`    | Yes      | -       | Whether the checkbox is checked                                                        |
+| `onClick` | `() => void` | Yes      | -       | Called when checkbox is toggled                                                        |
+| `size`    | `Size`       | Yes      | -       | `"small"` (16px mark / 24px target), `"medium"` (20px / 32px), `"large"` (24px / 40px) |
 
 Also accepts standard HTML input attributes.
 
 ### StaticCheckbox
 
-| Prop | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `checked` | `boolean` | Yes | - | Whether the checkbox appears checked |
-| `size` | `Size` | Yes | - | `"small"`, `"medium"`, `"large"` |
+| Prop      | Type      | Required | Default | Description                          |
+| --------- | --------- | -------- | ------- | ------------------------------------ |
+| `checked` | `boolean` | Yes      | -       | Whether the checkbox appears checked |
+| `size`    | `Size`    | Yes      | -       | `"small"`, `"medium"`, `"large"`     |
 
 ---
 
@@ -35,16 +35,37 @@ Also accepts standard HTML input attributes.
 
 <Row padding="medium" gap="xlarge" justify="center" align="center">
   <Column gap="small" align="center">
-    <Checkbox size="small" checked={true} onClick={() => {}} />
-    <Span size="small" color="secondary">small</Span>
+    <Checkbox
+      size="small"
+      aria-label="Small checkbox"
+      checked={true}
+      onClick={() => {}}
+    />
+    <Span size="small" color="secondary">
+      small
+    </Span>
   </Column>
   <Column gap="small" align="center">
-    <Checkbox size="medium" checked={true} onClick={() => {}} />
-    <Span size="small" color="secondary">medium</Span>
+    <Checkbox
+      size="medium"
+      aria-label="Checked checkbox"
+      checked={true}
+      onClick={() => {}}
+    />
+    <Span size="small" color="secondary">
+      medium
+    </Span>
   </Column>
   <Column gap="small" align="center">
-    <Checkbox size="large" checked={true} onClick={() => {}} />
-    <Span size="small" color="secondary">large</Span>
+    <Checkbox
+      size="large"
+      aria-label="Large checkbox"
+      checked={true}
+      onClick={() => {}}
+    />
+    <Span size="small" color="secondary">
+      large
+    </Span>
   </Column>
 </Row>
 
@@ -60,12 +81,26 @@ Also accepts standard HTML input attributes.
 
 <Row padding="medium" gap="xlarge" justify="center" align="center">
   <Column gap="small" align="center">
-    <Checkbox size="medium" checked={false} onClick={() => {}} />
-    <Span size="small" color="secondary">unchecked</Span>
+    <Checkbox
+      size="medium"
+      aria-label="Unchecked checkbox"
+      checked={false}
+      onClick={() => {}}
+    />
+    <Span size="small" color="secondary">
+      unchecked
+    </Span>
   </Column>
   <Column gap="small" align="center">
-    <Checkbox size="medium" checked={true} onClick={() => {}} />
-    <Span size="small" color="secondary">checked</Span>
+    <Checkbox
+      size="medium"
+      aria-label="Checked checkbox"
+      checked={true}
+      onClick={() => {}}
+    />
+    <Span size="small" color="secondary">
+      checked
+    </Span>
   </Column>
 </Row>
 
@@ -76,7 +111,7 @@ const [checked, setChecked] = useState(false);
   size="medium"
   checked={checked}
   onClick={() => setChecked(!checked)}
-/>
+/>;
 ```
 
 ---
@@ -112,11 +147,12 @@ Checkboxes are typically paired with labels for better UX:
 ```js
 <Row gap="small" align="center">
   <Checkbox
+    id="terms"
     size="medium"
     checked={agreed}
     onClick={() => setAgreed(!agreed)}
   />
-  <Span>I agree to the terms and conditions</Span>
+  <label htmlFor="terms">I agree to the terms and conditions</label>
 </Row>
 ```
 
@@ -127,5 +163,5 @@ Checkboxes are typically paired with labels for better UX:
 - Uses native `<input type="checkbox">` for full keyboard and screen reader support
 - Visual checkbox is layered over the hidden input
 - Focus ring appears on keyboard navigation
-- Press animation provides tactile feedback
+- The default checkmark renders immediately, without loading an icon
 - `aria-checked` attribute reflects current state

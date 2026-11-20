@@ -1,0 +1,88 @@
+import { WorkspaceDemo } from "../examples/WorkspaceDemo";
+
+# Workspace
+
+A bounded application frame with an optional **48px rail**, **240px navigation channel**, and main surface.
+
+## Interactive example
+
+Browse files, reorder tabs, and leave a note. Use the navigation and inspector toggles to change the layout without losing your work.
+
+<WorkspaceDemo />
+
+## Composition
+
+```tsx
+<Workspace
+  navigationTitle="Atlas"
+  rail={({ showNavigation }) => (
+    <TabBar
+      variant="rail"
+      tabs={views.map((view) => ({
+        ...view,
+        onClick: () => {
+          selectView(view.id);
+          showNavigation();
+        },
+      }))}
+    />
+  )}
+  navigation={({ dismissNavigation }) => (
+    <Pane padding="medium">
+      <FileList
+        onSelect={(file) => {
+          selectFile(file);
+          dismissNavigation();
+        }}
+      />
+    </Pane>
+  )}
+>
+  <AdaptiveSplitView panelTitle="Inspector" panel={inspector}>
+    <Pane header={<Toolbar variant="pane" headline="Document" />}>
+      {document}
+    </Pane>
+  </AdaptiveSplitView>
+</Workspace>
+```
+
+- Give the workspace a bounded height. It fills the available space.
+- The channel docks when at least 820px is available, plus 48px when a rail is present.
+- One toggle shows or hides the channel without removing the rail. It docks on wide layouts and floats on narrow ones; there is no separate pinning mode.
+- The document card extends beneath the raised channel while keeping its content clear. Tabs and headers remain flush with the document surface.
+- Floating navigation stays within the viewport, including inside a scrolling page.
+- Floating navigation uses a native modal dialog containing both the rail and channel, so the same toggle remains usable. Outside interaction and Escape dismiss it, focus returns to the opener, and nested Aidos popovers remain usable.
+- A focused channel stays open when the window narrows. Otherwise the document takes priority. Explicitly closing the channel is remembered across resizing.
+- Channel and main content stay mounted through layout changes. The application owns navigation selection, drafts, and persistence.
+- `rail`, `navigation`, and `children` accept nodes or functions receiving `showNavigation` and `dismissNavigation`. Dismiss only closes floating navigation; file selection does not hide a docked channel.
+- Omit either navigation level when it is not needed. Without a rail, `Toolbar variant="pane"` reserves room for the floating channel toggle.
+- `navigationTitle` defaults to “Navigation”. `jss` and ordinary view attributes customize the frame.
+
+`NavigationSplitView` remains available for page layouts with compact/bottom navigation.
+
+## Documentation layout
+
+The documentation site uses the same shell without a rail, document tabs, or an inspector. It removes the outer frame decoration so the reading card is not framed twice. `Workspace` owns navigation; its content can be any view.
+
+```tsx
+<Workspace
+  navigationTitle="Aidos UI"
+  navigation={navigation}
+  jss={{
+    border: 0,
+    borderRadius: 0,
+    backgroundColor: "transparent",
+    overflow: "visible",
+  }}
+>
+  <Pane
+    header={
+      <Toolbar variant="pane" headline="Documentation" actions={actions} />
+    }
+  >
+    {article}
+  </Pane>
+</Workspace>
+```
+
+Routing, search, anchor links, and reading-position restoration remain application concerns.

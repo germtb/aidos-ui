@@ -3,11 +3,10 @@ import { BaseInput, BaseInputProps } from "./BaseInput";
 import { Size, toClassnames } from "./jss";
 import { StaticCheckbox, sizes } from "./StaticCheckbox";
 
-interface CheckboxProps
-  extends Omit<
-    BaseInputProps,
-    "checked" | "onClick" | "value" | "onChange" | "size"
-  > {
+interface CheckboxProps extends Omit<
+  BaseInputProps,
+  "checked" | "onClick" | "value" | "onChange" | "size"
+> {
   checked: boolean;
   onClick: () => void;
   size: Size;
@@ -30,13 +29,12 @@ export function Checkbox({
         alignItems: "center",
         height: sizes[size],
         width: sizes[size],
-        ":has(:focus-visible)": {
+        flexShrink: 0,
+        ":has(input:focus-visible) [data-aidos-checkbox]": {
           outline: "2px solid var(--outline)",
-          borderRadius: "50%",
+          outlineOffset: 2,
         },
-        ":has(:active)": {
-          transform: "scale(0.92)",
-        },
+        ":has(input:disabled)": { opacity: 0.5 },
       })}
     >
       <StaticCheckbox checked={checked} size={size} />
@@ -50,8 +48,10 @@ export function Checkbox({
         onChange={onClick}
         jss={{
           position: "absolute",
+          margin: 0,
+          outline: "none",
           opacity: 0,
-          cursor: "pointer",
+          cursor: inputProps.disabled ? "default" : "pointer",
           top: 0,
           bottom: 0,
           left: 0,

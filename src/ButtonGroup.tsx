@@ -1,7 +1,14 @@
-import { Button } from "./Button";
+import { BaseButton } from "./BaseButton";
+import { Icon } from "./Icon";
 import { IconType } from "./IconType";
 import { JSS, cssVar } from "./jss";
 import { Row } from "./Row";
+import {
+  segmentedGroupJSS,
+  segmentedItemJSS,
+  segmentedPadding,
+} from "./segmentedStyles";
+import { Text } from "./Text";
 import { useNavigation } from "./useNavigation";
 
 export type ButtonGroupValue = string | number;
@@ -38,59 +45,45 @@ export function ButtonGroup<Value extends ButtonGroupValue>({
       role="radiogroup"
       aria-label={label}
       aria-disabled={disabled || undefined}
-      jss={[
-        {
-          width: "fit-content",
-          maxWidth: "100%",
-        },
-        jss,
-      ]}
+      gap="xsmall"
+      jss={[segmentedGroupJSS, jss]}
     >
-      {options.map((option, index) => {
+      {options.map((option) => {
         const selected = option.value === value;
-        const first = index === 0;
-        const last = index === options.length - 1;
-
+        const color = disabled ? "subtle" : selected ? "primary" : "secondary";
         return (
-          <Button
+          <BaseButton
             key={option.value}
             role="radio"
             aria-checked={selected}
-            color={selected ? "primary" : "secondary"}
-            bare={!selected}
+            color="secondary"
+            bare
             disabled={disabled}
             animateInteraction={false}
-            icon={option.icon}
+            padding={segmentedPadding}
             jss={[
-              {
-                flexGrow: 1,
-                borderTopLeftRadius: first ? cssVar("--border-radius-l") : 0,
-                borderBottomLeftRadius: first ? cssVar("--border-radius-l") : 0,
-                borderTopRightRadius: last ? cssVar("--border-radius-l") : 0,
-                borderBottomRightRadius: last ? cssVar("--border-radius-l") : 0,
-                boxShadow: "none",
-                transition: `background-color ${cssVar("--transition-fast")}, box-shadow ${cssVar("--transition-fast")}`,
-              },
-              !selected && {
-                backgroundColor: cssVar("--hovered-background"),
-                ":hover": {
-                  backgroundColor: cssVar("--selected-background"),
-                },
-              },
+              { minWidth: 0, flexGrow: 1, gap: cssVar("--spacing-s") },
+              segmentedItemJSS(selected),
             ]}
             onFocus={() => {
-              if (!disabled && !selected) {
-                onValueChange(option.value);
-              }
+              if (!disabled && !selected) onValueChange(option.value);
             }}
             onClick={() => {
-              if (!selected) {
-                onValueChange(option.value);
-              }
+              if (!selected) onValueChange(option.value);
             }}
           >
-            {option.label}
-          </Button>
+            {option.icon && (
+              <Icon
+                icon={option.icon}
+                size="medium"
+                color={color}
+                jss={{ flexShrink: 0 }}
+              />
+            )}
+            <Text size="medium" color={color} jss={{ minWidth: 0 }}>
+              {option.label}
+            </Text>
+          </BaseButton>
         );
       })}
     </Row>

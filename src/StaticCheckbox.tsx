@@ -1,39 +1,13 @@
 import React from "react";
 import { BaseView } from "./BaseView";
 import { Icon } from "./Icon";
-import { JSS, Size, cssVar } from "./jss";
+import { Size, cssVar } from "./jss";
 import { IconType } from "./IconType";
 
 type StaticCheckboxProps = {
   checked: boolean;
   size: Size;
   icon?: IconType;
-};
-
-const styles: { [key: string]: JSS } = {
-  border: {
-    position: "absolute",
-    top: "var(--spacing-xs)",
-    bottom: "var(--spacing-xs)",
-    left: "var(--spacing-xs)",
-    right: "var(--spacing-xs)",
-    border: "1px solid var(--divider)",
-    borderRadius: "50%",
-  },
-  borderChecked: {
-    border: "none",
-    backgroundColor: "var(--highlight)",
-  },
-  icon: {
-    position: "absolute",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    top: "var(--spacing-xs)",
-    bottom: "var(--spacing-xs)",
-    left: "var(--spacing-xs)",
-    right: "var(--spacing-xs)",
-  },
 };
 
 export const sizes = {
@@ -51,24 +25,68 @@ export function StaticCheckbox({
   size,
   icon = "check",
 }: StaticCheckboxProps) {
+  const control = sizes[size] / 2 + 4;
   return (
     <BaseView
+      aria-hidden
       jss={{
-        position: "relative",
-        backgroundColor: cssVar("--primary-background"),
-        overflow: "hidden",
-        padding: cssVar("--spacing-xs"),
-        borderRadius: sizes[size] / 2,
+        display: "grid",
+        placeItems: "center",
+        flexShrink: 0,
         height: sizes[size],
         width: sizes[size],
       }}
     >
-      <BaseView jss={[styles.border, checked && styles.borderChecked]} />
-      {checked && (
-        <BaseView jss={styles.icon}>
-          <Icon size={size} color="light" icon={icon} />
-        </BaseView>
-      )}
+      <BaseView
+        data-aidos-checkbox
+        jss={{
+          display: "grid",
+          placeItems: "center",
+          height: control,
+          width: control,
+          borderRadius: Math.round(control / 5),
+          border: "1px solid transparent",
+          borderColor: checked
+            ? cssVar("--background-button-primary")
+            : "color-mix(in srgb, var(--primary-text) 50%, transparent)",
+          backgroundColor: checked
+            ? cssVar("--background-button-primary")
+            : "transparent",
+          color: cssVar("--light-text"),
+          "@media (forced-colors: active)": {
+            backgroundColor: checked ? "Highlight" : "Canvas",
+            borderColor: checked ? "Highlight" : "ButtonText",
+            color: "HighlightText",
+          },
+        }}
+      >
+        {checked &&
+          (icon === "check" ? (
+            <svg
+              width={control - 2}
+              height={control - 2}
+              viewBox="0 0 16 16"
+              fill="none"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="m3.5 8 3 3 6-6"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          ) : (
+            <Icon
+              size="small"
+              color="inherit"
+              icon={icon}
+              jss={{ width: control - 4, height: control - 4 }}
+            />
+          ))}
+      </BaseView>
     </BaseView>
   );
 }

@@ -1,3 +1,4 @@
+export * from "./AdaptiveSplitView";
 export * from "./Avatar";
 export * from "./AvatarStack";
 export * from "./Badge";
@@ -85,3 +86,5 @@ export * from "./SearchPalette";
 export * from "./Switch";
 export type { ControlSize } from "./controlSize";
 export type { Placement, OverlayAlign } from "./useFloatingPosition";
+export * from "./Workspace";
+export * from "./Pane";

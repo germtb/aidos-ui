@@ -19,7 +19,7 @@ All components accept a `jss` prop that works like inline styles but with additi
 <BaseView jss={{ backgroundColor: "red", padding: 12 }} />
 ```
 
-Internally, styles become hashed CSS classes, enabling server-side rendering and hydration. Spacing declarations share a class so physical and logical overrides keep their order:
+Internally, styles become hashed CSS classes, enabling server-side rendering and hydration. Spacing, border, and inset declarations share a class so shorthand, physical, and logical overrides keep their order:
 
 ```html
 <style>

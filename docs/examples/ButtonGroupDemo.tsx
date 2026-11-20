@@ -1,6 +1,8 @@
 import { useState } from "react";
 
+import { Button } from "../../src/Button";
 import { ButtonGroup } from "../../src/ButtonGroup";
+import { Column } from "../../src/Column";
 
 const options = [
   { value: "list", label: "List", icon: "list" },
@@ -10,13 +12,27 @@ const options = [
 
 export function ButtonGroupDemo() {
   const [value, setValue] = useState<(typeof options)[number]["value"]>("list");
+  const [columns, setColumns] = useState(true);
 
   return (
-    <ButtonGroup
-      label="View"
-      options={options}
-      value={value}
-      onValueChange={setValue}
-    />
+    <Column align="flex-start" gap="medium">
+      <ButtonGroup
+        label="View"
+        options={columns ? options : options.slice(0, 2)}
+        value={value}
+        onValueChange={setValue}
+      />
+      <Button
+        bare
+        color="secondary"
+        size="small"
+        onClick={() => {
+          if (columns && value === "columns") setValue("grid");
+          setColumns(!columns);
+        }}
+      >
+        {columns ? "Remove Columns" : "Add Columns"}
+      </Button>
+    </Column>
   );
 }

@@ -1,11 +1,7 @@
-import { Size } from "../../src/jss";
-
 export type PageLink = {
   type: "link";
   page: string;
   name?: string;
-  headlineSize?: Size;
-  headlineBold?: boolean;
 };
 
 export type Page =
@@ -20,9 +16,7 @@ export const pages: Array<Page> = [
   {
     type: "link",
     page: "",
-    name: "Aidos UI",
-    headlineSize: "large",
-    headlineBold: true,
+    name: "Overview",
   },
   {
     type: "link",
@@ -41,6 +35,9 @@ export const pages: Array<Page> = [
     content: [
       { type: "link", page: "FlexLayout" },
       { type: "link", page: "NavigationSplitView" },
+      { type: "link", page: "AdaptiveSplitView" },
+      { type: "link", page: "Workspace" },
+      { type: "link", page: "Pane" },
       { type: "link", page: "Toolbar" },
     ],
   },

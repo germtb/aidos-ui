@@ -10,6 +10,8 @@ import { cssVar } from "../../src/jss";
 
 A horizontal tab navigation component with full keyboard support and ARIA compliance. Tabs can render as links or buttons and support custom styling, add-ons, and label rendering.
 
+Use `variant="segmented"` for a few peer views. It shares its appearance with [ButtonGroup](/ButtonGroup), but controls content panels rather than a setting. Segmented tabs default to medium labels, medium/large padding, and an xsmall gap.
+
 ---
 
 ## Props
@@ -22,10 +24,10 @@ A horizontal tab navigation component with full keyboard support and ARIA compli
 | `onReorder`     | `(tabId: string, targetId: string) => void` | -             | Enables controlled pointer/keyboard reordering; requires stable, unique IDs |
 | `tabs`          | `Tab[]`                                     | Required      | Array of tab configurations                                                 |
 | `variant`       | `"underline" \| "segmented" \| "document"`  | `"underline"` | Visual selection treatment                                                  |
-| `labelSize`     | `Size`                                      | `"large"`     | Text size for tab labels                                                    |
-| `iconSize`      | `Size`                                      | `"medium"`    | Size of tab icons                                                           |
-| `tabPadding`    | `Padding`                                   | `"medium"`    | Padding inside each tab                                                     |
-| `gap`           | `Gap`                                       | `"none"`      | Space between tabs                                                          |
+| `labelSize`     | `Size`                                      | By variant    | Text size for tab labels                                                    |
+| `iconSize`      | `Size`                                      | By variant    | Size of tab icons                                                           |
+| `tabPadding`    | `Padding`                                   | By variant    | Padding inside each tab                                                     |
+| `gap`           | `Gap`                                       | By variant    | Space between tabs                                                          |
 | `jssTab`        | `JSS \| (data) => JSS`                      | -             | Custom styles for tabs (can be conditional on selected state)               |
 | `labelRenderer` | `(label: string) => ReactNode`              | -             | Custom label rendering function                                             |
 
@@ -45,6 +47,8 @@ A horizontal tab navigation component with full keyboard support and ARIA compli
 | `addOnPosition` | `"start" \| "end"`                             | `"start"` | Position of add-on relative to label                        |
 
 ---
+
+Document tabs default to 14px labels, small icons, and a 39px scrolling strip with a bottom divider. They can be used directly as a `Pane` header.
 
 ## Basic usage
 

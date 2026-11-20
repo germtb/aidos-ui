@@ -1,0 +1,20 @@
+# Pane
+
+A non-scrolling header and footer around independently scrolling content. No surface tint or reading-pane focus ring.
+
+```tsx
+<Pane
+  header={<Toolbar variant="pane" headline="Review" actions={actions} />}
+  footer={<Composer value={draft} onValueChange={setDraft} onSubmit={submit} />}
+>
+  {discussion}
+</Pane>
+```
+
+- Fills a bounded flex column; use inside `Workspace` or `AdaptiveSplitView`.
+- Body padding defaults to `"xlarge"`. Use `padding="none"` for an editor or nested panes.
+- `scroll={false}` lets nested panes own scrolling.
+- `ref` and `onScroll` target the **body**; other view attributes and `jss` target the root.
+- `hidden` keeps all content mounted, including drafts and scroll position.
+- The footer has a divider and minimum height of 28px. Padding belongs to its content.
+- The body stays out of the Tab order. Interactive descendants retain their normal focus behavior.
