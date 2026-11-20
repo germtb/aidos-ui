@@ -74,6 +74,7 @@ export const pages: Array<Page> = [
     content: [
       { type: "link", page: "Select", name: "Select (dropdown)" },
       { type: "link", page: "TextInput" },
+      { type: "link", page: "InlineRename" },
       { type: "link", page: "TextArea" },
       { type: "link", page: "Composer" },
       { type: "link", page: "DateInput" },

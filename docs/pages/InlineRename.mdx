@@ -1,0 +1,57 @@
+import { InlineRenameDemo } from "../examples/InlineRenameDemo";
+
+# InlineRename
+
+An anchored name editor with async saving, validation and focus restoration. The input overlays its anchor without nesting inside a button or changing the surrounding layout.
+
+<InlineRenameDemo />
+
+## Props
+
+| Prop           | Type                                      | Default   | Description                                          |
+| -------------- | ----------------------------------------- | --------- | ---------------------------------------------------- |
+| `anchor`       | `HTMLElement \| null`                     | Required  | Element to cover; null renders nothing               |
+| `initialValue` | `string`                                  | Required  | Name selected when the editor opens                  |
+| `label`        | `string`                                  | Required  | Accessible input label                               |
+| `onSave`       | `(name: string) => void \| Promise<void>` | Required  | Save the trimmed name; throw/reject to show an error |
+| `onClose`      | `() => void`                              | Required  | Remove the editor                                    |
+| `saveOnBlur`   | `boolean`                                 | `true`    | Save on blur; false discards instead                 |
+| `size`         | `Size`                                    | `"small"` | Text size; match the anchor label                    |
+| `maxLength`    | `number`                                  | `256`     | Maximum input length                                 |
+| `jss`          | `JSS`                                     | —         | Overlay styles                                       |
+
+## Behavior
+
+- Enter saves; Escape cancels. IME composition does neither.
+- Empty or unchanged names close without calling `onSave`.
+- Pending saves make the input read-only and prevent duplicate submission or cancellation.
+- Errors keep the editor open and are announced. Editing clears the error.
+- Keyboard completion restores anchor focus; blur and async completion do not steal focus from another control.
+- Position follows scrolling and resizing, with viewport clamping. Native popovers escape clipping where supported; fixed positioning is the fallback.
+- No browser globals are accessed during server rendering. Open it from an interaction and unmount it on close.
+
+```tsx
+const [name, setName] = useState("My project");
+const [anchor, setAnchor] = useState<HTMLElement | null>(null);
+
+<>
+  <Button
+    size="small"
+    color="secondary"
+    onClick={(event) => setAnchor(event.currentTarget)}
+  >
+    {name}
+  </Button>
+  {anchor && (
+    <InlineRename
+      anchor={anchor}
+      initialValue={name}
+      label="Project name"
+      onSave={setName}
+      onClose={() => setAnchor(null)}
+    />
+  )}
+</>;
+```
+
+For document tabs, use the per-tab `onRename` callback on [Tabs](/Tabs).

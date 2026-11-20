@@ -425,6 +425,7 @@ export type Theme = {
   ["--pressed-background"]: string;
   ["--hovered-background"]: string;
   ["--selected-background"]: string;
+  ["--reorder-background"]?: string;
   ["--nav-bar"]: string;
   ["--material-aurora"]: string;
   ["--material-dawn"]: string;
@@ -493,6 +494,7 @@ export const lightTheme: Theme = {
   ["--pressed-background"]: "rgb(224, 227, 234)",
   ["--hovered-background"]: "rgb(235, 238, 244)",
   ["--selected-background"]: "rgb(228, 232, 240)",
+  ["--reorder-background"]: "#e9e9e7",
   ["--nav-bar"]: "rgb(242, 244, 248)",
   ["--material-aurora"]:
     "radial-gradient(120% 90% at 0% 10%, rgba(66, 184, 131, 0.04), transparent 58%), radial-gradient(110% 100% at 100% 90%, rgba(70, 132, 255, 0.055), transparent 62%), linear-gradient(145deg, rgba(248, 249, 252, 0.96), rgba(236, 240, 245, 0.92))",
@@ -567,6 +569,7 @@ export const darkTheme: Theme = {
   ["--pressed-background"]: "rgb(70, 75, 86)",
   ["--hovered-background"]: "rgb(48, 52, 61)",
   ["--selected-background"]: "rgb(56, 61, 72)",
+  ["--reorder-background"]: "#333",
   ["--nav-bar"]: "rgb(29, 31, 37)",
   ["--material-aurora"]:
     "radial-gradient(120% 90% at 0% 10%, rgba(45, 160, 112, 0.065), transparent 58%), radial-gradient(110% 100% at 100% 90%, rgba(66, 126, 245, 0.08), transparent 62%), linear-gradient(145deg, rgba(39, 41, 43, 0.96), rgba(27, 30, 33, 0.94))",

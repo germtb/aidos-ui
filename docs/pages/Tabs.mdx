@@ -16,29 +16,33 @@ A horizontal tab navigation component with full keyboard support and ARIA compli
 
 ### Tabs
 
-| Prop            | Type                           | Default       | Description                                                   |
-| --------------- | ------------------------------ | ------------- | ------------------------------------------------------------- |
-| `aria-controls` | `string`                       | Required      | ID of the content panel this tab controls                     |
-| `tabs`          | `Tab[]`                        | Required      | Array of tab configurations                                   |
-| `variant`       | `"underline" \| "segmented"`   | `"underline"` | Visual selection treatment                                    |
-| `labelSize`     | `Size`                         | `"large"`     | Text size for tab labels                                      |
-| `iconSize`      | `Size`                         | `"medium"`    | Size of tab icons                                             |
-| `tabPadding`    | `Padding`                      | `"medium"`    | Padding inside each tab                                       |
-| `gap`           | `Gap`                          | `"none"`      | Space between tabs                                            |
-| `jssTab`        | `JSS \| (data) => JSS`         | -             | Custom styles for tabs (can be conditional on selected state) |
-| `labelRenderer` | `(label: string) => ReactNode` | -             | Custom label rendering function                               |
+| Prop            | Type                                        | Default       | Description                                                                 |
+| --------------- | ------------------------------------------- | ------------- | --------------------------------------------------------------------------- |
+| `aria-controls` | `string`                                    | Required      | ID of the content panel this tab controls                                   |
+| `onReorder`     | `(tabId: string, targetId: string) => void` | -             | Enables controlled pointer/keyboard reordering; requires stable, unique IDs |
+| `tabs`          | `Tab[]`                                     | Required      | Array of tab configurations                                                 |
+| `variant`       | `"underline" \| "segmented" \| "document"`  | `"underline"` | Visual selection treatment                                                  |
+| `labelSize`     | `Size`                                      | `"large"`     | Text size for tab labels                                                    |
+| `iconSize`      | `Size`                                      | `"medium"`    | Size of tab icons                                                           |
+| `tabPadding`    | `Padding`                                   | `"medium"`    | Padding inside each tab                                                     |
+| `gap`           | `Gap`                                       | `"none"`      | Space between tabs                                                          |
+| `jssTab`        | `JSS \| (data) => JSS`                      | -             | Custom styles for tabs (can be conditional on selected state)               |
+| `labelRenderer` | `(label: string) => ReactNode`              | -             | Custom label rendering function                                             |
 
 ### Tab object
 
-| Property        | Type               | Default   | Description                                  |
-| --------------- | ------------------ | --------- | -------------------------------------------- |
-| `label`         | `string`           | Required  | Tab display text                             |
-| `icon`          | `IconType`         | -         | Icon displayed with the label                |
-| `href`          | `string`           | -         | Link URL (renders as link if provided)       |
-| `onClick`       | `() => void`       | -         | Click handler (renders as button if no href) |
-| `selected`      | `boolean`          | `false`   | Whether this tab is currently selected       |
-| `addOn`         | `ReactNode`        | -         | Additional element (e.g., badge, icon)       |
-| `addOnPosition` | `"start" \| "end"` | `"start"` | Position of add-on relative to label         |
+| Property        | Type                                           | Default   | Description                                                 |
+| --------------- | ---------------------------------------------- | --------- | ----------------------------------------------------------- |
+| `id`            | `string`                                       | -         | Stable identity and tab element ID; required for reordering |
+| `onRename`      | `(name: string) => void \| Promise<void>`      | -         | Enables inline renaming; throw/reject to show an error      |
+| `onContextMenu` | `(event: MouseEvent \| KeyboardEvent) => void` | -         | Right-click, Menu key, or Shift+F10                         |
+| `label`         | `string`                                       | Required  | Tab display text                                            |
+| `icon`          | `IconType`                                     | -         | Icon displayed with the label                               |
+| `href`          | `string`                                       | -         | Link URL (renders as link if provided)                      |
+| `onClick`       | `() => void`                                   | -         | Click handler (renders as button if no href)                |
+| `selected`      | `boolean`                                      | `false`   | Whether this tab is currently selected                      |
+| `addOn`         | `ReactNode`                                    | -         | Additional element (e.g., badge, icon)                      |
+| `addOnPosition` | `"start" \| "end"`                             | `"start"` | Position of add-on relative to label                        |
 
 ---
 
@@ -307,3 +311,49 @@ The Tabs component follows WAI-ARIA tab patterns:
 Use `variant="document"`, stable tab `id` values, and per-tab `onClose`. `title` overrides the label tooltip. Close actions are siblings, never nested buttons; the application owns removal and selection, so a cancelled close does not select another tab. Arrow keys select tabs, Home/End jump, and Delete closes a closable tab. `panelId` can override the shared `aria-controls` for each tab.
 
 <DocumentTabsDemo />
+
+## Reordering and renaming
+
+Add `onReorder` to enable native pointer reordering. It receives the moved tab's ID and the ID occupying its destination in the original order. Update your array to commit; otherwise the preview returns to the supplied order. IDs must be unique, nonempty and stable across renames.
+
+- **Alt+Shift+Left/Right**: Move the focused tab, preserving selection.
+- **Escape**: Cancel a drag; ordinary arrow navigation is unchanged.
+- **F2 / double-click**: Rename a tab with `onRename`.
+- **Enter / blur**: Save the trimmed name. Empty or unchanged names close without saving.
+- **Escape while renaming**: Discard edits unless a save is pending.
+
+Pressing gently lifts a tab with a 180ms overshoot; releasing settles it back. Reordering starts after 5px, scrolls at strip edges and ignores close buttons. Reduced motion disables animations. Document tabs reveal the full focused/selected tab, including its close button, and translate vertical wheel movement into horizontal scrolling when overflowing. No drag-and-drop dependencies are used.
+
+`onRename` owns the label update. Async saves keep the editor read-only; rejection displays an accessible error. Use [InlineRename](/InlineRename) for the same behavior outside tabs.
+
+```tsx
+<Tabs
+  variant="document"
+  aria-controls="panel"
+  onReorder={(id, targetId) =>
+    setTabs((tabs) => {
+      const next = [...tabs];
+      next.splice(
+        tabs.findIndex((tab) => tab.id === targetId),
+        0,
+        ...next.splice(
+          tabs.findIndex((tab) => tab.id === id),
+          1,
+        ),
+      );
+      return next;
+    })
+  }
+  tabs={tabs.map((tab) => ({
+    ...tab,
+    selected: tab.id === selected,
+    onClick: () => setSelected(tab.id),
+    onRename: (label) =>
+      setTabs((tabs) =>
+        tabs.map((item) => (item.id === tab.id ? { ...item, label } : item)),
+      ),
+  }))}
+/>
+```
+
+For vertical reordering and moving items between projects, see the [grouped list example](/List#reordering-and-moving-between-groups).

@@ -36,6 +36,7 @@ export const ListLinkItem = React.forwardRef(function ListLinkItem(
     "aria-controls": ariaControls,
     "aria-haspopup": ariaHasPopup,
     "aria-label": ariaLabel,
+    "aria-keyshortcuts": ariaKeyshortcuts,
     jss,
     gap,
     selected,
@@ -83,6 +84,7 @@ export const ListLinkItem = React.forwardRef(function ListLinkItem(
           aria-controls={ariaControls}
           aria-haspopup={ariaHasPopup}
           aria-label={ariaLabel}
+          aria-keyshortcuts={ariaKeyshortcuts}
           jss={[
             interactableListItemContentJSS,
             {

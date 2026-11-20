@@ -1,3 +1,4 @@
+import { GroupedReorderDemo } from "../examples/GroupedReorderDemo";
 import { DisclosureDemo } from "../examples/DesktopDemo";
 import { List } from "../../src/List";
 import { ListItem } from "../../src/ListItem";
@@ -318,3 +319,50 @@ Disable list-managed navigation when the contents manage focus themselves:
 `size` sets row density; `indent` supplies logical indentation. Use `jssPrimary` and `jssAddOn` instead of styling internal descendants. `ContextualActions` reveal on hover or focus and stay available on touch devices. Arrow navigation follows actual focus, including disabled actions. Hidden or inert content is skipped.
 
 <DisclosureDemo />
+
+## Reordering and moving between groups
+
+<GroupedReorderDemo />
+
+`useListReorder(groups, onMove)` adds dependency-free dragging to existing list components. It shares the tabs' press-pop, movement and settle animations. Each group has a stable `id`, `label` and `items`; every item has a globally unique `id` and a `label`.
+
+```tsx
+const reorder = useListReorder(groups, (id, { groupId, beforeId }) => {
+  // Move id into groupId, immediately before beforeId (null appends).
+  // Update your groups here; the application owns membership and persistence.
+});
+
+<Column ref={reorder.ref} jss={{ maxHeight: 400, overflowY: "auto" }}>
+  {reorder.groups.map((group) => (
+    <Column key={group.id} {...reorder.groupProps(group.id)}>
+      <Text>{group.label}</Text>
+      <List ariaLabel={group.label}>
+        {group.items.map((item) => (
+          <React.Fragment key={item.id}>
+            <BaseView tag="li" {...reorder.slotProps(group.id, item.id)} />
+            <ListButtonItem
+              {...reorder.itemProps(item.id)}
+              headline={item.label}
+              onClick={() => select(item.id)}
+            />
+          </React.Fragment>
+        ))}
+        <BaseView tag="li" {...reorder.slotProps(group.id, null)} />
+      </List>
+    </Column>
+  ))}
+</Column>
+<Text role="status">{reorder.announcement}</Text>
+```
+
+- `ref` belongs on the common vertical scroll container; groups are vertically stacked.
+- Render `reorder.groups` for same-group previews. Cross-group moves open a small animated gap at the destination, without insertion lines. Membership changes only on drop.
+- Spread `groupProps(id)` on each group wrapper and `itemProps(id)` on its `ListButtonItem` or `ListLinkItem`. Preserve `itemProps(id).jss` when adding custom row styles.
+- Render `slotProps(groupId, itemId)` before each row and `slotProps(groupId, null)` at the end, inside any disclosure. These empty, hidden-from-accessibility slots provide the 12px cross-group preview.
+- Empty and collapsed group wrappers remain drop targets. The application decides whether a successful move expands a group; the example does.
+- `move(id, { groupId, beforeId })` exposes the same operation for menus. Unchanged moves do nothing.
+- Alt+Shift+Up/Down reorders; Alt+Shift+Left/Right moves to the previous/next group. Normal list navigation is unchanged.
+- Escape, pointer cancellation and external order changes discard the preview. Dropping outside a group does not move the item.
+- `announcement` describes completed moves and cancellations; render it in a `role="status"` element.
+
+“Recent” is just another group in this example. Project assignment, family rules, permissions, virtualization and persistence remain application concerns.

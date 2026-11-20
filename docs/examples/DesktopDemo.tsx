@@ -652,58 +652,79 @@ export function SearchDemo() {
   );
 }
 
+const documents = [
+  "Overview",
+  "A long document title that truncates",
+  "Notes",
+  "Settings",
+  "Archive",
+].map((label, index) => ({ id: `document-${index}`, label }));
+
 export function DocumentTabsDemo() {
-  const [tabs, setTabs] = useState([
-    "Overview",
-    "A long document title that truncates",
-    "Notes",
-    "Settings",
-    "Archive",
-  ]);
-  const [selected, setSelected] = useState("Overview");
+  const [tabs, setTabs] = useState(documents);
+  const [selected, setSelected] = useState(documents[0].id);
   return (
     <Column gap="medium">
       <Tabs
         variant="document"
         aria-label="Documents"
         aria-controls="document-panel"
-        tabs={tabs.map((label, index) => ({
-          id: `document-${encodeURIComponent(label)}`,
-          label,
+        onReorder={(id, targetId) =>
+          setTabs((tabs) => {
+            const next = [...tabs];
+            next.splice(
+              tabs.findIndex((tab) => tab.id === targetId),
+              0,
+              ...next.splice(
+                tabs.findIndex((tab) => tab.id === id),
+                1,
+              ),
+            );
+            return next;
+          })
+        }
+        tabs={tabs.map((tab, index) => ({
+          ...tab,
           icon: "file",
-          selected: selected === label,
-          onClick: () => setSelected(label),
+          selected: selected === tab.id,
+          onClick: () => setSelected(tab.id),
+          onRename: (label) => {
+            if (tabs.some((item) => item.id !== tab.id && item.label === label))
+              throw new Error("A document with that name already exists.");
+            setTabs((tabs) =>
+              tabs.map((item) =>
+                item.id === tab.id ? { ...item, label } : item,
+              ),
+            );
+          },
           onClose: () => {
-            setTabs(tabs.filter((tab) => tab !== label));
-            if (selected === label)
-              setSelected(tabs[index + 1] ?? tabs[index - 1] ?? "");
+            setTabs(tabs.filter((item) => item.id !== tab.id));
+            if (selected === tab.id)
+              setSelected(tabs[index + 1]?.id ?? tabs[index - 1]?.id ?? "");
           },
         }))}
       />
       <BaseView
         id="document-panel"
         role="tabpanel"
-        aria-labelledby={
-          selected ? `document-${encodeURIComponent(selected)}` : undefined
-        }
+        aria-labelledby={selected || undefined}
         jss={{ padding: 12 }}
       >
-        {selected || "All documents closed"}
+        {tabs.find((tab) => tab.id === selected)?.label ||
+          "All documents closed"}
       </BaseView>
+      <Text size="small" color="secondary" ellipsis={false}>
+        Drag to reorder, or use Alt+Shift+Left/Right. Double-click or press F2
+        to rename.
+      </Text>
       <Button
         size="small"
         bare
         color="secondary"
         jss={{ alignSelf: "flex-start" }}
         onClick={() => {
-          setTabs([
-            "Overview",
-            "A long document title that truncates",
-            "Notes",
-            "Settings",
-            "Archive",
-          ]);
-          setSelected("Overview");
+          setTabs(documents);
+          setSelected(documents[0].id);
         }}
       >
         Reset tabs
