@@ -205,7 +205,6 @@ export function AdaptiveSplitView({
         ref={toggle}
         bare
         color="secondary"
-        size="small"
         icon={visible ? "panel-right-close" : "panel-right-open"}
         aria-label={`${visible ? "Hide" : "Show"} ${panelTitle}`}
         aria-expanded={visible}
