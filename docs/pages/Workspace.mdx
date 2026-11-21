@@ -54,6 +54,7 @@ Browse files, reorder tabs, and leave a note. Use the navigation and inspector t
 - Floating navigation uses a native modal dialog containing both the rail and channel, so the same toggle remains usable. Outside interaction and Escape dismiss it, focus returns to the opener, and nested Aidos popovers remain usable.
 - A focused channel stays open when the window narrows. Otherwise the document takes priority. Explicitly closing the channel is remembered across resizing.
 - Channel and main content stay mounted through layout changes. The application owns navigation selection, drafts, and persistence.
+- Use `navigationOpen` with `onNavigationOpenChange` to own channel visibility. Controlled visibility survives resizing; the shell still switches between docked and floating layouts. Omit `navigationOpen` for automatic responsive visibility.
 - `rail`, `navigation`, and `children` accept nodes or functions receiving `showNavigation` and `dismissNavigation`. Dismiss only closes floating navigation; file selection does not hide a docked channel.
 - Omit either navigation level when it is not needed. Without a rail, `Toolbar variant="pane"` reserves room for the floating channel toggle.
 - `navigationTitle` defaults to “Navigation”. `jss` and ordinary view attributes customize the frame.

@@ -26,6 +26,8 @@ export interface WorkspaceProps extends Omit<
   rail?: WorkspaceSlot;
   navigation?: WorkspaceSlot;
   navigationTitle?: string;
+  navigationOpen?: boolean;
+  onNavigationOpenChange?: (open: boolean) => void;
   children: WorkspaceSlot;
 }
 
@@ -33,6 +35,8 @@ export function Workspace({
   rail,
   navigation,
   navigationTitle = "Navigation",
+  navigationOpen,
+  onNavigationOpenChange,
   children,
   jss,
   dir,
@@ -49,16 +53,21 @@ export function Workspace({
   const hasRail = Boolean(rail);
   const hasNavigation = Boolean(navigation);
   const visible =
-    hasNavigation && (intent === "open" || (intent === "auto" && !compact));
+    hasNavigation &&
+    (navigationOpen ?? (intent === "open" || (intent === "auto" && !compact)));
   const docked = visible && !compact;
   const floating = visible && compact;
   const railWidth = hasRail ? 48 : 0;
-  const hideNavigation = () => setIntent("closed");
+  const changeNavigation = (open: boolean) => {
+    if (navigationOpen === undefined) setIntent(open ? "open" : "closed");
+    onNavigationOpenChange?.(open);
+  };
+  const hideNavigation = () => changeNavigation(false);
   const controls: WorkspaceControls = {
     showNavigation: () => {
       if (!visible) {
         returnTo.current = document.activeElement as HTMLElement;
-        setIntent("open");
+        changeNavigation(true);
       }
     },
     dismissNavigation: () => {
@@ -252,13 +261,22 @@ export function Workspace({
             if (
               !floating ||
               event.defaultPrevented ||
-              event.key !== "Tab" ||
               event.nativeEvent.isComposing ||
-              event.altKey ||
-              event.ctrlKey ||
-              event.metaKey ||
               (event.target as HTMLElement).closest("dialog:modal") !==
                 event.currentTarget
+            )
+              return;
+            if (event.key === "Escape") {
+              event.preventDefault();
+              event.stopPropagation();
+              hideNavigation();
+              return;
+            }
+            if (
+              event.key !== "Tab" ||
+              event.altKey ||
+              event.ctrlKey ||
+              event.metaKey
             )
               return;
             const items = queryFocusables(event.currentTarget).filter(
