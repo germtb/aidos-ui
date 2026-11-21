@@ -197,7 +197,6 @@ export function Workspace({
       ref={toggle}
       bare
       color="secondary"
-      size="small"
       icon={visible ? "panel-left-close" : "panel-left-open"}
       aria-label={visible ? "Hide navigation" : "Show navigation"}
       aria-expanded={visible}
@@ -427,6 +426,7 @@ export function Workspace({
               }}
             >
               <Toolbar
+                data-aidos-workspace-navigation-header
                 variant="pane"
                 headline={<span id={`${id}-title`}>{navigationTitle}</span>}
                 headlineBold

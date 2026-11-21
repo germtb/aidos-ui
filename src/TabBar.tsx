@@ -147,11 +147,14 @@ export function TabBar({
         {tabs.map((tab) => {
           const { label, icon, href, onClick } = tab;
           const selected = tab.selected === true;
-          const color: TextColor = selected
-            ? variant === "rail"
-              ? "primary"
-              : "highlight"
-            : "secondary";
+          const color: TextColor =
+            variant === "rail"
+              ? selected
+                ? "light"
+                : "primary"
+              : selected
+                ? "highlight"
+                : "secondary";
           const tabJSS: JSS = [
             styles.item,
             horizontal ? styles.horizontalItem : styles.verticalItem,
@@ -161,9 +164,7 @@ export function TabBar({
               styles.floatingHorizontalItem,
             selected && {
               backgroundColor: cssVar(
-                variant === "rail"
-                  ? "--hovered-background"
-                  : "--light-highlight",
+                variant === "rail" ? "--highlight" : "--light-highlight",
               ),
             },
             variant === "rail" && styles.railItem,

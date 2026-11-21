@@ -34,6 +34,12 @@ The default header contains the panel toggle. Supply a header only when adding a
 </AdaptiveSplitView>
 ```
 
+## Panel composition
+
+Use `panelHeader` for domain controls, `panelWidth` for pixels or a percentage, and `minContentWidth` for the minimum main-pane width. Set `showPanelCloseButton={false}` when using `panelToggle` in the shared header instead. Defaults remain a 320px panel and 560px main pane.
+
+Pass a document or route ID as `transitionKey` to apply navigation changes immediately while keeping panel-toggle animations. Neither pane is remounted.
+
 ## Controlled visibility
 
 Without `open`, the panel starts beside the content on wide layouts and closed on narrow layouts. An explicit close is remembered until reopened.

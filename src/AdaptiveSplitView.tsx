@@ -1,6 +1,7 @@
 import React, {
   useCallback,
   useId,
+  useLayoutEffect,
   useRef,
   useState,
   type ReactNode,
@@ -20,6 +21,11 @@ export interface AdaptiveSplitViewControls {
 export interface AdaptiveSplitViewProps {
   panelTitle: string;
   panel: ReactNode;
+  panelHeader?: ReactNode;
+  showPanelCloseButton?: boolean;
+  panelWidth?: number | `${number}%`;
+  minContentWidth?: number;
+  transitionKey?: string | number;
   children: ReactNode | ((controls: AdaptiveSplitViewControls) => ReactNode);
   header?: (controls: AdaptiveSplitViewControls) => ReactNode;
   open?: boolean;
@@ -27,8 +33,6 @@ export interface AdaptiveSplitViewProps {
   jss?: JSS;
 }
 
-const panelWidth = 320;
-const minContentWidth = 560;
 const column: JSS = {
   display: "flex",
   flexDirection: "column",
@@ -39,6 +43,11 @@ const column: JSS = {
 export function AdaptiveSplitView({
   panelTitle,
   panel: content,
+  panelHeader,
+  showPanelCloseButton = true,
+  panelWidth = 320,
+  minContentWidth = 560,
+  transitionKey,
   children,
   header,
   open,
@@ -46,6 +55,11 @@ export function AdaptiveSplitView({
   jss,
 }: AdaptiveSplitViewProps) {
   const id = useId();
+  const previousTransitionKey = useRef(transitionKey);
+  const animate = previousTransitionKey.current === transitionKey;
+  useLayoutEffect(() => {
+    previousTransitionKey.current = transitionKey;
+  }, [transitionKey]);
   const [intent, setIntent] = useState<"auto" | "open" | "closed">("auto");
   const [compact, setCompact] = useState(false);
   const measuredCompact = useRef<boolean | null>(null);
@@ -70,7 +84,11 @@ export function AdaptiveSplitView({
     useCallback(
       (element: HTMLElement) => {
         const update = () => {
-          const next = element.clientWidth < panelWidth + minContentWidth;
+          const width =
+            typeof panelWidth === "number"
+              ? panelWidth
+              : (element.clientWidth * parseFloat(panelWidth)) / 100;
+          const next = element.clientWidth < width + minContentWidth;
           if (next === measuredCompact.current) return;
           if (measuredCompact.current !== null && next) {
             const focused =
@@ -98,7 +116,7 @@ export function AdaptiveSplitView({
         observer.observe(element);
         return () => observer.disconnect();
       },
-      [open],
+      [open, panelWidth, minContentWidth],
     ),
   );
 
@@ -136,7 +154,7 @@ export function AdaptiveSplitView({
                 ? active
                 : lastOutsideFocus.current;
           }
-          close.current?.focus({ preventScroll: true });
+          (close.current ?? panel.current)?.focus({ preventScroll: true });
         } else if (
           !visible &&
           prior.visible &&
@@ -171,7 +189,8 @@ export function AdaptiveSplitView({
         document.activeElement instanceof HTMLElement
           ? document.activeElement
           : null;
-      if (visible) close.current?.focus({ preventScroll: true });
+      if (visible)
+        (close.current ?? panel.current)?.focus({ preventScroll: true });
       else pendingFocus.current = "enter";
     } else {
       pendingFocus.current = panelFocused.current ? "return" : null;
@@ -238,8 +257,10 @@ export function AdaptiveSplitView({
           backgroundColor: "inherit",
           gridTemplateColumns: compact
             ? "minmax(0, 1fr)"
-            : `minmax(0, 1fr) ${visible ? panelWidth : 0}px`,
-          transition: "grid-template-columns 180ms cubic-bezier(0.2, 0, 0, 1)",
+            : `minmax(0, 1fr) ${visible ? (typeof panelWidth === "number" ? `${panelWidth}px` : panelWidth) : "0px"}`,
+          transition: animate
+            ? "grid-template-columns 180ms cubic-bezier(0.2, 0, 0, 1)"
+            : "none",
           "@media (prefers-reduced-motion: reduce)": { transition: "none" },
         }}
       >
@@ -263,7 +284,8 @@ export function AdaptiveSplitView({
           ref={mountPanel}
           tag="aside"
           id={id}
-          aria-labelledby={`${id}-title`}
+          aria-label={panelTitle}
+          tabIndex={-1}
           aria-hidden={!visible || undefined}
           onFocusCapture={() => {
             panelFocused.current = true;
@@ -292,13 +314,17 @@ export function AdaptiveSplitView({
               borderInlineStart: `1px solid ${cssVar("--divider")}`,
             },
             {
-              width: compact ? "100%" : panelWidth,
+              width: "100%",
+              outline: "none",
+              boxSizing: "border-box",
               overflow: "hidden",
               backgroundColor: "inherit",
               opacity: visible ? 1 : 0,
               visibility: visible ? "visible" : "hidden",
               transform: compact && !visible ? "translateX(16px)" : "none",
-              transition: `opacity 180ms ease, transform 180ms cubic-bezier(0.2, 0, 0, 1), visibility 0s ${visible ? "0s" : "180ms"}`,
+              transition: animate
+                ? `opacity 180ms ease, transform 180ms cubic-bezier(0.2, 0, 0, 1), visibility 0s ${visible ? "0s" : "180ms"}`
+                : "none",
               "@media (prefers-reduced-motion: reduce)": { transition: "none" },
             },
             compact && {
@@ -311,24 +337,34 @@ export function AdaptiveSplitView({
           ]}
         >
           <Row
+            data-aidos-split-panel-header
             align="center"
             gap="medium"
             jss={{ height: 39, flexShrink: 0, paddingInline: "16px 12px" }}
           >
-            <Text type="h2" id={`${id}-title`} bold jss={{ flex: 1 }}>
-              {panelTitle}
-            </Text>
-            <IconButton
-              ref={close}
-              bare
-              color="secondary"
-              size="xsmall"
-              icon={takeover ? "arrow-left" : "x"}
-              aria-label={takeover ? "Back to content" : `Close ${panelTitle}`}
-              onClick={() => changeOpen(false)}
-            />
+            <BaseView jss={{ flex: 1, minWidth: 0 }}>
+              {panelHeader ?? (
+                <Text type="h2" bold>
+                  {panelTitle}
+                </Text>
+              )}
+            </BaseView>
+            {showPanelCloseButton && (
+              <IconButton
+                ref={close}
+                bare
+                color="secondary"
+                size="xsmall"
+                icon={takeover ? "arrow-left" : "x"}
+                aria-label={
+                  takeover ? "Back to content" : `Close ${panelTitle}`
+                }
+                onClick={() => changeOpen(false)}
+              />
+            )}
           </Row>
           <BaseView
+            data-aidos-split-panel-content
             tabIndex={-1}
             jss={[
               column,
