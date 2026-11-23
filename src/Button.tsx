@@ -7,7 +7,7 @@ import { IconType } from "./IconType";
 import { Row } from "./Row";
 import { Icon } from "./Icon";
 import { FlexLayoutProps } from "./FlexLayout";
-import { InteractableColor, getGlyphColor } from "./Interactable";
+import { InteractableColor } from "./Interactable";
 import { Align, Gap, Justify, cssVar } from "./jss";
 
 export interface ButtonProps extends Omit<
@@ -48,7 +48,6 @@ export const Button = React.forwardRef(function Button(
   ref?: React.Ref<HTMLButtonElement>,
 ) {
   const metrics = controlSizes[size];
-  const glyph = getGlyphColor(color, disabled, bare);
   return (
     <BaseButton
       {...otherProps}
@@ -85,12 +84,12 @@ export const Button = React.forwardRef(function Button(
             icon={icon}
             size="medium"
             jss={{ width: metrics.icon, height: metrics.icon, flexShrink: 0 }}
-            color={glyph}
+            color="inherit"
           />
         )}
         <Text
           size={metrics.text}
-          color={glyph}
+          color="inherit"
           jss={{
             minWidth: 0,
             fontWeight: 600,
@@ -104,7 +103,7 @@ export const Button = React.forwardRef(function Button(
             icon={icon}
             size="medium"
             jss={{ width: metrics.icon, height: metrics.icon, flexShrink: 0 }}
-            color={glyph}
+            color="inherit"
           />
         )}
         {trailing}

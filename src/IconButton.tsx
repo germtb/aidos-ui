@@ -3,7 +3,6 @@ import React from "react";
 import { BaseButton, BaseButtonProps } from "./BaseButton";
 import { Icon } from "./Icon";
 import { IconType } from "./IconType";
-import { getGlyphColor } from "./Interactable";
 import { Span } from "./Text";
 
 export interface IconButtonProps extends Omit<
@@ -56,10 +55,10 @@ export const IconButton = React.forwardRef(function IconButton(
         size="medium"
         jss={{ width: metrics.icon, height: metrics.icon }}
         icon={icon}
-        color={getGlyphColor(color, disabled, bare)}
+        color="inherit"
       />
       {label && (
-        <Span size="medium" color={getGlyphColor(color, disabled, bare)}>
+        <Span size="medium" color="inherit">
           {label}
         </Span>
       )}

@@ -149,6 +149,7 @@ export function DocsLayout({ children }: { children: ReactNode }) {
           overflow: "visible",
         }}
         navigationTitle="Aidos UI"
+        navigationMaterial="glass"
         navigation={({ dismissNavigation }) => (
           <Pane
             tag="nav"

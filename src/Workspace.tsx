@@ -8,6 +8,7 @@ import React, {
 import { queryFocusables } from "./aria";
 import { BaseView, type BaseViewProps } from "./BaseView";
 import { IconButton } from "./IconButton";
+import { glass } from "./glass";
 import { Toolbar } from "./Toolbar";
 import { toClassnames } from "./jss";
 import { useRefEffect } from "./useRefEffect";
@@ -26,6 +27,7 @@ export interface WorkspaceProps extends Omit<
   rail?: WorkspaceSlot;
   navigation?: WorkspaceSlot;
   navigationTitle?: string;
+  navigationMaterial?: "solid" | "glass";
   navigationOpen?: boolean;
   onNavigationOpenChange?: (open: boolean) => void;
   children: WorkspaceSlot;
@@ -35,6 +37,7 @@ export function Workspace({
   rail,
   navigation,
   navigationTitle = "Navigation",
+  navigationMaterial = "solid",
   navigationOpen,
   onNavigationOpenChange,
   children,
@@ -406,24 +409,37 @@ export function Workspace({
                 )
                   channelFocused.current = false;
               }}
-              jss={{
-                position: "absolute",
-                insetBlock: 0,
-                insetInlineStart: railWidth,
-                width: "var(--aidos-navigation-width, 240px)",
-                display: visible ? "flex" : "none",
-                flexDirection: "column",
-                minHeight: 0,
-                overflow: "hidden",
-                pointerEvents: "auto",
-                border:
-                  "1px solid color-mix(in srgb, var(--divider) 65%, transparent)",
-                borderRadius: 12,
-                backgroundColor: floating
-                  ? "var(--overlay-background)"
-                  : "var(--primary-background)",
-                boxShadow: floating ? "var(--shadow-lg)" : "var(--shadow-md)",
-              }}
+              jss={[
+                navigationMaterial === "glass" && visible && glass(),
+                {
+                  position: "absolute",
+                  insetBlock: 0,
+                  insetInlineStart: railWidth,
+                  width: "var(--aidos-navigation-width, 240px)",
+                  display: visible ? "flex" : "none",
+                  flexDirection: "column",
+                  minHeight: 0,
+                  overflow: "hidden",
+                  pointerEvents: "auto",
+                  border:
+                    navigationMaterial === "glass"
+                      ? "1px solid transparent"
+                      : "1px solid color-mix(in srgb, var(--divider) 65%, transparent)",
+                  borderRadius: 12,
+                  backgroundColor:
+                    navigationMaterial === "glass"
+                      ? undefined
+                      : floating
+                        ? "var(--overlay-background)"
+                        : "var(--primary-background)",
+                  boxShadow:
+                    navigationMaterial === "glass"
+                      ? undefined
+                      : floating
+                        ? "var(--shadow-lg)"
+                        : "var(--shadow-md)",
+                },
+              ]}
             >
               <Toolbar
                 data-aidos-workspace-navigation-header

@@ -1,12 +1,14 @@
-import React, { type ReactNode } from "react";
+import React, { useCallback, type ReactNode } from "react";
 import { BaseView, type BaseViewProps } from "./BaseView";
-import { getPadding, type Padding } from "./jss";
+import { getPadding, getSpacing, type Padding } from "./jss";
+import { useRefEffect } from "./useRefEffect";
 
 export interface PaneProps extends BaseViewProps {
   header?: ReactNode;
   footer?: ReactNode;
   padding?: Padding;
   scroll?: boolean;
+  overlay?: "header" | "footer" | "both";
 }
 
 export const Pane = React.forwardRef(function Pane(
@@ -15,6 +17,7 @@ export const Pane = React.forwardRef(function Pane(
     footer,
     padding = "xlarge",
     scroll = true,
+    overlay,
     hidden,
     children,
     jss,
@@ -23,6 +26,17 @@ export const Pane = React.forwardRef(function Pane(
   }: PaneProps,
   ref?: React.Ref<HTMLElement>,
 ) {
+  const headerOverlay =
+    header != null && (overlay === "header" || overlay === "both");
+  const footerOverlay =
+    footer != null && (overlay === "footer" || overlay === "both");
+  const headerRef = useOverlaySize(headerOverlay, "header");
+  const footerRef = useOverlaySize(footerOverlay, "footer");
+  const verticalPadding = getSpacing(
+    Array.isArray(padding) ? padding[0] : padding,
+  );
+  const top = `calc(var(--aidos-pane-header-height, 48px) + ${verticalPadding})`;
+  const bottom = `calc(var(--aidos-pane-footer-height, 64px) + ${verticalPadding})`;
   return (
     <BaseView
       {...props}
@@ -30,6 +44,7 @@ export const Pane = React.forwardRef(function Pane(
       data-aidos-pane
       jss={[
         {
+          position: overlay ? "relative" : undefined,
           display: "flex",
           flexDirection: "column",
           flex: 1,
@@ -42,7 +57,21 @@ export const Pane = React.forwardRef(function Pane(
       ]}
     >
       {header != null && (
-        <BaseView jss={{ flexShrink: 0, minWidth: 0 }}>{header}</BaseView>
+        <BaseView
+          ref={headerRef}
+          data-aidos-pane-header
+          jss={[
+            { flexShrink: 0, minWidth: 0 },
+            headerOverlay && {
+              position: "absolute",
+              insetInline: 0,
+              top: 0,
+              zIndex: 1,
+            },
+          ]}
+        >
+          {header}
+        </BaseView>
       )}
       <BaseView
         ref={ref}
@@ -62,21 +91,36 @@ export const Pane = React.forwardRef(function Pane(
             outline: "none",
           },
           getPadding(padding),
+          headerOverlay && { paddingTop: top, scrollPaddingTop: top },
+          footerOverlay && {
+            paddingBottom: bottom,
+            scrollPaddingBottom: bottom,
+          },
         ]}
       >
         {children}
       </BaseView>
       {footer != null && (
         <BaseView
-          jss={{
-            flexShrink: 0,
-            minWidth: 0,
-            minHeight: 28,
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            borderTop: "1px solid var(--divider)",
-          }}
+          ref={footerRef}
+          data-aidos-pane-footer
+          jss={[
+            {
+              flexShrink: 0,
+              minWidth: 0,
+              minHeight: 28,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              borderTop: footerOverlay ? undefined : "1px solid var(--divider)",
+            },
+            footerOverlay && {
+              position: "absolute",
+              insetInline: 0,
+              bottom: 0,
+              zIndex: 1,
+            },
+          ]}
         >
           {footer}
         </BaseView>
@@ -84,3 +128,25 @@ export const Pane = React.forwardRef(function Pane(
     </BaseView>
   );
 });
+
+function useOverlaySize(enabled: boolean, edge: "header" | "footer") {
+  return useRefEffect(
+    useCallback(
+      (element: HTMLElement) => {
+        if (!enabled) return;
+        const parent = element.parentElement!;
+        const property = `--aidos-pane-${edge}-height`;
+        const measure = () =>
+          parent.style.setProperty(property, `${element.offsetHeight}px`);
+        measure();
+        const observer = new ResizeObserver(measure);
+        observer.observe(element);
+        return () => {
+          observer.disconnect();
+          parent.style.removeProperty(property);
+        };
+      },
+      [enabled, edge],
+    ),
+  );
+}

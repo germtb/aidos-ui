@@ -10,7 +10,7 @@ import { TextPairing } from "./TextPairing";
 
 export interface BaseListItemProps extends Omit<
   RowProps,
-  "children" | "jss" | "role"
+  "children" | "jss" | "role" | "material"
 > {
   children: (elements: { content: React.JSX.Element }) => ReactNode;
   jss?: JSS;

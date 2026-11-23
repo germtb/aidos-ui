@@ -11,3 +11,16 @@ A persistent on/off setting with switch semantics and a minimum 24px hit target.
 ```
 
 `label` supplies the accessible name. `checked` is controlled. Disabled switches remain focusable and announce `aria-disabled`, but cannot toggle. Forced colors and reduced motion are supported.
+
+Glass is the default material. Use `material="solid"` for an opaque track. The thumb and checked-state tint remain distinct; dimensions, keyboard interaction, and the forwarded button ref stay unchanged.
+
+```tsx
+<Switch
+  material="solid"
+  label="Notifications"
+  checked={enabled}
+  onCheckedChange={setEnabled}
+/>
+```
+
+[Compare glass and solid switches](/VisualSystem#switches).

@@ -1,9 +1,16 @@
 import React, { type ReactNode } from "react";
+import { glass, type GlassThickness } from "./glass";
 import { IconButton } from "./IconButton";
 import { InputFrame } from "./InputFrame";
 import { Row } from "./Row";
 import { TextArea, type TextAreaProps } from "./TextArea";
 import { cssVar, type JSS } from "./jss";
+
+const glassFrameStyles = {
+  borderRadius: 24,
+  "--composer-outline":
+    "color-mix(in srgb, var(--primary-text) 3%, transparent)",
+} as const;
 
 export interface ComposerProps extends Omit<
   TextAreaProps,
@@ -17,6 +24,8 @@ export interface ComposerProps extends Omit<
   submitDisabled?: boolean;
   submitLabel?: string;
   embedded?: boolean;
+  material?: "glass";
+  glassThickness?: GlassThickness;
   jssRoot?: JSS;
 }
 
@@ -30,6 +39,8 @@ export const Composer = React.forwardRef(function Composer(
     submitDisabled = false,
     submitLabel = "Send message",
     embedded = false,
+    material,
+    glassThickness = "thin",
     jssRoot,
     jss,
     onKeyDown,
@@ -39,6 +50,7 @@ export const Composer = React.forwardRef(function Composer(
   }: ComposerProps,
   ref?: React.Ref<HTMLTextAreaElement>,
 ) {
+  const isGlass = material === "glass" && !embedded;
   const canSubmit =
     !disabled && !readOnly && !submitDisabled && Boolean(value.trim());
   const submit = () => {
@@ -49,7 +61,8 @@ export const Composer = React.forwardRef(function Composer(
       data-aidos-composer
       jss={[
         {
-          flexDirection: "column",
+          flexDirection: embedded ? "column" : "row",
+          alignItems: embedded ? "stretch" : "flex-end",
           width: "100%",
           minWidth: 0,
           borderRadius: 20,
@@ -69,8 +82,10 @@ export const Composer = React.forwardRef(function Composer(
               outline: "none",
             },
         },
+        isGlass && glass(glassThickness),
+        isGlass && glassFrameStyles,
         embedded && {
-          background: "transparent",
+          backgroundColor: "transparent",
           borderColor: "transparent",
           boxShadow: "none",
           borderRadius: cssVar("--border-radius-m"),
@@ -109,13 +124,14 @@ export const Composer = React.forwardRef(function Composer(
         }}
         jss={[
           {
-            width: "100%",
+            width: embedded ? "100%" : 0,
+            flex: "1 1 auto",
             minHeight: 44,
             resize: "none",
             border: "none",
             borderRadius: "inherit",
-            background: "transparent",
-            padding: "14px 16px 10px",
+            backgroundColor: "transparent",
+            padding: embedded ? "14px 16px 10px" : "12px 16px",
             outline: "none",
             ":focus-visible": { outline: "none" },
           },
@@ -125,7 +141,12 @@ export const Composer = React.forwardRef(function Composer(
       <Row
         align="center"
         gap="small"
-        jss={{ minWidth: 0, padding: "0 10px 10px" }}
+        jss={{
+          minWidth: 0,
+          flexShrink: 0,
+          maxWidth: embedded ? undefined : "50%",
+          padding: embedded ? "0 10px 10px" : "8px 10px 8px 0",
+        }}
       >
         <Row
           align="center"

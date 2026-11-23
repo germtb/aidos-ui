@@ -7,11 +7,12 @@ import React, {
 } from "react";
 import { BaseLink } from "./BaseLink";
 import { Row, type RowProps } from "./Row";
-import { JSS, Padding, Size, cssVar, getPadding } from "./jss";
+import { JSS, Padding, Size, cssVar, getPadding, getMaterial } from "./jss";
 import { Text } from "./Text";
 import { BaseButton } from "./BaseButton";
 import { IconButton } from "./IconButton";
 import { Icon } from "./Icon";
+import { glass } from "./glass";
 import type { IconType } from "./IconType";
 import { InlineRename } from "./InlineRename";
 import { useRefEffect } from "./useRefEffect";
@@ -22,7 +23,7 @@ import {
   segmentedPadding,
 } from "./segmentedStyles";
 
-export type TabsVariant = "underline" | "segmented" | "document";
+export type TabsVariant = "segmented" | "document";
 export type Tab = {
   id?: string;
   label: string;
@@ -46,6 +47,7 @@ export interface TabsProps extends RowProps {
   tabs: Array<Tab>;
   onReorder?: (tabId: string, targetId: string) => void;
   variant?: TabsVariant;
+  tabMaterial?: "glass";
   labelSize?: Size;
   iconSize?: Size;
   bare?: boolean;
@@ -58,15 +60,15 @@ export const Tabs = React.forwardRef(function Tabs(
   {
     tabs: inputTabs,
     onReorder,
-    variant = "underline",
+    variant = "segmented",
+    material,
+    tabMaterial,
     gap = variant === "segmented" ? "xsmall" : "none",
     padding = "none",
     tabPadding = variant === "document"
       ? ["small", "medium"]
-      : variant === "segmented"
-        ? segmentedPadding
-        : "medium",
-    labelSize = variant === "underline" ? "large" : "medium",
+      : segmentedPadding,
+    labelSize = "medium",
     iconSize = variant === "document" ? "small" : "medium",
     jss,
     jssTab,
@@ -193,6 +195,7 @@ export const Tabs = React.forwardRef(function Tabs(
             flexShrink: 0,
             borderBottom: "1px solid var(--divider)",
           },
+          material && getMaterial(material),
           jss,
         ]}
         onKeyDown={(event) => {
@@ -279,6 +282,7 @@ export const Tabs = React.forwardRef(function Tabs(
           return (
             <Row
               key={id ?? label}
+              data-aidos-selected={selected}
               data-aidos-action-scope
               data-aidos-tab
               data-aidos-reorder-item={onReorder ? id : undefined}
@@ -292,13 +296,23 @@ export const Tabs = React.forwardRef(function Tabs(
                   maxWidth: 220,
                   flexShrink: 0,
                   borderRadius: 6,
-                  background: selected
+                  backgroundColor: selected
                     ? cssVar("--light-highlight")
                     : "transparent",
                   ":hover": {
-                    background: selected
+                    backgroundColor: selected
                       ? cssVar("--light-highlight")
                       : cssVar("--hovered-background"),
+                  },
+                },
+                tabMaterial === "glass" && glass(),
+                tabMaterial === "glass" && {
+                  borderRadius: cssVar("--border-radius-m"),
+                  ":hover": {
+                    backgroundColor: "var(--aidos-hover-background)",
+                  },
+                  ":has(> [role=tab]:active)": {
+                    backgroundColor: "var(--aidos-pressed-background)",
                   },
                 },
               ]}
@@ -357,13 +371,8 @@ export const Tabs = React.forwardRef(function Tabs(
                     textDecoration: "none",
                     ":focus-visible": { outlineOffset: -2 },
                   },
-                  variant === "underline" && {
-                    borderBottom: `3px solid ${selected ? cssVar("--highlight") : "transparent"}`,
-                    borderRadius:
-                      "var(--border-radius-s) var(--border-radius-s) 0 0",
-                    ":hover": { background: cssVar("--hovered-background") },
-                  },
-                  variant === "segmented" && segmentedItemJSS(selected),
+                  variant === "segmented" &&
+                    segmentedItemJSS(selected && tabMaterial !== "glass"),
                   variant === "document" && {
                     height: "100%",
                     borderRadius: 6,

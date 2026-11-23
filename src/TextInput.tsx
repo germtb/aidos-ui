@@ -3,12 +3,14 @@ import React, { ReactNode } from "react";
 import { BaseInput, BaseInputProps } from "./BaseInput";
 import { Column } from "./Column";
 import { InputFrame } from "./InputFrame";
+import { glass } from "./glass";
 import { Gap, JSS, Padding, Size, cssVar, getPadding, getSpacing } from "./jss";
 import { getTypography } from "./typography";
 
 export interface TextInputProps extends Omit<BaseInputProps, "size"> {
   onValueChange?: (value: string) => void;
   jssRoot?: JSS;
+  material?: "glass";
   addOn?: ReactNode;
   addOnPosition?: "start" | "end";
   gap?: Gap;
@@ -22,6 +24,7 @@ export const TextInput = React.forwardRef(function TextInput(
     value,
     onValueChange,
     jssRoot,
+    material,
     jss,
     addOn,
     gap,
@@ -51,6 +54,7 @@ export const TextInput = React.forwardRef(function TextInput(
           " > label:first-child": { paddingLeft: labelPadding },
           " > label:last-child": { paddingRight: labelPadding },
         },
+        material === "glass" && glass(),
         jssRoot,
       ]}
     >

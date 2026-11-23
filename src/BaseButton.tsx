@@ -1,10 +1,13 @@
 import React from "react";
 import { InteractableColor, getInteractableJSS } from "./Interactable";
 import { JSS, Padding, toClassnames } from "./jss";
+import { glass } from "./glass";
+import { useGlassRef } from "./useGlassRef";
 
 export interface BaseButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   jss?: JSS;
+  material?: "glass";
   color: InteractableColor;
   bare?: boolean;
   border?: boolean;
@@ -19,6 +22,7 @@ export const BaseButton = React.forwardRef(function BaseButton(
     onClick,
     children,
     jss,
+    material,
     color,
     bare = false,
     border = false,
@@ -30,12 +34,14 @@ export const BaseButton = React.forwardRef(function BaseButton(
   }: BaseButtonProps,
   ref?: React.Ref<HTMLButtonElement>,
 ) {
+  const surfaceJSS = [material === "glass" && glass(), jss];
+  const surfaceRef = useGlassRef(surfaceJSS, ref);
   return (
     <button
       type={type}
       {...otherProps}
       aria-disabled={disabled ? true : undefined}
-      ref={ref}
+      ref={surfaceRef}
       onClick={(event) => {
         if (disabled) {
           event.preventDefault();
@@ -53,7 +59,7 @@ export const BaseButton = React.forwardRef(function BaseButton(
           animateInteraction,
           padding,
         }),
-        jss,
+        surfaceJSS,
       ])}
     >
       {children}

@@ -1,11 +1,14 @@
 import React, { useContext } from "react";
 import { InteractableColor, getInteractableJSS } from "./Interactable";
 import { JSS, Padding, toClassnames } from "./jss";
+import { glass } from "./glass";
+import { useGlassRef } from "./useGlassRef";
 
 export interface BaseLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   onClick?: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
   target?: string;
   jss?: JSS;
+  material?: "glass";
   color: InteractableColor;
   href: string;
   disabled?: boolean;
@@ -26,6 +29,7 @@ export const BaseLink = React.forwardRef(function BaseLink(
     onClick,
     children,
     jss,
+    material,
     color,
     bare = false,
     disabled,
@@ -40,13 +44,15 @@ export const BaseLink = React.forwardRef(function BaseLink(
 ) {
   const Link = useContext(BaseLinkComponentOverrideContext);
 
+  const surfaceJSS = [material === "glass" && glass(), jss];
+  const surfaceRef = useGlassRef(surfaceJSS, ref);
   return (
     <Link
       {...otherProps}
       aria-disabled={disabled ? true : undefined}
       href={href}
       role={role}
-      ref={ref}
+      ref={surfaceRef}
       onClick={(event) => {
         if (disabled) {
           event.preventDefault();
@@ -65,7 +71,7 @@ export const BaseLink = React.forwardRef(function BaseLink(
           padding,
         }),
         disabled && { pointerEvents: "none" },
-        jss,
+        surfaceJSS,
       ])}
     >
       {children}

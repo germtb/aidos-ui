@@ -10,7 +10,7 @@ import { cssVar } from "../../src/jss";
 
 A horizontal tab navigation component with full keyboard support and ARIA compliance. Tabs can render as links or buttons and support custom styling, add-ons, and label rendering.
 
-Use `variant="segmented"` for a few peer views. It shares its appearance with [ButtonGroup](/ButtonGroup), but controls content panels rather than a setting. Segmented tabs default to medium labels, medium/large padding, and an xsmall gap.
+The default `variant="segmented"` is for a few peer views. It shares its appearance with [ButtonGroup](/ButtonGroup), but controls content panels rather than a setting. Segmented tabs default to medium labels, medium/large padding, and an xsmall gap.
 
 ---
 
@@ -23,7 +23,7 @@ Use `variant="segmented"` for a few peer views. It shares its appearance with [B
 | `aria-controls` | `string`                                    | Required      | ID of the content panel this tab controls                                   |
 | `onReorder`     | `(tabId: string, targetId: string) => void` | -             | Enables controlled pointer/keyboard reordering; requires stable, unique IDs |
 | `tabs`          | `Tab[]`                                     | Required      | Array of tab configurations                                                 |
-| `variant`       | `"underline" \| "segmented" \| "document"`  | `"underline"` | Visual selection treatment                                                  |
+| `variant`       | `"segmented" \| "document"`                 | `"segmented"` | Visual selection treatment                                                  |
 | `labelSize`     | `Size`                                      | By variant    | Text size for tab labels                                                    |
 | `iconSize`      | `Size`                                      | By variant    | Size of tab icons                                                           |
 | `tabPadding`    | `Padding`                                   | By variant    | Padding inside each tab                                                     |
@@ -361,3 +361,9 @@ Pressing gently lifts a tab with a 180ms overshoot; releasing settles it back. R
 ```
 
 For vertical reordering and moving items between projects, see the [grouped list example](/List#reordering-and-moving-between-groups).
+
+### Glass tabs
+
+`tabMaterial="glass"` applies the shared material to each tab, including its close action. Use it with `variant="document"` over scrolling content. `material="glass"` treats the whole tab strip as one surface.
+
+[See the workspace composition](/VisualSystem#workspace-in-context).

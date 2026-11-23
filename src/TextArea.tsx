@@ -51,12 +51,16 @@ export const TextArea = React.forwardRef(function TextArea(
           borderRadius: cssVar("--border-radius-m"),
           "::placeholder": { color: cssVar("--subtle-text") },
           ":focus-visible": {
-            outline: `2px solid ${cssVar("--outline")}`,
-            outlineOffset: -2,
+            borderColor: cssVar("--highlight"),
+            outline:
+              "2px solid color-mix(in srgb, var(--highlight) 45%, transparent)",
+            outlineOffset: 1,
           },
           "[aria-invalid=true]": { borderColor: cssVar("--negative-text") },
           "[aria-invalid=true]:focus-visible": {
-            outlineColor: cssVar("--negative-text"),
+            borderColor: cssVar("--negative-text"),
+            outlineColor:
+              "color-mix(in srgb, var(--negative-text) 45%, transparent)",
           },
           ":disabled": {
             color: cssVar("--subtle-text"),

@@ -20,7 +20,7 @@ A main working area with an adaptive secondary pane. [Try the embedded workspace
 
 ## Header composition
 
-The default header contains the panel toggle. Supply a header only when adding application controls; reuse `panelToggle` for its labeling and focus behavior.
+The default header contains the panel toggle. Supply a header only when adding application controls; reuse `panelToggle` for its labeling and focus behavior. Use `header={() => null}` when a nested `Pane` already owns the header and panel controls.
 
 ```tsx
 <AdaptiveSplitView

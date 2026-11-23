@@ -1,24 +1,41 @@
 import { Button } from "../../src/Button";
 import { Card } from "../../src/Card";
 import { Column } from "../../src/Column";
-import { Icon } from "../../src/Icon";
-import { TextInput } from "../../src/TextInput";
+import { GlassWorkspaceDemo } from "../examples/GlassWorkspaceDemo";
 import { Row } from "../../src/Row";
-import { TabBar } from "../../src/TabBar";
-import { Tabs } from "../../src/Tabs";
 import { TextPairing } from "../../src/TextPairing";
+import {
+  ActionStyleDemo,
+  ComposerStyleDemo,
+  GlassMaterialDemo,
+  ListStyleDemo,
+  SwitchStyleDemo,
+  TabBarStyleDemo,
+  TabsStyleDemo,
+  TextInputStyleDemo,
+} from "../examples/VisualSystemDemo";
 
 # Visual system laboratory
 
-For the composer, compact controls, menus, focus, and palettes, visit the [Desktop laboratory](/Desktop).
+Compare Aidos's surfaces, materials, inputs, navigation, and controls. Each example uses library components and public props. Use the documentation theme toggle to compare light and dark appearances.
 
-This page dogfoods Aidos's surface, navigation, input, and control foundations. Each example uses library components and public props, so the page reflects the system applications actually receive.
+The [Desktop laboratory](/Desktop) covers additional workflows, menus, and palettes.
+
+---
+
+## Workspace in context
+
+Scroll the conversation: content continues **under the glass tabs, header actions, and composer**. Switch tabs, keep a draft, send a message, or open the inspector. The navigation uses the same reusable glass material.
+
+<GlassWorkspaceDemo />
+
+`Pane overlay="both"` keeps the full reading surface behind its header and footer, while measuring their heights so the first and last content remain reachable. `Tabs tabMaterial="glass"` treats each tab separately—not the whole header.
 
 ---
 
 ## Surface placement and elevation
 
-The default card remains the baseline. Tonal cards separate content through color, floating cards use external elevation, and the aurora material adds an atmospheric blue-green surface treatment.
+The default card is the baseline. Tonal cards separate content through color, floating cards add elevation, and glass lets the surrounding surface show through. Glass adds the same refractive surface, highlights, and shadow used by the composer; the card retains its spacing and shape.
 
 <Row gap="large" align="stretch" wrap>
   <Card grow basis={320} variant="default" padding="xlarge" gap="xlarge">
@@ -60,13 +77,26 @@ The default card remains the baseline. Tonal cards separate content through colo
       onClick={() => {}}
     />
   </Card>
+  <Card material="glass" grow basis={320} padding="xlarge" gap="xlarge">
+    <TextPairing
+      headline="Glass"
+      body="Translucency with refractive edges"
+      headlineBold
+    />
+    <Button
+      children="Action"
+      color="secondary"
+      jss={{ marginTop: "auto" }}
+      onClick={() => {}}
+    />
+  </Card>
 </Row>
 
 ---
 
-## Atmospheric materials
+## Materials
 
-Materials describe how a surface looks rather than where it belongs. Each treatment adapts to light and dark themes and can be combined independently with a Card elevation variant.
+Materials describe a surface's appearance independently from its role. Atmospheric presets add a tint; glass shares one treatment for diffusion, highlights, and elevation across components. All treatments follow light and dark themes.
 
 <Row gap="large" align="stretch" wrap>
   <Card grow basis={400} material="aurora">
@@ -93,90 +123,140 @@ Materials describe how a surface looks rather than where it belongs. Each treatm
       headlineBold
     />
   </Card>
+  <GlassMaterialDemo />
 </Row>
+
+- **Thin:** 28%/32% light/dark tint and 5px blur; the default glass treatment.
+- **Regular:** 38%/42% tint and 8px blur; opt-in extra diffusion.
+- **Thick:** 48%/52% tint and 12px blur; opt-in denser diffusion.
+- Reduced motion keeps highlights still. Reduced transparency and forced colors replace glass with an opaque surface.
+
+<details>
+<summary>Using glass</summary>
+
+Use `material="glass"` on standard components. Their geometry, selection, and focus behavior stay intact; the shared material supplies tint, refraction, highlights, and shadow.
+
+```tsx
+<Button material="glass" color="secondary" onClick={save}>Save</Button>
+<Card material="glass">{content}</Card>
+<TextInput material="glass" value={value} onValueChange={setValue} />
+```
+
+`glass()` is the low-level JSS helper. Aidos surfaces attach the refraction enhancement automatically—no render callback or extra layout wrapper.
+
+```tsx
+import { Box, glass } from "aidos-ui";
+
+<Box jss={[glass(), { borderRadius: 16 }]}>{content}</Box>
+<Box jss={glass("regular")}>{content}</Box>
+```
+
+`Button`, `IconButton`, `Card`, `TextInput`, `List`, `Tabs`, and `TabBar` accept `material="glass"`. List rows retain their ordinary styling. `Tabs tabMaterial="glass"` applies glass to individual tabs instead of the strip. Switches use glass by default.
+
+Append JSS overrides after `glass()` when needed. Changing material keeps the same mounted surface and refs. `Composer material="glass"` uses the same helper; `glassThickness` defaults to `"thin"`.
+
+The refraction map is adapted from [Shu Ding's liquid-glass](https://github.com/shuding/liquid-glass) under the MIT license. Browsers without SVG backdrop filters retain the CSS blur.
+
+</details>
 
 ---
 
 ## Text input
 
-Fields have a flat surface and an integrated focus indicator. Buttons inside a field receive their own indicator rather than lighting up the whole frame.
+Default and glass fields share the same dimensions and soft accent-colored focus halo. Glass fields use the default thin material.
 
-<Card variant="tonal" padding="large" gap="medium">
-  <TextInput
-    placeholder="Search projects"
-    value=""
-    onValueChange={() => {}}
-    addOn={<Icon icon="search" size="medium" color="secondary" />}
-  />
-  <TextInput
-    placeholder="Email address"
-    value=""
-    onValueChange={() => {}}
-    addOn={<Icon icon="mail" size="medium" color="secondary" />}
-  />
-</Card>
+<Row gap="large" align="stretch" wrap>
+  <Card grow basis={320} variant="tonal" padding="large" gap="large">
+    <TextPairing headline="Default" headlineBold />
+    <TextInputStyleDemo />
+  </Card>
+  <Card grow basis={320} variant="tonal" padding="large" gap="large">
+    <TextPairing headline="Glass" headlineBold />
+    <TextInputStyleDemo glass />
+  </Card>
+</Row>
+
+---
+
+## Buttons and icon buttons
+
+<Row gap="large" align="stretch" wrap>
+  <Card grow basis={320} variant="tonal" padding="large" gap="large">
+    <TextPairing headline="Default" headlineBold />
+    <ActionStyleDemo />
+  </Card>
+  <Card grow basis={320} variant="tonal" padding="large" gap="large">
+    <TextPairing headline="Glass" headlineBold />
+    <ActionStyleDemo glass />
+  </Card>
+</Row>
+
+---
+
+## Switches
+
+Switches use glass by default, sharing the composer’s surface treatment. The solid option retains the same on-state tint, thumb, and keyboard behavior.
+
+<Row gap="large" align="stretch" wrap>
+  <Card grow basis={320} variant="tonal" padding="large" gap="large">
+    <TextPairing headline="Solid" headlineBold />
+    <SwitchStyleDemo />
+  </Card>
+  <Card grow basis={320} variant="tonal" padding="large" gap="large">
+    <TextPairing headline="Glass (default)" headlineBold />
+    <SwitchStyleDemo glass />
+  </Card>
+</Row>
+
+---
+
+## Lists
+
+Compare default and glass list surfaces on the same full backdrop. Rows keep their standard selection, keyboard navigation, and disabled treatment.
+
+<Column gap="xlarge">
+  <ListStyleDemo background="plain" />
+  <ListStyleDemo background="gradient" />
+</Column>
 
 ---
 
 ## Tabs
 
-<Column gap="large">
-  <Card variant="tonal" padding="medium" gap="medium">
-    <TextPairing headline="Existing underline treatment" headlineBold />
-    <Tabs
-      aria-controls="underline-preview"
-      tabs={[
-        { label: "Overview", selected: true, onClick: () => {} },
-        { label: "Activity", onClick: () => {} },
-        { label: "Settings", onClick: () => {} },
-      ]}
-    />
+<Row gap="large" align="stretch" wrap>
+  <Card grow basis={320} variant="tonal" padding="medium" gap="medium">
+    <TextPairing headline="Segmented" headlineBold />
+    <TabsStyleDemo />
   </Card>
-
-  <Card variant="tonal" padding="medium" gap="medium">
-    <TextPairing headline="Segmented treatment" headlineBold />
-    <Tabs
-      aria-controls="segmented-preview"
-      variant="segmented"
-      labelSize="medium"
-      tabPadding={["medium", "large"]}
-      tabs={[
-        { label: "Overview", selected: true, onClick: () => {} },
-        { label: "Activity", onClick: () => {} },
-        { label: "Settings", onClick: () => {} },
-      ]}
-    />
+  <Card grow basis={320} variant="tonal" padding="medium" gap="medium">
+    <TextPairing headline="Glass" headlineBold />
+    <TabsStyleDemo glass />
   </Card>
-</Column>
+</Row>
 
 ---
 
 ## Tab bar material
 
 <Column gap="large">
-  <TabBar
-    tabs={[
-      {
-        label: "Home",
-        icon: "house",
-        href: "/VisualSystem",
-        selected: true,
-      },
-      { label: "Search", icon: "search", href: "/VisualSystem" },
-      { label: "Profile", icon: "user", href: "/VisualSystem" },
-    ]}
-  />
-  <TabBar
-    variant="floating"
-    tabs={[
-      {
-        label: "Home",
-        icon: "house",
-        href: "/VisualSystem",
-        selected: true,
-      },
-      { label: "Search", icon: "search", href: "/VisualSystem" },
-      { label: "Profile", icon: "user", href: "/VisualSystem" },
-    ]}
-  />
+  <TabBarStyleDemo />
+  <TabBarStyleDemo variant="floating" />
+  <TabBarStyleDemo variant="floating" glass />
 </Column>
+
+---
+
+## Composer
+
+The glass composer defaults to the thin refractive treatment. Denser thicknesses are opt-in; switching keeps the draft.
+
+<Row gap="large" align="stretch" wrap>
+  <Card grow basis={360} variant="tonal" padding="large" gap="large">
+    <TextPairing headline="Default" headlineBold />
+    <ComposerStyleDemo />
+  </Card>
+  <Card grow basis={360} variant="tonal" padding="large" gap="large">
+    <TextPairing headline="Glass" headlineBold />
+    <ComposerStyleDemo glass />
+  </Card>
+</Row>

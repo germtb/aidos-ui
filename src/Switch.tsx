@@ -1,18 +1,28 @@
 import React from "react";
 import { BaseButton, type BaseButtonProps } from "./BaseButton";
 import { BaseView } from "./BaseView";
+import { glass } from "./glass";
 
 export interface SwitchProps extends Omit<
   BaseButtonProps,
-  "color" | "children" | "onClick" | "value" | "aria-label"
+  "color" | "children" | "onClick" | "value" | "aria-label" | "material"
 > {
   label: string;
   checked: boolean;
+  material?: "solid" | "glass";
   onCheckedChange: (checked: boolean) => void;
 }
 
 export const Switch = React.forwardRef(function Switch(
-  { label, checked, onCheckedChange, disabled, jss, ...props }: SwitchProps,
+  {
+    label,
+    checked,
+    onCheckedChange,
+    disabled,
+    material = "glass",
+    jss,
+    ...props
+  }: SwitchProps,
   ref?: React.Ref<HTMLButtonElement>,
 ) {
   return (
@@ -41,22 +51,32 @@ export const Switch = React.forwardRef(function Switch(
     >
       <BaseView
         aria-hidden
-        jss={{
-          width: 32,
-          height: 20,
-          padding: 2,
-          borderRadius: 10,
-          background: checked
-            ? "var(--background-button-primary)"
-            : "var(--background-button-secondary)",
-          border: "1px solid transparent",
-          display: "flex",
-          alignItems: "center",
-          "@media (forced-colors: active)": {
-            background: checked ? "Highlight" : "Canvas",
-            borderColor: "ButtonText",
+        jss={[
+          {
+            width: 32,
+            height: 20,
+            padding: 2,
+            borderRadius: 10,
+            backgroundColor: checked
+              ? "var(--background-button-primary)"
+              : "var(--background-button-secondary)",
+            border: "1px solid transparent",
+            display: "flex",
+            alignItems: "center",
           },
-        }}
+          material === "glass" && glass(),
+          material === "glass" &&
+            checked && {
+              backgroundColor:
+                "color-mix(in srgb, var(--background-button-primary) 80%, var(--aidos-glass-background, transparent))",
+            },
+          {
+            "@media (forced-colors: active)": {
+              backgroundColor: checked ? "Highlight" : "Canvas",
+              borderColor: "ButtonText",
+            },
+          },
+        ]}
       >
         <BaseView
           jss={{
@@ -67,7 +87,9 @@ export const Switch = React.forwardRef(function Switch(
             transform: checked ? "translateX(12px)" : "none",
             boxShadow: "var(--shadow-sm)",
             transition: "transform 120ms ease",
-            "@media (prefers-reduced-motion: reduce)": { transition: "none" },
+            "@media (prefers-reduced-motion: reduce)": {
+              transition: "none",
+            },
             "@media (forced-colors: active)": {
               background: checked ? "HighlightText" : "ButtonText",
             },

@@ -57,6 +57,7 @@ Browse files, reorder tabs, and leave a note. Use the navigation and inspector t
 - Use `navigationOpen` with `onNavigationOpenChange` to own channel visibility. Controlled visibility survives resizing; the shell still switches between docked and floating layouts. Omit `navigationOpen` for automatic responsive visibility.
 - `rail`, `navigation`, and `children` accept nodes or functions receiving `showNavigation` and `dismissNavigation`. Dismiss only closes floating navigation; file selection does not hide a docked channel.
 - Omit either navigation level when it is not needed. Without a rail, `Toolbar variant="pane"` reserves room for the floating channel toggle.
+- `navigationMaterial="glass"` diffuses the surface behind the channel. The default is `"solid"`; content, scrolling, and dismissal stay unchanged.
 - `navigationTitle` defaults to “Navigation”. `jss` and ordinary view attributes customize the frame.
 
 `NavigationSplitView` remains available for page layouts with compact/bottom navigation.
@@ -68,6 +69,7 @@ The documentation site uses the same shell without a rail, document tabs, or an 
 ```tsx
 <Workspace
   navigationTitle="Aidos UI"
+  navigationMaterial="glass"
   navigation={navigation}
   jss={{
     border: 0,
@@ -87,3 +89,19 @@ The documentation site uses the same shell without a rail, document tabs, or an 
 ```
 
 Routing, search, anchor links, and reading-position restoration remain application concerns.
+
+## Overlay headers and composers
+
+Use `Pane overlay="header"`, `"footer"`, or `"both"` to let content scroll beneath those slots. Their measured heights reserve space at the start/end and guide focus scrolling, including when a composer grows. Inline placement remains the default.
+
+```tsx
+<Pane
+  overlay="both"
+  header={<Tabs variant="document" tabMaterial="glass" {...tabsProps} />}
+  footer={<Composer material="glass" {...composerProps} />}
+>
+  {messages}
+</Pane>
+```
+
+[Try the glass workspace](/VisualSystem#workspace-in-context).

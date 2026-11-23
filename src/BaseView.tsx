@@ -1,5 +1,6 @@
 import React from "react";
-import { JSS, toClassnames } from "./jss";
+import { JSS, Material, getMaterial, toClassnames } from "./jss";
+import { useGlassRef } from "./useGlassRef";
 
 const styles: { [key: string]: JSS } = {
   relative: {
@@ -15,6 +16,7 @@ const styles: { [key: string]: JSS } = {
 
 export interface BaseViewProps extends React.HTMLAttributes<HTMLElement> {
   jss?: JSS;
+  material?: Material;
   ref?: React.Ref<HTMLDivElement>;
   className?: undefined;
   grow?: boolean;
@@ -24,18 +26,29 @@ export interface BaseViewProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 export const BaseView = React.forwardRef(function BaseView(
-  { jss, children, tag, grow, shrink, relative, ...otherProps }: BaseViewProps,
+  {
+    jss,
+    material,
+    children,
+    tag,
+    grow,
+    shrink,
+    relative,
+    ...otherProps
+  }: BaseViewProps,
   ref?: React.Ref<HTMLElement>,
 ) {
   const Tag: React.ElementType = tag ?? "div";
+  const stylesJSS = [material && getMaterial(material), jss];
+  const surfaceRef = useGlassRef(stylesJSS, ref);
 
   return React.createElement(
     Tag,
     {
       ...otherProps,
-      ref,
+      ref: surfaceRef,
       className: toClassnames([
-        jss,
+        stylesJSS,
         grow && styles.grow,
         shrink && styles.shrink,
         relative && styles.relative,

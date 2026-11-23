@@ -2,6 +2,7 @@ import CSS from "csstype";
 import React, { useState } from "react";
 
 import { hash } from "./hash";
+import { glass } from "./glass";
 import { isServer } from "./isServer";
 
 export type Styles = CSS.Properties<
@@ -187,7 +188,7 @@ export const toClassnames = (jss: JSS, componentName?: string): string => {
   const layout: Styles = {};
   const stylesStack = Object.entries(jss).filter(([key, value]) => {
     if (
-      !/^((padding|margin|border|inset)([A-Z-]|$)|(top|right|bottom|left)$)/.test(
+      !/^((padding|margin|border|inset|background)([A-Z-]|$)|(top|right|bottom|left)$)/.test(
         key,
       )
     )
@@ -296,7 +297,7 @@ export type Padding = Spacing | [Spacing, Spacing];
 
 export type Margin = Spacing | [Spacing, Spacing];
 
-export type Material = "aurora" | "dawn" | "mist" | "twilight";
+export type Material = "aurora" | "dawn" | "mist" | "twilight" | "glass";
 
 export type Surface = "primary" | "secondary" | "overlay";
 
@@ -340,6 +341,8 @@ export function cssVar(string: keyof Theme): string {
 
 export function getMaterial(material: Material): Styles {
   switch (material) {
+    case "glass":
+      return glass();
     case "aurora":
       return {
         background: cssVar("--material-aurora"),

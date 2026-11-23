@@ -95,21 +95,25 @@ const styles: { [key: string]: JSS } = {
   },
 };
 
-export function TabBar({
-  tabs,
-  variant = "default",
-  direction = variant === "rail" ? "column" : "row",
-  fixed = false,
-  iconSize = variant === "rail" ? "medium" : "large",
-  labelSize = "small",
-  tabPadding = "medium",
-  jssTab,
-  labelRenderer,
-  jss,
-  align = "stretch",
-  "aria-label": ariaLabel = "Primary navigation",
-  ...otherProps
-}: TabBarProps) {
+export const TabBar = React.forwardRef(function TabBar(
+  {
+    tabs,
+    variant = "default",
+    material,
+    direction = variant === "rail" ? "column" : "row",
+    fixed = false,
+    iconSize = variant === "rail" ? "medium" : "large",
+    labelSize = "small",
+    tabPadding = "medium",
+    jssTab,
+    labelRenderer,
+    jss,
+    align = "stretch",
+    "aria-label": ariaLabel = "Primary navigation",
+    ...otherProps
+  }: TabBarProps,
+  ref?: React.Ref<HTMLElement>,
+) {
   const horizontal = direction === "row";
   const selectedIndex = tabs.findIndex((tab) => tab.selected === true);
   const root = useNavigation({
@@ -119,11 +123,13 @@ export function TabBar({
 
   return (
     <BaseView
+      ref={ref}
       tag="nav"
       aria-label={ariaLabel}
       jss={[
         styles.root,
         styles[variant],
+        material && getMaterial(material),
         variant === "default" &&
           (horizontal ? styles.horizontal : styles.vertical),
         fixed && styles.fixed,
@@ -228,4 +234,4 @@ export function TabBar({
       {horizontal && <BaseView aria-hidden={true} jss={styles.safeArea} />}
     </BaseView>
   );
-}
+});

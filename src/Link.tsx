@@ -7,7 +7,7 @@ import { IconType } from "./IconType";
 import { Row } from "./Row";
 import { Icon } from "./Icon";
 import { FlexLayoutProps } from "./FlexLayout";
-import { InteractableColor, getGlyphColor, getCSSColor } from "./Interactable";
+import { InteractableColor, getCSSColor } from "./Interactable";
 import { Align, Gap, Justify, cssVar } from "./jss";
 
 export interface LinkProps extends Omit<BaseLinkProps, "border" | "padding"> {
@@ -49,7 +49,6 @@ export const Link = React.forwardRef(function Link(
   ref?: React.Ref<HTMLAnchorElement>,
 ) {
   const metrics = controlSizes[size];
-  const glyph = getGlyphColor(color, disabled, bare);
   return (
     <BaseLink
       {...otherProps}
@@ -100,12 +99,12 @@ export const Link = React.forwardRef(function Link(
             icon={icon}
             size="medium"
             jss={{ width: metrics.icon, height: metrics.icon, flexShrink: 0 }}
-            color={glyph}
+            color="inherit"
           />
         )}
         <Text
           size={metrics.text}
-          color={glyph}
+          color="inherit"
           jss={{
             minWidth: 0,
             fontWeight: 600,
@@ -119,7 +118,7 @@ export const Link = React.forwardRef(function Link(
             icon={icon}
             size="medium"
             jss={{ width: metrics.icon, height: metrics.icon, flexShrink: 0 }}
-            color={glyph}
+            color="inherit"
           />
         )}
         {trailing}

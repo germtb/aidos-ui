@@ -31,8 +31,27 @@ const [draft, setDraft] = useState("");
 | `submitDisabled`         | Disable submission while leaving the draft editable                                |
 | `submitLabel`            | Accessible send label; defaults to “Send message”                                  |
 | `embedded`               | Transparent surface for inline review or another container; retains focus feedback |
+| `material`               | `"glass"` opts into a translucent, refractive surface; omitted keeps the default   |
+| `glassThickness`         | `"thin"`, `"regular"`, or `"thick"`; glass composers default to `"thin"`           |
 | `jssRoot`, `jss`         | Surface and textarea customization                                                 |
 
 Also accepts textarea attributes. Shift+Enter inserts a newline. Empty/whitespace drafts cannot submit. The field uses a single 1px neutral border that darkens on focus; footer controls receive their own keyboard indicators. Invalid input retains a red border.
 
-The default type is 14px/20px; growth is bounded at 180px. These defaults need no app-specific CSS. `TextArea` uses native `field-sizing`; use current browsers.
+The composer starts on one line, with its action beside the text. It grows as the draft wraps; actions stay at the bottom edge. `footer` controls sit before the action, while `embedded` retains the stacked layout. The default type is 14px/20px; growth is bounded at 180px. These defaults need no app-specific CSS. `TextArea` uses native `field-sizing`; use current browsers.
+
+## Glass material
+
+`material="glass"` applies the shared glass material to the input frame. Buttons, cards, and inputs accept the same prop; `glass()` is available for custom JSS surfaces.
+
+[Compare composer styles and thicknesses in Visual System](/VisualSystem#composer).
+
+```tsx
+<Composer
+  material="glass"
+  value={draft}
+  onValueChange={setDraft}
+  onSubmit={() => send(draft)}
+/>
+```
+
+The material does not change submission, growth, or footer layout. `embedded` takes precedence and remains transparent. `glassThickness` defaults to `"thin"`: 5px blur with a 28% light / 32% dark tint. `"regular"` and `"thick"` are opt-in denser treatments. See [Visual System](/VisualSystem#materials) for material usage and accessibility preferences.
